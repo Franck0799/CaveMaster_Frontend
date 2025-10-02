@@ -10,7 +10,6 @@ export class UserEditableFields {
   canEditMaritalStatus: boolean = false;
   canEditResidence: boolean = false;
   canEditPostalAddress: boolean = false;
-  canEditCentreId: boolean = false;
   canEditPhoto: boolean = false;
   canChangePassword: boolean = true; // Toujours autorisé
 
@@ -27,7 +26,6 @@ export class UserEditableFields {
     canEditMaritalStatus: boolean = false,
     canEditResidence: boolean = false,
     canEditPostalAddress: boolean = false,
-    canEditCentreId: boolean = false,
     canEditPhoto: boolean = false,
     canChangePassword: boolean = true,
     currentUser?: Users
@@ -41,7 +39,6 @@ export class UserEditableFields {
     this.canEditMaritalStatus = canEditMaritalStatus;
     this.canEditResidence = canEditResidence;
     this.canEditPostalAddress = canEditPostalAddress;
-    this.canEditCentreId = canEditCentreId;
     this.canEditPhoto = canEditPhoto;
     this.canChangePassword = canChangePassword;
     this.currentUser = currentUser;

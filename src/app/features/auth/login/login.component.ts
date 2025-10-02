@@ -101,8 +101,7 @@ goToForgotPassword(): void {
     const roleRoutes: Record<string, string> = {
       'admin': '/admin/dashboard',
       'manager': '/manager/dashboard',
-      'washer': '/washer/dashboard',
-      'client': '/client/dashboard',
+      'waitress': '/waitress/dashboard',
       'default': '/'
     };
 

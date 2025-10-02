@@ -17,7 +17,6 @@ export class Users {
   maritalStatus?: string;
   residence?: string;
   postalAddress?: string;
-  centreId?: string;
   photoId?: string;
   photoFile?: File;
   photoUrl?: string | File;
@@ -42,7 +41,6 @@ export class Users {
     maritalStatus?: string,
     residence?: string,
     postalAddress?: string,
-    centreId?: string,
     photoId?: string,
     photoFile?: File,
     photoUrl?: string,
@@ -65,7 +63,6 @@ export class Users {
     this.maritalStatus = maritalStatus;
     this.residence = residence;
     this.postalAddress = postalAddress;
-    this.centreId = centreId;
     this.photoId = photoId;
     this.photoFile = photoFile;
     this.photoUrl = photoUrl;

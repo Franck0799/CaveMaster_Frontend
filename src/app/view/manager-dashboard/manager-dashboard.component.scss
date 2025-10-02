@@ -1,0 +1,37 @@
+// Tailwind utilities are already included via angular.json
+// Add custom styles here if needed
+
+:host {
+  display: block;
+  height: 100vh;
+}
+
+// Custom scrollbar
+.overflow-auto {
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+
+    &:hover {
+      background: #555;
+    }
+  }
+}
+
+// Smooth transitions
+button {
+  transition: all 0.2s ease;
+}
+
+// Hover effects
+.hover\:shadow-lg {
+  transition: box-shadow 0.2s ease;
+}

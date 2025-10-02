@@ -8,7 +8,6 @@ export class UpdateProfileRequest {
   maritalStatus?: string;
   residence?: string;
   postalAddress?: string;
-  centreId?: string;
   photoFile?: File;
 
   // Champs pour la modification du mot de passe
@@ -26,7 +25,6 @@ export class UpdateProfileRequest {
     maritalStatus?: string,
     residence?: string,
     postalAddress?: string,
-    centreId?: string,
     photoFile?: File,
     currentPassword?: string,
     newPassword?: string,
@@ -41,7 +39,6 @@ export class UpdateProfileRequest {
     this.maritalStatus = maritalStatus;
     this.residence = residence;
     this.postalAddress = postalAddress;
-    this.centreId = centreId;
     this.photoFile = photoFile;
     this.currentPassword = currentPassword;
     this.newPassword = newPassword;
