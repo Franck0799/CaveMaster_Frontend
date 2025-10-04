@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
+import * as lucide from 'lucide';
+
 interface Stat {
   icon: string;
   label: string;
@@ -32,12 +34,12 @@ interface Alert {
 
 @Component({
   selector: 'app-manager-dashboard',
-   standalone: true,
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './manager-dashboard.component.html',
   styleUrls: ['./manager-dashboard.component.scss']
 })
-export class ManagerDashboardComponent implements OnInit {
+export class ManagerDashboardComponent implements OnInit, AfterViewInit {
   activeTab: string = 'tableau';
 
   stats: Stat[] = [
@@ -73,8 +75,19 @@ export class ManagerDashboardComponent implements OnInit {
     // Initialisation du composant
   }
 
+  ngAfterViewInit(): void {
+    // Initialiser les icônes Lucide
+    setTimeout(() => {
+      lucide.createIcons();
+    }, 0);
+  }
+
   setActiveTab(tab: string): void {
     this.activeTab = tab;
+    // Re-initialiser les icônes après changement de tab
+    setTimeout(() => {
+      lucide.createIcons();
+    }, 0);
   }
 
   getInitials(name: string): string {

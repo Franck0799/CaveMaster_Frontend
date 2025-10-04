@@ -9,9 +9,10 @@ module.exports = {
       minHeight: {
         "screen-75": "75vh",
       },
-      fontSize: {
-        55: "55rem",
+     fontSize: {
+        "55": "55rem",
       },
+
       opacity: {
         80: ".8",
       },

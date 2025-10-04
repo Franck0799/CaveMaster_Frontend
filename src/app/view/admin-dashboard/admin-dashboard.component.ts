@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
+import * as lucide from 'lucide';
+
 interface Stat {
   icon: string;
   label: string;
@@ -58,7 +60,7 @@ interface Analytics {
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.scss']
 })
-export class AdminDashboardComponent implements OnInit {
+export class AdminDashboardComponent implements OnInit, AfterViewInit {
   activeTab: string = 'vue-ensemble';
   showAddEmployeeModal: boolean = false;
   showAddWineModal: boolean = false;
@@ -120,8 +122,19 @@ export class AdminDashboardComponent implements OnInit {
     // Initialisation
   }
 
+  ngAfterViewInit(): void {
+    // Initialiser les icônes Lucide
+    setTimeout(() => {
+      lucide.createIcons();
+    }, 0);
+  }
+
   setActiveTab(tab: string): void {
     this.activeTab = tab;
+    // Re-initialiser les icônes après changement de tab
+    setTimeout(() => {
+      lucide.createIcons();
+    }, 0);
   }
 
   getStatusClass(status: string): string {

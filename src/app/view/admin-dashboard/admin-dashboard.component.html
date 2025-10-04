@@ -1,9 +1,3 @@
-<html lang="fr">
-
-<head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.min.css" rel="stylesheet">
-</head>
 
 <div class="flex h-screen bg-gray-50">
   <!-- Sidebar -->
@@ -11,7 +5,7 @@
     <div class="p-6 bg-gradient-to-br from-blue-700 to-blue-900">
       <div class="flex items-center space-x-3">
         <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center">
-          <span class="text-blue-700 font-bold text-xl">V</span>
+          <span class="text-blue-700 font-bold text-xl">CAVE DES VIKINGS</span>
         </div>
         <div class="text-white">
           <div class="font-bold text-lg">VIKINGS</div>
@@ -196,55 +190,6 @@
               Dernières Commandes
             </h2>
           </div>
-          <div class="overflow-x-auto">
-            <table class="w-full">
-              <thead class="bg-gray-50">
-                <tr>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Commande</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Client</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Serveur</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Table</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Total</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Statut</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Heure</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-gray-200">
-                <tr *ngFor="let order of orders.slice(0, 5)" class="hover:bg-gray-50">
-                  <td class="px-6 py-4 text-sm font-medium text-gray-800">{{ order.id }}</td>
-                  <td class="px-6 py-4 text-sm text-gray-600">{{ order.client }}</td>
-                  <td class="px-6 py-4 text-sm text-gray-600">{{ order.server }}</td>
-                  <td class="px-6 py-4 text-sm text-gray-600">{{ order.table }}</td>
-                  <td class="px-6 py-4 text-sm font-semibold text-gray-800">{{ order.total }}€</td>
-                  <td class="px-6 py-4">
-                    <span [ngClass]="getOrderStatusClass(order.status)"
-                          class="text-xs font-semibold px-3 py-1 rounded-full">
-                      {{ order.status }}
-                    </span>
-                  </td>
-                  <td class="px-6 py-4 text-sm text-gray-600">{{ order.time }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- Gestion des Employés -->
-      <div *ngIf="activeTab === 'employes'">
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 mb-6">
-          <div class="p-6 border-b border-gray-200 flex items-center justify-between">
-            <div>
-              <h2 class="text-lg font-bold text-gray-800">Liste des Employés</h2>
-              <p class="text-sm text-gray-500 mt-1">{{ employees.length }} employés au total</p>
-            </div>
-            <button (click)="openAddEmployeeModal()"
-                    class="bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-800 transition flex items-center">
-              <i data-lucide="user-plus" class="w-4 h-4 mr-2"></i>
-              Ajouter un employé
-            </button>
-          </div>
-
           <div class="overflow-x-auto">
             <table class="w-full">
               <thead class="bg-gray-50">
@@ -660,4 +605,49 @@
     </div>
   </div>
 </div>
-</html>
+            <table class="w-full">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Commande</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Client</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Serveur</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Table</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Total</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Statut</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Heure</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                <tr *ngFor="let order of orders.slice(0, 5)" class="hover:bg-gray-50">
+                  <td class="px-6 py-4 text-sm font-medium text-gray-800">{{ order.id }}</td>
+                  <td class="px-6 py-4 text-sm text-gray-600">{{ order.client }}</td>
+                  <td class="px-6 py-4 text-sm text-gray-600">{{ order.server }}</td>
+                  <td class="px-6 py-4 text-sm text-gray-600">{{ order.table }}</td>
+                  <td class="px-6 py-4 text-sm font-semibold text-gray-800">{{ order.total }}€</td>
+                  <td class="px-6 py-4">
+                    <span [ngClass]="getOrderStatusClass(order.status)"
+                          class="text-xs font-semibold px-3 py-1 rounded-full">
+                      {{ order.status }}
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 text-sm text-gray-600">{{ order.time }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+      <!-- Gestion des Employés -->
+      <div *ngIf="activeTab === 'employes'">
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 mb-6">
+          <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+            <div>
+              <h2 class="text-lg font-bold text-gray-800">Liste des Employés</h2>
+              <p class="text-sm text-gray-500 mt-1">{{ employees.length }} employés au total</p>
+            </div>
+            <button (click)="openAddEmployeeModal()"
+                    class="bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-800 transition flex items-center">
+              <i data-lucide="user-plus" class="w-4 h-4 mr-2"></i>
+              Ajouter un employé
+            </button>
+          </div>
+
+          <div class="overflow-x-auto">
