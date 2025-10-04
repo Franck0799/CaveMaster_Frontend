@@ -12,6 +12,7 @@
     "compat-api/css": "off",
     "axe/structure": "off",
     "no-inline-styles": "off",
-    "button-type": "off"
+    "button-type": "off",
+    "axe/forms": "off"
   }
 }

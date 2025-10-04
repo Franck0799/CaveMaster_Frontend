@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LucideAngularModule, BarChart3, Users, Package, Calendar } from 'lucide-angular';
+import { LucideAngularModule } from 'lucide-angular';
 interface Stat {
   icon: string;
   label: string;
@@ -30,14 +30,13 @@ interface Alert {
   message: string;
 }
 
-
 @Component({
   selector: 'app-manager-dashboard',
-  standalone: true,   // ← ajoute ça
+   standalone: true,
+  imports: [CommonModule, LucideAngularModule],
   templateUrl: './manager-dashboard.component.html',
   styleUrls: ['./manager-dashboard.component.scss']
 })
-
 export class ManagerDashboardComponent implements OnInit {
   activeTab: string = 'tableau';
 

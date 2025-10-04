@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { LucideAngularModule } from 'lucide-angular';
 interface Stat {
   icon: string;
   label: string;
@@ -35,8 +35,8 @@ interface Wine {
 
 @Component({
   selector: 'app-waitress-dashboard',
-  standalone: true,
-  imports: [CommonModule],
+    standalone: true,
+  imports: [CommonModule, LucideAngularModule],
   templateUrl: './waitress-dashboard.component.html',
   styleUrls: ['./waitress-dashboard.component.scss']
 })
