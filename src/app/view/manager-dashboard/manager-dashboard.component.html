@@ -1,167 +1,282 @@
-<div class="flex h-screen bg-gray-50">
-  <!-- Sidebar -->
-  <div class="w-64 bg-white border-r border-gray-200">
-    <div class="p-6 bg-blue-700">
-      <div class="flex items-center space-x-3">
-        <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center">
-        </div>
-        <div class="text-white">
-          <div class="font-bold">VIKINGS</div>
-          <div class="text-xs text-blue-200">Manager</div>
-        </div>
-      </div>
-    </div>
-
-    <nav class="p-4 space-y-1">
-      <button (click)="setActiveTab('tableau')"
-              [ngClass]="activeTab === 'tableau' ? 'bg-gray-100 text-blue-700' : 'text-gray-600 hover:bg-gray-50'"
-              class="w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition">
-        <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
-        <span>Tableau de bord</span>
-      </button>
-      <button (click)="setActiveTab('employes')"
-              [ngClass]="activeTab === 'employes' ? 'bg-gray-100 text-blue-700' : 'text-gray-600 hover:bg-gray-50'"
-              class="w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition">
-        <i data-lucide="users" class="w-5 h-5"></i>
-        <span>Mes employés</span>
-      </button>
-      <button (click)="setActiveTab('commandes')"
-              [ngClass]="activeTab === 'commandes' ? 'bg-gray-100 text-blue-700' : 'text-gray-600 hover:bg-gray-50'"
-              class="w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition">
-        <i data-lucide="package" class="w-5 h-5"></i>
-        <span>Commandes</span>
-      </button>
-      <button (click)="setActiveTab('planning')"
-              [ngClass]="activeTab === 'planning' ? 'bg-gray-100 text-blue-700' : 'text-gray-600 hover:bg-gray-50'"
-              class="w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition">
-        <i data-lucide="calendar" class="w-5 h-5"></i>
-        <span>Planning</span>
-      </button>
-      <button (click)="setActiveTab('statistiques')"
-              [ngClass]="activeTab === 'statistiques' ? 'bg-gray-100 text-blue-700' : 'text-gray-600 hover:bg-gray-50'"
-              class="w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition">
-        <i data-lucide="trending-up" class="w-5 h-5"></i>
-        <span>Statistiques</span>
-      </button>
-    </nav>
-  </div>
-
-  <!-- Main Content -->
-  <div class="flex-1 overflow-auto">
-    <!-- Top Bar -->
-    <div class="bg-blue-700 text-white p-6">
-      <div class="flex items-center justify-between">
-        <div>
-          <h1 class="text-2xl font-bold">Tableau de bord Manager</h1>
-          <p class="text-blue-200 mt-1">Supervisez votre équipe et les performances de la cave</p>
-        </div>
-        <div class="flex items-center space-x-4">
-          <div class="text-right">
-            <div class="font-semibold">Franck KONGO</div>
-            <div class="text-xs text-blue-200">Manager</div>
-          </div>
-          <div class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center font-bold">
-            FK
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="p-6">
-      <!-- Stats Cards -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-        <div *ngFor="let stat of stats" class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-gray-500 text-sm mb-1">{{ stat.label }}</p>
-              <p class="text-2xl font-bold text-gray-800">{{ stat.value }}</p>
+   <body>
+   <div class="dashboard-container">
+        <div class="header">
+            <div class="header-left">
+                <h1>🍷 La Cave des Vikings</h1>
+                <p>Tableau de bord manager</p>
             </div>
-            <div [ngClass]="stat.color" class="w-12 h-12 rounded-lg flex items-center justify-center">
-              <i [attr.data-lucide]="stat.icon" class="w-6 h-6"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Alerts -->
-      <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 mb-6">
-        <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
-          <i data-lucide="alert-circle" class="w-5 h-5 mr-2"></i>
-          Alertes et notifications
-        </h2>
-        <div class="space-y-3">
-          <div *ngFor="let alert of alerts"
-               [ngClass]="getAlertClass(alert.type)"
-               class="p-4 rounded-lg border">
-            <p class="text-sm">{{ alert.message }}</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <!-- Employees -->
-        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-          <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center justify-between">
-            <span class="flex items-center">
-              <i data-lucide="users" class="w-5 h-5 mr-2"></i>
-              Équipe en service
-            </span>
-            <span class="text-sm text-gray-500 font-normal">Aujourd'hui</span>
-          </h2>
-          <div class="space-y-4">
-            <div *ngFor="let emp of employees"
-                 class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-              <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center text-white font-semibold">
-                  {{ getInitials(emp.name) }}
+             <!--  En-tête info  -->
+            <div class="user-info">
+                <div class="user-dropdown-trigger" onclick="toggleDropdown()">
+                    <div class="user-details">
+                        <div class="user-name">Jaues Nguessan</div>
+                        <div class="user-role">Manager</div>
+                    </div>
+                    <div class="user-avatar">JN</div>
+                    <div class="dropdown-arrow"></div>
                 </div>
+                <div class="dropdown-menu" id="userDropdown">
+                    <a href="#" class="dropdown-item">
+                        <span class="dropdown-icon">👤</span>
+                        <span>Mon profil</span>
+                    </a>
+                    <a href="#" class="dropdown-item">
+                        <span class="dropdown-icon">🏢</span>
+                        <span>Mon établissement</span>
+                    </a>
+                    <a href="#" class="dropdown-item">
+                        <span class="dropdown-icon">⚙️</span>
+                        <span>Paramètres</span>
+                    </a>
+                    <a href="#" class="dropdown-item">
+                        <span class="dropdown-icon">📊</span>
+                        <span>Rapports détaillés</span>
+                    </a>
+                    <a href="#" class="dropdown-item">
+                        <span class="dropdown-icon">❓</span>
+                        <span>Aide & Support</span>
+                    </a>
+                    <a href="#" class="dropdown-item logout">
+                        <span class="dropdown-icon">🚪</span>
+                        <span>Déconnexion</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+         <!--  corps info  -->
+        <div class="main-content">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon green">🍾</div>
+                    <div class="stat-value">87</div>
+                    <div class="stat-label">Scans aujourd'hui</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon blue">👥</div>
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">Serveuses actives</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon purple">📦</div>
+                    <div class="stat-value">248</div>
+                    <div class="stat-label">Bouteilles en stock</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon orange">💰</div>
+                    <div class="stat-value">3,450€</div>
+                    <div class="stat-label">CA aujourd'hui</div>
+                </div>
+            </div>
+
+            <div class="quick-action-grid">
+                <button class="action-card">
+                    <div class="action-icon">➕</div>
+                    <div class="action-label">Ajouter vin</div>
+                </button>
+                <button class="action-card">
+                    <div class="action-icon">👤</div>
+                    <div class="action-label">Gérer équipe</div>
+                </button>
+                <button class="action-card">
+                    <div class="action-icon">📊</div>
+                    <div class="action-label">Rapports</div>
+                </button>
+            </div>
+               <!--  Equipe info  -->
+            <div class="content-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">👥 Équipe de service</div>
+                        <button class="btn btn-primary">+ Ajouter</button>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Scans</th>
+                                    <th>Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Emma</strong></td>
+                                    <td>23 scans</td>
+                                    <td><span class="status-badge status-online">En service</span></td>
+                                    <td><button class="btn btn-primary" style="padding: 8px 15px; font-size: 12px;">Voir</button></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Léa</strong></td>
+                                    <td>18 scans</td>
+                                    <td><span class="status-badge status-online">En service</span></td>
+                                    <td><button class="btn btn-primary" style="padding: 8px 15px; font-size: 12px;">Voir</button></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>olivia</strong></td>
+                                    <td>15 scans</td>
+                                    <td><span class="status-badge status-break">Pause</span></td>
+                                    <td><button class="btn btn-primary" style="padding: 8px 15px; font-size: 12px;">Voir</button></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Julie</strong></td>
+                                    <td>20 scans</td>
+                                    <td><span class="status-badge status-online">En service</span></td>
+                                    <td><button class="btn btn-primary" style="padding: 8px 15px; font-size: 12px;">Voir</button></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Sarah</strong></td>
+                                    <td>11 scans</td>
+                                    <td><span class="status-badge status-offline">Hors service</span></td>
+                                    <td><button class="btn btn-primary" style="padding: 8px 15px; font-size: 12px;">Voir</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
                 <div>
-                  <div class="font-semibold text-gray-800">{{ emp.name }}</div>
-                  <div class="text-sm text-gray-500">{{ emp.role }}</div>
-                </div>
-              </div>
-              <div class="text-right">
-                <div [ngClass]="getStatusClass(emp.status)"
-                     class="text-xs font-semibold px-2 py-1 rounded-full">
-                  {{ emp.status }}
-                </div>
-                <div class="text-xs text-gray-500 mt-1">{{ emp.hours }} - {{ emp.performance }}%</div>
-              </div>
-            </div>
-          </div>
-        </div>
+                    <div class="wine-carousel">
+                        <div class="carousel-title">🌟 Sélection du moment</div>
+                        <div class="wine-slide" id="wineSlide">
+                            <!-- Content will be dynamically updated -->
+                        </div>
+                    </div>
 
-        <!-- Recent Orders -->
-        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-          <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center justify-between">
-            <span class="flex items-center">
-              <i data-lucide="package" class="w-5 h-5 mr-2"></i>
-              Commandes récentes
-            </span>
-            <button class="text-sm text-blue-700 hover:underline font-normal">Voir tout</button>
-          </h2>
-          <div class="space-y-3">
-            <div *ngFor="let order of recentOrders"
-                 class="p-4 border border-gray-200 rounded-lg hover:border-blue-300 transition">
-              <div class="flex items-center justify-between mb-2">
-                <div class="font-semibold text-gray-800">{{ order.id }}</div>
-                <div [ngClass]="getOrderStatusClass(order.status)"
-                     class="text-xs font-semibold px-2 py-1 rounded-full">
-                  {{ order.status }}
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">🍷 Top ventes du jour</div>
+                        </div>
+                        <div>
+                            <div class="wine-item">
+                                <div class="wine-image">🍷</div>
+                                <div class="wine-info">
+                                    <div class="wine-name">Château Margaux 2015</div>
+                                    <div class="wine-details">Bordeaux • Rouge • 14 ventes</div>
+                                    <div class="wine-price">89€</div>
+                                </div>
+                            </div>
+                            <div class="wine-item">
+                                <div class="wine-image">🍷</div>
+                                <div class="wine-info">
+                                    <div class="wine-name">Domaine de la Romanée</div>
+                                    <div class="wine-details">Bourgogne • Rouge • 12 ventes</div>
+                                    <div class="wine-price">125€</div>
+                                </div>
+                            </div>
+                            <div class="wine-item">
+                                <div class="wine-image">🥂</div>
+                                <div class="wine-info">
+                                    <div class="wine-name">Champagne Dom Pérignon</div>
+                                    <div class="wine-details">Champagne • Brut • 10 ventes</div>
+                                    <div class="wine-price">180€</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div class="flex items-center justify-between text-sm">
-                <div class="text-gray-600">
-                  {{ order.client }} • {{ order.items }} articles
-                </div>
-                <div class="font-bold text-gray-800">{{ order.total }}</div>
-              </div>
-              <div class="text-xs text-gray-500 mt-1">Serveur: {{ order.server }}</div>
             </div>
-          </div>
+               <!--  activites recentes  -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">📈 Activité récente</div>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Heure</th>
+                                <th>Serveuse</th>
+                                <th>Vin</th>
+                                <th>Table</th>
+                                <th>Montant</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>14:32</td>
+                                <td>Emma Laurent</td>
+                                <td>Château Margaux 2015</td>
+                                <td>Table 5</td>
+                                <td style="font-weight: 600; color: #11998e;">89€</td>
+                            </tr>
+                            <tr>
+                                <td>14:28</td>
+                                <td>Léa Moreau</td>
+                                <td>Champagne Dom Pérignon</td>
+                                <td>Table 12</td>
+                                <td style="font-weight: 600; color: #11998e;">180€</td>
+                            </tr>
+                            <tr>
+                                <td>14:15</td>
+                                <td>Julie Petit</td>
+                                <td>Sancerre Blanc</td>
+                                <td>Table 3</td>
+                                <td style="font-weight: 600; color: #11998e;">42€</td>
+                            </tr>
+                            <tr>
+                                <td>14:10</td>
+                                <td>Emma Laurent</td>
+                                <td>Domaine de la Romanée</td>
+                                <td>Table 7</td>
+                                <td style="font-weight: 600; color: #11998e;">125€</td>
+                            </tr>
+                            <tr>
+                                <td>13:58</td>
+                                <td>Chloé Bernard</td>
+                                <td>Château Margaux 2015</td>
+                                <td>Table 9</td>
+                                <td style="font-weight: 600; color: #11998e;">89€</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-</div>
+   </body>
+    <script>
+        function toggleDropdown() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('active');
+        }
 
+        document.addEventListener('click', function(event) {
+            const userInfo = document.querySelector('.user-info');
+            const dropdown = document.getElementById('userDropdown');
+            if (!userInfo.contains(event.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+        const wines = [
+            { emoji: '🍷', name: 'Château Margaux 2015', region: 'Bordeaux • Grand Cru', price: '89€' },
+            { emoji: '🥂', name: 'Veuve Clicquot Rosé', region: 'Champagne • Excellence', price: '75€' },
+            { emoji: '🍷', name: 'Côte-Rôtie', region: 'Rhône • Puissance', price: '95€' },
+            { emoji: '🍷', name: 'Pouilly-Fumé', region: 'Loire • Fraîcheur', price: '38€' },
+            { emoji: '🍷', name: 'Pomerol Pétrus', region: 'Bordeaux • Légende', price: '890€' }
+        ];
+
+        let currentWine = 0;
+
+        function updateWineCarousel() {
+            const slide = document.getElementById('wineSlide');
+            const wine = wines[currentWine];
+
+            slide.style.animation = 'none';
+            setTimeout(() => {
+                slide.innerHTML = `
+                    <div class="wine-bottle">${wine.emoji}</div>
+                    <div class="carousel-wine-name">${wine.name}</div>
+                    <div class="wine-region">${wine.region}</div>
+                    <div class="carousel-wine-price">${wine.price}</div>
+                `;
+                slide.style.animation = 'slideIn 0.5s ease';
+            }, 10);
+
+            currentWine = (currentWine + 1) % wines.length;
+        }
+
+        updateWineCarousel();
+        setInterval(updateWineCarousel, 4000);
+    </script>

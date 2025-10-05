@@ -1,191 +1,186 @@
-<div class="flex h-screen bg-gray-50">
-  <!-- Sidebar -->
-  <div class="w-64 bg-white border-r border-gray-200">
-    <div class="p-6 bg-blue-700">
-      <div class="flex items-center space-x-3">
-        <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center">
-          <span class="text-blue-700 font-bold text-xl">V</span>
-        </div>
-        <div class="text-white">
-          <div class="font-bold">VIKINGS</div>
-          <div class="text-xs text-blue-200">Serveuse</div>
-        </div>
-      </div>
-    </div>
+    <body>
+      <div class="dashboard-container">
+        <!--  En-tête  -->
+          <div class="header">
+              <div class="header-left">
+                  <h1>👋 Bonjour Emma !</h1>
+                  <p>La Cave des Vikings • Service du soir</p>
 
-    <nav class="p-4 space-y-1">
-      <button (click)="setActiveTab('tables')"
-              [ngClass]="activeTab === 'tables' ? 'bg-gray-100 text-blue-700' : 'text-gray-600 hover:bg-gray-50'"
-              class="w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition">
-        <i data-lucide="coffee" class="w-5 h-5"></i>
-        <span>Mes tables</span>
-      </button>
-      <button (click)="setActiveTab('commandes')"
-              [ngClass]="activeTab === 'commandes' ? 'bg-gray-100 text-blue-700' : 'text-gray-600 hover:bg-gray-50'"
-              class="w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition">
-        <i data-lucide="shopping-cart" class="w-5 h-5"></i>
-        <span>Mes commandes</span>
-      </button>
-      <button (click)="setActiveTab('carte')"
-              [ngClass]="activeTab === 'carte' ? 'bg-gray-100 text-blue-700' : 'text-gray-600 hover:bg-gray-50'"
-              class="w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition">
-        <i data-lucide="wine" class="w-5 h-5"></i>
-        <span>Carte des vins</span>
-      </button>
-      <button (click)="setActiveTab('performance')"
-              [ngClass]="activeTab === 'performance' ? 'bg-gray-100 text-blue-700' : 'text-gray-600 hover:bg-gray-50'"
-              class="w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition">
-        <i data-lucide="check-circle" class="w-5 h-5"></i>
-        <span>Ma performance</span>
-      </button>
-    </nav>
-  </div>
-
-  <!-- Main Content -->
-  <div class="flex-1 overflow-auto">
-    <!-- Top Bar -->
-    <div class="bg-blue-700 text-white p-6">
-      <div class="flex items-center justify-between">
-        <div>
-          <h1 class="text-2xl font-bold">Mon espace de service</h1>
-          <p class="text-blue-200 mt-1">Gérez vos tables et commandes en temps réel</p>
-        </div>
-        <div class="flex items-center space-x-4">
-          <div class="text-right">
-            <div class="font-semibold">Marie Dubois</div>
-            <div class="text-xs text-blue-200">Serveuse</div>
-          </div>
-          <div class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center font-bold">
-            MD
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="p-6">
-      <!-- Stats Cards -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-        <div *ngFor="let stat of stats" class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-gray-500 text-sm mb-1">{{ stat.label }}</p>
-              <p class="text-2xl font-bold text-gray-800">{{ stat.value }}</p>
-            </div>
-            <div [ngClass]="stat.color" class="w-12 h-12 rounded-lg flex items-center justify-center">
-              <i [attr.data-lucide]="stat.icon" class="w-6 h-6"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Tables Layout -->
-      <div *ngIf="activeTab === 'tables'" class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-        <h2 class="text-lg font-bold text-gray-800 mb-6 flex items-center justify-between">
-          <span>Plan des tables</span>
-          <div class="flex items-center space-x-4 text-sm font-normal">
-            <span class="flex items-center">
-              <span class="w-3 h-3 bg-green-500 rounded-full mr-2"></span>Disponible
-            </span>
-            <span class="flex items-center">
-              <span class="w-3 h-3 bg-blue-500 rounded-full mr-2"></span>Occupée
-            </span>
-            <span class="flex items-center">
-              <span class="w-3 h-3 bg-orange-500 rounded-full mr-2"></span>Réservée
-            </span>
-          </div>
-        </h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <button *ngFor="let table of tables"
-                  [ngClass]="getTableColor(table.status)"
-                  class="text-white p-6 rounded-xl shadow-md hover:shadow-lg transition transform hover:scale-105 border-2">
-            <div class="text-center">
-              <div class="text-3xl font-bold mb-2">T{{ table.id }}</div>
-              <div class="text-sm opacity-90 mb-3">{{ getStatusLabel(table.status) }}</div>
-              <div *ngIf="table.status === 'occupied'" class="bg-white/20 rounded-lg p-2 text-xs space-y-1">
-                <div class="flex items-center justify-center space-x-1">
-                  <i data-lucide="users" class="w-3 h-3"></i>
-                  <span>{{ table.guests }} pers.</span>
-                </div>
-                <div class="font-semibold">{{ table.total }}</div>
-                <div class="opacity-90">{{ table.time }}</div>
               </div>
-              <div *ngIf="table.status === 'reserved'" class="bg-white/20 rounded-lg p-2 text-xs">
-                <i data-lucide="clock" class="w-4 h-4 mx-auto mb-1"></i>
-                <div>{{ table.time }}</div>
-              </div>
-            </div>
-          </button>
-        </div>
-      </div>
-
-      <!-- Commandes en cours -->
-      <div *ngIf="activeTab === 'commandes'" class="space-y-4">
-        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-          <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center justify-between">
-            <span>Mes commandes en cours</span>
-            <button class="bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-800 transition flex items-center">
-              <i data-lucide="plus" class="w-5 h-5 mr-2"></i>
-              Nouvelle commande
-            </button>
-          </h2>
-          <div class="space-y-4">
-            <div *ngFor="let order of myOrders"
-                 class="border border-gray-200 rounded-lg p-4 hover:border-blue-300 transition">
-              <div class="flex items-center justify-between mb-3">
-                <div>
-                  <div class="font-bold text-gray-800">{{ order.id }}</div>
-                  <div class="text-sm text-gray-500">Table {{ order.table }}</div>
-                </div>
-                <div class="text-right">
-                  <div [ngClass]="getOrderStatusClass(order.status)"
-                       class="text-xs font-semibold px-3 py-1 rounded-full">
-                    {{ order.status }}
+              <div class="user-info">
+                  <div>
+                      <div style="font-weight: 600; color: #333;">Emma Laurent</div>
+                      <div style="font-size: 13px; color: #999;">Serveuse</div>
                   </div>
-                  <div class="font-bold text-gray-800 mt-1">{{ order.total }}</div>
-                </div>
+                  <div class="user-avatar">E</div>
               </div>
-              <div class="bg-gray-50 rounded-lg p-3">
-                <ul class="space-y-1 text-sm text-gray-700">
-                  <li *ngFor="let item of order.items" class="flex items-center">
-                    <span class="w-2 h-2 bg-blue-700 rounded-full mr-2"></span>
-                    {{ item }}
-                  </li>
-                </ul>
-              </div>
-              <div class="flex space-x-2 mt-3">
-                <button class="flex-1 bg-blue-700 text-white py-2 rounded-lg text-sm font-semibold hover:bg-blue-800 transition">
-                  Servir
-                </button>
-                <button class="flex-1 bg-gray-100 text-gray-700 py-2 rounded-lg text-sm font-semibold hover:bg-gray-200 transition">
-                  Modifier
-                </button>
-              </div>
-            </div>
           </div>
-        </div>
-      </div>
 
-      <!-- Carte des vins -->
-      <div *ngIf="activeTab === 'carte'" class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-        <h2 class="text-lg font-bold text-gray-800 mb-4">Carte des vins</h2>
-        <div class="space-y-3">
-          <div *ngFor="let wine of wines"
-               class="border border-gray-200 rounded-lg p-4 hover:border-blue-300 transition flex items-center justify-between">
-            <div class="flex-1">
-              <div class="font-semibold text-gray-800">{{ wine.name }}</div>
-              <div class="text-sm text-gray-500">{{ wine.type }} • {{ wine.region }}</div>
-              <div class="text-xs text-gray-400 mt-1">Stock: {{ wine.stock }} bouteilles</div>
-            </div>
-            <div class="text-right mr-4">
-              <div class="text-xl font-bold text-blue-700">{{ wine.price }}</div>
-            </div>
-            <button class="bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-800 transition">
-              Ajouter
-            </button>
+          <div class="status-toggle">
+              <div class="status-dot"></div>
+              <div class="status-text">En service depuis 13h00</div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
+          <!--  tache effectuée  -->
+          <div class="stats-grid">
+              <div class="stat-card">
+                  <div class="stat-icon">🍾</div>
+                  <div class="stat-value">23</div>
+                  <div class="stat-label">Scans aujourd'hui</div>
+              </div>
+              <div class="stat-card">
+                  <div class="stat-icon">💰</div>
+                  <div class="stat-value">1,847€</div>
+                  <div class="stat-label">CA généré</div>
+              </div>
+              <div class="stat-card">
+                  <div class="stat-icon">⭐</div>
+                  <div class="stat-value">4.9</div>
+                  <div class="stat-label">Note moyenne</div>
+              </div>
+          </div>
+
+          <!--  Scann de bouteille  -->
+          <button class="scan-button">
+              <div class="scan-icon">📷</div>
+              <div>Scanner une bouteille</div>
+          </button>
+
+          <!--  accomplissement 1  -->
+          <div class="card">
+              <div class="card-header">
+                  <div class="card-title">🏆 Vos accomplissements</div>
+              </div>
+              <div>
+                  <span class="achievement-badge">
+                      <span>🔥</span>
+                      <span>Série de 5 jours</span>
+                  </span>
+                  <span class="achievement-badge">
+                      <span>🌟</span>
+                      <span>Top serveuse du mois</span>
+                  </span>
+              </div>
+          </div>
+
+          <!--  travail  -->
+          <div class="card">
+              <div class="card-header">
+                  <div class="card-title">📋 Mes scans récents</div>
+              </div>
+              <div>
+                  <div class="scan-item">
+                      <div class="scan-wine-image">🍷</div>
+                      <div class="scan-info">
+                          <div class="scan-wine-name">Château Margaux 2015</div>
+                          <div class="scan-details">Bordeaux • Rouge • Grand Cru</div>
+                          <div class="scan-meta">
+                              <span class="scan-table">Table 5</span>
+                              <span class="scan-time">Il y a 12 min</span>
+                          </div>
+                      </div>
+                      <div class="scan-price">89€</div>
+                  </div>
+
+                  <div class="scan-item">
+                      <div class="scan-wine-image">🥂</div>
+                      <div class="scan-info">
+                          <div class="scan-wine-name">Champagne Dom Pérignon</div>
+                          <div class="scan-details">Champagne • Brut • Prestige</div>
+                          <div class="scan-meta">
+                              <span class="scan-table">Table 12</span>
+                              <span class="scan-time">Il y a 28 min</span>
+                          </div>
+                      </div>
+                      <div class="scan-price">180€</div>
+                  </div>
+
+                  <div class="scan-item">
+                      <div class="scan-wine-image">🍷</div>
+                      <div class="scan-info">
+                          <div class="scan-wine-name">Domaine de la Romanée</div>
+                          <div class="scan-details">Bourgogne • Rouge • Premier Cru</div>
+                          <div class="scan-meta">
+                              <span class="scan-table">Table 7</span>
+                              <span class="scan-time">Il y a 1h</span>
+                          </div>
+                      </div>
+                      <div class="scan-price">125€</div>
+                  </div>
+
+                  <div class="scan-item">
+                      <div class="scan-wine-image">🍷</div>
+                      <div class="scan-info">
+                          <div class="scan-wine-name">Sancerre Blanc</div>
+                          <div class="scan-details">Loire • Blanc • AOC</div>
+                          <div class="scan-meta">
+                              <span class="scan-table">Table 3</span>
+                              <span class="scan-time">Il y a 1h30</span>
+                          </div>
+                      </div>
+                      <div class="scan-price">42€</div>
+                  </div>
+
+                  <div class="scan-item">
+                      <div class="scan-wine-image">🍷</div>
+                      <div class="scan-info">
+                          <div class="scan-wine-name">Côtes du Rhône Villages</div>
+                          <div class="scan-details">Rhône • Rouge • AOC</div>
+                          <div class="scan-meta">
+                              <span class="scan-table">Table 8</span>
+                              <span class="scan-time">Il y a 2h</span>
+                          </div>
+                      </div>
+                      <div class="scan-price">35€</div>
+                  </div>
+              </div>
+          </div>
+
+          <!--  tache   -->
+          <div class="card">
+              <div class="card-header">
+                  <div class="card-title">⚡ Actions rapides</div>
+              </div>
+              <div class="quick-actions">
+                  <button class="action-btn">
+                      <div class="action-btn-icon">📖</div>
+                      <div class="action-btn-text">Voir la carte des vins</div>
+                  </button>
+                  <button class="action-btn">
+                      <div class="action-btn-icon">📊</div>
+                      <div class="action-btn-text">Mes statistiques</div>
+                  </button>
+                  <button class="action-btn">
+                      <div class="action-btn-icon">⏸️</div>
+                      <div class="action-btn-text">Prendre une pause</div>
+                  </button>
+                  <button class="action-btn">
+                      <div class="action-btn-icon">❓</div>
+                      <div class="action-btn-text">Aide & Support</div>
+                  </button>
+              </div>
+          </div>
+      </div>
+    </body>
+
+       <!--  Script à manipuler avec prudence  -->
+     <script>
+         function toggleDropdown() {
+             const dropdown = document.getElementById('userDropdown');
+             if (dropdown.style.display === 'block') {
+                 dropdown.style.display = 'none';
+             } else {
+                 dropdown.style.display = 'block';
+             }
+         }
+
+         // Fermer le menu déroulant si l'utilisateur clique en dehors
+         window.onclick = function(event) {
+             if (!event.target.matches('.user-avatar')) {
+                 const dropdown = document.getElementById('userDropdown');
+                 if (dropdown && dropdown.style.display === 'block') {
+                     dropdown.style.display = 'none';
+                 }
+             }
+         }
+     </script>

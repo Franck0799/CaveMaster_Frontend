@@ -1,653 +1,245 @@
-
-<div class="flex h-screen bg-gray-50">
-  <!-- Sidebar -->
-  <div class="w-64 bg-white border-r border-gray-200 flex flex-col">
-    <div class="p-6 bg-gradient-to-br from-blue-700 to-blue-900">
-      <div class="flex items-center space-x-3">
-        <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center">
-          <span class="text-blue-700 font-bold text-xl">CAVE DES VIKINGS</span>
-        </div>
-        <div class="text-white">
-          <div class="font-bold text-lg">VIKINGS</div>
-          <div class="text-xs text-blue-200">Admin Panel</div>
-        </div>
-      </div>
-    </div>
-
-    <nav class="p-4 space-y-1 flex-1 overflow-y-auto">
-      <button (click)="setActiveTab('vue-ensemble')"
-              [ngClass]="activeTab === 'vue-ensemble' ? 'bg-blue-50 text-blue-700 border-l-4 border-blue-700' : 'text-gray-600 hover:bg-gray-50'"
-              class="w-full flex items-center space-x-3 px-4 py-3 rounded-r-lg transition">
-        <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
-        <span>Vue d'ensemble</span>
-      </button>
-      <button (click)="setActiveTab('employes')"
-              [ngClass]="activeTab === 'employes' ? 'bg-blue-50 text-blue-700 border-l-4 border-blue-700' : 'text-gray-600 hover:bg-gray-50'"
-              class="w-full flex items-center space-x-3 px-4 py-3 rounded-r-lg transition">
-        <i data-lucide="users" class="w-5 h-5"></i>
-        <span>Employés</span>
-      </button>
-      <button (click)="setActiveTab('vins')"
-              [ngClass]="activeTab === 'vins' ? 'bg-blue-50 text-blue-700 border-l-4 border-blue-700' : 'text-gray-600 hover:bg-gray-50'"
-              class="w-full flex items-center space-x-3 px-4 py-3 rounded-r-lg transition">
-        <i data-lucide="wine" class="w-5 h-5"></i>
-        <span>Gestion des Vins</span>
-      </button>
-      <button (click)="setActiveTab('commandes')"
-              [ngClass]="activeTab === 'commandes' ? 'bg-blue-50 text-blue-700 border-l-4 border-blue-700' : 'text-gray-600 hover:bg-gray-50'"
-              class="w-full flex items-center space-x-3 px-4 py-3 rounded-r-lg transition">
-        <i data-lucide="shopping-cart" class="w-5 h-5"></i>
-        <span>Commandes</span>
-      </button>
-      <button (click)="setActiveTab('clients')"
-              [ngClass]="activeTab === 'clients' ? 'bg-blue-50 text-blue-700 border-l-4 border-blue-700' : 'text-gray-600 hover:bg-gray-50'"
-              class="w-full flex items-center space-x-3 px-4 py-3 rounded-r-lg transition">
-        <i data-lucide="user-circle" class="w-5 h-5"></i>
-        <span>Clients</span>
-      </button>
-      <button (click)="setActiveTab('analytics')"
-              [ngClass]="activeTab === 'analytics' ? 'bg-blue-50 text-blue-700 border-l-4 border-blue-700' : 'text-gray-600 hover:bg-gray-50'"
-              class="w-full flex items-center space-x-3 px-4 py-3 rounded-r-lg transition">
-        <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
-        <span>Analytics</span>
-      </button>
-      <button (click)="setActiveTab('reservations')"
-              [ngClass]="activeTab === 'reservations' ? 'bg-blue-50 text-blue-700 border-l-4 border-blue-700' : 'text-gray-600 hover:bg-gray-50'"
-              class="w-full flex items-center space-x-3 px-4 py-3 rounded-r-lg transition">
-        <i data-lucide="calendar" class="w-5 h-5"></i>
-        <span>Réservations</span>
-      </button>
-      <button (click)="setActiveTab('parametres')"
-              [ngClass]="activeTab === 'parametres' ? 'bg-blue-50 text-blue-700 border-l-4 border-blue-700' : 'text-gray-600 hover:bg-gray-50'"
-              class="w-full flex items-center space-x-3 px-4 py-3 rounded-r-lg transition">
-        <i data-lucide="settings" class="w-5 h-5"></i>
-        <span>Paramètres</span>
-      </button>
-    </nav>
-
-    <div class="p-4 border-t border-gray-200">
-      <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-        <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold">
-          A
-        </div>
-        <div class="flex-1">
-          <div class="font-semibold text-sm text-gray-800">Admin</div>
-          <div class="text-xs text-gray-500">Administrateur</div>
-        </div>
-        <button class="text-gray-400 hover:text-gray-600">
-          <i data-lucide="log-out" class="w-5 h-5"></i>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Main Content -->
-  <div class="flex-1 overflow-auto">
-    <!-- Top Bar -->
-    <div class="bg-white border-b border-gray-200 px-6 py-4">
-      <div class="flex items-center justify-between">
-        <div>
-          <h1 class="text-2xl font-bold text-gray-800">
-            {{ activeTab === 'vue-ensemble' ? 'Vue d\'ensemble' :
-               activeTab === 'employes' ? 'Gestion des Employés' :
-               activeTab === 'vins' ? 'Gestion des Vins' :
-               activeTab === 'commandes' ? 'Gestion des Commandes' :
-               activeTab === 'clients' ? 'Gestion des Clients' :
-               activeTab === 'analytics' ? 'Analytics & Rapports' :
-               activeTab === 'reservations' ? 'Réservations' :
-               'Paramètres' }}
-          </h1>
-          <p class="text-sm text-gray-500 mt-1">{{ 'Vendredi, 3 Octobre 2025' }}</p>
-        </div>
-        <div class="flex items-center space-x-3">
-          <button class="p-2 hover:bg-gray-100 rounded-lg transition relative">
-            <i data-lucide="bell" class="w-5 h-5 text-gray-600"></i>
-            <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-          </button>
-          <button class="bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-800 transition flex items-center">
-            <i data-lucide="download" class="w-4 h-4 mr-2"></i>
-            Exporter
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="p-6">
-      <!-- Vue d'ensemble -->
-      <div *ngIf="activeTab === 'vue-ensemble'">
-        <!-- Stats Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-          <div *ngFor="let stat of stats" class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition">
-            <div class="flex items-center justify-between mb-4">
-              <div [ngClass]="stat.color" class="w-12 h-12 rounded-lg flex items-center justify-center">
-                <i [attr.data-lucide]="stat.icon" class="w-6 h-6"></i>
-              </div>
-              <span [ngClass]="stat.changeType === 'positive' ? 'text-green-600 bg-green-50' : 'text-red-600 bg-red-50'"
-                    class="text-sm font-semibold px-2 py-1 rounded-full">
-                {{ stat.change }}
-              </span>
+    <body>
+    <div class="dashboard-container">
+        <div class="header">
+            <div class="header-left">
+                <h1>🍷 CAVEMASTER Admin</h1>
+                <p>Tableau de bord administrateur</p>
             </div>
-            <h3 class="text-gray-500 text-sm mb-1">{{ stat.label }}</h3>
-            <p class="text-3xl font-bold text-gray-800">{{ stat.value }}</p>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-          <!-- Recent Activities -->
-          <div class="lg:col-span-2 bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-            <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
-              <i data-lucide="activity" class="w-5 h-5 mr-2"></i>
-              Activités Récentes
-            </h2>
-            <div class="space-y-4">
-              <div *ngFor="let activity of recentActivities"
-                   class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition">
-                <div class="flex-shrink-0">
-                  <i [attr.data-lucide]="activity.icon" [ngClass]="activity.color" class="w-5 h-5"></i>
-                </div>
-                <div class="flex-1 min-w-0">
-                  <p class="text-sm text-gray-800">{{ activity.message }}</p>
-                  <p class="text-xs text-gray-500 mt-1">{{ activity.time }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Quick Stats -->
-          <div class="space-y-4">
-            <div class="bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl shadow-sm p-6 text-white">
-              <i data-lucide="trending-up" class="w-8 h-8 mb-3"></i>
-              <h3 class="text-sm font-semibold opacity-90 mb-1">Revenu Aujourd'hui</h3>
-              <p class="text-3xl font-bold">{{ getTotalRevenue() }}€</p>
-              <p class="text-xs opacity-75 mt-2">Valeur moy. commande: {{ getAverageOrderValue().toFixed(0) }}€</p>
-            </div>
-
-            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-              <div class="flex items-center justify-between mb-4">
-                <h3 class="font-semibold text-gray-800">Performance Équipe</h3>
-                <i data-lucide="users" class="w-5 h-5 text-blue-600"></i>
-              </div>
-              <div class="space-y-3">
-                <div *ngFor="let emp of employees.slice(0, 3)">
-                  <div class="flex items-center justify-between text-sm mb-1">
-                    <span class="text-gray-600">{{ emp.name }}</span>
-                    <span class="font-semibold text-gray-800">{{ emp.performance }}%</span>
-                  </div>
-                  <div class="w-full bg-gray-200 rounded-full h-2">
-                    <div class="bg-blue-600 h-2 rounded-full" [style.width.%]="emp.performance"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Recent Orders Table -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-          <div class="p-6 border-b border-gray-200">
-            <h2 class="text-lg font-bold text-gray-800 flex items-center">
-              <i data-lucide="shopping-cart" class="w-5 h-5 mr-2"></i>
-              Dernières Commandes
-            </h2>
-          </div>
-          <div class="overflow-x-auto">
-            <table class="w-full">
-              <thead class="bg-gray-50">
-                <tr>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Employé</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Rôle</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Email</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Date d'embauche</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Performance</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Statut</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Actions</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-gray-200">
-                <tr *ngFor="let emp of employees" class="hover:bg-gray-50">
-                  <td class="px-6 py-4">
-                    <div class="flex items-center space-x-3">
-                      <div class="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center text-white font-semibold">
-                        {{ emp.avatar }}
-                      </div>
-                      <div class="font-medium text-gray-800">{{ emp.name }}</div>
+            <!--  En-tête info  -->
+            <div class="user-info">
+                <div class="user-dropdown-trigger" onclick="toggleDropdown()">
+                    <div class="user-details">
+                        <div class="user-name">Admin Principal</div>
+                        <div class="user-email">franckkongo@viniou.com</div>
                     </div>
-                  </td>
-                  <td class="px-6 py-4">
-                    <span [ngClass]="getRoleColor(emp.role)"
-                          class="text-xs font-semibold px-3 py-1 rounded-full">
-                      {{ emp.role }}
-                    </span>
-                  </td>
-                  <td class="px-6 py-4 text-sm text-gray-600">{{ emp.email }}</td>
-                  <td class="px-6 py-4 text-sm text-gray-600">{{ emp.joinDate }}</td>
-                  <td class="px-6 py-4">
-                    <div class="flex items-center space-x-2">
-                      <div class="flex-1 bg-gray-200 rounded-full h-2 w-20">
-                        <div class="bg-blue-600 h-2 rounded-full" [style.width.%]="emp.performance"></div>
-                      </div>
-                      <span class="text-sm font-semibold text-gray-700">{{ emp.performance }}%</span>
+                    <div class="user-avatar">FK</div>
+                    <div class="dropdown-arrow"></div>
+                </div>
+                <div class="dropdown-menu" id="userDropdown">
+                    <a href="#" class="dropdown-item">
+                        <span class="dropdown-icon">👤</span>
+                        <span>Mon profil</span>
+                    </a>
+                    <a href="#" class="dropdown-item">
+                        <span class="dropdown-icon">⚙️</span>
+                        <span>Paramètres</span>
+                    </a>
+                    <a href="#" class="dropdown-item">
+                        <span class="dropdown-icon">🔔</span>
+                        <span>Notifications</span>
+                    </a>
+                    <a href="#" class="dropdown-item">
+                        <span class="dropdown-icon">❓</span>
+                        <span>Aide & Support</span>
+                    </a>
+                    <a href="#" class="dropdown-item logout">
+                        <span class="dropdown-icon">🚪</span>
+                        <span>Déconnexion</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--  corps  -->
+        <div class="main-content">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon purple">👥</div>
+                    <div class="stat-value">142</div>
+                    <div class="stat-label">Utilisateurs actifs</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green">🍾</div>
+                    <div class="stat-value">1,248</div>
+                    <div class="stat-label">Bouteilles scannées</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon orange">🏢</div>
+                    <div class="stat-value">6</div>
+                    <div class="stat-label">Établissements</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon blue">💰</div>
+                    <div class="stat-value">45,890€</div>
+                    <div class="stat-label">Revenus mensuelle</div>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">📊 Établissements récents</div>
+                        <button class="btn btn-primary">+ Ajouter</button>
                     </div>
-                  </td>
-                  <td class="px-6 py-4">
-                    <span [ngClass]="getStatusClass(emp.status)"
-                          class="text-xs font-semibold px-3 py-1 rounded-full">
-                      {{ emp.status }}
-                    </span>
-                  </td>
-                  <td class="px-6 py-4">
-                    <div class="flex items-center space-x-2">
-                      <button (click)="openEditEmployeeModal(emp)"
-                              class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition">
-                        <i data-lucide="edit" class="w-4 h-4"></i>
-                      </button>
-                      <button (click)="deleteEmployee(emp.id)"
-                              class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition">
-                        <i data-lucide="trash-2" class="w-4 h-4"></i>
-                      </button>
+                     <!--  infos etablissements  -->
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Manager</th>
+                                    <th>Ville</th>
+                                    <th>Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>La Cave des Vikings</strong></td>
+                                    <td>Jaures Nguessan</td>
+                                    <td>Abidjan</td>
+                                    <td><span class="status-badge status-active">Actif</span></td>
+                                    <td><button class="btn btn-primary" style="padding: 8px 15px; font-size: 12px;">Gérer</button></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Cave & Dégustation</strong></td>
+                                    <td>Jean-jacques SANGBE</td>
+                                    <td>Agboville</td>
+                                    <td><span class="status-badge status-active">Actif</span></td>
+                                    <td><button class="btn btn-primary" style="padding: 8px 15px; font-size: 12px;">Gérer</button></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Vins & Terroir</strong></td>
+                                    <td>Sarah Booussou</td>
+                                    <td>Bouake</td>
+                                    <td><span class="status-badge status-pending">En attente</span></td>
+                                    <td><button class="btn btn-primary" style="padding: 8px 15px; font-size: 12px;">Gérer</button></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Le Repos</strong></td>
+                                    <td>Maxime Kongo</td>
+                                    <td>Aboisso</td>
+                                    <td><span class="status-badge status-active">Actif</span></td>
+                                    <td><button class="btn btn-primary" style="padding: 8px 15px; font-size: 12px;">Gérer</button></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Bar à Vins Moderne</strong></td>
+                                    <td>Olivia Ouattara </td>
+                                    <td>Bondoukou</td>
+                                    <td><span class="status-badge status-inactive">Inactif</span></td>
+                                    <td><button class="btn btn-primary" style="padding: 8px 15px; font-size: 12px;">Gérer</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- Gestion des Vins -->
-      <div *ngIf="activeTab === 'vins'">
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100">
-          <div class="p-6 border-b border-gray-200 flex items-center justify-between">
-            <div>
-              <h2 class="text-lg font-bold text-gray-800">Inventaire des Vins</h2>
-              <p class="text-sm text-gray-500 mt-1">{{ wines.length }} vins en catalogue</p>
-            </div>
-            <button (click)="openAddWineModal()"
-                    class="bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-800 transition flex items-center">
-              <i data-lucide="plus" class="w-4 h-4 mr-2"></i>
-              Ajouter un vin
-            </button>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
-            <div *ngFor="let wine of wines"
-                 class="border border-gray-200 rounded-lg p-4 hover:border-blue-300 hover:shadow-md transition">
-              <div class="flex items-start justify-between mb-3">
-                <div class="text-5xl">{{ wine.image }}</div>
-                <span [ngClass]="getStockStatus(wine.stock).class"
-                      class="text-xs font-semibold px-2 py-1 rounded-full">
-                  {{ getStockStatus(wine.stock).label }}
-                </span>
-              </div>
-              <h3 class="font-bold text-gray-800 mb-1">{{ wine.name }}</h3>
-              <p class="text-sm text-gray-500 mb-3">{{ wine.type }} • {{ wine.region }}</p>
-
-              <div class="space-y-2 mb-4">
-                <div class="flex items-center justify-between text-sm">
-                  <span class="text-gray-600">Prix:</span>
-                  <span class="font-bold text-blue-700">{{ wine.price }}€</span>
                 </div>
-                <div class="flex items-center justify-between text-sm">
-                  <span class="text-gray-600">Stock:</span>
-                  <span class="font-semibold text-gray-800">{{ wine.stock }} bouteilles</span>
-                </div>
-                <div class="flex items-center justify-between text-sm">
-                  <span class="text-gray-600">Vendus:</span>
-                  <span class="font-semibold text-gray-800">{{ wine.sold }} unités</span>
-                </div>
-                <div class="flex items-center justify-between text-sm">
-                  <span class="text-gray-600">Note:</span>
-                  <span class="flex items-center">
-                    <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-current mr-1"></i>
-                    <span class="font-semibold text-gray-800">{{ wine.rating }}</span>
-                  </span>
-                </div>
-              </div>
 
-              <div class="flex space-x-2">
-                <button (click)="openEditWineModal(wine)"
-                        class="flex-1 bg-blue-700 text-white py-2 rounded-lg text-sm font-semibold hover:bg-blue-800 transition">
-                  Modifier
-                </button>
-                <button (click)="deleteWine(wine.id)"
-                        class="px-4 bg-red-100 text-red-600 py-2 rounded-lg hover:bg-red-200 transition">
-                  <i data-lucide="trash-2" class="w-4 h-4"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Gestion des Commandes -->
-      <div *ngIf="activeTab === 'commandes'">
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100">
-          <div class="p-6 border-b border-gray-200">
-            <h2 class="text-lg font-bold text-gray-800">Toutes les Commandes</h2>
-            <p class="text-sm text-gray-500 mt-1">{{ orders.length }} commandes</p>
-          </div>
-
-          <div class="overflow-x-auto">
-            <table class="w-full">
-              <thead class="bg-gray-50">
-                <tr>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">ID</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Client</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Serveur</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Table</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Articles</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Total</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Statut</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Date/Heure</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Actions</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-gray-200">
-                <tr *ngFor="let order of orders" class="hover:bg-gray-50">
-                  <td class="px-6 py-4 text-sm font-medium text-blue-700">{{ order.id }}</td>
-                  <td class="px-6 py-4 text-sm text-gray-800">{{ order.client }}</td>
-                  <td class="px-6 py-4 text-sm text-gray-600">{{ order.server }}</td>
-                  <td class="px-6 py-4 text-sm text-gray-600">{{ order.table }}</td>
-                  <td class="px-6 py-4 text-sm text-gray-600">{{ order.items }}</td>
-                  <td class="px-6 py-4 text-sm font-semibold text-gray-800">{{ order.total }}€</td>
-                  <td class="px-6 py-4">
-                    <span [ngClass]="getOrderStatusClass(order.status)"
-                          class="text-xs font-semibold px-3 py-1 rounded-full">
-                      {{ order.status }}
-                    </span>
-                  </td>
-                  <td class="px-6 py-4 text-sm text-gray-600">
-                    <div>{{ order.date }}</div>
-                    <div class="text-xs text-gray-400">{{ order.time }}</div>
-                  </td>
-                  <td class="px-6 py-4">
-                    <button class="text-blue-600 hover:text-blue-800 text-sm font-semibold">
-                      Détails
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- Analytics -->
-      <div *ngIf="activeTab === 'analytics'">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-            <h2 class="text-lg font-bold text-gray-800 mb-4">Revenus des 7 derniers jours</h2>
-            <div class="space-y-3">
-              <div *ngFor="let data of analytics" class="flex items-center justify-between">
-                <span class="text-sm text-gray-600">{{ data.date }}</span>
-                <div class="flex items-center space-x-3">
-                  <div class="w-32 bg-gray-200 rounded-full h-2">
-                    <div class="bg-blue-600 h-2 rounded-full" [style.width.%]="(data.revenue / 12300) * 100"></div>
-                  </div>
-                  <span class="text-sm font-bold text-gray-800 w-20 text-right">{{ data.revenue }}€</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-            <h2 class="text-lg font-bold text-gray-800 mb-4">Commandes des 7 derniers jours</h2>
-            <div class="space-y-3">
-              <div *ngFor="let data of analytics" class="flex items-center justify-between">
-                <span class="text-sm text-gray-600">{{ data.date }}</span>
-                <div class="flex items-center space-x-3">
-                  <div class="w-32 bg-gray-200 rounded-full h-2">
-                    <div class="bg-green-600 h-2 rounded-full" [style.width.%]="(data.orders / 68) * 100"></div>
-                  </div>
-                  <span class="text-sm font-bold text-gray-800 w-20 text-right">{{ data.orders }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-gradient-to-br from-purple-500 to-purple-700 rounded-xl shadow-sm p-6 text-white">
-            <i data-lucide="trophy" class="w-10 h-10 mb-4"></i>
-            <h3 class="text-lg font-semibold mb-2">Meilleur Vendeur</h3>
-            <p class="text-3xl font-bold">Marie Dubois</p>
-            <p class="text-sm opacity-90 mt-2">1,840€ de CA ce mois</p>
-          </div>
-
-          <div class="bg-gradient-to-br from-orange-500 to-orange-700 rounded-xl shadow-sm p-6 text-white">
-            <i data-lucide="wine" class="w-10 h-10 mb-4"></i>
-            <h3 class="text-lg font-semibold mb-2">Vin le plus vendu</h3>
-            <p class="text-2xl font-bold">Côtes du Rhône</p>
-            <p class="text-sm opacity-90 mt-2">123 bouteilles vendues</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Clients -->
-      <div *ngIf="activeTab === 'clients'">
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-          <h2 class="text-lg font-bold text-gray-800 mb-4">Gestion des Clients</h2>
-          <p class="text-gray-600">Fonctionnalité en cours de développement...</p>
-        </div>
-      </div>
-
-      <!-- Réservations -->
-      <div *ngIf="activeTab === 'reservations'">
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-          <h2 class="text-lg font-bold text-gray-800 mb-4">Gestion des Réservations</h2>
-          <p class="text-gray-600">Fonctionnalité en cours de développement...</p>
-        </div>
-      </div>
-
-      <!-- Paramètres -->
-      <div *ngIf="activeTab === 'parametres'">
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-          <h2 class="text-lg font-bold text-gray-800 mb-4">Paramètres de l'Application</h2>
-          <div class="space-y-4">
-            <div class="border-b border-gray-200 pb-4">
-              <h3 class="font-semibold text-gray-800 mb-2">Informations Générales</h3>
-              <div class="space-y-3">
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Nom du Restaurant</label>
-                  <input type="text" value="VIKINGS Cave"
-                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                   <!--  activités recentes  -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">🔔 Activité récente</div>
+                        </div>
+                        <div>
+                            <div class="activity-item">
+                                <div class="activity-icon" style="background: #d4f4dd;">✅</div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Nouvel établissement</div>
+                                    <div class="activity-time">La cave des vikings - il y a 2h</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon" style="background: #fff3cd;">👤</div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Nouveau manager</div>
+                                    <div class="activity-time">Jaures Nguessan inscrite - il y a 3h</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon" style="background: #e7d4f8;">🍷</div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Scan record</div>
+                                    <div class="activity-time">152 scans aujourd'hui</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon" style="background: #d4e8f4;">💳</div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Paiement reçu</div>
+                                    <div class="activity-time">2,450€ - La Cave des vikings</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <!--  page de publicité  -->
+                    <div class="wine-carousel">
+                        <div class="carousel-title">🌟 Vins vedettes</div>
+                        <div class="wine-slide" id="wineSlide">
+                            <!-- Content will be dynamically updated -->
+                        </div>
+                    </div>
+                       <!--  Raccourcis  -->
+                    <div class="card" style="margin-top: 20px;">
+                        <div class="card-header">
+                            <div class="card-title">⚡ Actions rapides</div>
+                        </div>
+                        <div class="quick-actions">
+                            <button class="action-btn">
+                                <div class="action-btn-icon">🏢</div>
+                                <div class="action-btn-text">Ajouter établissement</div>
+                            </button>
+                            <button class="action-btn">
+                                <div class="action-btn-icon">👤</div>
+                                <div class="action-btn-text">Nouveau manager</div>
+                            </button>
+                            <button class="action-btn">
+                                <div class="action-btn-icon">📊</div>
+                                <div class="action-btn-text">Voir rapports</div>
+                            </button>
+                            <button class="action-btn">
+                                <div class="action-btn-icon">⚙️</div>
+                                <div class="action-btn-text">Paramètres</div>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Adresse</label>
-                  <input type="text" value="123 Rue du Vin, 75001 Paris"
-                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-              </div>
             </div>
-            <div>
-              <h3 class="font-semibold text-gray-800 mb-2">Notifications</h3>
-              <div class="space-y-2">
-                <label class="flex items-center space-x-3">
-                  <input type="checkbox" checked class="w-4 h-4 text-blue-600 rounded">
-                  <span class="text-sm text-gray-700">Alertes de stock faible</span>
-                </label>
-                <label class="flex items-center space-x-3">
-                  <input type="checkbox" checked class="w-4 h-4 text-blue-600 rounded">
-                  <span class="text-sm text-gray-700">Notifications de nouvelles commandes</span>
-                </label>
-                <label class="flex items-center space-x-3">
-                  <input type="checkbox" class="w-4 h-4 text-blue-600 rounded">
-                  <span class="text-sm text-gray-700">Rapports quotidiens par email</span>
-                </label>
-              </div>
-            </div>
-            <button class="bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-800 transition">
-              Enregistrer les modifications
-            </button>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
-</div>
+    </body>
 
-<!-- Modal Add/Edit Employee -->
-<div *ngIf="showAddEmployeeModal"
-     class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-  <div class="bg-white rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-    <div class="p-6 border-b border-gray-200 flex items-center justify-between">
-      <h2 class="text-xl font-bold text-gray-800">
-        {{ selectedEmployee ? 'Modifier l\'employé' : 'Ajouter un employé' }}
-      </h2>
-      <button (click)="closeEmployeeModal()" class="text-gray-400 hover:text-gray-600">
-        <i data-lucide="x" class="w-6 h-6"></i>
-      </button>
-    </div>
-    <div class="p-6 space-y-4">
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Nom complet</label>
-          <input type="text" [value]="selectedEmployee?.name || ''"
-                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-          <input type="email" [value]="selectedEmployee?.email || ''"
-                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-        </div>
-      </div>
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Rôle</label>
-          <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <option>Manager</option>
-            <option>Serveuse</option>
-            <option>Serveur</option>
-            <option>Barman</option>
-            <option>Cuisinier</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Statut</label>
-          <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <option>Actif</option>
-            <option>Inactif</option>
-            <option>En congé</option>
-          </select>
-        </div>
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Date d'embauche</label>
-        <input type="date" [value]="selectedEmployee?.joinDate || ''"
-               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-      </div>
-    </div>
-    <div class="p-6 border-t border-gray-200 flex justify-end space-x-3">
-      <button (click)="closeEmployeeModal()"
-              class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
-        Annuler
-      </button>
-      <button (click)="saveEmployee()"
-              class="px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition">
-        {{ selectedEmployee ? 'Modifier' : 'Ajouter' }}
-      </button>
-    </div>
-  </div>
-</div>
+      <!--  Script à manipuler avec prudence  -->
+    <script>
+        function toggleDropdown() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('active');
+        }
 
-<!-- Modal Add/Edit Wine -->
-<div *ngIf="showAddWineModal"
-     class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-  <div class="bg-white rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-    <div class="p-6 border-b border-gray-200 flex items-center justify-between">
-      <h2 class="text-xl font-bold text-gray-800">
-        {{ selectedWine ? 'Modifier le vin' : 'Ajouter un vin' }}
-      </h2>
-      <button (click)="closeWineModal()" class="text-gray-400 hover:text-gray-600">
-        <i data-lucide="x" class="w-6 h-6"></i>
-      </button>
-    </div>
-    <div class="p-6 space-y-4">
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Nom du vin</label>
-        <input type="text" [value]="selectedWine?.name || ''"
-               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-      </div>
-      <div class="grid grid-cols-3 gap-4">
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Type</label>
-          <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <option>Rouge</option>
-            <option>Blanc</option>
-            <option>Rosé</option>
-            <option>Champagne</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Région</label>
-          <input type="text" [value]="selectedWine?.region || ''"
-                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Prix (€)</label>
-          <input type="number" [value]="selectedWine?.price || ''"
-                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-        </div>
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Stock (bouteilles)</label>
-        <input type="number" [value]="selectedWine?.stock || ''"
-               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-      </div>
-    </div>
-    <div class="p-6 border-t border-gray-200 flex justify-end space-x-3">
-      <button (click)="closeWineModal()"
-              class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
-        Annuler
-      </button>
-      <button (click)="saveWine()"
-              class="px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition">
-        {{ selectedWine ? 'Modifier' : 'Ajouter' }}
-      </button>
-    </div>
-  </div>
-</div>
-            <table class="w-full">
-              <thead class="bg-gray-50">
-                <tr>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Commande</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Client</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Serveur</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Table</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Total</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Statut</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Heure</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-gray-200">
-                <tr *ngFor="let order of orders.slice(0, 5)" class="hover:bg-gray-50">
-                  <td class="px-6 py-4 text-sm font-medium text-gray-800">{{ order.id }}</td>
-                  <td class="px-6 py-4 text-sm text-gray-600">{{ order.client }}</td>
-                  <td class="px-6 py-4 text-sm text-gray-600">{{ order.server }}</td>
-                  <td class="px-6 py-4 text-sm text-gray-600">{{ order.table }}</td>
-                  <td class="px-6 py-4 text-sm font-semibold text-gray-800">{{ order.total }}€</td>
-                  <td class="px-6 py-4">
-                    <span [ngClass]="getOrderStatusClass(order.status)"
-                          class="text-xs font-semibold px-3 py-1 rounded-full">
-                      {{ order.status }}
-                    </span>
-                  </td>
-                  <td class="px-6 py-4 text-sm text-gray-600">{{ order.time }}</td>
-                </tr>
-              </tbody>
-            </table>
+        document.addEventListener('click', function(event) {
+            const userInfo = document.querySelector('.user-info');
+            const dropdown = document.getElementById('userDropdown');
+            if (!userInfo.contains(event.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
 
-      <!-- Gestion des Employés -->
-      <div *ngIf="activeTab === 'employes'">
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 mb-6">
-          <div class="p-6 border-b border-gray-200 flex items-center justify-between">
-            <div>
-              <h2 class="text-lg font-bold text-gray-800">Liste des Employés</h2>
-              <p class="text-sm text-gray-500 mt-1">{{ employees.length }} employés au total</p>
-            </div>
-            <button (click)="openAddEmployeeModal()"
-                    class="bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-800 transition flex items-center">
-              <i data-lucide="user-plus" class="w-4 h-4 mr-2"></i>
-              Ajouter un employé
-            </button>
-          </div>
+        const wines = [
+            { emoji: '🍷', name: 'Château Margaux 2015', region: 'Bordeaux • Grand Cru', price: '189€' },
+            { emoji: '🥂', name: 'Dom Pérignon 2012', region: 'Champagne • Prestige', price: '220€' },
+            { emoji: '🍷', name: 'Romanée-Conti', region: 'Bourgogne • Mythique', price: '1,850€' },
+            { emoji: '🍷', name: 'Châteauneuf-du-Pape', region: 'Rhône • Tradition', price: '85€' },
+            { emoji: '🍷', name: 'Sancerre Blanc', region: 'Loire • Élégance', price: '45€' }
+        ];
 
-          <div class="overflow-x-auto">
+        let currentWine = 0;
+
+        function updateWineCarousel() {
+            const slide = document.getElementById('wineSlide');
+            const wine = wines[currentWine];
+
+            slide.style.animation = 'none';
+            setTimeout(() => {
+                slide.innerHTML = `
+                    <div class="wine-bottle">${wine.emoji}</div>
+                    <div class="wine-name">${wine.name}</div>
+                    <div class="wine-region">${wine.region}</div>
+                    <div class="wine-price">${wine.price}</div>
+                `;
+                slide.style.animation = 'slideIn 0.5s ease';
+            }, 10);
+
+            currentWine = (currentWine + 1) % wines.length;
+        }
+
+        updateWineCarousel();
+        setInterval(updateWineCarousel, 4000);
+    </script>
