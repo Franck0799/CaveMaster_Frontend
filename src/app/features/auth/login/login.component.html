@@ -1,121 +1,172 @@
-<div class="autowash-container">
-  <!-- Background avec animation d'eau -->
-  <div class="water-animation"></div>
+<!-- Bulles d'arrière-plan -->
+<div class="bubble"></div>
+<div class="bubble"></div>
+<div class="bubble"></div>
+<div class="bubble"></div>
+<div class="bubble"></div>
 
-  <!-- Particules de bulles -->
-  <div class="bubbles">
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-  </div>
+<!-- Particules de vin -->
+<div class="wine-particle"></div>
+<div class="wine-particle"></div>
+<div class="wine-particle"></div>
+<div class="wine-particle"></div>
 
-  <div class="content-container">
-    <!-- Section description -->
+<!-- Conteneur principal -->
+<div class="main-container">
+    <!-- Page de description -->
     <div class="description-panel">
-      <div class="logo-container">
-        <svg class="car-wash-logo" viewBox="0 0 200 120" width="120" height="120">
-          <g class="car">
-            <path class="car-body"
-              d="M160,80 L130,50 L70,50 L40,80 L30,80 C25,80 20,85 20,90 L20,100 C20,105 25,110 30,110 L40,110 C40,100 50,90 60,90 C70,90 80,100 80,110 L120,110 C120,100 130,90 140,90 C150,90 160,100 160,110 L170,110 C175,110 180,105 180,100 L180,90 C180,85 175,80 170,80 L160,80 Z"
-              fill="#3498db" />
-            <circle class="wheel wheel-left" cx="60" cy="110" r="20" fill="#333" />
-            <circle class="wheel wheel-right" cx="140" cy="110" r="20" fill="#333" />
-            <rect class="window" x="80" y="55" width="40" height="15" rx="5" fill="#a8e6ff" />
-          </g>
-          <g class="water-drops">
-            <path class="drop drop-1" d="M60,30 Q60,20 70,30 Q80,40 70,45 Q60,40 60,30" fill="#a8e6ff" />
-            <path class="drop drop-2" d="M100,20 Q100,10 110,20 Q120,30 110,35 Q100,30 100,20" fill="#a8e6ff" />
-            <path class="drop drop-3" d="M140,30 Q140,20 150,30 Q160,40 150,45 Q140,40 140,30" fill="#a8e6ff" />
-          </g>
-        </svg>
-      </div>
-      <h1 class="title-3d">Autowash.CI</h1>
-      <p class="description">La solution complète pour la gestion de vos services de lavage auto. Contrôlez vos
-        opérations quotidiennes, suivez vos laveurs, gérez vos finances et optimisez votre rentabilité en quelques
-        clics.</p>
-
-      <div class="features">
-        <div class="feature">
-          <i class="fas fa-calendar-check feature-icon"></i>
-          <span>Gestion des prestations</span>
+        <div class="logo-container">
+            <div class="logo-wine">🍷</div>
         </div>
-        <div class="feature">
-          <i class="fas fa-user-clock feature-icon"></i>
-          <span>Planning du personnel</span>
+        <h1 class="title-3d">CAVEMASTER CI</h1>
+        <p class="description">
+            La solution complète pour la gestion de votre cave .
+            Contrôlez votre stock, suivez vos mouvements, gérez vos inventaires
+            et optimisez votre équipe et collection en quelques clics.
+        </p>
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">📦</div>
+                <span>Gestion intelligente des stocks</span>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📊</div>
+                <span>Suivi d'inventaire en temps réel</span>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📈</div>
+                <span>Analyses et rapports détaillés</span>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">👥</div>
+                <span>Gestion d'équipe optimisée</span>
+            </div>
         </div>
-        <div class="feature">
-          <i class="fas fa-chart-line feature-icon"></i>
-          <span>Suivi financier</span>
-        </div>
-      </div>
     </div>
 
-    <!-- Section formulaire -->
-    <div class="form-panel">
-      <div class="form-container">
+    <!-- Formulaire de connexion -->
+    <div class="login-container">
+        <!-- Message d'erreur global -->
+        <div class="alert error-message" *ngIf="showError" [@slideIn]>
+            <i class="fas fa-exclamation-circle"></i>
+            <span>{{ errorMessage }}</span>
+            <button class="close-btn" (click)="showError = false">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <!-- Logo -->
+        <div class="logo">
+            <div class="logo-icon">🍷</div>
+        </div>
+
+        <h2>VOTRE CAVE VIRTUELLE</h2>
+        <p class="subtitle">Accédez à votre collection</p>
+
+        <!-- Formulaire -->
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-          <h2>Connexion</h2>
-          <!-- Email -->
-          <div class="form-group">
-            <div class="input-icon-wrapper">
-              <i class="fas fa-envelope input-icon"></i>
-              <input type="email" formControlName="email" placeholder="Email" required>
+            <!-- Email -->
+            <div class="input-group">
+                <label for="email"></label>
+                <div class="input-icon-wrapper">
+                    <i class="fas fa-envelope input-icon"></i>
+                    <input
+                        type="email"
+                        id="email"
+                        formControlName="email"
+                        placeholder="votre@email.com"
+                        [class.error]="hasError('email', 'required') || hasError('email', 'email')"
+                        autocomplete="email">
+                </div>
+                <div class="validation-error" *ngIf="hasError('email', 'required')">
+                    <i class="fas fa-exclamation-circle"></i>
+                    L'email est requis
+                </div>
+                <div class="validation-error" *ngIf="hasError('email', 'email') && !hasError('email', 'required')">
+                    <i class="fas fa-exclamation-circle"></i>
+                    Format d'email invalide
+                </div>
             </div>
-            <div class="validation-error"
-              *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
-              Veuillez saisir un email valide
-            </div>
-          </div>
 
-          <!-- Password -->
-          <div class="form-group">
-            <div class="input-icon-wrapper">
-              <i class="fas fa-lock input-icon"></i>
-              <input [type]="hidePassword ? 'password' : 'text'" formControlName="password" placeholder="Mot de passe"
-                required>
-              <i class="toggle-password fas" [ngClass]="hidePassword ? 'fa-eye' : 'fa-eye-slash'"
-                (click)="hidePassword = !hidePassword"></i>
+            <!-- Password -->
+            <div class="input-group">
+                <label for="password"></label>
+                <div class="input-icon-wrapper">
+                    <i class="fas fa-lock input-icon"></i>
+                    <input
+                        [type]="hidePassword ? 'password' : 'text'"
+                        id="password"
+                        formControlName="password"
+                        placeholder="Mot de passe"
+                        [class.error]="hasError('password', 'required') || hasError('password', 'minlength')"
+                        autocomplete="current-password">
+                    <i
+                        class="toggle-password fas"
+                        [class.fa-eye]="hidePassword"
+                        [class.fa-eye-slash]="!hidePassword"
+                        (click)="togglePasswordVisibility()"
+                        title="Afficher/Masquer le mot de passe">
+                    </i>
+                </div>
+                <div class="validation-error" *ngIf="hasError('password', 'required')">
+                    <i class="fas fa-exclamation-circle"></i>
+                    Le mot de passe est requis
+                </div>
+                <div class="validation-error" *ngIf="hasError('password', 'minlength') && !hasError('password', 'required')">
+                    <i class="fas fa-exclamation-circle"></i>
+                    Le mot de passe doit contenir au moins 6 caractères
+                </div>
             </div>
-            <div class="validation-error"
-              *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
-              Le mot de passe est requis
-            </div>
-          </div>
 
-          <div class="form-options">
-            <div class="remember-me">
-              <input type="checkbox" id="rememberMe" formControlName="rememberMe">
-              <label for="rememberMe">Se souvenir de moi</label>
+            <!-- Options -->
+            <div class="options">
+                <label class="remember-me">
+                    <input
+                        type="checkbox"
+                        id="rememberMe"
+                        formControlName="rememberMe">
+                    <span>Se souvenir de moi</span>
+                </label>
+                <a
+                    class="forgot-password"
+                    (click)="goToForgotPassword()"
+                    tabindex="0">
+                    Mot de passe oublié?
+                </a>
             </div>
-            <a class="forgot-password" (click)="goToForgotPassword()">Mot de passe oublié?</a>
-          </div>
 
-          <button type="submit" class="login-button" [disabled]="isLoading || loginForm.invalid">
-            <span *ngIf="!isLoading">Connexion</span>
-            <div class="spinner" *ngIf="isLoading">
-              <i class="fas fa-spinner fa-spin"></i>
+            <!-- Bouton de connexion -->
+            <button
+                type="submit"
+                class="login-btn"
+                [disabled]="isLoading"
+                [class.loading]="isLoading">
+                <span *ngIf="!isLoading" id="btnText">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Connexion
+                </span>
+                <div class="spinner" *ngIf="isLoading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <span>Connexion en cours...</span>
+                </div>
+            </button>
+
+            <!-- Lien d'inscription -->
+            <div class="signup-link">
+                Pas encore de compte ?
+                <a (click)="goToSignup()" tabindex="0">S'inscrire</a>
             </div>
-          </button>
+
+            <!-- Footer // pieds de page-->
+            <div class="footer">
+                <p>Copyright © 2025 <span class="brand">VIKINGS Cave</span></p>
+                <div class="social-links">
+                    <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
         </form>
-
-        <div class="footer">
-          <p>Copyright © 2025 <span class="brand">Autowash</span></p>
-        </div>
-      </div>
     </div>
-  </div>
-
-  <!-- SVG wave animation au bas de la page -->
-  <svg class="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-    <path fill="#ffffff" fill-opacity="0.8"
-      d="M0,96L48,128C96,160,192,224,288,229.3C384,235,480,181,576,160C672,139,768,149,864,176C960,203,1056,245,1152,234.7C1248,224,1344,160,1392,128L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
-    </path>
-  </svg>
 </div>
