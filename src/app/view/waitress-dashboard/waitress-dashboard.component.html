@@ -1,186 +1,1857 @@
-    <body>
-      <div class="dashboard-container">
-        <!--  En-tête  -->
-          <div class="header">
-              <div class="header-left">
-                  <h1>👋 Bonjour Emma !</h1>
-                  <p>La Cave des Vikings • Service du soir</p>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Serveuse - DrinkStore Pro</title>
+    <style>
+        /* ===== RÉINITIALISATION GLOBALE ===== */
+        /* Enlève les marges et paddings par défaut de tous les éléments */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box; /* Inclut padding et border dans la largeur/hauteur */
+        }
 
-              </div>
-              <div class="user-info">
-                  <div>
-                      <div style="font-weight: 600; color: #333;">Emma Laurent</div>
-                      <div style="font-size: 13px; color: #999;">Serveuse</div>
-                  </div>
-                  <div class="user-avatar">E</div>
-              </div>
-          </div>
+        /* ===== VARIABLES CSS (COULEURS DU THÈME ROSE) ===== */
+        /* Définition de toutes les couleurs pour faciliter la maintenance */
+        :root {
+            --primary: #ec4899;           /* Rose principal */
+            --secondary: #f472b6;         /* Rose secondaire */
+            --success: #22c55e;           /* Vert pour succès */
+            --warning: #f59e0b;           /* Orange pour avertissement */
+            --danger: #ef4444;            /* Rouge pour danger */
+            --info: #3b82f6;              /* Bleu pour info */
+            --dark: #0f172a;              /* Fond sombre principal */
+            --card: #1e293b;              /* Fond des cartes */
+            --sidebar: #1e293b;           /* Fond de la sidebar */
+            --text: #f1f5f9;              /* Texte principal */
+            --text-muted: #94a3b8;        /* Texte secondaire */
+            --border: #334155;            /* Couleur des bordures */
+        }
 
-          <div class="status-toggle">
-              <div class="status-dot"></div>
-              <div class="status-text">En service depuis 13h00</div>
-          </div>
+        /* ===== STYLE DU BODY ===== */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--dark);
+            color: var(--text);
+        }
 
-          <!--  tache effectuée  -->
-          <div class="stats-grid">
-              <div class="stat-card">
-                  <div class="stat-icon">🍾</div>
-                  <div class="stat-value">23</div>
-                  <div class="stat-label">Scans aujourd'hui</div>
-              </div>
-              <div class="stat-card">
-                  <div class="stat-icon">💰</div>
-                  <div class="stat-value">1,847€</div>
-                  <div class="stat-label">CA généré</div>
-              </div>
-              <div class="stat-card">
-                  <div class="stat-icon">⭐</div>
-                  <div class="stat-value">4.9</div>
-                  <div class="stat-label">Note moyenne</div>
-              </div>
-          </div>
+        /* ===== CONTENEUR PRINCIPAL ===== */
+        /* Utilise flexbox pour avoir sidebar + contenu côte à côte */
+        .dashboard {
+            display: flex;
+            min-height: 100vh; /* Hauteur minimum = hauteur de l'écran */
+        }
 
-          <!--  Scann de bouteille  -->
-          <button class="scan-button">
-              <div class="scan-icon">📷</div>
-              <div>Scanner une bouteille</div>
-          </button>
+        /* ===== SIDEBAR (MENU LATÉRAL) ===== */
+        .sidebar {
+            width: 280px;
+            background: var(--sidebar);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column; /* Empile les éléments verticalement */
+            position: fixed;        /* Reste fixe lors du scroll */
+            height: 100vh;          /* Hauteur plein écran */
+            z-index: 1000;          /* Au-dessus des autres éléments */
+        }
 
-          <!--  accomplissement 1  -->
-          <div class="card">
-              <div class="card-header">
-                  <div class="card-title">🏆 Vos accomplissements</div>
-              </div>
-              <div>
-                  <span class="achievement-badge">
-                      <span>🔥</span>
-                      <span>Série de 5 jours</span>
-                  </span>
-                  <span class="achievement-badge">
-                      <span>🌟</span>
-                      <span>Top serveuse du mois</span>
-                  </span>
-              </div>
-          </div>
+        /* ===== EN-TÊTE DE LA SIDEBAR ===== */
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
 
-          <!--  travail  -->
-          <div class="card">
-              <div class="card-header">
-                  <div class="card-title">📋 Mes scans récents</div>
-              </div>
-              <div>
-                  <div class="scan-item">
-                      <div class="scan-wine-image">🍷</div>
-                      <div class="scan-info">
-                          <div class="scan-wine-name">Château Margaux 2015</div>
-                          <div class="scan-details">Bordeaux • Rouge • Grand Cru</div>
-                          <div class="scan-meta">
-                              <span class="scan-table">Table 5</span>
-                              <span class="scan-time">Il y a 12 min</span>
-                          </div>
-                      </div>
-                      <div class="scan-price">89€</div>
-                  </div>
+        /* Icône du logo avec effet d'ombre lumineuse */
+        .logo-icon {
+            font-size: 2.5rem;
+            filter: drop-shadow(0 0 10px rgba(236, 72, 153, 0.5)); /* Effet de lueur rose */
+        }
 
-                  <div class="scan-item">
-                      <div class="scan-wine-image">🥂</div>
-                      <div class="scan-info">
-                          <div class="scan-wine-name">Champagne Dom Pérignon</div>
-                          <div class="scan-details">Champagne • Brut • Prestige</div>
-                          <div class="scan-meta">
-                              <span class="scan-table">Table 12</span>
-                              <span class="scan-time">Il y a 28 min</span>
-                          </div>
-                      </div>
-                      <div class="scan-price">180€</div>
-                  </div>
+        /* Texte du logo avec dégradé rose */
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text; /* Le dégradé s'applique au texte */
+            -webkit-text-fill-color: transparent; /* Texte transparent pour voir le dégradé */
+        }
 
-                  <div class="scan-item">
-                      <div class="scan-wine-image">🍷</div>
-                      <div class="scan-info">
-                          <div class="scan-wine-name">Domaine de la Romanée</div>
-                          <div class="scan-details">Bourgogne • Rouge • Premier Cru</div>
-                          <div class="scan-meta">
-                              <span class="scan-table">Table 7</span>
-                              <span class="scan-time">Il y a 1h</span>
-                          </div>
-                      </div>
-                      <div class="scan-price">125€</div>
-                  </div>
+        /* ===== NAVIGATION DE LA SIDEBAR ===== */
+        .sidebar-nav {
+            flex: 1; /* Prend tout l'espace disponible */
+            padding: 1.5rem 0;
+            overflow-y: auto; /* Scroll si contenu trop long */
+        }
 
-                  <div class="scan-item">
-                      <div class="scan-wine-image">🍷</div>
-                      <div class="scan-info">
-                          <div class="scan-wine-name">Sancerre Blanc</div>
-                          <div class="scan-details">Loire • Blanc • AOC</div>
-                          <div class="scan-meta">
-                              <span class="scan-table">Table 3</span>
-                              <span class="scan-time">Il y a 1h30</span>
-                          </div>
-                      </div>
-                      <div class="scan-price">42€</div>
-                  </div>
+        /* Style pour les items de navigation */
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.3s; /* Animation fluide */
+            border-left: 3px solid transparent; /* Bordure invisible par défaut */
+        }
 
-                  <div class="scan-item">
-                      <div class="scan-wine-image">🍷</div>
-                      <div class="scan-info">
-                          <div class="scan-wine-name">Côtes du Rhône Villages</div>
-                          <div class="scan-details">Rhône • Rouge • AOC</div>
-                          <div class="scan-meta">
-                              <span class="scan-table">Table 8</span>
-                              <span class="scan-time">Il y a 2h</span>
-                          </div>
-                      </div>
-                      <div class="scan-price">35€</div>
-                  </div>
-              </div>
-          </div>
+        /* Effet au survol */
+        .nav-item:hover {
+            background: rgba(236, 72, 153, 0.1); /* Fond rose transparent */
+            color: var(--text);
+        }
 
-          <!--  tache   -->
-          <div class="card">
-              <div class="card-header">
-                  <div class="card-title">⚡ Actions rapides</div>
-              </div>
-              <div class="quick-actions">
-                  <button class="action-btn">
-                      <div class="action-btn-icon">📖</div>
-                      <div class="action-btn-text">Voir la carte des vins</div>
-                  </button>
-                  <button class="action-btn">
-                      <div class="action-btn-icon">📊</div>
-                      <div class="action-btn-text">Mes statistiques</div>
-                  </button>
-                  <button class="action-btn">
-                      <div class="action-btn-icon">⏸️</div>
-                      <div class="action-btn-text">Prendre une pause</div>
-                  </button>
-                  <button class="action-btn">
-                      <div class="action-btn-icon">❓</div>
-                      <div class="action-btn-text">Aide & Support</div>
-                  </button>
-              </div>
-          </div>
-      </div>
-    </body>
+        /* Style pour l'item actif */
+        .nav-item.active {
+            background: rgba(236, 72, 153, 0.15);
+            color: var(--primary);
+            border-left-color: var(--primary); /* Bordure rose visible */
+        }
 
-       <!--  Script à manipuler avec prudence  -->
-     <script>
-         function toggleDropdown() {
-             const dropdown = document.getElementById('userDropdown');
-             if (dropdown.style.display === 'block') {
-                 dropdown.style.display = 'none';
-             } else {
-                 dropdown.style.display = 'block';
-             }
-         }
+        .nav-icon {
+            font-size: 1.5rem;
+        }
 
-         // Fermer le menu déroulant si l'utilisateur clique en dehors
-         window.onclick = function(event) {
-             if (!event.target.matches('.user-avatar')) {
-                 const dropdown = document.getElementById('userDropdown');
-                 if (dropdown && dropdown.style.display === 'block') {
-                     dropdown.style.display = 'none';
-                 }
-             }
-         }
-     </script>
+        /* ===== PIED DE LA SIDEBAR ===== */
+        .sidebar-footer {
+            padding: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Bouton de déconnexion */
+        .logout-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(239, 68, 68, 0.1); /* Fond rouge transparent */
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+            cursor: pointer;
+            border-radius: 0.5rem;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+        }
+
+        /* ===== CONTENU PRINCIPAL ===== */
+        .main-content {
+            flex: 1;
+            margin-left: 280px; /* Compense la largeur de la sidebar fixe */
+        }
+
+        /* ===== EN-TÊTE DU HAUT ===== */
+        .top-header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky; /* Reste visible lors du scroll */
+            top: 0;
+            z-index: 100;
+        }
+
+        /* Titre de l'en-tête avec dégradé rose */
+        .header-left h2 {
+            font-size: 1.75rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        /* Icônes d'en-tête (notifications, messages) */
+        .header-icon {
+            position: relative;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+        }
+
+        .header-icon:hover {
+            background: rgba(236, 72, 153, 0.1);
+        }
+
+        .icon {
+            font-size: 1.5rem;
+        }
+
+        /* Badge de notification (nombre) */
+        .badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--danger);
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.15rem 0.4rem;
+            border-radius: 50%;
+            font-weight: 600;
+        }
+
+        /* Profil utilisateur */
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        /* Avatar avec dégradé rose */
+        .avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .user-name {
+            font-weight: 600;
+        }
+
+        /* ===== INFORMATIONS DE SERVICE ===== */
+        /* Section avec fond rose transparent */
+        .shift-info {
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(244, 114, 182, 0.2));
+            padding: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Grille responsive pour les cartes de service */
+        .shift-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* S'adapte automatiquement */
+            gap: 1.5rem;
+        }
+
+        /* Carte individuelle */
+        .shift-card {
+            background: var(--card);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .shift-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .shift-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* ===== SECTIONS GÉNÉRALES ===== */
+        /* Padding pour toutes les sections */
+        .quick-actions-section,
+        .orders-section,
+        .menu-section,
+        .tips-section {
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        /* Bouton de retour vers l'accueil */
+        .back-btn {
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+            margin-bottom: 1rem;
+        }
+
+        .back-btn:hover {
+            background: var(--border);
+            transform: translateX(-5px); /* Décalage à gauche au survol */
+        }
+
+        /* ===== GRILLES D'ACTIONS ET DE COMMANDES ===== */
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Carte d'action rapide */
+        .action-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        /* Animation au survol */
+        .action-card:hover {
+            transform: translateY(-5px); /* Monte de 5px */
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.2); /* Ombre rose */
+            border-color: var(--primary);
+        }
+
+        .action-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .action-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .action-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* ===== CARTES DE COMMANDES ===== */
+        .orders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .order-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .order-card:hover {
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* En-tête de la commande */
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .order-number {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* Badges de statut */
+        .order-status {
+            padding: 0.4rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-new {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--info);
+        }
+
+        .status-preparing {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .status-ready {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--success);
+        }
+
+        .order-table {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .order-items {
+            margin: 1rem 0;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            color: var(--text);
+        }
+
+        /* Total de la commande */
+        .order-total {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 1rem;
+            margin-top: 1rem;
+            border-top: 1px solid var(--border);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* Actions de la commande */
+        .order-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        /* ===== BOUTONS ===== */
+        .btn {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #db2777; /* Rose plus foncé */
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--dark);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+
+        /* ===== SECTION STATISTIQUES ===== */
+        .stats-section {
+            padding: 2rem;
+            background: rgba(236, 72, 153, 0.05);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* ===== GESTION DES PAGES ===== */
+        /* Toutes les pages sont cachées par défaut */
+        .page-section {
+            display: none;
+        }
+
+        /* Seule la page active est visible */
+        .page-section.active {
+            display: block;
+        }
+
+        /* ===== SECTION MENU ===== */
+        .menu-categories {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .category-btn:hover {
+            background: rgba(236, 72, 153, 0.1);
+            color: var(--text);
+        }
+
+        .category-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .menu-item {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.2);
+            border-color: var(--primary);
+        }
+
+        .menu-item-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .menu-item-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-item-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .menu-item-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-item-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .add-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .add-btn:hover {
+            background: #db2777;
+            transform: scale(1.05);
+        }
+
+        /* ===== SECTION POURBOIRES ===== */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tip-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 1.5rem;
+        }
+
+        .tip-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tip-date {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .tip-amount {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--success);
+        }
+
+        .tip-details {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-280px); /* Cache la sidebar sur mobile */
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .orders-grid,
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="sidebar">
+            <!-- En-tête avec logo -->
+            <div class="sidebar-header">
+                <span class="logo-icon">🍸</span>
+                <span class="logo-text">Serveuse Panel</span>
+            </div>
+
+            <!-- Navigation principale -->
+            <nav class="sidebar-nav">
+                <!-- Item de navigation : Mes Commandes (actif par défaut) -->
+                <div class="nav-item active" onclick="navigateTo('orders')">
+                    <span class="nav-icon">🏠</span>
+                    <span>Mes Commandes</span>
+                </div>
+                <!-- Item : Nouvelle Commande -->
+                <div class="nav-item" onclick="navigateTo('new-order')">
+                    <span class="nav-icon">➕</span>
+                    <span>Nouvelle Commande</span>
+                </div>
+                <!-- Item : Menu (catalogue des produits) -->
+                <div class="nav-item" onclick="navigateTo('menu')">
+                    <span class="nav-icon">🍷</span>
+                    <span>Menu</span>
+                </div>
+                <!-- Item : Tables -->
+                <div class="nav-item">
+                    <span class="nav-icon">📋</span>
+                    <span>Tables</span>
+                </div>
+                <!-- Item : Pourboires -->
+                <div class="nav-item" onclick="navigateTo('tips')">
+                    <span class="nav-icon">💰</span>
+                    <span>Mes Pourboires</span>
+                </div>
+                <!-- Item : Statistiques -->
+                <div class="nav-item">
+                    <span class="nav-icon">📊</span>
+                    <span>Mes Stats</span>
+                </div>
+                <!-- Item : Messages -->
+                <div class="nav-item">
+                    <span class="nav-icon">💬</span>
+                    <span>Messages</span>
+                </div>
+            </nav>
+
+            <!-- Pied de sidebar avec bouton déconnexion -->
+            <div class="sidebar-footer">
+                <button class="logout-btn" onclick="logout()">
+                    <span class="nav-icon">🚪</span>
+                    <span>Déconnexion</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- ===== CONTENU PRINCIPAL ===== -->
+        <main class="main-content">
+            <!-- ===== EN-TÊTE DU HAUT ===== -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h2>Mes Commandes Actives 🍽️</h2>
+                </div>
+                <div class="header-right">
+                    <!-- BOUTON DE DISPONIBILITÉ -->
+                    <div style="position: relative;">
+                        <button onclick="toggleAvailabilityMenu()" style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; background: var(--card); border: 2px solid var(--border); border-radius: 0.75rem; color: var(--text); cursor: pointer; transition: all 0.3s; font-size: 0.95rem; font-weight: 600;">
+                            <span id="availabilityIcon" style="font-size: 1.2rem;">🟢</span>
+                            <span id="availabilityText">En service</span>
+                            <span style="font-size: 0.8rem;">▼</span>
+                        </button>
+
+                        <!-- Menu déroulant de disponibilité -->
+                        <div id="availabilityMenu" style="display: none; position: absolute; top: 110%; right: 0; background: var(--card); border: 2px solid var(--border); border-radius: 0.75rem; padding: 0.5rem; min-width: 220px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); z-index: 1000;">
+                            <div style="padding: 0.75rem; color: var(--text-muted); font-size: 0.85rem; font-weight: 600; border-bottom: 1px solid var(--border); margin-bottom: 0.5rem;">
+                                CHANGER MA DISPONIBILITÉ
+                            </div>
+
+                            <!-- Option: En service -->
+                            <div class="availability-option" data-status="en-service" data-icon="🟢" data-text="En service" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem 1rem; cursor: pointer; border-radius: 0.5rem; transition: all 0.3s; margin-bottom: 0.25rem;">
+                                <span style="font-size: 1.3rem;">🟢</span>
+                                <div style="flex: 1;">
+                                    <div style="font-weight: 600; margin-bottom: 0.15rem;">En service</div>
+                                    <div style="font-size: 0.8rem; color: var(--text-muted);">Disponible pour servir</div>
+                                </div>
+                            </div>
+
+                            <!-- Option: En pause -->
+                            <div class="availability-option" data-status="pause" data-icon="🟠" data-text="En pause" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem 1rem; cursor: pointer; border-radius: 0.5rem; transition: all 0.3s; margin-bottom: 0.25rem;">
+                                <span style="font-size: 1.3rem;">🟠</span>
+                                <div style="flex: 1;">
+                                    <div style="font-weight: 600; margin-bottom: 0.15rem;">En pause</div>
+                                    <div style="font-size: 0.8rem; color: var(--text-muted);">Pause déjeuner / café</div>
+                                </div>
+                            </div>
+
+                            <!-- Option: Pas en service -->
+                            <div class="availability-option" data-status="pas-service" data-icon="⚪" data-text="Pas en service" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem 1rem; cursor: pointer; border-radius: 0.5rem; transition: all 0.3s; margin-bottom: 0.25rem;">
+                                <span style="font-size: 1.3rem;">⚪</span>
+                                <div style="flex: 1;">
+                                    <div style="font-weight: 600; margin-bottom: 0.15rem;">Pas en service</div>
+                                    <div style="font-size: 0.8rem; color: var(--text-muted);">Fin de service</div>
+                                </div>
+                            </div>
+
+                            <!-- Option: En congé -->
+                            <div class="availability-option" data-status="conge" data-icon="🔵" data-text="En congé" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem 1rem; cursor: pointer; border-radius: 0.5rem; transition: all 0.3s;">
+                                <span style="font-size: 1.3rem;">🔵</span>
+                                <div style="flex: 1;">
+                                    <div style="font-weight: 600; margin-bottom: 0.15rem;">En congé</div>
+                                    <div style="font-size: 0.8rem; color: var(--text-muted);">Vacances / Jour de repos</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Icône notifications avec badge -->
+                    <div class="header-icon">
+                        <span class="icon">🔔</span>
+                        <span class="badge">5</span>
+                    </div>
+                    <!-- Icône messages avec badge -->
+                    <div class="header-icon">
+                        <span class="icon">💬</span>
+                        <span class="badge">2</span>
+                    </div>
+                    <!-- Profil utilisateur -->
+                    <div class="user-profile">
+                        <div class="avatar">👩</div>
+                        <span class="user-name">Sophie</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- ===== INFORMATIONS DE SERVICE ===== -->
+            <!-- Affiche les stats de la journée de travail -->
+            <section class="shift-info">
+                <div class="shift-content">
+                    <!-- Carte : Heure de début -->
+                    <div class="shift-card">
+                        <div class="stat-icon">⏰</div>
+                        <div class="shift-label">Heure de début</div>
+                        <div class="shift-value">08:00</div>
+                    </div>
+                    <!-- Carte : Temps écoulé -->
+                    <div class="shift-card">
+                        <div class="stat-icon">⏱️</div>
+                        <div class="shift-label">Temps écoulé</div>
+                        <div class="shift-value" id="timeElapsed">4h 30m</div>
+                    </div>
+                    <!-- Carte : Nombre de commandes servies -->
+                    <div class="shift-card">
+                        <div class="stat-icon">📦</div>
+                        <div class="shift-label">Commandes servies</div>
+                        <div class="shift-value" id="ordersServed">18</div>
+                    </div>
+                    <!-- Carte : Total des pourboires -->
+                    <div class="shift-card">
+                        <div class="stat-icon">💰</div>
+                        <div class="shift-label">Pourboires</div>
+                        <div class="shift-value" id="tipsTotal">12 500 F</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== PAGE: MES COMMANDES ===== -->
+            <div id="ordersPage" class="page-section active">
+                <!-- ===== ACTIONS RAPIDES ===== -->
+                <section class="quick-actions-section">
+                    <h3 class="section-title">Actions Rapides</h3>
+                    <div class="actions-grid">
+                        <!-- Action : Nouvelle Commande -->
+                        <div class="action-card" onclick="navigateTo('new-order')">
+                            <div class="action-icon">➕</div>
+                            <div class="action-title">Nouvelle Commande</div>
+                            <div class="action-desc">Créer une commande pour une table</div>
+                        </div>
+                        <!-- Action : Voir le Menu -->
+                        <div class="action-card" onclick="navigateTo('menu')">
+                            <div class="action-icon">🍷</div>
+                            <div class="action-title">Voir le Menu</div>
+                            <div class="action-desc">Consulter tous les produits</div>
+                        </div>
+                        <!-- Action : Gérer les Tables -->
+                        <div class="action-card">
+                            <div class="action-icon">📋</div>
+                            <div class="action-title">Gérer Tables</div>
+                            <div class="action-desc">Voir l'état des tables</div>
+                        </div>
+                        <!-- Action : Appels Clients -->
+                        <div class="action-card">
+                            <div class="action-icon">🔔</div>
+                            <div class="action-title">Appels Clients</div>
+                            <div class="action-desc">Répondre aux demandes</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===== COMMANDES EN COURS ===== -->
+                <section class="orders-section">
+                    <h3 class="section-title">Commandes en Cours (<span id="ordersCount">6</span>)</h3>
+                    <div class="orders-grid" id="ordersGrid">
+                        <!-- Les commandes seront affichées ici dynamiquement -->
+                    </div>
+                </section>
+
+                <!-- ===== STATISTIQUES DU JOUR ===== -->
+                <section class="stats-section">
+                    <h3 class="section-title" style="text-align: center; margin-bottom: 1.5rem;">Performance du Jour</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">⭐</div>
+                            <div class="stat-value">4.8/5</div>
+                            <div class="stat-label">Note Moyenne</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📦</div>
+                            <div class="stat-value">18</div>
+                            <div class="stat-label">Commandes Servies</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">💰</div>
+                            <div class="stat-value">12 500 F</div>
+                            <div class="stat-label">Pourboires</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📋</div>
+                            <div class="stat-value">8</div>
+                            <div class="stat-label">Tables Assignées</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- ===== PAGE: NOUVELLE COMMANDE ===== -->
+            <div id="newOrderPage" class="page-section">
+                <section style="padding: 2rem;">
+                    <!-- Bouton retour -->
+                    <button class="back-btn" onclick="navigateTo('orders')">
+                        ← Retour aux commandes
+                    </button>
+                    <h3 class="section-title">➕ Créer une Nouvelle Commande</h3>
+
+                    <!-- Formulaire de nouvelle commande -->
+                    <div style="background: var(--card); border: 1px solid var(--border); border-radius: 1rem; padding: 2rem; max-width: 800px; margin: 0 auto;">
+                        <!-- Sélection de la table -->
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">📋 Numéro de Table</label>
+                            <select id="tableNumber" style="width: 100%; padding: 0.75rem; background: var(--dark); border: 1px solid var(--border); border-radius: 0.5rem; color: var(--text); font-size: 1rem;">
+                                <option value="">Sélectionner une table...</option>
+                                <option value="1">Table #1</option>
+                                <option value="2">Table #2</option>
+                                <option value="3">Table #3</option>
+                                <option value="4">Table #4</option>
+                                <option value="5">Table #5</option>
+                                <option value="6">Table #6</option>
+                                <option value="7">Table #7</option>
+                                <option value="8">Table #8</option>
+                                <option value="9">Table #9</option>
+                                <option value="10">Table #10</option>
+                            </select>
+                        </div>
+
+                        <!-- Nombre de personnes -->
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">👥 Nombre de Personnes</label>
+                            <input type="number" id="guestCount" min="1" max="20" value="2" style="width: 100%; padding: 0.75rem; background: var(--dark); border: 1px solid var(--border); border-radius: 0.5rem; color: var(--text); font-size: 1rem;">
+                        </div>
+
+                        <!-- Sélection des produits -->
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">🍷 Ajouter des Produits</label>
+                            <button class="btn btn-primary" onclick="navigateTo('menu')" style="width: 100%;">
+                                Parcourir le Menu
+                            </button>
+                        </div>
+
+                        <!-- Liste des produits ajoutés -->
+                        <div id="orderItemsList" style="margin-bottom: 1.5rem; min-height: 100px; background: var(--dark); border: 1px solid var(--border); border-radius: 0.5rem; padding: 1rem;">
+                            <p style="color: var(--text-muted); text-align: center;">Aucun produit ajouté</p>
+                        </div>
+
+                        <!-- Total -->
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: rgba(236, 72, 153, 0.1); border-radius: 0.5rem; margin-bottom: 1.5rem;">
+                            <span style="font-size: 1.2rem; font-weight: 600;">Total:</span>
+                            <span style="font-size: 1.5rem; font-weight: 700; color: var(--primary);" id="orderTotal">0 FCFA</span>
+                        </div>
+
+                        <!-- Boutons d'action -->
+                        <div style="display: flex; gap: 1rem;">
+                            <button class="btn btn-secondary" onclick="navigateTo('orders')" style="flex: 1;">
+                                Annuler
+                            </button>
+                            <button class="btn btn-primary" onclick="createOrder()" style="flex: 2;">
+                                ✓ Créer la Commande
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- ===== PAGE: MENU ===== -->
+            <div id="menuPage" class="page-section">
+                <section class="menu-section">
+                    <!-- Bouton retour -->
+                    <button class="back-btn" onclick="navigateTo('orders')">
+                        ← Retour aux commandes
+                    </button>
+                    <h3 class="section-title">🍷 Menu des Boissons</h3>
+
+                    <!-- Catégories de produits -->
+                    <div class="menu-categories">
+                        <button class="category-btn active" onclick="filterMenu('all')">Tous</button>
+                        <button class="category-btn" onclick="filterMenu('champagne')">Champagne</button>
+                        <button class="category-btn" onclick="filterMenu('vin')">Vins</button>
+                        <button class="category-btn" onclick="filterMenu('biere')">Bières</button>
+                        <button class="category-btn" onclick="filterMenu('spiritueux')">Spiritueux</button>
+                        <button class="category-btn" onclick="filterMenu('soft')">Soft Drinks</button>
+                    </div>
+
+                    <!-- Grille des produits -->
+                    <div class="menu-grid" id="menuGrid">
+                        <!-- Les produits seront affichés ici dynamiquement -->
+                    </div>
+                </section>
+            </div>
+
+            <!-- ===== PAGE: POURBOIRES ===== -->
+            <div id="tipsPage" class="page-section">
+                <section class="tips-section">
+                    <!-- Bouton retour -->
+                    <button class="back-btn" onclick="navigateTo('orders')">
+                        ← Retour aux commandes
+                    </button>
+                    <h3 class="section-title">💰 Mes Pourboires</h3>
+
+                    <!-- Résumé des pourboires -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                        <div class="stat-card">
+                            <div class="stat-icon">💵</div>
+                            <div class="stat-value">12 500 F</div>
+                            <div class="stat-label">Aujourd'hui</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📊</div>
+                            <div class="stat-value">85 000 F</div>
+                            <div class="stat-label">Cette Semaine</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📈</div>
+                            <div class="stat-value">320 000 F</div>
+                            <div class="stat-label">Ce Mois</div>
+                        </div>
+                    </div>
+
+                    <!-- Historique des pourboires -->
+                    <h4 style="font-size: 1.3rem; margin-bottom: 1rem;">Historique Récent</h4>
+                    <div class="tips-grid" id="tipsGrid">
+                        <!-- Les pourboires seront affichés ici dynamiquement -->
+                    </div>
+                </section>
+            </div>
+
+            <!-- ===== PAGE: GÉRER LES TABLES ===== -->
+            <div id="tablesPage" class="page-section">
+                <section style="padding: 2rem;">
+                    <!-- Bouton retour -->
+                    <button class="back-btn" onclick="navigateTo('orders')">
+                        ← Retour aux commandes
+                    </button>
+                    <h3 class="section-title">📋 Gérer les Tables</h3>
+
+                    <!-- Grille des tables -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem;" id="tablesGrid">
+                        <!-- Les tables seront affichées ici dynamiquement -->
+                    </div>
+                </section>
+            </div>
+
+            <!-- ===== PAGE: HISTORIQUE DES VENTES ===== -->
+            <div id="historyPage" class="page-section">
+                <section style="padding: 2rem;">
+                    <!-- Bouton retour -->
+                    <button class="back-btn" onclick="navigateTo('orders')">
+                        ← Retour aux commandes
+                    </button>
+                    <h3 class="section-title">📊 Historique des Ventes</h3>
+
+                    <!-- Filtres par date -->
+                    <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
+                        <button class="category-btn active" onclick="filterHistory('today')">Aujourd'hui</button>
+                        <button class="category-btn" onclick="filterHistory('week')">Cette Semaine</button>
+                        <button class="category-btn" onclick="filterHistory('month')">Ce Mois</button>
+                        <button class="category-btn" onclick="filterHistory('all')">Tout</button>
+                    </div>
+
+                    <!-- Statistiques résumées -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                        <div class="stat-card">
+                            <div class="stat-icon">💰</div>
+                            <div class="stat-value" id="historyTotal">145 500 F</div>
+                            <div class="stat-label">Total Ventes</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📦</div>
+                            <div class="stat-value" id="historyOrders">18</div>
+                            <div class="stat-label">Commandes</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📈</div>
+                            <div class="stat-value" id="historyAverage">8 083 F</div>
+                            <div class="stat-label">Moyenne/Commande</div>
+                        </div>
+                    </div>
+
+                    <!-- Liste des ventes -->
+                    <div style="background: var(--card); border: 1px solid var(--border); border-radius: 1rem; overflow: hidden;">
+                        <div style="padding: 1.5rem; border-bottom: 1px solid var(--border);">
+                            <h4 style="font-size: 1.2rem;">Détail des Ventes</h4>
+                        </div>
+                        <div id="historyList">
+                            <!-- L'historique sera affiché ici dynamiquement -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- ===== BOUTON DE STATUT FLOTTANT ===== -->
+            <!-- Bouton fixe en bas à droite pour changer le statut -->
+            <div style="position: fixed; bottom: 2rem; right: 2rem; z-index: 1000;">
+                <button onclick="toggleStatusMenu()" style="width: 60px; height: 60px; border-radius: 50%; background: var(--primary); border: none; color: white; font-size: 1.5rem; cursor: pointer; box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4); transition: all 0.3s;">
+                    <span id="statusIcon">🟢</span>
+                </button>
+
+                <!-- Menu de sélection du statut -->
+                <div id="statusMenu" style="display: none; position: absolute; bottom: 80px; right: 0; background: var(--card); border: 1px solid var(--border); border-radius: 1rem; padding: 1rem; min-width: 200px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);">
+                    <h4 style="margin-bottom: 1rem; font-size: 1rem;">Changer mon statut</h4>
+                    <div onclick="changeStatus('en-service', '🟢')" style="padding: 0.75rem; cursor: pointer; border-radius: 0.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s;">
+                        <span>🟢</span>
+                        <span>En service</span>
+                    </div>
+                    <div onclick="changeStatus('pause', '🟠')" style="padding: 0.75rem; cursor: pointer; border-radius: 0.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s;">
+                        <span>🟠</span>
+                        <span>En pause</span>
+                    </div>
+                    <div onclick="changeStatus('pas-service', '⚪')" style="padding: 0.75rem; cursor: pointer; border-radius: 0.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s;">
+                        <span>⚪</span>
+                        <span>Pas en service</span>
+                    </div>
+                    <div onclick="changeStatus('conge', '🔵')" style="padding: 0.75rem; cursor: pointer; border-radius: 0.5rem; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s;">
+                        <span>🔵</span>
+                        <span>En congé</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // ===== DONNÉES DES COMMANDES =====
+        // Tableau contenant toutes les commandes actives
+        const ordersData = [
+            {
+                table: 5,
+                status: 'new',
+                statusText: 'Nouvelle',
+                time: '2 min',
+                items: [
+                    { name: '2x Champagne Moët', price: 30000 },
+                    { name: '1x Heineken', price: 1500 }
+                ],
+                total: 31500
+            },
+            {
+                table: 12,
+                status: 'preparing',
+                statusText: 'En préparation',
+                time: '8 min',
+                items: [
+                    { name: '3x Jack Daniel\'s', price: 36000 },
+                    { name: '2x Coca Cola', price: 1000 }
+                ],
+                total: 37000
+            },
+            {
+                table: 8,
+                status: 'ready',
+                statusText: 'Prête',
+                time: '1 min',
+                items: [
+                    { name: '1x Château Margaux', price: 35000 },
+                    { name: '4x Verre à vin', price: 0 }
+                ],
+                total: 35000
+            },
+            {
+                table: 3,
+                status: 'new',
+                statusText: 'Nouvelle',
+                time: '1 min',
+                items: [
+                    { name: '6x Heineken', price: 9000 },
+                    { name: '2x Red Bull', price: 3000 }
+                ],
+                total: 12000
+            },
+            {
+                table: 15,
+                status: 'preparing',
+                statusText: 'En préparation',
+                time: '5 min',
+                items: [
+                    { name: '2x Grey Goose', price: 24000 },
+                    { name: '1x Jus d\'orange', price: 1500 }
+                ],
+                total: 25500
+            },
+            {
+                table: 7,
+                status: 'ready',
+                statusText: 'Prête',
+                time: '3 min',
+                items: [
+                    { name: '4x Vin Rosé', price: 20000 },
+                    { name: '1x Plateau fromage', price: 5000 }
+                ],
+                total: 25000
+            }
+        ];
+
+        // ===== DONNÉES DU MENU =====
+        // Catalogue complet des produits disponibles
+        const menuData = [
+            { id: 1, name: 'Moët & Chandon', category: 'champagne', icon: '🥂', desc: 'Champagne prestige', price: 15000 },
+            { id: 2, name: 'Dom Pérignon', category: 'champagne', icon: '🍾', desc: 'Champagne de luxe', price: 25000 },
+            { id: 3, name: 'Château Margaux', category: 'vin', icon: '🍷', desc: 'Vin rouge premium', price: 35000 },
+            { id: 4, name: 'Vin Blanc Sec', category: 'vin', icon: '🍾', desc: 'Vin blanc raffiné', price: 18000 },
+            { id: 5, name: 'Vin Rosé', category: 'vin', icon: '🍷', desc: 'Rosé fruité', price: 12000 },
+            { id: 6, name: 'Heineken', category: 'biere', icon: '🍺', desc: 'Bière blonde', price: 1500 },
+            { id: 7, name: 'Guinness', category: 'biere', icon: '🍺', desc: 'Bière brune', price: 2000 },
+            { id: 8, name: 'Jack Daniel\'s', category: 'spiritueux', icon: '🥃', desc: 'Whisky Tennessee', price: 12000 },
+            { id: 9, name: 'Grey Goose', category: 'spiritueux', icon: '🍸', desc: 'Vodka premium', price: 14000 },
+            { id: 10, name: 'Hennessy VSOP', category: 'spiritueux', icon: '🥃', desc: 'Cognac classique', price: 18000 },
+            { id: 11, name: 'Coca Cola', category: 'soft', icon: '🥤', desc: 'Soda classique', price: 500 },
+            { id: 12, name: 'Red Bull', category: 'soft', icon: '⚡', desc: 'Boisson énergisante', price: 1500 }
+        ];
+
+        // ===== DONNÉES DES POURBOIRES =====
+        // Historique des pourboires reçus
+        const tipsData = [
+            { date: 'Aujourd\'hui 14:30', table: 5, amount: 5000, details: 'Table VIP - Excellent service' },
+            { date: 'Aujourd\'hui 13:15', table: 12, amount: 3500, details: 'Groupe de 8 personnes' },
+            { date: 'Aujourd\'hui 12:00', table: 3, amount: 2000, details: 'Couple satisfait' },
+            { date: 'Aujourd\'hui 11:30', table: 8, amount: 2000, details: 'Déjeuner d\'affaires' },
+            { date: 'Hier 19:45', table: 15, amount: 10000, details: 'Anniversaire - Service impeccable' },
+            { date: 'Hier 18:20', table: 7, amount: 4000, details: 'Groupe d\'amis' }
+        ];
+
+        // ===== DONNÉES DES TABLES =====
+        // État actuel de toutes les tables du restaurant
+        const tablesData = [
+            { number: 1, status: 'available', guests: 0, statusText: 'Libre', color: '#22c55e' },
+            { number: 2, status: 'available', guests: 0, statusText: 'Libre', color: '#22c55e' },
+            { number: 3, status: 'occupied', guests: 4, statusText: 'Occupée', color: '#ef4444' },
+            { number: 4, status: 'available', guests: 0, statusText: 'Libre', color: '#22c55e' },
+            { number: 5, status: 'occupied', guests: 2, statusText: 'Occupée', color: '#ef4444' },
+            { number: 6, status: 'reserved', guests: 0, statusText: 'Réservée', color: '#f59e0b' },
+            { number: 7, status: 'occupied', guests: 6, statusText: 'Occupée', color: '#ef4444' },
+            { number: 8, status: 'occupied', guests: 3, statusText: 'Occupée', color: '#ef4444' },
+            { number: 9, status: 'available', guests: 0, statusText: 'Libre', color: '#22c55e' },
+            { number: 10, status: 'cleaning', guests: 0, statusText: 'Nettoyage', color: '#3b82f6' }
+        ];
+
+        // ===== DONNÉES DE L'HISTORIQUE =====
+        // Historique des ventes de la journée
+        const historyData = [
+            { time: '14:45', table: 5, amount: 31500, items: 3, status: 'Payée' },
+            { time: '14:20', table: 12, amount: 37000, items: 5, status: 'Payée' },
+            { time: '13:55', table: 3, amount: 12000, items: 8, status: 'Payée' },
+            { time: '13:30', table: 8, amount: 35000, items: 5, status: 'Payée' },
+            { time: '12:45', table: 15, amount: 25500, items: 3, status: 'Payée' },
+            { time: '12:10', table: 7, amount: 25000, items: 5, status: 'Payée' },
+            { time: '11:30', table: 2, amount: 18000, items: 2, status: 'Payée' },
+            { time: '11:00', table: 9, amount: 22000, items: 4, status: 'Payée' }
+        ];
+
+        // ===== FONCTION: AFFICHER LES COMMANDES =====
+        // Génère dynamiquement les cartes de commandes dans le DOM
+        function displayOrders() {
+            const ordersGrid = document.getElementById('ordersGrid');
+            ordersGrid.innerHTML = ''; // Vide le contenu précédent
+
+            // Pour chaque commande dans les données
+            ordersData.forEach(order => {
+                // Crée une nouvelle carte de commande
+                const orderCard = document.createElement('div');
+                orderCard.className = 'order-card';
+
+                // Génère le HTML de la carte
+                orderCard.innerHTML = `
+                    <div class="order-header">
+                        <span class="order-number">Table #${order.table}</span>
+                        <span class="order-status status-${order.status}">${order.statusText}</span>
+                    </div>
+                    <div class="order-table">⏰ Commandé il y a ${order.time}</div>
+                    <div class="order-items">
+                        ${order.items.map(item => `
+                            <div class="order-item">
+                                <span>${item.name}</span>
+                                <span>${item.price > 0 ? item.price + ' F' : 'Gratuit'}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="order-total">
+                        <span>Total:</span>
+                        <span>${order.total.toLocaleString()} FCFA</span>
+                    </div>
+                    <div class="order-actions">
+                        ${order.status === 'new' ? `
+                            <button class="btn btn-primary" onclick="confirmOrder(${order.table})">✓ Confirmer</button>
+                            <button class="btn btn-secondary" onclick="cancelOrder(${order.table})">✕ Annuler</button>
+                        ` : order.status === 'preparing' ? `
+                            <button class="btn btn-primary" onclick="remindOrder(${order.table})">🔔 Rappeler</button>
+                        ` : `
+                            <button class="btn btn-primary" onclick="serveOrder(${order.table})">✓ Servir</button>
+                        `}
+                    </div>
+                `;
+
+                // Ajoute la carte au DOM
+                ordersGrid.appendChild(orderCard);
+            });
+
+            // Met à jour le compteur de commandes
+            document.getElementById('ordersCount').textContent = ordersData.length;
+        }
+
+        // ===== FONCTION: AFFICHER LE MENU =====
+        // Génère la grille des produits du menu
+        function displayMenu(category = 'all') {
+            const menuGrid = document.getElementById('menuGrid');
+            menuGrid.innerHTML = '';
+
+            // Filtre les produits selon la catégorie sélectionnée
+            const filteredMenu = category === 'all'
+                ? menuData
+                : menuData.filter(item => item.category === category);
+
+            // Génère une carte pour chaque produit
+            filteredMenu.forEach(item => {
+                const menuItem = document.createElement('div');
+                menuItem.className = 'menu-item';
+
+                menuItem.innerHTML = `
+                    <div class="menu-item-icon">${item.icon}</div>
+                    <div class="menu-item-name">${item.name}</div>
+                    <div class="menu-item-desc">${item.desc}</div>
+                    <div class="menu-item-footer">
+                        <span class="menu-item-price">${item.price.toLocaleString()} F</span>
+                        <button class="add-btn" onclick="addToOrder(${item.id})">+ Ajouter</button>
+                    </div>
+                `;
+
+                menuGrid.appendChild(menuItem);
+            });
+        }
+
+        // ===== FONCTION: FILTRER LE MENU =====
+        // Filtre les produits par catégorie et met à jour l'interface
+        function filterMenu(category) {
+            // Met à jour les boutons actifs
+            const buttons = document.querySelectorAll('.category-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Affiche les produits filtrés
+            displayMenu(category);
+        }
+
+        // ===== FONCTION: AFFICHER LES POURBOIRES =====
+        // Génère l'historique des pourboires
+        function displayTips() {
+            const tipsGrid = document.getElementById('tipsGrid');
+            tipsGrid.innerHTML = '';
+
+            tipsData.forEach(tip => {
+                const tipCard = document.createElement('div');
+                tipCard.className = 'tip-card';
+
+                tipCard.innerHTML = `
+                    <div class="tip-header">
+                        <div>
+                            <div style="font-weight: 600; margin-bottom: 0.25rem;">Table #${tip.table}</div>
+                            <div class="tip-date">${tip.date}</div>
+                        </div>
+                        <div class="tip-amount">${tip.amount.toLocaleString()} F</div>
+                    </div>
+                    <div class="tip-details">${tip.details}</div>
+                `;
+
+                tipsGrid.appendChild(tipCard);
+            });
+        }
+
+        // ===== FONCTION: AFFICHER LES TABLES =====
+        // Génère la vue de toutes les tables
+        function displayTables() {
+            const tablesGrid = document.getElementById('tablesGrid');
+            tablesGrid.innerHTML = '';
+
+            tablesData.forEach(table => {
+                const tableCard = document.createElement('div');
+                tableCard.style.cssText = `
+                    background: var(--card);
+                    border: 2px solid ${table.color};
+                    border-radius: 1rem;
+                    padding: 1.5rem;
+                    text-align: center;
+                    cursor: pointer;
+                    transition: all 0.3s;
+                `;
+
+                tableCard.innerHTML = `
+                    <div style="font-size: 3rem; margin-bottom: 0.5rem;">📋</div>
+                    <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">Table #${table.number}</div>
+                    <div style="color: ${table.color}; font-weight: 600; margin-bottom: 0.5rem;">${table.statusText}</div>
+                    ${table.guests > 0 ? `<div style="color: var(--text-muted);">${table.guests} personnes</div>` : ''}
+                `;
+
+                tableCard.onmouseover = () => {
+                    tableCard.style.transform = 'translateY(-5px)';
+                    tableCard.style.boxShadow = `0 10px 30px ${table.color}40`;
+                };
+                tableCard.onmouseout = () => {
+                    tableCard.style.transform = 'translateY(0)';
+                    tableCard.style.boxShadow = 'none';
+                };
+
+                tablesGrid.appendChild(tableCard);
+            });
+        }
+
+        // ===== FONCTION: AFFICHER L'HISTORIQUE =====
+        // Génère la liste des ventes passées
+        function displayHistory() {
+            const historyList = document.getElementById('historyList');
+            historyList.innerHTML = '';
+
+            historyData.forEach(sale => {
+                const saleItem = document.createElement('div');
+                saleItem.style.cssText = `
+                    padding: 1.5rem;
+                    border-bottom: 1px solid var(--border);
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    transition: all 0.3s;
+                    cursor: pointer;
+                `;
+
+                saleItem.innerHTML = `
+                    <div>
+                        <div style="font-weight: 600; margin-bottom: 0.25rem;">Table #${sale.table}</div>
+                        <div style="color: var(--text-muted); font-size: 0.9rem;">
+                            ${sale.time} • ${sale.items} articles • ${sale.status}
+                        </div>
+                    </div>
+                    <div style="font-size: 1.3rem; font-weight: 700; color: var(--primary);">
+                        ${sale.amount.toLocaleString()} F
+                    </div>
+                `;
+
+                saleItem.onmouseover = () => {
+                    saleItem.style.background = 'var(--card-hover)';
+                    saleItem.style.paddingLeft = '2rem';
+                };
+                saleItem.onmouseout = () => {
+                    saleItem.style.background = 'transparent';
+                    saleItem.style.paddingLeft = '1.5rem';
+                };
+
+                historyList.appendChild(saleItem);
+            });
+        }
+
+        // ===== FONCTION: FILTRER L'HISTORIQUE =====
+        // Filtre l'historique selon la période sélectionnée
+        function filterHistory(period) {
+            // Met à jour les boutons actifs
+            const buttons = document.querySelectorAll('.category-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Ici, on pourrait filtrer les données selon la période
+            // Pour l'instant, on affiche tout
+            displayHistory();
+        }
+
+        // ===== FONCTION: NAVIGATION ENTRE PAGES =====
+        // Change la page affichée et met à jour la navigation
+        function navigateTo(page) {
+            // Désactive toutes les pages
+            const pages = document.querySelectorAll('.page-section');
+            pages.forEach(p => p.classList.remove('active'));
+
+            // Désactive tous les nav-items
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+
+            // Active la page correspondante
+            const pageMap = {
+                'orders': 'ordersPage',
+                'new-order': 'newOrderPage',
+                'menu': 'menuPage',
+                'tips': 'tipsPage',
+                'tables': 'tablesPage',
+                'history': 'historyPage'
+            };
+
+            document.getElementById(pageMap[page]).classList.add('active');
+
+            // Active le nav-item correspondant
+            const navIndex = {
+                'orders': 0,
+                'new-order': 1,
+                'menu': 2,
+                'tips': 4
+            };
+
+            if (navIndex[page] !== undefined) {
+                navItems[navIndex[page]].classList.add('active');
+            }
+
+            // Scroll vers le haut
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ===== FONCTION: CONFIRMER UNE COMMANDE =====
+        // Confirme la commande et change son statut en "préparation"
+        function confirmOrder(tableNumber) {
+            alert(`✓ Commande de la Table #${tableNumber} confirmée et envoyée en cuisine !`);
+            // Ici, on enverrait normalement la commande au serveur
+        }
+
+        // ===== FONCTION: ANNULER UNE COMMANDE =====
+        // Annule une commande
+        function cancelOrder(tableNumber) {
+            if (confirm(`Êtes-vous sûr de vouloir annuler la commande de la Table #${tableNumber} ?`)) {
+                alert(`✕ Commande de la Table #${tableNumber} annulée`);
+                // Ici, on supprimerait la commande du serveur
+            }
+        }
+
+        // ===== FONCTION: RAPPELER UNE COMMANDE =====
+        // Envoie un rappel à la cuisine
+        function remindOrder(tableNumber) {
+            alert(`🔔 Rappel envoyé à la cuisine pour la Table #${tableNumber}`);
+        }
+
+        // ===== FONCTION: SERVIR UNE COMMANDE =====
+        // Marque la commande comme servie
+        function serveOrder(tableNumber) {
+            alert(`✓ Commande de la Table #${tableNumber} servie avec succès !`);
+            // Mettre à jour les statistiques
+            const ordersServed = document.getElementById('ordersServed');
+            ordersServed.textContent = parseInt(ordersServed.textContent) + 1;
+        }
+
+        // ===== FONCTION: AJOUTER AU PANIER =====
+        // Ajoute un produit à la commande en cours
+        function addToOrder(itemId) {
+            const item = menuData.find(i => i.id === itemId);
+            alert(`✓ ${item.name} ajouté à la commande !`);
+            // Ici, on ajouterait le produit au panier de commande
+        }
+
+        // ===== FONCTION: CRÉER UNE COMMANDE =====
+        // Crée et envoie une nouvelle commande
+        function createOrder() {
+            const tableNumber = document.getElementById('tableNumber').value;
+            const guestCount = document.getElementById('guestCount').value;
+
+            if (!tableNumber) {
+                alert('⚠️ Veuillez sélectionner une table');
+                return;
+            }
+
+            alert(`✓ Nouvelle commande créée pour la Table #${tableNumber} (${guestCount} personnes)`);
+            navigateTo('orders');
+        }
+
+        // ===== FONCTION: TOGGLE MENU DE DISPONIBILITÉ =====
+        // Affiche ou cache le menu de changement de disponibilité dans l'en-tête
+        function toggleAvailabilityMenu() {
+            const menu = document.getElementById('availabilityMenu');
+            // Bascule entre afficher et cacher
+            menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // ===== FONCTION: CHANGER LA DISPONIBILITÉ =====
+        // Met à jour la disponibilité de la serveuse
+        function changeAvailability(status, icon, text) {
+            // Met à jour l'icône du bouton
+            document.getElementById('availabilityIcon').textContent = icon;
+            // Met à jour le texte du bouton
+            document.getElementById('availabilityText').textContent = text;
+
+            // Change la couleur de la bordure selon le statut
+            const button = document.querySelector('button[onclick="toggleAvailabilityMenu()"]');
+            const colors = {
+                'en-service': '#22c55e',    // Vert
+                'pause': '#f59e0b',         // Orange
+                'pas-service': '#94a3b8',   // Gris
+                'conge': '#3b82f6'          // Bleu
+            };
+            button.style.borderColor = colors[status];
+
+            // Cache le menu
+            document.getElementById('availabilityMenu').style.display = 'none';
+
+            // Affiche une notification de confirmation
+            showNotification(`✓ Votre statut a été changé en: ${text}`);
+
+            // Envoie le changement au serveur (simulation)
+            console.log('Nouveau statut de disponibilité:', status);
+
+            // Si la serveuse n'est plus en service, afficher un message
+            if (status === 'pas-service') {
+                setTimeout(() => {
+                    showNotification('⏰ N\'oubliez pas de clôturer votre caisse avant de partir !');
+                }, 2000);
+            }
+        }
+
+        // ===== FONCTION: AFFICHER UNE NOTIFICATION =====
+        // Affiche une notification temporaire en haut de l'écran
+        function showNotification(message) {
+            // Crée l'élément de notification
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--card);
+                border: 2px solid var(--primary);
+                border-radius: 0.75rem;
+                padding: 1rem 1.5rem;
+                color: var(--text);
+                font-weight: 600;
+                box-shadow: 0 10px 30px rgba(236, 72, 153, 0.3);
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+
+            // Ajoute au DOM
+            document.body.appendChild(notification);
+
+            // Supprime après 3 secondes
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // ===== FONCTION: CONFIGURER LES OPTIONS DE DISPONIBILITÉ =====
+        // Ajoute les événements click sur chaque option du menu
+        function setupAvailabilityOptions() {
+            const options = document.querySelectorAll('.availability-option');
+
+            options.forEach(option => {
+                // Ajoute l'effet hover
+                option.onmouseover = () => {
+                    option.style.background = 'rgba(236, 72, 153, 0.1)';
+                };
+                option.onmouseout = () => {
+                    option.style.background = 'transparent';
+                };
+
+                // Ajoute l'événement click
+                option.onclick = () => {
+                    const status = option.getAttribute('data-status');
+                    const icon = option.getAttribute('data-icon');
+                    const text = option.getAttribute('data-text');
+                    changeAvailability(status, icon, text);
+                };
+            });
+        }
+
+        // ===== FONCTION: FERMER LE MENU EN CLIQUANT AILLEURS =====
+        // Améliore l'UX en fermant automatiquement le menu
+        function setupAvailabilityMenuAutoClose() {
+            document.addEventListener('click', function(event) {
+                const availabilityMenu = document.getElementById('availabilityMenu');
+                const availabilityButton = event.target.closest('button[onclick="toggleAvailabilityMenu()"]');
+
+                // Si on clique ailleurs que sur le bouton ou le menu
+                if (!availabilityButton && !availabilityMenu.contains(event.target)) {
+                    availabilityMenu.style.display = 'none';
+                }
+            });
+        }
+
+        // ===== AJOUT DES ANIMATIONS CSS =====
+        // Ajoute les animations pour les notifications
+        const notificationStyle = document.createElement('style');
+        notificationStyle.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(400px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes slideOut {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(400px);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(notificationStyle);
+
+        // ===== FONCTION: DÉCONNEXION =====
+        // Déconnecte l'utilisateur
+        function logout() {
+            if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
+                alert('👋 À bientôt !');
+                // Ici, on redirigerait vers la page de connexion
+            }
+        }
+
+        // ===== FONCTION: METTRE À JOUR LE TEMPS ÉCOULÉ =====
+        // Met à jour le compteur de temps de travail toutes les minutes
+        function updateTimeElapsed() {
+            const timeElement = document.getElementById('timeElapsed');
+            const startTime = new Date();
+            startTime.setHours(8, 0, 0); // Heure de début: 08:00
+
+            setInterval(() => {
+                const now = new Date();
+                const diff = now - startTime;
+
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+                timeElement.textContent = `${hours}h ${minutes}m`;
+            }, 60000); // Met à jour toutes les minutes
+        }
+
+        // ===== FONCTION: SIMULER LES NOTIFICATIONS EN TEMPS RÉEL =====
+        // Simule l'arrivée de nouvelles notifications
+        function simulateNotifications() {
+            setInterval(() => {
+                const badges = document.querySelectorAll('.badge');
+                badges.forEach(badge => {
+                    const current = parseInt(badge.textContent);
+                    // 30% de chance d'avoir une nouvelle notification
+                    if(Math.random() > 0.7) {
+                        badge.textContent = current + 1;
+                        // Animation du badge
+                        badge.style.animation = 'none';
+                        setTimeout(() => {
+                            badge.style.animation = 'pulse 0.5s';
+                        }, 10);
+                    }
+                });
+            }, 10000); // Vérifie toutes les 10 secondes
+        }
+
+        // ===== FONCTION: AJOUTER UN STYLE HOVER AUX ITEMS DE MENU STATUT =====
+        // Améliore l'UX du menu de statut
+        function setupStatusMenuHover() {
+            const statusMenu = document.getElementById('statusMenu');
+            const items = statusMenu.querySelectorAll('div[onclick]');
+
+            items.forEach(item => {
+                item.onmouseover = () => {
+                    item.style.background = 'rgba(236, 72, 153, 0.1)';
+                };
+                item.onmouseout = () => {
+                    item.style.background = 'transparent';
+                };
+            });
+        }
+
+        // ===== FONCTION: FERMER LE MENU DE STATUT EN CLIQUANT AILLEURS =====
+        // Améliore l'UX en fermant le menu quand on clique ailleurs
+        document.addEventListener('click', function(event) {
+            const statusMenu = document.getElementById('statusMenu');
+            const statusButton = event.target.closest('button[onclick="toggleStatusMenu()"]');
+
+            // Si on clique ailleurs que sur le bouton ou le menu
+            if (!statusButton && !statusMenu.contains(event.target)) {
+                statusMenu.style.display = 'none';
+            }
+        });
+
+        // ===== AJOUT D'UN BOUTON HISTORIQUE DANS LA SIDEBAR =====
+        // Ajoute dynamiquement le bouton historique dans la navigation
+        function addHistoryButton() {
+            const sidebar = document.querySelector('.sidebar-nav');
+            const historyItem = document.createElement('div');
+            historyItem.className = 'nav-item';
+            historyItem.onclick = () => navigateTo('history');
+            historyItem.innerHTML = `
+                <span class="nav-icon">📊</span>
+                <span>Historique Ventes</span>
+            `;
+            // Insère après "Mes Stats" (avant Messages)
+            const statsItem = sidebar.children[5]; // Index de "Mes Stats"
+            sidebar.insertBefore(historyItem, statsItem.nextSibling);
+        }
+
+        // ===== AJOUT D'UN BOUTON TABLES DANS LA SIDEBAR =====
+        // Rend le bouton Tables fonctionnel
+        function makeTablesButtonFunctional() {
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems[3].onclick = () => navigateTo('tables'); // Index 3 = Tables
+        }
+
+        // ===== ANIMATION CSS POUR LE PULSE =====
+        // Ajoute une animation pulse pour les badges
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.2); }
+                100% { transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // ===== INITIALISATION AU CHARGEMENT DE LA PAGE =====
+        // Cette fonction s'exécute une fois que la page est complètement chargée
+        window.onload = function() {
+            // Affiche les commandes initiales
+            displayOrders();
+
+            // Affiche le menu complet
+            displayMenu();
+
+            // Affiche les pourboires
+            displayTips();
+
+            // Affiche les tables
+            displayTables();
+
+            // Affiche l'historique
+            displayHistory();
+
+            // Met à jour le temps écoulé
+            updateTimeElapsed();
+
+            // Démarre la simulation des notifications
+            simulateNotifications();
+
+            // Configure le menu de disponibilité
+            setupAvailabilityOptions();
+
+            // Configure la fermeture automatique du menu
+            setupAvailabilityMenuAutoClose();
+
+            // Configure le menu de statut (bouton flottant)
+            setupStatusMenuHover();
+
+            // Ajoute le bouton historique
+            addHistoryButton();
+
+            // Rend le bouton Tables fonctionnel
+            makeTablesButtonFunctional();
+
+            console.log('✓ Dashboard Serveuse initialisé avec succès !');
+        };
+    </script>
+</body>
+</html>

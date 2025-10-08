@@ -36,5 +36,6 @@ export const routes: Routes = [
       requiredRoles: ['waitress'],
     },
   },
+
   { path: '**', component: NotFoundComponent },
 ];
