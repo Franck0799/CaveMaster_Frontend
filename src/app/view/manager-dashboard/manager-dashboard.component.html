@@ -1,1452 +1,770 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Manager - DrinkStore Pro</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #8b5cf6;
-            --primary-light: #a78bfa;
-            --accent: #6366f1;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --info: #3b82f6;
-            --dark-bg: #0a0d1f;
-            --darker-bg: #060918;
-            --card-bg: #1a1d35;
-            --card-hover: #232947;
-            --text: #e2e8f0;
-            --text-muted: #94a3b8;
-            --border: #1e293b;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-            background: var(--dark-bg);
-            color: var(--text);
-        }
-
-        .dashboard {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        /* ===== SIDEBAR ===== */
-        .sidebar {
-            width: 200px;
-            background: var(--darker-bg);
-            border-right: 1px solid var(--border);
-            position: fixed;
-            height: 100vh;
-            overflow-y: auto;
-            z-index: 1000;
-        }
-
-        .sidebar::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .sidebar::-webkit-scrollbar-thumb {
-            background: var(--border);
-            border-radius: 2px;
-        }
-
-        .sidebar-header {
-            padding: 1.5rem 1rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo-icon {
-            font-size: 1.5rem;
-        }
-
-        .logo-text {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--text);
-        }
-
-        .sidebar-section {
-            padding: 1rem 0;
-        }
-
-        .section-title {
-            padding: 0.75rem 1rem;
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--text-muted);
-            font-weight: 600;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem 1rem;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: all 0.2s;
-            border-left: 3px solid transparent;
-            position: relative;
-            font-size: 0.9rem;
-        }
-
-        .nav-item:hover {
-            background: rgba(139, 92, 246, 0.1);
-            color: var(--text);
-        }
-
-        .nav-item.active {
-            background: rgba(139, 92, 246, 0.15);
-            color: var(--primary-light);
-            border-left-color: var(--primary);
-        }
-
-        .nav-icon {
-            font-size: 1.1rem;
-            width: 18px;
-            text-align: center;
-        }
-
-        .nav-text {
-            flex: 1;
-            font-weight: 500;
-        }
-
-        .notification-badge {
-            background: var(--danger);
-            color: white;
-            font-size: 0.6rem;
-            padding: 0.15rem 0.4rem;
-            border-radius: 8px;
-            font-weight: 700;
-            min-width: 18px;
-            text-align: center;
-        }
-
-        .divider {
-            height: 1px;
-            background: var(--border);
-            margin: 0.5rem 1rem;
-        }
-
-        /* ===== MAIN CONTENT ===== */
-        .main-content {
-            flex: 1;
-            margin-left: 200px;
-            background: var(--dark-bg);
-        }
-
-        .top-header {
-            background: var(--darker-bg);
-            border-bottom: 1px solid var(--border);
-            padding: 1.25rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-left h1 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .header-subtitle {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-top: 0.25rem;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 1.25rem;
-        }
-
-        .header-icon {
-            position: relative;
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 0.5rem;
-            transition: all 0.3s;
-        }
-
-        .header-icon:hover {
-            background: var(--card-bg);
-            transform: translateY(-2px);
-        }
-
-        .icon {
-            font-size: 1.3rem;
-        }
-
-        .badge {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: var(--danger);
-            color: white;
-            font-size: 0.6rem;
-            padding: 0.15rem 0.35rem;
-            border-radius: 50%;
-            font-weight: 700;
-            min-width: 16px;
-            text-align: center;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        .user-profile {
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.5rem 1rem;
-            border-radius: 0.75rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            background: var(--card-bg);
-        }
-
-        .user-profile:hover {
-            background: var(--card-hover);
-        }
-
-        .avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-        }
-
-        .user-name {
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .user-role {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
-
-        .user-dropdown {
-            display: none;
-            position: absolute;
-            top: 100%;
-            right: 0;
-            margin-top: 0.5rem;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 0.75rem;
-            min-width: 220px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            overflow: hidden;
-        }
-
-        .user-dropdown.show {
-            display: block;
-            animation: slideDown 0.3s ease;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .dropdown-item {
-            padding: 0.875rem 1.25rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            color: var(--text);
-            font-size: 0.9rem;
-        }
-
-        .dropdown-item:hover {
-            background: var(--card-hover);
-            padding-left: 1.5rem;
-        }
-
-        .dropdown-item.danger {
-            color: var(--danger);
-        }
-
-        .dropdown-divider {
-            height: 1px;
-            background: var(--border);
-            margin: 0.25rem 0;
-        }
-
-        /* ===== PAGES ===== */
-        .page-section {
-            display: none;
-        }
-
-        .page-section.active {
-            display: block;
-        }
-
-        .content-section {
-            padding: 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            margin-bottom: 2rem;
-        }
-
-        .section-title-main {
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .section-subtitle {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        /* ===== STATS CARDS ===== */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .stat-card {
-            background: linear-gradient(135deg, rgba(26, 29, 53, 0.8), rgba(26, 29, 53, 0.4));
-            border: 1px solid rgba(139, 92, 246, 0.2);
-            border-radius: 1.25rem;
-            padding: 1.75rem;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
-            transition: left 0.5s;
-        }
-
-        .stat-card:hover::before {
-            left: 100%;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 50px rgba(139, 92, 246, 0.3);
-            border-color: var(--primary);
-        }
-
-        .stat-card-content {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .stat-icon-wrapper {
-            width: 70px;
-            height: 70px;
-            border-radius: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            flex-shrink: 0;
-            transition: all 0.4s ease;
-        }
-
-        .stat-card:hover .stat-icon-wrapper {
-            transform: scale(1.15) rotate(5deg);
-        }
-
-        .stat-icon-orange {
-            background: rgba(251, 146, 60, 0.2);
-        }
-
-        .stat-icon-green {
-            background: rgba(16, 185, 129, 0.2);
-        }
-
-        .stat-icon-blue {
-            background: rgba(99, 102, 241, 0.2);
-        }
-
-        .stat-icon-warning {
-            background: rgba(245, 158, 11, 0.2);
-        }
-
-        .stat-info {
-            flex: 1;
-        }
-
-        .stat-label {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-
-        .stat-value {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 0.25rem;
-            transition: all 0.3s ease;
-        }
-
-        .stat-card:hover .stat-value {
-            transform: scale(1.05);
-        }
-
-        .stat-value-orange { color: #fb923c; }
-        .stat-value-green { color: var(--success); }
-        .stat-value-blue { color: #818cf8; }
-        .stat-value-warning { color: var(--warning); }
-
-        .stat-change {
-            font-size: 0.8rem;
-            font-weight: 600;
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 0.5rem;
-        }
-
-        .stat-change.positive {
-            background: rgba(16, 185, 129, 0.15);
-            color: var(--success);
-        }
-
-        .stat-change.warning {
-            background: rgba(245, 158, 11, 0.15);
-            color: var(--warning);
-        }
-
-        /* ===== ALERTS ===== */
-        .alerts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .alert-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 1rem;
-            overflow: hidden;
-            transition: all 0.3s;
-        }
-
-        .alert-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
-            border-color: var(--primary);
-        }
-
-        .alert-header {
-            padding: 1.5rem;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .alert-title {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        .alert-count {
-            background: var(--danger);
-            color: white;
-            font-size: 0.75rem;
-            padding: 0.25rem 0.6rem;
-            border-radius: 12px;
-            font-weight: 700;
-        }
-
-        .alert-body {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .alert-body::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .alert-body::-webkit-scrollbar-thumb {
-            background: var(--border);
-            border-radius: 3px;
-        }
-
-        .alert-item {
-            padding: 1.25rem 1.5rem;
-            border-bottom: 1px solid var(--border);
-            transition: all 0.2s;
-            cursor: pointer;
-        }
-
-        .alert-item:hover {
-            background: var(--card-hover);
-            padding-left: 2rem;
-        }
-
-        .alert-item:last-child {
-            border-bottom: none;
-        }
-
-        .alert-item-header {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .alert-icon {
-            font-size: 1.5rem;
-            flex-shrink: 0;
-        }
-
-        .alert-content {
-            flex: 1;
-        }
-
-        .alert-item-title {
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .alert-item-desc {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 0.5rem;
-        }
-
-        .alert-time {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        .alert-priority {
-            padding: 0.25rem 0.6rem;
-            border-radius: 0.4rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            display: inline-block;
-            margin-top: 0.5rem;
-        }
-
-        .priority-high {
-            background: rgba(239, 68, 68, 0.15);
-            color: var(--danger);
-        }
-
-        .priority-medium {
-            background: rgba(245, 158, 11, 0.15);
-            color: var(--warning);
-        }
-
-        .priority-low {
-            background: rgba(59, 130, 246, 0.15);
-            color: var(--info);
-        }
-
-        /* ===== TEAM ===== */
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .team-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 1rem;
-            overflow: hidden;
-            transition: all 0.3s;
-        }
-
-        .team-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
-            border-color: var(--primary);
-        }
-
-        .team-member-header {
-            padding: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .team-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            position: relative;
-        }
-
-        .status-indicator {
-            position: absolute;
-            bottom: 2px;
-            right: 2px;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            border: 3px solid var(--card-bg);
-        }
-
-        .status-en-service {
-            background: var(--success);
-            animation: pulse-green 2s infinite;
-        }
-
-        @keyframes pulse-green {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-            50% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-        }
-
-        .status-pause {
-            background: var(--warning);
-        }
-
-        .status-pas-service {
-            background: var(--text-muted);
-        }
-
-        .status-conge {
-            background: var(--info);
-        }
-
-        .team-info {
-            flex: 1;
-        }
-
-        .team-name {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .team-position {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        .team-details {
-            padding: 1.5rem;
-        }
-
-        .detail-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .detail-row:last-child {
-            border-bottom: none;
-        }
-
-        .detail-label {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        .detail-value {
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .status-badge {
-            padding: 0.4rem 0.9rem;
-            border-radius: 0.5rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .badge-en-service {
-            background: rgba(16, 185, 129, 0.15);
-            color: var(--success);
-        }
-
-        .badge-pause {
-            background: rgba(245, 158, 11, 0.15);
-            color: var(--warning);
-        }
-
-        .badge-pas-service {
-            background: rgba(100, 116, 139, 0.15);
-            color: var(--text-muted);
-        }
-
-        .badge-conge {
-            background: rgba(59, 130, 246, 0.15);
-            color: var(--info);
-        }
-
-        /* ===== ORDERS ===== */
-        .orders-container {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 1rem;
-            overflow: hidden;
-        }
-
-        .orders-header {
-            padding: 1.5rem;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .orders-tabs {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .order-tab {
-            padding: 0.6rem 1.2rem;
-            border-radius: 0.5rem;
-            border: 1px solid var(--border);
-            background: transparent;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .order-tab:hover {
-            background: var(--card-hover);
-            color: var(--text);
-        }
-
-        .order-tab.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        .orders-list {
-            max-height: 600px;
-            overflow-y: auto;
-        }
-
-        .orders-list::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .orders-list::-webkit-scrollbar-thumb {
-            background: var(--border);
-            border-radius: 3px;
-        }
-
-        .order-item {
-            padding: 1.5rem;
-            border-bottom: 1px solid var(--border);
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        .order-item:hover {
-            background: var(--card-hover);
-            padding-left: 2rem;
-        }
-
-        .order-item:last-child {
-            border-bottom: none;
-        }
-
-        .order-header-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-        }
-
-        .order-id {
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: var(--primary-light);
-        }
-
-        .order-status {
-            padding: 0.4rem 0.9rem;
-            border-radius: 0.5rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .status-paye {
-            background: rgba(16, 185, 129, 0.15);
-            color: var(--success);
-        }
-
-        .status-en-cours {
-            background: rgba(245, 158, 11, 0.15);
-            color: var(--warning);
-        }
-
-        .status-termine {
-            background: rgba(59, 130, 246, 0.15);
-            color: var(--info);
-        }
-
-        .order-details {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .order-detail-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        .order-products {
-            background: var(--darker-bg);
-            padding: 1rem;
-            border-radius: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .order-total {
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .total-label {
-            font-weight: 600;
-            color: var(--text-muted);
-        }
-
-        .total-amount {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--success);
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 3rem;
-            color: var(--text-muted);
-        }
-
-        .empty-state-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            opacity: 0.5;
-        }
-
-        @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-200px);
-            }
-
-            .main-content {
-                margin-left: 0;
-            }
-
-            .stats-grid,
-            .alerts-grid,
-            .team-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="dashboard">
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <div class="logo">
-                    <span class="logo-icon">🍾</span>
-                    <span class="logo-text">DrinkStore</span>
-                </div>
-            </div>
-
-            <nav class="sidebar-section">
-                <div class="nav-item active" onclick="navigateTo('dashboard')">
-                    <span class="nav-icon">🏠</span>
-                    <span class="nav-text">Accueil</span>
-                </div>
-                <div class="nav-item" onclick="navigateTo('alerts')">
-                    <span class="nav-icon">🔔</span>
-                    <span class="nav-text">Alertes</span>
-                    <span class="notification-badge">12</span>
-                </div>
-                <div class="nav-item" onclick="navigateTo('team')">
-                    <span class="nav-icon">👥</span>
-                    <span class="nav-text">Mon Équipe</span>
-                </div>
-                <div class="nav-item" onclick="navigateTo('orders')">
-                    <span class="nav-icon">🛒</span>
-                    <span class="nav-text">Commandes</span>
-                    <span class="notification-badge">8</span>
-                </div>
-            </nav>
-
-            <div class="divider"></div>
-
-            <nav class="sidebar-section">
-                <div class="section-title">GESTION</div>
-                <div class="nav-item">
-                    <span class="nav-icon">📦</span>
-                    <span class="nav-text">Stock</span>
-                </div>
-
-
-
-                <div class="nav-item">
-                    <span class="nav-icon">💰</span>
-                    <span class="nav-text">Ventes</span>
-                </div>
-                <div class="nav-item">
-                    <span class="nav-icon">👤</span>
-                    <span class="nav-text">Clients</span>
-                </div>
-            </nav>
-
-            <div class="divider"></div>
-
-            <nav class="sidebar-section">
-                <div class="section-title">INFOS</div>
-                <div class="nav-item">
-                    <span class="nav-icon">📋</span>
-                    <span class="nav-text">Rapports</span>
-                </div>
-                <div class="nav-item">
-                    <span class="nav-icon">⚙️</span>
-                    <span class="nav-text">Paramètres</span>
-                </div>
-                <div class="nav-item">
-                    <span class="nav-icon">❓</span>
-                    <span class="nav-text">Aide</span>
-                </div>
-            </nav>
-        </aside>
-
-        <main class="main-content">
-            <header class="top-header">
-                <div class="header-left">
-                    <h1>👋 Bonjour, Manager!</h1>
-                    <p class="header-subtitle">Cave Principale • Lekki Phase 1, Lagos</p>
-                </div>
-
-                <div class="header-right">
-                    <div class="header-icon" onclick="navigateTo('alerts')">
-                        <span class="icon">🔔</span>
-                        <span class="badge">5</span>
-                    </div>
-
-                    <div class="header-icon">
-                        <span class="icon">💬</span>
-                        <span class="badge">3</span>
-                    </div>
-
-                    <div class="user-profile" onclick="toggleUserDropdown()">
-                        <div class="avatar">👨‍💼</div>
-                        <div>
-                            <div class="user-name">Jean Kouassi</div>
-                            <div class="user-role">Manager Principal</div>
-                        </div>
-                        <div class="user-dropdown" id="userDropdown">
-                            <div class="dropdown-item">👤 Mon profil</div>
-                            <div class="dropdown-item">📊 Mes performances</div>
-                            <div class="dropdown-item">⚙️ Paramètres</div>
-                            <div class="dropdown-divider"></div>
-                            <div class="dropdown-item">🔄 Changer de cave</div>
-                            <div class="dropdown-item">📱 Mode sombre/clair</div>
-                            <div class="dropdown-divider"></div>
-                            <div class="dropdown-item">💬 Assistance</div>
-                            <div class="dropdown-item danger" onclick="logout()">🚪 Déconnexion</div>
-                        </div>
-                    </div>
-                </div>
-            </header>
-
-            <div id="dashboardPage" class="page-section active">
-                <section class="content-section">
-                    <div class="section-header">
-                        <h2 class="section-title-main">Tableau de Bord</h2>
-                        <p class="section-subtitle">Vue d'ensemble de votre activité</p>
-                    </div>
-
-                    <div class="stats-grid">
-                        <div class="stat-card" onclick="navigateTo('orders')">
-                            <div class="stat-card-content">
-                                <div class="stat-icon-wrapper stat-icon-orange">
-                                    <span>💰</span>
-                                </div>
-                                <div class="">
-                                    <div class="stat-label">Ventes du Jour</div>
-                                    <div class="stat-value stat-value-orange">850K</div>
-                                    <div class="stat-change positive">+12% vs hier</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="stat-card" onclick="navigateTo('orders')">
-                            <div class="stat-card-content">
-                                <div class="stat-icon-wrapper stat-icon-green">
-                                    <span>🛒</span>
-                                </div>
-                                <div class="stat-info">
-                                    <div class="stat-label">Commandes</div>
-                                    <div class="stat-value stat-value-green">34</div>
-                                    <div class="stat-change positive">+8 nouvelles</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="stat-card" onclick="navigateTo('team')">
-                            <div class="stat-card-content">
-                                <div class="stat-icon-wrapper stat-icon-blue">
-                                    <span>👥</span>
-                                </div>
-                                <div class="stat-info">
-                                    <div class="stat-label">Équipe en Service</div>
-                                    <div class="stat-value stat-value-blue">8/12</div>
-                                    <div class="stat-change positive">4 en pause</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="stat-card" onclick="navigateTo('alerts')">
-                            <div class="stat-card-content">
-                                <div class="stat-icon-wrapper stat-icon-warning">
-                                    <span>⚠️</span>
-                                </div>
-                                <div class="stat-info">
-                                    <div class="stat-label">Alertes Actives</div>
-                                    <div class="stat-value stat-value-warning">12</div>
-                                    <div class="stat-change warning">3 urgentes</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-            <div id="alertsPage" class="page-section">
-                <section class="content-section">
-                    <div class="section-header">
-                        <h2 class="section-title-main">Alertes & Notifications</h2>
-                        <p class="section-subtitle">Gérez vos alertes en temps réel</p>
-                    </div>
-
-                    <div class="alerts-grid">
-                        <div class="alert-card">
-                            <div class="alert-header">
-                                <div class="alert-title">📦 Alertes Stock</div>
-                                <span class="alert-count">5</span>
-                            </div>
-                            <div class="alert-body">
-                                <div class="alert-item">
-                                    <div class="alert-item-header">
-                                        <span class="alert-icon">🚨</span>
-                                        <div class="alert-content">
-                                            <div class="alert-item-title">Stock critique</div>
-                                            <div class="alert-item-desc">Hennessy VSOP - Seulement 3 bouteilles restantes</div>
-                                            <div class="alert-time">Il y a 15 min</div>
-                                            <span class="alert-priority priority-high">URGENT</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="alert-item">
-                                    <div class="alert-item-header">
-                                        <span class="alert-icon">⚠️</span>
-                                        <div class="alert-content">
-                                            <div class="alert-item-title">Stock faible</div>
-                                            <div class="alert-item-desc">Dom Pérignon - 8 bouteilles restantes</div>
-                                            <div class="alert-time">Il y a 1h</div>
-                                            <span class="alert-priority priority-medium">MOYEN</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="alert-item">
-                                    <div class="alert-item-header">
-                                        <span class="alert-icon">⚠️</span>
-                                        <div class="alert-content">
-                                            <div class="alert-item-title">Stock faible</div>
-                                            <div class="alert-item-desc">Château Margaux - 12 bouteilles</div>
-                                            <div class="alert-time">Il y a 2h</div>
-                                            <span class="alert-priority priority-medium">MOYEN</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="alert-item">
-                                    <div class="alert-item-header">
-                                        <span class="alert-icon">📊</span>
-                                        <div class="alert-content">
-                                            <div class="alert-item-title">Inventaire recommandé</div>
-                                            <div class="alert-item-desc">Réapprovisionnement suggéré: Heineken</div>
-                                            <div class="alert-time">Il y a 3h</div>
-                                            <span class="alert-priority priority-low">INFO</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="alert-item">
-                                    <div class="alert-item-header">
-                                        <span class="alert-icon">✅</span>
-                                        <div class="alert-content">
-                                            <div class="alert-item-title">Livraison reçue</div>
-                                            <div class="alert-item-desc">50 bouteilles de vin rouge ajoutées</div>
-                                            <div class="alert-time">Il y a 4h</div>
-                                            <span class="alert-priority priority-low">INFO</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="alert-card">
-                            <div class="alert-header">
-                                <div class="alert-title">⭐ Réservations VIP</div>
-                                <span class="alert-count">4</span>
-                            </div>
-                            <div class="alert-body">
-                                <div class="alert-item">
-                                    <div class="alert-item-header">
-                                        <span class="alert-icon">👑</span>
-                                        <div class="alert-content">
-                                            <div class="alert-item-title">Nouvelle réservation VIP</div>
-                                            <div class="alert-item-desc">Client Premium - 20 bouteilles Dom Pérignon</div>
-                                            <div class="alert-time">Il y a 10 min</div>
-                                            <span class="alert-priority priority-high">URGENT</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="alert-item">
-                                    <div class="alert-item-header">
-                                        <span class="alert-icon">⭐</span>
-                                        <div class="alert-content">
-                                            <div class="alert-item-title">Réservation confirmée</div>
-                                            <div class="alert-item-desc">Événement corporate - 50 bouteilles mixtes</div>
-                                            <div class="alert-time">Il y a 30 min</div>
-                                            <span class="alert-priority priority-medium">MOYEN</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="alert-item">
-                                    <div class="alert-item-header">
-                                        <span class="alert-icon">🎉</span>
-                                        <div class="alert-content">
-                                            <div class="alert-item-title">Réservation anniversaire</div>
-                                            <div class="alert-item-desc">Commande spéciale - 15 bouteilles Champagne</div>
-                                            <div class="alert-time">Il y a 1h</div>
-                                            <span class="alert-priority priority-low">INFO</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="alert-item">
-                                    <div class="alert-item-header">
-                                        <span class="alert-icon">📅</span>
-                                        <div class="alert-content">
-                                            <div class="alert-item-title">Réservation à venir</div>
-                                            <div class="alert-item-desc">Demain 18h - Client VIP régulier</div>
-                                            <div class="alert-time">Il y a 2h</div>
-                                            <span class="alert-priority priority-low">INFO</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="alert-card">
-                            <div class="alert-header">
-                                <div class="alert-title">🛒 Réservations Standard</div>
-                                <span class="alert-count">3</span>
-                            </div>
-                            <div class="alert-body">
-                                <div class="alert-item">
-                                    <div class="alert-item-header">
-                                        <span class="alert-icon">🛍️</span>
-                                        <div class="alert-content">
-                                            <div class="alert-item-title">Nouvelle commande</div>
-                                            <div class="alert-item-desc">Client régulier - 5 bouteilles vin rouge</div>
-                                            <div class="alert-time">Il y a 20 min</div>
-                                            <span class="alert-priority priority-medium">MOYEN</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="alert-item">
-                                    <div class="alert-item-header">
-                                        <span class="alert-icon">📦</span>
-                                        <div class="alert-content">
-                                            <div class="alert-item-title">Commande prête</div>
-                                            <div class="alert-item-desc">À retirer - 3 bouteilles Hennessy</div>
-                                            <div class="alert-time">Il y a 45 min</div>
-                                            <span class="alert-priority priority-medium">MOYEN</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="alert-item">
-                                    <div class="alert-item-header">
-                                        <span class="alert-icon">✅</span>
-                                        <div class="alert-content">
-                                            <div class="alert-item-title">Commande livrée</div>
-                                            <div class="alert-item-desc">10 bouteilles bières - Victoria Island</div>
-                                            <div class="alert-time">Il y a 1h</div>
-                                            <span class="alert-priority priority-low">INFO</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-            <div id="teamPage" class="page-section">
-                <section class="content-section">
-                    <div class="section-header">
-                        <h2 class="section-title-main">Mon Équipe</h2>
-                        <p class="section-subtitle">Gestion en temps réel de votre personnel</p>
-                    </div>
-                    <div class="team-grid" id="teamGrid"></div>
-                </section>
-            </div>
-
-            <div id="ordersPage" class="page-section">
-                <section class="content-section">
-                    <div class="section-header">
-                        <h2 class="section-title-main">Commandes Récentes</h2>
-                        <p class="section-subtitle">Suivez l'état de toutes vos commandes</p>
-                    </div>
-                    <div class="orders-container">
-                        <div class="orders-header">
-                            <h3 style="font-size: 1.2rem; font-weight: 600;">Filtrer par statut</h3>
-                            <div class="orders-tabs">
-                                <button class="order-tab active" onclick="filterOrders('all')">Toutes (45)</button>
-                                <button class="order-tab" onclick="filterOrders('paye')">Payé (18)</button>
-                                <button class="order-tab" onclick="filterOrders('en-cours')">En cours (15)</button>
-                                <button class="order-tab" onclick="filterOrders('termine')">Terminé (12)</button>
-                            </div>
-                        </div>
-                        <div class="orders-list" id="ordersList"></div>
-                    </div>
-                </section>
-            </div>
-        </main>
+<div class="dashboard">
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <span class="logo-icon">🍾</span>
+        <span class="logo-text">DrinkStore</span>
+      </div>
     </div>
 
-    <script>
-        const pages = {
-            dashboard: 'dashboardPage',
-            alerts: 'alertsPage',
-            team: 'teamPage',
-            orders: 'ordersPage'
-        };
+    <nav class="sidebar-section">
+      <div class="nav-item"
+           [class.active]="activeTab === 'dashboard'"
+           (click)="navigateTo('dashboard')">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-text">Accueil</span>
+      </div>
 
-        function navigateTo(page) {
-            Object.values(pages).forEach(p => {
-                document.getElementById(p).classList.remove('active');
-            });
-            document.getElementById(pages[page]).classList.add('active');
-        }
+      <div class="nav-item"
+           [class.active]="activeTab === 'alerts'"
+           (click)="navigateTo('alerts')">
+        <span class="nav-icon">🔔</span>
+        <span class="nav-text">Alertes</span>
+        <span class="notification-badge">12</span>
+      </div>
 
-        function toggleUserDropdown() {
-            const dropdown = document.getElementById('userDropdown');
-            dropdown.classList.toggle('show');
-        }
+      <div class="nav-item"
+           [class.active]="activeTab === 'team'"
+           (click)="navigateTo('team')">
+        <span class="nav-icon">👥</span>
+        <span class="nav-text">Mon Équipe</span>
+      </div>
 
-        document.addEventListener('click', function(event) {
-            const userProfile = document.querySelector('.user-profile');
-            const dropdown = document.getElementById('userDropdown');
-            if (!userProfile.contains(event.target) && dropdown.classList.contains('show')) {
-                dropdown.classList.remove('show');
-            }
-        });
+      <div class="nav-item"
+           [class.active]="activeTab === 'orders'"
+           (click)="navigateTo('orders')">
+        <span class="nav-icon">🛒</span>
+        <span class="nav-text">Commandes</span>
+        <span class="notification-badge">8</span>
+      </div>
+    </nav>
 
-        function logout() {
-            if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
-                alert('Déconnexion en cours...');
-            }
-        }
+    <div class="divider"></div>
 
-        const teamData = [
-            { name: 'Alice Martin', position: 'Caissière', avatar: '👩', status: 'en-service', statusText: 'En service', heureDebut: '08:00', tempsTravail: '5h 30min', pauseRestante: '30min' },
-            { name: 'Bob Traore', position: 'Magasinier', avatar: '👨', status: 'en-service', statusText: 'En service', heureDebut: '08:00', tempsTravail: '5h 45min', pauseRestante: '15min' },
-            { name: 'Claire Diop', position: 'Vendeuse', avatar: '👩', status: 'pause', statusText: 'En pause', heureDebut: '09:00', tempsTravail: '4h 30min', pauseRestante: '0min (pause)' },
-            { name: 'David Kone', position: 'Livreur', avatar: '👨', status: 'en-service', statusText: 'En service', heureDebut: '07:00', tempsTravail: '6h 45min', pauseRestante: '45min' },
-            { name: 'Emma Sow', position: 'Assistante', avatar: '👩', status: 'pause', statusText: 'En pause', heureDebut: '08:30', tempsTravail: '5h 00min', pauseRestante: '0min (pause)' },
-            { name: 'Frank Bamba', position: 'Vendeur', avatar: '👨', status: 'en-service', statusText: 'En service', heureDebut: '10:00', tempsTravail: '3h 45min', pauseRestante: '1h 00min' },
-            { name: 'Grace Toure', position: 'Caissière', avatar: '👩', status: 'pause', statusText: 'En pause', heureDebut: '09:00', tempsTravail: '4h 30min', pauseRestante: '0min (pause)' },
-            { name: 'Henri Camara', position: 'Magasinier', avatar: '👨', status: 'en-service', statusText: 'En service', heureDebut: '08:00', tempsTravail: '5h 45min', pauseRestante: '15min' },
-            { name: 'Iris Sylla', position: 'Vendeuse', avatar: '👩', status: 'pas-service', statusText: 'Pas en service', heureDebut: '16:00', tempsTravail: '0h 00min', pauseRestante: 'N/A' },
-            { name: 'Julie Sanogo', position: 'Caissière', avatar: '👩', status: 'pas-service', statusText: 'Pas en service', heureDebut: '18:00', tempsTravail: '0h 00min', pauseRestante: 'N/A' },
-            { name: 'Kevin Ouattara', position: 'Vendeur', avatar: '👨', status: 'conge', statusText: 'En congé', heureDebut: '-', tempsTravail: '-', pauseRestante: 'Retour: 15/10' },
-            { name: 'Laura Koffi', position: 'Assistante', avatar: '👩', status: 'conge', statusText: 'En congé', heureDebut: '-', tempsTravail: '-', pauseRestante: 'Retour: 12/10' }
-        ];
+    <nav class="sidebar-section">
+      <div class="section-title">GESTION</div>
 
-        function displayTeam() {
-            const teamGrid = document.getElementById('teamGrid');
-            teamGrid.innerHTML = '';
-            teamData.forEach(member => {
-                const card = document.createElement('div');
-                card.className = 'team-card';
-                card.innerHTML = `
-                    <div class="team-member-header">
-                        <div class="team-avatar">
-                            ${member.avatar}
-                            <div class="status-indicator status-${member.status}"></div>
-                        </div>
-                        <div class="team-info">
-                            <div class="team-name">${member.name}</div>
-                            <div class="team-position">${member.position}</div>
-                        </div>
-                    </div>
-                    <div class="team-details">
-                        <div class="detail-row">
-                            <span class="detail-label">Statut</span>
-                            <span class="status-badge badge-${member.status}">${member.statusText}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Heure de début</span>
-                            <span class="detail-value">${member.heureDebut}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Temps de travail</span>
-                            <span class="detail-value">${member.tempsTravail}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Pause restante</span>
-                            <span class="detail-value">${member.pauseRestante}</span>
-                        </div>
-                    </div>
-                `;
-                teamGrid.appendChild(card);
-            });
-        }
+      <!-- NOUVEAU: Menu Stock avec activation -->
+      <div class="nav-item"
+           [class.active]="activeTab === 'stock'"
+           (click)="navigateTo('stock')">
+        <span class="nav-icon">📦</span>
+        <span class="nav-text">Stock</span>
+      </div>
 
-        const ordersData = [
-            { id: '#CMD-2045', status: 'paye', statusText: 'Payé', client: 'Koffi Mensah', date: '07/10/2025 13:45', produits: '3x Dom Pérignon, 2x Hennessy VSOP', total: '185 000 FCFA' },
-            { id: '#CMD-2044', status: 'en-cours', statusText: 'En cours', client: 'Aminata Diallo', date: '07/10/2025 13:30', produits: '5x Château Margaux, 10x Heineken', total: '140 000 FCFA' },
-            { id: '#CMD-2043', status: 'termine', statusText: 'Terminé', client: 'Ibrahim Cisse', date: '07/10/2025 12:15', produits: '2x Moët & Chandon, 1x Whisky Premium', total: '75 000 FCFA' },
-            { id: '#CMD-2042', status: 'paye', statusText: 'Payé', client: 'Fatou Ndiaye', date: '07/10/2025 11:50', produits: '20x Red Bull, 15x Bières locales', total: '28 500 FCFA' },
-            { id: '#CMD-2041', status: 'en-cours', statusText: 'En cours', client: 'Moussa Traore', date: '07/10/2025 11:20', produits: '8x Vin Rouge, 5x Vin Blanc', total: '195 000 FCFA' },
-            { id: '#CMD-2040', status: 'termine', statusText: 'Terminé', client: 'Aisha Bamba', date: '07/10/2025 10:45', produits: '1x Dom Pérignon, 2x Champagne Rosé', total: '98 000 FCFA' },
-            { id: '#CMD-2039', status: 'paye', statusText: 'Payé', client: 'Sekou Keita', date: '07/10/2025 10:10', produits: '6x Hennessy VSOP, 3x Whisky', total: '250 000 FCFA' },
-            { id: '#CMD-2038', status: 'en-cours', statusText: 'En cours', client: 'Mariam Sow', date: '07/10/2025 09:30', produits: '4x Moët & Chandon, 2x Vin Mousseux', total: '112 000 FCFA' }
-        ];
+      <!-- NOUVEAU: Menu Caisse avec activation -->
+      <div class="nav-item"
+           [class.active]="activeTab === 'caisse'"
+           (click)="navigateTo('caisse')">
+        <span class="nav-icon">💰</span>
+        <span class="nav-text">Caisse</span>
+      </div>
 
-        let currentFilter = 'all';
+      <div class="nav-item">
+        <span class="nav-icon">📊</span>
+        <span class="nav-text">Ventes</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">👤</span>
+        <span class="nav-text">Clients</span>
+      </div>
+    </nav>
 
-        function displayOrders() {
-            const ordersList = document.getElementById('ordersList');
-            ordersList.innerHTML = '';
-            const filteredOrders = currentFilter === 'all' ? ordersData : ordersData.filter(order => order.status === currentFilter);
-            if (filteredOrders.length === 0) {
-                ordersList.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📦</div><p>Aucune commande dans cette catégorie</p></div>';
-                return;
-            }
-            filteredOrders.forEach(order => {
-                const item = document.createElement('div');
-                item.className = 'order-item';
-                item.innerHTML = `
-                    <div class="order-header-row">
-                        <div class="order-id">${order.id}</div>
-                        <div class="order-status status-${order.status}">${order.statusText}</div>
-                    </div>
-                    <div class="order-details">
-                        <div class="order-detail-item"><span>👤</span><span>${order.client}</span></div>
-                        <div class="order-detail-item"><span>🕐</span><span>${order.date}</span></div>
-                    </div>
-                    <div class="order-products">📦 ${order.produits}</div>
-                    <div class="order-total">
-                        <span class="total-label">Total:</span>
-                        <span class="total-amount">${order.total}</span>
-                    </div>
-                `;
-                ordersList.appendChild(item);
-            });
-        }
+    <div class="divider"></div>
 
-        function filterOrders(filter) {
-            currentFilter = filter;
-            const tabs = document.querySelectorAll('.order-tab');
-            tabs.forEach(tab => tab.classList.remove('active'));
-            const filterMap = { 'all': 0, 'paye': 1, 'en-cours': 2, 'termine': 3 };
-            tabs[filterMap[filter]].classList.add('active');
-            displayOrders();
-        }
+    <nav class="sidebar-section">
+      <div class="section-title">INFOS</div>
+      <div class="nav-item">
+        <span class="nav-icon">📋</span>
+        <span class="nav-text">Rapports</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">⚙️</span>
+        <span class="nav-text">Paramètres</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">❓</span>
+        <span class="nav-text">Aide</span>
+      </div>
+    </nav>
+  </aside>
 
-        window.onload = function() {
-            displayTeam();
-            displayOrders();
-        };
-    </script>
-</body>
-</html>
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-content">
+    <header class="top-header">
+      <div class="header-left">
+        <h1>👋 Bonjour, Manager!</h1>
+        <p class="header-subtitle">Cave Principale • Lekki Phase 1, Lagos</p>
+      </div>
+
+      <div class="header-right">
+        <div class="header-icon" (click)="navigateTo('alerts')">
+          <span class="icon">🔔</span>
+          <span class="badge">5</span>
+        </div>
+
+        <div class="header-icon">
+          <span class="icon">💬</span>
+          <span class="badge">3</span>
+        </div>
+
+        <div class="user-profile" (click)="toggleUserDropdown()">
+          <div class="avatar">👨‍💼</div>
+          <div>
+            <div class="user-name">Jean Kouassi</div>
+            <div class="user-role">Manager Principal</div>
+          </div>
+
+          <div class="user-dropdown" *ngIf="showUserDropdown">
+            <div class="dropdown-item">👤 Mon profil</div>
+            <div class="dropdown-item">📊 Mes performances</div>
+            <div class="dropdown-item">⚙️ Paramètres</div>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-item">🔄 Changer de cave</div>
+            <div class="dropdown-item">📱 Mode sombre/clair</div>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-item">💬 Assistance</div>
+            <div class="dropdown-item danger" (click)="logout()">🚪 Déconnexion</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===== PAGE DASHBOARD ===== -->
+    <div *ngIf="activeTab === 'dashboard'" class="page-section">
+      <section class="content-section">
+        <div class="section-header">
+          <h2 class="section-title-main">Tableau de Bord</h2>
+          <p class="section-subtitle">Vue d'ensemble de votre activité</p>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card" (click)="navigateTo('caisse')">
+            <div class="stat-card-content">
+              <div class="stat-icon-wrapper stat-icon-orange">
+                <span>💰</span>
+              </div>
+              <div class="stat-info">
+                <div class="stat-label">Ventes du Jour</div>
+                <div class="stat-value stat-value-orange">850K</div>
+                <div class="stat-change positive">+12% vs hier</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-card" (click)="navigateTo('orders')">
+            <div class="stat-card-content">
+              <div class="stat-icon-wrapper stat-icon-green">
+                <span>🛒</span>
+              </div>
+              <div class="stat-info">
+                <div class="stat-label">Commandes</div>
+                <div class="stat-value stat-value-green">34</div>
+                <div class="stat-change positive">+8 nouvelles</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-card" (click)="navigateTo('team')">
+            <div class="stat-card-content">
+              <div class="stat-icon-wrapper stat-icon-blue">
+                <span>👥</span>
+              </div>
+              <div class="stat-info">
+                <div class="stat-label">Équipe en Service</div>
+                <div class="stat-value stat-value-blue">8/12</div>
+                <div class="stat-change positive">4 en pause</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-card" (click)="navigateTo('alerts')">
+            <div class="stat-card-content">
+              <div class="stat-icon-wrapper stat-icon-warning">
+                <span>⚠️</span>
+              </div>
+              <div class="stat-info">
+                <div class="stat-label">Alertes Actives</div>
+                <div class="stat-value stat-value-warning">12</div>
+                <div class="stat-change warning">3 urgentes</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===== PAGE ALERTES ===== -->
+    <div *ngIf="activeTab === 'alerts'" class="page-section">
+      <section class="content-section">
+        <div class="section-header">
+          <h2 class="section-title-main">Alertes & Notifications</h2>
+          <p class="section-subtitle">Gérez vos alertes en temps réel</p>
+        </div>
+
+        <div class="alerts-grid">
+          <div class="alert-card">
+            <div class="alert-header">
+              <div class="alert-title">📦 Alertes Stock</div>
+              <span class="alert-count">5</span>
+            </div>
+            <div class="alert-body">
+              <div class="alert-item">
+                <div class="alert-item-header">
+                  <span class="alert-icon">🚨</span>
+                  <div class="alert-content">
+                    <div class="alert-item-title">Stock critique</div>
+                    <div class="alert-item-desc">Hennessy VSOP - Seulement 3 bouteilles restantes</div>
+                    <div class="alert-time">Il y a 15 min</div>
+                    <span class="alert-priority priority-high">URGENT</span>
+                  </div>
+                </div>
+              </div>
+              <div class="alert-item">
+                <div class="alert-item-header">
+                  <span class="alert-icon">⚠️</span>
+                  <div class="alert-content">
+                    <div class="alert-item-title">Stock faible</div>
+                    <div class="alert-item-desc">Dom Pérignon - 8 bouteilles restantes</div>
+                    <div class="alert-time">Il y a 1h</div>
+                    <span class="alert-priority priority-medium">MOYEN</span>
+                  </div>
+                </div>
+              </div>
+              <div class="alert-item">
+                <div class="alert-item-header">
+                  <span class="alert-icon">⚠️</span>
+                  <div class="alert-content">
+                    <div class="alert-item-title">Stock faible</div>
+                    <div class="alert-item-desc">Château Margaux - 12 bouteilles</div>
+                    <div class="alert-time">Il y a 2h</div>
+                    <span class="alert-priority priority-medium">MOYEN</span>
+                  </div>
+                </div>
+              </div>
+              <div class="alert-item">
+                <div class="alert-item-header">
+                  <span class="alert-icon">📊</span>
+                  <div class="alert-content">
+                    <div class="alert-item-title">Inventaire recommandé</div>
+                    <div class="alert-item-desc">Réapprovisionnement suggéré: Heineken</div>
+                    <div class="alert-time">Il y a 3h</div>
+                    <span class="alert-priority priority-low">INFO</span>
+                  </div>
+                </div>
+              </div>
+              <div class="alert-item">
+                <div class="alert-item-header">
+                  <span class="alert-icon">✅</span>
+                  <div class="alert-content">
+                    <div class="alert-item-title">Livraison reçue</div>
+                    <div class="alert-item-desc">50 bouteilles de vin rouge ajoutées</div>
+                    <div class="alert-time">Il y a 4h</div>
+                    <span class="alert-priority priority-low">INFO</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="alert-card">
+            <div class="alert-header">
+              <div class="alert-title">⭐ Réservations VIP</div>
+              <span class="alert-count">4</span>
+            </div>
+            <div class="alert-body">
+              <div class="alert-item">
+                <div class="alert-item-header">
+                  <span class="alert-icon">👑</span>
+                  <div class="alert-content">
+                    <div class="alert-item-title">Nouvelle réservation VIP</div>
+                    <div class="alert-item-desc">Client Premium - 20 bouteilles Dom Pérignon</div>
+                    <div class="alert-time">Il y a 10 min</div>
+                    <span class="alert-priority priority-high">URGENT</span>
+                  </div>
+                </div>
+              </div>
+              <div class="alert-item">
+                <div class="alert-item-header">
+                  <span class="alert-icon">⭐</span>
+                  <div class="alert-content">
+                    <div class="alert-item-title">Réservation confirmée</div>
+                    <div class="alert-item-desc">Événement corporate - 50 bouteilles mixtes</div>
+                    <div class="alert-time">Il y a 30 min</div>
+                    <span class="alert-priority priority-medium">MOYEN</span>
+                  </div>
+                </div>
+              </div>
+              <div class="alert-item">
+                <div class="alert-item-header">
+                  <span class="alert-icon">🎉</span>
+                  <div class="alert-content">
+                    <div class="alert-item-title">Réservation anniversaire</div>
+                    <div class="alert-item-desc">Commande spéciale - 15 bouteilles Champagne</div>
+                    <div class="alert-time">Il y a 1h</div>
+                    <span class="alert-priority priority-low">INFO</span>
+                  </div>
+                </div>
+              </div>
+              <div class="alert-item">
+                <div class="alert-item-header">
+                  <span class="alert-icon">📅</span>
+                  <div class="alert-content">
+                    <div class="alert-item-title">Réservation à venir</div>
+                    <div class="alert-item-desc">Demain 18h - Client VIP régulier</div>
+                    <div class="alert-time">Il y a 2h</div>
+                    <span class="alert-priority priority-low">INFO</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="alert-card">
+            <div class="alert-header">
+              <div class="alert-title">🛒 Réservations Standard</div>
+              <span class="alert-count">3</span>
+            </div>
+            <div class="alert-body">
+              <div class="alert-item">
+                <div class="alert-item-header">
+                  <span class="alert-icon">🛍️</span>
+                  <div class="alert-content">
+                    <div class="alert-item-title">Nouvelle commande</div>
+                    <div class="alert-item-desc">Client régulier - 5 bouteilles vin rouge</div>
+                    <div class="alert-time">Il y a 20 min</div>
+                    <span class="alert-priority priority-medium">MOYEN</span>
+                  </div>
+                </div>
+              </div>
+              <div class="alert-item">
+                <div class="alert-item-header">
+                  <span class="alert-icon">📦</span>
+                  <div class="alert-content">
+                    <div class="alert-item-title">Commande prête</div>
+                    <div class="alert-item-desc">À retirer - 3 bouteilles Hennessy</div>
+                    <div class="alert-time">Il y a 45 min</div>
+                    <span class="alert-priority priority-medium">MOYEN</span>
+                  </div>
+                </div>
+              </div>
+              <div class="alert-item">
+                <div class="alert-item-header">
+                  <span class="alert-icon">✅</span>
+                  <div class="alert-content">
+                    <div class="alert-item-title">Commande livrée</div>
+                    <div class="alert-item-desc">10 bouteilles bières - Victoria Island</div>
+                    <div class="alert-time">Il y a 1h</div>
+                    <span class="alert-priority priority-low">INFO</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===== PAGE ÉQUIPE ===== -->
+    <div *ngIf="activeTab === 'team'" class="page-section">
+      <section class="content-section">
+        <div class="section-header">
+          <h2 class="section-title-main">Mon Équipe</h2>
+          <p class="section-subtitle">Gestion en temps réel de votre personnel</p>
+        </div>
+
+        <div class="team-grid">
+          <div class="team-card" *ngFor="let member of teamData">
+            <div class="team-member-header">
+              <div class="team-avatar">
+                {{member.avatar}}
+                <div class="status-indicator" [class]="'status-' + member.status"></div>
+              </div>
+              <div class="team-info">
+                <div class="team-name">{{member.name}}</div>
+                <div class="team-position">{{member.position}}</div>
+              </div>
+            </div>
+            <div class="team-details">
+              <div class="detail-row">
+                <span class="detail-label">Statut</span>
+                <span class="status-badge" [class]="'badge-' + member.status">{{member.statusText}}</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Heure de début</span>
+                <span class="detail-value">{{member.heureDebut}}</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Temps de travail</span>
+                <span class="detail-value">{{member.tempsTravail}}</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Pause restante</span>
+                <span class="detail-value">{{member.pauseRestante}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===== PAGE COMMANDES ===== -->
+    <div *ngIf="activeTab === 'orders'" class="page-section">
+      <section class="content-section">
+        <div class="section-header">
+          <h2 class="section-title-main">Commandes Récentes</h2>
+          <p class="section-subtitle">Suivez l'état de toutes vos commandes</p>
+        </div>
+
+        <div class="orders-container">
+          <div class="orders-header">
+            <h3 style="font-size: 1.2rem; font-weight: 600;">Filtrer par statut</h3>
+            <div class="orders-tabs">
+              <button class="order-tab"
+                      [class.active]="currentOrderFilter === 'all'"
+                      (click)="filterOrders('all')">
+                Toutes ({{getOrderCount('all')}})
+              </button>
+              <button class="order-tab"
+                      [class.active]="currentOrderFilter === 'paye'"
+                      (click)="filterOrders('paye')">
+                Payé ({{getOrderCount('paye')}})
+              </button>
+              <button class="order-tab"
+                      [class.active]="currentOrderFilter === 'en-cours'"
+                      (click)="filterOrders('en-cours')">
+                En cours ({{getOrderCount('en-cours')}})
+              </button>
+              <button class="order-tab"
+                      [class.active]="currentOrderFilter === 'termine'"
+                      (click)="filterOrders('termine')">
+                Terminé ({{getOrderCount('termine')}})
+              </button>
+            </div>
+          </div>
+
+          <div class="orders-list">
+            <div *ngIf="filteredOrders.length === 0" class="empty-state">
+              <div class="empty-state-icon">📦</div>
+              <p>Aucune commande dans cette catégorie</p>
+            </div>
+
+            <div class="order-item" *ngFor="let order of filteredOrders">
+              <div class="order-header-row">
+                <div class="order-id">{{order.id}}</div>
+                <div class="order-status" [class]="'status-' + order.status">{{order.statusText}}</div>
+              </div>
+              <div class="order-details">
+                <div class="order-detail-item"><span>👤</span><span>{{order.client}}</span></div>
+                <div class="order-detail-item"><span>🕐</span><span>{{order.date}}</span></div>
+              </div>
+              <div class="order-products">📦 {{order.produits}}</div>
+              <div class="order-total">
+                <span class="total-label">Total:</span>
+                <span class="total-amount">{{order.total}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===== NOUVELLE PAGE STOCK ===== -->
+    <div *ngIf="activeTab === 'stock'" class="page-section">
+      <section class="content-section">
+        <div class="section-header">
+          <h2 class="section-title-main">Gestion du Stock</h2>
+          <p class="section-subtitle">Suivez et gérez votre inventaire par cave</p>
+        </div>
+
+        <!-- Sélecteur de cave -->
+        <div class="cave-selector">
+          <div class="cave-tabs">
+            <button *ngFor="let cave of cavesData"
+                    class="cave-tab"
+                    [class.active]="selectedCaveId === cave.id"
+                    (click)="selectCave(cave.id)">
+              <div class="cave-tab-icon">🏢</div>
+              <div class="cave-tab-content">
+                <div class="cave-tab-name">{{cave.nom}}</div>
+                <div class="cave-tab-info">{{cave.stockActuel}}/{{cave.capacite}} bouteilles</div>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Informations de la cave sélectionnée -->
+        <div class="cave-info-card" *ngIf="selectedCave">
+          <div class="cave-info-header">
+            <h3>📍 {{selectedCave.nom}}</h3>
+          </div>
+          <div class="cave-info-grid">
+            <div class="cave-info-item">
+              <span class="info-label">Adresse</span>
+              <span class="info-value">{{selectedCave.adresse}}</span>
+            </div>
+            <div class="cave-info-item">
+              <span class="info-label">Responsable</span>
+              <span class="info-value">{{selectedCave.responsable}}</span>
+            </div>
+            <div class="cave-info-item">
+              <span class="info-label">Capacité</span>
+              <span class="info-value">{{selectedCave.capacite}} bouteilles</span>
+            </div>
+            <div class="cave-info-item">
+              <span class="info-label">Taux de remplissage</span>
+              <span class="info-value">{{(selectedCave.stockActuel / selectedCave.capacite * 100).toFixed(1)}}%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Barre de recherche et filtres -->
+        <div class="stock-controls">
+          <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text"
+                   placeholder="Rechercher une boisson..."
+                   [(ngModel)]="searchStock"
+                   class="search-input">
+          </div>
+          <div class="stock-filters">
+            <button class="filter-btn"
+                    [class.active]="currentStockFilter === 'all'"
+                    (click)="filterStock('all')">
+              Toutes ({{getStockCount('all')}})
+            </button>
+            <button class="filter-btn filter-btn-alert"
+                    [class.active]="currentStockFilter === 'alerte'"
+                    (click)="filterStock('alerte')">
+              ⚠️ En alerte ({{getStockCount('alerte')}})
+            </button>
+            <button class="filter-btn filter-btn-ok"
+                    [class.active]="currentStockFilter === 'ok'"
+                    (click)="filterStock('ok')">
+              ✅ Stock OK ({{getStockCount('ok')}})
+            </button>
+          </div>
+        </div>
+
+        <!-- Liste des boissons -->
+        <div class="stock-grid">
+          <div *ngIf="filteredBoissons.length === 0" class="empty-state">
+            <div class="empty-state-icon">🍾</div>
+            <p>Aucune boisson trouvée</p>
+          </div>
+
+          <div class="stock-card" *ngFor="let boisson of filteredBoissons">
+            <div class="stock-card-header">
+              <div class="stock-product-info">
+                <h4 class="stock-product-name">{{boisson.nom}}</h4>
+                <span class="stock-category">{{boisson.categorie}}</span>
+              </div>
+              <div class="stock-alert-indicator" *ngIf="isStockAlerte(boisson)">
+                <span class="alert-icon-small">⚠️</span>
+              </div>
+            </div>
+
+            <div class="stock-card-body">
+              <div class="stock-quantity-section">
+                <div class="stock-quantity-main">
+                  <span class="quantity-label">Stock actuel</span>
+                  <span class="quantity-value"
+                        [class.quantity-alert]="isStockAlerte(boisson)">
+                    {{boisson.stocks[selectedCaveId]}}
+                  </span>
+                </div>
+                <div class="stock-threshold">
+                  <span class="threshold-label">Seuil d'alerte:</span>
+                  <span class="threshold-value">{{boisson.seuilAlerte}}</span>
+                </div>
+              </div>
+
+              <div class="stock-price">
+                <span class="price-label">Prix unitaire:</span>
+                <span class="price-value">{{formatMontant(boisson.prixUnitaire)}}</span>
+              </div>
+
+              <div class="stock-status-bar">
+                <div class="status-bar-fill"
+                     [style.width.%]="(boisson.stocks[selectedCaveId] / boisson.seuilAlerte * 100)"
+                     [class.status-bar-alert]="isStockAlerte(boisson)"
+                     [class.status-bar-ok]="!isStockAlerte(boisson)">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Historique des mouvements -->
+        <div class="mouvements-section">
+          <h3 class="mouvements-title">📋 Derniers Mouvements de Stock</h3>
+          <div class="mouvements-list">
+            <div *ngIf="mouvementsForSelectedCave.length === 0" class="empty-state">
+              <p>Aucun mouvement enregistré pour cette cave</p>
+            </div>
+
+            <div class="mouvement-item" *ngFor="let mv of mouvementsForSelectedCave">
+              <div class="mouvement-icon" [class]="'mouvement-' + mv.type">
+                <span *ngIf="mv.type === 'entree'">📥</span>
+                <span *ngIf="mv.type === 'sortie'">📤</span>
+                <span *ngIf="mv.type === 'transfert'">🔄</span>
+                <span *ngIf="mv.type === 'perte'">❌</span>
+              </div>
+              <div class="mouvement-content">
+                <div class="mouvement-header-row">
+                  <span class="mouvement-type-badge" [class]="'badge-' + mv.type">
+                    {{mv.typeText}}
+                  </span>
+                  <span class="mouvement-date">{{mv.date}} à {{mv.heure}}</span>
+                </div>
+                <div class="mouvement-product">{{mv.boissonNom}}</div>
+                <div class="mouvement-details">
+                  <span class="mouvement-quantity">Quantité: {{mv.quantite}}</span>
+                  <span class="mouvement-separator">•</span>
+                  <span class="mouvement-motif">{{mv.motif}}</span>
+                </div>
+                <div class="mouvement-operator">Par: {{mv.operateur}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===== NOUVELLE PAGE CAISSE ===== -->
+    <div *ngIf="activeTab === 'caisse'" class="page-section">
+      <section class="content-section">
+        <div class="section-header">
+          <h2 class="section-title-main">Gestion de Caisse</h2>
+          <p class="section-subtitle">Suivez toutes vos transactions et encaissements</p>
+        </div>
+
+        <!-- Sélecteur de date -->
+        <div class="caisse-date-selector">
+          <label for="dateSelect" class="date-label">📅 Date:</label>
+          <input type="date"
+                 id="dateSelect"
+                 [(ngModel)]="selectedDate"
+                 class="date-input">
+        </div>
+
+        <!-- Résumé de la caisse -->
+        <div class="caisse-summary-grid">
+          <div class="summary-card summary-card-total">
+            <div class="summary-icon">💰</div>
+            <div class="summary-content">
+              <div class="summary-label">Total du Jour</div>
+              <div class="summary-value">{{formatMontant(totalCaisse)}}</div>
+            </div>
+          </div>
+
+          <div class="summary-card summary-card-especes">
+            <div class="summary-icon">💵</div>
+            <div class="summary-content">
+              <div class="summary-label">Espèces</div>
+              <div class="summary-value">{{formatMontant(getTotalByPaymentMethod('especes'))}}</div>
+            </div>
+          </div>
+
+          <div class="summary-card summary-card-carte">
+            <div class="summary-icon">💳</div>
+            <div class="summary-content">
+              <div class="summary-label">Carte Bancaire</div>
+              <div class="summary-value">{{formatMontant(getTotalByPaymentMethod('carte'))}}</div>
+            </div>
+          </div>
+
+          <div class="summary-card summary-card-mobile">
+            <div class="summary-icon">📱</div>
+            <div class="summary-content">
+              <div class="summary-label">Paiement Mobile</div>
+              <div class="summary-value">{{formatMontant(getTotalByPaymentMethod('mobile'))}}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filtres des transactions -->
+        <div class="caisse-filters">
+          <h3 style="font-size: 1.1rem; font-weight: 600;">Filtrer par type</h3>
+          <div class="caisse-tabs">
+            <button class="caisse-tab"[class.active]="currentCaisseFilter === 'all'"
+                    (click)="filterCaisse('all')">
+              Toutes ({{getCaisseCount('all')}})
+            </button>
+            <button class="caisse-tab"
+                    [class.active]="currentCaisseFilter === 'vente'"
+                    (click)="filterCaisse('vente')">
+              Ventes ({{getCaisseCount('vente')}})
+            </button>
+            <button class="caisse-tab"
+                    [class.active]="currentCaisseFilter === 'remboursement'"
+                    (click)="filterCaisse('remboursement')">
+              Remboursements ({{getCaisseCount('remboursement')}})
+            </button>
+            <button class="caisse-tab"
+                    [class.active]="currentCaisseFilter === 'ouverture'"
+                    (click)="filterCaisse('ouverture')">
+              Ouverture/Fermeture ({{getCaisseCount('ouverture') + getCaisseCount('fermeture')}})
+            </button>
+          </div>
+        </div>
+
+        <!-- Liste des transactions -->
+        <div class="transactions-container">
+          <div *ngIf="filteredTransactions.length === 0" class="empty-state">
+            <div class="empty-state-icon">💰</div>
+            <p>Aucune transaction pour cette période</p>
+          </div>
+
+          <div class="transaction-item" *ngFor="let transaction of filteredTransactions">
+            <div class="transaction-header">
+              <div class="transaction-icon" [class]="'transaction-' + transaction.type">
+                <span *ngIf="transaction.type === 'vente'">🛒</span>
+                <span *ngIf="transaction.type === 'remboursement'">↩️</span>
+                <span *ngIf="transaction.type === 'ouverture'">🔓</span>
+                <span *ngIf="transaction.type === 'fermeture'">🔒</span>
+              </div>
+              <div class="transaction-info">
+                <div class="transaction-type-row">
+                  <span class="transaction-type-badge" [class]="'type-badge-' + transaction.type">
+                    {{transaction.typeText}}
+                  </span>
+                  <span class="transaction-id">{{transaction.id}}</span>
+                </div>
+                <div class="transaction-datetime">{{transaction.date}} à {{transaction.heure}}</div>
+              </div>
+              <div class="transaction-amount"
+                   [class.amount-positive]="transaction.montant > 0"
+                   [class.amount-negative]="transaction.montant < 0">
+                {{transaction.montant > 0 ? '+' : ''}}{{formatMontant(transaction.montant)}}
+              </div>
+            </div>
+
+            <div class="transaction-body">
+              <div class="transaction-detail-row" *ngIf="transaction.client">
+                <span class="detail-icon">👤</span>
+                <span class="detail-text">Client: {{transaction.client}}</span>
+              </div>
+              <div class="transaction-detail-row">
+                <span class="detail-icon">💳</span>
+                <span class="detail-text">{{transaction.moyenPaiementText}}</span>
+              </div>
+              <div class="transaction-detail-row" *ngIf="transaction.reference">
+                <span class="detail-icon">📝</span>
+                <span class="detail-text">Réf: {{transaction.reference}}</span>
+              </div>
+              <div class="transaction-detail-row">
+                <span class="detail-icon">👨‍💼</span>
+                <span class="detail-text">Caissier: {{transaction.caissier}}</span>
+              </div>
+              <div class="transaction-details-text">
+                {{transaction.details}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>

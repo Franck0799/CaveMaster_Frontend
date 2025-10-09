@@ -1,0 +1,660 @@
+
+        /* ===== RÉINITIALISATION GLOBALE ===== */
+        /* Enlève les marges et paddings par défaut de tous les éléments */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box; /* Inclut padding et border dans la largeur/hauteur */
+        }
+
+        /* ===== VARIABLES CSS (COULEURS DU THÈME ROSE) ===== */
+        /* Définition de toutes les couleurs pour faciliter la maintenance */
+
+            $primary: #ec4899;           /* Rose principal */
+            $secondary: #f472b6;         /* Rose secondaire */
+            $success: #22c55e;           /* Vert pour succès */
+            $warning: #f59e0b;           /* Orange pour avertissement */
+            $danger: #ef4444;            /* Rouge pour danger */
+            $info: #3b82f6;              /* Bleu pour info */
+            $dark: #0f172a;              /* Fond sombre principal */
+            $card: #1e293b;              /* Fond des cartes */
+            $sidebar: #1e293b;           /* Fond de la sidebar */
+            $text: #f1f5f9;              /* Texte principal */
+            $text-muted: #94a3b8;        /* Texte secondaire */
+            $border: #334155;            /* Couleur des bordures */
+
+
+        /* ===== STYLE DU BODY ===== */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: $dark;
+            color: $text;
+        }
+
+        /* ===== CONTENEUR PRINCIPAL ===== */
+        /* Utilise flexbox pour avoir sidebar + contenu côte à côte */
+        .dashboard {
+            display: flex;
+            min-height: 100vh; /* Hauteur minimum = hauteur de l'écran */
+        }
+
+        /* ===== SIDEBAR (MENU LATÉRAL) ===== */
+        .sidebar {
+            width: 280px;
+            background: $sidebar;
+            border-right: 1px solid $border;
+            display: flex;
+            flex-direction: column; /* Empile les éléments verticalement */
+            position: fixed;        /* Reste fixe lors du scroll */
+            height: 100vh;          /* Hauteur plein écran */
+            z-index: 1000;          /* Au-dessus des autres éléments */
+        }
+
+        /* ===== EN-TÊTE DE LA SIDEBAR ===== */
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid $border;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        /* Icône du logo avec effet d'ombre lumineuse */
+        .logo-icon {
+            font-size: 2.5rem;
+            filter: drop-shadow(0 0 10px rgba(236, 72, 153, 0.5)); /* Effet de lueur rose */
+        }
+
+        /* Texte du logo avec dégradé rose */
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, $primary, $secondary);
+            -webkit-background-clip: text; /* Le dégradé s'applique au texte */
+            -webkit-text-fill-color: transparent; /* Texte transparent pour voir le dégradé */
+        }
+
+        /* ===== NAVIGATION DE LA SIDEBAR ===== */
+        .sidebar-nav {
+            flex: 1; /* Prend tout l'espace disponible */
+            padding: 1.5rem 0;
+            overflow-y: auto; /* Scroll si contenu trop long */
+        }
+
+        /* Style pour les items de navigation */
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            color: $text-muted;
+            cursor: pointer;
+            transition: all 0.3s; /* Animation fluide */
+            border-left: 3px solid transparent; /* Bordure invisible par défaut */
+        }
+
+        /* Effet au survol */
+        .nav-item:hover {
+            background: rgba(236, 72, 153, 0.1); /* Fond rose transparent */
+            color: $text;
+        }
+
+        /* Style pour l'item actif */
+        .nav-item.active {
+            background: rgba(236, 72, 153, 0.15);
+            color: $primary;
+            border-left-color: var(--primary); /* Bordure rose visible */
+        }
+
+        .nav-icon {
+            font-size: 1.5rem;
+        }
+
+        /* ===== PIED DE LA SIDEBAR ===== */
+        .sidebar-footer {
+            padding: 1rem;
+            border-top: 1px solid $border;
+        }
+
+        /* Bouton de déconnexion */
+        .logout-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(239, 68, 68, 0.1); /* Fond rouge transparent */
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: $danger;
+            cursor: pointer;
+            border-radius: 0.5rem;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+        }
+
+        /* ===== CONTENU PRINCIPAL ===== */
+        .main-content {
+            flex: 1;
+            margin-left: 280px; /* Compense la largeur de la sidebar fixe */
+        }
+
+        /* ===== EN-TÊTE DU HAUT ===== */
+        .top-header {
+            background: $card;
+            border-bottom: 1px solid $border;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky; /* Reste visible lors du scroll */
+            top: 0;
+            z-index: 100;
+        }
+
+        /* Titre de l'en-tête avec dégradé rose */
+        .header-left h2 {
+            font-size: 1.75rem;
+            background: linear-gradient(135deg, primary, $secondary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        /* Icônes d'en-tête (notifications, messages) */
+        .header-icon {
+            position: relative;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+        }
+
+        .header-icon:hover {
+            background: rgba(236, 72, 153, 0.1);
+        }
+
+        .icon {
+            font-size: 1.5rem;
+        }
+
+        /* Badge de notification (nombre) */
+        .badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: $danger;
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.15rem 0.4rem;
+            border-radius: 50%;
+            font-weight: 600;
+        }
+
+        /* Profil utilisateur */
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        /* Avatar avec dégradé rose */
+        .avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, $primary, $secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .user-name {
+            font-weight: 600;
+        }
+
+        /* ===== INFORMATIONS DE SERVICE ===== */
+        /* Section avec fond rose transparent */
+        .shift-info {
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(244, 114, 182, 0.2));
+            padding: 2rem;
+            border-bottom: 1px solid $border;
+        }
+
+        /* Grille responsive pour les cartes de service */
+        .shift-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* S'adapte automatiquement */
+            gap: 1.5rem;
+        }
+
+        /* Carte individuelle */
+        .shift-card {
+            background: $card;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            border: 1px solid $border;
+            text-align: center;
+        }
+
+        .shift-label {
+            color: $text-muted;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .shift-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: $primary;
+        }
+
+        /* ===== SECTIONS GÉNÉRALES ===== */
+        /* Padding pour toutes les sections */
+        .quick-actions-section,
+        .orders-section,
+        .menu-section,
+        .tips-section {
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        /* Bouton de retour vers l'accueil */
+        .back-btn {
+            background: $card;
+            border: 1px solid $border;
+            color: $text;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+            margin-bottom: 1rem;
+        }
+
+        .back-btn:hover {
+            background: $border;
+            transform: translateX(-5px); /* Décalage à gauche au survol */
+        }
+
+        /* ===== GRILLES D'ACTIONS ET DE COMMANDES ===== */
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Carte d'action rapide */
+        .action-card {
+            background: $card;
+            border: 1px solid $border;
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        /* Animation au survol */
+        .action-card:hover {
+            transform: translateY(-5px); /* Monte de 5px */
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.2); /* Ombre rose */
+            border-color: $primary;
+        }
+
+        .action-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .action-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .action-desc {
+            color: $text-muted;
+            font-size: 0.9rem;
+        }
+
+        /* ===== CARTES DE COMMANDES ===== */
+        .orders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .order-card {
+            background: $card;
+            border: 1px solid $border;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .order-card:hover {
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* En-tête de la commande */
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid $border;
+        }
+
+        .order-number {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: $primary;
+        }
+
+        /* Badges de statut */
+        .order-status {
+            padding: 0.4rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-new {
+            background: rgba(59, 130, 246, 0.1);
+            color: $info;
+        }
+
+        .status-preparing {
+            background: rgba(245, 158, 11, 0.1);
+            color: $warning;
+        }
+
+        .status-ready {
+            background: rgba(34, 197, 94, 0.1);
+            color: $success;
+        }
+
+        .order-table {
+            color: $text-muted;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .order-items {
+            margin: 1rem 0;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            color: $text;
+        }
+
+        /* Total de la commande */
+        .order-total {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 1rem;
+            margin-top: 1rem;
+            border-top: 1px solid $border;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* Actions de la commande */
+        .order-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        /* ===== BOUTONS ===== */
+        .btn {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: $primary;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #db2777; /* Rose plus foncé */
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: $dark;
+            color: $text;
+            border: 1px solid $border;
+        }
+
+        .btn-secondary:hover {
+            background: $border;
+        }
+
+        /* ===== SECTION STATISTIQUES ===== */
+        .stats-section {
+            padding: 2rem;
+            background: rgba(236, 72, 153, 0.05);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            background: $card;
+            border: 1px solid $border;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: $primary;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            color: $text-muted;
+            font-size: 0.9rem;
+        }
+
+        /* ===== GESTION DES PAGES ===== */
+        /* Toutes les pages sont cachées par défaut */
+        .page-section {
+            display: none;
+        }
+
+        /* Seule la page active est visible */
+        .page-section.active {
+            display: block;
+        }
+
+        /* ===== SECTION MENU ===== */
+        .menu-categories {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 0.75rem 1.5rem;
+            background: $card;
+            border: 1px solid $border;
+            color: $text-muted;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .category-btn:hover {
+            background: rgba(236, 72, 153, 0.1);
+            color: $text;
+        }
+
+        .category-btn.active {
+            background: $primary;
+            color: white;
+            border-color: $primary;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .menu-item {
+            background: $card;
+            border: 1px solid $border;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.2);
+            border-color: $primary;
+        }
+
+        .menu-item-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .menu-item-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-item-desc {
+            color: $text-muted;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .menu-item-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-item-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: $primary;
+        }
+
+        .add-btn {
+            background: $primary;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .add-btn:hover {
+            background: #db2777;
+            transform: scale(1.05);
+        }
+
+        /* ===== SECTION POURBOIRES ===== */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tip-card {
+            background: $card;
+            border: 1px solid $border;
+            border-radius: 1rem;
+            padding: 1.5rem;
+        }
+
+        .tip-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid $border;
+        }
+
+        .tip-date {
+            color: $text-muted;
+            font-size: 0.9rem;
+        }
+
+        .tip-amount {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: $success;
+        }
+
+        .tip-details {
+            color: $text-muted;
+            font-size: 0.9rem;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-280px); /* Cache la sidebar sur mobile */
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .orders-grid,
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
