@@ -1,2607 +1,547 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin - DrinkStore Pro</title>
-    <style>
-        /* ===== RÉINITIALISATION GLOBALE ===== */
-        /* Enlève les marges/paddings par défaut et applique box-sizing à tous les éléments */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        /* ===== VARIABLES CSS (THÈME SOMBRE) ===== */
-        /* Définit toutes les couleurs du thème pour faciliter la maintenance */
-        :root {
-            --primary: #6366f1;           /* Violet principal */
-            --primary-light: #818cf8;     /* Violet clair (hover) */
-            --accent: #8b5cf6;            /* Violet accent */
-            --success: #10b981;           /* Vert (succès) */
-            --warning: #f59e0b;           /* Orange (warning) */
-            --danger: #ef4444;            /* Rouge (danger) */
-            --info: #3b82f6;              /* Bleu (info) */
-            --dark-bg: #0a0e27;           /* Fond sombre principal */
-            --darker-bg: #060918;         /* Fond encore plus sombre */
-            --card-bg: #1a1f3a;           /* Fond des cartes */
-            --card-hover: #232947;        /* Fond des cartes au hover */
-            --text: #e2e8f0;              /* Texte principal (blanc cassé) */
-            --text-muted: #94a3b8;        /* Texte secondaire (gris) */
-            --border: #1e293b;            /* Bordures */
-        }
-
-        /* ===== STYLES DU BODY ===== */
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-            background: var(--dark-bg);
-            color: var(--text);
-        }
-
-        /* ===== STRUCTURE PRINCIPALE ===== */
-        /* Container flex pour sidebar + contenu principal */
-        .dashboard {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        /* ===== SIDEBAR (MENU LATÉRAL) ===== */
-        .sidebar {
-            width: 280px;                 /* Largeur fixe */
-            background: var(--darker-bg);
-            border-right: 1px solid var(--border);
-            position: fixed;              /* Reste fixe lors du scroll */
-            height: 100vh;                /* Hauteur plein écran */
-            overflow-y: auto;             /* Scroll si contenu trop long */
-            z-index: 1000;                /* Au-dessus du reste */
-        }
-
-        /* Personnalisation de la scrollbar de la sidebar */
-        .sidebar::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .sidebar::-webkit-scrollbar-thumb {
-            background: var(--border);
-            border-radius: 3px;
-        }
-
-        /* En-tête de la sidebar avec le logo */
-        .sidebar-header {
-            padding: 1.5rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .logo-icon {
-            font-size: 2rem;
-        }
-
-        .logo-text {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--text);
-        }
-
-        /* Section de navigation dans la sidebar */
-        .sidebar-section {
-            padding: 1rem 0;
-        }
-
-        /* Titre de section (ex: "MA CAVE", "INFOS") */
-        .section-title {
-            padding: 0.75rem 1.5rem;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--text-muted);
-            font-weight: 600;
-        }
-
-        /* Items de navigation individuels */
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 0.875rem 1.5rem;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: all 0.2s;
-            border-left: 3px solid transparent;
-        }
-
-        /* Effet hover sur les items */
-        .nav-item:hover {
-            background: rgba(99, 102, 241, 0.1);
-            color: var(--text);
-        }
-
-        /* Item actif (page actuelle) */
-        .nav-item.active {
-            background: rgba(99, 102, 241, 0.15);
-            color: var(--primary-light);
-            border-left-color: var(--primary);
-        }
-
-        .nav-icon {
-            font-size: 1.2rem;
-            width: 20px;
-            text-align: center;
-        }
-
-        .nav-text {
-            flex: 1;
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-
-        /* Flèche pour les sous-menus */
-        .submenu-arrow {
-            font-size: 0.7rem;
-            transition: transform 0.3s;
-        }
-
-        /* Rotation de la flèche quand le sous-menu est ouvert */
-        .nav-item.open .submenu-arrow {
-            transform: rotate(90deg);
-        }
-
-        /* Sous-menu (caché par défaut) */
-        .submenu {
-            display: none;
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        /* Sous-menu visible */
-        .submenu.open {
-            display: block;
-        }
-
-        /* Items du sous-menu */
-        .submenu-item {
-            padding: 0.75rem 1.5rem 0.75rem 3.5rem;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 0.9rem;
-        }
-
-        .submenu-item:hover {
-            background: rgba(99, 102, 241, 0.1);
-            color: var(--text);
-        }
-
-        /* Ligne de séparation */
-        .divider {
-            height: 1px;
-            background: var(--border);
-            margin: 0.5rem 1.5rem;
-        }
-
-        /* Section réseaux sociaux */
-        .social-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            padding: 1rem 1.5rem;
-        }
-
-        .social-link {
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--card-bg);
-            border-radius: 0.5rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 1.1rem;
-        }
-
-        .social-link:hover {
-            background: var(--card-hover);
-            transform: translateY(-2px);
-        }
-
-        /* ===== CONTENU PRINCIPAL ===== */
-        .main-content {
-            flex: 1;
-            margin-left: 280px;           /* Compense la largeur de la sidebar fixe */
-            background: var(--dark-bg);
-        }
-
-        /* ===== EN-TÊTE DU HAUT ===== */
-        .top-header {
-            background: var(--darker-bg);
-            border-bottom: 1px solid var(--border);
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;             /* Reste visible lors du scroll */
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-left {
-            flex: 1;
-            max-width: 500px;
-        }
-
-        /* Barre de recherche */
-        .search-bar {
-            display: flex;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 0.75rem;
-            overflow: hidden;
-            transition: all 0.3s;
-        }
-
-        /* Effet focus sur la barre de recherche */
-        .search-bar:focus-within {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-        }
-
-        .search-bar input {
-            flex: 1;
-            padding: 0.875rem 1rem;
-            background: none;
-            border: none;
-            color: var(--text);
-            outline: none;
-            font-size: 0.95rem;
-        }
-
-        .search-bar input::placeholder {
-            color: var(--text-muted);
-        }
-
-        .search-btn {
-            padding: 0 1.5rem;
-            background: var(--primary);
-            border: none;
-            color: white;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: background 0.3s;
-        }
-
-        .search-btn:hover {
-            background: var(--primary-light);
-        }
-
-        /* Partie droite de l'en-tête */
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        /* Sélecteur de catégories */
-        .category-selector select {
-            padding: 0.875rem 2.5rem 0.875rem 1rem;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 0.75rem;
-            color: var(--text);
-            cursor: pointer;
-            outline: none;
-            min-width: 200px;
-            font-size: 0.9rem;
-        }
-
-        /* Icônes d'en-tête (panier, notifications) */
-        .header-icon {
-            position: relative;
-            cursor: pointer;
-            padding: 0.6rem;
-            border-radius: 0.5rem;
-            transition: background 0.3s;
-        }
-
-        .header-icon:hover {
-            background: var(--card-bg);
-        }
-
-        .icon {
-            font-size: 1.4rem;
-            color: var(--text-muted);
-        }
-
-        /* Badge de notification (nombre) */
-        .badge {
-            position: absolute;
-            top: 2px;
-            right: 2px;
-            background: var(--danger);
-            color: white;
-            font-size: 0.65rem;
-            padding: 0.2rem 0.45rem;
-            border-radius: 50%;
-            font-weight: 700;
-            min-width: 18px;
-            text-align: center;
-        }
-
-        /* Profil utilisateur */
-        .user-profile {
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.5rem 1rem;
-            border-radius: 0.75rem;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .user-profile:hover {
-            background: var(--card-bg);
-        }
-
-        /* Avatar utilisateur (dégradé violet) */
-        .avatar {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-        }
-
-        .user-name {
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .user-role {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        /* ===== SECTION CAROUSEL ===== */
-        .carousel-section {
-            background: var(--dark-bg);
-            padding: 3rem 2rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .carousel-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        /* Boutons précédent/suivant du carousel */
-        .carousel-btn {
-            background: var(--card-bg);
-            border: 2px solid var(--border);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 1.5rem;
-            color: var(--text);
-            transition: all 0.3s;
-        }
-
-        .carousel-btn:hover {
-            background: var(--primary);
-            border-color: var(--primary);
-            transform: scale(1.1);
-        }
-
-        .carousel-content {
-            flex: 1;
-        }
-
-        /* Carte de la boisson vedette */
-        .featured-drink {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 4rem;
-            background: var(--card-bg);
-            padding: 3rem;
-            border-radius: 1.5rem;
-            border: 1px solid var(--border);
-        }
-
-        /* Image/icône de la boisson (avec animation flottante) */
-        .drink-image {
-            font-size: 10rem;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        /* Animation de flottement */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .drink-info {
-            text-align: left;
-        }
-
-        .drink-info h2 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, var(--primary-light), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .drink-category {
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .drink-price {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--success);
-            margin-bottom: 0.5rem;
-        }
-
-        .drink-stock {
-            color: var(--text-muted);
-            margin-bottom: 1.5rem;
-            font-size: 1rem;
-        }
-
-        /* Bouton "Voir les détails" */
-        .view-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 1rem 2.5rem;
-            border-radius: 0.75rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 1rem;
-        }
-
-        .view-btn:hover {
-            background: var(--primary-light);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
-        }
-
-        /* Indicateurs du carousel (points en bas) */
-        .carousel-indicators {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            margin-top: 2rem;
-        }
-
-        .indicator {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--border);
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        /* Indicateur actif (allongé) */
-        .indicator.active {
-            background: var(--primary);
-            width: 35px;
-            border-radius: 5px;
-        }
-
-        /* ===== SECTIONS DE CONTENU ===== */
-        .content-section {
-            padding: 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        /* En-tête de section avec titre + bouton */
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .section-title-main {
-            font-size: 1.75rem;
-            font-weight: 700;
-        }
-
-        /* Boutons génériques */
-        .btn {
-            padding: 0.875rem 1.75rem;
-            border-radius: 0.75rem;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.95rem;
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: var(--primary-light);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
-        }
-
-        /* ===== GRILLES DE PRODUITS/CAVES ===== */
-        .products-grid, .caves-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1.5rem;
-        }
-
-        /* Carte de produit/cave */
-        .product-card, .cave-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 1rem;
-            overflow: hidden;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        .product-card:hover, .cave-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
-            border-color: var(--primary);
-        }
-
-        /* Image du produit */
-        .product-image {
-            height: 200px;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 5rem;
-            position: relative;
-            border-bottom: 1px solid var(--border);
-        }
-
-        /* Badge sur le produit (HOT, NEW) */
-        .product-badge {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .badge-hot {
-            background: rgba(239, 68, 68, 0.2);
-            color: var(--danger);
-        }
-
-        .badge-new {
-            background: rgba(16, 185, 129, 0.2);
-            color: var(--success);
-        }
-
-        /* Infos du produit */
-        .product-info {
-            padding: 1.5rem;
-        }
-
-        .product-name {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .product-category {
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-        }
-
-        .product-stats {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .product-sales {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        .product-price {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--success);
-        }
-
-        /* En-tête des cartes de cave */
-        .cave-header {
-            padding: 1.5rem;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.15));
-            border-bottom: 1px solid var(--border);
-        }
-
-        .cave-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .cave-location {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        /* Statistiques de la cave (grille 2x2) */
-        .cave-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            padding: 1.5rem;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-value {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary-light);
-            margin-bottom: 0.25rem;
-        }
-
-        .stat-label {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        /* Actions de la cave (boutons en bas) */
-        .cave-actions {
-            padding: 1rem 1.5rem;
-            border-top: 1px solid var(--border);
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .btn-sm {
-            flex: 1;
-            padding: 0.75rem;
-            font-size: 0.9rem;
-        }
-
-        .btn-secondary {
-            background: var(--card-bg);
-            color: var(--text);
-            border: 1px solid var(--border);
-        }
-
-        .btn-secondary:hover {
-            background: var(--card-hover);
-        }
-
-        /* ===== GESTION DES PAGES ===== */
-        /* Toutes les pages sont cachées par défaut */
-        .page-section {
-            display: none;
-        }
-
-        /* Seule la page active est visible */
-        .page-section.active {
-            display: block;
-        }
-
-        /* ===== LISTE D'ACTIONS ===== */
-        .actions-list {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 1rem;
-            overflow: hidden;
-        }
-
-        .action-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1.5rem;
-            border-bottom: 1px solid var(--border);
-            transition: background 0.3s;
-        }
-
-        .action-item:hover {
-            background: var(--card-hover);
-        }
-
-        .action-item:last-child {
-            border-bottom: none;
-        }
-
-        /* Icône de l'action (cercle coloré) */
-        .action-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            flex-shrink: 0;
-        }
-
-        .action-icon.success {
-            background: rgba(16, 185, 129, 0.15);
-        }
-
-        .action-icon.warning {
-            background: rgba(245, 158, 11, 0.15);
-        }
-
-        .action-icon.info {
-            background: rgba(59, 130, 246, 0.15);
-        }
-
-        .action-content {
-            flex: 1;
-        }
-
-        .action-title {
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .action-details {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        .action-time {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        /* ===== CARTES DE STATISTIQUES ===== */
-        .stats-cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        /* Carte de statistique de base */
-        .stat-card {
-            background: var(--card-bg);
-            border: 2px solid var(--border);
-            border-radius: 1.25rem;
-            padding: 1.75rem;
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Effet de brillance au survol */
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            transition: left 0.5s;
-        }
-
-        .stat-card:hover::before {
-            left: 100%;
-        }
-
-        /* Animation générale au survol */
-        .stat-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-        }
-
-        /* Icône de la carte */
-        .stat-card .stat-icon {
-            font-size: 3.5rem;
-            width: 80px;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 1rem;
-            flex-shrink: 0;
-            transition: all 0.4s ease;
-        }
-
-        .stat-card:hover .stat-icon {
-            transform: scale(1.15) rotate(5deg);
-        }
-
-        /* Contenu texte de la carte */
-        .stat-card .stat-content {
-            flex: 1;
-        }
-
-        .stat-card .stat-label {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-
-        .stat-card .stat-value {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 0.25rem;
-            transition: all 0.3s ease;
-        }
-
-        .stat-card:hover .stat-value {
-            transform: scale(1.05);
-        }
-
-        .stat-card .stat-change {
-            font-size: 0.85rem;
-            font-weight: 600;
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 0.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .stat-change.positive {
-            background: rgba(16, 185, 129, 0.15);
-            color: var(--success);
-        }
-
-        .stat-change.warning {
-            background: rgba(245, 158, 11, 0.15);
-            color: var(--warning);
-        }
-
-        .stat-change.neutral {
-            background: rgba(100, 116, 139, 0.15);
-            color: var(--text-muted);
-        }
-
-        /* ===== VARIANTES DE COULEUR DES CARTES ===== */
-
-        /* Carte Orange (Ventes) */
-        .stat-card-orange {
-            border-color: rgba(251, 146, 60, 0.3);
-        }
-
-        .stat-card-orange:hover {
-            border-color: #fb923c;
-            background: linear-gradient(135deg, rgba(251, 146, 60, 0.1), var(--card-bg));
-            box-shadow: 0 20px 50px rgba(251, 146, 60, 0.3);
-        }
-
-        .stat-card-orange .stat-icon {
-            background: rgba(251, 146, 60, 0.15);
-        }
-
-        .stat-card-orange:hover .stat-icon {
-            background: rgba(251, 146, 60, 0.25);
-            box-shadow: 0 10px 30px rgba(251, 146, 60, 0.4);
-        }
-
-        .stat-card-orange .stat-value {
-            color: #fb923c;
-        }
-
-        /* Carte Verte (Commandes) */
-        .stat-card-green {
-            border-color: rgba(16, 185, 129, 0.3);
-        }
-
-        .stat-card-green:hover {
-            border-color: var(--success);
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), var(--card-bg));
-            box-shadow: 0 20px 50px rgba(16, 185, 129, 0.3);
-        }
-
-        .stat-card-green .stat-icon {
-            background: rgba(16, 185, 129, 0.15);
-        }
-
-        .stat-card-green:hover .stat-icon {
-            background: rgba(16, 185, 129, 0.25);
-            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
-        }
-
-        .stat-card-green .stat-value {
-            color: var(--success);
-        }
-
-        /* Carte Violette (Stock Vin) */
-        .stat-card-purple {
-            border-color: rgba(139, 92, 246, 0.3);
-        }
-
-        .stat-card-purple:hover {
-            border-color: var(--accent);
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), var(--card-bg));
-            box-shadow: 0 20px 50px rgba(139, 92, 246, 0.3);
-        }
-
-        .stat-card-purple .stat-icon {
-            background: rgba(139, 92, 246, 0.15);
-        }
-
-        .stat-card-purple:hover .stat-icon {
-            background: rgba(139, 92, 246, 0.25);
-            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
-        }
-
-        .stat-card-purple .stat-value {
-            color: var(--accent);
-        }
-
-        /* Carte Jaune-Orange (Alerte Stock) */
-        .stat-card-warning {
-            border-color: rgba(245, 158, 11, 0.3);
-        }
-
-        .stat-card-warning:hover {
-            border-color: var(--warning);
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), var(--card-bg));
-            box-shadow: 0 20px 50px rgba(245, 158, 11, 0.3);
-        }
-
-        .stat-card-warning .stat-icon {
-            background: rgba(245, 158, 11, 0.15);
-        }
-
-        .stat-card-warning:hover .stat-icon {
-            background: rgba(245, 158, 11, 0.25);
-            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.4);
-            animation: pulse-warning 1.5s ease-in-out infinite;
-        }
-
-        @keyframes pulse-warning {
-            0%, 100% { transform: scale(1.15) rotate(5deg); }
-            50% { transform: scale(1.2) rotate(5deg); }
-        }
-
-        .stat-card-warning .stat-value {
-            color: var(--warning);
-        }
-
-        /* Carte Bleue (Clients) */
-        .stat-card-blue {
-            border-color: rgba(59, 130, 246, 0.3);
-        }
-
-        .stat-card-blue:hover {
-            border-color: var(--info);
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), var(--card-bg));
-            box-shadow: 0 20px 50px rgba(59, 130, 246, 0.3);
-        }
-
-        .stat-card-blue .stat-icon {
-            background: rgba(59, 130, 246, 0.15);
-        }
-
-        .stat-card-blue:hover .stat-icon {
-            background: rgba(59, 130, 246, 0.25);
-            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
-        }
-
-        .stat-card-blue .stat-value {
-            color: var(--info);
-        }
-
-        /* Carte Jaune (Attente) */
-        .stat-card-yellow {
-            border-color: rgba(234, 179, 8, 0.3);
-        }
-
-        .stat-card-yellow:hover {
-            border-color: #eab308;
-            background: linear-gradient(135deg, rgba(234, 179, 8, 0.1), var(--card-bg));
-            box-shadow: 0 20px 50px rgba(234, 179, 8, 0.3);
-        }
-
-        .stat-card-yellow .stat-icon {
-            background: rgba(234, 179, 8, 0.15);
-        }
-
-        .stat-card-yellow:hover .stat-icon {
-            background: rgba(234, 179, 8, 0.25);
-            box-shadow: 0 10px 30px rgba(234, 179, 8, 0.4);
-        }
-
-        .stat-card-yellow .stat-value {
-            color: #eab308;
-        }
-
-        /* ===== FIN CARTES STATISTIQUES ===== */
-
-        /* ===== MODAL (FENÊTRE POPUP) ===== */
-        .modal {
-            display: none;                /* Caché par défaut */
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.active {
-            display: flex;                /* Visible quand actif */
-        }
-
-        /* Contenu du modal */
-        .modal-content {
-            background: var(--card-bg);
-            border-radius: 1.5rem;
-            width: 90%;
-            max-width: 900px;
-            max-height: 90vh;
-            overflow-y: auto;
-            border: 1px solid var(--border);
-        }
-
-        /* En-tête du modal */
-        .modal-header {
-            padding: 2rem;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-title {
-            font-size: 1.75rem;
-            font-weight: 700;
-        }
-
-        /* Bouton de fermeture (X) */
-        .close-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--darker-bg);
-            border: none;
-            color: var(--text);
-            cursor: pointer;
-            font-size: 1.5rem;
-            transition: all 0.3s;
-        }
-
-        .close-btn:hover {
-            background: var(--danger);
-            transform: rotate(90deg);
-        }
-
-        /* Corps du modal */
-        .modal-body {
-            padding: 2rem;
-        }
-
-        /* Onglets du modal */
-        .modal-tabs {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            border-bottom: 2px solid var(--border);
-        }
-
-        .modal-tab {
-            padding: 1rem 2rem;
-            cursor: pointer;
-            border: none;
-            background: none;
-            color: var(--text-muted);
-            font-weight: 600;
-            font-size: 1rem;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
-        }
-
-        .modal-tab:hover {
-            color: var(--text);
-        }
-
-        .modal-tab.active {
-            color: var(--primary-light);
-            border-bottom-color: var(--primary);
-        }
-
-        /* Contenu des onglets */
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        /* Liste des managers */
-        .managers-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        /* Carte d'un manager */
-        .manager-card {
-            background: var(--darker-bg);
-            border: 1px solid var(--border);
-            border-radius: 1rem;
-            padding: 1.5rem;
-        }
-
-        .manager-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .manager-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-        }
-
-        .manager-name {
-            font-size: 1.25rem;
-            font-weight: 600;
-        }
-
-        .manager-role {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        /* Performances du manager (grille) */
-        .manager-performance {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .performance-item {
-            text-align: center;
-            padding: 1rem;
-            background: var(--card-bg);
-            border-radius: 0.5rem;
-        }
-
-        .performance-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-light);
-        }
-
-        .performance-label {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-top: 0.25rem;
-        }
-
-        /* Toggle pour afficher les employés */
-        .toggle-employees {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            color: var(--text);
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            width: 100%;
-            font-weight: 600;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .toggle-employees:hover {
-            background: var(--card-hover);
-        }
-
-        /* Liste des employés (cachée par défaut) */
-        .employees-list {
-            display: none;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border);
-        }
-
-        .employees-list.show {
-            display: block;
-        }
-
-        /* Carte d'un employé */
-        .employee-card {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: var(--card-bg);
-            border-radius: 0.5rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .employee-avatar {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--info), var(--primary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-        }
-
-        .employee-info {
-            flex: 1;
-        }
-
-        .employee-name {
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .employee-position {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        .employee-stats {
-            display: flex;
-            gap: 1rem;
-            font-size: 0.85rem;
-        }
-
-        .employee-stat {
-            color: var(--text-muted);
-        }
-
-        /* Section productivité */
-        .productivity-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .productivity-card {
-            background: var(--darker-bg);
-            border: 1px solid var(--border);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            text-align: center;
-        }
-
-        .productivity-month {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 0.5rem;
-        }
-
-        .productivity-value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary-light);
-            margin-bottom: 0.25rem;
-        }
-
-        .productivity-label {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        /* Statistiques globales */
-        .global-stats {
-            background: var(--darker-bg);
-            border: 1px solid var(--border);
-            border-radius: 1rem;
-            padding: 2rem;
-        }
-
-        .global-stats h3 {
-            margin-bottom: 1.5rem;
-            font-size: 1.25rem;
-        }
-
-        .global-stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-        }
-
-        /* Formulaire modal */
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--text);
-        }
-
-        .form-input, .form-textarea {
-            width: 100%;
-            padding: 0.875rem 1rem;
-            background: var(--darker-bg);
-            border: 1px solid var(--border);
-            border-radius: 0.5rem;
-            color: var(--text);
-            font-size: 0.95rem;
-            outline: none;
-            transition: all 0.3s;
-        }
-
-        .form-input:focus, .form-textarea:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-        }
-
-        .form-textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        /* Pied du modal (boutons) */
-        .modal-footer {
-            padding: 1.5rem 2rem;
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: flex-end;
-            gap: 1rem;
-        }
-
-        .btn-cancel {
-            background: var(--card-bg);
-            color: var(--text);
-            border: 1px solid var(--border);
-        }
-
-        .btn-cancel:hover {
-            background: var(--card-hover);
-        }
-
-        /* Menu dropdown du profil */
-        .user-dropdown {
-            display: none;
-            position: absolute;
-            top: 100%;
-            right: 0;
-            margin-top: 0.5rem;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 0.75rem;
-            min-width: 200px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-        }
-
-        .user-dropdown.show {
-            display: block;
-        }
-
-        .dropdown-item {
-            padding: 0.875rem 1.25rem;
-            cursor: pointer;
-            transition: background 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            color: var(--text);
-        }
-
-        .dropdown-item:first-child {
-            border-radius: 0.75rem 0.75rem 0 0;
-        }
-
-        .dropdown-item:last-child {
-            border-radius: 0 0 0.75rem 0.75rem;
-        }
-
-        .dropdown-item:hover {
-            background: var(--card-hover);
-        }
-
-        .dropdown-divider {
-            height: 1px;
-            background: var(--border);
-            margin: 0.25rem 0;
-        }
-
-        /* ===== RESPONSIVE (MOBILE) ===== */
-        @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-280px);
-            }
-
-            .main-content {
-                margin-left: 0;
-            }
-
-            .featured-drink {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .products-grid, .caves-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .productivity-grid, .global-stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .header-right {
-                flex-wrap: wrap;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="dashboard">
-        <!-- ===== SIDEBAR (MENU LATÉRAL) ===== -->
-        <aside class="sidebar">
-            <!-- Logo en haut -->
-            <div class="sidebar-header">
-                <div class="logo">
-                    <span class="logo-icon">🍾</span>
-                    <span class="logo-text">DrinkStore Pro</span>
+<!-- app.component.html -->
+<div class="dashboard">
+    <!-- ===== SIDEBAR (MENU LATÉRAL) ===== -->
+    <aside class="sidebar">
+        <!-- Logo en haut -->
+        <div class="sidebar-header">
+            <div class="logo">
+                <span class="logo-icon">🍾</span>
+                <span class="logo-text">DrinkStore Pro</span>
+            </div>
+        </div>
+
+        <!-- Navigation principale -->
+        <nav class="sidebar-section">
+            <!-- Accueil - Page active par défaut -->
+            <div
+                class="nav-item"
+                [class.active]="currentPage === 'home'"
+                (click)="navigateTo('home')">
+                <span class="nav-icon">🏠</span>
+                <span class="nav-text">Accueil</span>
+            </div>
+            <!-- Mes caves -->
+            <div
+                class="nav-item"
+                [class.active]="currentPage === 'caves'"
+                (click)="navigateTo('caves')">
+                <span class="nav-icon">🍷</span>
+                <span class="nav-text">Mes caves</span>
+            </div>
+        </nav>
+
+        <div class="divider"></div>
+
+        <!-- Section MA CAVE -->
+        <nav class="sidebar-section">
+            <div class="section-title">MA CAVE</div>
+
+            <!-- Mes boissons avec sous-menu -->
+            <div class="nav-item" (click)="toggleSubmenu($event)">
+                <span class="nav-icon">🍾</span>
+                <span class="nav-text">Mes boissons</span>
+                <span
+                    class="submenu-arrow"
+                    [style.transform]="submenuOpen ? 'rotate(90deg)' : 'rotate(0deg)'">
+                    ▶
+                </span>
+            </div>
+            <!-- Sous-menu des catégories de boissons -->
+            <div class="submenu" [class.open]="submenuOpen">
+                <div class="submenu-item" *ngFor="let category of drinkCategories">
+                    {{ category.icon }} {{ category.name }}
                 </div>
             </div>
 
-            <!-- Navigation principale -->
-            <nav class="sidebar-section">
-                <!-- Accueil - Page active par défaut -->
-                <div class="nav-item active" onclick="navigateTo('home')">
-                    <span class="nav-icon">🏠</span>
-                    <span class="nav-text">Accueil</span>
-                </div>
-                <!-- Mes caves -->
-                <div class="nav-item" onclick="navigateTo('caves')">
-                    <span class="nav-icon">🍷</span>
-                    <span class="nav-text">Mes caves</span>
-                </div>
-            </nav>
-
-            <div class="divider"></div>
-
-            <!-- Section MA CAVE -->
-            <nav class="sidebar-section">
-                <div class="section-title">MA CAVE</div>
-
-                <!-- Mes boissons avec sous-menu -->
-                <div class="nav-item" onclick="toggleSubmenu(this, event)">
-                    <span class="nav-icon">🍾</span>
-                    <span class="nav-text">Mes boissons</span>
-                    <span class="submenu-arrow">▶</span>
-                </div>
-                <!-- Sous-menu des catégories de boissons -->
-                <div class="submenu">
-                    <div class="submenu-item">🍺 Bières</div>
-                    <div class="submenu-item">🍬 Sucreries</div>
-                    <div class="submenu-item">🥂 Champagne</div>
-                    <div class="submenu-item">🍷 Vin Blanc</div>
-                    <div class="submenu-item">🍷 Vin Rouge</div>
-                    <div class="submenu-item">🍷 Vin Rosé</div>
-                    <div class="submenu-item">✨ Vin Mousseux</div>
-                    <div class="submenu-item">🥃 Liqueurs</div>
-                    <div class="submenu-item">⚡ Boissons Énergisantes</div>
-                    <div class="submenu-item">🍹 Boissons Locales</div>
-                </div>
-
-                <!-- Autres items de la cave -->
-                <div class="nav-item">
-                    <span class="nav-icon">📥</span>
-                    <span class="nav-text">Mes entrées</span>
-                </div>
-
-                <div class="nav-item">
-                    <span class="nav-icon">📤</span>
-                    <span class="nav-text">Mes sorties</span>
-                </div>
-
-                <div class="nav-item">
-                    <span class="nav-icon">🍽️</span>
-                    <span class="nav-text">Mets & Vins</span>
-                </div>
-
-                <div class="nav-item">
-                    <span class="nav-icon">👥</span>
-                    <span class="nav-text">Mes managers</span>
-                </div>
-
-                <div class="nav-item">
-                    <span class="nav-icon">👨‍💼</span>
-                    <span class="nav-text">Mes employés</span>
-                </div>
-
-                <div class="nav-item">
-                    <span class="nav-icon">📷</span>
-                    <span class="nav-text">Scan</span>
-                </div>
-
-                <div class="nav-item">
-                    <span class="nav-icon">👤</span>
-                    <span class="nav-text">Mon compte</span>
-                </div>
-            </nav>
-
-            <div class="divider"></div>
-
-            <!-- Section INFOS -->
-            <nav class="sidebar-section">
-                <div class="section-title">INFOS</div>
-
-                <div class="nav-item">
-                    <span class="nav-icon">❓</span>
-                    <span class="nav-text">FAQ</span>
-                </div>
-
-                <div class="nav-item">
-                    <span class="nav-icon">📝</span>
-                    <span class="nav-text">Notes améliorations</span>
-                </div>
-
-                <div class="nav-item">
-                    <span class="nav-icon">📧</span>
-                    <span class="nav-text">Nous contacter</span>
-                </div>
-
-                <div class="nav-item">
-                    <span class="nav-icon">📚</span>
-                    <span class="nav-text">En savoir plus</span>
-                </div>
-            </nav>
-
-            <div class="divider"></div>
-
-            <!-- Réseaux sociaux -->
-            <div class="sidebar-section">
-                <div class="section-title">SUIVEZ-NOUS</div>
-                <div class="social-links">
-                    <div class="social-link" title="Instagram">📷</div>
-                    <div class="social-link" title="Facebook">📘</div>
-                    <div class="social-link" title="WhatsApp">💬</div>
-                    <div class="social-link" title="Twitter">🐦</div>
-                </div>
-            </div>
-        </aside>
-
-        <!-- ===== CONTENU PRINCIPAL ===== -->
-        <main class="main-content">
-            <!-- ===== EN-TÊTE DU HAUT ===== -->
-            <header class="top-header">
-                <!-- Barre de recherche à gauche -->
-                <div class="header-left">
-                    <div class="search-bar">
-                        <input type="text" placeholder="Rechercher un vin millésime, une cave...">
-                        <button class="search-btn">🔍</button>
-                    </div>
-                </div>
-
-                <!-- Éléments à droite -->
-                <div class="header-right">
-                    <!-- Sélecteur de catégories -->
-                    <div class="category-selector">
-                        <select>
-                            <option value="">Toutes les catégories</option>
-                            <option value="bieres">Bières</option>
-                            <option value="sucreries">Sucreries</option>
-                            <option value="vin_blanc">Vin Blanc</option>
-                            <option value="vin_rouge">Vin Rouge</option>
-                            <option value="vin_rose">Vin Rosé</option>
-                            <option value="vin_mousseux">Vin Mousseux</option>
-                            <option value="liqueurs">Liqueurs</option>
-                            <option value="champagne">Champagne</option>
-                            <option value="boissons_energisantes">Boissons Énergisantes</option>
-                            <option value="boissons_locales">Boissons Locales</option>
-                        </select>
-                    </div>
-
-                    <!-- Icône panier avec badge -->
-                    <div class="header-icon">
-                        <span class="icon">🛒</span>
-                        <span class="badge">3</span>
-                    </div>
-
-                    <!-- Icône notifications avec badge -->
-                    <div class="header-icon">
-                        <span class="icon">🔔</span>
-                        <span class="badge">5</span>
-                    </div>
-
-                    <!-- Profil utilisateur avec dropdown -->
-                    <div class="user-profile" onclick="toggleUserDropdown()">
-                        <div class="avatar">👤</div>
-                        <div>
-                            <div class="user-name">Franck KONGO</div>
-                            <div class="user-role">Administrateur</div>
-                        </div>
-                        <!-- Menu dropdown (caché par défaut) -->
-                        <div class="user-dropdown" id="userDropdown">
-                            <div class="dropdown-item">👤 Mon profil</div>
-                            <div class="dropdown-item">⚙️ Paramètres</div>
-                            <div class="dropdown-divider"></div>
-                            <div class="dropdown-item">💬 Assistance</div>
-                            <div class="dropdown-item">🚪 Déconnexion</div>
-                        </div>
-                    </div>
-                </div>
-            </header>
-
-            <!-- ===== PAGE ACCUEIL ===== -->
-            <div id="homePage" class="page-section active">
-                <!-- CAROUSEL DES BOISSONS VEDETTES -->
-                <section class="carousel-section">
-                    <div class="carousel-container">
-                        <!-- Bouton précédent -->
-                        <button class="carousel-btn" onclick="previousDrink()">❮</button>
-
-                        <!-- Contenu du carousel -->
-                        <div class="carousel-content">
-                            <div class="featured-drink">
-                                <!-- Image de la boisson (avec animation flottante) -->
-                                <div class="drink-image" id="drinkIcon">🥂</div>
-                                <!-- Informations de la boisson -->
-                                <div class="drink-info">
-                                    <h2 id="drinkName">Moët & Chandon</h2>
-                                    <p class="drink-category" id="drinkCategory">CHAMPAGNE</p>
-                                    <p class="drink-price" id="drinkPrice">15 000 FCFA</p>
-                                    <p class="drink-stock" id="drinkStock">Stock: 15 unités</p>
-                                    <button class="view-btn">Voir les détails</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Bouton suivant -->
-                        <button class="carousel-btn" onclick="nextDrink()">❯</button>
-                    </div>
-
-                    <!-- Indicateurs de position (points) -->
-                    <div class="carousel-indicators" id="carouselIndicators">
-                        <span class="indicator" onclick="goToDrink(0)"></span>
-                        <span class="indicator" onclick="goToDrink(1)"></span>
-                        <span class="indicator" onclick="goToDrink(2)"></span>
-                        <span class="indicator" onclick="goToDrink(3)"></span>
-                        <span class="indicator active" onclick="goToDrink(4)"></span>
-                    </div>
-                </section>
-
-                <!-- STATISTIQUES RAPIDES -->
-                <section class="content-section">
-                    <div class="stats-cards-grid">
-                        <!-- Carte 1: Ventes du jour -->
-                        <div class="stat-card stat-card-orange">
-                            <div class="stat-icon">🔥</div>
-                            <div class="stat-content">
-                                <div class="stat-label">Ventes du jour</div>
-                                <div class="stat-value">1 250 000 FCFA</div>
-                                <div class="stat-change positive">+18,5% ce mois</div>
-                            </div>
-                        </div>
-
-                        <!-- Carte 2: Commandes Aujourd'hui -->
-                        <div class="stat-card stat-card-green">
-                            <div class="stat-icon">🛒</div>
-                            <div class="stat-content">
-                                <div class="stat-label">Commandes Aujourd'hui</div>
-                                <div class="stat-value">45</div>
-                                <div class="stat-change positive">+8 depuis hier</div>
-                            </div>
-                        </div>
-
-                        <!-- Carte 3: Stock de Vin -->
-                        <div class="stat-card stat-card-purple">
-                            <div class="stat-icon">🍷</div>
-                            <div class="stat-content">
-                                <div class="stat-label">Stock de Vin</div>
-                                <div class="stat-value">350</div>
-                                <div class="stat-change neutral">Stable</div>
-                            </div>
-                        </div>
-
-                        <!-- Carte 4: Stock Faible -->
-                        <div class="stat-card stat-card-warning">
-                            <div class="stat-icon">⚠️</div>
-                            <div class="stat-content">
-                                <div class="stat-label">Stock Faible</div>
-                                <div class="stat-value">12</div>
-                                <div class="stat-change warning">Attention requise</div>
-                            </div>
-                        </div>
-
-                        <!-- Carte 5: Clients Actifs -->
-                        <div class="stat-card stat-card-blue">
-                            <div class="stat-icon">👥</div>
-                            <div class="stat-content">
-                                <div class="stat-label">Clients Actifs</div>
-                                <div class="stat-value">892</div>
-                                <div class="stat-change positive">+35 ce mois</div>
-                            </div>
-                        </div>
-
-                        <!-- Carte 6: Commandes en Attente -->
-                        <div class="stat-card stat-card-yellow">
-                            <div class="stat-icon">🍾</div>
-                            <div class="stat-content">
-                                <div class="stat-label">Commandes en Attente</div>
-                                <div class="stat-value">8</div>
-                                <div class="stat-change neutral">À traiter</div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- PRODUITS POPULAIRES -->
-                <section class="content-section">
-                    <div class="section-header">
-                        <h2 class="section-title-main">Produits Populaires</h2>
-                    </div>
-                    <div class="products-grid">
-                        <!-- Produit 1 -->
-                        <div class="product-card">
-                            <div class="product-image">
-                                🍷
-                                <span class="product-badge badge-hot">HOT</span>
-                            </div>
-                            <div class="product-info">
-                                <h3 class="product-name">Château Margaux</h3>
-                                <p class="product-category">Vin Rouge</p>
-                                <div class="product-stats">
-                                    <span class="product-sales">156 ventes</span>
-                                    <span class="product-price">25 000 FCFA</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Produit 2 -->
-                        <div class="product-card">
-                            <div class="product-image">
-                                🍺
-                                <span class="product-badge badge-new">NEW</span>
-                            </div>
-                            <div class="product-info">
-                                <h3 class="product-name">Heineken Premium</h3>
-                                <p class="product-category">Bière</p>
-                                <div class="product-stats">
-                                    <span class="product-sales">89 ventes</span>
-                                    <span class="product-price">1 500 FCFA</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Produit 3 -->
-                        <div class="product-card">
-                            <div class="product-image">🥃</div>
-                            <div class="product-info">
-                                <h3 class="product-name">Hennessy VSOP</h3>
-                                <p class="product-category">Liqueur</p>
-                                <div class="product-stats">
-                                    <span class="product-sales">134 ventes</span>
-                                    <span class="product-price">35 000 FCFA</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Produit 4 -->
-                        <div class="product-card">
-                            <div class="product-image">
-                                🥂
-                                <span class="product-badge badge-hot">HOT</span>
-                            </div>
-                            <div class="product-info">
-                                <h3 class="product-name">Dom Pérignon</h3>
-                                <p class="product-category">Champagne</p>
-                                <div class="product-stats">
-                                    <span class="product-sales">201 ventes</span>
-                                    <span class="product-price">45 000 FCFA</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Produit 5 -->
-                        <div class="product-card">
-                            <div class="product-image">⚡</div>
-                            <div class="product-info">
-                                <h3 class="product-name">Red Bull Energy</h3>
-                                <p class="product-category">Boisson Énergisante</p>
-                                <div class="product-stats">
-                                    <span class="product-sales">312 ventes</span>
-                                    <span class="product-price">800 FCFA</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Produit 6 -->
-                        <div class="product-card">
-                            <div class="product-image">
-                                🍹
-                                <span class="product-badge badge-new">NEW</span>
-                            </div>
-                            <div class="product-info">
-                                <h3 class="product-name">Bissap Délice</h3>
-                                <p class="product-category">Boisson Locale</p>
-                                <div class="product-stats">
-                                    <span class="product-sales">67 ventes</span>
-                                    <span class="product-price">500 FCFA</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- ACTIONS RÉCENTES -->
-                <section class="content-section">
-                    <div class="section-header">
-                        <h2 class="section-title-main">Actions Récentes</h2>
-                    </div>
-                    <div class="actions-list">
-                        <!-- Action 1 -->
-                        <div class="action-item">
-                            <div class="action-icon success">📥</div>
-                            <div class="action-content">
-                                <div class="action-title">Nouvelle entrée de stock</div>
-                                <div class="action-details">50 bouteilles de Château Margaux • Cave Principale • +1 250 000 FCFA</div>
-                            </div>
-                            <div class="action-time">Il y a 2h</div>
-                        </div>
-
-                        <!-- Action 2 -->
-                        <div class="action-item">
-                            <div class="action-icon warning">📤</div>
-                            <div class="action-content">
-                                <div class="action-title">Sortie de stock importante</div>
-                                <div class="action-details">30 bouteilles de Dom Pérignon • Cave Premium • -1 350 000 FCFA</div>
-                            </div>
-                            <div class="action-time">Il y a 5h</div>
-                        </div>
-
-                        <!-- Action 3 -->
-                        <div class="action-item">
-                            <div class="action-icon info">👤</div>
-                            <div class="action-content">
-                                <div class="action-title">Nouvel employé ajouté</div>
-                                <div class="action-details">Marie Dubois • Caissière • Cave Secondaire</div>
-                            </div>
-                            <div class="action-time">Hier</div>
-                        </div>
-
-                        <!-- Action 4 -->
-                        <div class="action-item">
-                            <div class="action-icon success">💰</div>
-                            <div class="action-content">
-                                <div class="action-title">Vente exceptionnelle</div>
-                                <div class="action-details">Commande de 100 bouteilles • Client VIP • +2 500 000 FCFA</div>
-                            </div>
-                            <div class="action-time">Hier</div>
-                        </div>
-
-                        <!-- Action 5 -->
-                        <div class="action-item">
-                            <div class="action-icon info">🔧</div>
-                            <div class="action-content">
-                                <div class="action-title">Maintenance effectuée</div>
-                                <div class="action-details">Système de refroidissement • Cave Premium • Opération réussie</div>
-                            </div>
-                            <div class="action-time">Il y a 2 jours</div>
-                        </div>
-                    </div>
-                </section>
+            <!-- Autres items de la cave -->
+            <div class="nav-item">
+                <span class="nav-icon">📥</span>
+                <span class="nav-text">Mes entrées</span>
             </div>
 
-            <!-- ===== PAGE MES CAVES ===== -->
-            <div id="cavesPage" class="page-section">
-                <section class="content-section">
-                    <div class="section-header">
-                        <h2 class="section-title-main">Mes Caves</h2>
-                        <!-- Bouton pour ajouter une nouvelle cave -->
-                        <button class="btn btn-primary" onclick="openAddCaveModal()">
-                            ➕ Ajouter une cave
-                        </button>
-                    </div>
-
-                    <!-- Grille des caves -->
-                    <div class="caves-grid">
-                        <!-- Cave 1 -->
-                        <div class="cave-card" onclick="openCaveModal('principale')">
-                            <div class="cave-header">
-                                <h3 class="cave-name">🍷 Cave Principale</h3>
-                                <p class="cave-location">📍 Lekki Phase 1, Lagos</p>
-                            </div>
-                            <div class="cave-stats">
-                                <div class="stat-item">
-                                    <div class="stat-value">450</div>
-                                    <div class="stat-label">Bouteilles</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-value">3</div>
-                                    <div class="stat-label">Managers</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-value">12</div>
-                                    <div class="stat-label">Employés</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-value">87%</div>
-                                    <div class="stat-label">Productivité</div>
-                                </div>
-                            </div>
-                            <div class="cave-actions">
-                                <button class="btn btn-sm btn-secondary">📊 Stats</button>
-                                <button class="btn btn-sm btn-primary">Voir détails</button>
-                            </div>
-                        </div>
-
-                        <!-- Cave 2 -->
-                        <div class="cave-card" onclick="openCaveModal('secondaire')">
-                            <div class="cave-header">
-                                <h3 class="cave-name">🥂 Cave Secondaire</h3>
-                                <p class="cave-location">📍 Victoria Island, Lagos</p>
-                            </div>
-                            <div class="cave-stats">
-                                <div class="stat-item">
-                                    <div class="stat-value">320</div>
-                                    <div class="stat-label">Bouteilles</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-value">2</div>
-                                    <div class="stat-label">Managers</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-value">8</div>
-                                    <div class="stat-label">Employés</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-value">92%</div>
-                                    <div class="stat-label">Productivité</div>
-                                </div>
-                            </div>
-                            <div class="cave-actions">
-                                <button class="btn btn-sm btn-secondary">📊 Stats</button>
-                                <button class="btn btn-sm btn-primary">Voir détails</button>
-                            </div>
-                        </div>
-
-                        <!-- Cave 3 -->
-                        <div class="cave-card" onclick="openCaveModal('premium')">
-                            <div class="cave-header">
-                                <h3 class="cave-name">✨ Cave Premium</h3>
-                                <p class="cave-location">📍 Ikoyi, Lagos</p>
-                            </div>
-                            <div class="cave-stats">
-                                <div class="stat-item">
-                                    <div class="stat-value">180</div>
-                                    <div class="stat-label">Bouteilles</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-value">1</div>
-                                    <div class="stat-label">Manager</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-value">5</div>
-                                    <div class="stat-label">Employés</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-value">95%</div>
-                                    <div class="stat-label">Productivité</div>
-                                </div>
-                            </div>
-                            <div class="cave-actions">
-                                <button class="btn btn-sm btn-secondary">📊 Stats</button>
-                                <button class="btn btn-sm btn-primary">Voir détails</button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </main>
-    </div>
-
-    <!-- ===== MODAL DÉTAILS CAVE ===== -->
-    <div id="caveModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="caveModalTitle">Détails de la cave</h2>
-                <button class="close-btn" onclick="closeCaveModal()">×</button>
+            <div class="nav-item">
+                <span class="nav-icon">📤</span>
+                <span class="nav-text">Mes sorties</span>
             </div>
 
-            <!-- Onglets -->
-            <div class="modal-tabs">
-                <button class="modal-tab active" onclick="switchTab('managers')">👥 Managers</button>
-                <button class="modal-tab" onclick="switchTab('productivity')">📊 Productivité</button>
+            <div class="nav-item">
+                <span class="nav-icon">🍽️</span>
+                <span class="nav-text">Mets & Vins</span>
             </div>
 
-            <div class="modal-body">
-                <!-- ===== ONGLET MANAGERS ===== -->
-                <div id="managersTab" class="tab-content active">
-                    <div class="managers-list" id="managersList">
-                        <!-- Les managers seront ajoutés ici dynamiquement par JavaScript -->
-                    </div>
-                </div>
+            <div class="nav-item">
+                <span class="nav-icon">👥</span>
+                <span class="nav-text">Mes managers</span>
+            </div>
 
-                <!-- ===== ONGLET PRODUCTIVITÉ ===== -->
-                <div id="productivityTab" class="tab-content">
-                    <h3 style="margin-bottom: 1.5rem;">Statistiques mensuelles</h3>
-                    <div class="productivity-grid" id="productivityGrid">
-                        <!-- Les stats mensuelles seront ajoutées ici -->
-                    </div>
+            <div class="nav-item">
+                <span class="nav-icon">👨‍💼</span>
+                <span class="nav-text">Mes employés</span>
+            </div>
 
-                    <div class="global-stats">
-                        <h3>Moyennes globales</h3>
-                        <div class="global-stats-grid" id="globalStatsGrid">
-                            <!-- Les stats globales seront ajoutées ici -->
-                        </div>
-                    </div>
+            <div class="nav-item">
+                <span class="nav-icon">📷</span>
+                <span class="nav-text">Scan</span>
+            </div>
+
+            <div class="nav-item">
+                <span class="nav-icon">👤</span>
+                <span class="nav-text">Mon compte</span>
+            </div>
+        </nav>
+
+        <div class="divider"></div>
+
+        <!-- Section INFOS -->
+        <nav class="sidebar-section">
+            <div class="section-title">INFOS</div>
+
+            <div class="nav-item">
+                <span class="nav-icon">❓</span>
+                <span class="nav-text">FAQ</span>
+            </div>
+
+            <div class="nav-item">
+                <span class="nav-icon">📝</span>
+                <span class="nav-text">Notes améliorations</span>
+            </div>
+
+            <div class="nav-item">
+                <span class="nav-icon">📧</span>
+                <span class="nav-text">Nous contacter</span>
+            </div>
+
+            <div class="nav-item">
+                <span class="nav-icon">📚</span>
+                <span class="nav-text">En savoir plus</span>
+            </div>
+        </nav>
+
+        <div class="divider"></div>
+
+        <!-- Réseaux sociaux -->
+        <div class="sidebar-section">
+            <div class="section-title">SUIVEZ-NOUS</div>
+            <div class="social-links">
+                <div
+                    class="social-link"
+                    *ngFor="let social of socialLinks"
+                    [title]="social.name">
+                    {{ social.icon }}
                 </div>
             </div>
         </div>
-    </div>
+    </aside>
 
-    <!-- ===== MODAL AJOUTER CAVE ===== -->
-    <div id="addCaveModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">➕ Ajouter une nouvelle cave</h2>
-                <button class="close-btn" onclick="closeAddCaveModal()">×</button>
+    <!-- ===== CONTENU PRINCIPAL ===== -->
+    <main class="main-content">
+        <!-- ===== EN-TÊTE DU HAUT ===== -->
+        <header class="top-header">
+            <!-- Barre de recherche à gauche -->
+            <div class="header-left">
+                <div class="search-bar">
+                    <input
+                        type="text"
+                        placeholder="Rechercher un vin millésime, une cave..."
+                        [(ngModel)]="searchQuery"
+                        (input)="onSearch()">
+                    <button class="search-btn" (click)="onSearch()">🔍</button>
+                </div>
             </div>
 
-            <div class="modal-body">
-                <!-- Formulaire d'ajout de cave -->
-                <form id="addCaveForm">
-                    <div class="form-group">
-                        <label class="form-label">Nom de la cave</label>
-                        <input type="text" class="form-input" placeholder="Ex: Cave Principale" required>
-                    </div>
+            <!-- Éléments à droite -->
+            <div class="header-right">
+                <!-- Sélecteur de catégories -->
+                <div class="category-selector">
+                    <select [(ngModel)]="selectedCategory" (change)="onCategoryChange()">
+                        <option value="">Toutes les catégories</option>
+                        <option *ngFor="let cat of categories" [value]="cat.value">
+                            {{ cat.label }}
+                        </option>
+                    </select>
+                </div>
 
-                    <div class="form-group">
-                        <label class="form-label">Localisation</label>
-                        <input type="text" class="form-input" placeholder="Ex: Lekki Phase 1, Lagos" required>
-                    </div>
+                <!-- Icône panier avec badge -->
+                <div class="header-icon" (click)="openCart()">
+                    <span class="icon">🛒</span>
+                    <span class="badge" *ngIf="cartCount > 0">{{ cartCount }}</span>
+                </div>
 
-                    <div class="form-group">
-                        <label class="form-label">Capacité (nombre de bouteilles)</label>
-                        <input type="number" class="form-input" placeholder="Ex: 500" required>
-                    </div>
+                <!-- Icône notifications avec badge -->
+                <div class="header-icon" (click)="openNotifications()">
+                    <span class="icon">🔔</span>
+                    <span class="badge" *ngIf="notificationCount > 0">{{ notificationCount }}</span>
+                </div>
 
-                    <div class="form-group">
-                        <label class="form-label">Description</label>
-                        <textarea class="form-textarea" placeholder="Description de la cave..."></textarea>
+                <!-- Profil utilisateur avec dropdown -->
+                <div class="user-profile" (click)="toggleUserDropdown()">
+                    <div class="avatar">👤</div>
+                    <div>
+                        <div class="user-name">{{ currentUser?.name }}</div>
+                        <div class="user-role">{{ currentUser?.role }}</div>
                     </div>
-                </form>
+                    <!-- Menu dropdown (caché par défaut) -->
+                    <div class="user-dropdown" [class.show]="userDropdownOpen">
+                        <div class="dropdown-item" (click)="goToProfile()">👤 Mon profil</div>
+                        <div class="dropdown-item" (click)="goToSettings()">⚙️ Paramètres</div>
+                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-item" (click)="openSupport()">💬 Assistance</div>
+                        <div class="dropdown-item" (click)="logout()">🚪 Déconnexion</div>
+                    </div>
+                </div>
             </div>
+        </header>
 
-            <div class="modal-footer">
-                <button class="btn btn-cancel" onclick="closeAddCaveModal()">Annuler</button>
-                <button class="btn btn-primary" onclick="addNewCave()">Créer la cave</button>
-            </div>
+        <!-- ===== PAGE ACCUEIL ===== -->
+        <div class="page-section" [class.active]="currentPage === 'home'">
+            <!-- CAROUSEL DES BOISSONS VEDETTES -->
+            <section class="carousel-section">
+                <div class="carousel-container">
+                    <!-- Bouton précédent -->
+                    <button class="carousel-btn" (click)="previousDrink()">❮</button>
+
+                    <!-- Contenu du carousel -->
+                    <div class="carousel-content" *ngIf="currentDrink">
+                        <div class="featured-drink">
+                            <!-- Image de la boisson (avec animation flottante) -->
+                            <div class="drink-image">{{ currentDrink.icon }}</div>
+                            <!-- Informations de la boisson -->
+                            <div class="drink-info">
+                                <h2>{{ currentDrink.name }}</h2>
+                                <p class="drink-category">{{ currentDrink.category }}</p>
+                                <p class="drink-price">{{ currentDrink.price | number }} FCFA</p>
+                                <p class="drink-stock">Stock: {{ currentDrink.stock }} unités</p>
+                                <button class="view-btn" (click)="viewDrinkDetails(currentDrink)">
+                                    Voir les détails
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bouton suivant -->
+                    <button class="carousel-btn" (click)="nextDrink()">❯</button>
+                </div>
+
+                <!-- Indicateurs de position (points) -->
+                <div class="carousel-indicators">
+                    <span
+                        class="indicator"
+                        *ngFor="let drink of featuredDrinks; let i = index"
+                        [class.active]="i === currentDrinkIndex"
+                        (click)="goToDrink(i)">
+                    </span>
+                </div>
+            </section>
+
+            <!-- STATISTIQUES RAPIDES -->
+            <section class="content-section">
+                <div class="stats-cards-grid">
+                    <!-- Itération sur les cartes statistiques -->
+                    <div
+                        class="stat-card"
+                        *ngFor="let stat of statsCards"
+                        [ngClass]="stat.colorClass">
+                        <div class="stat-icon">{{ stat.icon }}</div>
+                        <div class="stat-content">
+                            <div class="stat-label">{{ stat.label }}</div>
+                            <div class="stat-value">{{ stat.value }}</div>
+                            <div class="stat-change" [ngClass]="stat.changeType">
+                                {{ stat.change }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PRODUITS POPULAIRES -->
+            <section class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title-main">Produits Populaires</h2>
+                </div>
+                <div class="products-grid">
+                    <!-- Itération sur les produits populaires -->
+                    <div
+                        class="product-card"
+                        *ngFor="let product of popularProducts"
+                        (click)="viewProductDetails(product)">
+                        <div class="product-image">
+                            {{ product.icon }}
+                            <span
+                                class="product-badge"
+                                *ngIf="product.badge"
+                                [ngClass]="'badge-' + product.badge.toLowerCase()">
+                                {{ product.badge }}
+                            </span>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">{{ product.name }}</h3>
+                            <p class="product-category">{{ product.category }}</p>
+                            <div class="product-stats">
+                                <span class="product-sales">{{ product.sales }} ventes</span>
+                                <span class="product-price">{{ product.price | number }} FCFA</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ACTIONS RÉCENTES -->
+            <section class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title-main">Actions Récentes</h2>
+                </div>
+                <div class="actions-list">
+                    <!-- Itération sur les actions récentes -->
+                    <div
+                        class="action-item"
+                        *ngFor="let action of recentActions">
+                        <div class="action-icon" [ngClass]="action.type">
+                            {{ action.icon }}
+                        </div>
+                        <div class="action-content">
+                            <div class="action-title">{{ action.title }}</div>
+                            <div class="action-details">{{ action.details }}</div>
+                        </div>
+                        <div class="action-time">{{ action.time }}</div>
+                    </div>
+                </div>
+            </section>
         </div>
-    </div>
 
-    <!-- ===== JAVASCRIPT ===== -->
-    <script>
-        // ===== DONNÉES DES BOISSONS POUR LE CAROUSEL =====
-        // Tableau contenant les 5 boissons vedettes qui seront affichées dans le carousel
-        const featuredDrinks = [
-            { icon: '🍷', name: 'Château Margaux', category: 'VIN ROUGE', price: '25 000 FCFA', stock: 'Stock: 45 unités' },
-            { icon: '🍺', name: 'Heineken Premium', category: 'BIÈRE', price: '1 500 FCFA', stock: 'Stock: 200 unités' },
-            { icon: '🥃', name: 'Hennessy VSOP', category: 'LIQUEUR', price: '35 000 FCFA', stock: 'Stock: 30 unités' },
-            { icon: '🥂', name: 'Dom Pérignon', category: 'CHAMPAGNE', price: '45 000 FCFA', stock: 'Stock: 12 unités' },
-            { icon: '🥂', name: 'Moët & Chandon', category: 'CHAMPAGNE', price: '15 000 FCFA', stock: 'Stock: 15 unités' }
-        ];
-
-        // Variable pour suivre quelle boisson est actuellement affichée (index 4 = dernière boisson par défaut)
-        let currentDrinkIndex = 4;
-
-        // Variable pour l'intervalle du défilement automatique
-        let carouselInterval;
-
-        // ===== FONCTION: AFFICHER UNE BOISSON SPÉCIFIQUE =====
-        // Cette fonction met à jour l'affichage du carousel avec la boisson à l'index donné
-        function displayDrink(index) {
-            // Récupère la boisson à afficher
-            const drink = featuredDrinks[index];
-
-            // Met à jour l'icône de la boisson
-            document.getElementById('drinkIcon').textContent = drink.icon;
-            // Met à jour le nom
-            document.getElementById('drinkName').textContent = drink.name;
-            // Met à jour la catégorie
-            document.getElementById('drinkCategory').textContent = drink.category;
-            // Met à jour le prix
-            document.getElementById('drinkPrice').textContent = drink.price;
-            // Met à jour le stock
-            document.getElementById('drinkStock').textContent = drink.stock;
-
-            // Met à jour les indicateurs (points en bas du carousel)
-            updateIndicators(index);
-        }
-
-        // ===== FONCTION: METTRE À JOUR LES INDICATEURS =====
-        // Enlève la classe "active" de tous les indicateurs et l'ajoute à celui qui correspond à l'index
-        function updateIndicators(activeIndex) {
-            const indicators = document.querySelectorAll('.indicator');
-            indicators.forEach((indicator, index) => {
-                if (index === activeIndex) {
-                    indicator.classList.add('active');
-                } else {
-                    indicator.classList.remove('active');
-                }
-            });
-        }
-
-        // ===== FONCTION: ALLER À LA BOISSON SUIVANTE =====
-        function nextDrink() {
-            // Incrémente l'index, revient à 0 si on dépasse la fin du tableau
-            currentDrinkIndex = (currentDrinkIndex + 1) % featuredDrinks.length;
-            displayDrink(currentDrinkIndex);
-            resetCarouselInterval(); // Réinitialise le timer automatique
-        }
-
-        // ===== FONCTION: ALLER À LA BOISSON PRÉCÉDENTE =====
-        function previousDrink() {
-            // Décrémente l'index, revient à la fin si on est au début
-            currentDrinkIndex = (currentDrinkIndex - 1 + featuredDrinks.length) % featuredDrinks.length;
-            displayDrink(currentDrinkIndex);
-            resetCarouselInterval(); // Réinitialise le timer automatique
-        }
-
-        // ===== FONCTION: ALLER À UNE BOISSON SPÉCIFIQUE =====
-        // Appelée quand on clique sur un indicateur
-        function goToDrink(index) {
-            currentDrinkIndex = index;
-            displayDrink(currentDrinkIndex);
-            resetCarouselInterval(); // Réinitialise le timer automatique
-        }
-
-        // ===== FONCTION: DÉMARRER LE DÉFILEMENT AUTOMATIQUE =====
-        // Change de boisson automatiquement toutes les 5 secondes
-        function startCarouselInterval() {
-            carouselInterval = setInterval(() => {
-                nextDrink();
-            }, 5000); // 5000 millisecondes = 5 secondes
-        }
-
-        // ===== FONCTION: RÉINITIALISER LE TIMER AUTOMATIQUE =====
-        // Quand l'utilisateur interagit manuellement, on redémarre le timer
-        function resetCarouselInterval() {
-            clearInterval(carouselInterval);
-            startCarouselInterval();
-        }
-
-        // ===== FONCTION: NAVIGATION ENTRE PAGES =====
-        // Bascule entre la page Accueil et la page Mes Caves
-        function navigateTo(page) {
-            // Récupère tous les items de navigation
-            const navItems = document.querySelectorAll('.nav-item');
-            // Récupère toutes les sections de page
-            const pages = document.querySelectorAll('.page-section');
-
-            // Enlève la classe "active" de tous les items et pages
-            navItems.forEach(item => item.classList.remove('active'));
-            pages.forEach(p => p.classList.remove('active'));
-
-            // Active la bonne page selon le paramètre
-            if (page === 'home') {
-                document.getElementById('homePage').classList.add('active');
-                navItems[0].classList.add('active'); // Premier nav-item = Accueil
-            } else if (page === 'caves') {
-                document.getElementById('cavesPage').classList.add('active');
-                navItems[1].classList.add('active'); // Deuxième nav-item = Mes caves
-            }
-        }
-
-        // ===== FONCTION: TOGGLE SOUS-MENU =====
-        // Ouvre/ferme le sous-menu "Mes boissons"
-        function toggleSubmenu(element, event) {
-            event.stopPropagation(); // Empêche le clic de se propager
-
-            // Toggle la classe "open" sur l'élément parent
-            element.classList.toggle('open');
-
-            // Récupère le sous-menu qui suit cet élément
-            const submenu = element.nextElementSibling;
-            if (submenu && submenu.classList.contains('submenu')) {
-                submenu.classList.toggle('open');
-            }
-        }
-
-        // ===== FONCTION: TOGGLE DROPDOWN UTILISATEUR =====
-        // Ouvre/ferme le menu déroulant du profil
-        function toggleUserDropdown() {
-            const dropdown = document.getElementById('userDropdown');
-            dropdown.classList.toggle('show');
-        }
-
-        // Ferme le dropdown si on clique ailleurs sur la page
-        document.addEventListener('click', function(event) {
-            const userProfile = document.querySelector('.user-profile');
-            const dropdown = document.getElementById('userDropdown');
-
-            // Si le clic n'est pas sur le profil et le dropdown est ouvert
-            if (!userProfile.contains(event.target) && dropdown.classList.contains('show')) {
-                dropdown.classList.remove('show');
-            }
-        });
-
-        // ===== DONNÉES DES CAVES =====
-        // Objet contenant toutes les informations des 3 caves
-        const cavesData = {
-            principale: {
-                name: '🍷 Cave Principale',
-                location: 'Lekki Phase 1, Lagos',
-                managers: [
-                    {
-                        name: 'Jean Kouassi',
-                        role: 'Manager Principal',
-                        avatar: '👨‍💼',
-                        performance: { ventes: '2.5M', equipe: '12', satisfaction: '96%' },
-                        employees: [
-                            { name: 'Alice Martin', position: 'Caissière', avatar: '👩', ventes: '450K', heures: '160h' },
-                            { name: 'Bob Traore', position: 'Magasinier', avatar: '👨', ventes: '380K', heures: '158h' },
-                            { name: 'Claire Diop', position: 'Vendeuse', avatar: '👩', ventes: '520K', heures: '162h' },
-                            { name: 'David Kone', position: 'Livreur', avatar: '👨', ventes: '290K', heures: '155h' },
-                            { name: 'Emma Sow', position: 'Assistante', avatar: '👩', ventes: '340K', heures: '160h' }
-                        ]
-                    },
-                    {
-                        name: 'Marie Diabate',
-                        role: 'Manager Adjoint',
-                        avatar: '👩‍💼',
-                        performance: { ventes: '1.8M', equipe: '8', satisfaction: '94%' },
-                        employees: [
-                            { name: 'Frank Bamba', position: 'Vendeur', avatar: '👨', ventes: '410K', heures: '159h' },
-                            { name: 'Grace Toure', position: 'Caissière', avatar: '👩', ventes: '390K', heures: '161h' },
-                            { name: 'Henri Camara', position: 'Magasinier', avatar: '👨', ventes: '310K', heures: '157h' },
-                            { name: 'Iris Sylla', position: 'Vendeuse', avatar: '👩', ventes: '470K', heures: '163h' }
-                        ]
-                    },
-                    {
-                        name: 'Pierre Mensah',
-                        role: 'Manager Nuit',
-                        avatar: '👨‍💼',
-                        performance: { ventes: '1.2M', equipe: '6', satisfaction: '91%' },
-                        employees: [
-                            { name: 'Julie Sanogo', position: 'Caissière', avatar: '👩', ventes: '280K', heures: '140h' },
-                            { name: 'Kevin Ouattara', position: 'Vendeur', avatar: '👨', ventes: '350K', heures: '145h' },
-                            { name: 'Laura Koffi', position: 'Assistante', avatar: '👩', ventes: '260K', heures: '138h' }
-                        ]
-                    }
-                ],
-                productivity: [
-                    { month: 'Avril 2025', value: '3.2M', label: 'Ventes' },
-                    { month: 'Mai 2025', value: '3.8M', label: 'Ventes' },
-                    { month: 'Juin 2025', value: '4.1M', label: 'Ventes' },
-                    { month: 'Juillet 2025', value: '3.9M', label: 'Ventes' },
-                    { month: 'Août 2025', value: '4.5M', label: 'Ventes' },
-                    { month: 'Sept 2025', value: '4.8M', label: 'Ventes' }
-                ],
-                globalStats: [
-                    { label: 'Ventes moyennes/mois', value: '4.05M FCFA' },
-                    { label: 'Taux de croissance', value: '+12.5%' }
-                ]
-            },
-            secondaire: {
-                name: '🥂 Cave Secondaire',
-                location: 'Victoria Island, Lagos',
-                managers: [
-                    {
-                        name: 'Sophie Bakayoko',
-                        role: 'Manager Principal',
-                        avatar: '👩‍💼',
-                        performance: { ventes: '1.9M', equipe: '8', satisfaction: '93%' },
-                        employees: [
-                            { name: 'Marc Fofana', position: 'Vendeur', avatar: '👨', ventes: '380K', heures: '158h' },
-                            { name: 'Nina Coulibaly', position: 'Caissière', avatar: '👩', ventes: '420K', heures: '160h' },
-                            { name: 'Oscar Berete', position: 'Magasinier', avatar: '👨', ventes: '310K', heures: '156h' },
-                            { name: 'Paula Keita', position: 'Vendeuse', avatar: '👩', ventes: '460K', heures: '162h' }
-                        ]
-                    },
-                    {
-                        name: 'Thomas Diarra',
-                        role: 'Manager Adjoint',
-                        avatar: '👨‍💼',
-                        performance: { ventes: '1.5M', equipe: '6', satisfaction: '90%' },
-                        employees: [
-                            { name: 'Quincy Dembele', position: 'Vendeur', avatar: '👨', ventes: '340K', heures: '157h' },
-                            { name: 'Rita Niang', position: 'Caissière', avatar: '👩', ventes: '390K', heures: '159h' },
-                            { name: 'Sam Cisse', position: 'Livreur', avatar: '👨', ventes: '280K', heures: '154h' },
-                            { name: 'Tina Barry', position: 'Assistante', avatar: '👩', ventes: '320K', heures: '158h' }
-                        ]
-                    }
-                ],
-                productivity: [
-                    { month: 'Avril 2025', value: '2.5M', label: 'Ventes' },
-                    { month: 'Mai 2025', value: '2.8M', label: 'Ventes' },
-                    { month: 'Juin 2025', value: '3.1M', label: 'Ventes' },
-                    { month: 'Juillet 2025', value: '2.9M', label: 'Ventes' },
-                    { month: 'Août 2025', value: '3.3M', label: 'Ventes' },
-                    { month: 'Sept 2025', value: '3.6M', label: 'Ventes' }
-                ],
-                globalStats: [
-                    { label: 'Ventes moyennes/mois', value: '3.03M FCFA' },
-                    { label: 'Taux de croissance', value: '+9.8%' }
-                ]
-            },
-            premium: {
-                name: '✨ Cave Premium',
-                location: 'Ikoyi, Lagos',
-                managers: [
-                    {
-                        name: 'Victoria Sene',
-                        role: 'Manager Premium',
-                        avatar: '👩‍💼',
-                        performance: { ventes: '2.8M', equipe: '5', satisfaction: '98%' },
-                        employees: [
-                            { name: 'William Gueye', position: 'Sommelier', avatar: '👨', ventes: '580K', heures: '160h' },
-                            { name: 'Xena Ndao', position: 'Caissière VIP', avatar: '👩', ventes: '620K', heures: '162h' },
-                            { name: 'Yves Fall', position: 'Vendeur Premium', avatar: '👨', ventes: '710K', heures: '165h' },
-                            { name: 'Zara Diagne', position: 'Conseillère', avatar: '👩', ventes: '590K', heures: '161h' },
-                            { name: 'Alex Sarr', position: 'Concierge', avatar: '👨', ventes: '480K', heures: '158h' }
-                        ]
-                    }
-                ],
-                productivity: [
-                    { month: 'Avril 2025', value: '2.1M', label: 'Ventes' },
-                    { month: 'Mai 2025', value: '2.4M', label: 'Ventes' },
-                    { month: 'Juin 2025', value: '2.7M', label: 'Ventes' },
-                    { month: 'Juillet 2025', value: '2.9M', label: 'Ventes' },
-                    { month: 'Août 2025', value: '3.1M', label: 'Ventes' },
-                    { month: 'Sept 2025', value: '3.4M', label: 'Ventes' }
-                ],
-                globalStats: [
-                    { label: 'Ventes moyennes/mois', value: '2.77M FCFA' },
-                    { label: 'Taux de croissance', value: '+15.2%' }
-                ]
-            }
-        };
-
-        // ===== FONCTION: OUVRIR MODAL DÉTAILS CAVE =====
-        function openCaveModal(caveType) {
-            const cave = cavesData[caveType];
-            const modal = document.getElementById('caveModal');
-
-            // Met à jour le titre du modal
-            document.getElementById('caveModalTitle').textContent = cave.name;
-
-            // Génère la liste des managers
-            displayManagers(cave.managers);
-
-            // Génère les stats de productivité
-            displayProductivity(cave.productivity, cave.globalStats);
-
-            // Affiche le modal
-            modal.classList.add('active');
-        }
-
-        // ===== FONCTION: AFFICHER LES MANAGERS =====
-        function displayManagers(managers) {
-            const managersList = document.getElementById('managersList');
-            managersList.innerHTML = ''; // Vide le contenu précédent
-
-            // Pour chaque manager, créer une carte
-            managers.forEach((manager, index) => {
-                const managerCard = document.createElement('div');
-                managerCard.className = 'manager-card';
-
-                // Construit le HTML de la carte manager
-                managerCard.innerHTML = `
-                    <div class="manager-header">
-                        <div class="manager-avatar">${manager.avatar}</div>
-                        <div>
-                            <div class="manager-name">${manager.name}</div>
-                            <div class="manager-role">${manager.role}</div>
-                        </div>
-                    </div>
-                    <div class="manager-performance">
-                        <div class="performance-item">
-                            <div class="performance-value">${manager.performance.ventes}</div>
-                            <div class="performance-label">Ventes totales</div>
-                        </div>
-                        <div class="performance-item">
-                            <div class="performance-value">${manager.performance.equipe}</div>
-                            <div class="performance-label">Équipe</div>
-                        </div>
-                        <div class="performance-item">
-                            <div class="performance-value">${manager.performance.satisfaction}</div>
-                            <div class="performance-label">Satisfaction</div>
-                        </div>
-                    </div>
-                    <button class="toggle-employees" onclick="toggleEmployees(${index})">
-                        👥 Voir les employés (${manager.employees.length})
-                        <span id="arrow-${index}">▼</span>
+        <!-- ===== PAGE MES CAVES ===== -->
+        <div class="page-section" [class.active]="currentPage === 'caves'">
+            <section class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title-main">Mes Caves</h2>
+                    <!-- Bouton pour ajouter une nouvelle cave -->
+                    <button class="btn btn-primary" (click)="openAddCaveModal()">
+                        ➕ Ajouter une cave
                     </button>
-                    <div class="employees-list" id="employees-${index}">
-                        ${manager.employees.map(emp => `
-                            <div class="employee-card">
-                                <div class="employee-avatar">${emp.avatar}</div>
-                                <div class="employee-info">
-                                    <div class="employee-name">${emp.name}</div>
-                                    <div class="employee-position">${emp.position}</div>
-                                </div>
-                                <div class="employee-stats">
-                                    <span class="employee-stat">💰 ${emp.ventes}</span>
-                                    <span class="employee-stat">⏱️ ${emp.heures}</span>
-                                </div>
+                </div>
+
+                <!-- Grille des caves -->
+                <div class="caves-grid">
+                    <!-- Itération sur les caves -->
+                    <div
+                        class="cave-card"
+                        *ngFor="let cave of caves"
+                        (click)="openCaveModal(cave)">
+                        <div class="cave-header">
+                            <h3 class="cave-name">{{ cave.name }}</h3>
+                            <p class="cave-location">{{ cave.location }}</p>
+                        </div>
+                        <div class="cave-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">{{ cave.bottles }}</div>
+                                <div class="stat-label">Bouteilles</div>
                             </div>
-                        `).join('')}
+                            <div class="stat-item">
+                                <div class="stat-value">{{ cave.managers }}</div>
+                                <div class="stat-label">{{ cave.managers === 1 ? 'Manager' : 'Managers' }}</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">{{ cave.employees }}</div>
+                                <div class="stat-label">Employés</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">{{ cave.productivity }}%</div>
+                                <div class="stat-label">Productivité</div>
+                            </div>
+                        </div>
+                        <div class="cave-actions" (click)="$event.stopPropagation()">
+                            <button
+                                class="btn btn-sm btn-secondary"
+                                (click)="viewCaveStats(cave)">
+                                📊 Stats
+                            </button>
+                            <button
+                                class="btn btn-sm btn-primary"
+                                (click)="openCaveModal(cave)">
+                                Voir détails
+                            </button>
+                        </div>
                     </div>
-                `;
+                </div>
+            </section>
+        </div>
+    </main>
+</div>
 
-                managersList.appendChild(managerCard);
-            });
-        }
+<!-- ===== MODAL DÉTAILS CAVE ===== -->
+<div class="modal" [class.show]="caveModalOpen" (click)="closeCaveModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h2 class="modal-title">{{ selectedCave?.name || 'Détails de la cave' }}</h2>
+            <button class="close-btn" (click)="closeCaveModal()">×</button>
+        </div>
 
-        // ===== FONCTION: TOGGLE LISTE EMPLOYÉS =====
-        // Affiche/cache la liste des employés d'un manager
-        function toggleEmployees(index) {
-            const employeesList = document.getElementById(`employees-${index}`);
-            const arrow = document.getElementById(`arrow-${index}`);
+        <!-- Onglets -->
+        <div class="modal-tabs">
+            <button
+                class="modal-tab"
+                [class.active]="currentTab === 'managers'"
+                (click)="switchTab('managers')">
+                👥 Managers
+            </button>
+            <button
+                class="modal-tab"
+                [class.active]="currentTab === 'productivity'"
+                (click)="switchTab('productivity')">
+                📊 Productivité
+            </button>
+        </div>
 
-            employeesList.classList.toggle('show');
+        <div class="modal-body">
+            <!-- ===== ONGLET MANAGERS ===== -->
+            <div class="tab-content" [class.active]="currentTab === 'managers'">
+                <div class="managers-list">
+                    <!-- Itération sur les managers -->
+                    <div
+                        class="manager-card"
+                        *ngFor="let manager of selectedCave?.managersList">
+                        <div class="manager-avatar">{{ manager.avatar }}</div>
+                        <div class="manager-info">
+                            <div class="manager-name">{{ manager.name }}</div>
+                            <div class="manager-role">{{ manager.role }}</div>
+                            <div class="manager-contact">
+                                <div>📧 {{ manager.email }}</div>
+                                <div>📱 {{ manager.phone }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            // Change l'orientation de la flèche
-            if (employeesList.classList.contains('show')) {
-                arrow.textContent = '▲';
-            } else {
-                arrow.textContent = '▼';
-            }
-        }
+            <!-- ===== ONGLET PRODUCTIVITÉ ===== -->
+            <div class="tab-content" [class.active]="currentTab === 'productivity'">
+                <h3 style="margin-bottom: 1.5rem;">Statistiques mensuelles</h3>
+                <div class="productivity-grid">
+                    <!-- Itération sur les stats mensuelles -->
+                    <div
+                        class="productivity-card"
+                        *ngFor="let stat of selectedCave?.monthlyStats">
+                        <h4>{{ stat.month }}</h4>
+                        <div class="productivity-stat">
+                            <span>Ventes:</span>
+                            <span>{{ stat.sales | number }} FCFA</span>
+                        </div>
+                        <div class="productivity-stat">
+                            <span>Commandes:</span>
+                            <span>{{ stat.orders }}</span>
+                        </div>
+                        <div class="productivity-stat">
+                            <span>Productivité:</span>
+                            <span>{{ stat.avgProductivity }}%</span>
+                        </div>
+                    </div>
+                </div>
 
-        // ===== FONCTION: AFFICHER LA PRODUCTIVITÉ =====
-        function displayProductivity(productivity, globalStats) {
-            // Affiche les statistiques mensuelles
-            const productivityGrid = document.getElementById('productivityGrid');
-            productivityGrid.innerHTML = '';
+                <div class="global-stats" *ngIf="selectedCave">
+                    <h3>Moyennes globales</h3>
+                    <div class="global-stats-grid">
+                        <div class="global-stat-item">
+                            <div class="global-stat-label">Ventes moyennes</div>
+                            <div class="global-stat-value">
+                                {{ getAverageSales(selectedCave) | number }} FCFA
+                            </div>
+                        </div>
+                        <div class="global-stat-item">
+                            <div class="global-stat-label">Commandes moyennes</div>
+                            <div class="global-stat-value">
+                                {{ getAverageOrders(selectedCave) }}
+                            </div>
+                        </div>
+                        <div class="global-stat-item">
+                            <div class="global-stat-label">Productivité moyenne</div>
+                            <div class="global-stat-value">
+                                {{ getAverageProductivity(selectedCave) }}%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-            productivity.forEach(stat => {
-                const card = document.createElement('div');
-                card.className = 'productivity-card';
-                card.innerHTML = `
-                    <div class="productivity-month">${stat.month}</div>
-                    <div class="productivity-value">${stat.value}</div>
-                    <div class="productivity-label">${stat.label}</div>
-                `;
-                productivityGrid.appendChild(card);
-            });
+<!-- ===== MODAL AJOUTER CAVE ===== -->
+<div class="modal" [class.show]="addCaveModalOpen" (click)="closeAddCaveModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h2 class="modal-title">➕ Ajouter une nouvelle cave</h2>
+            <button class="close-btn" (click)="closeAddCaveModal()">×</button>
+        </div>
 
-            // Affiche les stats globales
-            const globalStatsGrid = document.getElementById('globalStatsGrid');
-            globalStatsGrid.innerHTML = '';
+        <div class="modal-body">
+            <!-- Formulaire d'ajout de cave -->
+            <form [formGroup]="addCaveForm" (ngSubmit)="onAddCave()">
+                <div class="form-group">
+                    <label class="form-label">Nom de la cave</label>
+                    <input
+                        type="text"
+                        class="form-input"
+                        formControlName="name"
+                        placeholder="Ex: Cave Principale">
+                    <div
+                        class="error-message"
+                        *ngIf="addCaveForm.get('name')?.invalid && addCaveForm.get('name')?.touched">
+                        Le nom est requis
+                    </div>
+                </div>
 
-            globalStats.forEach(stat => {
-                const statItem = document.createElement('div');
-                statItem.className = 'stat-item';
-                statItem.innerHTML = `
-                    <div class="stat-value">${stat.value}</div>
-                    <div class="stat-label">${stat.label}</div>
-                `;
-                globalStatsGrid.appendChild(statItem);
-            });
-        }
+                <div class="form-group">
+                    <label class="form-label">Localisation</label>
+                    <input
+                        type="text"
+                        class="form-input"
+                        formControlName="location"
+                        placeholder="Ex: Lekki Phase 1, Lagos">
+                    <div
+                        class="error-message"
+                        *ngIf="addCaveForm.get('location')?.invalid && addCaveForm.get('location')?.touched">
+                        La localisation est requise
+                    </div>
+                </div>
 
-        // ===== FONCTION: FERMER MODAL CAVE =====
-        function closeCaveModal() {
-            document.getElementById('caveModal').classList.remove('active');
-        }
+                <div class="form-group">
+                    <label class="form-label">Capacité (nombre de bouteilles)</label>
+                    <input
+                        type="number"
+                        class="form-input"
+                        formControlName="capacity"
+                        placeholder="Ex: 500">
+                    <div
+                        class="error-message"
+                        *ngIf="addCaveForm.get('capacity')?.invalid && addCaveForm.get('capacity')?.touched">
+                        La capacité est requise
+                    </div>
+                </div>
 
-        // ===== FONCTION: CHANGER D'ONGLET DANS LE MODAL =====
-        function switchTab(tabName) {
-            // Récupère tous les boutons d'onglets et contenus
-            const tabs = document.querySelectorAll('.modal-tab');
-            const contents = document.querySelectorAll('.tab-content');
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea
+                        class="form-textarea"
+                        formControlName="description"
+                        placeholder="Description de la cave...">
+                    </textarea>
+                </div>
+            </form>
+        </div>
 
-            // Enlève la classe active de tout
-            tabs.forEach(tab => tab.classList.remove('active'));
-            contents.forEach(content => content.classList.remove('active'));
-
-            // Active l'onglet sélectionné
-            if (tabName === 'managers') {
-                tabs[0].classList.add('active');
-                document.getElementById('managersTab').classList.add('active');
-            } else if (tabName === 'productivity') {
-                tabs[1].classList.add('active');
-                document.getElementById('productivityTab').classList.add('active');
-            }
-        }
-
-        // ===== FONCTION: OUVRIR MODAL AJOUT CAVE =====
-        function openAddCaveModal() {
-            document.getElementById('addCaveModal').classList.add('active');
-        }
-
-        // ===== FONCTION: FERMER MODAL AJOUT CAVE =====
-        function closeAddCaveModal() {
-            document.getElementById('addCaveModal').classList.remove('active');
-            // Réinitialise le formulaire
-            document.getElementById('addCaveForm').reset();
-        }
-
-        // ===== FONCTION: AJOUTER NOUVELLE CAVE =====
-        function addNewCave() {
-            // Récupère les valeurs du formulaire
-            const form = document.getElementById('addCaveForm');
-            const formData = new FormData(form);
-
-            // Ici vous pourriez envoyer les données à un serveur
-            // Pour l'instant, on affiche juste une confirmation
-            alert('Nouvelle cave créée avec succès !');
-            closeAddCaveModal();
-        }
-
-        // Ferme les modals si on clique en dehors du contenu
-        window.onclick = function(event) {
-            const caveModal = document.getElementById('caveModal');
-            const addCaveModal = document.getElementById('addCaveModal');
-
-            if (event.target === caveModal) {
-                closeCaveModal();
-            }
-            if (event.target === addCaveModal) {
-                closeAddCaveModal();
-            }
-        }
-
-        // ===== INITIALISATION AU CHARGEMENT DE LA PAGE =====
-        // Cette fonction s'exécute une fois que la page est complètement chargée
-        window.onload = function() {
-            // Affiche la boisson initiale du carousel (index 4)
-            displayDrink(currentDrinkIndex);
-            // Démarre le défilement automatique
-            startCarouselInterval();
-        };
-    </script>
-</body>
-</html>
+        <div class="modal-footer">
+            <button
+                class="btn btn-cancel"
+                type="button"
+                (click)="closeAddCaveModal()">
+                Annuler
+            </button>
+            <button
+                class="btn btn-primary"
+                type="button"
+                [disabled]="addCaveForm.invalid"
+                (click)="onAddCave()">
+                Créer la cave
+            </button>
+        </div>
+    </div>
+</div>
