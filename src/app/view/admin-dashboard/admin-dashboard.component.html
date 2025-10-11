@@ -1,460 +1,508 @@
-<!-- app.component.html -->
-<div class="dashboard">
-    <!-- ===== SIDEBAR (MENU LATÉRAL) ===== -->
-    <aside class="sidebar">
-        <!-- Logo en haut -->
-        <div class="sidebar-header">
-            <div class="logo">
-                <span class="logo-icon">🍾</span>
-                <span class="logo-text">DrinkStore Pro</span>
-            </div>
-        </div>
-
-        <!-- Navigation principale -->
-        <nav class="sidebar-section">
-            <!-- Accueil - Page active par défaut -->
-            <div
-                class="nav-item"
-                [class.active]="currentPage === 'home'"
-                (click)="navigateTo('home')">
-                <span class="nav-icon">🏠</span>
-                <span class="nav-text">Accueil</span>
-            </div>
-            <!-- Mes caves -->
-            <div
-                class="nav-item"
-                [class.active]="currentPage === 'caves'"
-                (click)="navigateTo('caves')">
-                <span class="nav-icon">🍷</span>
-                <span class="nav-text">Mes caves</span>
-            </div>
-        </nav>
-
-        <div class="divider"></div>
-
-        <!-- Section MA CAVE -->
-        <nav class="sidebar-section">
-            <div class="section-title">MA CAVE</div>
-
-            <!-- Mes boissons avec sous-menu -->
-            <div class="nav-item" (click)="toggleSubmenu($event)">
-                <span class="nav-icon">🍾</span>
-                <span class="nav-text">Mes boissons</span>
-                <span
-                    class="submenu-arrow"
-                    [style.transform]="submenuOpen ? 'rotate(90deg)' : 'rotate(0deg)'">
-                    ▶
-                </span>
-            </div>
-            <!-- Sous-menu des catégories de boissons -->
-            <div class="submenu" [class.open]="submenuOpen">
-                <div class="submenu-item" *ngFor="let category of drinkCategories">
-                    {{ category.icon }} {{ category.name }}
+<!-- ===== CONTENEUR PRINCIPAL ===== -->
+<!-- Plus besoin de <!DOCTYPE html>, <head>, <body> dans Angular -->
+<body>
+    <div class="dashboard">
+        <!-- ===== SIDEBAR (MENU LATÉRAL) ===== -->
+        <aside class="sidebar">
+            <!-- Logo en haut -->
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon">🍾</span>
+                    <span class="logo-text">VIKINGS</span>
                 </div>
             </div>
 
-            <!-- Autres items de la cave -->
-            <div class="nav-item">
-                <span class="nav-icon">📥</span>
-                <span class="nav-text">Mes entrées</span>
-            </div>
-
-            <div class="nav-item">
-                <span class="nav-icon">📤</span>
-                <span class="nav-text">Mes sorties</span>
-            </div>
-
-            <div class="nav-item">
-                <span class="nav-icon">🍽️</span>
-                <span class="nav-text">Mets & Vins</span>
-            </div>
-
-            <div class="nav-item">
-                <span class="nav-icon">👥</span>
-                <span class="nav-text">Mes managers</span>
-            </div>
-
-            <div class="nav-item">
-                <span class="nav-icon">👨‍💼</span>
-                <span class="nav-text">Mes employés</span>
-            </div>
-
-            <div class="nav-item">
-                <span class="nav-icon">📷</span>
-                <span class="nav-text">Scan</span>
-            </div>
-
-            <div class="nav-item">
-                <span class="nav-icon">👤</span>
-                <span class="nav-text">Mon compte</span>
-            </div>
-        </nav>
-
-        <div class="divider"></div>
-
-        <!-- Section INFOS -->
-        <nav class="sidebar-section">
-            <div class="section-title">INFOS</div>
-
-            <div class="nav-item">
-                <span class="nav-icon">❓</span>
-                <span class="nav-text">FAQ</span>
-            </div>
-
-            <div class="nav-item">
-                <span class="nav-icon">📝</span>
-                <span class="nav-text">Notes améliorations</span>
-            </div>
-
-            <div class="nav-item">
-                <span class="nav-icon">📧</span>
-                <span class="nav-text">Nous contacter</span>
-            </div>
-
-            <div class="nav-item">
-                <span class="nav-icon">📚</span>
-                <span class="nav-text">En savoir plus</span>
-            </div>
-        </nav>
-
-        <div class="divider"></div>
-
-        <!-- Réseaux sociaux -->
-        <div class="sidebar-section">
-            <div class="section-title">SUIVEZ-NOUS</div>
-            <div class="social-links">
+            <!-- Navigation principale -->
+            <nav class="sidebar-section">
+                <!-- (click) écoute l'événement de clic et appelle la méthode navigateTo -->
+                <!-- [class.active] ajoute la classe 'active' si la condition est vraie -->
                 <div
-                    class="social-link"
-                    *ngFor="let social of socialLinks"
-                    [title]="social.name">
-                    {{ social.icon }}
-                </div>
-            </div>
-        </div>
-    </aside>
-
-    <!-- ===== CONTENU PRINCIPAL ===== -->
-    <main class="main-content">
-        <!-- ===== EN-TÊTE DU HAUT ===== -->
-        <header class="top-header">
-            <!-- Barre de recherche à gauche -->
-            <div class="header-left">
-                <div class="search-bar">
-                    <input
-                        type="text"
-                        placeholder="Rechercher un vin millésime, une cave..."
-                        [(ngModel)]="searchQuery"
-                        (input)="onSearch()">
-                    <button class="search-btn" (click)="onSearch()">🔍</button>
-                </div>
-            </div>
-
-            <!-- Éléments à droite -->
-            <div class="header-right">
-                <!-- Sélecteur de catégories -->
-                <div class="category-selector">
-                    <select [(ngModel)]="selectedCategory" (change)="onCategoryChange()">
-                        <option value="">Toutes les catégories</option>
-                        <option *ngFor="let cat of categories" [value]="cat.value">
-                            {{ cat.label }}
-                        </option>
-                    </select>
+                    class="nav-item"
+                    [class.active]="currentPage === 'home'"
+                    (click)="navigateTo('home')">
+                    <span class="nav-icon">🏠</span>
+                    <span class="nav-text">Accueil</span>
                 </div>
 
-                <!-- Icône panier avec badge -->
-                <div class="header-icon" (click)="openCart()">
-                    <span class="icon">🛒</span>
-                    <span class="badge" *ngIf="cartCount > 0">{{ cartCount }}</span>
+                <!-- Navigation vers Mes caves -->
+                <div
+                    class="nav-item"
+                    [class.active]="currentPage === 'caves'"
+                    (click)="navigateTo('caves')">
+                    <span class="nav-icon">🍷</span>
+                    <span class="nav-text">Mes caves</span>
+                </div>
+            </nav>
+
+            <div class="divider"></div>
+
+            <!-- Section MA CAVE -->
+            <nav class="sidebar-section">
+                <div class="section-title">MA CAVE</div>
+
+                <!-- Mes boissons avec sous-menu -->
+                <!-- $event est l'objet événement JavaScript natif -->
+                <div class="nav-item" (click)="toggleSubmenu($event)">
+                    <span class="nav-icon">🍾</span>
+                    <span class="nav-text">Mes boissons</span>
+                    <!-- [style.transform] lie dynamiquement le style CSS transform -->
+                    <!-- L'opérateur ternaire ? : choisit entre deux valeurs selon une condition -->
+                    <span
+                        class="submenu-arrow"
+                        [style.transform]="submenuOpen ? 'rotate(90deg)' : 'rotate(0deg)'">
+                        ▶
+                    </span>
                 </div>
 
-                <!-- Icône notifications avec badge -->
-                <div class="header-icon" (click)="openNotifications()">
-                    <span class="icon">🔔</span>
-                    <span class="badge" *ngIf="notificationCount > 0">{{ notificationCount }}</span>
-                </div>
-
-                <!-- Profil utilisateur avec dropdown -->
-                <div class="user-profile" (click)="toggleUserDropdown()">
-                    <div class="avatar">👤</div>
-                    <div>
-                        <div class="user-name">{{ currentUser?.name }}</div>
-                        <div class="user-role">{{ currentUser?.role }}</div>
-                    </div>
-                    <!-- Menu dropdown (caché par défaut) -->
-                    <div class="user-dropdown" [class.show]="userDropdownOpen">
-                        <div class="dropdown-item" (click)="goToProfile()">👤 Mon profil</div>
-                        <div class="dropdown-item" (click)="goToSettings()">⚙️ Paramètres</div>
-                        <div class="dropdown-divider"></div>
-                        <div class="dropdown-item" (click)="openSupport()">💬 Assistance</div>
-                        <div class="dropdown-item" (click)="logout()">🚪 Déconnexion</div>
+                <!-- Sous-menu des catégories de boissons -->
+                <!-- [class.open] ajoute la classe 'open' si submenuOpen est true -->
+                <div class="submenu" [class.open]="submenuOpen">
+                    <!-- *ngFor répète cet élément pour chaque catégorie -->
+                    <!-- 'let category of drinkCategories' crée une variable locale 'category' -->
+                    <div class="submenu-item" *ngFor="let category of drinkCategories">
+                        {{ category.icon }} {{ category.name }}
                     </div>
                 </div>
+
+                <!-- Autres items de la cave -->
+                <div class="nav-item">
+                    <span class="nav-icon">📥</span>
+                    <span class="nav-text">Mes entrées</span>
+                </div>
+
+                <div class="nav-item">
+                    <span class="nav-icon">📤</span>
+                    <span class="nav-text">Mes sorties</span>
+                </div>
+
+                <div class="nav-item">
+                    <span class="nav-icon">🍽️</span>
+                    <span class="nav-text">Mets & Vins</span>
+                </div>
+
+                <div class="nav-item">
+                    <span class="nav-icon">👥</span>
+                    <span class="nav-text">Mes managers</span>
+                </div>
+
+                <div class="nav-item">
+                    <span class="nav-icon">👨‍💼</span>
+                    <span class="nav-text">Mes employés</span>
+                </div>
+
+                <div class="nav-item">
+                    <span class="nav-icon">📷</span>
+                    <span class="nav-text">Scan</span>
+                </div>
+
+                <div class="nav-item">
+                    <span class="nav-icon">👤</span>
+                    <span class="nav-text">Mon compte</span>
+                </div>
+            </nav>
+
+            <div class="divider"></div>
+
+            <!-- Section INFOS -->
+            <nav class="sidebar-section">
+                <div class="section-title">INFOS</div>
+
+                <div class="nav-item">
+                    <span class="nav-icon">❓</span>
+                    <span class="nav-text">FAQ</span>
+                </div>
+
+                <div class="nav-item">
+                    <span class="nav-icon">📝</span>
+                    <span class="nav-text">Notes améliorations</span>
+                </div>
+
+                <div class="nav-item">
+                    <span class="nav-icon">📧</span>
+                    <span class="nav-text">Nous contacter</span>
+                </div>
+
+                <div class="nav-item">
+                    <span class="nav-icon">📚</span>
+                    <span class="nav-text">En savoir plus</span>
+                </div>
+            </nav>
+
+            <div class="divider"></div>
+
+            <!-- Réseaux sociaux -->
+            <div class="sidebar-section">
+                <div class="section-title">SUIVEZ-NOUS</div>
+                <div class="social-links">
+                    <!-- *ngFor crée un lien pour chaque réseau social -->
+                    <!-- [title] lie l'attribut HTML title à la propriété social.name -->
+                    <div
+                        class="social-link"
+                        *ngFor="let social of socialLinks"
+                        [title]="social.name">
+                        {{ social.icon }}
+                    </div>
+                </div>
             </div>
-        </header>
+        </aside>
 
-        <!-- ===== PAGE ACCUEIL ===== -->
-        <div class="page-section" [class.active]="currentPage === 'home'">
-            <!-- CAROUSEL DES BOISSONS VEDETTES -->
-            <section class="carousel-section">
-                <div class="carousel-container">
-                    <!-- Bouton précédent -->
-                    <button class="carousel-btn" (click)="previousDrink()">❮</button>
+        <!-- ===== CONTENU PRINCIPAL ===== -->
+        <main class="main-content">
+            <!-- ===== EN-TÊTE DU HAUT ===== -->
+            <header class="top-header">
+                <!-- Barre de recherche à gauche -->
+                <div class="header-left">
+                    <div class="search-bar">
+                        <!-- [(ngModel)] crée un two-way binding (liaison bidirectionnelle) -->
+                        <!-- Les changements dans l'input mettent à jour searchQuery -->
+                        <!-- Les changements de searchQuery mettent à jour l'input -->
+                        <input
+                            type="text"
+                            placeholder="Rechercher un vin millésime, une cave..."
+                            [(ngModel)]="searchQuery"
+                            (input)="onSearch()">
+                        <button class="search-btn" (click)="onSearch()">🔍</button>
+                    </div>
+                </div>
 
-                    <!-- Contenu du carousel -->
-                    <div class="carousel-content" *ngIf="currentDrink">
-                        <div class="featured-drink">
-                            <!-- Image de la boisson (avec animation flottante) -->
-                            <div class="drink-image">{{ currentDrink.icon }}</div>
-                            <!-- Informations de la boisson -->
-                            <div class="drink-info">
-                                <h2>{{ currentDrink.name }}</h2>
-                                <p class="drink-category">{{ currentDrink.category }}</p>
-                                <p class="drink-price">{{ currentDrink.price | number }} FCFA</p>
-                                <p class="drink-stock">Stock: {{ currentDrink.stock }} unités</p>
-                                <button class="view-btn" (click)="viewDrinkDetails(currentDrink)">
-                                    Voir les détails
+                <!-- Éléments à droite -->
+                <div class="header-right">
+                    <!-- Sélecteur de catégories -->
+                    <div class="category-selector">
+                        <!-- [(ngModel)] sur un select lie la valeur sélectionnée -->
+                        <select [(ngModel)]="selectedCategory" (change)="onCategoryChange()">
+                            <option value="">Toutes les catégories</option>
+                            <!-- *ngFor crée une option pour chaque catégorie -->
+                            <!-- [value] lie l'attribut value à cat.value -->
+
+                            <option *ngFor="let cat of categories" [value]="cat.value">
+                                {{ cat.label }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- Icône panier avec badge -->
+                    <div class="header-icon" (click)="openCart()">
+                        <span class="icon">🛒</span>
+                        <!-- *ngIf affiche le badge seulement si cartCount > 0 -->
+                        <span class="badge" *ngIf="cartCount > 0">{{ cartCount }}</span>
+                    </div>
+
+                    <!-- Icône notifications avec badge -->
+                    <div class="header-icon" (click)="openNotifications()">
+                        <span class="icon">🔔</span>
+                        <span class="badge" *ngIf="notificationCount > 0">{{ notificationCount }}</span>
+                    </div>
+
+                    <!-- Profil utilisateur avec dropdown -->
+                    <div class="user-profile" (click)="toggleUserDropdown()">
+                        <div class="avatar">👤</div>
+                        <div>
+                            <!-- ?. est l'opérateur safe navigation (évite les erreurs si null) -->
+                            <div class="user-name">{{ currentUser?.name }}</div>
+                            <div class="user-role">{{ currentUser?.role }}</div>
+                        </div>
+                        <!-- Menu dropdown -->
+                        <!-- [class.show] ajoute la classe 'show' si userDropdownOpen est true -->
+                        <div class="user-dropdown" [class.show]="userDropdownOpen">
+                            <div class="dropdown-item" (click)="goToProfile()">👤 Mon profil</div>
+                            <div class="dropdown-item" (click)="goToSettings()">⚙️ Paramètres</div>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-item" (click)="openSupport()">💬 Assistance</div>
+                            <div class="dropdown-item" (click)="logout()">🚪 Déconnexion</div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- ===== PAGE ACCUEIL ===== -->
+            <!-- *ngIf affiche cette section seulement si currentPage === 'home' -->
+            <div class="page-section" *ngIf="currentPage === 'home'">
+                <!-- CAROUSEL DES BOISSONS VEDETTES -->
+                <section class="carousel-section">
+                    <div class="carousel-container">
+                        <!-- Bouton précédent -->
+                        <button class="carousel-btn" (click)="previousDrink()">❮</button>
+
+                        <!-- Contenu du carousel -->
+                        <!-- currentDrink est un getter qui retourne la boisson actuelle -->
+                        <div class="carousel-content" *ngIf="currentDrink">
+                            <div class="featured-drink">
+                                <!-- Image de la boisson -->
+                                <div class="drink-image">{{ currentDrink.icon }}</div>
+                                <!-- Informations de la boisson -->
+                                <div class="drink-info">
+                                    <h2>{{ currentDrink.name }}</h2>
+                                    <p class="drink-category">{{ currentDrink.category }}</p>
+                                    <!-- Le pipe 'number' formate le nombre avec des espaces -->
+                                    <p class="drink-price">{{ currentDrink.price | number }} FCFA</p>
+                                    <p class="drink-stock">Stock: {{ currentDrink.stock }} unités</p>
+                                    <button class="view-btn" (click)="viewDrinkDetails(currentDrink)">
+                                        Voir les détails
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bouton suivant -->
+                        <button class="carousel-btn" (click)="nextDrink()">❯</button>
+                    </div>
+
+                    <!-- Indicateurs de position (points) -->
+                    <div class="carousel-indicators">
+                        <!-- *ngFor avec 'let i = index' crée une variable pour l'index -->
+                        <span
+                            class="indicator"
+                            *ngFor="let drink of featuredDrinks; let i = index"
+                            [class.active]="i === currentDrinkIndex"
+                            (click)="goToDrink(i)">
+                        </span>
+                    </div>
+                </section>
+
+                <!-- STATISTIQUES RAPIDES -->
+                <section class="content-section">
+                    <div class="stats-cards-grid">
+                        <!-- *ngFor itère sur les cartes statistiques -->
+                        <!-- [ngClass] permet d'appliquer une classe dynamiquement -->
+                        <div
+                            class="stat-card"
+                            *ngFor="let stat of statsCards"
+                            [ngClass]="stat.colorClass">
+                            <div class="stat-icon">{{ stat.icon }}</div>
+                            <div class="stat-content">
+                                <div class="stat-label">{{ stat.label }}</div>
+                                <div class="stat-value">{{ stat.value }}</div>
+                                <!-- [ngClass] applique une classe selon stat.changeType -->
+                                <div class="stat-change" [ngClass]="stat.changeType">
+                                    {{ stat.change }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PRODUITS POPULAIRES -->
+                <section class="content-section">
+                    <div class="section-header">
+                        <h2 class="section-title-main">Produits Populaires</h2>
+                    </div>
+                    <div class="products-grid">
+                        <!-- *ngFor itère sur les produits populaires -->
+                        <div
+                            class="product-card"
+                            *ngFor="let product of popularProducts"
+                            (click)="viewProductDetails(product)">
+                            <div class="product-image">
+                                {{ product.icon }}
+                                <!-- *ngIf affiche le badge seulement si product.badge existe -->
+                                <!-- 'badge-' + product.badge.toLowerCase() concatène les chaînes -->
+                                <span
+                                    class="product-badge"
+                                    *ngIf="product.badge"
+                                    [ngClass]="'badge-' + product.badge.toLowerCase()">
+                                    {{ product.badge }}
+                                </span>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-name">{{ product.name }}</h3>
+                                <p class="product-category">{{ product.category }}</p>
+                                <div class="product-stats">
+                                    <span class="product-sales">{{ product.sales }} ventes</span>
+                                    <span class="product-price">{{ product.price | number }} FCFA</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ACTIONS RÉCENTES -->
+                <section class="content-section">
+                    <div class="section-header">
+                        <h2 class="section-title-main">Actions Récentes</h2>
+                    </div>
+                    <div class="actions-list">
+                        <!-- *ngFor itère sur les actions récentes -->
+                        <div
+                            class="action-item"
+                            *ngFor="let action of recentActions">
+                            <!-- [ngClass] applique une classe basée sur action.type -->
+                            <div class="action-icon" [ngClass]="action.type">
+                                {{ action.icon }}
+                            </div>
+                            <div class="action-content">
+                                <div class="action-title">{{ action.title }}</div>
+                                <div class="action-details">{{ action.details }}</div>
+                            </div>
+                            <div class="action-time">{{ action.time }}</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- ===== PAGE MES CAVES ===== -->
+            <div class="page-section" *ngIf="currentPage === 'caves'">
+                <section class="content-section">
+                    <div class="section-header">
+                        <h2 class="section-title-main">Mes Caves</h2>
+                        <!-- Bouton pour ajouter une nouvelle cave -->
+                        <button class="btn btn-primary" (click)="openAddCaveModal()">
+                            ➕ Ajouter une cave
+                        </button>
+                    </div>
+
+                    <!-- Grille des caves -->
+                    <div class="caves-grid">
+                        <!-- *ngFor itère sur toutes les caves -->
+                        <div
+                            class="cave-card"
+                            *ngFor="let cave of caves"
+                            (click)="openCaveModal(cave)">
+                            <div class="cave-header">
+                                <h3 class="cave-name">{{ cave.name }}</h3>
+                                <p class="cave-location">{{ cave.location }}</p>
+                            </div>
+                            <div class="cave-stats">
+                                <div class="stat-item">
+                                    <div class="stat-value">{{ cave.bottles }}</div>
+                                    <div class="stat-label">Bouteilles</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">{{ cave.managers }}</div>
+                                    <!-- Opérateur ternaire pour pluriel/singulier -->
+                                    <div class="stat-label">{{ cave.managers === 1 ? 'Manager' : 'Managers' }}</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">{{ cave.employees }}</div>
+                                    <div class="stat-label">Employés</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">{{ cave.productivity }}%</div>
+                                    <div class="stat-label">Productivité</div>
+                                </div>
+                            </div>
+                            <!-- $event.stopPropagation() empêche le clic de remonter au parent -->
+                            <!-- Sinon, cliquer sur les boutons ouvrirait aussi la modal -->
+                            <div class="cave-actions" (click)="$event.stopPropagation()">
+                                <button
+                                    class="btn btn-sm btn-secondary"
+                                    (click)="viewCaveStats(cave)">
+                                    📊 Stats
+                                </button>
+                                <button
+                                    class="btn btn-sm btn-primary"
+                                    (click)="openCaveModal(cave)">
+                                    Voir détails
                                 </button>
                             </div>
                         </div>
                     </div>
+                </section>
+            </div>
+        </main>
+    </div>
 
-                    <!-- Bouton suivant -->
-                    <button class="carousel-btn" (click)="nextDrink()">❯</button>
-                </div>
-
-                <!-- Indicateurs de position (points) -->
-                <div class="carousel-indicators">
-                    <span
-                        class="indicator"
-                        *ngFor="let drink of featuredDrinks; let i = index"
-                        [class.active]="i === currentDrinkIndex"
-                        (click)="goToDrink(i)">
-                    </span>
-                </div>
-            </section>
-
-            <!-- STATISTIQUES RAPIDES -->
-            <section class="content-section">
-                <div class="stats-cards-grid">
-                    <!-- Itération sur les cartes statistiques -->
-                    <div
-                        class="stat-card"
-                        *ngFor="let stat of statsCards"
-                        [ngClass]="stat.colorClass">
-                        <div class="stat-icon">{{ stat.icon }}</div>
-                        <div class="stat-content">
-                            <div class="stat-label">{{ stat.label }}</div>
-                            <div class="stat-value">{{ stat.value }}</div>
-                            <div class="stat-change" [ngClass]="stat.changeType">
-                                {{ stat.change }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- PRODUITS POPULAIRES -->
-            <section class="content-section">
-                <div class="section-header">
-                    <h2 class="section-title-main">Produits Populaires</h2>
-                </div>
-                <div class="products-grid">
-                    <!-- Itération sur les produits populaires -->
-                    <div
-                        class="product-card"
-                        *ngFor="let product of popularProducts"
-                        (click)="viewProductDetails(product)">
-                        <div class="product-image">
-                            {{ product.icon }}
-                            <span
-                                class="product-badge"
-                                *ngIf="product.badge"
-                                [ngClass]="'badge-' + product.badge.toLowerCase()">
-                                {{ product.badge }}
-                            </span>
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-name">{{ product.name }}</h3>
-                            <p class="product-category">{{ product.category }}</p>
-                            <div class="product-stats">
-                                <span class="product-sales">{{ product.sales }} ventes</span>
-                                <span class="product-price">{{ product.price | number }} FCFA</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ACTIONS RÉCENTES -->
-            <section class="content-section">
-                <div class="section-header">
-                    <h2 class="section-title-main">Actions Récentes</h2>
-                </div>
-                <div class="actions-list">
-                    <!-- Itération sur les actions récentes -->
-                    <div
-                        class="action-item"
-                        *ngFor="let action of recentActions">
-                        <div class="action-icon" [ngClass]="action.type">
-                            {{ action.icon }}
-                        </div>
-                        <div class="action-content">
-                            <div class="action-title">{{ action.title }}</div>
-                            <div class="action-details">{{ action.details }}</div>
-                        </div>
-                        <div class="action-time">{{ action.time }}</div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- ===== PAGE MES CAVES ===== -->
-        <div class="page-section" [class.active]="currentPage === 'caves'">
-            <section class="content-section">
-                <div class="section-header">
-                    <h2 class="section-title-main">Mes Caves</h2>
-                    <!-- Bouton pour ajouter une nouvelle cave -->
-                    <button class="btn btn-primary" (click)="openAddCaveModal()">
-                        ➕ Ajouter une cave
-                    </button>
-                </div>
-
-                <!-- Grille des caves -->
-                <div class="caves-grid">
-                    <!-- Itération sur les caves -->
-                    <div
-                        class="cave-card"
-                        *ngFor="let cave of caves"
-                        (click)="openCaveModal(cave)">
-                        <div class="cave-header">
-                            <h3 class="cave-name">{{ cave.name }}</h3>
-                            <p class="cave-location">{{ cave.location }}</p>
-                        </div>
-                        <div class="cave-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">{{ cave.bottles }}</div>
-                                <div class="stat-label">Bouteilles</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">{{ cave.managers }}</div>
-                                <div class="stat-label">{{ cave.managers === 1 ? 'Manager' : 'Managers' }}</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">{{ cave.employees }}</div>
-                                <div class="stat-label">Employés</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">{{ cave.productivity }}%</div>
-                                <div class="stat-label">Productivité</div>
-                            </div>
-                        </div>
-                        <div class="cave-actions" (click)="$event.stopPropagation()">
-                            <button
-                                class="btn btn-sm btn-secondary"
-                                (click)="viewCaveStats(cave)">
-                                📊 Stats
-                            </button>
-                            <button
-                                class="btn btn-sm btn-primary"
-                                (click)="openCaveModal(cave)">
-                                Voir détails
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </main>
-</div>
-
-<!-- ===== MODAL DÉTAILS CAVE ===== -->
-<div class="modal" [class.show]="caveModalOpen" (click)="closeCaveModal()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-        <div class="modal-header">
-            <h2 class="modal-title">{{ selectedCave?.name || 'Détails de la cave' }}</h2>
-            <button class="close-btn" (click)="closeCaveModal()">×</button>
-        </div>
-
-        <!-- Onglets -->
-        <div class="modal-tabs">
-            <button
-                class="modal-tab"
-                [class.active]="currentTab === 'managers'"
-                (click)="switchTab('managers')">
-                👥 Managers
-            </button>
-            <button
-                class="modal-tab"
-                [class.active]="currentTab === 'productivity'"
-                (click)="switchTab('productivity')">
-                📊 Productivité
-            </button>
-        </div>
-
-        <div class="modal-body">
-            <!-- ===== ONGLET MANAGERS ===== -->
-            <div class="tab-content" [class.active]="currentTab === 'managers'">
-                <div class="managers-list">
-                    <!-- Itération sur les managers -->
-                    <div
-                        class="manager-card"
-                        *ngFor="let manager of selectedCave?.managersList">
-                        <div class="manager-avatar">{{ manager.avatar }}</div>
-                        <div class="manager-info">
-                            <div class="manager-name">{{ manager.name }}</div>
-                            <div class="manager-role">{{ manager.role }}</div>
-                            <div class="manager-contact">
-                                <div>📧 {{ manager.email }}</div>
-                                <div>📱 {{ manager.phone }}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <!-- ===== MODAL DÉTAILS CAVE ===== -->
+    <!-- [class.show] ajoute la classe 'show' si caveModalOpen est true -->
+    <!-- (click) sur la modal ferme la modal (clic sur le fond sombre) -->
+    <div class="modal" [class.show]="caveModalOpen" (click)="closeCaveModal()">
+        <!-- $event.stopPropagation() empêche le clic de fermer la modal -->
+        <!-- quand on clique sur le contenu de la modal -->
+        <div class="modal-content" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+                <!-- ?. évite les erreurs si selectedCave est null -->
+                <h2 class="modal-title">{{ selectedCave?.name || 'Détails de la cave' }}</h2>
+                <button class="close-btn" (click)="closeCaveModal()">×</button>
             </div>
 
-            <!-- ===== ONGLET PRODUCTIVITÉ ===== -->
-            <div class="tab-content" [class.active]="currentTab === 'productivity'">
-                <h3 style="margin-bottom: 1.5rem;">Statistiques mensuelles</h3>
-                <div class="productivity-grid">
-                    <!-- Itération sur les stats mensuelles -->
-                    <div
-                        class="productivity-card"
-                        *ngFor="let stat of selectedCave?.monthlyStats">
-                        <h4>{{ stat.month }}</h4>
-                        <div class="productivity-stat">
-                            <span>Ventes:</span>
-                            <span>{{ stat.sales | number }} FCFA</span>
-                        </div>
-                        <div class="productivity-stat">
-                            <span>Commandes:</span>
-                            <span>{{ stat.orders }}</span>
-                        </div>
-                        <div class="productivity-stat">
-                            <span>Productivité:</span>
-                            <span>{{ stat.avgProductivity }}%</span>
+            <!-- Onglets -->
+            <div class="modal-tabs">
+                <button
+                    class="modal-tab"
+                    [class.active]="currentTab === 'managers'"
+                    (click)="switchTab('managers')">
+                    👥 Managers
+                </button>
+                <button
+                    class="modal-tab"
+                    [class.active]="currentTab === 'productivity'"
+                    (click)="switchTab('productivity')">
+                    📊 Productivité
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <!-- ===== ONGLET MANAGERS ===== -->
+                <!-- [class.active] affiche l'onglet si currentTab === 'managers' -->
+                <div class="tab-content" [class.active]="currentTab === 'managers'">
+                    <div class="managers-list">
+                        <!-- *ngFor itère sur les managers de la cave sélectionnée -->
+                        <!-- ?. évite les erreurs si selectedCave est null -->
+                        <div
+                            class="manager-card"
+                            *ngFor="let manager of selectedCave?.managersList">
+                            <div class="manager-avatar">{{ manager.avatar }}</div>
+                            <div class="manager-info">
+                                <div class="manager-name">{{ manager.name }}</div>
+                                <div class="manager-role">{{ manager.role }}</div>
+                                <div class="manager-contact">
+                                    <div>📧 {{ manager.email }}</div>
+                                    <div>📱 {{ manager.phone }}</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="global-stats" *ngIf="selectedCave">
-                    <h3>Moyennes globales</h3>
-                    <div class="global-stats-grid">
-                        <div class="global-stat-item">
-                            <div class="global-stat-label">Ventes moyennes</div>
-                            <div class="global-stat-value">
-                                {{ getAverageSales(selectedCave) | number }} FCFA
+                <!-- ===== ONGLET PRODUCTIVITÉ ===== -->
+                <div class="tab-content" [class.active]="currentTab === 'productivity'">
+                    <h3 style="margin-bottom: 1.5rem;">Statistiques mensuelles</h3>
+
+                    <div class="productivity-grid">
+                        <!-- *ngFor itère sur les stats mensuelles -->
+                        <div
+                            class="productivity-card"
+                            *ngFor="let stat of selectedCave?.monthlyStats">
+                            <h4>{{ stat.month }}</h4>
+                            <div class="productivity-stat">
+                                <span>Ventes:</span>
+                                <!-- Le pipe 'number' formate le nombre avec des espaces -->
+                                <span>{{ stat.sales | number }} FCFA</span>
+                            </div>
+                            <div class="productivity-stat">
+                                <span>Commandes:</span>
+                                <span>{{ stat.orders }}</span>
+                            </div>
+                            <div class="productivity-stat">
+                                <span>Productivité:</span>
+                                <span>{{ stat.avgProductivity }}%</span>
                             </div>
                         </div>
-                        <div class="global-stat-item">
-                            <div class="global-stat-label">Commandes moyennes</div>
-                            <div class="global-stat-value">
-                                {{ getAverageOrders(selectedCave) }}
+                    </div>
+
+                    <!-- Moyennes globales -->
+                    <!-- *ngIf affiche cette section seulement si selectedCave existe -->
+                    <div class="global-stats" *ngIf="selectedCave">
+                        <h3>Moyennes globales</h3>
+                        <div class="global-stats-grid">
+                            <div class="global-stat-item">
+                                <div class="global-stat-label">Ventes moyennes</div>
+                                <div class="global-stat-value">
+                                    <!-- Appelle une méthode du composant pour calculer la moyenne -->
+                                    {{ getAverageSales(selectedCave) | number }} FCFA
+                                </div>
                             </div>
-                        </div>
-                        <div class="global-stat-item">
-                            <div class="global-stat-label">Productivité moyenne</div>
-                            <div class="global-stat-value">
-                                {{ getAverageProductivity(selectedCave) }}%
+                            <div class="global-stat-item">
+                                <div class="global-stat-label">Commandes moyennes</div>
+                                <div class="global-stat-value">
+                                    {{ getAverageOrders(selectedCave) }}
+                                </div>
+                            </div>
+                            <div class="global-stat-item">
+                                <div class="global-stat-label">Productivité moyenne</div>
+                                <div class="global-stat-value">
+                                    {{ getAverageProductivity(selectedCave) }}%
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -462,86 +510,94 @@
             </div>
         </div>
     </div>
-</div>
 
-<!-- ===== MODAL AJOUTER CAVE ===== -->
-<div class="modal" [class.show]="addCaveModalOpen" (click)="closeAddCaveModal()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-        <div class="modal-header">
-            <h2 class="modal-title">➕ Ajouter une nouvelle cave</h2>
-            <button class="close-btn" (click)="closeAddCaveModal()">×</button>
-        </div>
+    <!-- ===== MODAL AJOUTER CAVE ===== -->
+    <div class="modal" [class.show]="addCaveModalOpen" (click)="closeAddCaveModal()">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+                <h2 class="modal-title">➕ Ajouter une nouvelle cave</h2>
+                <button class="close-btn" (click)="closeAddCaveModal()">×</button>
+            </div>
 
-        <div class="modal-body">
-            <!-- Formulaire d'ajout de cave -->
-            <form [formGroup]="addCaveForm" (ngSubmit)="onAddCave()">
-                <div class="form-group">
-                    <label class="form-label">Nom de la cave</label>
-                    <input
-                        type="text"
-                        class="form-input"
-                        formControlName="name"
-                        placeholder="Ex: Cave Principale">
-                    <div
-                        class="error-message"
-                        *ngIf="addCaveForm.get('name')?.invalid && addCaveForm.get('name')?.touched">
-                        Le nom est requis
+            <div class="modal-body">
+                <!-- Formulaire d'ajout de cave -->
+                <!-- [formGroup] lie le formulaire à addCaveForm -->
+                <!-- (ngSubmit) est déclenché lors de la soumission du formulaire -->
+                <form [formGroup]="addCaveForm" (ngSubmit)="onAddCave()">
+                    <div class="form-group">
+                        <label class="form-label">Nom de la cave</label>
+                        <!-- formControlName lie cet input au champ 'name' du formulaire -->
+                        <input
+                            type="text"
+                            class="form-input"
+                            formControlName="name"
+                            placeholder="Ex: Cave Principale">
+                        <!-- Affiche une erreur si le champ est invalide ET touché -->
+                        <!-- get('name')?.invalid vérifie si le champ name est invalide -->
+                        <!-- get('name')?.touched vérifie si l'utilisateur a cliqué dedans -->
+                        <div
+                            class="error-message"
+                            *ngIf="addCaveForm.get('name')?.invalid && addCaveForm.get('name')?.touched">
+                            Le nom est requis
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="form-label">Localisation</label>
-                    <input
-                        type="text"
-                        class="form-input"
-                        formControlName="location"
-                        placeholder="Ex: Lekki Phase 1, Lagos">
-                    <div
-                        class="error-message"
-                        *ngIf="addCaveForm.get('location')?.invalid && addCaveForm.get('location')?.touched">
-                        La localisation est requise
+                    <div class="form-group">
+                        <label class="form-label">Localisation</label>
+                        <input
+                            type="text"
+                            class="form-input"
+                            formControlName="location"
+                            placeholder="Ex: Lekki Phase 1, Lagos">
+                        <div
+                            class="error-message"
+                            *ngIf="addCaveForm.get('location')?.invalid && addCaveForm.get('location')?.touched">
+                            La localisation est requise
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="form-label">Capacité (nombre de bouteilles)</label>
-                    <input
-                        type="number"
-                        class="form-input"
-                        formControlName="capacity"
-                        placeholder="Ex: 500">
-                    <div
-                        class="error-message"
-                        *ngIf="addCaveForm.get('capacity')?.invalid && addCaveForm.get('capacity')?.touched">
-                        La capacité est requise
+                    <div class="form-group">
+                        <label class="form-label">Capacité (nombre de bouteilles)</label>
+                        <input
+                            type="number"
+                            class="form-input"
+                            formControlName="capacity"
+                            placeholder="Ex: 500">
+                        <div
+                            class="error-message"
+                            *ngIf="addCaveForm.get('capacity')?.invalid && addCaveForm.get('capacity')?.touched">
+                            La capacité est requise
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="form-label">Description</label>
-                    <textarea
-                        class="form-textarea"
-                        formControlName="description"
-                        placeholder="Description de la cave...">
-                    </textarea>
-                </div>
-            </form>
-        </div>
+                    <div class="form-group">
+                        <label class="form-label">Description</label>
+                        <textarea
+                            class="form-textarea"
+                            formControlName="description"
+                            placeholder="Description de la cave...">
+                        </textarea>
+                    </div>
+                </form>
+            </div>
 
-        <div class="modal-footer">
-            <button
-                class="btn btn-cancel"
-                type="button"
-                (click)="closeAddCaveModal()">
-                Annuler
-            </button>
-            <button
-                class="btn btn-primary"
-                type="button"
-                [disabled]="addCaveForm.invalid"
-                (click)="onAddCave()">
-                Créer la cave
-            </button>
+            <div class="modal-footer">
+                <button
+                    class="btn btn-cancel"
+                    type="button"
+                    (click)="closeAddCaveModal()">
+                    Annuler
+                </button>
+                <!-- [disabled] désactive le bouton si le formulaire est invalide -->
+                <!-- addCaveForm.invalid est true si au moins un champ requis est vide -->
+                <button
+                    class="btn btn-primary"
+                    type="button"
+                    [disabled]="addCaveForm.invalid"
+                    (click)="onAddCave()">
+                    Créer la cave
+                </button>
+            </div>
         </div>
     </div>
-</div>
+</body>

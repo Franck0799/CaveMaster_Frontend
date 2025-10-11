@@ -1,1247 +1,1515 @@
-/* ===== RÉINITIALISATION GLOBALE ===== */
-/*
-   Enlève les marges et paddings par défaut de tous les éléments
-   Le * sélectionne TOUS les éléments HTML
-*/
-* {
-    margin: 0;           // Supprime l'espace extérieur
-    padding: 0;          // Supprime l'espace intérieur
-    box-sizing: border-box;  // Inclut padding et border dans la largeur/hauteur totale
+// ===== waitress-dashboard.component.scss - FICHIER COMPLET CORRIGÉ =====
+
+// ===== VARIABLES SCSS =====
+// Les variables commencent par $ et permettent de réutiliser des valeurs
+
+// Couleurs principales
+$color-primary: #ec4899;        // Rose pink principal
+$color-secondary: #8b5cf6;      // Violet pour accents
+$color-dark: #0f172a;           // Bleu très foncé pour le fond
+$color-dark-lighter: #1e293b;   // Bleu foncé pour les cartes
+$color-dark-card: #334155;      // Bleu moyen pour les éléments
+$color-text: #f1f5f9;           // Blanc cassé pour le texte
+$color-text-muted: #94a3b8;     // Gris pour texte secondaire
+$color-success: #22c55e;        // Vert pour succès
+$color-warning: #f59e0b;        // Orange pour avertissement
+$color-danger: #ef4444;         // Rouge pour danger
+$color-info: #3b82f6;           // Bleu pour info
+
+// Espacements
+$spacing-xs: 0.5rem;   // 8px
+$spacing-sm: 0.75rem;  // 12px
+$spacing-md: 1rem;     // 16px
+$spacing-lg: 1.5rem;   // 24px
+$spacing-xl: 2rem;     // 32px
+
+// Border radius
+$radius-sm: 0.5rem;    // 8px
+$radius-md: 0.75rem;   // 12px
+$radius-lg: 1rem;      // 16px
+
+// Transitions
+$transition-fast: 0.2s ease;   // Transition rapide
+$transition-normal: 0.3s ease; // Transition normale
+
+// ===== MIXINS SCSS =====
+// Les mixins sont des fonctions réutilisables pour générer du CSS
+
+// Mixin pour les flexbox centrés
+// @mixin déclare un mixin
+@mixin flex-center {
+  display: flex;           // Active flexbox
+  align-items: center;     // Centre verticalement
+  justify-content: center; // Centre horizontalement
+
+// ===== TABLE D'HISTORIQUE =====
+
+.history-table {
+  background: $color-dark-lighter; // Fond
+  border-radius: $radius-lg;       // Arrondi
+  overflow: hidden;                // Cache le débordement pour les coins arrondis
+  border: 2px solid $color-dark-card; // Bordure
 }
 
-/* ===== VARIABLES SASS (COULEURS DU THÈME ROSE) ===== */
-/*
-   Les variables SASS commencent par $
-   Elles permettent de réutiliser les mêmes valeurs partout
-   Pour utiliser une variable: background: $primary;
-*/
-$primary: #ec4899;           // Rose principal - couleur principale de l'app
-$secondary: #f472b6;         // Rose secondaire - pour les dégradés
-$success: #22c55e;           // Vert - pour les messages de succès
-$warning: #f59e0b;           // Orange - pour les avertissements
-$danger: #ef4444;            // Rouge - pour les erreurs/dangers
-$info: #3b82f6;              // Bleu - pour les informations
-$dark: #0f172a;              // Fond sombre principal de l'app
-$card: #1e293b;              // Fond des cartes (plus clair que dark)
-$sidebar: #1e293b;           // Fond de la sidebar
-$text: #f1f5f9;              // Couleur du texte principal (blanc cassé)
-$text-muted: #94a3b8;        // Texte secondaire (gris clair)
-$border: #334155;            // Couleur des bordures (gris moyen)
-
-/* ===== STYLE DU BODY ===== */
-/*
-   Le body englobe tout le contenu de la page
-   font-family définit la police de caractères
-*/
-body {
-    // Liste de polices : si la première n'est pas disponible, utilise la suivante
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: $dark;    // Utilise la variable $dark pour le fond
-    color: $text;         // Couleur du texte par défaut
+// En-tête de table
+.table-header {
+  display: grid;                   // Grille CSS
+  grid-template-columns: 1fr 1fr 2fr 1fr 1fr; // 5 colonnes de tailles différentes
+  background: $color-dark-card;    // Fond plus foncé
+  padding: $spacing-md $spacing-lg; // Padding
+  font-weight: 700;                // Gras
+  color: $color-primary;           // Rose
+  font-size: 0.875rem;             // Petite taille
+  text-transform: uppercase;       // Majuscules
+  letter-spacing: 0.05em;          // Espacement des lettres
 }
 
-/* ===== CONTENEUR PRINCIPAL ===== */
-/*
-   .dashboard est le conteneur qui englobe sidebar + contenu
-   display: flex permet d'aligner les éléments côte à côte
-*/
-.dashboard {
-    display: flex;              // Active flexbox
-    min-height: 100vh;          // Hauteur minimum = 100% de la hauteur de l'écran (vh = viewport height)
+// Ligne de table
+.table-row {
+  display: grid;                   // Grille CSS
+  grid-template-columns: 1fr 1fr 2fr 1fr 1fr; // Même structure que le header
+  padding: $spacing-md $spacing-lg; // Padding
+  color: $color-text;              // Blanc
+  transition: background $transition-fast; // Transition du fond
+
+  // Bordure entre les lignes avec nth-child
+  // :not(:last-child) = tous sauf le dernier
+  &:not(:last-child) {
+    border-bottom: 1px solid $color-dark-card; // Bordure en bas
+  }
+
+  &:hover {
+    background: rgba($color-primary, 0.1); // Fond rose transparent au survol
+  }
 }
 
-/* ===== SIDEBAR (MENU LATÉRAL) ===== */
-/*
-   La sidebar contient la navigation principale
-   position: fixed la maintient visible lors du scroll
-*/
-.sidebar {
-    width: 280px;                   // Largeur fixe de la sidebar
-    background: $sidebar;           // Utilise la variable SASS pour le fond
-    border-right: 1px solid $border; // Bordure à droite
-    display: flex;                  // Flexbox pour organiser le contenu verticalement
-    flex-direction: column;         // Empile les éléments verticalement (au lieu d'horizontalement)
-    position: fixed;                // Reste fixe lors du scroll
-    height: 100vh;                  // Hauteur = 100% de la hauteur de l'écran
-    z-index: 1000;                  // S'affiche au-dessus des autres éléments (valeur élevée)
+// Colonne de table
+.table-col {
+  display: flex;                   // Flexbox
+  align-items: center;             // Centre verticalement
+  font-size: 0.875rem;             // Petite taille
 }
 
-/* ===== EN-TÊTE DE LA SIDEBAR ===== */
-/*
-   Contient le logo et le titre de l'application
-*/
-.sidebar-header {
-    padding: 1.5rem;                    // Espacement intérieur (1.5rem = 24px)
-    border-bottom: 1px solid $border;   // Ligne de séparation en bas
-    display: flex;                      // Flexbox pour aligner icône et texte
-    align-items: center;                // Centre verticalement les éléments
-    gap: 0.75rem;                       // Espace entre l'icône et le texte
+// Badge de statut
+.status-badge {
+  padding: $spacing-xs $spacing-sm; // Padding
+  background: rgba($color-success, 0.2); // Fond vert transparent
+  color: $color-success;           // Texte vert
+  border-radius: $radius-sm;       // Arrondi
+  font-weight: 600;                // Gras
+  font-size: 0.75rem;              // Très petite taille
+  border: 1px solid $color-success; // Bordure verte
 }
 
-/* Icône du logo avec effet d'ombre lumineuse */
-.logo-icon {
-    font-size: 2.5rem;   // Taille de l'émoji
-    // filter: drop-shadow crée une ombre portée avec effet de lueur
-    // rgba(236, 72, 153, 0.5) = rose avec 50% d'opacité
-    filter: drop-shadow(0 0 10px rgba(236, 72, 153, 0.5));
+// ===== NOTIFICATION TOAST =====
+// Notification qui apparaît temporairement
+
+.toast-notification {
+  // Styles définis inline dans le TypeScript
+  // Animation définie ici
+  @keyframes slideIn {
+    from {
+      opacity: 0;                  // Commence invisible
+      transform: translateX(100%); // Commence hors écran à droite
+    }
+    to {
+      opacity: 1;                  // Termine visible
+      transform: translateX(0);    // Termine à sa position
+    }
+  }
+
+  @keyframes slideOut {
+    from {
+      opacity: 1;                  // Commence visible
+      transform: translateX(0);    // Commence à sa position
+    }
+    to {
+      opacity: 0;                  // Termine invisible
+      transform: translateX(100%); // Termine hors écran à droite
+    }
+  }
 }
 
-/* Texte du logo avec dégradé rose */
-.logo-text {
-    font-size: 1.5rem;      // Taille du texte
-    font-weight: 700;       // Épaisseur du texte (700 = gras)
-    // linear-gradient crée un dégradé de couleur
-    // 135deg = angle du dégradé (diagonal)
-    background: linear-gradient(135deg, $primary, $secondary);
-    // Ces deux propriétés appliquent le dégradé au texte
-    -webkit-background-clip: text;           // Le dégradé s'applique seulement au texte
-    -webkit-text-fill-color: transparent;    // Rend le texte transparent pour voir le dégradé
+// ===== RESPONSIVE DESIGN =====
+// Adaptation pour les différentes tailles d'écran
+
+// @media = règle CSS pour les media queries
+// max-width: 1200px = s'applique si la largeur est <= 1200px
+
+@media (max-width: 1200px) {
+  .shift-info-content {
+    // Garde le flex horizontal mais permet le scroll
+    overflow-x: auto;              // Scroll horizontal
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr); // 2 colonnes au lieu de 4
+  }
 }
 
-/* ===== NAVIGATION DE LA SIDEBAR ===== */
-/*
-   Contient tous les liens de navigation
-*/
-.sidebar-nav {
-    flex: 1;                // Prend tout l'espace disponible entre header et footer
-    padding: 1.5rem 0;      // Espacement vertical seulement (haut et bas)
-    overflow-y: auto;       // Ajoute un scroll vertical si le contenu dépasse
+@media (max-width: 992px) {
+  .main-content {
+    margin-left: 0;                // Pas de marge
+    padding: $spacing-md;          // Moins de padding
+  }
+
+  .sidebar {
+    transform: translateX(-100%);  // Cache la sidebar hors écran
+    // On pourrait ajouter un bouton menu pour l'afficher
+  }
+
+  .top-header {
+    flex-direction: column;        // Direction verticale
+    gap: $spacing-md;              // Espace entre éléments
+  }
+
+  .orders-grid {
+    grid-template-columns: 1fr;    // 1 colonne
+  }
+
+  .actions-grid {
+    grid-template-columns: repeat(2, 1fr); // 2 colonnes
+  }
 }
 
-/* Style pour chaque item de navigation */
-.nav-item {
-    display: flex;              // Flexbox pour aligner icône et texte
-    align-items: center;        // Centre verticalement
-    gap: 1rem;                  // Espace entre icône et texte
-    padding: 1rem 1.5rem;       // Espacement intérieur (vertical horizontal)
-    color: $text-muted;         // Couleur grise par défaut
-    cursor: pointer;            // Change le curseur en main au survol
-    transition: all 0.3s;       // Animation fluide de 0.3 secondes pour tous les changements
-    border-left: 3px solid transparent;  // Bordure invisible par défaut (sera visible quand actif)
+@media (max-width: 768px) {
+  .stats-grid,
+  .tips-stats,
+  .sales-stats {
+    grid-template-columns: 1fr;    // 1 colonne pour tous
+  }
+
+  .shift-info-content {
+    display: flex;                 // Garde le flex
+    overflow-x: auto;              // Scroll horizontal
+  }
+
+  .actions-grid {
+    grid-template-columns: 1fr;    // 1 colonne
+  }
+
+  .table-header,
+  .table-row {
+    grid-template-columns: 1fr;    // 1 colonne
+    gap: $spacing-xs;              // Moins d'espace
+  }
+
+  .table-col {
+    // Ajoute un label avant chaque cellule sur mobile
+    &::before {
+      content: attr(data-label);   // attr() récupère l'attribut data-label
+      font-weight: 700;            // Gras
+      margin-right: $spacing-sm;   // Marge à droite
+    }
+  }
+
+  .category-filters {
+    justify-content: flex-start;   // Aligne à gauche
+    overflow-x: auto;              // Garde le scroll horizontal
+  }
+
+  .form-actions {
+    flex-direction: column;        // Direction verticale
+
+    .btn {
+      width: 100%;                 // Largeur complète
+    }
+  }
+
+  // Menu garde sa disposition horizontale sur mobile
+  .menu-grid {
+    display: flex;                 // Garde flex
+    overflow-x: auto;              // Garde scroll horizontal
+  }
 }
 
-/* Effet au survol de la souris */
-.nav-item:hover {
-    // rgba() permet de créer une couleur avec transparence (0.1 = 10% d'opacité)
-    background: rgba(236, 72, 153, 0.1);  // Fond rose très transparent
-    color: $text;                          // Texte devient blanc
+@media (max-width: 480px) {
+  .top-header-right {
+    flex-wrap: wrap;               // Permet le retour à la ligne
+    justify-content: center;       // Centre les éléments
+  }
+
+  // Menu et shift-info gardent leur disposition horizontale
+  .menu-grid,
+  .shift-info-content {
+    display: flex;                 // Garde flex horizontal
+    overflow-x: auto;              // Garde scroll horizontal
+  }
+
+  .availability-menu {
+    width: calc(100vw - 32px);     // vw = viewport width, 100vw = largeur totale
+    right: auto;                   // Annule right
+    left: 16px;                    // 16px de la gauche
+  }
 }
 
-/* Style pour l'item actuellement actif/sélectionné */
-.nav-item.active {
-    background: rgba(236, 72, 153, 0.15);  // Fond rose un peu plus visible
-    color: $primary;                        // Texte en rose
-    border-left-color: $primary;           // Bordure gauche devient rose et visible
+// ===== ANIMATIONS SUPPLÉMENTAIRES =====
+
+// Animation de fade in pour les éléments
+@keyframes fadeIn {
+  from {
+    opacity: 0;                    // Commence invisible
+    transform: translateY(20px);   // Commence 20px plus bas
+  }
+  to {
+    opacity: 1;                    // Termine visible
+    transform: translateY(0);      // Termine à sa position
+  }
 }
 
-.nav-icon {
-    font-size: 1.5rem;  // Taille des émojis/icônes
+// Applique l'animation aux sections
+.section {
+  animation: fadeIn 0.5s ease;     // Animation de 0.5 secondes
 }
 
-/* ===== PIED DE LA SIDEBAR ===== */
-/*
-   Contient le bouton de déconnexion
-   Reste en bas de la sidebar grâce au flex: 1 du .sidebar-nav
-*/
-.sidebar-footer {
-    padding: 1rem;                      // Espacement intérieur
-    border-top: 1px solid $border;      // Ligne de séparation en haut
+// Animation de pulse pour attirer l'attention
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);           // Taille normale
+  }
+  50% {
+    transform: scale(1.05);        // Légèrement agrandi
+  }
 }
 
-/* Bouton de déconnexion */
-.logout-btn {
-    width: 100%;                                // Prend toute la largeur disponible
-    display: flex;                              // Flexbox pour aligner icône et texte
-    align-items: center;                        // Centre verticalement
-    gap: 1rem;                                  // Espace entre icône et texte
-    padding: 1rem;                              // Espacement intérieur
-    background: rgba(239, 68, 68, 0.1);        // Fond rouge transparent
-    border: 1px solid rgba(239, 68, 68, 0.2);  // Bordure rouge semi-transparente
-    color: $danger;                             // Texte en rouge
-    cursor: pointer;                            // Curseur en forme de main
-    border-radius: 0.5rem;                      // Coins arrondis
-    transition: all 0.3s;                       // Animation fluide
-    font-size: 1rem;                            // Taille du texte
-}
-
-// & est un sélecteur SASS qui référence le parent (.logout-btn)
-// &:hover = .logout-btn:hover
-.logout-btn:hover {
-    background: rgba(239, 68, 68, 0.2);  // Fond rouge plus visible au survol
-}
-
-/* ===== CONTENU PRINCIPAL ===== */
-/*
-   Contient toutes les pages et le contenu à droite de la sidebar
-*/
-.main-content {
-    flex: 1;              // Prend tout l'espace restant
-    margin-left: 280px;   // Décale le contenu pour ne pas être caché par la sidebar fixe
-}
-
-/* ===== EN-TÊTE DU HAUT ===== */
-/*
-   Barre horizontale en haut avec titre et icônes
-   position: sticky la garde visible lors du scroll
-*/
-.top-header {
-    background: $card;                  // Fond légèrement plus clair que le dark
-    border-bottom: 1px solid $border;   // Ligne de séparation en bas
-    padding: 1rem 2rem;                 // Espacement intérieur
-    display: flex;                      // Flexbox pour aligner gauche et droite
-    justify-content: space-between;     // Espace maximum entre les éléments
-    align-items: center;                // Centre verticalement
-    position: sticky;                   // Reste visible lors du scroll
-    top: 0;                            // Colle en haut de l'écran
-    z-index: 100;                      // Au-dessus du contenu mais sous la sidebar
-}
-
-/* Titre de l'en-tête avec dégradé rose */
-.header-left h2 {
-    font-size: 1.75rem;                                     // Taille du titre
-    background: linear-gradient(135deg, $primary, $secondary);  // Dégradé rose
-    -webkit-background-clip: text;                          // Applique au texte
-    -webkit-text-fill-color: transparent;                   // Rend transparent pour voir le dégradé
-}
-
-.header-right {
-    display: flex;          // Flexbox pour aligner les éléments horizontalement
-    align-items: center;    // Centre verticalement
-    gap: 1.5rem;           // Espace entre chaque élément
-}
-
-/* Icônes d'en-tête (notifications, messages) */
-.header-icon {
-    position: relative;     // Permet de positionner le badge en absolu par rapport à cet élément
-    cursor: pointer;        // Curseur en forme de main
-    padding: 0.5rem;        // Espacement intérieur pour agrandir la zone cliquable
-    border-radius: 0.5rem;  // Coins légèrement arrondis
-}
-
-.header-icon:hover {
-    background: rgba(236, 72, 153, 0.1);  // Fond rose au survol
-}
-
-.icon {
-    font-size: 1.5rem;  // Taille des émojis
-}
-
-/* Badge de notification (nombre rouge) */
+// Applique le pulse aux nouveaux badges
 .badge {
-    position: absolute;         // Positionnement absolu par rapport au .header-icon
-    top: 0;                     // Colle en haut
-    right: 0;                   // Colle à droite
-    background: $danger;        // Fond rouge
-    color: white;               // Texte blanc
-    font-size: 0.7rem;         // Petite taille
-    padding: 0.15rem 0.4rem;   // Espacement pour arrondir le badge
-    border-radius: 50%;         // Forme circulaire (50% = cercle parfait)
-    font-weight: 600;          // Texte en gras
+  animation: pulse 2s infinite;    // Animation infinie de 2 secondes
 }
 
-/* Profil utilisateur */
+// ===== UTILITAIRES =====
+// Classes utilitaires réutilisables
+
+// Classe pour cacher un élément
+.hidden {
+  display: none !important;        // !important force l'application
+}
+
+// Classe pour le texte tronqué avec ...
+.text-truncate {
+  overflow: hidden;                // Cache le débordement
+  text-overflow: ellipsis;         // Ajoute ...
+  white-space: nowrap;             // Pas de retour à la ligne
+}
+
+// Classe pour centrer du texte
+.text-center {
+  text-align: center;
+}
+
+// Classe pour mettre en gras
+.font-bold {
+  font-weight: 700;
+}
+
+// ===== PRINT STYLES =====
+// Styles pour l'impression
+
+@media print {
+  .sidebar,
+  .top-header,
+  .back-btn,
+  .btn,
+  .form-actions {
+    display: none;                 // Cache ces éléments à l'impression
+  }
+
+  .main-content {
+    margin-left: 0;                // Pas de marge
+  }
+
+  .order-card,
+  .table-card,
+  .tip-card {
+    break-inside: avoid;           // Évite de couper les cartes entre les pages
+  }
+}
+
+// Mixin pour les cartes avec effet hover
+@mixin card-hover {
+  // & représente le sélecteur parent
+  transition: transform $transition-normal, box-shadow $transition-normal;
+
+  // &:hover s'applique au survol
+  &:hover {
+    transform: translateY(-4px); // Déplace vers le haut
+    box-shadow: 0 10px 30px rgba($color-primary, 0.3); // Ombre rose
+  }
+}
+
+// Mixin pour le scrollbar personnalisé
+@mixin custom-scrollbar {
+  // ::-webkit-scrollbar cible la scrollbar sur Chrome/Safari
+  &::-webkit-scrollbar {
+    width: 8px;  // Largeur de la scrollbar
+    height: 8px; // Hauteur pour scroll horizontal
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $color-dark-lighter; // Fond de la piste
+    border-radius: $radius-sm;       // Arrondi
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $color-primary;      // Couleur du curseur
+    border-radius: $radius-sm;       // Arrondi
+
+    &:hover {
+      background: lighten($color-primary, 10%); // lighten() éclaircit la couleur
+    }
+  }
+}
+
+// ===== RESET & BASE =====
+// Réinitialise les styles par défaut du navigateur
+
+* {
+  margin: 0;           // Supprime toutes les marges
+  padding: 0;          // Supprime tous les paddings
+  box-sizing: border-box; // Inclut padding et border dans la taille
+}
+
+// body = élément racine de la page
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: $color-dark;  // Fond sombre
+  color: $color-text;       // Texte clair
+  line-height: 1.6;         // Hauteur de ligne pour lisibilité
+  overflow-x: hidden;       // Cache le scroll horizontal
+}
+
+// ===== DASHBOARD LAYOUT =====
+// .dashboard est le conteneur principal
+
+.dashboard {
+  display: flex;           // Flexbox pour sidebar + contenu
+  min-height: 100vh;       // Hauteur minimum = hauteur de la fenêtre
+  background: $color-dark; // Fond sombre
+}
+
+// ===== SIDEBAR =====
+// Barre latérale de navigation
+
+.sidebar {
+  width: 280px;                    // Largeur fixe
+  background: $color-dark-lighter; // Fond légèrement plus clair
+  border-right: 2px solid $color-primary; // Bordure rose à droite
+  display: flex;                   // Flexbox vertical
+  flex-direction: column;          // Direction verticale
+  position: fixed;                 // Position fixe (ne scroll pas)
+  height: 100vh;                   // Hauteur = hauteur de la fenêtre
+  left: 0;                         // Aligné à gauche
+  top: 0;                          // Aligné en haut
+  z-index: 1000;                   // Au-dessus des autres éléments
+  overflow-y: auto;                // Scroll vertical si nécessaire
+  @include custom-scrollbar;       // Applique le mixin de scrollbar
+}
+
+// En-tête de la sidebar
+.sidebar-header {
+  padding: $spacing-xl;            // Padding tout autour
+  border-bottom: 1px solid $color-dark-card; // Bordure en bas
+}
+
+// Logo
+.logo {
+  @include flex-center;            // Centre le contenu
+  gap: $spacing-md;                // Espace entre icône et texte
+
+  .logo-icon {
+    font-size: 2rem;               // Taille de l'emoji
+  }
+
+  .logo-text {
+    font-size: 1.25rem;            // Taille du texte
+    font-weight: 700;              // Gras
+    background: linear-gradient(135deg, $color-primary, $color-secondary); // Dégradé
+    -webkit-background-clip: text; // Applique le dégradé au texte
+    -webkit-text-fill-color: transparent; // Rend le texte transparent
+    background-clip: text;         // Version standard
+  }
+}
+
+// Navigation de la sidebar
+.sidebar-nav {
+  flex: 1;                         // Prend tout l'espace disponible
+  padding: $spacing-lg 0;          // Padding vertical
+}
+
+// Item de navigation
+.nav-item {
+  display: flex;                   // Flexbox horizontal
+  align-items: center;             // Centre verticalement
+  gap: $spacing-md;                // Espace entre icône et texte
+  padding: $spacing-md $spacing-xl; // Padding
+  color: $color-text-muted;        // Couleur grise par défaut
+  cursor: pointer;                 // Curseur pointer au survol
+  transition: all $transition-fast; // Transition sur tous les changements
+  border-left: 3px solid transparent; // Bordure invisible par défaut
+
+  .nav-icon {
+    font-size: 1.25rem;            // Taille de l'icône
+  }
+
+  // Au survol
+  &:hover {
+    background: rgba($color-primary, 0.1); // Fond rose transparent
+    color: $color-text;            // Texte blanc
+  }
+
+  // Quand actif (classe .active ajoutée dynamiquement)
+  &.active {
+    background: rgba($color-primary, 0.15); // Fond rose plus visible
+    color: $color-primary;         // Texte rose
+    border-left-color: $color-primary; // Bordure rose à gauche
+    font-weight: 600;              // Gras
+  }
+}
+
+// Footer de la sidebar
+.sidebar-footer {
+  padding: $spacing-lg;            // Padding tout autour
+  border-top: 1px solid $color-dark-card; // Bordure en haut
+}
+
+// Bouton de déconnexion
+.logout-btn {
+  width: 100%;                     // Largeur complète
+  display: flex;                   // Flexbox
+  align-items: center;             // Centre verticalement
+  gap: $spacing-md;                // Espace entre icône et texte
+  padding: $spacing-md;            // Padding
+  background: transparent;         // Fond transparent
+  border: 2px solid $color-danger; // Bordure rouge
+  border-radius: $radius-md;       // Arrondi
+  color: $color-danger;            // Texte rouge
+  font-size: 1rem;                 // Taille de police
+  font-weight: 600;                // Gras
+  cursor: pointer;                 // Curseur pointer
+  transition: all $transition-normal; // Transition
+
+  &:hover {
+    background: $color-danger;     // Fond rouge au survol
+    color: white;                  // Texte blanc au survol
+    transform: translateY(-2px);   // Déplace vers le haut
+  }
+}
+
+// ===== CONTENU PRINCIPAL =====
+// Zone principale à droite de la sidebar
+
+.main-content {
+  flex: 1;                         // Prend tout l'espace restant
+  margin-left: 280px;              // Décalage de la largeur de la sidebar
+  padding: $spacing-xl;            // Padding tout autour
+  min-height: 100vh;               // Hauteur minimum
+  background: $color-dark;         // Fond sombre
+}
+
+// ===== EN-TÊTE SUPÉRIEUR =====
+// Barre en haut avec titre et icônes
+
+.top-header {
+  display: flex;                   // Flexbox horizontal
+  justify-content: space-between;  // Espace entre gauche et droite
+  align-items: center;             // Centre verticalement
+  margin-bottom: $spacing-xl;      // Marge en bas
+  padding: $spacing-lg;            // Padding
+  background: $color-dark-lighter; // Fond légèrement plus clair
+  border-radius: $radius-lg;       // Arrondi
+  border: 2px solid $color-primary; // Bordure rose
+  box-shadow: 0 4px 20px rgba($color-primary, 0.2); // Ombre rose
+}
+
+.top-header-left {
+  h2 {
+    font-size: 1.5rem;             // Taille du titre
+    font-weight: 700;              // Gras
+    color: $color-text;            // Couleur blanche
+  }
+}
+
+.top-header-right {
+  display: flex;                   // Flexbox horizontal
+  align-items: center;             // Centre verticalement
+  gap: $spacing-lg;                // Espace entre les éléments
+}
+
+// ===== BOUTON DE DISPONIBILITÉ =====
+// Bouton avec menu déroulant
+
+.availability-wrapper {
+  position: relative;              // Position relative pour le menu absolu
+}
+
+.availability-button {
+  display: flex;                   // Flexbox
+  align-items: center;             // Centre verticalement
+  gap: $spacing-sm;                // Espace entre éléments
+  padding: $spacing-sm $spacing-md; // Padding
+  background: $color-dark-card;    // Fond
+  border: 2px solid $color-primary; // Bordure rose
+  border-radius: $radius-md;       // Arrondi
+  color: $color-text;              // Texte blanc
+  font-weight: 600;                // Gras
+  cursor: pointer;                 // Curseur pointer
+  transition: all $transition-fast; // Transition
+
+  .icon {
+    font-size: 1.25rem;            // Taille de l'icône
+  }
+
+  .arrow {
+    font-size: 0.75rem;            // Taille de la flèche
+    transition: transform $transition-fast; // Transition sur la rotation
+  }
+
+  &:hover {
+    background: lighten($color-dark-card, 5%); // Éclaircit au survol
+    transform: translateY(-2px);   // Déplace vers le haut
+  }
+}
+
+// Menu déroulant de disponibilité
+.availability-menu {
+  position: absolute;              // Position absolue par rapport au wrapper
+  top: calc(100% + 8px);          // calc() permet de calculer: 100% + 8px
+  right: 0;                        // Aligné à droite
+  width: 300px;                    // Largeur fixe
+  background: $color-dark-lighter; // Fond
+  border: 2px solid $color-primary; // Bordure rose
+  border-radius: $radius-lg;       // Arrondi
+  padding: $spacing-md;            // Padding
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5); // Ombre forte
+  z-index: 1001;                   // Au-dessus de tout
+  animation: slideDown 0.2s ease;  // Animation d'apparition
+}
+
+// Animation keyframes pour le menu
+@keyframes slideDown {
+  from {
+    opacity: 0;                    // Commence invisible
+    transform: translateY(-10px);  // Commence 10px plus haut
+  }
+  to {
+    opacity: 1;                    // Termine visible
+    transform: translateY(0);      // Termine à sa position
+  }
+}
+
+.availability-menu-title {
+  font-size: 0.75rem;              // Petite taille
+  font-weight: 700;                // Gras
+  color: $color-text-muted;        // Gris
+  margin-bottom: $spacing-md;      // Marge en bas
+  letter-spacing: 0.05em;          // Espacement des lettres
+  text-transform: uppercase;       // Majuscules
+}
+
+// Option du menu de disponibilité
+.availability-option {
+  display: flex;                   // Flexbox
+  align-items: center;             // Centre verticalement
+  gap: $spacing-md;                // Espace entre éléments
+  padding: $spacing-md;            // Padding
+  border-radius: $radius-md;       // Arrondi
+  cursor: pointer;                 // Curseur pointer
+  transition: background $transition-fast; // Transition du fond
+
+  .option-icon {
+    font-size: 1.5rem;             // Taille de l'icône
+  }
+
+  .option-info {
+    flex: 1;                       // Prend l'espace restant
+  }
+
+  .option-text {
+    font-weight: 600;              // Gras
+    color: $color-text;            // Blanc
+    margin-bottom: 2px;            // Petite marge
+  }
+
+  .option-desc {
+    font-size: 0.875rem;           // Petite taille
+    color: $color-text-muted;      // Gris
+  }
+
+  &:hover {
+    background: $color-dark-card;  // Fond au survol
+  }
+}
+
+// ===== ICÔNES D'EN-TÊTE =====
+// Notifications et messages
+
+.header-icon {
+  position: relative;              // Pour positionner le badge
+  padding: $spacing-sm;            // Padding
+  background: $color-dark-card;    // Fond
+  border-radius: $radius-md;       // Arrondi
+  cursor: pointer;                 // Curseur pointer
+  transition: all $transition-fast; // Transition
+
+  .icon {
+    font-size: 1.25rem;            // Taille de l'icône
+  }
+
+  // Badge de notification
+  .badge {
+    position: absolute;            // Position absolue
+    top: -4px;                     // 4px au-dessus
+    right: -4px;                   // 4px à droite
+    background: $color-danger;     // Fond rouge
+    color: white;                  // Texte blanc
+    font-size: 0.75rem;            // Petite taille
+    font-weight: 700;              // Gras
+    padding: 2px 6px;              // Padding minimal
+    border-radius: 10px;           // Très arrondi (cercle)
+    min-width: 20px;               // Largeur minimum
+    text-align: center;            // Texte centré
+  }
+
+  &:hover {
+    background: lighten($color-dark-card, 5%); // Éclaircit au survol
+    transform: translateY(-2px);   // Déplace vers le haut
+  }
+}
+
+// ===== PROFIL UTILISATEUR =====
+
 .user-profile {
-    display: flex;          // Flexbox pour aligner avatar et nom
-    align-items: center;    // Centre verticalement
-    gap: 0.75rem;          // Espace entre avatar et nom
+  display: flex;                   // Flexbox
+  align-items: center;             // Centre verticalement
+  gap: $spacing-sm;                // Espace entre avatar et nom
+  padding: $spacing-sm $spacing-md; // Padding
+  background: $color-dark-card;    // Fond
+  border-radius: $radius-md;       // Arrondi
+  cursor: pointer;                 // Curseur pointer
+  transition: all $transition-fast; // Transition
+
+  .avatar {
+    width: 40px;                   // Largeur
+    height: 40px;                  // Hauteur
+    @include flex-center;          // Centre le contenu
+    background: linear-gradient(135deg, $color-primary, $color-secondary); // Dégradé
+    border-radius: 50%;            // Cercle parfait
+    font-size: 1.5rem;             // Taille de l'emoji
+  }
+
+  .user-name {
+    font-weight: 600;              // Gras
+    color: $color-text;            // Blanc
+  }
+
+  &:hover {
+    background: lighten($color-dark-card, 5%); // Éclaircit au survol
+    transform: translateY(-2px);   // Déplace vers le haut
+  }
 }
 
-/* Avatar avec dégradé rose */
-.avatar {
-    width: 45px;                                                // Largeur fixe
-    height: 45px;                                               // Hauteur fixe (= carré)
-    border-radius: 50%;                                         // Forme circulaire
-    background: linear-gradient(135deg, $primary, $secondary);  // Dégradé rose
-    display: flex;                                              // Flexbox pour centrer l'émoji
-    align-items: center;                                        // Centre verticalement
-    justify-content: center;                                    // Centre horizontalement
-    font-size: 1.5rem;                                         // Taille de l'émoji
-}
+// ===== INFORMATIONS DE SERVICE =====
+// Cartes affichant les stats du shift - Disposition horizontale
 
-.user-name {
-    font-weight: 600;  // Texte en semi-gras
-}
-
-/* ===== INFORMATIONS DE SERVICE ===== */
-/*
-   Section avec fond rose transparent affichant les stats du jour
-*/
 .shift-info {
-    // Dégradé avec deux couleurs roses semi-transparentes
-    background: linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(244, 114, 182, 0.2));
-    padding: 2rem;                      // Espacement intérieur
-    border-bottom: 1px solid $border;   // Ligne de séparation en bas
+  margin-bottom: $spacing-xl;      // Marge en bas
+  width: 100%;                     // Largeur complète
 }
 
-/* Grille responsive pour les cartes de service */
-.shift-content {
-    max-width: 1200px;      // Largeur maximale pour ne pas étirer sur grands écrans
-    margin: 0 auto;         // Centre horizontalement (auto = espace égal gauche/droite)
-    display: grid;          // Active CSS Grid
-    // repeat(auto-fit, ...) crée autant de colonnes que possible
-    // minmax(200px, 1fr) : minimum 200px, maximum 1 fraction de l'espace disponible
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;           // Espace entre les cartes
+.shift-info-content {
+  display: flex;                   // Flexbox pour disposition horizontale
+  gap: $spacing-lg;                // Espace entre les éléments
+  overflow-x: auto;                // Scroll horizontal si nécessaire
+  padding-bottom: $spacing-sm;     // Padding pour la scrollbar
+  @include custom-scrollbar;       // Scrollbar personnalisée
 }
 
-/* Carte individuelle de statistique */
+// Carte de shift - Taille fixe pour cohérence horizontale
 .shift-card {
-    background: $card;              // Fond carte
-    padding: 1.5rem;                // Espacement intérieur
-    border-radius: 1rem;            // Coins bien arrondis
-    border: 1px solid $border;      // Bordure
-    text-align: center;             // Centre le contenu
+  background: $color-dark-lighter; // Fond
+  padding: $spacing-xl $spacing-lg; // Padding ajusté
+  border-radius: $radius-lg;       // Arrondi
+  border: 2px solid $color-dark-card; // Bordure
+  text-align: center;              // Texte centré
+  transition: all $transition-normal; // Transition
+  min-width: 220px;                // Largeur minimum augmentée
+  flex: 0 0 auto;                  // Ne grandit ni ne rétrécit
+  display: flex;                   // Flexbox pour contenu
+  flex-direction: column;          // Direction verticale
+  align-items: center;             // Centre horizontalement
+  justify-content: center;         // Centre verticalement
+
+  .stat-icon {
+    font-size: 2.5rem;             // Grande taille pour visibilité
+    margin-bottom: $spacing-md;    // Marge en bas augmentée
+    line-height: 1;                // Hauteur de ligne serrée
+  }
+
+  .shift-label {
+    font-size: 0.875rem;           // Petite taille
+    color: $color-text-muted;      // Gris
+    margin-bottom: $spacing-sm;    // Marge augmentée
+    text-transform: none;          // Pas de transformation
+    white-space: nowrap;           // Pas de retour à la ligne
+  }
+
+  .shift-value {
+    font-size: 1.875rem;           // Taille augmentée
+    font-weight: 700;              // Gras
+    color: $color-primary;         // Rose
+    line-height: 1.2;              // Hauteur de ligne
+    white-space: nowrap;           // Pas de retour à la ligne
+  }
+
+  &:hover {
+    border-color: $color-primary;  // Bordure rose au survol
+    transform: translateY(-4px);   // Déplace vers le haut
+    box-shadow: 0 10px 30px rgba($color-primary, 0.2); // Ombre rose
+  }
 }
 
-.shift-label {
-    color: $text-muted;     // Texte gris
-    font-size: 0.9rem;      // Petite taille
-    margin-bottom: 0.5rem;  // Espace en bas
-}
+// ===== SECTIONS =====
 
-.shift-value {
-    font-size: 1.75rem;  // Grande taille pour la valeur
-    font-weight: 700;    // Très gras
-    color: $primary;     // Rose
-}
-
-/* ===== SECTIONS GÉNÉRALES ===== */
-/*
-   Applique le même padding à plusieurs sections
-   Le sélecteur multiple évite de répéter le même style
-*/
-.quick-actions-section,
-.orders-section,
-.menu-section,
-.tips-section {
-    padding: 2rem;  // Espacement intérieur identique pour toutes ces sections
+.section {
+  margin-bottom: $spacing-xl;      // Marge en bas entre sections
 }
 
 .section-title {
-    font-size: 1.5rem;      // Taille des titres de section
-    margin-bottom: 1.5rem;  // Espace en dessous
-    font-weight: 600;       // Semi-gras
+  font-size: 1.5rem;               // Taille du titre
+  font-weight: 700;                // Gras
+  color: $color-text;              // Blanc
+  margin-bottom: $spacing-lg;      // Marge en bas
+
+  // Effet de soulignement rose
+  &::after {
+    content: '';                   // Contenu vide requis pour ::after
+    display: block;                // Block pour prendre toute la largeur
+    width: 60px;                   // Largeur de la ligne
+    height: 4px;                   // Hauteur de la ligne
+    background: linear-gradient(90deg, $color-primary, $color-secondary); // Dégradé
+    margin-top: $spacing-sm;       // Marge en haut
+    border-radius: 2px;            // Légèrement arrondi
+  }
 }
 
-/* Bouton de retour vers la page précédente */
+// ===== BOUTON RETOUR =====
+
 .back-btn {
-    background: $card;              // Fond carte
-    border: 1px solid $border;      // Bordure
-    color: $text;                   // Texte blanc
-    padding: 0.5rem 1rem;          // Espacement intérieur
-    border-radius: 0.5rem;         // Coins arrondis
-    cursor: pointer;                // Curseur main
-    display: inline-flex;           // Flex inline (ne prend que l'espace nécessaire)
-    align-items: center;            // Centre verticalement
-    gap: 0.5rem;                   // Espace entre flèche et texte
-    transition: all 0.3s;          // Animation fluide
-    margin-bottom: 1rem;           // Espace en bas
+  display: inline-flex;            // inline-flex pour ne pas prendre toute la largeur
+  align-items: center;             // Centre verticalement
+  gap: $spacing-sm;                // Espace
+  padding: $spacing-sm $spacing-md; // Padding
+  background: transparent;         // Fond transparent
+  border: 2px solid $color-text-muted; // Bordure grise
+  border-radius: $radius-md;       // Arrondi
+  color: $color-text-muted;        // Texte gris
+  font-weight: 600;                // Gras
+  cursor: pointer;                 // Curseur pointer
+  margin-bottom: $spacing-lg;      // Marge en bas
+  transition: all $transition-fast; // Transition
+
+  &:hover {
+    border-color: $color-primary;  // Bordure rose au survol
+    color: $color-primary;         // Texte rose au survol
+    transform: translateX(-4px);   // Déplace vers la gauche
+  }
 }
 
-.back-btn:hover {
-    background: $border;                    // Fond plus clair au survol
-    transform: translateX(-5px);            // Décale de 5px vers la gauche
-}
+// ===== GRILLE D'ACTIONS =====
 
-/* ===== GRILLES D'ACTIONS ET DE COMMANDES ===== */
-/*
-   Grille responsive pour les cartes d'action rapide
-*/
 .actions-grid {
-    display: grid;                                              // Active CSS Grid
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));  // Colonnes adaptatives
-    gap: 1.5rem;                                               // Espace entre les cartes
+  display: grid;                   // Grille CSS
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); // Colonnes adaptatives
+  // auto-fit = ajuste automatiquement le nombre de colonnes
+  // minmax(250px, 1fr) = minimum 250px, maximum 1 fraction
+  gap: $spacing-lg;                // Espace entre éléments
 }
 
-/* Carte d'action rapide (ex: Nouvelle Commande) */
+// Carte d'action
 .action-card {
-    background: $card;              // Fond carte
-    border: 1px solid $border;      // Bordure
-    border-radius: 1rem;            // Coins bien arrondis
-    padding: 2rem;                  // Grand espacement intérieur
-    text-align: center;             // Centre le contenu
-    cursor: pointer;                // Curseur main
-    transition: all 0.3s;          // Animation fluide
+  background: $color-dark-lighter; // Fond
+  padding: $spacing-xl;            // Padding
+  border-radius: $radius-lg;       // Arrondi
+  border: 2px solid $color-dark-card; // Bordure
+  cursor: pointer;                 // Curseur pointer
+  text-align: center;              // Texte centré
+  @include card-hover;             // Applique le mixin d'effet hover
+
+  .action-icon {
+    font-size: 3rem;               // Grande taille
+    margin-bottom: $spacing-md;    // Marge en bas
+  }
+
+  .action-title {
+    font-size: 1.25rem;            // Taille moyenne
+    font-weight: 700;              // Gras
+    color: $color-text;            // Blanc
+    margin-bottom: $spacing-sm;    // Marge en bas
+  }
+
+  .action-desc {
+    font-size: 0.875rem;           // Petite taille
+    color: $color-text-muted;      // Gris
+  }
 }
 
-/* Animation au survol de la carte */
-.action-card:hover {
-    transform: translateY(-5px);                        // Monte de 5px
-    box-shadow: 0 10px 30px rgba(236, 72, 153, 0.2);  // Ombre rose
-    border-color: $primary;                             // Bordure devient rose
-}
+// ===== GRILLE DE COMMANDES =====
 
-.action-icon {
-    font-size: 4rem;        // Très gros émoji
-    margin-bottom: 1rem;    // Espace en bas
-}
-
-.action-title {
-    font-size: 1.25rem;     // Taille du titre
-    font-weight: 600;       // Semi-gras
-    margin-bottom: 0.5rem;  // Espace en bas
-}
-
-.action-desc {
-    color: $text-muted;  // Texte gris
-    font-size: 0.9rem;   // Petite taille
-}
-
-/* ===== CARTES DE COMMANDES ===== */
-/*
-   Grille pour afficher les commandes actives
-*/
 .orders-grid {
-    display: grid;                                              // Active CSS Grid
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));  // auto-fill crée des colonnes
-    gap: 1.5rem;                                               // Espace entre les cartes
+  display: grid;                   // Grille CSS
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); // Colonnes adaptatives
+  // auto-fill = remplit avec autant de colonnes que possible
+  gap: $spacing-lg;                // Espace entre éléments
 }
 
+// Carte de commande
 .order-card {
-    background: $card;              // Fond carte
-    border: 1px solid $border;      // Bordure
-    border-radius: 1rem;            // Coins arrondis
-    padding: 1.5rem;                // Espacement intérieur
-    transition: all 0.3s;          // Animation fluide
+  background: $color-dark-lighter; // Fond
+  border: 2px solid $color-dark-card; // Bordure
+  border-radius: $radius-lg;       // Arrondi
+  padding: $spacing-lg;            // Padding
+  @include card-hover;             // Effet hover
 }
 
-.order-card:hover {
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);  // Ombre noire au survol
-}
-
-/* En-tête de la commande (numéro de table + statut) */
+// En-tête de commande
 .order-header {
-    display: flex;                      // Flexbox pour aligner table et statut
-    justify-content: space-between;     // Espace maximum entre les deux
-    align-items: center;                // Centre verticalement
-    margin-bottom: 1rem;                // Espace en bas
-    padding-bottom: 1rem;               // Espacement intérieur bas
-    border-bottom: 1px solid $border;   // Ligne de séparation
+  display: flex;                   // Flexbox
+  justify-content: space-between;  // Espace entre les éléments
+  align-items: center;             // Centre verticalement
+  margin-bottom: $spacing-md;      // Marge en bas
 }
 
 .order-number {
-    font-size: 1.25rem;  // Grande taille
-    font-weight: 700;    // Très gras
-    color: $primary;     // Rose
+  font-size: 1.25rem;              // Taille
+  font-weight: 700;                // Gras
+  color: $color-primary;           // Rose
 }
 
-/* Badges de statut colorés */
+// Statut de commande
 .order-status {
-    padding: 0.4rem 1rem;   // Espacement intérieur
-    border-radius: 0.5rem;  // Coins arrondis
-    font-size: 0.85rem;     // Petite taille
-    font-weight: 600;       // Semi-gras
-}
+  padding: $spacing-xs $spacing-md; // Padding
+  border-radius: $radius-sm;       // Arrondi
+  font-size: 0.875rem;             // Petite taille
+  font-weight: 600;                // Gras
 
-// Statut "Nouvelle" en bleu
-.status-new {
-    background: rgba(59, 130, 246, 0.1);  // Fond bleu transparent
-    color: $info;                          // Texte bleu
-}
+  // &.status-new cible les éléments avec les classes order-status ET status-new
+  &.status-new {
+    background: rgba($color-info, 0.2); // Fond bleu transparent
+    color: $color-info;            // Texte bleu
+    border: 1px solid $color-info; // Bordure bleue
+  }
 
-// Statut "En préparation" en orange
-.status-preparing {
-    background: rgba(245, 158, 11, 0.1);  // Fond orange transparent
-    color: $warning;                       // Texte orange
-}
+  &.status-preparing {
+    background: rgba($color-warning, 0.2); // Fond orange transparent
+    color: $color-warning;         // Texte orange
+    border: 1px solid $color-warning; // Bordure orange
+  }
 
-// Statut "Prête" en vert
-.status-ready {
-    background: rgba(34, 197, 94, 0.1);  // Fond vert transparent
-    color: $success;                      // Texte vert
+  &.status-ready {
+    background: rgba($color-success, 0.2); // Fond vert transparent
+    color: $color-success;         // Texte vert
+    border: 1px solid $color-success; // Bordure verte
+  }
 }
 
 .order-table {
-    color: $text-muted;     // Texte gris
-    font-size: 0.9rem;      // Petite taille
-    margin-bottom: 1rem;    // Espace en bas
+  font-size: 0.875rem;             // Petite taille
+  color: $color-text-muted;        // Gris
+  margin-bottom: $spacing-md;      // Marge en bas
 }
 
+// Items de commande
 .order-items {
-    margin: 1rem 0;  // Espace vertical en haut et en bas
+  margin-bottom: $spacing-md;      // Marge en bas
+  padding: $spacing-md;            // Padding
+  background: $color-dark-card;    // Fond
+  border-radius: $radius-md;       // Arrondi
 }
 
-// Chaque ligne d'item dans la commande
 .order-item {
-    display: flex;                  // Flexbox pour aligner nom et prix
-    justify-content: space-between; // Espace maximum entre les deux
-    padding: 0.5rem 0;             // Espacement vertical
-    color: $text;                   // Texte blanc
+  display: flex;                   // Flexbox
+  justify-content: space-between;  // Espace entre nom et prix
+  padding: $spacing-xs 0;          // Padding vertical
+  font-size: 0.875rem;             // Petite taille
+  color: $color-text;              // Blanc
+
+  // Sélecteur :not(:last-child) = tous sauf le dernier
+  &:not(:last-child) {
+    border-bottom: 1px solid rgba($color-text-muted, 0.2); // Bordure en bas
+    padding-bottom: $spacing-sm;   // Padding en bas
+    margin-bottom: $spacing-sm;    // Marge en bas
+  }
 }
 
-/* Total de la commande */
+// Total de commande
 .order-total {
-    display: flex;                      // Flexbox
-    justify-content: space-between;     // Espace maximum
-    padding-top: 1rem;                  // Espacement haut
-    margin-top: 1rem;                   // Marge haute
-    border-top: 1px solid $border;      // Ligne de séparation en haut
-    font-weight: 700;                   // Très gras
-    font-size: 1.1rem;                  // Taille légèrement plus grande
+  display: flex;                   // Flexbox
+  justify-content: space-between;  // Espace entre texte et montant
+  padding: $spacing-md;            // Padding
+  background: $color-dark-card;    // Fond
+  border-radius: $radius-md;       // Arrondi
+  font-weight: 700;                // Gras
+  font-size: 1.125rem;             // Taille un peu plus grande
+  color: $color-primary;           // Rose
+  margin-bottom: $spacing-md;      // Marge en bas
 }
 
-/* Conteneur des boutons d'action */
+// Actions de commande (boutons)
 .order-actions {
-    display: flex;      // Flexbox pour aligner les boutons
-    gap: 0.5rem;       // Espace entre les boutons
-    margin-top: 1rem;  // Espace en haut
+  display: flex;                   // Flexbox
+  gap: $spacing-sm;                // Espace entre boutons
 }
 
-/* ===== BOUTONS ===== */
-/*
-   Style de base pour tous les boutons
-*/
+// ===== BOUTONS =====
+
 .btn {
-    flex: 1;                    // Chaque bouton prend une part égale de l'espace
-    padding: 0.75rem;          // Espacement intérieur
-    border: none;              // Pas de bordure par défaut
-    border-radius: 0.5rem;     // Coins arrondis
-    font-weight: 600;          // Semi-gras
-    cursor: pointer;           // Curseur main
-    transition: all 0.3s;     // Animation fluide
+  flex: 1;                         // Prend une part égale de l'espace
+  padding: $spacing-sm $spacing-md; // Padding
+  border: none;                    // Pas de bordure
+  border-radius: $radius-md;       // Arrondi
+  font-weight: 600;                // Gras
+  font-size: 0.875rem;             // Taille
+  cursor: pointer;                 // Curseur pointer
+  transition: all $transition-fast; // Transition
+
+  &:hover {
+    transform: translateY(-2px);   // Déplace vers le haut
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); // Ombre
+  }
+
+  // Bouton primaire (rose)
+  &.btn-primary {
+    background: $color-primary;    // Fond rose
+    color: white;                  // Texte blanc
+
+    &:hover {
+      background: lighten($color-primary, 10%); // Éclaircit au survol
+    }
+  }
+
+  // Bouton secondaire (gris)
+  &.btn-secondary {
+    background: $color-dark-card;  // Fond gris
+    color: $color-text;            // Texte blanc
+    border: 2px solid $color-text-muted; // Bordure grise
+
+    &:hover {
+      border-color: $color-primary; // Bordure rose au survol
+      color: $color-primary;        // Texte rose au survol
+    }
+  }
+
+  // Bouton large
+  &.btn-large {
+    padding: $spacing-md $spacing-xl; // Plus de padding
+    font-size: 1rem;               // Plus grande taille
+  }
+
+  // Bouton d'ajout
+  &.btn-add {
+    background: transparent;       // Fond transparent
+    border: 2px solid $color-primary; // Bordure rose
+    color: $color-primary;         // Texte rose
+
+    &:hover {
+      background: $color-primary;  // Fond rose au survol
+      color: white;                // Texte blanc au survol
+    }
+  }
 }
 
-// Bouton principal rose
-.btn-primary {
-    background: $primary;  // Fond rose
-    color: white;          // Texte blanc
-}
+// ===== STATISTIQUES =====
 
-.btn-primary:hover {
-    background: #db2777;                // Rose plus foncé au survol
-    transform: translateY(-2px);        // Monte légèrement
-}
-
-// Bouton secondaire avec bordure
-.btn-secondary {
-    background: $dark;              // Fond sombre
-    color: $text;                   // Texte blanc
-    border: 1px solid $border;      // Bordure grise
-}
-
-.btn-secondary:hover {
-    background: $border;  // Fond plus clair au survol
-}
-
-/* ===== SECTION STATISTIQUES ===== */
-/*
-   Section avec fond rose très transparent
-*/
 .stats-section {
-    padding: 2rem;                                  // Espacement intérieur
-    background: rgba(236, 72, 153, 0.05);          // Fond rose à 5% d'opacité
+  margin-top: $spacing-xl;         // Marge en haut
 }
 
 .stats-grid {
-    display: grid;                                              // Active CSS Grid
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));  // Colonnes adaptatives
-    gap: 1.5rem;                                               // Espace entre les cartes
-    max-width: 1200px;                                         // Largeur max
-    margin: 0 auto;                                            // Centre horizontalement
+  display: grid;                   // Grille CSS
+  grid-template-columns: repeat(4, 1fr); // 4 colonnes égales
+  gap: $spacing-lg;                // Espace entre éléments
 }
 
 .stat-card {
-    background: $card;              // Fond carte
-    border: 1px solid $border;      // Bordure
-    border-radius: 1rem;            // Coins arrondis
-    padding: 1.5rem;                // Espacement intérieur
-    text-align: center;             // Centre le contenu
+  background: $color-dark-lighter; // Fond
+  padding: $spacing-xl;            // Padding
+  border-radius: $radius-lg;       // Arrondi
+  border: 2px solid $color-dark-card; // Bordure
+  text-align: center;              // Texte centré
+  @include card-hover;             // Effet hover
+
+  .stat-icon {
+    font-size: 2.5rem;             // Grande taille
+    margin-bottom: $spacing-sm;    // Marge en bas
+  }
+
+  .stat-value {
+    font-size: 2rem;               // Grande taille
+    font-weight: 700;              // Gras
+    color: $color-primary;         // Rose
+    margin-bottom: $spacing-xs;    // Marge en bas
+  }
+
+  .stat-label {
+    font-size: 0.875rem;           // Petite taille
+    color: $color-text-muted;      // Gris
+  }
 }
 
-.stat-icon {
-    font-size: 2.5rem;      // Très gros émoji
-    margin-bottom: 0.5rem;  // Espace en bas
+// ===== FORMULAIRE DE COMMANDE =====
+
+.order-form {
+  background: $color-dark-lighter; // Fond
+  padding: $spacing-xl;            // Padding
+  border-radius: $radius-lg;       // Arrondi
+  border: 2px solid $color-dark-card; // Bordure
 }
 
-.stat-value {
-    font-size: 2rem;        // Grande taille
-    font-weight: 700;       // Très gras
-    color: $primary;        // Rose
-    margin-bottom: 0.25rem; // Petit espace en bas
+.form-group {
+  margin-bottom: $spacing-lg;      // Marge en bas
+
+  label {
+    display: block;                // Prend toute la largeur
+    font-weight: 600;              // Gras
+    color: $color-text;            // Blanc
+    margin-bottom: $spacing-sm;    // Marge en bas
+    font-size: 0.875rem;           // Petite taille
+  }
 }
 
-.stat-label {
-    color: $text-muted;  // Texte gris
-    font-size: 0.9rem;   // Petite taille
+.form-input {
+  width: 100%;                     // Largeur complète
+  padding: $spacing-md;            // Padding
+  background: $color-dark-card;    // Fond
+  border: 2px solid $color-text-muted; // Bordure grise
+  border-radius: $radius-md;       // Arrondi
+  color: $color-text;              // Texte blanc
+  font-size: 1rem;                 // Taille normale
+  transition: all $transition-fast; // Transition
+
+  // ::placeholder cible le texte placeholder
+  &::placeholder {
+    color: $color-text-muted;      // Gris
+  }
+
+  // :focus quand l'input est sélectionné
+  &:focus {
+    outline: none;                 // Supprime l'outline par défaut
+    border-color: $color-primary;  // Bordure rose au focus
+    box-shadow: 0 0 0 3px rgba($color-primary, 0.2); // Ombre rose
+  }
 }
 
-/* ===== GESTION DES PAGES ===== */
-/*
-   Système de navigation entre les pages
-   Seule la page avec la classe 'active' est visible
-*/
-.page-section {
-    display: none;  // Toutes les pages sont cachées par défaut
+// ===== PANIER DE COMMANDE =====
+
+.order-basket {
+  background: $color-dark-card;    // Fond
+  padding: $spacing-lg;            // Padding
+  border-radius: $radius-lg;       // Arrondi
+  margin-bottom: $spacing-lg;      // Marge en bas
+  border: 2px solid $color-primary; // Bordure rose
 }
 
-// La page active devient visible
-// Cette classe est ajoutée/retirée dynamiquement par Angular
-.page-section.active {
-    display: block;  // Affiche la page
+.basket-title {
+  font-size: 1.25rem;              // Taille
+  font-weight: 700;                // Gras
+  color: $color-text;              // Blanc
+  margin-bottom: $spacing-md;      // Marge en bas
 }
 
-/* ===== SECTION MENU ===== */
-/*
-   Boutons de filtrage des catégories
-*/
-.menu-categories {
-    display: flex;      // Flexbox pour aligner les boutons
-    gap: 1rem;         // Espace entre les boutons
-    margin-bottom: 2rem;  // Espace en bas
-    flex-wrap: wrap;   // Permet de passer à la ligne si pas assez d'espace
+.empty-basket {
+  text-align: center;              // Texte centré
+  padding: $spacing-xl;            // Padding
+  color: $color-text-muted;        // Gris
+  font-style: italic;              // Italique
 }
 
-.category-btn {
-    padding: 0.75rem 1.5rem;    // Espacement intérieur
-    background: $card;           // Fond carte
-    border: 1px solid $border;   // Bordure
-    color: $text-muted;          // Texte gris par défaut
-    border-radius: 0.5rem;       // Coins arrondis
-    cursor: pointer;             // Curseur main
-    transition: all 0.3s;       // Animation fluide
+// Item du panier
+.basket-item {
+  display: flex;                   // Flexbox
+  justify-content: space-between;  // Espace entre les éléments
+  align-items: center;             // Centre verticalement
+  padding: $spacing-md;            // Padding
+  background: $color-dark-lighter; // Fond
+  border-radius: $radius-md;       // Arrondi
+  margin-bottom: $spacing-sm;      // Marge en bas
+
+  .item-name {
+    flex: 1;                       // Prend l'espace disponible
+    color: $color-text;            // Blanc
+    font-weight: 500;              // Demi-gras
+  }
+
+  .item-price {
+    color: $color-primary;         // Rose
+    font-weight: 700;              // Gras
+    margin-right: $spacing-md;     // Marge à droite
+  }
 }
 
-.category-btn:hover {
-    background: rgba(236, 72, 153, 0.1);  // Fond rose au survol
-    color: $text;                          // Texte blanc
+// Bouton de suppression d'item
+.btn-remove-item {
+  width: 28px;                     // Largeur fixe
+  height: 28px;                    // Hauteur fixe
+  @include flex-center;            // Centre le contenu
+  background: $color-danger;       // Fond rouge
+  border: none;                    // Pas de bordure
+  border-radius: 50%;              // Cercle parfait
+  color: white;                    // Texte blanc
+  font-size: 1.25rem;              // Taille
+  cursor: pointer;                 // Curseur pointer
+  transition: all $transition-fast; // Transition
+
+  &:hover {
+    background: darken($color-danger, 10%); // darken() assombrit la couleur
+    transform: scale(1.1);         // Agrandit légèrement
+  }
 }
 
-// Bouton de catégorie active
-.category-btn.active {
-    background: $primary;        // Fond rose
-    color: white;                // Texte blanc
-    border-color: $primary;      // Bordure rose
+// Total du panier
+.basket-total {
+  display: flex;                   // Flexbox
+  justify-content: space-between;  // Espace entre les éléments
+  padding: $spacing-md;            // Padding
+  margin-top: $spacing-md;         // Marge en haut
+  border-top: 2px solid $color-dark-card; // Bordure en haut
+  font-size: 1.25rem;              // Grande taille
+  color: $color-primary;           // Rose
+  font-weight: 700;                // Gras
 }
 
-/* Grille des produits du menu */
+// ===== SECTION MENU =====
+
+.menu-section {
+  margin-top: $spacing-xl;         // Marge en haut
+  width: 100%;                     // Largeur complète
+}
+
+.menu-title {
+  font-size: 1.25rem;              // Taille
+  font-weight: 700;                // Gras
+  color: $color-text;              // Blanc
+  margin-bottom: $spacing-lg;      // Marge en bas
+}
+
+// Filtres de catégories - Disposition horizontale améliorée
+.category-filters {
+  display: flex;                   // Flexbox pour disposition horizontale
+  flex-wrap: nowrap;               // Pas de retour à la ligne
+  gap: $spacing-md;                // Espace augmenté entre boutons
+  margin-bottom: $spacing-lg;      // Marge en bas
+  overflow-x: auto;                // Scroll horizontal si nécessaire
+  padding-bottom: $spacing-sm;     // Padding pour la scrollbar
+  @include custom-scrollbar;       // Scrollbar personnalisée
+}
+
+// Bouton de filtre - Taille adaptée pour disposition horizontale
+.filter-btn {
+  padding: $spacing-sm $spacing-lg; // Padding horizontal augmenté
+  background: $color-dark-card;    // Fond
+  border: 2px solid $color-text-muted; // Bordure grise
+  border-radius: $radius-md;       // Arrondi
+  color: $color-text-muted;        // Texte gris
+  font-weight: 600;                // Gras
+  cursor: pointer;                 // Curseur pointer
+  transition: all $transition-fast; // Transition
+  font-size: 0.875rem;             // Petite taille
+  white-space: nowrap;             // Empêche le retour à la ligne du texte
+  flex-shrink: 0;                  // Empêche le rétrécissement
+
+  &:hover {
+    border-color: $color-primary;  // Bordure rose au survol
+    color: $color-primary;         // Texte rose au survol
+    transform: translateY(-2px);   // Déplace vers le haut
+  }
+
+  // Filtre actif
+  &.active {
+    background: $color-primary;    // Fond rose
+    border-color: $color-primary;  // Bordure rose
+    color: white;                  // Texte blanc
+  }
+}
+
+// Grille du menu - Affichage horizontal avec scroll
 .menu-grid {
-    display: grid;                                              // Active CSS Grid
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));  // Colonnes adaptatives
-    gap: 1.5rem;                                               // Espace entre les cartes
+  display: flex;                   // Flexbox pour disposition horizontale
+  gap: $spacing-lg;                // Espace entre cartes
+  overflow-x: auto;                // Scroll horizontal
+  padding-bottom: $spacing-md;     // Padding pour la scrollbar
+  @include custom-scrollbar;       // Scrollbar personnalisée
+  scroll-snap-type: x proximity;   // Snap effect pour meilleure UX
+  width: 100%;                     // Largeur complète
 }
 
-/* Carte d'un produit du menu */
-.menu-item {
-    background: $card;              // Fond carte
-    border: 1px solid $border;      // Bordure
-    border-radius: 1rem;            // Coins arrondis
-    padding: 1.5rem;                // Espacement intérieur
-    transition: all 0.3s;          // Animation fluide
-    cursor: pointer;                // Curseur main
+// Carte de menu - Design identique aux shift-card
+.menu-card {
+  background: $color-dark-lighter; // Fond
+  padding: $spacing-lg;            // Padding réduit
+  border-radius: $radius-lg;       // Arrondi
+  border: 2px solid $color-dark-card; // Bordure
+  text-align: center;              // Texte centré
+  transition: all $transition-normal; // Transition
+  display: flex;                   // Flexbox
+  flex-direction: column;          // Direction verticale
+  align-items: center;             // Centre horizontalement
+  justify-content: center;         // Centre verticalement
+  gap: $spacing-xs;                // Petit espace entre éléments
+  min-width: 160px;                // Largeur minimum réduite
+  width: 160px;                    // Largeur fixe réduite
+  flex: 0 0 auto;                  // Ne grandit ni ne rétrécit
+  scroll-snap-align: start;        // Aligne au début lors du scroll
+
+  // Hover effect identique aux shift-card
+  &:hover {
+    border-color: $color-primary;  // Bordure rose au survol
+    transform: translateY(-4px);   // Déplace vers le haut
+    box-shadow: 0 10px 30px rgba($color-primary, 0.2); // Ombre rose
+  }
+
+  .menu-card-icon {
+    font-size: 2.5rem;             // Taille réduite pour correspondre
+    line-height: 1;                // Hauteur de ligne serrée
+    margin-bottom: 0;              // Pas de marge supplémentaire
+  }
+
+  .menu-card-name {
+    font-weight: 600;              // Demi-gras comme shift-label
+    color: $color-text;            // Blanc
+    font-size: 0.875rem;           // Petite taille comme shift-label
+    line-height: 1.2;              // Hauteur de ligne
+    margin: 0;                     // Pas de marge
+    white-space: nowrap;           // Pas de retour à la ligne
+    overflow: hidden;              // Cache le débordement
+    text-overflow: ellipsis;       // Ajoute ... si trop long
+    max-width: 100%;               // Largeur maximum
+  }
+
+  .menu-card-desc {
+    font-size: 0.75rem;            // Très petite taille
+    color: $color-text-muted;      // Gris
+    line-height: 1.3;              // Hauteur de ligne
+    margin: 0;                     // Pas de marge
+    white-space: nowrap;           // Pas de retour à la ligne
+    overflow: hidden;              // Cache le débordement
+    text-overflow: ellipsis;       // Ajoute ... si trop long
+    max-width: 100%;               // Largeur maximum
+  }
+
+  .menu-card-price {
+    font-weight: 700;              // Gras comme shift-value
+    color: $color-primary;         // Rose
+    font-size: 1.125rem;           // Taille similaire à shift-value
+    margin: 0;                     // Pas de marge
+    white-space: nowrap;           // Pas de retour à la ligne
+    line-height: 1;                // Hauteur de ligne serrée
+  }
+
+  .menu-card-category {
+    display: none;                 // Cache la catégorie pour design épuré
+  }
 }
 
-.menu-item:hover {
-    transform: translateY(-5px);                        // Monte de 5px
-    box-shadow: 0 10px 30px rgba(236, 72, 153, 0.2);  // Ombre rose
-    border-color: $primary;                             // Bordure rose
+// ===== ACTIONS DU FORMULAIRE =====
+
+.form-actions {
+  display: flex;                   // Flexbox
+  gap: $spacing-md;                // Espace entre boutons
+  margin-top: $spacing-xl;         // Marge en haut
+  justify-content: flex-end;       // Aligne à droite
 }
 
-.menu-item-icon {
-    font-size: 3rem;        // Gros émoji
-    margin-bottom: 1rem;    // Espace en bas
-    text-align: center;     // Centre l'icône
+// ===== GRILLE DES TABLES =====
+
+.tables-grid {
+  display: grid;                   // Grille CSS
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); // Colonnes adaptatives
+  gap: $spacing-lg;                // Espace entre cartes
+  margin-bottom: $spacing-xl;      // Marge en bas
 }
 
-.menu-item-name {
-    font-size: 1.1rem;      // Taille du nom
-    font-weight: 600;       // Semi-gras
-    margin-bottom: 0.5rem;  // Espace en bas
+// Carte de table
+.table-card {
+  background: $color-dark-lighter; // Fond
+  padding: $spacing-lg;            // Padding
+  border-radius: $radius-lg;       // Arrondi
+  border: 2px solid $color-dark-card; // Bordure
+  text-align: center;              // Texte centré
+  @include card-hover;             // Effet hover
+
+  .table-number {
+    font-size: 1.5rem;             // Grande taille
+    font-weight: 700;              // Gras
+    color: $color-text;            // Blanc
+    margin-bottom: $spacing-sm;    // Marge en bas
+  }
+
+  .table-status {
+    padding: $spacing-xs $spacing-md; // Padding
+    border-radius: $radius-sm;     // Arrondi
+    color: white;                  // Texte blanc
+    font-weight: 600;              // Gras
+    font-size: 0.875rem;           // Petite taille
+    margin-bottom: $spacing-sm;    // Marge en bas
+    display: inline-block;         // inline-block pour que le background s'adapte
+  }
+
+  .table-guests {
+    font-size: 0.875rem;           // Petite taille
+    color: $color-text-muted;      // Gris
+  }
 }
 
-.menu-item-desc {
-    color: $text-muted;     // Texte gris
-    font-size: 0.9rem;      // Petite taille
-    margin-bottom: 1rem;    // Espace en bas
+// ===== LÉGENDE =====
+
+.legend {
+  background: $color-dark-lighter; // Fond
+  padding: $spacing-lg;            // Padding
+  border-radius: $radius-lg;       // Arrondi
+  border: 2px solid $color-dark-card; // Bordure
+
+  h4 {
+    font-size: 1.125rem;           // Taille
+    font-weight: 700;              // Gras
+    color: $color-text;            // Blanc
+    margin-bottom: $spacing-md;    // Marge en bas
+  }
 }
 
-.menu-item-footer {
-    display: flex;                  // Flexbox pour aligner prix et bouton
-    justify-content: space-between; // Espace maximum entre les deux
-    align-items: center;            // Centre verticalement
+.legend-items {
+  display: flex;                   // Flexbox
+  flex-wrap: wrap;                 // Permet le retour à la ligne
+  gap: $spacing-lg;                // Espace entre items
 }
 
-.menu-item-price {
-    font-size: 1.3rem;   // Grande taille
-    font-weight: 700;    // Très gras
-    color: $primary;     // Rose
+.legend-item {
+  display: flex;                   // Flexbox
+  align-items: center;             // Centre verticalement
+  gap: $spacing-sm;                // Espace entre point et texte
+  color: $color-text-muted;        // Gris
+  font-size: 0.875rem;             // Petite taille
 }
 
-// Bouton d'ajout au panier
-.add-btn {
-    background: $primary;       // Fond rose
-    color: white;               // Texte blanc
-    border: none;               // Pas de bordure
-    padding: 0.5rem 1rem;      // Espacement intérieur
-    border-radius: 0.5rem;     // Coins arrondis
-    cursor: pointer;            // Curseur main
-    transition: all 0.3s;      // Animation fluide
+.legend-dot {
+  width: 16px;                     // Largeur
+  height: 16px;                    // Hauteur
+  border-radius: 50%;              // Cercle
+  display: inline-block;           // inline-block
 }
 
-.add-btn:hover {
-    background: #db2777;        // Rose plus foncé au survol
-    transform: scale(1.05);     // Agrandit légèrement (105% de la taille)
+// ===== POURBOIRES =====
+
+.tips-stats {
+  display: grid;                   // Grille CSS
+  grid-template-columns: repeat(3, 1fr); // 3 colonnes égales
+  gap: $spacing-lg;                // Espace entre éléments
+  margin-bottom: $spacing-xl;      // Marge en bas
 }
 
-/* ===== SECTION POURBOIRES ===== */
-/*
-   Grille des cartes de pourboires
-*/
-.tips-grid {
-    display: grid;                                              // Active CSS Grid
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));  // Colonnes adaptatives
-    gap: 1.5rem;                                               // Espace entre les cartes
+.tip-stat-card {
+  background: $color-dark-lighter; // Fond
+  padding: $spacing-xl;            // Padding
+  border-radius: $radius-lg;       // Arrondi
+  border: 2px solid $color-dark-card; // Bordure
+  text-align: center;              // Texte centré
+  @include card-hover;             // Effet hover
+
+  .tip-stat-value {
+    font-size: 2rem;               // Grande taille
+    font-weight: 700;              // Gras
+    color: $color-primary;         // Rose
+    margin-bottom: $spacing-xs;    // Marge en bas
+  }
+
+  .tip-stat-label {
+    font-size: 0.875rem;           // Petite taille
+    color: $color-text-muted;      // Gris
+  }
 }
 
+// Liste des pourboires
+.tips-list {
+  display: grid;                   // Grille CSS
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); // Colonnes adaptatives
+  gap: $spacing-lg;                // Espace entre cartes
+}
+
+// Carte de pourboire
 .tip-card {
-    background: $card;              // Fond carte
-    border: 1px solid $border;      // Bordure
-    border-radius: 1rem;            // Coins arrondis
-    padding: 1.5rem;                // Espacement intérieur
+  background: $color-dark-lighter; // Fond
+  padding: $spacing-lg;            // Padding
+  border-radius: $radius-lg;       // Arrondi
+  border: 2px solid $color-dark-card; // Bordure
+  @include card-hover;             // Effet hover
+
+  .tip-header {
+    display: flex;                 // Flexbox
+    justify-content: space-between; // Espace entre date et montant
+    margin-bottom: $spacing-sm;    // Marge en bas
+  }
+
+  .tip-date {
+    font-size: 0.875rem;           // Petite taille
+    color: $color-text-muted;      // Gris
+  }
+
+  .tip-amount {
+    font-weight: 700;              // Gras
+    color: $color-success;         // Vert
+    font-size: 1.125rem;           // Taille moyenne
+  }
+
+  .tip-table {
+    font-weight: 600;              // Demi-gras
+    color: $color-primary;         // Rose
+    margin-bottom: $spacing-xs;    // Marge en bas
+  }
+
+  .tip-details {
+    font-size: 0.875rem;           // Petite taille
+    color: $color-text-muted;      // Gris
+    font-style: italic;            // Italique
+  }
 }
 
-.tip-header {
-    display: flex;                      // Flexbox pour aligner date et montant
-    justify-content: space-between;     // Espace maximum entre les deux
-    align-items: center;                // Centre verticalement
-    margin-bottom: 1rem;                // Espace en bas
-    padding-bottom: 1rem;               // Espacement intérieur bas
-    border-bottom: 1px solid $border;   // Ligne de séparation
+// ===== HISTORIQUE DES VENTES =====
+
+.period-filters {
+  display: flex;                   // Flexbox
+  gap: $spacing-sm;                // Espace entre boutons
+  margin-bottom: $spacing-lg;      // Marge en bas
 }
 
-.tip-date {
-    color: $text-muted;  // Texte gris
-    font-size: 0.9rem;   // Petite taille
+.sales-stats {
+  display: grid;                   // Grille CSS
+  grid-template-columns: repeat(3, 1fr); // 3 colonnes égales
+  gap: $spacing-lg;                // Espace entre éléments
+  margin-bottom: $spacing-xl;      // Marge en bas
 }
 
-.tip-amount {
-    font-size: 1.5rem;   // Grande taille
-    font-weight: 700;    // Très gras
-    color: $success;     // Vert (couleur positive pour l'argent)
+.sales-stat-card {
+  background: $color-dark-lighter; // Fond
+  padding: $spacing-xl;            // Padding
+  border-radius: $radius-lg;       // Arrondi
+  border: 2px solid $color-dark-card; // Bordure
+  text-align: center;              // Texte centré
+  @include card-hover;             // Effet hover
+
+  .sales-stat-icon {
+    font-size: 2.5rem;             // Grande taille
+    margin-bottom: $spacing-sm;    // Marge en bas
+  }
+
+  .sales-stat-value {
+    font-size: 1.75rem;            // Grande taille
+    font-weight: 700;              // Gras
+    color: $color-primary;         // Rose
+    margin-bottom: $spacing-xs;    // Marge en bas
+  }
+
+  .sales-stat-label {
+    font-size: 0.875rem;           // Petite taille
+    color: $color-text-muted;      // Gris
+  }
 }
-
-.tip-details {
-    color: $text-muted;  // Texte gris
-    font-size: 0.9rem;   // Petite taille
 }
-
-/* ===== RESPONSIVE (ADAPTATION MOBILE) ===== */
-/*
-   @media permet d'appliquer des styles seulement si certaines conditions sont remplies
-   max-width: 768px = écrans de 768px de large maximum (tablettes et mobiles)
-*/
-@media (max-width: 768px) {
-    // Cache la sidebar sur mobile en la déplaçant hors de l'écran
-    .sidebar {
-        // translateX(-280px) déplace la sidebar de 280px vers la gauche (hors écran)
-        transform: translateX(-280px);
-    }
-
-    // Sur mobile, le contenu principal prend toute la largeur
-    .main-content {
-        margin-left: 0;  // Supprime la marge gauche (pas de sidebar visible)
-    }
-
-    // Les grilles de commandes et menu passent en une seule colonne sur mobile
-    .orders-grid,
-    .menu-grid {
-        // 1fr = 1 fraction = toute la largeur disponible
-        grid-template-columns: 1fr;
-    }
-
-    // L'en-tête passe en disposition verticale sur mobile
-    .top-header {
-        flex-direction: column;  // Empile les éléments verticalement
-        gap: 1rem;              // Espace entre les éléments
-    }
-
-    // Les statistiques du shift prennent 2 colonnes max sur mobile
-    .shift-content {
-        grid-template-columns: repeat(2, 1fr);  // 2 colonnes égales
-    }
-
-    // Les actions rapides en 2 colonnes sur mobile
-    .actions-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    // Sur très petits écrans (moins de 480px)
-    @media (max-width: 480px) {
-        // Tout passe en une seule colonne
-        .shift-content,
-        .actions-grid,
-        .stats-grid {
-            grid-template-columns: 1fr;  // 1 seule colonne
-        }
-
-        // Réduit le padding sur petits écrans pour gagner de l'espace
-        .quick-actions-section,
-        .orders-section,
-        .menu-section,
-        .tips-section {
-            padding: 1rem;  // Réduit de 2rem à 1rem
-        }
-
-        // Réduit la taille du titre
-        .section-title {
-            font-size: 1.25rem;  // Plus petit sur mobile
-        }
-
-        // Réduit la taille des cartes d'action
-        .action-card {
-            padding: 1.5rem;  // Au lieu de 2rem
-        }
-
-        .action-icon {
-            font-size: 3rem;  // Plus petit que 4rem
-        }
-    }
-}
-
-/* ===== ANIMATIONS SUPPLÉMENTAIRES ===== */
-/*
-   Animations personnalisées pour améliorer l'expérience utilisateur
-*/
-
-// Animation de pulsation pour les badges de notification
-@keyframes pulse {
-    // 0% = début de l'animation
-    0% {
-        transform: scale(1);      // Taille normale
-        opacity: 1;               // Opacité normale
-    }
-    // 50% = milieu de l'animation
-    50% {
-        transform: scale(1.1);    // Agrandit de 10%
-        opacity: 0.8;             // Légèrement transparent
-    }
-    // 100% = fin de l'animation (revient au début)
-    100% {
-        transform: scale(1);      // Taille normale
-        opacity: 1;               // Opacité normale
-    }
-}
-
-// Applique l'animation de pulsation aux badges
-.badge {
-    // animation: nom durée type répétition
-    animation: pulse 2s ease-in-out infinite;  // Pulse toutes les 2 secondes, infiniment
-}
-
-// Animation d'apparition en fondu pour les pages
-@keyframes fadeIn {
-    from {
-        opacity: 0;           // Commence invisible
-        transform: translateY(20px);  // Décalé de 20px vers le bas
-    }
-    to {
-        opacity: 1;           // Termine visible
-        transform: translateY(0);     // Position normale
-    }
-}
-
-// Applique l'animation aux sections de page
-.page-section {
-    // Quand une page devient active, elle apparaît en fondu
-    animation: fadeIn 0.3s ease-out;  // Animation de 0.3 secondes
-}
-
-/* ===== SCROLLBAR PERSONNALISÉE ===== */
-/*
-   Style personnalisé pour la barre de défilement (fonctionne sur Chrome/Edge/Safari)
-*/
-
-// La piste de la scrollbar (fond)
-::-webkit-scrollbar {
-    width: 10px;   // Largeur de la scrollbar verticale
-    height: 10px;  // Hauteur de la scrollbar horizontale
-}
-
-// Le fond de la piste
-::-webkit-scrollbar-track {
-    background: $dark;  // Même couleur que le fond de l'app
-}
-
-// La partie mobile (thumb) de la scrollbar
-::-webkit-scrollbar-thumb {
-    background: $border;              // Couleur grise
-    border-radius: 5px;               // Coins arrondis
-
-    // Au survol de la scrollbar
-    &:hover {
-        background: rgba(236, 72, 153, 0.5);  // Devient rose transparent
-    }
-}
-
-/* ===== ÉTATS DE CHARGEMENT ===== */
-/*
-   Styles pour indiquer qu'un élément est en cours de chargement
-*/
-
-// Classe à ajouter aux éléments en chargement
-.loading {
-    position: relative;        // Pour positionner le loader
-    pointer-events: none;      // Désactive les clics pendant le chargement
-    opacity: 0.6;             // Rend l'élément semi-transparent
-}
-
-// Animation de rotation pour le loader
-@keyframes spin {
-    // Fait tourner l'élément de 0 à 360 degrés
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-// Pseudo-élément qui affiche un spinner de chargement
-.loading::after {
-    content: "";                // Crée un élément vide
-    position: absolute;         // Positionne par rapport au parent
-    top: 50%;                   // Centre verticalement
-    left: 50%;                  // Centre horizontalement
-    width: 30px;                // Largeur du spinner
-    height: 30px;               // Hauteur du spinner
-    margin: -15px 0 0 -15px;   // Décale pour centrer parfaitement
-    border: 3px solid rgba(236, 72, 153, 0.3);  // Bordure rose transparente
-    border-top-color: $primary;  // Le haut est rose vif
-    border-radius: 50%;          // Forme circulaire
-    animation: spin 1s linear infinite;  // Tourne infiniment
-}
-
-/* ===== TOOLTIPS (INFO-BULLES) ===== */
-/*
-   Petites bulles d'information au survol
-*/
-
-// Classe à ajouter aux éléments qui ont un tooltip
-.tooltip {
-    position: relative;     // Pour positionner le tooltip
-    cursor: help;          // Change le curseur en point d'interrogation
-}
-
-// Le contenu du tooltip (caché par défaut)
-.tooltip::before {
-    // attr(data-tooltip) récupère la valeur de l'attribut data-tooltip de l'élément
-    content: attr(data-tooltip);
-    position: absolute;                  // Position absolue par rapport au parent
-    bottom: 100%;                        // Au-dessus de l'élément
-    left: 50%;                          // Centre horizontalement
-    transform: translateX(-50%) translateY(-10px);  // Centre et décale vers le haut
-    padding: 0.5rem 1rem;               // Espacement intérieur
-    background: $card;                   // Fond carte
-    color: $text;                        // Texte blanc
-    border: 1px solid $border;          // Bordure
-    border-radius: 0.5rem;              // Coins arrondis
-    white-space: nowrap;                // Empêche le retour à la ligne
-    font-size: 0.85rem;                 // Petite taille
-    opacity: 0;                         // Invisible par défaut
-    pointer-events: none;               // Ne bloque pas les clics
-    transition: opacity 0.3s, transform 0.3s;  // Animation fluide
-    z-index: 1000;                      // Au-dessus de tout
-}
-
-// Petite flèche pointant vers l'élément
-.tooltip::after {
-    content: "";
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    // Crée un triangle avec des bordures
-    border: 5px solid transparent;      // Bordures transparentes
-    border-top-color: $border;          // Le haut est visible (forme de flèche)
-    opacity: 0;
-    transition: opacity 0.3s;
-    z-index: 1000;
-}
-
-// Au survol, affiche le tooltip et la flèche
-.tooltip:hover::before,
-.tooltip:hover::after {
-    opacity: 1;                         // Devient visible
-    transform: translateX(-50%) translateY(0);  // Position finale
-}
-
-/* ===== ÉTATS DÉSACTIVÉS ===== */
-/*
-   Styles pour les éléments désactivés (boutons, inputs, etc.)
-*/
-
-// Sélectionne tous les éléments avec l'attribut disabled
-[disabled],
-.disabled {
-    opacity: 0.5;          // Semi-transparent
-    cursor: not-allowed;   // Curseur "interdit"
-    pointer-events: none;  // Désactive les clics
-}
-
-/* ===== BADGES DE STATUT SUPPLÉMENTAIRES ===== */
-/*
-   Badges colorés pour différents états
-*/
-
-.badge-success {
-    background: rgba(34, 197, 94, 0.1);  // Fond vert transparent
-    color: $success;                      // Texte vert
-    padding: 0.25rem 0.75rem;            // Espacement intérieur
-    border-radius: 0.375rem;             // Coins arrondis
-    font-size: 0.85rem;                  // Petite taille
-    font-weight: 600;                    // Semi-gras
-    display: inline-block;               // Ne prend que l'espace nécessaire
-}
-
-.badge-warning {
-    background: rgba(245, 158, 11, 0.1);
-    color: $warning;
-    padding: 0.25rem 0.75rem;
-    border-radius: 0.375rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    display: inline-block;
-}
-
-.badge-danger {
-    background: rgba(239, 68, 68, 0.1);
-    color: $danger;
-    padding: 0.25rem 0.75rem;
-    border-radius: 0.375rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    display: inline-block;
-}
-
-.badge-info {
-    background: rgba(59, 130, 246, 0.1);
-    color: $info;
-    padding: 0.25rem 0.75rem;
-    border-radius: 0.375rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    display: inline-block;
-}
-
-/* ===== TRANSITIONS GLOBALES ===== */
-/*
-   Applique des transitions douces à tous les éléments interactifs
-*/
-
-// Sélectionne tous les boutons et liens
-button,
-a,
-.nav-item,
-.action-card,
-.menu-item,
-.order-card {
-    // Chaque changement de propriété sera animé
-    transition: all 0.3s ease;  // 0.3 secondes avec accélération progressive (ease)
-}
-
-/* ===== FOCUS (ACCESSIBILITÉ) ===== */
-/*
-   Styles pour améliorer l'accessibilité au clavier
-   :focus est appliqué quand un élément est sélectionné au clavier (Tab)
-*/
-
-// Tous les éléments focusables
-button:focus,
-a:focus,
-input:focus,
-select:focus,
-.nav-item:focus {
-    // Contour rose pour indiquer l'élément actif
-    outline: 2px solid $primary;
-    outline-offset: 2px;  // Espace entre l'élément et le contour
-}
-
-/* ===== ÉTATS VIDES ===== */
-/*
-   Message affiché quand une liste est vide
-*/
-
-.empty-state {
-    text-align: center;             // Centre le texte
-    padding: 3rem;                  // Grand espacement
-    color: $text-muted;             // Texte gris
-
-    // Icône au-dessus du message
-    &-icon {
-        font-size: 4rem;            // Très gros émoji
-        margin-bottom: 1rem;        // Espace en bas
-        opacity: 0.5;               // Semi-transparent
-    }
-
-    // Titre du message
-    &-title {
-        font-size: 1.5rem;          // Grande taille
-        font-weight: 600;           // Semi-gras
-        margin-bottom: 0.5rem;      // Espace en bas
-    }
-
-    // Description du message
-    &-description {
-        font-size: 1rem;            // Taille normale
-        margin-bottom: 1.5rem;      // Espace en bas
-    }
-}
-
-/* ===== MESSAGES D'ERREUR ET DE SUCCÈS ===== */
-/*
-   Alertes colorées pour feedback utilisateur
-*/
-
-.alert {
-    padding: 1rem 1.5rem;           // Espacement intérieur
-    border-radius: 0.5rem;          // Coins arrondis
-    margin-bottom: 1rem;            // Espace en bas
-    display: flex;                  // Flexbox pour aligner icône et texte
-    align-items: center;            // Centre verticalement
-    gap: 1rem;                      // Espace entre icône et texte
-    font-weight: 500;               // Poids moyen
-}
-
-// Message de succès en vert
-.alert-success {
-    background: rgba(34, 197, 94, 0.1);
-    border: 1px solid rgba(34, 197, 94, 0.3);
-    color: $success;
-}
-
-// Message d'erreur en rouge
-.alert-error {
-    background: rgba(239, 68, 68, 0.1);
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    color: $danger;
-}
-
-// Message d'information en bleu
-.alert-info {
-    background: rgba(59, 130, 246, 0.1);
-    border: 1px solid rgba(59, 130, 246, 0.3);
-    color: $info;
-}
-
-// Message d'avertissement en orange
-.alert-warning {
-    background: rgba(245, 158, 11, 0.1);
-    border: 1px solid rgba(245, 158, 11, 0.3);
-    color: $warning;
-}
-
-/* ===== PRINT (IMPRESSION) ===== */
-/*
-   Styles appliqués uniquement lors de l'impression de la page
-*/
-
-@media print {
-    // Cache les éléments inutiles à l'impression
-    .sidebar,
-    .top-header,
-    .logout-btn,
-    .back-btn,
-    button {
-        display: none !important;  // !important force le style
-    }
-
-    // Le contenu prend toute la largeur
-    .main-content {
-        margin-left: 0;
-        padding: 0;
-    }
-
-    // Fond blanc pour économiser l'encre
-    body,
-    .dashboard {
-        background: white;
-        color: black;
-    }
-
-    // Les cartes sans ombre ni bordure
-    .order-card,
-    .stat-card,
-    .menu-item {
-        box-shadow: none;
-        border: 1px solid #ccc;
-        page-break-inside: avoid;  // Évite de couper une carte entre 2 pages
-    }
-}
-
-/* ===== UTILITAIRES ===== */
-/*
-   Classes utilitaires pour usage rapide
-*/
-
-// Masque un élément
-.hidden {
-    display: none !important;
-}
-
-// Affiche un élément en bloc
-.show {
-    display: block !important;
-}
-
-// Centre le texte
-.text-center {
-    text-align: center;
-}
-
-// Texte à gauche
-.text-left {
-    text-align: left;
-}
-
-// Texte à droite
-.text-right {
-    text-align: right;
-}
-
-// Texte en gras
-.font-bold {
-    font-weight: 700;
-}
-
-// Texte normal
-.font-normal {
-    font-weight: 400;
-}
-
-// Texte en majuscules
-.uppercase {
-    text-transform: uppercase;
-}
-
-// Marge en haut
-.mt-1 { margin-top: 0.5rem; }
-.mt-2 { margin-top: 1rem; }
-.mt-3 { margin-top: 1.5rem; }
-.mt-4 { margin-top: 2rem; }
-
-// Marge en bas
-.mb-1 { margin-bottom: 0.5rem; }
-.mb-2 { margin-bottom: 1rem; }
-.mb-3 { margin-bottom: 1.5rem; }
-.mb-4 { margin-bottom: 2rem; }
-
-// Padding
-.p-1 { padding: 0.5rem; }
-.p-2 { padding: 1rem; }
-.p-3 { padding: 1.5rem; }
-.p-4 { padding: 2rem; }
-
-/* ===== FIN DU FICHIER SCSS ===== */
-/*
-   Ce fichier SCSS utilise exclusivement des variables SASS ($variable)
-   au lieu de variables CSS (var(--variable))
-
-   Avantages des variables SASS :
-   - Compilation en CSS pur = meilleure performance
-   - Possibilité de calculs et fonctions SASS
-   - Meilleure compatibilité navigateurs
-
-   Pour utiliser ce fichier :
-   1. Angular compile automatiquement le SCSS en CSS
-   2. Les variables SASS sont remplacées par leurs valeurs
-   3. Le CSS final est optimisé et minifié
-*/

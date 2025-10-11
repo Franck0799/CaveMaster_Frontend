@@ -1,20 +1,29 @@
-// ===== VARIABLES =====
+// ===== VARIABLES SCSS =====
+// Les variables SCSS commencent par $ et permettent de réutiliser des valeurs
+// Elles sont compilées en CSS et remplacées par leurs valeurs
+
+// Gradients et couleurs principales
 $primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 $primary-color: #667eea;
 $secondary-color: #764ba2;
 
+// Couleurs de texte
 $text-dark: #2c3e50;
 $text-muted: #7f8c8d;
 $text-light: #adb5bd;
 
+// Couleurs de fond
 $bg-light: #f5f7fa;
 $bg-white: #fff;
 $bg-dark: #1a1d29;
 $bg-dark-alt: #252938;
 
+// Bordures
 $border-color: #e1e8ed;
 $border-light: #f0f0f0;
+$border-new: #6a52bd;
 
+// Couleurs d'état
 $success-color: #51cf66;
 $success-bg: #d3f9d8;
 $warning-color: #ff6b6b;
@@ -22,6 +31,7 @@ $warning-bg: #ffe8cc;
 $info-color: #339af0;
 $info-bg: #d0ebff;
 
+// Couleurs des cartes de statistiques
 $stat-orange: #ff6b6b;
 $stat-green: #51cf66;
 $stat-purple: #9775fa;
@@ -29,34 +39,44 @@ $stat-warning: #ffd43b;
 $stat-blue: #339af0;
 $stat-yellow: #ffa94d;
 
+// Dimensions
 $sidebar-width: 280px;
 
+// Transitions
 $transition-base: all 0.3s ease;
 $transition-fast: all 0.2s ease;
 
+// Ombres
 $shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.05);
 $shadow-md: 0 4px 15px rgba(0, 0, 0, 0.05);
 $shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
 $shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.3);
 
+// Rayons de bordure
 $border-radius-sm: 8px;
 $border-radius-md: 10px;
 $border-radius-lg: 15px;
 $border-radius-xl: 20px;
 
-// ===== MIXINS =====
+// ===== MIXINS SCSS =====
+// Les mixins sont des blocs de code réutilisables
+// On les appelle avec @include nom-du-mixin
+
+// Mixin pour centrer en flexbox
 @mixin flex-center {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+// Mixin pour espacer en flexbox
 @mixin flex-between {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
+// Mixin pour créer une carte
 @mixin card {
   background: $bg-white;
   border-radius: $border-radius-lg;
@@ -64,6 +84,7 @@ $border-radius-xl: 20px;
   transition: $transition-base;
 }
 
+// Mixin pour l'effet de levée au survol
 @mixin hover-lift {
   &:hover {
     transform: translateY(-5px);
@@ -71,35 +92,49 @@ $border-radius-xl: 20px;
   }
 }
 
-// ===== BASE STYLES =====
+// ===== STYLES DE BASE =====
+// * sélectionne TOUS les éléments HTML
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: border-box; // Inclut padding et border dans la largeur
 }
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background: $bg-light;
+  background: linear-gradient(135deg, #000000 0%, #0a0f1e 50%, #193062 100%);
   color: $text-dark;
 }
 
 .dashboard {
   display: flex;
-  min-height: 100vh;
+  min-height: 100vh; // 100vh = 100% de la hauteur de l'écran
 }
 
 // ===== SIDEBAR =====
 .sidebar {
   width: $sidebar-width;
+  // linear-gradient crée un dégradé du haut (0%) vers le bas (100%)
   background: linear-gradient(180deg, $bg-dark 0%, $bg-dark-alt 100%);
   color: $bg-white;
   padding: 1.5rem;
-  overflow-y: auto;
-  position: fixed;
+  overflow-y: auto; // Ajoute un scroll si le contenu dépasse
+  position: fixed; // Reste fixe même au scroll
   height: 100vh;
-  z-index: 1000;
+  z-index: 1000; // Apparaît au-dessus des autres éléments
 
+  // Personnalisation de la barre de scroll
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+  }
+
+  // &-header signifie .sidebar-header en SCSS
+  // Le & est remplacé par le sélecteur parent (.sidebar)
   &-header {
     margin-bottom: 2rem;
   }
@@ -112,7 +147,7 @@ body {
 .logo {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.75rem; // Espace entre l'icône et le texte
   font-size: 1.5rem;
   font-weight: 700;
 
@@ -125,9 +160,9 @@ body {
   font-size: 0.75rem;
   color: #8b92a9;
   font-weight: 600;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.5px; // Espace entre les lettres
   margin-bottom: 0.75rem;
-  text-transform: uppercase;
+  text-transform: uppercase; // Met tout en majuscules
 }
 
 .nav-item {
@@ -136,15 +171,18 @@ body {
   gap: 0.75rem;
   padding: 0.75rem 1rem;
   border-radius: $border-radius-sm;
-  cursor: pointer;
+  cursor: pointer; // Change le curseur en main
   transition: $transition-base;
   position: relative;
   margin-bottom: 0.25rem;
 
+  // &:hover signifie .nav-item:hover
   &:hover {
+    // rgba avec le 4ème paramètre à 0.1 crée une couleur blanche à 10% d'opacité
     background: rgba(255, 255, 255, 0.1);
   }
 
+  // &.active signifie .nav-item.active (quand l'élément a les deux classes)
   &.active {
     background: $primary-gradient;
   }
@@ -155,23 +193,25 @@ body {
 }
 
 .nav-text {
-  flex: 1;
+  flex: 1; // Prend tout l'espace disponible
   font-size: 0.95rem;
 }
 
+// ===== SOUS-MENU =====
 .submenu {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
+  max-height: 0; // Hauteur initiale à 0 (caché)
+  overflow: hidden; // Cache le contenu qui dépasse
+  transition: max-height 0.3s ease; // Transition douce pour l'ouverture
   margin-left: 2rem;
 
+  // Quand la classe 'open' est ajoutée, le sous-menu s'ouvre
   &.open {
-    max-height: 500px;
+    max-height: 500px; // Hauteur maximale suffisante pour le contenu
   }
 
   &-arrow {
     font-size: 0.75rem;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease; // Transition pour la rotation de la flèche
   }
 
   &-item {
@@ -193,6 +233,7 @@ body {
   margin: 1.5rem 0;
 }
 
+// ===== RÉSEAUX SOCIAUX =====
 .social-links {
   display: flex;
   gap: 0.75rem;
@@ -202,6 +243,7 @@ body {
 .social-link {
   width: 40px;
   height: 40px;
+  // @include appelle le mixin flex-center défini plus haut
   @include flex-center;
   background: rgba(255, 255, 255, 0.1);
   border-radius: $border-radius-sm;
@@ -210,31 +252,32 @@ body {
 
   &:hover {
     background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
+    transform: translateY(-2px); // Monte de 2px au survol
   }
 }
 
-// ===== MAIN CONTENT =====
+// ===== CONTENU PRINCIPAL =====
 .main-content {
-  flex: 1;
-  margin-left: $sidebar-width;
+  flex: 1; // Prend tout l'espace restant
+  margin-left: $sidebar-width; // Compense la largeur de la sidebar fixe
   display: flex;
-  flex-direction: column;
+  flex-direction: column; // Empile les éléments verticalement
+  background: linear-gradient(135deg, #000000 0%, #0a1628 50%, #1e3a5f 100%);
 }
 
-// ===== HEADER =====
+// ===== EN-TÊTE =====
 .top-header {
-  background: $bg-white;
+  background: linear-gradient(135deg, #000000 0%, #0a0f1e 50%, #193062 100%);;
   padding: 1.25rem 2rem;
   box-shadow: $shadow-sm;
-  @include flex-between;
-  position: sticky;
+  @include flex-between; // Utilise le mixin pour espacer les éléments
+  position: sticky; // Reste visible en haut lors du scroll
   top: 0;
   z-index: 999;
 }
 
 .header-left {
-  flex: 1;
+  flex: 1; // Prend l'espace disponible
   max-width: 500px;
 }
 
@@ -242,7 +285,7 @@ body {
   display: flex;
   background: $bg-light;
   border-radius: $border-radius-md;
-  overflow: hidden;
+  overflow: hidden; // Cache les débordements aux coins arrondis
 
   input {
     flex: 1;
@@ -251,8 +294,9 @@ body {
     background: transparent;
     font-size: 0.95rem;
 
+    // &:focus signifie input:focus (quand l'input est sélectionné)
     &:focus {
-      outline: none;
+      outline: none; // Supprime le contour bleu par défaut
     }
   }
 }
@@ -264,6 +308,11 @@ body {
   color: $bg-white;
   font-size: 1.25rem;
   cursor: pointer;
+  transition: $transition-base;
+
+  &:hover {
+    opacity: 0.9;
+  }
 }
 
 .header-right {
@@ -280,6 +329,12 @@ body {
     background: $bg-white;
     font-size: 0.9rem;
     cursor: pointer;
+    transition: $transition-fast;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+    }
   }
 }
 
@@ -287,6 +342,11 @@ body {
   position: relative;
   cursor: pointer;
   font-size: 1.5rem;
+  transition: $transition-fast;
+
+  &:hover {
+    transform: scale(1.1); // Agrandit de 10%
+  }
 }
 
 .badge {
@@ -301,6 +361,7 @@ body {
   font-weight: 600;
 }
 
+// ===== PROFIL UTILISATEUR =====
 .user-profile {
   display: flex;
   align-items: center;
@@ -320,7 +381,7 @@ body {
   width: 40px;
   height: 40px;
   background: $primary-gradient;
-  border-radius: 50%;
+  border-radius: 50%; // Fait un cercle parfait
   @include flex-center;
   font-size: 1.25rem;
 }
@@ -328,6 +389,7 @@ body {
 .user-name {
   font-weight: 600;
   font-size: 0.95rem;
+  color:#9775fa;
 }
 
 .user-role {
@@ -335,25 +397,29 @@ body {
   color: $text-muted;
 }
 
+// ===== DROPDOWN UTILISATEUR =====
 .user-dropdown {
   position: absolute;
-  top: 100%;
+  top: 100%; // Se positionne juste en dessous du parent
   right: 0;
-  background: $bg-white;
+  background: $primary-gradient;
   border-radius: $border-radius-md;
   box-shadow: $shadow-lg;
   min-width: 200px;
   margin-top: 0.5rem;
   overflow: hidden;
+  // Initialement invisible
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);
   transition: $transition-base;
+  color : $bg-white;
 
+  // Quand la classe 'show' est ajoutée par Angular
   &.show {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
+    transform: translateY(0); // Position normale
   }
 }
 
@@ -375,23 +441,20 @@ body {
 
 // ===== PAGES =====
 .page-section {
-  display: none;
+  // Pas de display: none ici car géré par *ngIf dans Angular
   padding: 2rem;
-  animation: fadeIn 0.3s ease;
-
-  &.active {
-    display: block;
-  }
+  animation: fadeIn 0.3s ease; // Animation d'apparition
 }
 
+// Animation d'apparition en fondu
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(10px); // Commence 10px plus bas
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0); // Position finale
   }
 }
 
@@ -407,7 +470,7 @@ body {
 .section-title-main {
   font-size: 1.75rem;
   font-weight: 700;
-  color: $text-dark;
+  color: $text-light;
 }
 
 // ===== CAROUSEL =====
@@ -436,11 +499,11 @@ body {
   font-size: 1.5rem;
   cursor: pointer;
   transition: $transition-base;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px); // Effet de flou de fond
 
   &:hover {
     background: rgba(255, 255, 255, 0.3);
-    transform: scale(1.1);
+    transform: scale(1.1); // Agrandit de 10%
   }
 }
 
@@ -457,12 +520,17 @@ body {
 
 .drink-image {
   font-size: 8rem;
-  animation: float 3s ease-in-out infinite;
+  animation: float 3s ease-in-out infinite; // Animation de flottement infinie
 }
 
+// Animation de flottement
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
+  0%, 100% {
+    transform: translateY(0); // Position normale au début et à la fin
+  }
+  50% {
+    transform: translateY(-20px); // Monte de 20px au milieu
+  }
 }
 
 .drink-info {
@@ -508,6 +576,8 @@ body {
   }
 }
 
+// ===== INDICATEURS DU CAROUSEL =====
+/*
 .carousel-indicators {
   display: flex;
   justify-content: center;
@@ -523,59 +593,141 @@ body {
   cursor: pointer;
   transition: $transition-base;
 
+  // L'indicateur actif est plus large et plus visible
   &.active {
     background: $primary-color;
     width: 40px;
     border-radius: 6px;
   }
 }
-
-// ===== STATS CARDS =====
+*/
+// ===== CARTES DE STATISTIQUES =====
 .stats-cards-grid {
   display: grid;
+  // repeat(auto-fit, ...) crée automatiquement le bon nombre de colonnes
+  // minmax(280px, 1fr) : minimum 280px, maximum une fraction de l'espace
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
 }
 
 .stat-card {
-  @include card;
+  @include card; // Utilise le mixin card
+    background: linear-gradient(135deg, rgba(26, 29, 53, 0.8), rgba(26, 29, 53, 0.4));
+  border-radius: 1.25rem;
+  cursor: pointer;
+  // cubic-bezier définit une courbe d'accélération personnalisée pour l'animation
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
   padding: 1.5rem;
   display: flex;
   align-items: center;
   gap: 1.25rem;
-  border-left: 4px solid;
-  @include hover-lift;
+  border-left: 4px solid; // La couleur est définie par les classes ci-dessous
+  @include hover-lift; // Utilise le mixin hover-lift
 
+  // Classes pour les différentes couleurs de bordure
   &-orange { border-color: $stat-orange; }
   &-green { border-color: $stat-green; }
   &-purple { border-color: $stat-purple; }
   &-warning { border-color: $stat-warning; }
   &-blue { border-color: $stat-blue; }
   &-yellow { border-color: $stat-yellow; }
+
+  // ::before crée un pseudo-élément avant le contenu
+  // Utilisé ici pour l'effet de lumière qui traverse la carte
+  &::before {
+    content: ''; // Obligatoire pour afficher le pseudo-élément
+    position: absolute;
+    top: 0;
+    left: -100%; // Commence hors de vue à gauche
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+    transition: left 0.5s;
+  }
+
+  &:hover::before {
+    left: 100%; // Au survol, traverse jusqu'à la droite
+  }
+
+  &:hover {
+    transform: translateY(-8px); // Monte de 8px
+    box-shadow: 0 20px 50px rgba(139, 92, 246, 0.3);
+    border-color: $border-new;
+  }
 }
 
 .stat-icon {
   font-size: 3rem;
-  line-height: 1;
+  line-height: 1; // Empêche les espaces au-dessus et en-dessous
 }
 
 .stat-content {
   flex: 1;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.stat-icon-wrapper {
+  width: 70px;
+  height: 70px;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  flex-shrink: 0; // Ne rétrécit jamais
+  transition: all 0.4s ease;
+}
+
+// Au survol de la carte, on cible l'icône à l'intérieur
+.stat-card:hover .stat-icon-wrapper {
+  transform: scale(1.15) rotate(5deg); // Grossit et tourne légèrement
+}
+
+.stat-icon-orange {
+  background: $stat-orange;
+}
+
+.stat-icon-green {
+  background: $stat-green;
+}
+
+.stat-icon-blue {
+  background: $stat-purple;
+}
+
+.stat-icon-warning {
+  background: $stat-warning;
+}
+
+.stat-icon-warning {
+  background: $stat-blue;
+}
+
+.stat-icon-warning {
+  background: $stat-yellow;
 }
 
 .stat-label {
-  font-size: 0.9rem;
-  color: $text-muted;
+  font-size: 1.20rem;
+  color: $text-light;
   margin-bottom: 0.5rem;
+  font-weight: 500;
 }
 
 .stat-value {
   font-size: 1.75rem;
   font-weight: 700;
-  color: $text-dark;
+  color: $text-light;
   margin-bottom: 0.25rem;
+  transition: all 0.3s ease;
 }
 
+.stat-card:hover .stat-value {
+  transform: scale(1.05); // Grossit légèrement au survol de la carte
+}
 .stat-change {
   font-size: 0.85rem;
   font-weight: 600;
@@ -585,9 +737,10 @@ body {
   &.warning { color: $warning-color; }
 }
 
-// ===== PRODUCTS GRID =====
+// ===== GRILLE DE PRODUITS =====
 .products-grid {
   display: grid;
+  // repeat(auto-fill, ...) remplit automatiquement l'espace
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 1.5rem;
 }
@@ -597,6 +750,7 @@ body {
   padding: 1.5rem;
   cursor: pointer;
   @include hover-lift;
+  background:#0a1628;
 }
 
 .product-image {
@@ -616,6 +770,7 @@ body {
   font-weight: 700;
   letter-spacing: 0.5px;
 
+  // Badges avec différentes couleurs
   &.badge-hot {
     background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
     color: $bg-white;
@@ -631,12 +786,12 @@ body {
   font-size: 1.15rem;
   font-weight: 600;
   margin-bottom: 0.25rem;
-  color: $text-dark;
+  color: $bg-white;
 }
 
 .product-category {
   font-size: 0.9rem;
-  color: $text-muted;
+  color: $text-light;
   margin-bottom: 1rem;
 }
 
@@ -655,10 +810,11 @@ body {
   color: $primary-color;
 }
 
-// ===== ACTIONS LIST =====
+// ===== LISTE DES ACTIONS =====
 .actions-list {
   @include card;
   padding: 1.5rem;
+  background: #0a1628;
 }
 
 .action-item {
@@ -674,7 +830,7 @@ body {
   }
 
   &:hover {
-    background: #f9fafb;
+    background: $primary-gradient;
   }
 }
 
@@ -684,7 +840,7 @@ body {
   border-radius: 12px;
   @include flex-center;
   font-size: 1.5rem;
-  flex-shrink: 0;
+  flex-shrink: 0; // Ne rétrécit jamais
 
   &.success { background: $success-bg; }
   &.warning { background: $warning-bg; }
@@ -697,23 +853,23 @@ body {
 
 .action-title {
   font-weight: 600;
-  color: $text-dark;
+  color: $bg-white;
   margin-bottom: 0.25rem;
 }
 
 .action-details {
   font-size: 0.9rem;
-  color: $text-muted;
+  color: $text-light;
   line-height: 1.5;
 }
 
 .action-time {
   font-size: 0.85rem;
   color: $text-light;
-  white-space: nowrap;
+  white-space: nowrap; // Empêche le retour à la ligne
 }
 
-// ===== CAVES GRID =====
+// ===== GRILLE DES CAVES =====
 .caves-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -725,6 +881,7 @@ body {
   padding: 2rem;
   cursor: pointer;
   @include hover-lift;
+  background: #0a1628;
 }
 
 .cave-header {
@@ -734,7 +891,7 @@ body {
 .cave-name {
   font-size: 1.5rem;
   font-weight: 700;
-  color: $text-dark;
+  color: $text-light;
   margin-bottom: 0.5rem;
 }
 
@@ -745,7 +902,7 @@ body {
 
 .cave-stats {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr); // 4 colonnes égales
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
@@ -770,7 +927,7 @@ body {
   gap: 0.75rem;
 }
 
-// ===== BUTTONS =====
+// ===== BOUTONS =====
 .btn {
   padding: 0.75rem 1.5rem;
   border: none;
@@ -787,6 +944,13 @@ body {
     &:hover {
       transform: translateY(-2px);
       box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    }
+
+    // Bouton désactivé
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
     }
   }
 
@@ -816,18 +980,24 @@ body {
 
 // ===== MODAL =====
 .modal {
-  display: none;
+  // Pas de display: none car géré par [class.show] dans Angular
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.5); // Fond noir semi-transparent
   z-index: 10000;
   @include flex-center;
+  // Initialement invisible
+  opacity: 0;
+  visibility: hidden;
+  transition: $transition-base;
 
+  // Quand la classe 'show' est ajoutée par Angular
   &.show {
-    display: flex;
+    opacity: 1;
+    visibility: visible;
   }
 }
 
@@ -842,14 +1012,15 @@ body {
   animation: modalSlideIn 0.3s ease;
 }
 
+// Animation d'apparition de la modal
 @keyframes modalSlideIn {
   from {
     opacity: 0;
-    transform: translateY(-50px);
+    transform: translateY(-50px); // Commence 50px plus haut
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0); // Position normale
   }
 }
 
@@ -857,12 +1028,13 @@ body {
   @include flex-between;
   padding: 2rem;
   border-bottom: 1px solid #e9ecef;
+  background: #0a1628;
 }
 
 .modal-title {
   font-size: 1.75rem;
   font-weight: 700;
-  color: $text-dark;
+  color: $text-light;
 }
 
 .close-btn {
@@ -878,10 +1050,13 @@ body {
   }
 }
 
+// ===== ONGLETS DE LA MODAL =====
 .modal-tabs {
   display: flex;
   padding: 0 2rem;
   border-bottom: 1px solid #e9ecef;
+  background: #0a1628;
+
 }
 
 .modal-tab {
@@ -891,13 +1066,15 @@ body {
   cursor: pointer;
   font-size: 1rem;
   font-weight: 600;
-  color: $text-muted;
+  color: $text-light;
   position: relative;
   transition: $transition-fast;
 
   &.active {
     color: $primary-color;
 
+    // ::after crée un pseudo-élément après le contenu
+    // Ici, une barre sous l'onglet actif
     &::after {
       content: '';
       position: absolute;
@@ -912,9 +1089,12 @@ body {
 
 .modal-body {
   padding: 2rem;
+  background: $primary-gradient;
+
 }
 
 .tab-content {
+  // Pas de display: none car géré par [class.active] dans Angular
   display: none;
 
   &.active {
@@ -922,6 +1102,7 @@ body {
   }
 }
 
+// ===== LISTE DES MANAGERS =====
 .managers-list {
   display: grid;
   gap: 1.5rem;
@@ -937,7 +1118,7 @@ body {
 
   &:hover {
     background: #e9ecef;
-    transform: translateX(5px);
+    transform: translateX(5px); // Décale vers la droite au survol
   }
 }
 
@@ -969,12 +1150,13 @@ body {
 
 .manager-contact {
   font-size: 0.9rem;
-  color: $text-muted;
+  color: $text-dark;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
 }
 
+// ===== PRODUCTIVITÉ =====
 .productivity-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -986,6 +1168,11 @@ body {
   background: #f8f9fa;
   padding: 1.5rem;
   border-radius: 12px;
+  transition: $transition-fast;
+
+  &:hover {
+    background: #e9ecef;
+  }
 
   h4 {
     color: $primary-color;
@@ -999,16 +1186,19 @@ body {
   margin-bottom: 0.5rem;
   font-size: 0.9rem;
 
+  // span:first-child cible le premier span (le label)
   span:first-child {
-    color: $text-muted;
+    color: $text-dark;
   }
 
+  // span:last-child cible le dernier span (la valeur)
   span:last-child {
     font-weight: 600;
     color: $text-dark;
   }
 }
 
+// ===== STATISTIQUES GLOBALES =====
 .global-stats {
   background: $primary-gradient;
   padding: 2rem;
@@ -1017,6 +1207,7 @@ body {
 
   h3 {
     margin-bottom: 1.5rem;
+    font-size: 1.5rem;
   }
 }
 
@@ -1032,7 +1223,7 @@ body {
 
 .global-stat-label {
   font-size: 0.9rem;
-  opacity: 0.9;
+  opacity: 0.9; // Légèrement transparent
   margin-bottom: 0.5rem;
 }
 
@@ -1041,21 +1232,22 @@ body {
   font-weight: 700;
 }
 
+// ===== FOOTER DE LA MODAL =====
 .modal-footer {
   padding: 1.5rem 2rem;
   border-top: 1px solid #e9ecef;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-end; // Aligne les boutons à droite
   gap: 1rem;
 }
 
-// ===== FORMS =====
+// ===== FORMULAIRES =====
 .form-group {
   margin-bottom: 1.5rem;
 }
 
 .form-label {
-  display: block;
+  display: block; // Force le label à prendre toute la largeur
   font-weight: 600;
   color: $text-dark;
   margin-bottom: 0.5rem;
@@ -1070,68 +1262,309 @@ body {
   font-size: 0.95rem;
   transition: border-color 0.3s ease;
 
+  // &:focus applique le style quand l'input est sélectionné
   &:focus {
-    outline: none;
-    border-color: $primary-color;
+    outline: none; // Supprime le contour bleu par défaut
+    border-color: $primary-color; // Change la couleur de la bordure
+  }
+
+  // Style pour les champs invalides qui ont été touchés
+  &.ng-invalid.ng-touched {
+    border-color: $warning-color;
   }
 }
 
 .form-textarea {
-  resize: vertical;
-  min-height: 100px;
+  resize: vertical; // Permet seulement le redimensionnement vertical
+  min-height: 100px; // Hauteur minimale
 }
 
-// ===== RESPONSIVE =====
+// Message d'erreur sous les champs de formulaire
+.error-message {
+  color: $warning-color;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  display: block;
+}
+
+// ===== RESPONSIVE DESIGN =====
+// @media query pour les écrans de 768px ou moins (tablettes et mobiles)
 @media (max-width: 768px) {
+  // Sur mobile, cache la sidebar hors de l'écran
   .sidebar {
-    transform: translateX(-100%);
+    transform: translateX(-100%); // Déplace à gauche (hors écran)
     transition: transform 0.3s ease;
+
+    // Optionnel : vous pouvez ajouter un bouton pour afficher/cacher la sidebar
+    &.open {
+      transform: translateX(0); // Ramène la sidebar visible
+    }
   }
 
+  // Le contenu principal prend toute la largeur
   .main-content {
     margin-left: 0;
   }
 
+  // L'en-tête passe en colonne sur mobile
   .top-header {
     flex-direction: column;
     gap: 1rem;
-    align-items: stretch;
+    align-items: stretch; // Étire les éléments sur toute la largeur
   }
 
   .header-left {
     max-width: 100%;
   }
 
+  // Les grilles passent en une seule colonne sur mobile
   .stats-cards-grid,
   .products-grid,
   .caves-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; // Une seule colonne
   }
 
+  // Le carousel s'adapte au mobile
   .featured-drink {
-    flex-direction: column;
+    flex-direction: column; // Empile les éléments verticalement
     text-align: center;
   }
 
+  // Les stats de cave passent en 2 colonnes au lieu de 4
   .cave-stats {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  // Les boutons du carousel sont plus petits sur mobile
   .carousel-btn {
     width: 40px;
     height: 40px;
     font-size: 1.25rem;
   }
 
+  // L'image de la boisson est plus petite sur mobile
   .drink-image {
     font-size: 5rem;
   }
 
+  // Les textes sont plus petits sur mobile
   .drink-info h2 {
     font-size: 1.75rem;
   }
 
   .drink-price {
     font-size: 1.5rem;
+  }
+
+  // La modal prend toute la largeur sur mobile
+  .modal-content {
+    width: 95%;
+    max-height: 95vh;
+  }
+
+  // Les grilles de productivité passent en une colonne
+  .productivity-grid,
+  .global-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  // Les actions de cave s'empilent verticalement
+  .cave-actions {
+    flex-direction: column;
+
+    .btn {
+      width: 100%; // Les boutons prennent toute la largeur
+    }
+  }
+
+  // Le footer de la modal s'adapte
+  .modal-footer {
+    flex-direction: column;
+
+    .btn {
+      width: 100%;
+    }
+  }
+}
+
+// ===== MEDIA QUERY POUR TRÈS PETITS ÉCRANS =====
+// Pour les écrans de 480px ou moins (petits smartphones)
+@media (max-width: 480px) {
+  // Réduction des paddings pour gagner de l'espace
+  .page-section {
+    padding: 1rem;
+  }
+
+  .content-section {
+    margin-bottom: 1.5rem;
+  }
+
+  .carousel-container {
+    padding: 2rem 1rem;
+  }
+
+  .drink-image {
+    font-size: 4rem;
+  }
+
+  .drink-info h2 {
+    font-size: 1.5rem;
+  }
+
+  .stat-card {
+    padding: 1rem;
+  }
+
+  .stat-icon {
+    font-size: 2rem;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+  }
+
+  .modal-content {
+    width: 100%;
+    max-height: 100vh;
+    border-radius: 0; // Pas de coins arrondis en plein écran
+  }
+
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding: 1.5rem;
+  }
+}
+
+// ===== ANIMATIONS SUPPLÉMENTAIRES =====
+// Animation pour les cartes au chargement de la page
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Applique l'animation aux cartes avec un délai échelonné
+.stat-card,
+.product-card,
+.cave-card {
+  animation: cardFadeIn 0.5s ease;
+
+  // Délais progressifs pour créer un effet de cascade
+  &:nth-child(1) { animation-delay: 0.1s; }
+  &:nth-child(2) { animation-delay: 0.2s; }
+  &:nth-child(3) { animation-delay: 0.3s; }
+  &:nth-child(4) { animation-delay: 0.4s; }
+  &:nth-child(5) { animation-delay: 0.5s; }
+  &:nth-child(6) { animation-delay: 0.6s; }
+}
+
+// ===== ÉTATS DE CHARGEMENT (OPTIONNEL) =====
+// Classes utilitaires pour afficher un état de chargement
+.loading {
+  @include flex-center;
+  padding: 3rem;
+  color: $text-muted;
+
+  &::after {
+    content: '';
+    width: 40px;
+    height: 40px;
+    border: 4px solid $border-light;
+    border-top-color: $primary-color;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// ===== CLASSES UTILITAIRES =====
+// Classes helper réutilisables
+
+// Textes
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.text-primary { color: $primary-color; }
+.text-success { color: $success-color; }
+.text-warning { color: $warning-color; }
+.text-muted { color: $text-muted; }
+
+// Marges
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+// Paddings
+.p-1 { padding: 0.5rem; }
+.p-2 { padding: 1rem; }
+.p-3 { padding: 1.5rem; }
+.p-4 { padding: 2rem; }
+
+// Flexbox
+.d-flex { display: flex; }
+.flex-column { flex-direction: column; }
+.align-items-center { align-items: center; }
+.justify-content-center { justify-content: center; }
+.justify-content-between { justify-content: space-between; }
+
+// ===== AMÉLIORATIONS DE L'ACCESSIBILITÉ =====
+// Améliore la visibilité du focus pour la navigation au clavier
+*:focus-visible {
+  outline: 2px solid $primary-color;
+  outline-offset: 2px;
+}
+
+// Cache visuellement mais reste accessible aux lecteurs d'écran
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+// ===== PRINT STYLES (pour l'impression) =====
+@media print {
+  // Cache les éléments non nécessaires à l'impression
+  .sidebar,
+  .top-header,
+  .carousel-section,
+  .modal,
+  .btn {
+    display: none;
+  }
+
+  // Ajuste le contenu principal
+  .main-content {
+    margin-left: 0;
+  }
+
+  // Supprime les ombres et transitions pour l'impression
+  .stat-card,
+  .product-card,
+  .cave-card {
+    box-shadow: none;
+    border: 1px solid #ddd;
+    page-break-inside: avoid; // Évite de couper une carte sur deux pages
   }
 }
