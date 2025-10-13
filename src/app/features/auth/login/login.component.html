@@ -1,176 +1,178 @@
+<div class="page.wrapper">
+  <div>
+    <!-- Bulles d'arrière-plan -->
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
 
-<body>
-<!-- Bulles d'arrière-plan -->
-<div class="bubble"></div>
-<div class="bubble"></div>
-<div class="bubble"></div>
-<div class="bubble"></div>
-<div class="bubble"></div>
+    <!-- Particules de vin -->
+    <div class="wine-particle"></div>
+    <div class="wine-particle"></div>
+    <div class="wine-particle"></div>
+    <div class="wine-particle"></div>
 
-<!-- Particules de vin -->
-<div class="wine-particle"></div>
-<div class="wine-particle"></div>
-<div class="wine-particle"></div>
-<div class="wine-particle"></div>
-
-<!-- Conteneur principal -->
-<div class="main-container">
-    <!-- Page de description -->
-    <div class="description-panel">
-        <div class="logo-container">
-            <div class="logo-wine">🍷</div>
+    <!-- Conteneur principal -->
+    <div class="main-container">
+        <!-- Page de description -->
+        <div class="description-panel">
+            <div class="logo-container">
+                <div class="logo-wine">🍷</div>
+            </div>
+            <h1 class="title-3d">CAVEMASTER CI</h1>
+            <p class="description">
+                La solution complète pour la gestion de votre cave .
+                Contrôlez votre stock, suivez vos mouvements, gérez vos inventaires
+                et optimisez votre équipe et collection en quelques clics.
+            </p>
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">📦</div>
+                    <span>Gestion intelligente des stocks</span>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📊</div>
+                    <span>Suivi d'inventaire en temps réel</span>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📈</div>
+                    <span>Analyses et rapports détaillés</span>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">👥</div>
+                    <span>Gestion d'équipe optimisée</span>
+                </div>
+            </div>
         </div>
-        <h1 class="title-3d">CAVEMASTER CI</h1>
-        <p class="description">
-            La solution complète pour la gestion de votre cave .
-            Contrôlez votre stock, suivez vos mouvements, gérez vos inventaires
-            et optimisez votre équipe et collection en quelques clics.
-        </p>
-        <div class="features">
-            <div class="feature">
-                <div class="feature-icon">📦</div>
-                <span>Gestion intelligente des stocks</span>
+
+        <!-- Formulaire de connexion -->
+        <div class="login-container">
+            <!-- Message d'erreur global -->
+            <div class="alert error-message" *ngIf="showError" [@slideIn]>
+                <i class="fas fa-exclamation-circle"></i>
+                <span>{{ errorMessage }}</span>
+                <button class="close-btn" (click)="showError = false">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
-            <div class="feature">
-                <div class="feature-icon">📊</div>
-                <span>Suivi d'inventaire en temps réel</span>
+
+            <!-- Logo -->
+            <div class="logo">
+                <div class="logo-icon">🍷</div>
             </div>
-            <div class="feature">
-                <div class="feature-icon">📈</div>
-                <span>Analyses et rapports détaillés</span>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">👥</div>
-                <span>Gestion d'équipe optimisée</span>
-            </div>
+
+            <!-- Titre et sous-titre -->
+            <h2>VOTRE CAVE VIRTUELLE</h2>
+            <p class="subtitle">Accédez à votre collection</p>
+
+            <!-- Formulaire -->
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <!-- Email -->
+                <div class="input-group">
+                    <label for="email"></label>
+                    <div class="input-icon-wrapper">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input
+                            type="email"
+                            id="email"
+                            formControlName="email"
+                            placeholder="votre@email.com"
+                            [class.error]="hasError('email', 'required') || hasError('email', 'email')"
+                            autocomplete="email">
+                    </div>
+                    <div class="validation-error" *ngIf="hasError('email', 'required')">
+                        <i class="fas fa-exclamation-circle"></i>
+                        L'email est requis
+                    </div>
+                    <div class="validation-error" *ngIf="hasError('email', 'email') && !hasError('email', 'required')">
+                        <i class="fas fa-exclamation-circle"></i>
+                        Format d'email invalide
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="input-group">
+                    <label for="password"></label>
+                    <div class="input-icon-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input
+                            [type]="hidePassword ? 'password' : 'text'"
+                            id="password"
+                            formControlName="password"
+                            placeholder="Mot de passe"
+                            [class.error]="hasError('password', 'required') || hasError('password', 'minlength')"
+                            autocomplete="current-password">
+                        <i
+                            class="toggle-password fas"
+                            [class.fa-eye]="hidePassword"
+                            [class.fa-eye-slash]="!hidePassword"
+                            (click)="togglePasswordVisibility()"
+                            title="Afficher/Masquer le mot de passe">
+                        </i>
+                    </div>
+                    <div class="validation-error" *ngIf="hasError('password', 'required')">
+                        <i class="fas fa-exclamation-circle"></i>
+                        Le mot de passe est requis
+                    </div>
+                    <div class="validation-error" *ngIf="hasError('password', 'minlength') && !hasError('password', 'required')">
+                        <i class="fas fa-exclamation-circle"></i>
+                        Le mot de passe doit contenir au moins 6 caractères
+                    </div>
+                </div>
+
+                <!-- Options -->
+                <div class="options">
+                    <label class="remember-me">
+                        <input
+                            type="checkbox"
+                            id="rememberMe"
+                            formControlName="rememberMe">
+                        <span>Se souvenir de moi</span>
+                    </label>
+                    <a
+                        class="forgot-password"
+                        (click)="goToForgotPassword()"
+                        tabindex="0">
+                        Mot de passe oublié?
+                    </a>
+                </div>
+
+                <!-- Bouton de connexion -->
+                <button
+                    type="submit"
+                    class="login-btn"
+                    [disabled]="isLoading"
+                    [class.loading]="isLoading">
+                    <span *ngIf="!isLoading" id="btnText">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Connexion
+                    </span>
+                    <div class="spinner" *ngIf="isLoading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <span>Connexion en cours...</span>
+                    </div>
+                </button>
+
+                <!-- Lien d'inscription -->
+                <div class="signup-link">
+                    Pas encore de compte ?
+                    <a (click)="goToSignup()" tabindex="0">S'inscrire</a>
+                </div>
+
+                <!-- Footer // pieds de page-->
+                <div class="footer">
+                    <p>Copyright © 2025 <span class="brand">CAVEMASTER CI</span></p>
+                    <div class="social-links">
+                        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
+  </div>
 
-    <!-- Formulaire de connexion -->
-    <div class="login-container">
-        <!-- Message d'erreur global -->
-        <div class="alert error-message" *ngIf="showError" [@slideIn]>
-            <i class="fas fa-exclamation-circle"></i>
-            <span>{{ errorMessage }}</span>
-            <button class="close-btn" (click)="showError = false">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
 
-        <!-- Logo -->
-        <div class="logo">
-            <div class="logo-icon">🍷</div>
-        </div>
-
-        <!-- Titre et sous-titre -->
-        <h2>VOTRE CAVE VIRTUELLE</h2>
-        <p class="subtitle">Accédez à votre collection</p>
-
-        <!-- Formulaire -->
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-            <!-- Email -->
-            <div class="input-group">
-                <label for="email"></label>
-                <div class="input-icon-wrapper">
-                    <i class="fas fa-envelope input-icon"></i>
-                    <input
-                        type="email"
-                        id="email"
-                        formControlName="email"
-                        placeholder="votre@email.com"
-                        [class.error]="hasError('email', 'required') || hasError('email', 'email')"
-                        autocomplete="email">
-                </div>
-                <div class="validation-error" *ngIf="hasError('email', 'required')">
-                    <i class="fas fa-exclamation-circle"></i>
-                    L'email est requis
-                </div>
-                <div class="validation-error" *ngIf="hasError('email', 'email') && !hasError('email', 'required')">
-                    <i class="fas fa-exclamation-circle"></i>
-                    Format d'email invalide
-                </div>
-            </div>
-
-            <!-- Password -->
-            <div class="input-group">
-                <label for="password"></label>
-                <div class="input-icon-wrapper">
-                    <i class="fas fa-lock input-icon"></i>
-                    <input
-                        [type]="hidePassword ? 'password' : 'text'"
-                        id="password"
-                        formControlName="password"
-                        placeholder="Mot de passe"
-                        [class.error]="hasError('password', 'required') || hasError('password', 'minlength')"
-                        autocomplete="current-password">
-                    <i
-                        class="toggle-password fas"
-                        [class.fa-eye]="hidePassword"
-                        [class.fa-eye-slash]="!hidePassword"
-                        (click)="togglePasswordVisibility()"
-                        title="Afficher/Masquer le mot de passe">
-                    </i>
-                </div>
-                <div class="validation-error" *ngIf="hasError('password', 'required')">
-                    <i class="fas fa-exclamation-circle"></i>
-                    Le mot de passe est requis
-                </div>
-                <div class="validation-error" *ngIf="hasError('password', 'minlength') && !hasError('password', 'required')">
-                    <i class="fas fa-exclamation-circle"></i>
-                    Le mot de passe doit contenir au moins 6 caractères
-                </div>
-            </div>
-
-            <!-- Options -->
-            <div class="options">
-                <label class="remember-me">
-                    <input
-                        type="checkbox"
-                        id="rememberMe"
-                        formControlName="rememberMe">
-                    <span>Se souvenir de moi</span>
-                </label>
-                <a
-                    class="forgot-password"
-                    (click)="goToForgotPassword()"
-                    tabindex="0">
-                    Mot de passe oublié?
-                </a>
-            </div>
-
-            <!-- Bouton de connexion -->
-            <button
-                type="submit"
-                class="login-btn"
-                [disabled]="isLoading"
-                [class.loading]="isLoading">
-                <span *ngIf="!isLoading" id="btnText">
-                    <i class="fas fa-sign-in-alt"></i>
-                    Connexion
-                </span>
-                <div class="spinner" *ngIf="isLoading">
-                    <i class="fas fa-spinner fa-spin"></i>
-                    <span>Connexion en cours...</span>
-                </div>
-            </button>
-
-            <!-- Lien d'inscription -->
-            <div class="signup-link">
-                Pas encore de compte ?
-                <a (click)="goToSignup()" tabindex="0">S'inscrire</a>
-            </div>
-
-            <!-- Footer // pieds de page-->
-            <div class="footer">
-                <p>Copyright © 2025 <span class="brand">CAVEMASTER CI</span></p>
-                <div class="social-links">
-                    <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-</body>

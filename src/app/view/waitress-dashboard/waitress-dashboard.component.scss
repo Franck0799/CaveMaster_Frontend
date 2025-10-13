@@ -1,1515 +1,1036 @@
-// ===== waitress-dashboard.component.scss - FICHIER COMPLET CORRIGÉ =====
+// ===== FICHIER: waitress-dashboard.component.scss =====
+// Ce fichier contient tous les styles du dashboard en SASS
 
-// ===== VARIABLES SCSS =====
-// Les variables commencent par $ et permettent de réutiliser des valeurs
+// ===== VARIABLES SASS =====
+// Définition des couleurs et dimensions réutilisables
+$primary: #ec4899;           // Rose principal
+$secondary: #f472b6;         // Rose secondaire
+$success: #22c55e;           // Vert
+$warning: #f59e0b;           // Orange
+$danger: #ef4444;            // Rouge
+$info: #3b82f6;              // Bleu
+$dark: #0f172a;              // Fond sombre
+$card: #1e293b;              // Fond des cartes
+$sidebar: #1e293b;           // Fond sidebar
+$text: #f1f5f9;              // Texte principal
+$text-muted: #94a3b8;        // Texte secondaire
+$border: #334155;            // Bordures
 
-// Couleurs principales
-$color-primary: #ec4899;        // Rose pink principal
-$color-secondary: #8b5cf6;      // Violet pour accents
-$color-dark: #0f172a;           // Bleu très foncé pour le fond
-$color-dark-lighter: #1e293b;   // Bleu foncé pour les cartes
-$color-dark-card: #334155;      // Bleu moyen pour les éléments
-$color-text: #f1f5f9;           // Blanc cassé pour le texte
-$color-text-muted: #94a3b8;     // Gris pour texte secondaire
-$color-success: #22c55e;        // Vert pour succès
-$color-warning: #f59e0b;        // Orange pour avertissement
-$color-danger: #ef4444;         // Rouge pour danger
-$color-info: #3b82f6;           // Bleu pour info
+// Dimensions
+$sidebar-width: 280px;       // Largeur de la sidebar
+$border-radius: 1rem;        // Rayon des bordures arrondies
+$transition: all 0.3s;       // Transition par défaut
 
-// Espacements
-$spacing-xs: 0.5rem;   // 8px
-$spacing-sm: 0.75rem;  // 12px
-$spacing-md: 1rem;     // 16px
-$spacing-lg: 1.5rem;   // 24px
-$spacing-xl: 2rem;     // 32px
-
-// Border radius
-$radius-sm: 0.5rem;    // 8px
-$radius-md: 0.75rem;   // 12px
-$radius-lg: 1rem;      // 16px
-
-// Transitions
-$transition-fast: 0.2s ease;   // Transition rapide
-$transition-normal: 0.3s ease; // Transition normale
-
-// ===== MIXINS SCSS =====
-// Les mixins sont des fonctions réutilisables pour générer du CSS
-
-// Mixin pour les flexbox centrés
-// @mixin déclare un mixin
-@mixin flex-center {
-  display: flex;           // Active flexbox
-  align-items: center;     // Centre verticalement
-  justify-content: center; // Centre horizontalement
-
-// ===== TABLE D'HISTORIQUE =====
-
-.history-table {
-  background: $color-dark-lighter; // Fond
-  border-radius: $radius-lg;       // Arrondi
-  overflow: hidden;                // Cache le débordement pour les coins arrondis
-  border: 2px solid $color-dark-card; // Bordure
-}
-
-// En-tête de table
-.table-header {
-  display: grid;                   // Grille CSS
-  grid-template-columns: 1fr 1fr 2fr 1fr 1fr; // 5 colonnes de tailles différentes
-  background: $color-dark-card;    // Fond plus foncé
-  padding: $spacing-md $spacing-lg; // Padding
-  font-weight: 700;                // Gras
-  color: $color-primary;           // Rose
-  font-size: 0.875rem;             // Petite taille
-  text-transform: uppercase;       // Majuscules
-  letter-spacing: 0.05em;          // Espacement des lettres
-}
-
-// Ligne de table
-.table-row {
-  display: grid;                   // Grille CSS
-  grid-template-columns: 1fr 1fr 2fr 1fr 1fr; // Même structure que le header
-  padding: $spacing-md $spacing-lg; // Padding
-  color: $color-text;              // Blanc
-  transition: background $transition-fast; // Transition du fond
-
-  // Bordure entre les lignes avec nth-child
-  // :not(:last-child) = tous sauf le dernier
-  &:not(:last-child) {
-    border-bottom: 1px solid $color-dark-card; // Bordure en bas
-  }
-
-  &:hover {
-    background: rgba($color-primary, 0.1); // Fond rose transparent au survol
-  }
-}
-
-// Colonne de table
-.table-col {
-  display: flex;                   // Flexbox
-  align-items: center;             // Centre verticalement
-  font-size: 0.875rem;             // Petite taille
-}
-
-// Badge de statut
-.status-badge {
-  padding: $spacing-xs $spacing-sm; // Padding
-  background: rgba($color-success, 0.2); // Fond vert transparent
-  color: $color-success;           // Texte vert
-  border-radius: $radius-sm;       // Arrondi
-  font-weight: 600;                // Gras
-  font-size: 0.75rem;              // Très petite taille
-  border: 1px solid $color-success; // Bordure verte
-}
-
-// ===== NOTIFICATION TOAST =====
-// Notification qui apparaît temporairement
-
-.toast-notification {
-  // Styles définis inline dans le TypeScript
-  // Animation définie ici
-  @keyframes slideIn {
-    from {
-      opacity: 0;                  // Commence invisible
-      transform: translateX(100%); // Commence hors écran à droite
-    }
-    to {
-      opacity: 1;                  // Termine visible
-      transform: translateX(0);    // Termine à sa position
-    }
-  }
-
-  @keyframes slideOut {
-    from {
-      opacity: 1;                  // Commence visible
-      transform: translateX(0);    // Commence à sa position
-    }
-    to {
-      opacity: 0;                  // Termine invisible
-      transform: translateX(100%); // Termine hors écran à droite
-    }
-  }
-}
-
-// ===== RESPONSIVE DESIGN =====
-// Adaptation pour les différentes tailles d'écran
-
-// @media = règle CSS pour les media queries
-// max-width: 1200px = s'applique si la largeur est <= 1200px
-
-@media (max-width: 1200px) {
-  .shift-info-content {
-    // Garde le flex horizontal mais permet le scroll
-    overflow-x: auto;              // Scroll horizontal
-  }
-
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr); // 2 colonnes au lieu de 4
-  }
-}
-
-@media (max-width: 992px) {
-  .main-content {
-    margin-left: 0;                // Pas de marge
-    padding: $spacing-md;          // Moins de padding
-  }
-
-  .sidebar {
-    transform: translateX(-100%);  // Cache la sidebar hors écran
-    // On pourrait ajouter un bouton menu pour l'afficher
-  }
-
-  .top-header {
-    flex-direction: column;        // Direction verticale
-    gap: $spacing-md;              // Espace entre éléments
-  }
-
-  .orders-grid {
-    grid-template-columns: 1fr;    // 1 colonne
-  }
-
-  .actions-grid {
-    grid-template-columns: repeat(2, 1fr); // 2 colonnes
-  }
-}
-
-@media (max-width: 768px) {
-  .stats-grid,
-  .tips-stats,
-  .sales-stats {
-    grid-template-columns: 1fr;    // 1 colonne pour tous
-  }
-
-  .shift-info-content {
-    display: flex;                 // Garde le flex
-    overflow-x: auto;              // Scroll horizontal
-  }
-
-  .actions-grid {
-    grid-template-columns: 1fr;    // 1 colonne
-  }
-
-  .table-header,
-  .table-row {
-    grid-template-columns: 1fr;    // 1 colonne
-    gap: $spacing-xs;              // Moins d'espace
-  }
-
-  .table-col {
-    // Ajoute un label avant chaque cellule sur mobile
-    &::before {
-      content: attr(data-label);   // attr() récupère l'attribut data-label
-      font-weight: 700;            // Gras
-      margin-right: $spacing-sm;   // Marge à droite
-    }
-  }
-
-  .category-filters {
-    justify-content: flex-start;   // Aligne à gauche
-    overflow-x: auto;              // Garde le scroll horizontal
-  }
-
-  .form-actions {
-    flex-direction: column;        // Direction verticale
-
-    .btn {
-      width: 100%;                 // Largeur complète
-    }
-  }
-
-  // Menu garde sa disposition horizontale sur mobile
-  .menu-grid {
-    display: flex;                 // Garde flex
-    overflow-x: auto;              // Garde scroll horizontal
-  }
-}
-
-@media (max-width: 480px) {
-  .top-header-right {
-    flex-wrap: wrap;               // Permet le retour à la ligne
-    justify-content: center;       // Centre les éléments
-  }
-
-  // Menu et shift-info gardent leur disposition horizontale
-  .menu-grid,
-  .shift-info-content {
-    display: flex;                 // Garde flex horizontal
-    overflow-x: auto;              // Garde scroll horizontal
-  }
-
-  .availability-menu {
-    width: calc(100vw - 32px);     // vw = viewport width, 100vw = largeur totale
-    right: auto;                   // Annule right
-    left: 16px;                    // 16px de la gauche
-  }
-}
-
-// ===== ANIMATIONS SUPPLÉMENTAIRES =====
-
-// Animation de fade in pour les éléments
-@keyframes fadeIn {
-  from {
-    opacity: 0;                    // Commence invisible
-    transform: translateY(20px);   // Commence 20px plus bas
-  }
-  to {
-    opacity: 1;                    // Termine visible
-    transform: translateY(0);      // Termine à sa position
-  }
-}
-
-// Applique l'animation aux sections
-.section {
-  animation: fadeIn 0.5s ease;     // Animation de 0.5 secondes
-}
-
-// Animation de pulse pour attirer l'attention
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);           // Taille normale
-  }
-  50% {
-    transform: scale(1.05);        // Légèrement agrandi
-  }
-}
-
-// Applique le pulse aux nouveaux badges
-.badge {
-  animation: pulse 2s infinite;    // Animation infinie de 2 secondes
-}
-
-// ===== UTILITAIRES =====
-// Classes utilitaires réutilisables
-
-// Classe pour cacher un élément
-.hidden {
-  display: none !important;        // !important force l'application
-}
-
-// Classe pour le texte tronqué avec ...
-.text-truncate {
-  overflow: hidden;                // Cache le débordement
-  text-overflow: ellipsis;         // Ajoute ...
-  white-space: nowrap;             // Pas de retour à la ligne
-}
-
-// Classe pour centrer du texte
-.text-center {
-  text-align: center;
-}
-
-// Classe pour mettre en gras
-.font-bold {
-  font-weight: 700;
-}
-
-// ===== PRINT STYLES =====
-// Styles pour l'impression
-
-@media print {
-  .sidebar,
-  .top-header,
-  .back-btn,
-  .btn,
-  .form-actions {
-    display: none;                 // Cache ces éléments à l'impression
-  }
-
-  .main-content {
-    margin-left: 0;                // Pas de marge
-  }
-
-  .order-card,
-  .table-card,
-  .tip-card {
-    break-inside: avoid;           // Évite de couper les cartes entre les pages
-  }
-}
+// ===== MIXINS SASS =====
+// Fonctions réutilisables pour éviter la répétition
 
 // Mixin pour les cartes avec effet hover
 @mixin card-hover {
-  // & représente le sélecteur parent
-  transition: transform $transition-normal, box-shadow $transition-normal;
+  transition: $transition;
 
-  // &:hover s'applique au survol
   &:hover {
-    transform: translateY(-4px); // Déplace vers le haut
-    box-shadow: 0 10px 30px rgba($color-primary, 0.3); // Ombre rose
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba($primary, 0.2);
   }
 }
 
-// Mixin pour le scrollbar personnalisé
-@mixin custom-scrollbar {
-  // ::-webkit-scrollbar cible la scrollbar sur Chrome/Safari
-  &::-webkit-scrollbar {
-    width: 8px;  // Largeur de la scrollbar
-    height: 8px; // Hauteur pour scroll horizontal
-  }
+// Mixin pour le dégradé rose
+@mixin gradient-text {
+  background: linear-gradient(135deg, $primary, $secondary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
-  &::-webkit-scrollbar-track {
-    background: $color-dark-lighter; // Fond de la piste
-    border-radius: $radius-sm;       // Arrondi
-  }
+// Mixin pour les boutons
+@mixin button-base {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: $transition;
 
-  &::-webkit-scrollbar-thumb {
-    background: $color-primary;      // Couleur du curseur
-    border-radius: $radius-sm;       // Arrondi
-
-    &:hover {
-      background: lighten($color-primary, 10%); // lighten() éclaircit la couleur
-    }
+  &:hover {
+    transform: translateY(-2px);
   }
 }
 
-// ===== RESET & BASE =====
-// Réinitialise les styles par défaut du navigateur
-
+// ===== RÉINITIALISATION GLOBALE =====
 * {
-  margin: 0;           // Supprime toutes les marges
-  padding: 0;          // Supprime tous les paddings
-  box-sizing: border-box; // Inclut padding et border dans la taille
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-// body = élément racine de la page
-body {
+// ===== STYLES GLOBAUX =====
+:host {
+  // :host cible le composant Angular lui-même
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: $color-dark;  // Fond sombre
-  color: $color-text;       // Texte clair
-  line-height: 1.6;         // Hauteur de ligne pour lisibilité
-  overflow-x: hidden;       // Cache le scroll horizontal
+  display: block;
 }
 
-// ===== DASHBOARD LAYOUT =====
-// .dashboard est le conteneur principal
-
+// ===== CONTENEUR PRINCIPAL =====
 .dashboard {
-  display: flex;           // Flexbox pour sidebar + contenu
-  min-height: 100vh;       // Hauteur minimum = hauteur de la fenêtre
-  background: $color-dark; // Fond sombre
+  display: flex;
+  min-height: 100vh;
+  background: $dark;
+  color: $text;
 }
 
 // ===== SIDEBAR =====
-// Barre latérale de navigation
-
 .sidebar {
-  width: 280px;                    // Largeur fixe
-  background: $color-dark-lighter; // Fond légèrement plus clair
-  border-right: 2px solid $color-primary; // Bordure rose à droite
-  display: flex;                   // Flexbox vertical
-  flex-direction: column;          // Direction verticale
-  position: fixed;                 // Position fixe (ne scroll pas)
-  height: 100vh;                   // Hauteur = hauteur de la fenêtre
-  left: 0;                         // Aligné à gauche
-  top: 0;                          // Aligné en haut
-  z-index: 1000;                   // Au-dessus des autres éléments
-  overflow-y: auto;                // Scroll vertical si nécessaire
-  @include custom-scrollbar;       // Applique le mixin de scrollbar
-}
+  width: $sidebar-width;
+  background: $sidebar;
+  border-right: 1px solid $border;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  height: 100vh;
+  z-index: 1000;
 
-// En-tête de la sidebar
-.sidebar-header {
-  padding: $spacing-xl;            // Padding tout autour
-  border-bottom: 1px solid $color-dark-card; // Bordure en bas
-}
+  // En-tête de la sidebar
+  &-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid $border;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
 
-// Logo
-.logo {
-  @include flex-center;            // Centre le contenu
-  gap: $spacing-md;                // Espace entre icône et texte
+    .logo-icon {
+      font-size: 2.5rem;
+      filter: drop-shadow(0 0 10px rgba($primary, 0.5));
+    }
 
-  .logo-icon {
-    font-size: 2rem;               // Taille de l'emoji
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 700;
+      @include gradient-text;
+    }
   }
 
-  .logo-text {
-    font-size: 1.25rem;            // Taille du texte
-    font-weight: 700;              // Gras
-    background: linear-gradient(135deg, $color-primary, $color-secondary); // Dégradé
-    -webkit-background-clip: text; // Applique le dégradé au texte
-    -webkit-text-fill-color: transparent; // Rend le texte transparent
-    background-clip: text;         // Version standard
+  // Navigation
+  &-nav {
+    flex: 1;
+    padding: 1.5rem 0;
+    overflow-y: auto;
+
+    // Scrollbar personnalisée (webkit)
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: $dark;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: $border;
+      border-radius: 3px;
+
+      &:hover {
+        background: $primary;
+      }
+    }
+  }
+
+  // Pied de la sidebar
+  &-footer {
+    padding: 1rem;
+    border-top: 1px solid $border;
   }
 }
 
-// Navigation de la sidebar
-.sidebar-nav {
-  flex: 1;                         // Prend tout l'espace disponible
-  padding: $spacing-lg 0;          // Padding vertical
-}
-
-// Item de navigation
+// ===== ITEMS DE NAVIGATION =====
 .nav-item {
-  display: flex;                   // Flexbox horizontal
-  align-items: center;             // Centre verticalement
-  gap: $spacing-md;                // Espace entre icône et texte
-  padding: $spacing-md $spacing-xl; // Padding
-  color: $color-text-muted;        // Couleur grise par défaut
-  cursor: pointer;                 // Curseur pointer au survol
-  transition: all $transition-fast; // Transition sur tous les changements
-  border-left: 3px solid transparent; // Bordure invisible par défaut
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  color: $text-muted;
+  cursor: pointer;
+  transition: $transition;
+  border-left: 3px solid transparent;
+
+  &:hover {
+    background: rgba($primary, 0.1);
+    color: $text;
+  }
+
+  // État actif
+  &.active {
+    background: rgba($primary, 0.15);
+    color: $primary;
+    border-left-color: $primary;
+  }
 
   .nav-icon {
-    font-size: 1.25rem;            // Taille de l'icône
-  }
-
-  // Au survol
-  &:hover {
-    background: rgba($color-primary, 0.1); // Fond rose transparent
-    color: $color-text;            // Texte blanc
-  }
-
-  // Quand actif (classe .active ajoutée dynamiquement)
-  &.active {
-    background: rgba($color-primary, 0.15); // Fond rose plus visible
-    color: $color-primary;         // Texte rose
-    border-left-color: $color-primary; // Bordure rose à gauche
-    font-weight: 600;              // Gras
+    font-size: 1.5rem;
   }
 }
 
-// Footer de la sidebar
-.sidebar-footer {
-  padding: $spacing-lg;            // Padding tout autour
-  border-top: 1px solid $color-dark-card; // Bordure en haut
-}
-
-// Bouton de déconnexion
+// ===== BOUTON DE DÉCONNEXION =====
 .logout-btn {
-  width: 100%;                     // Largeur complète
-  display: flex;                   // Flexbox
-  align-items: center;             // Centre verticalement
-  gap: $spacing-md;                // Espace entre icône et texte
-  padding: $spacing-md;            // Padding
-  background: transparent;         // Fond transparent
-  border: 2px solid $color-danger; // Bordure rouge
-  border-radius: $radius-md;       // Arrondi
-  color: $color-danger;            // Texte rouge
-  font-size: 1rem;                 // Taille de police
-  font-weight: 600;                // Gras
-  cursor: pointer;                 // Curseur pointer
-  transition: all $transition-normal; // Transition
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba($danger, 0.1);
+  border: 1px solid rgba($danger, 0.2);
+  color: $danger;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transition: $transition;
+  font-size: 1rem;
 
   &:hover {
-    background: $color-danger;     // Fond rouge au survol
-    color: white;                  // Texte blanc au survol
-    transform: translateY(-2px);   // Déplace vers le haut
+    background: rgba($danger, 0.2);
+    transform: scale(1.02);
   }
 }
 
 // ===== CONTENU PRINCIPAL =====
-// Zone principale à droite de la sidebar
-
 .main-content {
-  flex: 1;                         // Prend tout l'espace restant
-  margin-left: 280px;              // Décalage de la largeur de la sidebar
-  padding: $spacing-xl;            // Padding tout autour
-  min-height: 100vh;               // Hauteur minimum
-  background: $color-dark;         // Fond sombre
+  flex: 1;
+  margin-left: $sidebar-width;
 }
 
-// ===== EN-TÊTE SUPÉRIEUR =====
-// Barre en haut avec titre et icônes
-
+// ===== EN-TÊTE DU HAUT =====
 .top-header {
-  display: flex;                   // Flexbox horizontal
-  justify-content: space-between;  // Espace entre gauche et droite
-  align-items: center;             // Centre verticalement
-  margin-bottom: $spacing-xl;      // Marge en bas
-  padding: $spacing-lg;            // Padding
-  background: $color-dark-lighter; // Fond légèrement plus clair
-  border-radius: $radius-lg;       // Arrondi
-  border: 2px solid $color-primary; // Bordure rose
-  box-shadow: 0 4px 20px rgba($color-primary, 0.2); // Ombre rose
-}
+  background: $card;
+  border-bottom: 1px solid $border;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 
-.top-header-left {
   h2 {
-    font-size: 1.5rem;             // Taille du titre
-    font-weight: 700;              // Gras
-    color: $color-text;            // Couleur blanche
+    font-size: 1.75rem;
+    @include gradient-text;
   }
 }
 
-.top-header-right {
-  display: flex;                   // Flexbox horizontal
-  align-items: center;             // Centre verticalement
-  gap: $spacing-lg;                // Espace entre les éléments
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
 }
 
-// ===== BOUTON DE DISPONIBILITÉ =====
-// Bouton avec menu déroulant
-
-.availability-wrapper {
-  position: relative;              // Position relative pour le menu absolu
+// ===== MENU DE DISPONIBILITÉ =====
+.availability-container {
+  position: relative;
 }
 
-.availability-button {
-  display: flex;                   // Flexbox
-  align-items: center;             // Centre verticalement
-  gap: $spacing-sm;                // Espace entre éléments
-  padding: $spacing-sm $spacing-md; // Padding
-  background: $color-dark-card;    // Fond
-  border: 2px solid $color-primary; // Bordure rose
-  border-radius: $radius-md;       // Arrondi
-  color: $color-text;              // Texte blanc
-  font-weight: 600;                // Gras
-  cursor: pointer;                 // Curseur pointer
-  transition: all $transition-fast; // Transition
-
-  .icon {
-    font-size: 1.25rem;            // Taille de l'icône
-  }
-
-  .arrow {
-    font-size: 0.75rem;            // Taille de la flèche
-    transition: transform $transition-fast; // Transition sur la rotation
-  }
+.availability-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: $card;
+  border: 2px solid $border;
+  border-radius: 0.75rem;
+  color: $text;
+  cursor: pointer;
+  transition: $transition;
+  font-size: 0.95rem;
+  font-weight: 600;
 
   &:hover {
-    background: lighten($color-dark-card, 5%); // Éclaircit au survol
-    transform: translateY(-2px);   // Déplace vers le haut
+    border-color: $primary;
+    background: rgba($primary, 0.05);
+  }
+
+  .availability-icon {
+    font-size: 1.2rem;
+  }
+
+  .dropdown-arrow {
+    font-size: 0.8rem;
+    margin-left: 0.25rem;
   }
 }
 
-// Menu déroulant de disponibilité
 .availability-menu {
-  position: absolute;              // Position absolue par rapport au wrapper
-  top: calc(100% + 8px);          // calc() permet de calculer: 100% + 8px
-  right: 0;                        // Aligné à droite
-  width: 300px;                    // Largeur fixe
-  background: $color-dark-lighter; // Fond
-  border: 2px solid $color-primary; // Bordure rose
-  border-radius: $radius-lg;       // Arrondi
-  padding: $spacing-md;            // Padding
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5); // Ombre forte
-  z-index: 1001;                   // Au-dessus de tout
-  animation: slideDown 0.2s ease;  // Animation d'apparition
-}
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: $card;
+  border: 2px solid $border;
+  border-radius: 0.75rem;
+  padding: 0.5rem;
+  min-width: 220px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
 
-// Animation keyframes pour le menu
-@keyframes slideDown {
-  from {
-    opacity: 0;                    // Commence invisible
-    transform: translateY(-10px);  // Commence 10px plus haut
-  }
-  to {
-    opacity: 1;                    // Termine visible
-    transform: translateY(0);      // Termine à sa position
+  &-header {
+    padding: 0.75rem;
+    color: $text-muted;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-bottom: 1px solid $border;
+    margin-bottom: 0.5rem;
   }
 }
 
-.availability-menu-title {
-  font-size: 0.75rem;              // Petite taille
-  font-weight: 700;                // Gras
-  color: $color-text-muted;        // Gris
-  margin-bottom: $spacing-md;      // Marge en bas
-  letter-spacing: 0.05em;          // Espacement des lettres
-  text-transform: uppercase;       // Majuscules
-}
-
-// Option du menu de disponibilité
 .availability-option {
-  display: flex;                   // Flexbox
-  align-items: center;             // Centre verticalement
-  gap: $spacing-md;                // Espace entre éléments
-  padding: $spacing-md;            // Padding
-  border-radius: $radius-md;       // Arrondi
-  cursor: pointer;                 // Curseur pointer
-  transition: background $transition-fast; // Transition du fond
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transition: $transition;
+  margin-bottom: 0.25rem;
+
+  &:hover {
+    background: rgba($primary, 0.1);
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 
   .option-icon {
-    font-size: 1.5rem;             // Taille de l'icône
+    font-size: 1.3rem;
   }
 
-  .option-info {
-    flex: 1;                       // Prend l'espace restant
+  .option-content {
+    flex: 1;
   }
 
-  .option-text {
-    font-weight: 600;              // Gras
-    color: $color-text;            // Blanc
-    margin-bottom: 2px;            // Petite marge
+  .option-title {
+    font-weight: 600;
+    margin-bottom: 0.15rem;
   }
 
   .option-desc {
-    font-size: 0.875rem;           // Petite taille
-    color: $color-text-muted;      // Gris
-  }
-
-  &:hover {
-    background: $color-dark-card;  // Fond au survol
+    font-size: 0.8rem;
+    color: $text-muted;
   }
 }
 
 // ===== ICÔNES D'EN-TÊTE =====
-// Notifications et messages
-
 .header-icon {
-  position: relative;              // Pour positionner le badge
-  padding: $spacing-sm;            // Padding
-  background: $color-dark-card;    // Fond
-  border-radius: $radius-md;       // Arrondi
-  cursor: pointer;                 // Curseur pointer
-  transition: all $transition-fast; // Transition
-
-  .icon {
-    font-size: 1.25rem;            // Taille de l'icône
-  }
-
-  // Badge de notification
-  .badge {
-    position: absolute;            // Position absolue
-    top: -4px;                     // 4px au-dessus
-    right: -4px;                   // 4px à droite
-    background: $color-danger;     // Fond rouge
-    color: white;                  // Texte blanc
-    font-size: 0.75rem;            // Petite taille
-    font-weight: 700;              // Gras
-    padding: 2px 6px;              // Padding minimal
-    border-radius: 10px;           // Très arrondi (cercle)
-    min-width: 20px;               // Largeur minimum
-    text-align: center;            // Texte centré
-  }
+  position: relative;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: $transition;
 
   &:hover {
-    background: lighten($color-dark-card, 5%); // Éclaircit au survol
-    transform: translateY(-2px);   // Déplace vers le haut
+    background: rgba($primary, 0.1);
+  }
+
+  .icon {
+    font-size: 1.5rem;
   }
 }
 
-// ===== PROFIL UTILISATEUR =====
+// Badge de notification
+.badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: $danger;
+  color: white;
+  font-size: 0.7rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 50%;
+  font-weight: 600;
+}
 
+// ===== PROFIL UTILISATEUR =====
 .user-profile {
-  display: flex;                   // Flexbox
-  align-items: center;             // Centre verticalement
-  gap: $spacing-sm;                // Espace entre avatar et nom
-  padding: $spacing-sm $spacing-md; // Padding
-  background: $color-dark-card;    // Fond
-  border-radius: $radius-md;       // Arrondi
-  cursor: pointer;                 // Curseur pointer
-  transition: all $transition-fast; // Transition
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 
   .avatar {
-    width: 40px;                   // Largeur
-    height: 40px;                  // Hauteur
-    @include flex-center;          // Centre le contenu
-    background: linear-gradient(135deg, $color-primary, $color-secondary); // Dégradé
-    border-radius: 50%;            // Cercle parfait
-    font-size: 1.5rem;             // Taille de l'emoji
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, $primary, $secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
   }
 
   .user-name {
-    font-weight: 600;              // Gras
-    color: $color-text;            // Blanc
-  }
-
-  &:hover {
-    background: lighten($color-dark-card, 5%); // Éclaircit au survol
-    transform: translateY(-2px);   // Déplace vers le haut
+    font-weight: 600;
   }
 }
 
 // ===== INFORMATIONS DE SERVICE =====
-// Cartes affichant les stats du shift - Disposition horizontale
-
 .shift-info {
-  margin-bottom: $spacing-xl;      // Marge en bas
-  width: 100%;                     // Largeur complète
+  background: linear-gradient(135deg, rgba($primary, 0.2), rgba($secondary, 0.2));
+  padding: 2rem;
+  border-bottom: 1px solid $border;
 }
 
-.shift-info-content {
-  display: flex;                   // Flexbox pour disposition horizontale
-  gap: $spacing-lg;                // Espace entre les éléments
-  overflow-x: auto;                // Scroll horizontal si nécessaire
-  padding-bottom: $spacing-sm;     // Padding pour la scrollbar
-  @include custom-scrollbar;       // Scrollbar personnalisée
+.shift-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
 }
 
-// Carte de shift - Taille fixe pour cohérence horizontale
 .shift-card {
-  background: $color-dark-lighter; // Fond
-  padding: $spacing-xl $spacing-lg; // Padding ajusté
-  border-radius: $radius-lg;       // Arrondi
-  border: 2px solid $color-dark-card; // Bordure
-  text-align: center;              // Texte centré
-  transition: all $transition-normal; // Transition
-  min-width: 220px;                // Largeur minimum augmentée
-  flex: 0 0 auto;                  // Ne grandit ni ne rétrécit
-  display: flex;                   // Flexbox pour contenu
-  flex-direction: column;          // Direction verticale
-  align-items: center;             // Centre horizontalement
-  justify-content: center;         // Centre verticalement
-
-  .stat-icon {
-    font-size: 2.5rem;             // Grande taille pour visibilité
-    margin-bottom: $spacing-md;    // Marge en bas augmentée
-    line-height: 1;                // Hauteur de ligne serrée
-  }
+  background: $card;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid $border;
+  text-align: center;
 
   .shift-label {
-    font-size: 0.875rem;           // Petite taille
-    color: $color-text-muted;      // Gris
-    margin-bottom: $spacing-sm;    // Marge augmentée
-    text-transform: none;          // Pas de transformation
-    white-space: nowrap;           // Pas de retour à la ligne
+    color: $text-muted;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
   }
 
   .shift-value {
-    font-size: 1.875rem;           // Taille augmentée
-    font-weight: 700;              // Gras
-    color: $color-primary;         // Rose
-    line-height: 1.2;              // Hauteur de ligne
-    white-space: nowrap;           // Pas de retour à la ligne
-  }
-
-  &:hover {
-    border-color: $color-primary;  // Bordure rose au survol
-    transform: translateY(-4px);   // Déplace vers le haut
-    box-shadow: 0 10px 30px rgba($color-primary, 0.2); // Ombre rose
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: $primary;
   }
 }
 
-// ===== SECTIONS =====
-
-.section {
-  margin-bottom: $spacing-xl;      // Marge en bas entre sections
+// ===== SECTIONS GÉNÉRALES =====
+.quick-actions-section,
+.orders-section,
+.menu-section,
+.tips-section,
+.tables-section,
+.history-section,
+.new-order-section {
+  padding: 2rem;
 }
 
 .section-title {
-  font-size: 1.5rem;               // Taille du titre
-  font-weight: 700;                // Gras
-  color: $color-text;              // Blanc
-  margin-bottom: $spacing-lg;      // Marge en bas
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
 
-  // Effet de soulignement rose
-  &::after {
-    content: '';                   // Contenu vide requis pour ::after
-    display: block;                // Block pour prendre toute la largeur
-    width: 60px;                   // Largeur de la ligne
-    height: 4px;                   // Hauteur de la ligne
-    background: linear-gradient(90deg, $color-primary, $color-secondary); // Dégradé
-    margin-top: $spacing-sm;       // Marge en haut
-    border-radius: 2px;            // Légèrement arrondi
-  }
+.subsection-title {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
 }
 
 // ===== BOUTON RETOUR =====
-
 .back-btn {
-  display: inline-flex;            // inline-flex pour ne pas prendre toute la largeur
-  align-items: center;             // Centre verticalement
-  gap: $spacing-sm;                // Espace
-  padding: $spacing-sm $spacing-md; // Padding
-  background: transparent;         // Fond transparent
-  border: 2px solid $color-text-muted; // Bordure grise
-  border-radius: $radius-md;       // Arrondi
-  color: $color-text-muted;        // Texte gris
-  font-weight: 600;                // Gras
-  cursor: pointer;                 // Curseur pointer
-  margin-bottom: $spacing-lg;      // Marge en bas
-  transition: all $transition-fast; // Transition
+  background: $card;
+  border: 1px solid $border;
+  color: $text;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: $transition;
+  margin-bottom: 1rem;
 
   &:hover {
-    border-color: $color-primary;  // Bordure rose au survol
-    color: $color-primary;         // Texte rose au survol
-    transform: translateX(-4px);   // Déplace vers la gauche
+    background: $border;
+    transform: translateX(-5px);
   }
 }
 
-// ===== GRILLE D'ACTIONS =====
-
+// ===== GRILLE D'ACTIONS RAPIDES =====
 .actions-grid {
-  display: grid;                   // Grille CSS
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); // Colonnes adaptatives
-  // auto-fit = ajuste automatiquement le nombre de colonnes
-  // minmax(250px, 1fr) = minimum 250px, maximum 1 fraction
-  gap: $spacing-lg;                // Espace entre éléments
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
 }
 
-// Carte d'action
 .action-card {
-  background: $color-dark-lighter; // Fond
-  padding: $spacing-xl;            // Padding
-  border-radius: $radius-lg;       // Arrondi
-  border: 2px solid $color-dark-card; // Bordure
-  cursor: pointer;                 // Curseur pointer
-  text-align: center;              // Texte centré
-  @include card-hover;             // Applique le mixin d'effet hover
+  background: $card;
+  border: 1px solid $border;
+  border-radius: $border-radius;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  @include card-hover;
+
+  &:hover {
+    border-color: $primary;
+  }
 
   .action-icon {
-    font-size: 3rem;               // Grande taille
-    margin-bottom: $spacing-md;    // Marge en bas
+    font-size: 4rem;
+    margin-bottom: 1rem;
   }
 
   .action-title {
-    font-size: 1.25rem;            // Taille moyenne
-    font-weight: 700;              // Gras
-    color: $color-text;            // Blanc
-    margin-bottom: $spacing-sm;    // Marge en bas
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
   }
 
   .action-desc {
-    font-size: 0.875rem;           // Petite taille
-    color: $color-text-muted;      // Gris
+    color: $text-muted;
+    font-size: 0.9rem;
   }
 }
 
-// ===== GRILLE DE COMMANDES =====
-
+// ===== GRILLE DES COMMANDES =====
 .orders-grid {
-  display: grid;                   // Grille CSS
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); // Colonnes adaptatives
-  // auto-fill = remplit avec autant de colonnes que possible
-  gap: $spacing-lg;                // Espace entre éléments
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
 }
 
-// Carte de commande
 .order-card {
-  background: $color-dark-lighter; // Fond
-  border: 2px solid $color-dark-card; // Bordure
-  border-radius: $radius-lg;       // Arrondi
-  padding: $spacing-lg;            // Padding
-  @include card-hover;             // Effet hover
+  background: $card;
+  border: 1px solid $border;
+  border-radius: $border-radius;
+  padding: 1.5rem;
+  transition: $transition;
+
+  &:hover {
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  }
 }
 
-// En-tête de commande
 .order-header {
-  display: flex;                   // Flexbox
-  justify-content: space-between;  // Espace entre les éléments
-  align-items: center;             // Centre verticalement
-  margin-bottom: $spacing-md;      // Marge en bas
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid $border;
 }
 
 .order-number {
-  font-size: 1.25rem;              // Taille
-  font-weight: 700;                // Gras
-  color: $color-primary;           // Rose
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: $primary;
 }
 
-// Statut de commande
+// Statuts des commandes
 .order-status {
-  padding: $spacing-xs $spacing-md; // Padding
-  border-radius: $radius-sm;       // Arrondi
-  font-size: 0.875rem;             // Petite taille
-  font-weight: 600;                // Gras
+  padding: 0.4rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
 
-  // &.status-new cible les éléments avec les classes order-status ET status-new
   &.status-new {
-    background: rgba($color-info, 0.2); // Fond bleu transparent
-    color: $color-info;            // Texte bleu
-    border: 1px solid $color-info; // Bordure bleue
+    background: rgba($info, 0.1);
+    color: $info;
   }
 
   &.status-preparing {
-    background: rgba($color-warning, 0.2); // Fond orange transparent
-    color: $color-warning;         // Texte orange
-    border: 1px solid $color-warning; // Bordure orange
+    background: rgba($warning, 0.1);
+    color: $warning;
   }
 
   &.status-ready {
-    background: rgba($color-success, 0.2); // Fond vert transparent
-    color: $color-success;         // Texte vert
-    border: 1px solid $color-success; // Bordure verte
+    background: rgba($success, 0.1);
+    color: $success;
   }
 }
 
 .order-table {
-  font-size: 0.875rem;             // Petite taille
-  color: $color-text-muted;        // Gris
-  margin-bottom: $spacing-md;      // Marge en bas
+  color: $text-muted;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
 }
 
-// Items de commande
 .order-items {
-  margin-bottom: $spacing-md;      // Marge en bas
-  padding: $spacing-md;            // Padding
-  background: $color-dark-card;    // Fond
-  border-radius: $radius-md;       // Arrondi
+  margin: 1rem 0;
 }
 
 .order-item {
-  display: flex;                   // Flexbox
-  justify-content: space-between;  // Espace entre nom et prix
-  padding: $spacing-xs 0;          // Padding vertical
-  font-size: 0.875rem;             // Petite taille
-  color: $color-text;              // Blanc
-
-  // Sélecteur :not(:last-child) = tous sauf le dernier
-  &:not(:last-child) {
-    border-bottom: 1px solid rgba($color-text-muted, 0.2); // Bordure en bas
-    padding-bottom: $spacing-sm;   // Padding en bas
-    margin-bottom: $spacing-sm;    // Marge en bas
-  }
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  color: $text;
 }
 
-// Total de commande
 .order-total {
-  display: flex;                   // Flexbox
-  justify-content: space-between;  // Espace entre texte et montant
-  padding: $spacing-md;            // Padding
-  background: $color-dark-card;    // Fond
-  border-radius: $radius-md;       // Arrondi
-  font-weight: 700;                // Gras
-  font-size: 1.125rem;             // Taille un peu plus grande
-  color: $color-primary;           // Rose
-  margin-bottom: $spacing-md;      // Marge en bas
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1rem;
+  margin-top: 1rem;
+  border-top: 1px solid $border;
+  font-weight: 700;
+  font-size: 1.1rem;
 }
 
-// Actions de commande (boutons)
 .order-actions {
-  display: flex;                   // Flexbox
-  gap: $spacing-sm;                // Espace entre boutons
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
 }
 
 // ===== BOUTONS =====
-
 .btn {
-  flex: 1;                         // Prend une part égale de l'espace
-  padding: $spacing-sm $spacing-md; // Padding
-  border: none;                    // Pas de bordure
-  border-radius: $radius-md;       // Arrondi
-  font-weight: 600;                // Gras
-  font-size: 0.875rem;             // Taille
-  cursor: pointer;                 // Curseur pointer
-  transition: all $transition-fast; // Transition
+  @include button-base;
+  flex: 1;
 
-  &:hover {
-    transform: translateY(-2px);   // Déplace vers le haut
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); // Ombre
-  }
-
-  // Bouton primaire (rose)
-  &.btn-primary {
-    background: $color-primary;    // Fond rose
-    color: white;                  // Texte blanc
+  &-primary {
+    background: $primary;
+    color: white;
 
     &:hover {
-      background: lighten($color-primary, 10%); // Éclaircit au survol
+      background: darken($primary, 10%);
     }
   }
 
-  // Bouton secondaire (gris)
-  &.btn-secondary {
-    background: $color-dark-card;  // Fond gris
-    color: $color-text;            // Texte blanc
-    border: 2px solid $color-text-muted; // Bordure grise
+  &-secondary {
+    background: $dark;
+    color: $text;
+    border: 1px solid $border;
 
     &:hover {
-      border-color: $color-primary; // Bordure rose au survol
-      color: $color-primary;        // Texte rose au survol
+      background: $border;
     }
   }
 
-  // Bouton large
-  &.btn-large {
-    padding: $spacing-md $spacing-xl; // Plus de padding
-    font-size: 1rem;               // Plus grande taille
+  &-block {
+    width: 100%;
   }
 
-  // Bouton d'ajout
-  &.btn-add {
-    background: transparent;       // Fond transparent
-    border: 2px solid $color-primary; // Bordure rose
-    color: $color-primary;         // Texte rose
-
-    &:hover {
-      background: $color-primary;  // Fond rose au survol
-      color: white;                // Texte blanc au survol
-    }
+  &-lg {
+    flex: 2;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
   }
 }
 
 // ===== STATISTIQUES =====
-
-.stats-section {
-  margin-top: $spacing-xl;         // Marge en haut
+.stats-section,
+.tips-summary,
+.history-stats {
+  padding: 2rem;
+  background: rgba($primary, 0.05);
 }
 
 .stats-grid {
-  display: grid;                   // Grille CSS
-  grid-template-columns: repeat(4, 1fr); // 4 colonnes égales
-  gap: $spacing-lg;                // Espace entre éléments
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .stat-card {
-  background: $color-dark-lighter; // Fond
-  padding: $spacing-xl;            // Padding
-  border-radius: $radius-lg;       // Arrondi
-  border: 2px solid $color-dark-card; // Bordure
-  text-align: center;              // Texte centré
-  @include card-hover;             // Effet hover
+  background: $card;
+  border: 1px solid $border;
+  border-radius: $border-radius;
+  padding: 1.5rem;
+  text-align: center;
 
   .stat-icon {
-    font-size: 2.5rem;             // Grande taille
-    margin-bottom: $spacing-sm;    // Marge en bas
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
   }
 
   .stat-value {
-    font-size: 2rem;               // Grande taille
-    font-weight: 700;              // Gras
-    color: $color-primary;         // Rose
-    margin-bottom: $spacing-xs;    // Marge en bas
+    font-size: 2rem;
+    font-weight: 700;
+    color: $primary;
+    margin-bottom: 0.25rem;
   }
 
   .stat-label {
-    font-size: 0.875rem;           // Petite taille
-    color: $color-text-muted;      // Gris
+    color: $text-muted;
+    font-size: 0.9rem;
   }
 }
 
-// ===== FORMULAIRE DE COMMANDE =====
-
-.order-form {
-  background: $color-dark-lighter; // Fond
-  padding: $spacing-xl;            // Padding
-  border-radius: $radius-lg;       // Arrondi
-  border: 2px solid $color-dark-card; // Bordure
+// ===== FORMULAIRE NOUVELLE COMMANDE =====
+.new-order-form {
+  background: $card;
+  border: 1px solid $border;
+  border-radius: $border-radius;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .form-group {
-  margin-bottom: $spacing-lg;      // Marge en bas
+  margin-bottom: 1.5rem;
 
   label {
-    display: block;                // Prend toute la largeur
-    font-weight: 600;              // Gras
-    color: $color-text;            // Blanc
-    margin-bottom: $spacing-sm;    // Marge en bas
-    font-size: 0.875rem;           // Petite taille
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
   }
 }
 
-.form-input {
-  width: 100%;                     // Largeur complète
-  padding: $spacing-md;            // Padding
-  background: $color-dark-card;    // Fond
-  border: 2px solid $color-text-muted; // Bordure grise
-  border-radius: $radius-md;       // Arrondi
-  color: $color-text;              // Texte blanc
-  font-size: 1rem;                 // Taille normale
-  transition: all $transition-fast; // Transition
+.form-control {
+  width: 100%;
+  padding: 0.75rem;
+  background: $dark;
+  border: 1px solid $border;
+  border-radius: 0.5rem;
+  color: $text;
+  font-size: 1rem;
 
-  // ::placeholder cible le texte placeholder
-  &::placeholder {
-    color: $color-text-muted;      // Gris
-  }
-
-  // :focus quand l'input est sélectionné
   &:focus {
-    outline: none;                 // Supprime l'outline par défaut
-    border-color: $color-primary;  // Bordure rose au focus
-    box-shadow: 0 0 0 3px rgba($color-primary, 0.2); // Ombre rose
+    outline: none;
+    border-color: $primary;
   }
 }
 
-// ===== PANIER DE COMMANDE =====
+.order-items-list {
+  min-height: 100px;
+  background: $dark;
+  border: 1px solid $border;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
 
-.order-basket {
-  background: $color-dark-card;    // Fond
-  padding: $spacing-lg;            // Padding
-  border-radius: $radius-lg;       // Arrondi
-  margin-bottom: $spacing-lg;      // Marge en bas
-  border: 2px solid $color-primary; // Bordure rose
-}
-
-.basket-title {
-  font-size: 1.25rem;              // Taille
-  font-weight: 700;                // Gras
-  color: $color-text;              // Blanc
-  margin-bottom: $spacing-md;      // Marge en bas
-}
-
-.empty-basket {
-  text-align: center;              // Texte centré
-  padding: $spacing-xl;            // Padding
-  color: $color-text-muted;        // Gris
-  font-style: italic;              // Italique
-}
-
-// Item du panier
-.basket-item {
-  display: flex;                   // Flexbox
-  justify-content: space-between;  // Espace entre les éléments
-  align-items: center;             // Centre verticalement
-  padding: $spacing-md;            // Padding
-  background: $color-dark-lighter; // Fond
-  border-radius: $radius-md;       // Arrondi
-  margin-bottom: $spacing-sm;      // Marge en bas
-
-  .item-name {
-    flex: 1;                       // Prend l'espace disponible
-    color: $color-text;            // Blanc
-    font-weight: 500;              // Demi-gras
-  }
-
-  .item-price {
-    color: $color-primary;         // Rose
-    font-weight: 700;              // Gras
-    margin-right: $spacing-md;     // Marge à droite
+  .empty-message {
+    color: $text-muted;
+    text-align: center;
   }
 }
 
-// Bouton de suppression d'item
-.btn-remove-item {
-  width: 28px;                     // Largeur fixe
-  height: 28px;                    // Hauteur fixe
-  @include flex-center;            // Centre le contenu
-  background: $color-danger;       // Fond rouge
-  border: none;                    // Pas de bordure
-  border-radius: 50%;              // Cercle parfait
-  color: white;                    // Texte blanc
-  font-size: 1.25rem;              // Taille
-  cursor: pointer;                 // Curseur pointer
-  transition: all $transition-fast; // Transition
+.order-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background: $card;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.btn-remove {
+  background: rgba($danger, 0.1);
+  border: 1px solid rgba($danger, 0.2);
+  color: $danger;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: $transition;
 
   &:hover {
-    background: darken($color-danger, 10%); // darken() assombrit la couleur
-    transform: scale(1.1);         // Agrandit légèrement
+    background: rgba($danger, 0.2);
   }
 }
 
-// Total du panier
-.basket-total {
-  display: flex;                   // Flexbox
-  justify-content: space-between;  // Espace entre les éléments
-  padding: $spacing-md;            // Padding
-  margin-top: $spacing-md;         // Marge en haut
-  border-top: 2px solid $color-dark-card; // Bordure en haut
-  font-size: 1.25rem;              // Grande taille
-  color: $color-primary;           // Rose
-  font-weight: 700;                // Gras
-}
+.order-total-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: rgba($primary, 0.1);
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
 
-// ===== SECTION MENU =====
-
-.menu-section {
-  margin-top: $spacing-xl;         // Marge en haut
-  width: 100%;                     // Largeur complète
-}
-
-.menu-title {
-  font-size: 1.25rem;              // Taille
-  font-weight: 700;                // Gras
-  color: $color-text;              // Blanc
-  margin-bottom: $spacing-lg;      // Marge en bas
-}
-
-// Filtres de catégories - Disposition horizontale améliorée
-.category-filters {
-  display: flex;                   // Flexbox pour disposition horizontale
-  flex-wrap: nowrap;               // Pas de retour à la ligne
-  gap: $spacing-md;                // Espace augmenté entre boutons
-  margin-bottom: $spacing-lg;      // Marge en bas
-  overflow-x: auto;                // Scroll horizontal si nécessaire
-  padding-bottom: $spacing-sm;     // Padding pour la scrollbar
-  @include custom-scrollbar;       // Scrollbar personnalisée
-}
-
-// Bouton de filtre - Taille adaptée pour disposition horizontale
-.filter-btn {
-  padding: $spacing-sm $spacing-lg; // Padding horizontal augmenté
-  background: $color-dark-card;    // Fond
-  border: 2px solid $color-text-muted; // Bordure grise
-  border-radius: $radius-md;       // Arrondi
-  color: $color-text-muted;        // Texte gris
-  font-weight: 600;                // Gras
-  cursor: pointer;                 // Curseur pointer
-  transition: all $transition-fast; // Transition
-  font-size: 0.875rem;             // Petite taille
-  white-space: nowrap;             // Empêche le retour à la ligne du texte
-  flex-shrink: 0;                  // Empêche le rétrécissement
-
-  &:hover {
-    border-color: $color-primary;  // Bordure rose au survol
-    color: $color-primary;         // Texte rose au survol
-    transform: translateY(-2px);   // Déplace vers le haut
+  span:first-child {
+    font-size: 1.2rem;
+    font-weight: 600;
   }
 
-  // Filtre actif
-  &.active {
-    background: $color-primary;    // Fond rose
-    border-color: $color-primary;  // Bordure rose
-    color: white;                  // Texte blanc
+  .total-amount {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $primary;
   }
 }
-
-// Grille du menu - Affichage horizontal avec scroll
-.menu-grid {
-  display: flex;                   // Flexbox pour disposition horizontale
-  gap: $spacing-lg;                // Espace entre cartes
-  overflow-x: auto;                // Scroll horizontal
-  padding-bottom: $spacing-md;     // Padding pour la scrollbar
-  @include custom-scrollbar;       // Scrollbar personnalisée
-  scroll-snap-type: x proximity;   // Snap effect pour meilleure UX
-  width: 100%;                     // Largeur complète
-}
-
-// Carte de menu - Design identique aux shift-card
-.menu-card {
-  background: $color-dark-lighter; // Fond
-  padding: $spacing-lg;            // Padding réduit
-  border-radius: $radius-lg;       // Arrondi
-  border: 2px solid $color-dark-card; // Bordure
-  text-align: center;              // Texte centré
-  transition: all $transition-normal; // Transition
-  display: flex;                   // Flexbox
-  flex-direction: column;          // Direction verticale
-  align-items: center;             // Centre horizontalement
-  justify-content: center;         // Centre verticalement
-  gap: $spacing-xs;                // Petit espace entre éléments
-  min-width: 160px;                // Largeur minimum réduite
-  width: 160px;                    // Largeur fixe réduite
-  flex: 0 0 auto;                  // Ne grandit ni ne rétrécit
-  scroll-snap-align: start;        // Aligne au début lors du scroll
-
-  // Hover effect identique aux shift-card
-  &:hover {
-    border-color: $color-primary;  // Bordure rose au survol
-    transform: translateY(-4px);   // Déplace vers le haut
-    box-shadow: 0 10px 30px rgba($color-primary, 0.2); // Ombre rose
-  }
-
-  .menu-card-icon {
-    font-size: 2.5rem;             // Taille réduite pour correspondre
-    line-height: 1;                // Hauteur de ligne serrée
-    margin-bottom: 0;              // Pas de marge supplémentaire
-  }
-
-  .menu-card-name {
-    font-weight: 600;              // Demi-gras comme shift-label
-    color: $color-text;            // Blanc
-    font-size: 0.875rem;           // Petite taille comme shift-label
-    line-height: 1.2;              // Hauteur de ligne
-    margin: 0;                     // Pas de marge
-    white-space: nowrap;           // Pas de retour à la ligne
-    overflow: hidden;              // Cache le débordement
-    text-overflow: ellipsis;       // Ajoute ... si trop long
-    max-width: 100%;               // Largeur maximum
-  }
-
-  .menu-card-desc {
-    font-size: 0.75rem;            // Très petite taille
-    color: $color-text-muted;      // Gris
-    line-height: 1.3;              // Hauteur de ligne
-    margin: 0;                     // Pas de marge
-    white-space: nowrap;           // Pas de retour à la ligne
-    overflow: hidden;              // Cache le débordement
-    text-overflow: ellipsis;       // Ajoute ... si trop long
-    max-width: 100%;               // Largeur maximum
-  }
-
-  .menu-card-price {
-    font-weight: 700;              // Gras comme shift-value
-    color: $color-primary;         // Rose
-    font-size: 1.125rem;           // Taille similaire à shift-value
-    margin: 0;                     // Pas de marge
-    white-space: nowrap;           // Pas de retour à la ligne
-    line-height: 1;                // Hauteur de ligne serrée
-  }
-
-  .menu-card-category {
-    display: none;                 // Cache la catégorie pour design épuré
-  }
-}
-
-// ===== ACTIONS DU FORMULAIRE =====
 
 .form-actions {
-  display: flex;                   // Flexbox
-  gap: $spacing-md;                // Espace entre boutons
-  margin-top: $spacing-xl;         // Marge en haut
-  justify-content: flex-end;       // Aligne à droite
+  display: flex;
+  gap: 1rem;
 }
 
-// ===== GRILLE DES TABLES =====
-
-.tables-grid {
-  display: grid;                   // Grille CSS
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); // Colonnes adaptatives
-  gap: $spacing-lg;                // Espace entre cartes
-  margin-bottom: $spacing-xl;      // Marge en bas
+// ===== MENU =====
+.menu-categories {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
 }
 
-// Carte de table
-.table-card {
-  background: $color-dark-lighter; // Fond
-  padding: $spacing-lg;            // Padding
-  border-radius: $radius-lg;       // Arrondi
-  border: 2px solid $color-dark-card; // Bordure
-  text-align: center;              // Texte centré
-  @include card-hover;             // Effet hover
+.category-btn {
+  padding: 0.75rem 1.5rem;
+  background: $card;
+  border: 1px solid $border;
+  color: $text-muted;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: $transition;
 
-  .table-number {
-    font-size: 1.5rem;             // Grande taille
-    font-weight: 700;              // Gras
-    color: $color-text;            // Blanc
-    margin-bottom: $spacing-sm;    // Marge en bas
+  &:hover {
+    background: rgba($primary, 0.1);
+    color: $text;
   }
 
-  .table-status {
-    padding: $spacing-xs $spacing-md; // Padding
-    border-radius: $radius-sm;     // Arrondi
-    color: white;                  // Texte blanc
-    font-weight: 600;              // Gras
-    font-size: 0.875rem;           // Petite taille
-    margin-bottom: $spacing-sm;    // Marge en bas
-    display: inline-block;         // inline-block pour que le background s'adapte
-  }
-
-  .table-guests {
-    font-size: 0.875rem;           // Petite taille
-    color: $color-text-muted;      // Gris
+  &.active {
+    background: $primary;
+    color: white;
+    border-color: $primary;
   }
 }
 
-// ===== LÉGENDE =====
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
 
-.legend {
-  background: $color-dark-lighter; // Fond
-  padding: $spacing-lg;            // Padding
-  border-radius: $radius-lg;       // Arrondi
-  border: 2px solid $color-dark-card; // Bordure
+.menu-item {
+  background: $card;
+  border: 1px solid $border;
+  border-radius: $border-radius;
+  padding: 1.5rem;
+  cursor: pointer;
+  @include card-hover;
 
-  h4 {
-    font-size: 1.125rem;           // Taille
-    font-weight: 700;              // Gras
-    color: $color-text;            // Blanc
-    margin-bottom: $spacing-md;    // Marge en bas
+  &:hover {
+    border-color: $primary;
+  }
+
+  &-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  &-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  &-desc {
+    color: $text-muted;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  &-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &-price {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: $primary;
   }
 }
 
-.legend-items {
-  display: flex;                   // Flexbox
-  flex-wrap: wrap;                 // Permet le retour à la ligne
-  gap: $spacing-lg;                // Espace entre items
-}
+.add-btn {
+  background: $primary;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: $transition;
+  font-weight: 600;
 
-.legend-item {
-  display: flex;                   // Flexbox
-  align-items: center;             // Centre verticalement
-  gap: $spacing-sm;                // Espace entre point et texte
-  color: $color-text-muted;        // Gris
-  font-size: 0.875rem;             // Petite taille
-}
-
-.legend-dot {
-  width: 16px;                     // Largeur
-  height: 16px;                    // Hauteur
-  border-radius: 50%;              // Cercle
-  display: inline-block;           // inline-block
+  &:hover {
+    background: darken($primary, 10%);
+    transform: scale(1.05);
+  }
 }
 
 // ===== POURBOIRES =====
-
-.tips-stats {
-  display: grid;                   // Grille CSS
-  grid-template-columns: repeat(3, 1fr); // 3 colonnes égales
-  gap: $spacing-lg;                // Espace entre éléments
-  margin-bottom: $spacing-xl;      // Marge en bas
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
 }
 
-.tip-stat-card {
-  background: $color-dark-lighter; // Fond
-  padding: $spacing-xl;            // Padding
-  border-radius: $radius-lg;       // Arrondi
-  border: 2px solid $color-dark-card; // Bordure
-  text-align: center;              // Texte centré
-  @include card-hover;             // Effet hover
-
-  .tip-stat-value {
-    font-size: 2rem;               // Grande taille
-    font-weight: 700;              // Gras
-    color: $color-primary;         // Rose
-    margin-bottom: $spacing-xs;    // Marge en bas
-  }
-
-  .tip-stat-label {
-    font-size: 0.875rem;           // Petite taille
-    color: $color-text-muted;      // Gris
-  }
-}
-
-// Liste des pourboires
-.tips-list {
-  display: grid;                   // Grille CSS
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); // Colonnes adaptatives
-  gap: $spacing-lg;                // Espace entre cartes
-}
-
-// Carte de pourboire
 .tip-card {
-  background: $color-dark-lighter; // Fond
-  padding: $spacing-lg;            // Padding
-  border-radius: $radius-lg;       // Arrondi
-  border: 2px solid $color-dark-card; // Bordure
-  @include card-hover;             // Effet hover
+  background: $card;
+  border: 1px solid $border;
+  border-radius: $border-radius;
+  padding: 1.5rem;
+}
 
-  .tip-header {
-    display: flex;                 // Flexbox
-    justify-content: space-between; // Espace entre date et montant
-    margin-bottom: $spacing-sm;    // Marge en bas
+.tip-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid $border;
+}
+
+.tip-table {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.tip-date {
+  color: $text-muted;
+  font-size: 0.9rem;
+}
+
+.tip-amount {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: $success;
+}
+
+.tip-details {
+  color: $text-muted;
+  font-size: 0.9rem;
+}
+
+// ===== TABLES =====
+.tables-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.table-card {
+  background: $card;
+  border: 2px solid;
+  border-radius: $border-radius;
+  padding: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+
+  .table-icon {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
   }
 
-  .tip-date {
-    font-size: 0.875rem;           // Petite taille
-    color: $color-text-muted;      // Gris
+  .table-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
   }
 
-  .tip-amount {
-    font-weight: 700;              // Gras
-    color: $color-success;         // Vert
-    font-size: 1.125rem;           // Taille moyenne
+  .table-status {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
   }
 
-  .tip-table {
-    font-weight: 600;              // Demi-gras
-    color: $color-primary;         // Rose
-    margin-bottom: $spacing-xs;    // Marge en bas
-  }
-
-  .tip-details {
-    font-size: 0.875rem;           // Petite taille
-    color: $color-text-muted;      // Gris
-    font-style: italic;            // Italique
+  .table-guests {
+    color: $text-muted;
   }
 }
 
-// ===== HISTORIQUE DES VENTES =====
-
-.period-filters {
-  display: flex;                   // Flexbox
-  gap: $spacing-sm;                // Espace entre boutons
-  margin-bottom: $spacing-lg;      // Marge en bas
+// ===== HISTORIQUE =====
+.history-filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
 }
 
-.sales-stats {
-  display: grid;                   // Grille CSS
-  grid-template-columns: repeat(3, 1fr); // 3 colonnes égales
-  gap: $spacing-lg;                // Espace entre éléments
-  margin-bottom: $spacing-xl;      // Marge en bas
+.history-list-container {
+  background: $card;
+  border: 1px solid $border;
+  border-radius: $border-radius;
+  overflow: hidden;
 }
 
-.sales-stat-card {
-  background: $color-dark-lighter; // Fond
-  padding: $spacing-xl;            // Padding
-  border-radius: $radius-lg;       // Arrondi
-  border: 2px solid $color-dark-card; // Bordure
-  text-align: center;              // Texte centré
-  @include card-hover;             // Effet hover
+.history-list-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid $border;
 
-  .sales-stat-icon {
-    font-size: 2.5rem;             // Grande taille
-    margin-bottom: $spacing-sm;    // Marge en bas
-  }
-
-  .sales-stat-value {
-    font-size: 1.75rem;            // Grande taille
-    font-weight: 700;              // Gras
-    color: $color-primary;         // Rose
-    margin-bottom: $spacing-xs;    // Marge en bas
-  }
-
-  .sales-stat-label {
-    font-size: 0.875rem;           // Petite taille
-    color: $color-text-muted;      // Gris
+  h4 {
+    font-size: 1.2rem;
   }
 }
+
+.history-list {
+  // Styles pour la liste
+}
+
+.history-item {
+  padding: 1.5rem;
+  border-bottom: 1px solid $border;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: $transition;
+  cursor: pointer;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background: rgba($primary, 0.05);
+    padding-left: 2rem;
+  }
+}
+
+.history-item-info {
+  .history-table {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  .history-details {
+    color: $text-muted;
+    font-size: 0.9rem;
+  }
+}
+
+.history-amount {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: $primary;
+}
+
+// ===== RESPONSIVE =====
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-$sidebar-width);
+
+    // On pourrait ajouter un bouton pour ouvrir la sidebar sur mobile
+    &.open {
+      transform: translateX(0);
+    }
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .orders-grid,
+  .menu-grid,
+  .actions-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .header-right {
+    gap: 0.75rem;
+  }
+
+  .user-name {
+    display: none;
+  }
+}
+
+// ===== ANIMATIONS =====
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.badge {
+  animation: pulse 2s infinite;
 }

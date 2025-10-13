@@ -175,7 +175,7 @@ export class LoginComponent implements OnInit {
       'manager': '/manager/dashboard',
       'waitress': '/waitress/dashboard',
       'waiter': '/waitress/dashboard', // Même dashboard que waitress
-      'bartender': '/waitress/dashboard'
+      'bartender': '/waitress/dashboard'// à expliquer
     };
 
     const route = roleRoutes[role.toLowerCase()] || '/admin/dashboard';
