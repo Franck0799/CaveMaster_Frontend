@@ -1,92 +1,111 @@
+// ===== FICHIER: admin-dashboard.component.ts =====
+// Ce fichier contient toute la logique du dashboard admin
+
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { interval, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
+// ===== INTERFACES (MODELS) =====
 
-// ===== INTERFACES =====
-// Ces interfaces définissent la structure des données
-// TypeScript vérifie que les données respectent cette structure
+// Interface pour une boisson vedette du carousel
+interface FeaturedDrink {
+  icon: string;      // Emoji de la boisson
+  name: string;      // Nom de la boisson
+  category: string;  // Catégorie (VIN ROUGE, BIÈRE, etc.)
+  price: string;     // Prix formaté
+  stock: string;     // Stock disponible
+}
 
-interface Drink {
-  id: string;
+// Interface pour un produit
+interface Product {
+  id: number;
   name: string;
   category: string;
-  price: number;
-  stock: number;
   icon: string;
-  sales?: number;
-  badge?: 'HOT' | 'NEW';
+  sales: number;     // Nombre de ventes
+  price: number;     // Prix en FCFA
+  badge?: 'hot' | 'new';  // Badge optionnel
 }
 
-interface Manager {
-  id: string;
-  name: string;
-  role: string;
-  email: string;
-  phone: string;
-  avatar: string;
-}
-
-interface Cave {
-  id: string;
-  name: string;
-  location: string;
-  bottles: number;
-  managers: number;
-  employees: number;
-  productivity: number;
+// Interface pour une action récente
+interface RecentAction {
   icon: string;
-  managersList: Manager[];
-  monthlyStats: MonthlyStats[];
-}
-
-interface MonthlyStats {
-  month: string;
-  sales: number;
-  orders: number;
-  avgProductivity: number;
-}
-
-interface Action {
-  id: string;
   type: 'success' | 'warning' | 'info';
-  icon: string;
   title: string;
   details: string;
   time: string;
 }
 
-interface StatCard {
-  icon: string;
-  label: string;
-  value: string;
-  change: string;
-  changeType: 'positive' | 'negative' | 'neutral' | 'warning';
-  colorClass: string;
-}
-
-interface Category {
-  value: string;
-  label: string;
-}
-
-interface DrinkCategory {
+// Interface pour un employé
+interface Employee {
   name: string;
-  icon: string;
+  position: string;
+  avatar: string;
+  ventes: string;
+  heures: string;
 }
 
-interface SocialLink {
-  name: string;
-  icon: string;
-}
-
-interface User {
+// Interface pour un manager
+interface Manager {
   name: string;
   role: string;
+  avatar: string;
+  performance: {
+    ventes: string;
+    equipe: string;
+    satisfaction: string;
+  };
+  employees: Employee[];
+  showEmployees?: boolean;  // Pour gérer l'affichage de la liste
 }
 
+// Interface pour les stats de productivité
+interface ProductivityStat {
+  month: string;
+  value: string;
+  label: string;
+}
+
+// Interface pour une cave
+interface Cave {
+  id: string;
+  name: string;
+  location: string;
+  bottles: number;
+  managersCount: number;
+  employeesCount: number;
+  productivity: number;
+  managers: Manager[];
+  productivityStats: ProductivityStat[];
+  globalStats: Array<{ label: string; value: string }>;
+}
+
+// Interface pour un accord mets & vins
+interface WinePairing {
+  id: number;
+  dish: string;
+  dishIcon: string;
+  wine: string;
+  wineIcon: string;
+  description: string;
+  category: string;
+}
+
+// Interface pour le profil utilisateur
+interface UserProfile {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  role: string;
+  avatar: string;
+  joinDate: string;
+}
+
+// ===== DÉCORATEUR DU COMPOSANT =====
 @Component({
   selector: 'app-admin-dashboard',
-  standalone: true,
+    standalone: true,
   // CommonModule donne accès à *ngIf, *ngFor, etc.
   // ReactiveFormsModule est nécessaire pour les formulaires réactifs
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
@@ -94,395 +113,727 @@ interface User {
   styleUrls: ['./admin-dashboard.component.scss']
 })
 export class AdminDashboardComponent implements OnInit, OnDestroy {
-  // ===== PROPRIÉTÉS D'ÉTAT =====
-  // Ces propriétés contrôlent l'affichage de l'interface
 
-  // Suit quelle page est actuellement affichée
-  currentPage: 'home' | 'caves' = 'home';
+  // ===== PROPRIÉTÉS DU COMPOSANT =====
 
-  // Contrôle l'ouverture/fermeture du sous-menu des boissons
-  submenuOpen: boolean = false;
+  // Navigation
+  activePage: string = 'home';  // Page actuellement affichée
+  isUserDropdownOpen: boolean = false;  // État du dropdown utilisateur
 
-  // Contrôle l'affichage du dropdown du profil utilisateur
-  userDropdownOpen: boolean = false;
-
-  // Contrôle l'affichage de la modal des détails de cave
-  caveModalOpen: boolean = false;
-
-  // Contrôle l'affichage de la modal d'ajout de cave
-  addCaveModalOpen: boolean = false;
-
-  // Onglet actif dans la modal de cave ('managers' ou 'productivity')
-  currentTab: 'managers' | 'productivity' = 'managers';
-
-  // Index de la boisson actuellement affichée dans le carousel
-  currentDrinkIndex: number = 0;
-
-  // Cave sélectionnée pour affichage dans la modal
-  selectedCave: Cave | null = null;
-
-  // ===== PROPRIÉTÉS DE RECHERCHE ET FILTRES =====
-  searchQuery: string = '';
-  selectedCategory: string = '';
-  cartCount: number = 3;
-  notificationCount: number = 5;
-
-  // ===== DONNÉES =====
-  // Ces propriétés contiennent toutes les données affichées
-
-  // Utilisateur actuellement connecté
-  currentUser: User = {
-    name: 'Admin Principal',
-    role: 'Administrateur'
-  };
-
-  // Catégories de boissons pour le sous-menu
-  drinkCategories: DrinkCategory[] = [
-    { name: 'Vins', icon: '🍷' },
-    { name: 'Champagnes', icon: '🥂' },
-    { name: 'Spiritueux', icon: '🥃' },
-    { name: 'Bières', icon: '🍺' },
-    { name: 'Softs', icon: '🥤' }
+  // Carousel
+  featuredDrinks: FeaturedDrink[] = [
+    { icon: '🍷', name: 'Château Margaux', category: 'VIN ROUGE', price: '25 000 FCFA', stock: 'Stock: 45 unités' },
+    { icon: '🍺', name: 'Heineken Premium', category: 'BIÈRE', price: '1 500 FCFA', stock: 'Stock: 200 unités' },
+    { icon: '🥃', name: 'Hennessy VSOP', category: 'LIQUEUR', price: '35 000 FCFA', stock: 'Stock: 30 unités' },
+    { icon: '🥂', name: 'Dom Pérignon', category: 'CHAMPAGNE', price: '45 000 FCFA', stock: 'Stock: 12 unités' },
+    { icon: '🥂', name: 'Moët & Chandon', category: 'CHAMPAGNE', price: '15 000 FCFA', stock: 'Stock: 15 unités' }
   ];
 
-  // Liens des réseaux sociaux
-  socialLinks: SocialLink[] = [
-    { name: 'Facebook', icon: '📘' },
-    { name: 'Instagram', icon: '📸' },
-    { name: 'Twitter', icon: '🐦' },
-    { name: 'LinkedIn', icon: '💼' }
+  currentDrinkIndex: number = 4;  // Index de la boisson affichée
+  private carouselSubscription?: Subscription;  // Subscription pour le carousel automatique
+
+  // Données des produits
+  products: Product[] = [
+    { id: 1, name: 'Château Margaux', category: 'Vin Rouge', icon: '🍷', sales: 156, price: 25000, badge: 'hot' },
+    { id: 2, name: 'Heineken Premium', category: 'Bière', icon: '🍺', sales: 89, price: 1500, badge: 'new' },
+    { id: 3, name: 'Hennessy VSOP', category: 'Liqueur', icon: '🥃', sales: 134, price: 35000 },
+    { id: 4, name: 'Dom Pérignon', category: 'Champagne', icon: '🥂', sales: 201, price: 45000, badge: 'hot' },
+    { id: 5, name: 'Red Bull Energy', category: 'Boisson Énergisante', icon: '⚡', sales: 312, price: 800 },
+    { id: 6, name: 'Bissap Délice', category: 'Boisson Locale', icon: '🍹', sales: 67, price: 500, badge: 'new' }
   ];
 
-  // Catégories pour le sélecteur du header
-  categories: Category[] = [
-    { value: 'wines', label: 'Vins' },
-    { value: 'champagnes', label: 'Champagnes' },
-    { value: 'spirits', label: 'Spiritueux' },
-    { value: 'beers', label: 'Bières' }
+  // Actions récentes
+  recentActions: RecentAction[] = [
+    {
+      icon: '📥',
+      type: 'success',
+      title: 'Nouvelle entrée de stock',
+      details: '50 bouteilles de Château Margaux • Cave Principale • +1 250 000 FCFA',
+      time: 'Il y a 2h'
+    },
+    {
+      icon: '📤',
+      type: 'warning',
+      title: 'Sortie de stock importante',
+      details: '30 bouteilles de Dom Pérignon • Cave Premium • -1 350 000 FCFA',
+      time: 'Il y a 5h'
+    },
+    {
+      icon: '👤',
+      type: 'info',
+      title: 'Nouvel employé ajouté',
+      details: 'Marie Dubois • Caissière • Cave Secondaire',
+      time: 'Hier'
+    },
+    {
+      icon: '💰',
+      type: 'success',
+      title: 'Vente exceptionnelle',
+      details: 'Commande de 100 bouteilles • Client VIP • +2 500 000 FCFA',
+      time: 'Hier'
+    },
+    {
+      icon: '🔧',
+      type: 'info',
+      title: 'Maintenance effectuée',
+      details: 'Système de refroidissement • Cave Premium • Opération réussie',
+      time: 'Il y a 2 jours'
+    }
   ];
 
-  // Liste des boissons pour le carousel
-  featuredDrinks: Drink[] = [
-    { id: '1', name: 'Moët & Chandon', category: 'CHAMPAGNE', price: 15000, stock: 15, icon: '🥂' },
-    { id: '2', name: 'Château Margaux', category: 'VIN ROUGE', price: 25000, stock: 20, icon: '🍷' },
-    { id: '3', name: 'Dom Pérignon', category: 'CHAMPAGNE', price: 45000, stock: 8, icon: '🥂' },
-    { id: '4', name: 'Hennessy VSOP', category: 'LIQUEUR', price: 35000, stock: 12, icon: '🥃' },
-    { id: '5', name: 'Heineken Premium', category: 'BIÈRE', price: 1500, stock: 150, icon: '🍺' }
-  ];
-
-  // Produits populaires affichés sur la page d'accueil
-  popularProducts: Drink[] = [
-    { id: '1', name: 'Château Margaux', category: 'Vin Rouge', price: 25000, stock: 20, icon: '🍷', sales: 156, badge: 'HOT' },
-    { id: '2', name: 'Heineken Premium', category: 'Bière', price: 1500, stock: 150, icon: '🍺', sales: 89, badge: 'NEW' },
-    { id: '3', name: 'Hennessy VSOP', category: 'Liqueur', price: 35000, stock: 12, icon: '🥃', sales: 134 },
-    { id: '4', name: 'Dom Pérignon', category: 'Champagne', price: 45000, stock: 8, icon: '🥂', sales: 201, badge: 'HOT' },
-    { id: '5', name: 'Red Bull Energy', category: 'Boisson Énergisante', price: 800, stock: 300, icon: '⚡', sales: 312 },
-    { id: '6', name: 'Bissap Délice', category: 'Boisson Locale', price: 500, stock: 100, icon: '🍹', sales: 67, badge: 'NEW' }
-  ];
-
-  // Cartes de statistiques affichées sur le dashboard
-  statsCards: StatCard[] = [
-    { icon: '🔥', label: 'Ventes du jour', value: '1 250 000 FCFA', change: '+18,5% ce mois', changeType: 'positive', colorClass: 'stat-card-orange' },
-    { icon: '🛒', label: 'Commandes Aujourd\'hui', value: '45', change: '+8 depuis hier', changeType: 'positive', colorClass: 'stat-card-green' },
-    { icon: '🍷', label: 'Stock de Vin', value: '350', change: 'Stable', changeType: 'neutral', colorClass: 'stat-card-purple' },
-    { icon: '⚠️', label: 'Stock Faible', value: '12', change: 'Attention requise', changeType: 'warning', colorClass: 'stat-card-warning' },
-    { icon: '👥', label: 'Clients Actifs', value: '892', change: '+35 ce mois', changeType: 'positive', colorClass: 'stat-card-blue' },
-    { icon: '🍾', label: 'Commandes en Attente', value: '8', change: 'À traiter', changeType: 'neutral', colorClass: 'stat-card-yellow' }
-  ];
-
-  // Actions récentes affichées sur le dashboard
-  recentActions: Action[] = [
-    { id: '1', type: 'success', icon: '📥', title: 'Nouvelle entrée de stock', details: '50 bouteilles de Château Margaux • Cave Principale • +1 250 000 FCFA', time: 'Il y a 2h' },
-    { id: '2', type: 'warning', icon: '📤', title: 'Sortie de stock importante', details: '30 bouteilles de Dom Pérignon • Cave Premium • -1 350 000 FCFA', time: 'Il y a 5h' },
-    { id: '3', type: 'info', icon: '👤', title: 'Nouvel employé ajouté', details: 'Marie Dubois • Caissière • Cave Secondaire', time: 'Hier' },
-    { id: '4', type: 'success', icon: '💰', title: 'Vente exceptionnelle', details: 'Commande de 100 bouteilles • Client VIP • +2 500 000 FCFA', time: 'Hier' },
-    { id: '5', type: 'info', icon: '🔧', title: 'Maintenance effectuée', details: 'Système de refroidissement • Cave Premium • Opération réussie', time: 'Il y a 2 jours' }
-  ];
-
-  // Liste des caves
+  // Données des caves
   caves: Cave[] = [
     {
       id: 'principale',
       name: '🍷 Cave Principale',
-      location: '📍 Lekki Phase 1, Lagos',
+      location: 'Lekki Phase 1, Lagos',
       bottles: 450,
-      managers: 3,
-      employees: 12,
+      managersCount: 3,
+      employeesCount: 12,
       productivity: 87,
-      icon: '🍷',
-      managersList: [
-        { id: '1', name: 'Jean Dupont', role: 'Manager Principal', email: 'jean.dupont@drinkstore.com', phone: '+225 07 12 34 56 78', avatar: '👨‍💼' },
-        { id: '2', name: 'Sophie Martin', role: 'Manager Adjoint', email: 'sophie.martin@drinkstore.com', phone: '+225 07 23 45 67 89', avatar: '👩‍💼' },
-        { id: '3', name: 'Pierre Kouassi', role: 'Manager Stock', email: 'pierre.kouassi@drinkstore.com', phone: '+225 07 34 56 78 90', avatar: '👨‍💼' }
+      managers: [
+        {
+          name: 'Jean Kouassi',
+          role: 'Manager Principal',
+          avatar: '👨‍💼',
+          performance: { ventes: '2.5M', equipe: '12', satisfaction: '96%' },
+          showEmployees: false,
+          employees: [
+            { name: 'Alice Martin', position: 'Caissière', avatar: '👩', ventes: '450K', heures: '160h' },
+            { name: 'Bob Traore', position: 'Magasinier', avatar: '👨', ventes: '380K', heures: '158h' },
+            { name: 'Claire Diop', position: 'Vendeuse', avatar: '👩', ventes: '520K', heures: '162h' },
+            { name: 'David Kone', position: 'Livreur', avatar: '👨', ventes: '290K', heures: '155h' },
+            { name: 'Emma Sow', position: 'Assistante', avatar: '👩', ventes: '340K', heures: '160h' }
+          ]
+        },
+        {
+          name: 'Marie Diabate',
+          role: 'Manager Adjoint',
+          avatar: '👩‍💼',
+          performance: { ventes: '1.8M', equipe: '8', satisfaction: '94%' },
+          showEmployees: false,
+          employees: [
+            { name: 'Frank Bamba', position: 'Vendeur', avatar: '👨', ventes: '410K', heures: '159h' },
+            { name: 'Grace Toure', position: 'Caissière', avatar: '👩', ventes: '390K', heures: '161h' },
+            { name: 'Henri Camara', position: 'Magasinier', avatar: '👨', ventes: '310K', heures: '157h' },
+            { name: 'Iris Sylla', position: 'Vendeuse', avatar: '👩', ventes: '470K', heures: '163h' }
+          ]
+        },
+        {
+          name: 'Pierre Mensah',
+          role: 'Manager Nuit',
+          avatar: '👨‍💼',
+          performance: { ventes: '1.2M', equipe: '6', satisfaction: '91%' },
+          showEmployees: false,
+          employees: [
+            { name: 'Julie Sanogo', position: 'Caissière', avatar: '👩', ventes: '280K', heures: '140h' },
+            { name: 'Kevin Ouattara', position: 'Vendeur', avatar: '👨', ventes: '350K', heures: '145h' },
+            { name: 'Laura Koffi', position: 'Assistante', avatar: '👩', ventes: '260K', heures: '138h' }
+          ]
+        }
       ],
-      monthlyStats: [
-        { month: 'Janvier', sales: 1250000, orders: 45, avgProductivity: 85 },
-        { month: 'Février', sales: 1380000, orders: 52, avgProductivity: 87 },
-        { month: 'Mars', sales: 1420000, orders: 48, avgProductivity: 89 }
+      productivityStats: [
+        { month: 'Avril 2025', value: '3.2M', label: 'Ventes' },
+        { month: 'Mai 2025', value: '3.8M', label: 'Ventes' },
+        { month: 'Juin 2025', value: '4.1M', label: 'Ventes' },
+        { month: 'Juillet 2025', value: '3.9M', label: 'Ventes' },
+        { month: 'Août 2025', value: '4.5M', label: 'Ventes' },
+        { month: 'Sept 2025', value: '4.8M', label: 'Ventes' }
+      ],
+      globalStats: [
+        { label: 'Ventes moyennes/mois', value: '4.05M FCFA' },
+        { label: 'Taux de croissance', value: '+12.5%' }
       ]
     },
     {
       id: 'secondaire',
       name: '🥂 Cave Secondaire',
-      location: '📍 Victoria Island, Lagos',
+      location: 'Victoria Island, Lagos',
       bottles: 320,
-      managers: 2,
-      employees: 8,
+      managersCount: 2,
+      employeesCount: 8,
       productivity: 92,
-      icon: '🥂',
-      managersList: [
-        { id: '4', name: 'Marie Touré', role: 'Manager Principal', email: 'marie.toure@drinkstore.com', phone: '+225 07 45 67 89 01', avatar: '👩‍💼' },
-        { id: '5', name: 'Amadou Diallo', role: 'Manager Adjoint', email: 'amadou.diallo@drinkstore.com', phone: '+225 07 56 78 90 12', avatar: '👨‍💼' }
+      managers: [
+        {
+          name: 'Sophie Bakayoko',
+          role: 'Manager Principal',
+          avatar: '👩‍💼',
+          performance: { ventes: '1.9M', equipe: '8', satisfaction: '93%' },
+          showEmployees: false,
+          employees: [
+            { name: 'Marc Fofana', position: 'Vendeur', avatar: '👨', ventes: '380K', heures: '158h' },
+            { name: 'Nina Coulibaly', position: 'Caissière', avatar: '👩', ventes: '420K', heures: '160h' },
+            { name: 'Oscar Berete', position: 'Magasinier', avatar: '👨', ventes: '310K', heures: '156h' },
+            { name: 'Paula Keita', position: 'Vendeuse', avatar: '👩', ventes: '460K', heures: '162h' }
+          ]
+        },
+        {
+          name: 'Thomas Diarra',
+          role: 'Manager Adjoint',
+          avatar: '👨‍💼',
+          performance: { ventes: '1.5M', equipe: '6', satisfaction: '90%' },
+          showEmployees: false,
+          employees: [
+            { name: 'Quincy Dembele', position: 'Vendeur', avatar: '👨', ventes: '340K', heures: '157h' },
+            { name: 'Rita Niang', position: 'Caissière', avatar: '👩', ventes: '390K', heures: '159h' },
+            { name: 'Sam Cisse', position: 'Livreur', avatar: '👨', ventes: '280K', heures: '154h' },
+            { name: 'Tina Barry', position: 'Assistante', avatar: '👩', ventes: '320K', heures: '158h' }
+          ]
+        }
       ],
-      monthlyStats: [
-        { month: 'Janvier', sales: 980000, orders: 38, avgProductivity: 90 },
-        { month: 'Février', sales: 1050000, orders: 42, avgProductivity: 92 },
-        { month: 'Mars', sales: 1120000, orders: 45, avgProductivity: 94 }
+      productivityStats: [
+        { month: 'Avril 2025', value: '2.5M', label: 'Ventes' },
+        { month: 'Mai 2025', value: '2.8M', label: 'Ventes' },
+        { month: 'Juin 2025', value: '3.1M', label: 'Ventes' },
+        { month: 'Juillet 2025', value: '2.9M', label: 'Ventes' },
+        { month: 'Août 2025', value: '3.3M', label: 'Ventes' },
+        { month: 'Sept 2025', value: '3.6M', label: 'Ventes' }
+      ],
+      globalStats: [
+        { label: 'Ventes moyennes/mois', value: '3.03M FCFA' },
+        { label: 'Taux de croissance', value: '+9.8%' }
       ]
     },
     {
       id: 'premium',
       name: '✨ Cave Premium',
-      location: '📍 Ikoyi, Lagos',
+      location: 'Ikoyi, Lagos',
       bottles: 180,
-      managers: 1,
-      employees: 5,
+      managersCount: 1,
+      employeesCount: 5,
       productivity: 95,
-      icon: '✨',
-      managersList: [
-        { id: '6', name: 'Fatou Ndiaye', role: 'Manager Premium', email: 'fatou.ndiaye@drinkstore.com', phone: '+225 07 67 89 01 23', avatar: '👩‍💼' }
+      managers: [
+        {
+          name: 'Victoria Sene',
+          role: 'Manager Premium',
+          avatar: '👩‍💼',
+          performance: { ventes: '2.8M', equipe: '5', satisfaction: '98%' },
+          showEmployees: false,
+          employees: [
+            { name: 'William Gueye', position: 'Sommelier', avatar: '👨', ventes: '580K', heures: '160h' },
+            { name: 'Xena Ndao', position: 'Caissière VIP', avatar: '👩', ventes: '620K', heures: '162h' },
+            { name: 'Yves Fall', position: 'Vendeur Premium', avatar: '👨', ventes: '710K', heures: '165h' },
+            { name: 'Zara Diagne', position: 'Conseillère', avatar: '👩', ventes: '590K', heures: '161h' },
+            { name: 'Alex Sarr', position: 'Concierge', avatar: '👨', ventes: '480K', heures: '158h' }
+          ]
+        }
       ],
-      monthlyStats: [
-        { month: 'Janvier', sales: 2100000, orders: 28, avgProductivity: 93 },
-        { month: 'Février', sales: 2250000, orders: 32, avgProductivity: 95 },
-        { month: 'Mars', sales: 2400000, orders: 35, avgProductivity: 97 }
+      productivityStats: [
+        { month: 'Avril 2025', value: '2.1M', label: 'Ventes' },
+        { month: 'Mai 2025', value: '2.4M', label: 'Ventes' },
+        { month: 'Juin 2025', value: '2.7M', label: 'Ventes' },
+        { month: 'Juillet 2025', value: '2.9M', label: 'Ventes' },
+        { month: 'Août 2025', value: '3.1M', label: 'Ventes' },
+        { month: 'Sept 2025', value: '3.4M', label: 'Ventes' }
+      ],
+      globalStats: [
+        { label: 'Ventes moyennes/mois', value: '2.77M FCFA' },
+        { label: 'Taux de croissance', value: '+15.2%' }
       ]
     }
   ];
 
-  // Formulaire réactif pour l'ajout de cave
-  // FormBuilder crée et gère les formulaires avec validation
-  addCaveForm: FormGroup;
+  // Modals
+  isCaveModalOpen: boolean = false;
+  isAddCaveModalOpen: boolean = false;
+  isAddManagerModalOpen: boolean = false;
+  isAddEmployeeModalOpen: boolean = false;
+  isProfileModalOpen: boolean = false;
 
-  // Interval pour le carousel automatique
-  private carouselInterval: any;
+  selectedCave?: Cave;  // Cave sélectionnée pour le modal
+  activeModalTab: string = 'managers';  // Onglet actif dans le modal cave
+
+  // Sous-menus
+  isDrinksSubmenuOpen: boolean = false;
+
+  // Accords mets & vins
+  winePairings: WinePairing[] = [
+    {
+      id: 1,
+      dish: 'Steak grillé',
+      dishIcon: '🥩',
+      wine: 'Château Margaux',
+      wineIcon: '🍷',
+      description: 'Un vin rouge corsé qui sublime la viande rouge',
+      category: 'Viandes rouges'
+    },
+    {
+      id: 2,
+      dish: 'Poisson grillé',
+      dishIcon: '🐟',
+      wine: 'Chablis Blanc',
+      wineIcon: '🍾',
+      description: 'Un vin blanc sec parfait pour le poisson',
+      category: 'Poissons'
+    },
+    {
+      id: 3,
+      dish: 'Fromages affinés',
+      dishIcon: '🧀',
+      wine: 'Sauternes',
+      wineIcon: '🍷',
+      description: 'Un vin doux qui accompagne merveilleusement les fromages',
+      category: 'Fromages'
+    },
+    {
+      id: 4,
+      dish: 'Dessert au chocolat',
+      dishIcon: '🍫',
+      wine: 'Porto Rouge',
+      wineIcon: '🥃',
+      description: 'Un vin doux et puissant pour les desserts chocolatés',
+      category: 'Desserts'
+    },
+    {
+      id: 5,
+      dish: 'Poulet rôti',
+      dishIcon: '🍗',
+      wine: 'Chardonnay',
+      wineIcon: '🍾',
+      description: 'Un vin blanc rond qui accompagne la volaille',
+      category: 'Volailles'
+    },
+    {
+      id: 6,
+      dish: 'Fruits de mer',
+      dishIcon: '🦞',
+      wine: 'Muscadet',
+      wineIcon: '🍾',
+      description: 'Un vin blanc vif et frais pour les fruits de mer',
+      category: 'Fruits de mer'
+    }
+  ];
+
+  // Profil utilisateur
+  userProfile: UserProfile = {
+    firstName: 'Franck',
+    lastName: 'KONGO',
+    email: 'franck.kongo@drinkstore.com',
+    phone: '+234 801 234 5678',
+    role: 'Administrateur',
+    avatar: '👤',
+    joinDate: '15 Janvier 2023'
+  };
+
+  // Formulaires
+  newCaveForm = {
+    name: '',
+    location: '',
+    capacity: 0,
+    description: ''
+  };
+
+  newManagerForm = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    caveId: '',
+    role: 'Manager'
+  };
+
+  newEmployeeForm = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    caveId: '',
+    managerId: '',
+    position: ''
+  };
+
+  // Scan (simulation)
+  scanResult: string = '';
+  isScanActive: boolean = false;
 
   // ===== CONSTRUCTEUR =====
-  // Le constructeur est appelé en premier quand le composant est créé
-  // On injecte FormBuilder pour créer des formulaires
-  constructor(private fb: FormBuilder) {
-    // Création du formulaire avec validation
-    // Validators.required signifie que le champ est obligatoire
-    this.addCaveForm = this.fb.group({
-      name: ['', Validators.required],
-      location: ['', Validators.required],
-      capacity: ['', Validators.required],
-      description: ['']
-    });
-  }
+  constructor() {}
 
-  // ===== LIFECYCLE HOOKS =====
-  // ngOnInit s'exécute une fois que le composant est initialisé
-  // C'est l'équivalent de window.onload en JavaScript vanilla
+  // ===== MÉTHODE D'INITIALISATION =====
   ngOnInit(): void {
-    // Démarre la rotation automatique du carousel toutes les 5 secondes
-    this.carouselInterval = setInterval(() => {
-      this.nextDrink();
-    }, 5000);
+    console.log('✓ Dashboard Admin initialisé avec succès !');
+
+    // Démarre le carousel automatique
+    this.startCarouselInterval();
+
+    // Écoute les clics en dehors des dropdowns
+    document.addEventListener('click', this.handleOutsideClick.bind(this));
   }
 
-  // ngOnDestroy s'exécute juste avant que le composant soit détruit
-  // Important pour nettoyer les intervals et éviter les fuites mémoire
+  // ===== MÉTHODE DE DESTRUCTION =====
   ngOnDestroy(): void {
-    // Arrête la rotation automatique du carousel
-    if (this.carouselInterval) {
-      clearInterval(this.carouselInterval);
+    // Nettoie la subscription du carousel
+    if (this.carouselSubscription) {
+      this.carouselSubscription.unsubscribe();
     }
+
+    // Retire l'écouteur d'événement
+    document.removeEventListener('click', this.handleOutsideClick.bind(this));
   }
 
   // ===== MÉTHODES DE NAVIGATION =====
 
-  // Change la page affichée (Accueil ou Mes caves)
-  navigateTo(page: 'home' | 'caves'): void {
-    this.currentPage = page;
-    // Ferme le dropdown utilisateur si ouvert
-    this.userDropdownOpen = false;
+  /**
+   * Change la page affichée
+   */
+  navigateTo(page: string): void {
+    this.activePage = page;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // Ouvre/ferme le sous-menu des catégories de boissons
-  // $event.stopPropagation() empêche l'événement de remonter aux parents
-  toggleSubmenu(event: Event): void {
-    event.stopPropagation();
-    this.submenuOpen = !this.submenuOpen;
+  /**
+   * Toggle le sous-menu des boissons
+   */
+  toggleDrinksSubmenu(): void {
+    this.isDrinksSubmenuOpen = !this.isDrinksSubmenuOpen;
   }
 
-  // Ouvre/ferme le menu déroulant du profil utilisateur
+  /**
+   * Toggle le dropdown utilisateur
+   */
   toggleUserDropdown(): void {
-    this.userDropdownOpen = !this.userDropdownOpen;
+    this.isUserDropdownOpen = !this.isUserDropdownOpen;
+  }
+
+  /**
+   * Ferme les dropdowns si on clique ailleurs
+   */
+  private handleOutsideClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+
+    // Ferme le dropdown utilisateur
+    const userProfile = target.closest('.user-profile');
+    if (!userProfile && this.isUserDropdownOpen) {
+      this.isUserDropdownOpen = false;
+    }
   }
 
   // ===== MÉTHODES DU CAROUSEL =====
 
-  // Getter qui retourne la boisson actuellement affichée
-  // Un getter est comme une propriété calculée qui se met à jour automatiquement
-  get currentDrink(): Drink | null {
-    return this.featuredDrinks[this.currentDrinkIndex] || null;
+  /**
+   * Démarre le défilement automatique du carousel
+   */
+  private startCarouselInterval(): void {
+    this.carouselSubscription = interval(5000).subscribe(() => {
+      this.nextDrink();
+    });
   }
 
-  // Passe à la boisson suivante dans le carousel
+  /**
+   * Passe à la boisson suivante
+   */
   nextDrink(): void {
-    // Utilise le modulo (%) pour revenir au début après la dernière boisson
-    // Exemple: si currentDrinkIndex = 4 et length = 5, alors (4 + 1) % 5 = 0
     this.currentDrinkIndex = (this.currentDrinkIndex + 1) % this.featuredDrinks.length;
   }
 
-  // Passe à la boisson précédente dans le carousel
+  /**
+   * Revient à la boisson précédente
+   */
   previousDrink(): void {
-    // Si on est à 0, on va à la dernière boisson grâce au + length
     this.currentDrinkIndex = (this.currentDrinkIndex - 1 + this.featuredDrinks.length) % this.featuredDrinks.length;
   }
 
-  // Va directement à une boisson spécifique (clic sur un indicateur)
+  /**
+   * Va à une boisson spécifique
+   */
   goToDrink(index: number): void {
     this.currentDrinkIndex = index;
   }
 
-  // ===== MÉTHODES DE RECHERCHE ET FILTRES =====
-
-  onSearch(): void {
-    console.log('Recherche:', this.searchQuery);
-    // Ici vous ajouteriez la logique de recherche
-  }
-
-  onCategoryChange(): void {
-    console.log('Catégorie sélectionnée:', this.selectedCategory);
-    // Ici vous ajouteriez la logique de filtrage
-  }
-
-  // ===== MÉTHODES DU HEADER =====
-
-  openCart(): void {
-    console.log('Ouverture du panier');
-    // Ici vous ajouteriez la navigation vers le panier
-  }
-
-  openNotifications(): void {
-    console.log('Ouverture des notifications');
-    // Ici vous ajouteriez l'affichage des notifications
-  }
-
-  goToProfile(): void {
-    console.log('Navigation vers le profil');
-    this.userDropdownOpen = false;
-  }
-
-  goToSettings(): void {
-    console.log('Navigation vers les paramètres');
-    this.userDropdownOpen = false;
-  }
-
-  openSupport(): void {
-    console.log('Ouverture de l\'assistance');
-    this.userDropdownOpen = false;
-  }
-
-  logout(): void {
-    if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
-      console.log('Déconnexion');
-      // Ici vous ajouteriez la logique de déconnexion
-    }
-    this.userDropdownOpen = false;
-  }
-
-  // ===== MÉTHODES DES PRODUITS =====
-
-  viewDrinkDetails(drink: Drink): void {
-    console.log('Affichage des détails de:', drink.name);
-    // Ici vous ajouteriez la navigation vers la page de détails
-  }
-
-  viewProductDetails(product: Drink): void {
-    console.log('Affichage du produit:', product.name);
-    // Ici vous ajouteriez la navigation vers la page de détails du produit
-  }
-
   // ===== MÉTHODES DES CAVES =====
 
-  // Ouvre la modal avec les détails d'une cave
+  /**
+   * Ouvre le modal de détails d'une cave
+   */
   openCaveModal(cave: Cave): void {
     this.selectedCave = cave;
-    this.caveModalOpen = true;
-    // Réinitialise l'onglet à "managers" à chaque ouverture
-    this.currentTab = 'managers';
+    this.isCaveModalOpen = true;
+    this.activeModalTab = 'managers';
   }
 
-  // Ferme la modal des détails de cave
+  /**
+   * Ferme le modal de cave
+   */
   closeCaveModal(): void {
-    this.caveModalOpen = false;
-    this.selectedCave = null;
+    this.isCaveModalOpen = false;
+    this.selectedCave = undefined;
   }
 
-  // Change d'onglet dans la modal de cave
-  switchTab(tab: 'managers' | 'productivity'): void {
-    this.currentTab = tab;
+  /**
+   * Change l'onglet actif dans le modal cave
+   */
+  switchModalTab(tab: string): void {
+    this.activeModalTab = tab;
   }
 
-  // Affiche les statistiques d'une cave
-  viewCaveStats(cave: Cave): void {
-    this.openCaveModal(cave);
-    this.switchTab('productivity');
+  /**
+   * Toggle la liste des employés d'un manager
+   */
+  toggleEmployees(manager: Manager): void {
+    manager.showEmployees = !manager.showEmployees;
   }
 
-  // ===== MÉTHODES POUR LES STATISTIQUES =====
-
-  // Calcule la moyenne des ventes pour une cave
-  getAverageSales(cave: Cave): number {
-    const total = cave.monthlyStats.reduce((sum, stat) => sum + stat.sales, 0);
-    return total / cave.monthlyStats.length;
-  }
-
-  // Calcule la moyenne des commandes pour une cave
-  getAverageOrders(cave: Cave): number {
-    const total = cave.monthlyStats.reduce((sum, stat) => sum + stat.orders, 0);
-    return Math.round(total / cave.monthlyStats.length);
-  }
-
-  // Calcule la moyenne de productivité pour une cave
-  getAverageProductivity(cave: Cave): number {
-    const total = cave.monthlyStats.reduce((sum, stat) => sum + stat.avgProductivity, 0);
-    return Math.round((total / cave.monthlyStats.length) * 10) / 10;
-  }
-
-  // ===== MÉTHODES POUR L'AJOUT DE CAVE =====
-
-  // Ouvre la modal d'ajout de nouvelle cave
+  /**
+   * Ouvre le modal d'ajout de cave
+   */
   openAddCaveModal(): void {
-    this.addCaveModalOpen = true;
+    this.isAddCaveModalOpen = true;
   }
 
-  // Ferme la modal d'ajout et réinitialise le formulaire
+  /**
+   * Ferme le modal d'ajout de cave
+   */
   closeAddCaveModal(): void {
-    this.addCaveModalOpen = false;
-    this.addCaveForm.reset();
+    this.isAddCaveModalOpen = false;
+    this.resetNewCaveForm();
   }
 
-  // Traite la soumission du formulaire d'ajout de cave
-  onAddCave(): void {
-    // Vérifie si le formulaire est valide
-    if (this.addCaveForm.invalid) {
-      // Marque tous les champs comme "touched" pour afficher les erreurs
-      Object.keys(this.addCaveForm.controls).forEach(key => {
-        this.addCaveForm.get(key)?.markAsTouched();
-      });
+  /**
+   * Ajoute une nouvelle cave
+   */
+  addNewCave(): void {
+    if (!this.newCaveForm.name || !this.newCaveForm.location) {
+      alert('⚠️ Veuillez remplir tous les champs obligatoires');
       return;
     }
 
-    // Récupère les valeurs du formulaire
-    const formValue = this.addCaveForm.value;
-    console.log('Nouvelle cave:', formValue);
-
-    // Ici vous ajouteriez la logique pour créer la cave dans la base de données
-    alert('Nouvelle cave créée avec succès!');
+    // Ici on enverrait les données au serveur
+    alert('✓ Nouvelle cave créée avec succès !');
     this.closeAddCaveModal();
+  }
+
+  /**
+   * Réinitialise le formulaire de nouvelle cave
+   */
+  private resetNewCaveForm(): void {
+    this.newCaveForm = {
+      name: '',
+      location: '',
+      capacity: 0,
+      description: ''
+    };
+  }
+
+  // ===== MÉTHODES DES MANAGERS =====
+
+  /**
+   * Récupère tous les managers de toutes les caves
+   */
+  getAllManagers(): Manager[] {
+    const allManagers: Manager[] = [];
+    this.caves.forEach(cave => {
+      cave.managers.forEach(manager => {
+        allManagers.push({
+          ...manager,
+          role: `${manager.role} - ${cave.name}`
+        });
+      });
+    });
+    return allManagers;
+  }
+
+  /**
+   * Ouvre le modal d'ajout de manager
+   */
+  openAddManagerModal(): void {
+    this.isAddManagerModalOpen = true;
+  }
+
+  /**
+   * Ferme le modal d'ajout de manager
+   */
+  closeAddManagerModal(): void {
+    this.isAddManagerModalOpen = false;
+    this.resetNewManagerForm();
+  }
+
+  /**
+   * Ajoute un nouveau manager
+   */
+  addNewManager(): void {
+    if (!this.newManagerForm.firstName || !this.newManagerForm.lastName || !this.newManagerForm.caveId) {
+      alert('⚠️ Veuillez remplir tous les champs obligatoires');
+      return;
+    }
+
+    alert('✓ Nouveau manager ajouté avec succès !');
+    this.closeAddManagerModal();
+  }
+
+  /**
+   * Réinitialise le formulaire de nouveau manager
+   */
+  private resetNewManagerForm(): void {
+    this.newManagerForm = {
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      caveId: '',
+      role: 'Manager'
+    };
+  }
+
+  // ===== MÉTHODES DES EMPLOYÉS =====
+
+  /**
+   * Récupère tous les employés de toutes les caves
+   */
+  getAllEmployees(): Employee[] {
+    const allEmployees: Employee[] = [];
+    this.caves.forEach(cave => {
+      cave.managers.forEach(manager => {
+        manager.employees.forEach(employee => {
+          allEmployees.push(employee);
+        });
+      });
+    });
+    return allEmployees;
+  }
+
+  /**
+   * Ouvre le modal d'ajout d'employé
+   */
+  openAddEmployeeModal(): void {
+    this.isAddEmployeeModalOpen = true;
+  }
+
+  /**
+   * Ferme le modal d'ajout d'employé
+   */
+  closeAddEmployeeModal(): void {
+    this.isAddEmployeeModalOpen = false;
+    this.resetNewEmployeeForm();
+  }
+
+  /**
+   * Ajoute un nouvel employé
+   */
+  addNewEmployee(): void {
+    if (!this.newEmployeeForm.firstName || !this.newEmployeeForm.lastName || !this.newEmployeeForm.caveId) {
+      alert('⚠️ Veuillez remplir tous les champs obligatoires');
+      return;
+    }
+
+    alert('✓ Nouvel employé ajouté avec succès !');
+    this.closeAddEmployeeModal();
+  }
+
+  /**
+   * Réinitialise le formulaire de nouvel employé
+   */
+  private resetNewEmployeeForm(): void {
+    this.newEmployeeForm = {
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      caveId: '',
+      managerId: '',
+      position: ''
+    };
+  }
+
+  /**
+   * Récupère les managers d'une cave spécifique
+   */
+  getManagersByCave(caveId: string): Manager[] {
+    const cave = this.caves.find(c => c.id === caveId);
+    return cave ? cave.managers : [];
+  }
+
+  // ===== MÉTHODES DU SCAN =====
+
+  /**
+   * Démarre le scan (simulation)
+   */
+  startScan(): void {
+    this.isScanActive = true;
+    this.scanResult = '';
+
+    // Simulation d'un scan après 2 secondes
+    setTimeout(() => {
+      this.scanResult = JSON.stringify({
+        name: 'Château Margaux 2015',
+        category: 'Vin Rouge',
+        price: 25000,
+        stock: 45,
+        barcode: '3245678901234'
+      }, null, 2);
+      this.isScanActive = false;
+    }, 2000);
+  }
+
+  /**
+   * Réinitialise le scan
+   */
+  resetScan(): void {
+    this.scanResult = '';
+    this.isScanActive = false;
+  }
+
+  // ===== MÉTHODES DU PROFIL =====
+
+  /**
+   * Ouvre le modal de profil
+   */
+  openProfileModal(): void {
+    this.isProfileModalOpen = true;
+  }
+
+  /**
+   * Ferme le modal de profil
+   */
+  closeProfileModal(): void {
+    this.isProfileModalOpen = false;
+  }
+
+  /**
+   * Sauvegarde les modifications du profil
+   */
+  saveProfile(): void {
+    alert('✓ Profil mis à jour avec succès !');
+    this.closeProfileModal();
+  }
+
+  /**
+   * Déconnexion
+   */
+  logout(): void {
+    if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
+      alert('👋 À bientôt !');
+      // Ici on redirigerait vers la page de connexion
+      console.log('Déconnexion...');
+    }
+  }
+
+  // ===== MÉTHODES UTILITAIRES =====
+
+  /**
+   * Formate un nombre en string avec séparateur de milliers
+   */
+  formatNumber(value: number): string {
+    return value.toLocaleString('fr-FR');
+  }
+
+  /**
+   * Récupère la classe CSS pour le type d'action
+   */
+  getActionTypeClass(type: string): string {
+    return type;
+  }
+
+  /**
+   * Récupère le badge de la boisson actuelle
+   */
+  getCurrentDrink(): FeaturedDrink {
+    return this.featuredDrinks[this.currentDrinkIndex];
+  }
+
+  /**
+   * Vérifie si un indicateur du carousel est actif
+   */
+  isIndicatorActive(index: number): boolean {
+    return index === this.currentDrinkIndex;
   }
 }
