@@ -1,0 +1,162 @@
+<!-- ===== FICHIER: cave-create.component.html ===== -->
+<!-- Template HTML pour la gestion des caves -->
+
+<div class="cave-create-container">
+
+  <!-- Message de feedback (succès, erreur, info) -->
+  <div *ngIf="message"
+       class="alert"
+       [ngClass]="'alert-' + messageType">
+    {{ message }}
+  </div>
+
+  <!-- En-tête avec titre et bouton d'annulation -->
+  <div class="section-header">
+    <h2>🍷 Gestion des Caves</h2>
+    <!-- Bouton d'annulation visible en mode édition -->
+    <button *ngIf="isEditing"
+            (click)="resetForm()"
+            class="btn btn-secondary">
+      ↻ Annuler l'édition
+    </button>
+  </div>
+
+  <!-- Conteneur du formulaire -->
+  <div class="form-container">
+    <form [formGroup]="caveForm" (ngSubmit)="submitForm()">
+
+      <!-- Champ Nom de la cave -->
+      <div class="form-group">
+        <label class="form-label">Nom de la cave *</label>
+        <!-- Input avec validation en temps réel -->
+        <input
+          type="text"
+          class="form-input"
+          formControlName="name"
+          placeholder="Ex: Cave Principale"
+          [class.input-error]="isFieldInvalid('name')">
+        <!-- Message d'erreur de validation -->
+        <small *ngIf="isFieldInvalid('name')" class="error-text">
+          ⚠️ Minimum 3 caractères requis
+        </small>
+      </div>
+
+      <!-- Champ Localisation -->
+      <div class="form-group">
+        <label class="form-label">Localisation *</label>
+        <!-- Select dropdown avec liste de régions -->
+        <select
+          class="form-input"
+          formControlName="location"
+          [class.input-error]="isFieldInvalid('location')">
+          <option value="">Sélectionner une région...</option>
+          <!-- Boucle sur les régions disponibles -->
+          <option *ngFor="let region of regions" [value]="region">
+            📍 {{ region }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Champ Capacité -->
+      <div class="form-group">
+        <label class="form-label">Capacité (bouteilles) *</label>
+        <!-- Input numérique avec min -->
+        <input
+          type="number"
+          class="form-input"
+          formControlName="capacity"
+          placeholder="Ex: 500"
+          min="1"
+          [class.input-error]="isFieldInvalid('capacity')">
+      </div>
+
+      <!-- Champ Description -->
+      <div class="form-group">
+        <label class="form-label">Description</label>
+        <!-- Textarea pour description plus longue -->
+        <textarea
+          class="form-textarea"
+          formControlName="description"
+          placeholder="Description détaillée de la cave..."
+          rows="4"></textarea>
+      </div>
+
+      <!-- Boutons d'action du formulaire -->
+      <div class="form-actions">
+        <!-- Bouton réinitialiser -->
+        <button type="reset" class="btn btn-secondary">
+          ↻ Réinitialiser
+        </button>
+        <!-- Bouton soumettre (texte différent selon le mode) -->
+        <button type="submit"
+                class="btn btn-primary"
+                [disabled]="caveForm.invalid">
+          {{ isEditing ? '💾 Mettre à jour' : '➕ Créer cave' }}
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Conteneur de la liste des caves -->
+  <div class="caves-list-container">
+    <h3>📋 Caves existantes ({{ caves.length }})</h3>
+
+    <!-- Grille de cartes des caves -->
+    <div class="caves-grid">
+      <!-- Boucle sur chaque cave -->
+      <div *ngFor="let cave of caves" class="cave-item">
+
+        <!-- En-tête de la carte avec nom et localisation -->
+        <div class="cave-item-header">
+          <div>
+            <h4>{{ cave.name }}</h4>
+            <p class="cave-location">📍 {{ cave.location }}</p>
+          </div>
+          <!-- Badge montrant le taux d'occupation -->
+          <div class="occupancy-badge">
+            {{ getOccupancyRate(cave) }}%
+          </div>
+        </div>
+
+        <!-- Statistiques de la cave (grille) -->
+        <div class="cave-stats">
+          <!-- Capacité -->
+          <div class="stat">
+            <span class="label">🍾 Capacité:</span>
+            <span class="value">{{ cave.capacity }}</span>
+          </div>
+          <!-- Nombre de managers -->
+          <div class="stat">
+            <span class="label">👥 Managers:</span>
+            <span class="value">{{ cave.managersCount }}</span>
+          </div>
+          <!-- Nombre d'employés -->
+          <div class="stat">
+            <span class="label">👨‍💼 Employés:</span>
+            <span class="value">{{ cave.employeesCount }}</span>
+          </div>
+        </div>
+
+        <!-- Description de la cave -->
+        <p class="cave-description">{{ cave.description }}</p>
+
+        <!-- Boutons d'action (éditer, supprimer) -->
+        <div class="cave-item-actions">
+          <!-- Bouton éditer -->
+          <button (click)="editCave(cave)" class="btn btn-secondary btn-sm">
+            ✏️ Éditer
+          </button>
+          <!-- Bouton supprimer avec confirmation -->
+          <button (click)="deleteCave(cave.id)" class="btn btn-danger btn-sm">
+            🗑️ Supprimer
+          </button>
+        </div>
+      </div>
+
+      <!-- Message affiché si aucune cave n'existe -->
+      <div *ngIf="caves.length === 0" class="empty-state">
+        <p>📭 Aucune cave créée. Commencez par en créer une!</p>
+      </div>
+    </div>
+  </div>
+</div>

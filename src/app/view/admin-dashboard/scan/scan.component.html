@@ -1,0 +1,228 @@
+/* ==========================================
+   TEMPLATE HTML
+   ========================================== */
+
+/*
+<!-- src/app/features/scan/scan.component.html -->
+
+<div class="scan-container">
+
+  <!-- EN-TÊTE -->
+  <header class="page-header">
+    <div class="header-content">
+      <h1 class="page-title">📷 Scanner un Produit</h1>
+      <p class="page-subtitle">
+        Scannez le code-barre d'un produit pour accéder à ses informations
+      </p>
+    </div>
+  </header>
+
+  <!-- STATISTIQUES RAPIDES -->
+  <section class="stats-section">
+    <div class="stat-card stat-primary">
+      <div class="stat-icon">📊</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ stats.totalScans }}</div>
+        <div class="stat-label">Total scans</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-success">
+      <div class="stat-icon">✓</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ stats.successfulScans }}</div>
+        <div class="stat-label">Réussis</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-danger">
+      <div class="stat-icon">✗</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ stats.failedScans }}</div>
+        <div class="stat-label">Échoués</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-info">
+      <div class="stat-icon">📅</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ stats.todayScans }}</div>
+        <div class="stat-label">Aujourd'hui</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="scan-main">
+
+    <!-- ZONE DE SCAN -->
+    <section class="scan-area-section">
+      <div class="scan-area" [class.scanning]="isScanActive">
+
+        <!-- Cadre de scan -->
+        <div class="scan-frame">
+
+          <!-- Icône centrale -->
+          <div class="scan-icon" *ngIf="!isScanActive && !scanResult">
+            📷
+          </div>
+
+          <!-- Animation de scan (ligne qui bouge) -->
+          <div class="scan-line" *ngIf="isScanActive"></div>
+
+          <!-- Message d'état -->
+          <div class="scan-status">
+            <ng-container *ngIf="!isScanActive && !scanResult">
+              <p class="status-text">Prêt à scanner</p>
+              <p class="status-hint">Placez le code-barre dans le cadre</p>
+            </ng-container>
+
+            <ng-container *ngIf="isScanActive">
+              <div class="scanning-loader"></div>
+              <p class="status-text">Scan en cours...</p>
+              <p class="status-hint">Maintenez le code-barre stable</p>
+            </ng-container>
+
+            <ng-container *ngIf="scanResult && !isScanActive">
+              <div class="status-icon-large">
+                {{ scanResult.found ? '✓' : '✗' }}
+              </div>
+              <p class="status-text" [class.success]="scanResult.found"
+                 [class.error]="!scanResult.found">
+                {{ scanResult.found ? 'Scan réussi !' : 'Produit non trouvé' }}
+              </p>
+            </ng-container>
+          </div>
+
+        </div>
+
+        <!-- Boutons de contrôle -->
+        <div class="scan-controls">
+          <button class="btn btn-primary btn-large"
+                  *ngIf="!isScanActive && !scanResult"
+                  (click)="startScan()">
+            <span class="btn-icon">🎬</span>
+            Démarrer le scan
+          </button>
+
+          <button class="btn btn-secondary btn-large"
+                  *ngIf="scanResult"
+                  (click)="resetScan()">
+            <span class="btn-icon">🔄</span>
+            Nouveau scan
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- RÉSULTAT DU SCAN -->
+    <aside class="scan-sidebar">
+
+      <!-- Résultat positif -->
+      <div *ngIf="scanResult && scanResult.found" class="result-card success">
+        <div class="result-header">
+          <div class="result-icon-large">{{ scanResult.icon }}</div>
+          <div>
+            <h3 class="result-title">{{ scanResult.drinkName }}</h3>
+            <p class="result-category">{{ scanResult.category }}</p>
+          </div>
+        </div>
+
+        <div class="result-details">
+          <div class="detail-row">
+            <span class="detail-label">Code-barre</span>
+            <span class="detail-value">{{ scanResult.code }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Prix</span>
+            <span class="detail-value price">
+              {{ formatNumber(scanResult.price) }} FCFA
+            </span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Stock actuel</span>
+            <span class="detail-value"
+                  [class.low-stock]="scanResult.stock < 10">
+              {{ scanResult.stock }} unités
+            </span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Scanné le</span>
+            <span class="detail-value">{{ formatDate(scanResult.timestamp) }}</span>
+          </div>
+        </div>
+
+        <div class="result-actions">
+          <button class="btn btn-primary btn-block" (click)="addToStock()">
+            ➕ Ajouter au stock
+          </button>
+          <button class="btn btn-secondary btn-block" (click)="viewDetails()">
+            👁️ Voir les détails
+          </button>
+          <button class="btn btn-secondary btn-block" (click)="editProduct()">
+            ✏️ Modifier
+          </button>
+        </div>
+      </div>
+
+      <!-- Résultat négatif -->
+      <div *ngIf="scanResult && !scanResult.found" class="result-card error">
+        <div class="result-header">
+          <div class="result-icon-large error-icon">⚠️</div>
+          <div>
+            <h3 class="result-title">Produit introuvable</h3>
+            <p class="result-error">{{ scanError }}</p>
+          </div>
+        </div>
+
+        <div class="result-details">
+          <div class="detail-row">
+            <span class="detail-label">Code scanné</span>
+            <span class="detail-value">{{ scanResult.code }}</span>
+          </div>
+        </div>
+
+        <div class="result-actions">
+          <button class="btn btn-primary btn-block" routerLink="/drinks">
+            ➕ Ajouter ce produit
+          </button>
+        </div>
+      </div>
+
+      <!-- Instructions -->
+      <div class="instructions-card">
+        <h3 class="instructions-title">💡 Instructions</h3>
+        <ul class="instructions-list">
+          <li>Assurez-vous que le code-barre est bien éclairé</li>
+          <li>Maintenez le code-barre stable et à plat</li>
+          <li>Positionnez-le à environ 15-20 cm</li>
+          <li>Attendez le signal de confirmation</li>
+        </ul>
+      </div>
+
+      <!-- Historique des scans -->
+      <div class="history-card" *ngIf="scanHistory.length > 0">
+        <h3 class="history-title">📋 Derniers scans</h3>
+        <div class="history-list">
+          <div *ngFor="let scan of scanHistory.slice(0, 5)"
+               class="history-item"
+               [class.success]="scan.found"
+               [class.error]="!scan.found">
+            <div class="history-icon">
+              {{ scan.found ? scan.icon : '❌' }}
+            </div>
+            <div class="history-info">
+              <div class="history-name">
+                {{ scan.found ? scan.drinkName : 'Produit introuvable' }}
+              </div>
+              <div class="history-time">{{ formatDate(scan.timestamp) }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+</div>

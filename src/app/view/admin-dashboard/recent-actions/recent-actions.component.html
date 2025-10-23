@@ -1,0 +1,183 @@
+/* ==========================================
+   TEMPLATE HTML
+   ========================================== */
+
+<div class="actions-container">
+
+  <!-- EN-TÊTE -->
+  <header class="page-header">
+    <div class="header-content">
+      <h1 class="page-title">📋 Actions Récentes</h1>
+      <p class="page-subtitle">
+        Historique de toutes les actions - {{ filteredActions.length }} action(s)
+      </p>
+    </div>
+    <button class="btn btn-secondary" (click)="exportToCSV()">
+      📊 Exporter CSV
+    </button>
+  </header>
+
+  <!-- STATISTIQUES -->
+  <section class="stats-section">
+    <div class="stat-card stat-primary">
+      <div class="stat-icon">📊</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ stats.total }}</div>
+        <div class="stat-label">Total actions</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-success">
+      <div class="stat-icon">💰</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ stats.ventes }}</div>
+        <div class="stat-label">Ventes</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-info">
+      <div class="stat-icon">📥</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ stats.entrees }}</div>
+        <div class="stat-label">Entrées</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-warning">
+      <div class="stat-icon">📤</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ stats.sorties }}</div>
+        <div class="stat-label">Sorties</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-danger">
+      <div class="stat-icon">⚠️</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ stats.alertes }}</div>
+        <div class="stat-label">Alertes</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTRES -->
+  <section class="filters-section">
+    <!-- Recherche -->
+    <div class="search-box">
+      <input type="text" class="search-input"
+             placeholder="🔍 Rechercher une action..."
+             [(ngModel)]="searchTerm"
+             (ngModelChange)="onSearchChange($event)">
+      <button *ngIf="searchTerm" class="clear-btn"
+              (click)="searchTerm = ''; onSearchChange('')">
+        ✕
+      </button>
+    </div>
+
+    <!-- Filtre par type -->
+    <div class="filter-group">
+      <label class="filter-label">Type :</label>
+      <select class="filter-select"
+              [(ngModel)]="selectedType"
+              (ngModelChange)="onTypeFilterChange($event)">
+        <option [ngValue]="null">Tous les types</option>
+        <option *ngFor="let type of actionTypes" [ngValue]="type.value">
+          {{ type.icon }} {{ type.label }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Filtre par période -->
+    <div class="filter-group">
+      <label class="filter-label">Période :</label>
+      <select class="filter-select"
+              [(ngModel)]="periodFilter"
+              (ngModelChange)="onPeriodFilterChange($event)">
+        <option *ngFor="let period of periods" [value]="period.value">
+          {{ period.label }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Réinitialiser -->
+    <button class="btn btn-secondary"
+            (click)="resetFilters()"
+            *ngIf="selectedType || searchTerm || periodFilter !== 7">
+      🔄 Réinitialiser
+    </button>
+  </section>
+
+  <!-- CHARGEMENT -->
+  <div *ngIf="isLoading" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Chargement des actions...</p>
+  </div>
+
+  <!-- AUCUN RÉSULTAT -->
+  <div *ngIf="!isLoading && filteredActions.length === 0" class="no-results">
+    <div class="no-results-icon">📋</div>
+    <h3>Aucune action trouvée</h3>
+    <p>Aucune action ne correspond à vos critères de recherche</p>
+  </div>
+
+  <!-- TIMELINE DES ACTIONS -->
+  <section *ngIf="!isLoading && filteredActions.length > 0" class="actions-timeline">
+
+    <article *ngFor="let action of getPaginatedActions()"
+             class="action-item"
+             [ngClass]="getActionTypeClass(action.type)">
+
+      <!-- Icône -->
+      <div class="action-icon-wrapper">
+        <div class="action-icon">{{ action.icon }}</div>
+      </div>
+
+      <!-- Contenu -->
+      <div class="action-content">
+        <div class="action-header">
+          <h3 class="action-title">{{ action.title }}</h3>
+          <span class="action-time" [title]="formatFullDate(action.timestamp)">
+            {{ getRelativeTime(action.timestamp) }}
+          </span>
+        </div>
+        <p class="action-details">{{ action.details }}</p>
+        <div class="action-footer">
+          <span class="action-type-badge" [ngClass]="getActionTypeClass(action.type)">
+            {{ getActionIcon(action.type) }} {{ action.type }}
+          </span>
+        </div>
+      </div>
+
+    </article>
+
+  </section>
+
+  <!-- PAGINATION -->
+  <nav *ngIf="totalPages > 1" class="pagination">
+    <button class="pagination-btn"
+            [disabled]="currentPage === 1"
+            (click)="previousPage()">
+      ❮ Précédent
+    </button>
+
+    <div class="pagination-numbers">
+      <button *ngFor="let page of getPageNumbers()"
+              class="pagination-number"
+              [class.active]="page === currentPage"
+              [class.ellipsis]="page === -1"
+              [disabled]="page === -1"
+              (click)="page !== -1 && goToPage(page)">
+        {{ page === -1 ? '...' : page }}
+      </button>
+    </div>
+
+    <button class="pagination-btn"
+            [disabled]="currentPage === totalPages"
+            (click)="nextPage()">
+      Suivant ❯
+    </button>
+  </nav>
+
+</div>
+*/
+

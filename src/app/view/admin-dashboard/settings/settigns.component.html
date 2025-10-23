@@ -1,0 +1,464 @@
+/* ==========================================
+   TEMPLATE HTML
+   ========================================== */
+<div class="settings-container">
+
+  <!-- EN-TÊTE -->
+  <header class="page-header">
+    <div class="header-content">
+      <h1 class="page-title">⚙️ Paramètres</h1>
+      <p class="page-subtitle">
+        Configurez votre expérience DrinkStore Pro
+      </p>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-secondary" (click)="resetToDefaults()">
+        🔄 Réinitialiser
+      </button>
+      <button class="btn btn-primary" (click)="saveSettings()">
+        💾 Enregistrer
+      </button>
+    </div>
+  </header>
+
+  <!-- MESSAGES -->
+  <div *ngIf="successMessage" class="alert alert-success">
+    ✓ {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-error">
+    ⚠️ {{ errorMessage }}
+  </div>
+
+  <div class="settings-content">
+
+    <!-- MENU LATÉRAL -->
+    <aside class="settings-sidebar">
+      <nav class="settings-nav">
+        <button class="nav-item"
+                [class.active]="activeSection === 'general'"
+                (click)="switchSection('general')">
+          <span class="nav-icon">🌐</span>
+          <span class="nav-text">Général</span>
+        </button>
+
+        <button class="nav-item"
+                [class.active]="activeSection === 'notifications'"
+                (click)="switchSection('notifications')">
+          <span class="nav-icon">🔔</span>
+          <span class="nav-text">Notifications</span>
+        </button>
+
+        <button class="nav-item"
+                [class.active]="activeSection === 'display'"
+                (click)="switchSection('display')">
+          <span class="nav-icon">🎨</span>
+          <span class="nav-text">Apparence</span>
+        </button>
+
+        <button class="nav-item"
+                [class.active]="activeSection === 'security'"
+                (click)="switchSection('security')">
+          <span class="nav-icon">🔒</span>
+          <span class="nav-text">Sécurité</span>
+        </button>
+
+        <button class="nav-item"
+                [class.active]="activeSection === 'data'"
+                (click)="switchSection('data')">
+          <span class="nav-icon">💾</span>
+          <span class="nav-text">Données</span>
+        </button>
+
+        <button class="nav-item"
+                [class.active]="activeSection === 'print'"
+                (click)="switchSection('print')">
+          <span class="nav-icon">🖨️</span>
+          <span class="nav-text">Impression</span>
+        </button>
+
+        <button class="nav-item"
+                [class.active]="activeSection === 'about'"
+                (click)="switchSection('about')">
+          <span class="nav-icon">ℹ️</span>
+          <span class="nav-text">À propos</span>
+        </button>
+      </nav>
+    </aside>
+
+    <!-- CONTENU PRINCIPAL -->
+    <main class="settings-main">
+
+      <!-- SECTION GÉNÉRAL -->
+      <section *ngIf="activeSection === 'general'" class="settings-section">
+        <h2 class="section-title">🌐 Paramètres Généraux</h2>
+
+        <div class="settings-group">
+          <label class="setting-label">Langue</label>
+          <select class="setting-input" [(ngModel)]="settings.language" name="language">
+            <option *ngFor="let lang of languages" [value]="lang.code">
+              {{ lang.name }}
+            </option>
+          </select>
+          <p class="setting-hint">Langue de l'interface</p>
+        </div>
+
+        <div class="settings-group">
+          <label class="setting-label">Devise</label>
+          <select class="setting-input" [(ngModel)]="settings.currency" name="currency">
+            <option *ngFor="let curr of currencies" [value]="curr">{{ curr }}</option>
+          </select>
+          <p class="setting-hint">Devise utilisée pour les prix</p>
+        </div>
+
+        <div class="settings-group">
+          <label class="setting-label">Fuseau horaire</label>
+          <select class="setting-input" [(ngModel)]="settings.timezone" name="timezone">
+            <option *ngFor="let tz of timezones" [value]="tz">{{ tz }}</option>
+          </select>
+          <p class="setting-hint">Fuseau horaire pour les dates et heures</p>
+        </div>
+
+        <div class="settings-group">
+          <label class="setting-label">Format de date</label>
+          <select class="setting-input" [(ngModel)]="settings.dateFormat" name="dateFormat">
+            <option value="DD/MM/YYYY">JJ/MM/AAAA</option>
+            <option value="MM/DD/YYYY">MM/JJ/AAAA</option>
+            <option value="YYYY-MM-DD">AAAA-MM-JJ</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- SECTION NOTIFICATIONS -->
+      <section *ngIf="activeSection === 'notifications'" class="settings-section">
+        <h2 class="section-title">🔔 Notifications</h2>
+
+        <div class="settings-group">
+          <div class="setting-toggle">
+            <div>
+              <label class="setting-label">Notifications par email</label>
+              <p class="setting-hint">Recevoir des notifications par email</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" [(ngModel)]="settings.emailNotifications" name="emailNotifications">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-group">
+          <div class="setting-toggle">
+            <div>
+              <label class="setting-label">Notifications push</label>
+              <p class="setting-hint">Recevoir des notifications dans le navigateur</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" [(ngModel)]="settings.pushNotifications" name="pushNotifications">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <button class="btn btn-sm btn-secondary" (click)="testNotification()">
+            Tester les notifications
+          </button>
+        </div>
+
+        <div class="settings-group">
+          <div class="setting-toggle">
+            <div>
+              <label class="setting-label">Alertes de stock</label>
+              <p class="setting-hint">Être alerté quand le stock est faible</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" [(ngModel)]="settings.stockAlerts" name="stockAlerts">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-group" *ngIf="settings.stockAlerts">
+          <label class="setting-label">Seuil de stock faible</label>
+          <input type="number" class="setting-input"
+                 [(ngModel)]="settings.lowStockThreshold"
+                 name="lowStockThreshold"
+                 min="1">
+          <p class="setting-hint">Alerter quand le stock descend sous ce seuil</p>
+        </div>
+
+        <div class="settings-group">
+          <div class="setting-toggle">
+            <div>
+              <label class="setting-label">Notifications de commandes</label>
+              <p class="setting-hint">Être notifié des nouvelles commandes</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" [(ngModel)]="settings.orderNotifications" name="orderNotifications">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-group">
+          <div class="setting-toggle">
+            <div>
+              <label class="setting-label">Rapports hebdomadaires</label>
+              <p class="setting-hint">Recevoir un rapport d'activité chaque semaine</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" [(ngModel)]="settings.weeklyReports" name="weeklyReports">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION APPARENCE -->
+      <section *ngIf="activeSection === 'display'" class="settings-section">
+        <h2 class="section-title">🎨 Apparence</h2>
+
+        <div class="settings-group">
+          <label class="setting-label">Thème</label>
+          <div class="theme-options">
+            <label *ngFor="let theme of themes" class="theme-option"
+                   [class.active]="settings.theme === theme.value">
+              <input type="radio"
+                     [(ngModel)]="settings.theme"
+                     name="theme"
+                     [value]="theme.value">
+              <div class="theme-card">
+                <span class="theme-icon">{{ theme.icon }}</span>
+                <span class="theme-label">{{ theme.label }}</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-group">
+          <div class="setting-toggle">
+            <div>
+              <label class="setting-label">Mode compact</label>
+              <p class="setting-hint">Affichage plus dense avec moins d'espacement</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" [(ngModel)]="settings.compactMode" name="compactMode">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-group">
+          <div class="setting-toggle">
+            <div>
+              <label class="setting-label">Animations</label>
+              <p class="setting-hint">Activer les animations d'interface</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" [(ngModel)]="settings.showAnimations" name="showAnimations">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-group">
+          <label class="setting-label">Éléments par page</label>
+          <select class="setting-input" [(ngModel)]="settings.itemsPerPage" name="itemsPerPage">
+            <option [value]="10">10</option>
+            <option [value]="20">20</option>
+            <option [value]="50">50</option>
+            <option [value]="100">100</option>
+          </select>
+          <p class="setting-hint">Nombre d'éléments affichés par page dans les listes</p>
+        </div>
+      </section>
+
+      <!-- SECTION SÉCURITÉ -->
+      <section *ngIf="activeSection === 'security'" class="settings-section">
+        <h2 class="section-title">🔒 Sécurité</h2>
+
+        <div class="settings-group">
+          <div class="setting-toggle">
+            <div>
+              <label class="setting-label">Authentification à deux facteurs</label>
+              <p class="setting-hint">Sécurité renforcée avec code de vérification</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" [(ngModel)]="settings.twoFactorAuth" name="twoFactorAuth">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-group">
+          <label class="setting-label">Timeout de session (minutes)</label>
+          <input type="number" class="setting-input"
+                 [(ngModel)]="settings.sessionTimeout"
+                 name="sessionTimeout"
+                 min="5" max="240">
+          <p class="setting-hint">Déconnexion automatique après inactivité</p>
+        </div>
+
+        <div class="settings-group">
+          <label class="setting-label">Expiration du mot de passe (jours)</label>
+          <input type="number" class="setting-input"
+                 [(ngModel)]="settings.passwordExpiry"
+                 name="passwordExpiry"
+                 min="0">
+          <p class="setting-hint">0 = pas d'expiration</p>
+        </div>
+
+        <div class="settings-group">
+          <div class="setting-toggle">
+            <div>
+              <label class="setting-label">Alertes de connexion</label>
+              <p class="setting-hint">Être notifié des nouvelles connexions</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" [(ngModel)]="settings.loginAlerts" name="loginAlerts">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION DONNÉES -->
+      <section *ngIf="activeSection === 'data'" class="settings-section">
+        <h2 class="section-title">💾 Données et Sauvegarde</h2>
+
+        <div class="settings-group">
+          <div class="setting-toggle">
+            <div>
+              <label class="setting-label">Sauvegarde automatique</label>
+              <p class="setting-hint">Sauvegarde automatique des données</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" [(ngModel)]="settings.autoBackup" name="autoBackup">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-group" *ngIf="settings.autoBackup">
+          <label class="setting-label">Fréquence de sauvegarde</label>
+          <select class="setting-input" [(ngModel)]="settings.backupFrequency" name="backupFrequency">
+            <option value="daily">Quotidienne</option>
+            <option value="weekly">Hebdomadaire</option>
+            <option value="monthly">Mensuelle</option>
+          </select>
+        </div>
+
+        <div class="settings-group">
+          <label class="setting-label">Dernière sauvegarde</label>
+          <p class="setting-value">{{ formatDate(settings.lastBackup) }}</p>
+        </div>
+
+        <div class="settings-group">
+          <button class="btn btn-primary btn-block" (click)="createBackup()">
+            💾 Créer une sauvegarde maintenant
+          </button>
+        </div>
+
+        <div class="settings-group">
+          <label class="setting-label">Exporter les données</label>
+          <button class="btn btn-secondary btn-block" (click)="exportData()">
+            📤 Exporter toutes les données (JSON)
+          </button>
+          <p class="setting-hint">Télécharge un fichier JSON avec toutes vos données</p>
+        </div>
+
+        <div class="settings-group">
+          <label class="setting-label">Importer des données</label>
+          <input type="file"
+                 accept=".json"
+                 (change)="importData($event)"
+                 class="file-input"
+                 #fileInput>
+          <button class="btn btn-secondary btn-block" (click)="fileInput.click()">
+            📥 Importer des données
+          </button>
+          <p class="setting-hint">Importe des données depuis un fichier JSON</p>
+        </div>
+
+        <div class="settings-group danger-zone">
+          <label class="setting-label">⚠️ Zone dangereuse</label>
+          <button class="btn btn-danger btn-block" (click)="clearAllData()">
+            🗑️ Effacer toutes les données
+          </button>
+          <p class="setting-hint">Action irréversible - Toutes les données seront perdues</p>
+        </div>
+      </section>
+
+      <!-- SECTION IMPRESSION -->
+      <section *ngIf="activeSection === 'print'" class="settings-section">
+        <h2 class="section-title">🖨️ Paramètres d'Impression</h2>
+
+        <div class="settings-group">
+          <div class="setting-toggle">
+            <div>
+              <label class="setting-label">Inclure le logo</label>
+              <p class="setting-hint">Afficher le logo sur les impressions</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" [(ngModel)]="settings.includeLogo" name="includeLogo">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-group">
+          <label class="setting-label">Format de papier</label>
+          <select class="setting-input" [(ngModel)]="settings.paperSize" name="paperSize">
+            <option value="A4">A4</option>
+            <option value="A5">A5</option>
+            <option value="Letter">Letter</option>
+          </select>
+        </div>
+
+        <div class="settings-group">
+          <label class="setting-label">Orientation</label>
+          <select class="setting-input" [(ngModel)]="settings.orientation" name="orientation">
+            <option value="portrait">Portrait</option>
+            <option value="landscape">Paysage</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- SECTION À PROPOS -->
+      <section *ngIf="activeSection === 'about'" class="settings-section">
+        <h2 class="section-title">ℹ️ À propos de DrinkStore Pro</h2>
+
+        <div class="about-card">
+          <div class="about-logo">🍾</div>
+          <h3>DrinkStore Pro</h3>
+          <p class="about-version">Version 1.0.0</p>
+          <p class="about-description">
+            Solution complète de gestion de caves à vin et stocks de boissons
+          </p>
+
+          <div class="about-info">
+            <div class="info-row">
+              <span class="info-label">Développeur</span>
+              <span class="info-value">DrinkStore Team</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Framework</span>
+              <span class="info-value">Angular 15+</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Licence</span>
+              <span class="info-value">Propriétaire</span>
+            </div>
+          </div>
+
+          <div class="about-links">
+            <a href="#" class="about-link">📚 Documentation</a>
+            <a href="#" class="about-link">🐛 Signaler un bug</a>
+            <a href="#" class="about-link">💬 Support</a>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+</div>
+*/
+

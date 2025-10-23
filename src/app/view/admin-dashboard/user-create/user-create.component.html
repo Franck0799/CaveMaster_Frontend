@@ -1,0 +1,256 @@
+<!-- ===== FICHIER: user-create.component.html ===== -->
+<!-- Template pour la création/modification d'utilisateurs -->
+
+<div class="user-create-container">
+
+  <!-- Message de feedback -->
+  <div *ngIf="message"
+       class="alert"
+       [ngClass]="'alert-' + messageType">
+    {{ message }}
+  </div>
+
+  <!-- En-tête du formulaire -->
+  <div class="section-header">
+    <h2>{{ isEditing ? '✏️ Modifier un utilisateur' : '➕ Ajouter un nouvel utilisateur' }}</h2>
+    <!-- Bouton annuler en mode édition -->
+    <button *ngIf="isEditing" (click)="resetForm()" class="btn btn-secondary">
+      ↻ Annuler
+    </button>
+  </div>
+
+  <!-- Conteneur du formulaire -->
+  <div class="form-container">
+    <form [formGroup]="userForm" (ngSubmit)="submitForm()">
+
+      <!-- Section de sélection d'avatar -->
+      <div class="avatar-section">
+        <label class="form-label">Avatar</label>
+        <!-- Grille de boutons avatars -->
+        <div class="avatar-grid">
+          <!-- Boucle sur les avatars disponibles -->
+          <button *ngFor="let avatar of availableAvatars"
+                  type="button"
+                  (click)="selectAvatar(avatar)"
+                  class="avatar-btn"
+                  [class.selected]="selectedAvatar === avatar"
+                  title="Sélectionner cet avatar">
+            {{ avatar }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Grille 2 colonnes pour prénom et nom -->
+      <div class="form-row">
+        <!-- Champ Prénom -->
+        <div class="form-group">
+          <label class="form-label">Prénom *</label>
+          <input
+            type="text"
+            class="form-input"
+            formControlName="firstName"
+            placeholder="Ex: Jean"
+            [class.input-error]="isFieldInvalid('firstName')">
+          <small *ngIf="isFieldInvalid('firstName')" class="error-text">
+            ⚠️ Minimum 2 caractères
+          </small>
+        </div>
+
+        <!-- Champ Nom -->
+        <div class="form-group">
+          <label class="form-label">Nom *</label>
+          <input
+            type="text"
+            class="form-input"
+            formControlName="lastName"
+            placeholder="Ex: Kouassi"
+            [class.input-error]="isFieldInvalid('lastName')">
+          <small *ngIf="isFieldInvalid('lastName')" class="error-text">
+            ⚠️ Minimum 2 caractères
+          </small>
+        </div>
+      </div>
+
+      <!-- Champ Email -->
+      <div class="form-group">
+        <label class="form-label">Email *</label>
+        <input
+          type="email"
+          class="form-input"
+          formControlName="email"
+          placeholder="Ex: jean.kouassi@drinkstore.com"
+          [class.input-error]="isFieldInvalid('email')">
+        <small *ngIf="isFieldInvalid('email')" class="error-text">
+          ⚠️ Email invalide
+        </small>
+      </div>
+
+      <!-- Champ Téléphone -->
+      <div class="form-group">
+        <label class="form-label">Téléphone</label>
+        <input
+          type="tel"
+          class="form-input"
+          formControlName="phone"
+          placeholder="Ex: +234 801 234 5678">
+      </div>
+
+      <!-- Grille 2 colonnes pour rôle et cave -->
+      <div class="form-row">
+        <!-- Champ Rôle -->
+        <div class="form-group">
+          <label class="form-label">Rôle *</label>
+          <select
+            class="form-input"
+            formControlName="role"
+            [class.input-error]="isFieldInvalid('role')">
+            <option value="">Sélectionner un rôle...</option>
+            <!-- Boucle sur les rôles disponibles -->
+            <option *ngFor="let role of roles" [value]="role">
+              {{ role }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Champ Cave -->
+        <div class="form-group">
+          <label class="form-label">Cave *</label>
+          <select
+            class="form-input"
+            formControlName="cave"
+            (change)="onCaveChange()"
+            [class.input-error]="isFieldInvalid('cave')">
+            <option value="">Sélectionner une cave...</option>
+            <!-- Boucle sur les caves disponibles -->
+            <option *ngFor="let cave of caves" [value]="cave">
+              🏢 {{ cave }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Champ Manager (conditionnel - visible si cave sélectionnée) -->
+      <div class="form-group" *ngIf="userForm.get('cave')?.value">
+        <label class="form-label">Manager de supervision</label>
+        <select
+          class="form-input"
+          formControlName="manager">
+          <option value="">Pas de manager assigné</option>
+          <!-- Boucle sur les managers de la cave sélectionnée -->
+          <option *ngFor="let manager of managers"
+                  [value]="manager.firstName + ' ' + manager.lastName">
+            {{ manager.firstName }} {{ manager.lastName }} - {{ manager.role }}
+          </option>
+        </select>
+        <small class="info-text">Les managers disponibles dépendent de la cave sélectionnée</small>
+      </div>
+
+      <!-- Champ Statut -->
+      <div class="form-group">
+        <label class="form-label">Statut</label>
+        <select class="form-input" formControlName="status">
+          <option value="active">🟢 Actif</option>
+          <option value="inactive">🔴 Inactif</option>
+          <option value="on-leave">🟡 En congé</option>
+        </select>
+      </div>
+
+      <!-- Champ Date d'embauche -->
+      <div class="form-group">
+        <label class="form-label">Date d'embauche *</label>
+        <input
+          type="date"
+          class="form-input"
+          formControlName="joinDate"
+          [class.input-error]="isFieldInvalid('joinDate')">
+      </div>
+
+      <!-- Boutons du formulaire -->
+      <div class="form-actions">
+        <!-- Bouton réinitialiser -->
+        <button type="reset" (click)="resetForm()" class="btn btn-secondary">
+          ↻ Réinitialiser
+        </button>
+        <!-- Bouton soumettre -->
+        <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">
+          {{ isEditing ? '💾 Mettre à jour' : '➕ Créer utilisateur' }}
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- Conteneur de la liste des utilisateurs -->
+  <div class="users-list-container">
+    <h3>📋 Utilisateurs existants ({{ users.length }})</h3>
+
+    <!-- Grille de cartes d'utilisateurs -->
+    <div class="users-cards">
+      <!-- Boucle sur chaque utilisateur -->
+      <div *ngFor="let user of users" class="user-card">
+
+        <!-- En-tête de la carte -->
+        <div class="user-card-header">
+          <!-- Info utilisateur avec avatar -->
+          <div class="user-info">
+            <!-- Avatar grand -->
+            <span class="avatar-large">{{ user.avatar }}</span>
+            <!-- Nom et rôle -->
+            <div>
+              <h4>{{ user.firstName }} {{ user.lastName }}</h4>
+              <p class="role-badge">{{ user.role }}</p>
+            </div>
+          </div>
+          <!-- Badge de statut -->
+          <span class="status-badge" [ngClass]="'status-' + user.status">
+            {{ user.status === 'active' ? '🟢 Actif' :
+               user.status === 'inactive' ? '🔴 Inactif' :
+               '🟡 En congé' }}
+          </span>
+        </div>
+
+        <!-- Détails de l'utilisateur -->
+        <div class="user-card-details">
+          <!-- Email -->
+          <div class="detail">
+            <span class="label">📧 Email:</span>
+            <span>{{ user.email }}</span>
+          </div>
+          <!-- Téléphone -->
+          <div class="detail">
+            <span class="label">📱 Téléphone:</span>
+            <span>{{ user.phone }}</span>
+          </div>
+          <!-- Cave -->
+          <div class="detail">
+            <span class="label">🏢 Cave:</span>
+            <span>{{ user.cave }}</span>
+          </div>
+          <!-- Manager (si assigné) -->
+          <div class="detail" *ngIf="user.manager">
+            <span class="label">👥 Manager:</span>
+            <span>{{ user.manager }}</span>
+          </div>
+        </div>
+
+        <!-- Boutons d'action -->
+        <div class="user-card-actions">
+          <!-- Bouton éditer -->
+          <button (click)="editUser(user)" class="btn btn-secondary btn-sm">
+            ✏️ Éditer
+          </button>
+          <!-- Bouton supprimer -->
+          <button (click)="deleteUser(user.id)" class="btn btn-danger btn-sm">
+            🗑️ Supprimer
+          </button>
+        </div>
+      </div>
+
+      <!-- Message si aucun utilisateur -->
+      <div *ngIf="users.length === 0" class="empty-state">
+        <p>📭 Aucun utilisateur créé. Commencez par en ajouter un!</p>
+      </div>
+    </div>
+  </div>
+
+</div>

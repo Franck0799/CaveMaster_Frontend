@@ -1,0 +1,318 @@
+/* ==========================================
+   STYLES SCSS
+   ========================================== */
+
+$primary-color: #8b5cf6;
+$success-color: #10b981;
+$danger-color: #ef4444;
+$text-dark: #1f2937;
+$text-light: #6b7280;
+$bg-light: #f9fafb;
+$border-color: #e5e7eb;
+
+.profile-container {
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+
+  .header-actions {
+    display: flex;
+    gap: 1rem;
+  }
+}
+
+// Alertes
+.alert {
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-weight: 600;
+
+  &.alert-success {
+    background: #d1fae5;
+    color: #065f46;
+    border: 1px solid #10b981;
+  }
+
+  &.alert-error {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid $danger-color;
+  }
+}
+
+// Carte principale
+.profile-main-card {
+  background: white;
+  border: 1px solid $border-color;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+
+  .profile-avatar-section {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid $border-color;
+
+    .avatar-wrapper {
+      position: relative;
+
+      .avatar-large {
+        width: 120px;
+        height: 120px;
+        background: linear-gradient(135deg, $primary-color, #a78bfa);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        font-weight: 700;
+      }
+
+      .avatar-change-btn {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 40px;
+        height: 40px;
+        background: white;
+        border: 2px solid $primary-color;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 1.5rem;
+        transition: all 0.3s;
+
+        &:hover {
+          background: $primary-color;
+          transform: scale(1.1);
+        }
+      }
+    }
+
+    .profile-basic-info {
+      h2 {
+        font-size: 2rem;
+        color: $text-dark;
+        margin: 0 0 0.5rem 0;
+      }
+
+      .role-badge {
+        display: inline-block;
+        padding: 0.25rem 1rem;
+        background: linear-gradient(135deg, $primary-color, #a78bfa);
+        color: white;
+        border-radius: 20px;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .join-date {
+        color: $text-light;
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  .profile-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+
+    .stat-item {
+      text-align: center;
+      padding: 1rem;
+      background: $bg-light;
+      border-radius: 8px;
+
+      .stat-icon {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: $text-dark;
+        margin-bottom: 0.25rem;
+      }
+
+      .stat-label {
+        font-size: 0.8rem;
+        color: $text-light;
+        text-transform: uppercase;
+      }
+    }
+  }
+}
+
+// Section formulaire
+.profile-form-section,
+.password-section {
+  background: white;
+  border: 1px solid $border-color;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: $text-dark;
+    margin: 0 0 1.5rem 0;
+  }
+
+  .section-header-with-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.25rem;
+
+    .form-label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: $text-dark;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid $border-color;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      transition: all 0.3s;
+
+      &:focus {
+        outline: none;
+        border-color: $primary-color;
+        box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+      }
+
+      &:disabled {
+        background: $bg-light;
+        color: $text-light;
+        cursor: not-allowed;
+      }
+    }
+
+    .form-hint {
+      display: block;
+      font-size: 0.8rem;
+      color: $text-light;
+      margin-top: 0.25rem;
+    }
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+}
+
+.password-form {
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Boutons
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &.btn-primary {
+    background: $primary-color;
+    color: white;
+
+    &:hover {
+      background: darken($primary-color, 10%);
+    }
+  }
+
+  &.btn-secondary {
+    background: $bg-light;
+    color: $text-dark;
+    border: 1px solid $border-color;
+
+    &:hover {
+      background: darken($bg-light, 5%);
+    }
+  }
+
+  &.btn-success {
+    background: $success-color;
+    color: white;
+
+    &:hover {
+      background: darken($success-color, 10%);
+    }
+  }
+
+  &.btn-block {
+    width: 100%;
+    margin-top: 1rem;
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 1rem;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .profile-avatar-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .profile-stats-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr !important;
+  }
+}

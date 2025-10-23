@@ -1,0 +1,686 @@
+// ===== FICHIER: user-create.component.scss =====
+// Styles pour la création/modification d'utilisateurs
+
+// ===== VARIABLES =====
+$primary: #6366f1;
+$primary-light: #818cf8;
+$accent: #8b5cf6;
+$success: #10b981;
+$danger: #ef4444;
+$dark-bg: #0a0e27;
+$card-bg: #1a1f3a;
+$text: #e2e8f0;
+$text-muted: #94a3b8;
+$border: #1e293b;
+
+// ===== CONTENEUR PRINCIPAL =====
+.user-create-container {
+  // Padding
+  padding: 2rem;
+  // Limite de largeur
+  max-width: 1400px;
+  // Centre
+  margin: 0 auto;
+  // Fond
+  background: $dark-bg;
+}
+
+// ===== ALERTES =====
+.alert {
+  // Padding
+  padding: 1rem 1.5rem;
+  // Coins arrondis
+  border-radius: 0.75rem;
+  // Espacement bas
+  margin-bottom: 1.5rem;
+  // Poids de police
+  font-weight: 500;
+  // Animation
+  animation: slideIn 0.3s ease-out;
+
+  // Succès
+  &.alert-success {
+    background: rgba($success, 0.1);
+    border: 1px solid rgba($success, 0.3);
+    color: $success;
+  }
+
+  // Erreur
+  &.alert-error {
+    background: rgba($danger, 0.1);
+    border: 1px solid rgba($danger, 0.3);
+    color: $danger;
+  }
+
+  // Info
+  &.alert-info {
+    background: rgba(#3b82f6, 0.1);
+    border: 1px solid rgba(#3b82f6, 0.3);
+    color: #3b82f6;
+  }
+}
+
+// Animation
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ===== EN-TÊTE =====
+.section-header {
+  // Flexbox
+  display: flex;
+  // Espacement
+  justify-content: space-between;
+  // Aligner
+  align-items: center;
+  // Espacement bas
+  margin-bottom: 2rem;
+
+  // Titre
+  h2 {
+    // Taille
+    font-size: 1.75rem;
+    // Poids
+    font-weight: 700;
+    // Couleur
+    color: $text;
+    // Pas de marge
+    margin: 0;
+  }
+}
+
+// ===== CONTENEUR FORMULAIRE =====
+.form-container {
+  // Fond
+  background: $card-bg;
+  // Bordure
+  border: 1px solid $border;
+  // Coins arrondis
+  border-radius: 1rem;
+  // Padding
+  padding: 2rem;
+  // Espacement bas
+  margin-bottom: 2rem;
+  // Transition
+  transition: all 0.3s;
+
+  // Au survol
+  &:hover {
+    border-color: $primary;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  // Formulaire
+  form {
+    // Flexbox colonne
+    display: flex;
+    flex-direction: column;
+    // Espacement
+    gap: 1.5rem;
+  }
+}
+
+// ===== GROUPE DE FORMULAIRE =====
+.form-group {
+  // Flexbox colonne
+  display: flex;
+  flex-direction: column;
+  // Espacement
+  gap: 0.5rem;
+}
+
+// Label
+.form-label {
+  // Poids
+  font-weight: 600;
+  // Couleur
+  color: $text;
+  // Taille
+  font-size: 0.95rem;
+}
+
+// Input et select
+.form-input {
+  // Padding
+  padding: 0.875rem 1rem;
+  // Fond
+  background: #060918;
+  // Bordure
+  border: 1px solid $border;
+  // Coins arrondis
+  border-radius: 0.5rem;
+  // Couleur
+  color: $text;
+  // Taille de police
+  font-size: 0.95rem;
+  // Transition
+  transition: all 0.3s;
+  // Font family
+  font-family: inherit;
+
+  // Placeholder
+  &::placeholder {
+    color: $text-muted;
+  }
+
+  // Focus
+  &:focus {
+    border-color: $primary;
+    box-shadow: 0 0 0 3px rgba($primary, 0.1);
+    outline: none;
+  }
+
+  // Erreur
+  &.input-error {
+    border-color: $danger;
+    box-shadow: 0 0 0 3px rgba($danger, 0.1);
+  }
+
+  // Options pour select
+  option {
+    background: $dark-bg;
+    color: $text;
+  }
+}
+
+// ===== TEXTE D'ERREUR =====
+.error-text {
+  // Couleur
+  color: $danger;
+  // Taille
+  font-size: 0.85rem;
+  // Margin négatif
+  margin-top: -0.25rem;
+}
+
+// Texte info
+.info-text {
+  // Couleur
+  color: $text-muted;
+  // Taille
+  font-size: 0.8rem;
+  // Style italic
+  font-style: italic;
+}
+
+// ===== SECTION AVATARS =====
+.avatar-section {
+  // Padding
+  padding: 1.5rem;
+  // Fond
+  background: rgba(0, 0, 0, 0.2);
+  // Coins arrondis
+  border-radius: 0.75rem;
+
+  // Label
+  .form-label {
+    margin-bottom: 1rem;
+  }
+}
+
+// Grille d'avatars
+.avatar-grid {
+  // Grille CSS
+  display: grid;
+  // Colonnes auto
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  // Espacement
+  gap: 0.75rem;
+}
+
+// Bouton avatar
+.avatar-btn {
+  // Taille
+  width: 100%;
+  aspect-ratio: 1;
+  // Fond
+  background: $card-bg;
+  // Bordure
+  border: 2px solid $border;
+  // Coins arrondis
+  border-radius: 0.5rem;
+  // Couleur texte
+  color: $text;
+  // Taille de police
+  font-size: 2rem;
+  // Cursor
+  cursor: pointer;
+  // Transition
+  transition: all 0.3s;
+
+  // Au survol
+  &:hover {
+    // Bordure
+    border-color: $primary;
+    // Transform
+    transform: scale(1.1);
+  }
+
+  // Quand sélectionné
+  &.selected {
+    // Fond
+    background: $primary;
+    // Bordure
+    border-color: $primary;
+    // Ombre
+    box-shadow: 0 0 15px rgba($primary, 0.5);
+  }
+}
+
+// ===== GRILLE 2 COLONNES =====
+.form-row {
+  // Grille
+  display: grid;
+  // 2 colonnes
+  grid-template-columns: repeat(2, 1fr);
+  // Espacement
+  gap: 1.5rem;
+}
+
+// ===== BOUTONS =====
+.btn {
+  // Padding
+  padding: 0.875rem 1.75rem;
+  // Bordure
+  border: none;
+  // Coins arrondis
+  border-radius: 0.75rem;
+  // Poids
+  font-weight: 600;
+  // Cursor
+  cursor: pointer;
+  // Transition
+  transition: all 0.3s;
+  // Taille
+  font-size: 0.95rem;
+
+  // Survol
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  // Désactivé
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  // Primaire
+  &.btn-primary {
+    background: $primary;
+    color: white;
+
+    &:hover:not(:disabled) {
+      background: $primary-light;
+      box-shadow: 0 8px 20px rgba($primary, 0.3);
+    }
+  }
+
+  // Secondaire
+  &.btn-secondary {
+    background: $card-bg;
+    color: $text;
+    border: 1px solid $border;
+
+    &:hover:not(:disabled) {
+      background: rgba($text, 0.05);
+      border-color: $primary;
+    }
+  }
+
+  // Danger
+  &.btn-danger {
+    background: rgba($danger, 0.1);
+    color: $danger;
+    border: 1px solid rgba($danger, 0.2);
+
+    &:hover:not(:disabled) {
+      background: rgba($danger, 0.2);
+      box-shadow: 0 8px 15px rgba($danger, 0.2);
+    }
+  }
+
+  // Petit
+  &.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+}
+
+// ===== ACTIONS FORMULAIRE =====
+.form-actions {
+  // Flexbox
+  display: flex;
+  // Espacement
+  gap: 1rem;
+  // Alignement
+  justify-content: flex-end;
+  // Margin top
+  margin-top: 1.5rem;
+  // Padding top
+  padding-top: 1.5rem;
+  // Bordure top
+  border-top: 1px solid $border;
+}
+
+// ===== CONTENEUR LISTE =====
+.users-list-container {
+  // Titre h3
+  h3 {
+    // Taille
+    font-size: 1.5rem;
+    // Poids
+    font-weight: 700;
+    // Couleur
+    color: $text;
+    // Espacement bas
+    margin-bottom: 1.5rem;
+    // Pas de marge haut
+    margin-top: 0;
+  }
+}
+
+// ===== GRILLE CARTES =====
+.users-cards {
+  // Grille CSS
+  display: grid;
+  // Colonnes auto-fill
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  // Espacement
+  gap: 1.5rem;
+}
+
+// ===== CARTE UTILISATEUR =====
+.user-card {
+  // Fond
+  background: $card-bg;
+  // Bordure
+  border: 1px solid $border;
+  // Coins arrondis
+  border-radius: 1rem;
+  // Padding
+  padding: 1.5rem;
+  // Transition
+  transition: all 0.3s;
+
+  // Survol
+  &:hover {
+    transform: translateY(-5px);
+    border-color: $primary;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+}
+
+// En-tête carte
+.user-card-header {
+  // Flexbox
+  display: flex;
+  // Espacement
+  justify-content: space-between;
+  // Aligner
+  align-items: flex-start;
+  // Espacement bas
+  margin-bottom: 1.5rem;
+  // Padding bas
+  padding-bottom: 1.5rem;
+  // Bordure bas
+  border-bottom: 1px solid $border;
+}
+
+// Info utilisateur
+.user-info {
+  // Flexbox
+  display: flex;
+  // Espacement
+  gap: 1rem;
+  // Aligner
+  align-items: center;
+
+  // Titre h4
+  h4 {
+    // Taille
+    font-size: 1.1rem;
+    // Poids
+    font-weight: 700;
+    // Couleur
+    color: $text;
+    // Pas de marge
+    margin: 0;
+  }
+}
+
+// Avatar grand
+.avatar-large {
+  // Taille
+  width: 50px;
+  height: 50px;
+  // Cercle
+  border-radius: 50%;
+  // Fond dégradé
+  background: linear-gradient(135deg, $primary, $accent);
+  // Flexbox
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // Taille de police
+  font-size: 1.5rem;
+  // Flex shrink
+  flex-shrink: 0;
+}
+
+// Badge rôle
+.role-badge {
+  // Couleur
+  color: $text-muted;
+  // Taille
+  font-size: 0.85rem;
+  // Pas de marge
+  margin: 0;
+}
+
+// Badge statut
+.status-badge {
+  // Padding
+  padding: 0.4rem 0.8rem;
+  // Coins arrondis
+  border-radius: 0.5rem;
+  // Taille
+  font-size: 0.85rem;
+  // Poids
+  font-weight: 600;
+  // Display
+  display: inline-block;
+
+  // Actif
+  &.status-active {
+    background: rgba($success, 0.15);
+    color: $success;
+  }
+
+  // Inactif
+  &.status-inactive {
+    background: rgba(#64748b, 0.15);
+    color: #cbd5e1;
+  }
+
+  // En congé
+  &.status-on-leave {
+    background: rgba(#f59e0b, 0.15);
+    color: #fbbf24;
+  }
+}
+
+// Détails carte
+.user-card-details {
+  // Flexbox colonne
+  display: flex;
+  flex-direction: column;
+  // Espacement
+  gap: 0.75rem;
+  // Espacement bas
+  margin-bottom: 1.5rem;
+}
+
+// Ligne détail
+.detail {
+  // Flexbox
+  display: flex;
+  // Espacement
+  justify-content: space-between;
+  // Aligner
+  align-items: center;
+  // Taille
+  font-size: 0.9rem;
+
+  // Label
+  .label {
+    // Poids
+    font-weight: 600;
+    // Couleur
+    color: $text-muted;
+  }
+}
+
+// Actions carte
+.user-card-actions {
+  // Flexbox
+  display: flex;
+  // Espacement
+  gap: 0.5rem;
+  // Padding top
+  padding-top: 1rem;
+  // Bordure top
+  border-top: 1px solid $border;
+}
+
+// ===== ÉTAT VIDE =====
+.empty-state {
+  // Couvre toutes colonnes
+  grid-column: 1 / -1;
+  // Centrer
+  text-align: center;
+  // Padding
+  padding: 3rem 2rem;
+  // Couleur
+  color: $text-muted;
+
+  // Paragraphe
+  p {
+    // Taille
+    font-size: 1.1rem;
+    // Pas de marge
+    margin: 0;
+  }
+}
+
+// ===== RESPONSIVE =====
+@media (max-width: 1024px) {
+  // Grille 2 colonnes
+  .users-cards {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  // Container
+  .user-create-container {
+    padding: 1rem;
+  }
+
+  // En-tête
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
+
+  // Grille formulaire
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  // Grille cartes
+  .users-cards {
+    grid-template-columns: 1fr;
+  }
+
+  // Formulaire
+  .form-container {
+    padding: 1.5rem;
+  }
+
+  // Boutons
+  .form-actions {
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+
+    .btn {
+      width: 100%;
+    }
+  }
+
+  // Avatar grid
+  .avatar-grid {
+    grid-template-columns: repeat(auto-fit, minmax(45px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  // Container
+  .user-create-container {
+    padding: 0.5rem;
+  }
+
+  // Titre
+  .section-header h2 {
+    font-size: 1.25rem;
+  }
+
+  // Carte compacte
+  .user-card {
+    padding: 1rem;
+  }
+
+  // Header carte
+  .user-card-header {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  // Avatar
+  .avatar-large {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  // Actions empilées
+  .user-card-actions {
+    flex-direction: column;
+
+    .btn-sm {
+      width: 100%;
+    }
+  }
+
+  // Avatar grid
+  .avatar-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .avatar-btn {
+    font-size: 1.5rem;
+  }
+}

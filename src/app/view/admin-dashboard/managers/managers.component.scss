@@ -1,0 +1,274 @@
+/* ==========================================
+   STYLES SCSS
+   ========================================== */
+
+$primary-color: #8b5cf6;
+$success-color: #10b981;
+$info-color: #3b82f6;
+$warning-color: #f59e0b;
+$danger-color: #ef4444;
+$text-dark: #1f2937;
+$text-light: #6b7280;
+$bg-light: #f9fafb;
+$border-color: #e5e7eb;
+$shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+.managers-container {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  background: white;
+  min-height: 100vh;
+}
+
+// Grille des managers
+.managers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+
+  .manager-card {
+    background: white;
+    border: 1px solid $border-color;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: $shadow;
+    transition: all 0.3s;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    // En-tête manager
+    .manager-header {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
+
+      .manager-avatar-large {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, $primary-color, #a78bfa);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+
+      .manager-info {
+        flex: 1;
+
+        .manager-name {
+          font-size: 1.25rem;
+          font-weight: 700;
+          color: $text-dark;
+          margin: 0 0 0.25rem 0;
+        }
+
+        .manager-role {
+          font-size: 0.9rem;
+          color: $text-light;
+          margin: 0 0 0.25rem 0;
+        }
+
+        .manager-cave {
+          font-size: 0.85rem;
+          color: $primary-color;
+          margin: 0;
+        }
+      }
+    }
+
+    // Performances
+    .manager-performance {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background: $bg-light;
+      border-radius: 8px;
+
+      .performance-item {
+        text-align: center;
+
+        .performance-icon {
+          font-size: 1.5rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .performance-value {
+          font-size: 1.1rem;
+          font-weight: 700;
+          color: $text-dark;
+          margin-bottom: 0.25rem;
+        }
+
+        .performance-label {
+          font-size: 0.75rem;
+          color: $text-light;
+          text-transform: uppercase;
+        }
+      }
+    }
+
+    // Bouton toggle employés
+    .toggle-employees-btn {
+      width: 100%;
+      padding: 0.75rem;
+      background: $bg-light;
+      border: 1px solid $border-color;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      color: $text-dark;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s;
+      margin-bottom: 1rem;
+
+      &:hover {
+        background: darken($bg-light, 3%);
+      }
+
+      .toggle-icon {
+        font-size: 0.9rem;
+        color: $primary-color;
+      }
+    }
+
+    // Liste des employés
+    .employees-list {
+      margin-bottom: 1rem;
+      padding: 1rem;
+      background: $bg-light;
+      border-radius: 8px;
+      max-height: 300px;
+      overflow-y: auto;
+
+      .employee-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.75rem;
+        background: white;
+        border-radius: 8px;
+        margin-bottom: 0.5rem;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        .employee-avatar {
+          width: 40px;
+          height: 40px;
+          background: linear-gradient(135deg, $info-color, #60a5fa);
+          color: white;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 700;
+          flex-shrink: 0;
+        }
+
+        .employee-info {
+          flex: 1;
+
+          .employee-name {
+            font-weight: 600;
+            color: $text-dark;
+            font-size: 0.95rem;
+          }
+
+          .employee-position {
+            font-size: 0.8rem;
+            color: $text-light;
+          }
+        }
+
+        .employee-stats {
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+          font-size: 0.8rem;
+          color: $text-light;
+        }
+      }
+    }
+
+    // Actions
+    .manager-actions {
+      display: flex;
+      gap: 0.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid $border-color;
+
+      .btn-sm {
+        flex: 1;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.85rem;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s;
+
+        &.btn-secondary {
+          background: $bg-light;
+          color: $text-dark;
+
+          &:hover {
+            background: darken($bg-light, 5%);
+          }
+        }
+
+        &.btn-info {
+          background: $info-color;
+          color: white;
+
+          &:hover {
+            background: darken($info-color, 10%);
+          }
+        }
+
+        &.btn-danger {
+          background: $danger-color;
+          color: white;
+
+          &:hover {
+            background: darken($danger-color, 10%);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .managers-container {
+    padding: 1rem;
+  }
+
+  .managers-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .manager-performance {
+    grid-template-columns: 1fr !important;
+  }
+
+  .manager-actions {
+    flex-direction: column;
+  }
+}

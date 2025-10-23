@@ -1,0 +1,45 @@
+/* ==========================================
+   FICHIER: src/app/features/exits/exits.component.scss
+   Styles identiques à entries.component.scss avec ajouts:
+   ========================================== */
+
+
+// Badges de type de sortie
+.type-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  &.type-sale {
+    background: #d1fae5;
+    color: #065f46;
+  }
+
+  &.type-transfer {
+    background: #dbeafe;
+    color: #1e40af;
+  }
+
+  &.type-loss {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+}
+
+// Affichage montant total
+.total-amount-display {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+
+  .total-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #065f46;
+  }
+}

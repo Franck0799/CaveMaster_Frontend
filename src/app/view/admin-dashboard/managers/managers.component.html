@@ -1,0 +1,193 @@
+/* ==========================================
+   TEMPLATE HTML
+   ========================================== */
+
+<div class="managers-container">
+
+  <!-- EN-TÊTE -->
+  <header class="page-header">
+    <div class="header-content">
+      <h1 class="page-title">👥 Mes Managers</h1>
+      <p class="page-subtitle">
+        Gérez vos managers et leurs équipes - {{ managers.length }} manager(s)
+      </p>
+    </div>
+    <button class="btn btn-primary" (click)="openAddModal()">
+      ➕ Ajouter un manager
+    </button>
+  </header>
+
+  <!-- STATISTIQUES -->
+  <section class="stats-section">
+    <div class="stat-card stat-primary">
+      <div class="stat-icon">👥</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ stats.totalManagers }}</div>
+        <div class="stat-label">Managers actifs</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-success">
+      <div class="stat-icon">👨‍💼</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ stats.totalTeamMembers }}</div>
+        <div class="stat-label">Total employés</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-info">
+      <div class="stat-icon">📊</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ stats.avgTeamSize }}</div>
+        <div class="stat-label">Taille moyenne équipe</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-warning">
+      <div class="stat-icon">⭐</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ stats.topPerformer || 'N/A' }}</div>
+        <div class="stat-label">Meilleur performeur</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHARGEMENT -->
+  <div *ngIf="isLoading" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Chargement des managers...</p>
+  </div>
+
+  <!-- LISTE DES MANAGERS -->
+  <section *ngIf="!isLoading" class="managers-grid">
+    <article *ngFor="let manager of managers" class="manager-card">
+      <!-- En-tête manager -->
+      <div class="manager-header">
+        <div class="manager-avatar-large">{{ manager.avatar }}</div>
+        <div class="manager-info">
+          <h3 class="manager-name">{{ manager.name }}</h3>
+          <p class="manager-role">{{ manager.role }}</p>
+          <p class="manager-cave">📍 {{ getCaveName(manager.caveId) }}</p>
+        </div>
+      </div>
+
+      <!-- Performances -->
+      <div class="manager-performance">
+        <div class="performance-item">
+          <div class="performance-icon">💰</div>
+          <div class="performance-value">{{ manager.performance.ventes }}</div>
+          <div class="performance-label">Ventes</div>
+        </div>
+        <div class="performance-item">
+          <div class="performance-icon">👥</div>
+          <div class="performance-value">{{ manager.performance.equipe }}</div>
+          <div class="performance-label">Équipe</div>
+        </div>
+        <div class="performance-item">
+          <div class="performance-icon">⭐</div>
+          <div class="performance-value">{{ manager.performance.satisfaction }}</div>
+          <div class="performance-label">Satisfaction</div>
+        </div>
+      </div>
+
+      <!-- Toggle employés -->
+      <button class="toggle-employees-btn" (click)="toggleEmployees(manager)">
+        👥 Employés ({{ manager.employees.length }})
+        <span class="toggle-icon">{{ manager.showEmployees ? '▲' : '▼' }}</span>
+      </button>
+
+      <!-- Liste employés -->
+      <div *ngIf="manager.showEmployees" class="employees-list">
+        <div *ngFor="let employee of manager.employees" class="employee-item">
+          <div class="employee-avatar">{{ employee.avatar }}</div>
+          <div class="employee-info">
+            <div class="employee-name">{{ employee.name }}</div>
+            <div class="employee-position">{{ employee.position }}</div>
+          </div>
+          <div class="employee-stats">
+            <span>💰 {{ employee.ventes }}</span>
+            <span>⏱️ {{ employee.heures }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="manager-actions">
+        <button class="btn btn-sm btn-secondary">✏️ Modifier</button>
+        <button class="btn btn-sm btn-info">📊 Statistiques</button>
+        <button class="btn btn-sm btn-danger" (click)="deleteManager(manager)">
+          🗑️ Supprimer
+        </button>
+      </div>
+    </article>
+  </section>
+
+  <!-- MODAL AJOUT MANAGER -->
+  <div *ngIf="isAddModalOpen" class="modal-overlay" (click)="closeAddModal()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+      <header class="modal-header">
+        <h2 class="modal-title">➕ Ajouter un Manager</h2>
+        <button class="modal-close-btn" (click)="closeAddModal()">✕</button>
+      </header>
+
+      <div class="modal-body">
+        <form class="manager-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Prénom <span class="required">*</span></label>
+              <input type="text" class="form-input" [(ngModel)]="managerForm.firstName"
+                     name="firstName" placeholder="Jean" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Nom <span class="required">*</span></label>
+              <input type="text" class="form-input" [(ngModel)]="managerForm.lastName"
+                     name="lastName" placeholder="Kouassi" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Email <span class="required">*</span></label>
+            <input type="email" class="form-input" [(ngModel)]="managerForm.email"
+                   name="email" placeholder="jean.kouassi@drinkstore.com" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Téléphone</label>
+            <input type="tel" class="form-input" [(ngModel)]="managerForm.phone"
+                   name="phone" placeholder="+234 801 234 5678">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Cave d'affectation <span class="required">*</span></label>
+            <select class="form-input" [(ngModel)]="managerForm.caveId" name="caveId" required>
+              <option value="">Sélectionner une cave...</option>
+              <option *ngFor="let cave of caves" [value]="cave.id">
+                {{ cave.name }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Rôle <span class="required">*</span></label>
+            <select class="form-input" [(ngModel)]="managerForm.role" name="role" required>
+              <option value="Manager">Manager</option>
+              <option value="Manager Principal">Manager Principal</option>
+              <option value="Manager Adjoint">Manager Adjoint</option>
+              <option value="Manager Nuit">Manager Nuit</option>
+            </select>
+          </div>
+        </form>
+      </div>
+
+      <footer class="modal-footer">
+        <button class="btn btn-cancel" (click)="closeAddModal()">Annuler</button>
+        <button class="btn btn-primary" (click)="saveManager()">
+          💾 Ajouter le manager
+        </button>
+      </footer>
+    </div>
+  </div>
+
+</div>
+*/
+

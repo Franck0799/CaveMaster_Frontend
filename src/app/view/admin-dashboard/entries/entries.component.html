@@ -1,0 +1,355 @@
+<!-- ========================================
+FICHIER: src/app/features/entries/entries.component.html
+DESCRIPTION: Template pour la gestion des entrées de stock
+======================================== -->
+
+<div class="entries-container">
+
+  <!-- ===== EN-TÊTE ===== -->
+  <header class="page-header">
+    <div class="header-content">
+      <h1 class="page-title">📥 Mes Entrées de Stock</h1>
+      <p class="page-subtitle">
+        Gérez les réceptions de marchandises - {{ filteredEntries.length }} entrée(s) affichée(s)
+      </p>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-secondary" (click)="exportToCSV()" title="Exporter en CSV">
+        📊 Exporter
+      </button>
+      <button class="btn btn-primary" (click)="openAddModal()">
+        ➕ Nouvelle entrée
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== STATISTIQUES RAPIDES ===== -->
+  <section class="stats-section">
+    <div class="stat-card stat-primary">
+      <div class="stat-icon">📦</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ stats.totalEntries }}</div>
+        <div class="stat-label">Entrées totales</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-success">
+      <div class="stat-icon">📈</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ formatNumber(stats.totalQuantity) }}</div>
+        <div class="stat-label">Unités reçues</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-warning">
+      <div class="stat-icon">💰</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ formatNumber(stats.totalCost) }} FCFA</div>
+        <div class="stat-label">Coût total</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-info">
+      <div class="stat-icon">🕐</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ stats.recentEntries }}</div>
+        <div class="stat-label">Entrées (7 derniers jours)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FILTRES ===== -->
+  <section class="filters-section">
+    <!-- Recherche -->
+    <div class="search-box">
+      <input
+        type="text"
+        class="search-input"
+        placeholder="🔍 Rechercher une entrée..."
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="onSearchChange($event)">
+      <button
+        *ngIf="searchTerm"
+        class="clear-btn"
+        (click)="searchTerm = ''; onSearchChange('')">
+        ✕
+      </button>
+    </div>
+
+    <!-- Filtre par cave -->
+    <div class="filter-group">
+      <label class="filter-label">Cave :</label>
+      <select
+        class="filter-select"
+        [(ngModel)]="selectedCaveFilter"
+        (ngModelChange)="onCaveFilterChange($event)">
+        <option [ngValue]="null">Toutes les caves</option>
+        <option *ngFor="let cave of caves" [ngValue]="cave.id">
+          {{ cave.name }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Filtre par période -->
+    <div class="filter-group">
+      <label class="filter-label">Période :</label>
+      <select
+        class="filter-select"
+        [(ngModel)]="periodFilter"
+        (ngModelChange)="onPeriodFilterChange($event)">
+        <option [value]="7">7 derniers jours</option>
+        <option [value]="30">30 derniers jours</option>
+        <option [value]="90">3 derniers mois</option>
+        <option [value]="365">Cette année</option>
+        <option [value]="0">Toutes les entrées</option>
+      </select>
+    </div>
+
+    <!-- Bouton de réinitialisation -->
+    <button
+      class="btn btn-secondary"
+      (click)="resetFilters()"
+      *ngIf="selectedCaveFilter || searchTerm || periodFilter !== 30">
+      🔄 Réinitialiser
+    </button>
+  </section>
+
+  <!-- ===== CHARGEMENT ===== -->
+  <div *ngIf="isLoading" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Chargement des entrées...</p>
+  </div>
+
+  <!-- ===== AUCUN RÉSULTAT ===== -->
+  <div *ngIf="!isLoading && filteredEntries.length === 0" class="no-results">
+    <div class="no-results-icon">📦</div>
+    <h3>Aucune entrée trouvée</h3>
+    <p *ngIf="searchTerm || selectedCaveFilter">
+      Aucune entrée ne correspond à vos critères
+    </p>
+    <p *ngIf="!searchTerm && !selectedCaveFilter">
+      Commencez par enregistrer votre première entrée de stock
+    </p>
+    <button class="btn btn-primary" (click)="openAddModal()">
+      ➕ Nouvelle entrée
+    </button>
+  </div>
+
+  <!-- ===== TABLEAU DES ENTRÉES ===== -->
+  <section *ngIf="!isLoading && filteredEntries.length > 0" class="entries-table">
+    <div class="table-wrapper">
+      <table class="data-table">
+        <!-- En-têtes du tableau -->
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Boisson</th>
+            <th>Cave</th>
+            <th class="text-center">Quantité</th>
+            <th class="text-right">Prix Unitaire</th>
+            <th class="text-right">Coût Total</th>
+            <th>Fournisseur</th>
+            <th class="text-center">Actions</th>
+          </tr>
+        </thead>
+
+        <!-- Corps du tableau -->
+        <tbody>
+          <tr *ngFor="let entry of filteredEntries" class="table-row">
+            <!-- Date -->
+            <td class="date-cell">
+              <div class="date-main">{{ formatDate(entry.date) }}</div>
+              <div class="date-relative">{{ getRelativeDate(entry.date) }}</div>
+            </td>
+
+            <!-- Boisson -->
+            <td class="drink-cell">
+              <div class="drink-name">{{ entry.drinkName }}</div>
+            </td>
+
+            <!-- Cave -->
+            <td class="cave-cell">
+              <span class="cave-badge">
+                📍 {{ getCaveName(entry.caveId) }}
+              </span>
+            </td>
+
+            <!-- Quantité -->
+            <td class="text-center quantity-cell">
+              <span class="quantity-badge">
+                {{ entry.quantity }} unités
+              </span>
+            </td>
+
+            <!-- Prix unitaire -->
+            <td class="text-right price-cell">
+              {{ formatNumber(entry.unitPrice) }} FCFA
+            </td>
+
+            <!-- Coût total -->
+            <td class="text-right total-cell">
+              <strong>{{ formatNumber(entry.totalCost) }} FCFA</strong>
+            </td>
+
+            <!-- Fournisseur -->
+            <td class="supplier-cell">
+              {{ entry.supplier || '—' }}
+            </td>
+
+            <!-- Actions -->
+            <td class="text-center actions-cell">
+              <button
+                class="btn-icon"
+                title="Voir les détails"
+                (click)="viewEntryDetails(entry)">
+                👁️
+              </button>
+              <button
+                class="btn-icon btn-danger"
+                title="Supprimer"
+                (click)="deleteEntry(entry)">
+                🗑️
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== MODAL AJOUT D'ENTRÉE ===== -->
+  <div *ngIf="isAddModalOpen" class="modal-overlay" (click)="closeAddModal()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+
+      <!-- En-tête -->
+      <header class="modal-header">
+        <h2 class="modal-title">➕ Nouvelle Entrée de Stock</h2>
+        <button class="modal-close-btn" (click)="closeAddModal()">✕</button>
+      </header>
+
+      <!-- Corps -->
+      <div class="modal-body">
+        <form class="entry-form">
+
+          <!-- Sélection de la boisson -->
+          <div class="form-group">
+            <label class="form-label" for="entry-drink">
+              Boisson <span class="required">*</span>
+            </label>
+            <select
+              id="entry-drink"
+              class="form-input"
+              [(ngModel)]="entryForm.drinkId"
+              name="drinkId"
+              required>
+              <option value="">Sélectionner une boisson...</option>
+              <option *ngFor="let drink of drinks" [value]="drink.id">
+                {{ drink.icon }} {{ drink.name }} - Stock actuel: {{ drink.stock }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Sélection de la cave -->
+          <div class="form-group">
+            <label class="form-label" for="entry-cave">
+              Cave de destination <span class="required">*</span>
+            </label>
+            <select
+              id="entry-cave"
+              class="form-input"
+              [(ngModel)]="entryForm.caveId"
+              name="caveId"
+              required>
+              <option value="">Sélectionner une cave...</option>
+              <option *ngFor="let cave of caves" [value]="cave.id">
+                📍 {{ cave.name }} - {{ cave.location }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Ligne : Quantité et Prix unitaire -->
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="entry-quantity">
+                Quantité <span class="required">*</span>
+              </label>
+              <input
+                type="number"
+                id="entry-quantity"
+                class="form-input"
+                [(ngModel)]="entryForm.quantity"
+                name="quantity"
+                min="1"
+                placeholder="Ex: 50"
+                required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="entry-price">
+                Prix unitaire (FCFA) <span class="required">*</span>
+              </label>
+              <input
+                type="number"
+                id="entry-price"
+                class="form-input"
+                [(ngModel)]="entryForm.unitPrice"
+                name="unitPrice"
+                min="0"
+                placeholder="Ex: 2500"
+                required>
+            </div>
+          </div>
+
+          <!-- Coût total calculé -->
+          <div class="total-cost-display">
+            <span class="total-label">Coût total :</span>
+            <span class="total-value">
+              {{ formatNumber(calculateTotalCost()) }} FCFA
+            </span>
+          </div>
+
+          <!-- Fournisseur -->
+          <div class="form-group">
+            <label class="form-label" for="entry-supplier">
+              Fournisseur
+            </label>
+            <input
+              type="text"
+              id="entry-supplier"
+              class="form-input"
+              [(ngModel)]="entryForm.supplier"
+              name="supplier"
+              placeholder="Ex: Distributeur ABC">
+          </div>
+
+          <!-- Notes -->
+          <div class="form-group">
+            <label class="form-label" for="entry-notes">
+              Notes ou commentaires
+            </label>
+            <textarea
+              id="entry-notes"
+              class="form-textarea"
+              [(ngModel)]="entryForm.notes"
+              name="notes"
+              rows="3"
+              placeholder="Ajoutez des notes sur cette réception..."></textarea>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- Pied -->
+      <footer class="modal-footer">
+        <button class="btn btn-cancel" (click)="closeAddModal()">
+          Annuler
+        </button>
+        <button class="btn btn-primary" (click)="saveEntry()">
+          💾 Enregistrer l'entrée
+        </button>
+      </footer>
+
+    </div>
+  </div>
+
+</div>

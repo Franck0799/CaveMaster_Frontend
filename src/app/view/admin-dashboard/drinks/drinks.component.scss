@@ -1,0 +1,637 @@
+// ==========================================
+// FICHIER: src/app/features/drinks/drinks.component.scss
+// DESCRIPTION: Styles pour le composant de gestion des boissons
+// ==========================================
+
+// ===== VARIABLES =====
+$primary-color: #8b5cf6;      // Violet principal
+$secondary-color: #6366f1;    // Bleu secondaire
+$success-color: #10b981;      // Vert pour succès
+$warning-color: #f59e0b;      // Orange pour avertissement
+$danger-color: #ef4444;       // Rouge pour danger
+$text-dark: #1f2937;          // Texte sombre
+$text-light: #6b7280;         // Texte clair
+$bg-light: #f9fafb;           // Fond clair
+$border-color: #e5e7eb;       // Couleur des bordures
+$shadow: 0 1px 3px rgba(0, 0, 0, 0.1);  // Ombre légère
+$shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.15);  // Ombre au survol
+
+// ===== CONTENEUR PRINCIPAL =====
+.drinks-container {
+  padding: 2rem;                // Espacement interne
+  max-width: 1400px;            // Largeur maximale
+  margin: 0 auto;               // Centrage horizontal
+  background: white;            // Fond blanc
+  min-height: 100vh;            // Hauteur minimale plein écran
+}
+
+// ===== EN-TÊTE DE LA PAGE =====
+.page-header {
+  display: flex;                // Flexbox pour alignement
+  justify-content: space-between;  // Espacement entre éléments
+  align-items: center;          // Alignement vertical centré
+  margin-bottom: 2rem;          // Marge en bas
+  padding-bottom: 1.5rem;       // Padding en bas
+  border-bottom: 2px solid $border-color;  // Bordure inférieure
+
+  .header-content {
+    .page-title {
+      font-size: 2rem;          // Taille grande pour le titre
+      font-weight: 700;         // Gras
+      color: $text-dark;        // Couleur sombre
+      margin: 0 0 0.5rem 0;     // Marges
+    }
+
+    .page-subtitle {
+      font-size: 0.95rem;       // Taille légèrement réduite
+      color: $text-light;       // Couleur claire
+      margin: 0;                // Pas de marge
+    }
+  }
+}
+
+// ===== SECTION FILTRES =====
+.filters-section {
+  display: flex;                // Flexbox
+  gap: 1rem;                    // Espacement entre éléments
+  align-items: center;          // Alignement vertical
+  flex-wrap: wrap;              // Retour à la ligne si nécessaire
+  padding: 1.5rem;              // Padding
+  background: $bg-light;        // Fond clair
+  border-radius: 8px;           // Coins arrondis
+  margin-bottom: 2rem;          // Marge en bas
+
+  // Barre de recherche
+  .search-box {
+    position: relative;         // Position relative pour le bouton clear
+    flex: 1;                    // Prend l'espace disponible
+    min-width: 250px;           // Largeur minimale
+
+    .search-input {
+      width: 100%;              // Largeur totale
+      padding: 0.75rem 2.5rem 0.75rem 1rem;  // Padding avec espace pour bouton
+      border: 1px solid $border-color;  // Bordure
+      border-radius: 6px;       // Coins arrondis
+      font-size: 0.95rem;       // Taille de police
+      transition: all 0.3s;     // Transition douce
+
+      &:focus {
+        outline: none;          // Pas de contour par défaut
+        border-color: $primary-color;  // Bordure colorée au focus
+        box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);  // Ombre colorée
+      }
+    }
+
+    // Bouton pour effacer la recherche
+    .clear-search-btn {
+      position: absolute;       // Position absolue dans le conteneur
+      right: 0.5rem;            // Position à droite
+      top: 50%;                 // Centre vertical
+      transform: translateY(-50%);  // Ajustement du centrage
+      background: none;         // Pas de fond
+      border: none;             // Pas de bordure
+      color: $text-light;       // Couleur du texte
+      cursor: pointer;          // Curseur pointeur
+      font-size: 1.2rem;        // Taille de l'icône
+      padding: 0.25rem 0.5rem;  // Padding
+
+      &:hover {
+        color: $danger-color;   // Couleur au survol
+      }
+    }
+  }
+
+  // Filtre de catégorie
+  .category-filter {
+    display: flex;              // Flexbox
+    align-items: center;        // Alignement vertical
+    gap: 0.5rem;                // Espacement
+
+    .filter-label {
+      font-size: 0.9rem;        // Taille réduite
+      font-weight: 600;         // Semi-gras
+      color: $text-dark;        // Couleur sombre
+    }
+
+    .category-select {
+      padding: 0.75rem 1rem;    // Padding
+      border: 1px solid $border-color;  // Bordure
+      border-radius: 6px;       // Coins arrondis
+      font-size: 0.95rem;       // Taille de police
+      min-width: 200px;         // Largeur minimale
+      cursor: pointer;          // Curseur pointeur
+      background: white;        // Fond blanc
+
+      &:focus {
+        outline: none;          // Pas de contour
+        border-color: $primary-color;  // Bordure colorée
+      }
+    }
+  }
+
+  // Options de tri
+  .sort-options {
+    display: flex;              // Flexbox
+    align-items: center;        // Alignement vertical
+    gap: 0.5rem;                // Espacement
+
+    .filter-label {
+      font-size: 0.9rem;        // Taille
+      font-weight: 600;         // Semi-gras
+      color: $text-dark;        // Couleur
+    }
+
+    .sort-buttons {
+      display: flex;            // Flexbox
+      gap: 0.5rem;              // Espacement entre boutons
+
+      .sort-btn {
+        padding: 0.5rem 1rem;   // Padding
+        border: 1px solid $border-color;  // Bordure
+        background: white;      // Fond blanc
+        border-radius: 6px;     // Coins arrondis
+        cursor: pointer;        // Curseur pointeur
+        font-size: 0.9rem;      // Taille
+        transition: all 0.3s;   // Transition
+
+        &:hover {
+          background: $bg-light;  // Fond au survol
+        }
+
+        &.active {
+          background: $primary-color;  // Fond violet quand actif
+          color: white;         // Texte blanc
+          border-color: $primary-color;  // Bordure violette
+        }
+      }
+    }
+  }
+}
+
+// ===== INDICATEUR DE CHARGEMENT =====
+.loading-spinner {
+  display: flex;                // Flexbox
+  flex-direction: column;       // Colonne
+  align-items: center;          // Centrage horizontal
+  justify-content: center;      // Centrage vertical
+  padding: 4rem 0;              // Padding vertical
+
+  .spinner {
+    width: 50px;                // Largeur
+    height: 50px;               // Hauteur
+    border: 4px solid $bg-light;  // Bordure claire
+    border-top-color: $primary-color;  // Bordure supérieure colorée
+    border-radius: 50%;         // Cercle
+    animation: spin 1s linear infinite;  // Animation de rotation
+  }
+
+  p {
+    margin-top: 1rem;           // Marge supérieure
+    color: $text-light;         // Couleur claire
+    font-size: 0.95rem;         // Taille
+  }
+}
+
+// Animation de rotation pour le spinner
+@keyframes spin {
+  to {
+    transform: rotate(360deg);  // Rotation complète
+  }
+}
+
+// ===== MESSAGE AUCUN RÉSULTAT =====
+.no-results {
+  text-align: center;           // Texte centré
+  padding: 4rem 2rem;           // Padding généreux
+  color: $text-light;           // Couleur claire
+
+  .no-results-icon {
+    font-size: 4rem;            // Grande icône
+    margin-bottom: 1rem;        // Marge en bas
+  }
+
+  h3 {
+    font-size: 1.5rem;          // Taille titre
+    color: $text-dark;          // Couleur sombre
+    margin-bottom: 0.5rem;      // Marge
+  }
+
+  p {
+    margin-bottom: 1.5rem;      // Marge
+    font-size: 1rem;            // Taille normale
+  }
+}
+
+// ===== GRILLE DES BOISSONS =====
+.drinks-grid {
+  display: grid;                // Grid layout
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));  // Colonnes responsive
+  gap: 1.5rem;                  // Espacement entre cartes
+  margin-bottom: 2rem;          // Marge en bas
+
+  // Carte individuelle de boisson
+  .drink-card {
+    position: relative;         // Position relative pour badges absolus
+    background: white;          // Fond blanc
+    border: 1px solid $border-color;  // Bordure
+    border-radius: 12px;        // Coins arrondis
+    padding: 1.5rem;            // Padding
+    transition: all 0.3s;       // Transition douce
+    box-shadow: $shadow;        // Ombre légère
+
+    &:hover {
+      transform: translateY(-4px);  // Soulève au survol
+      box-shadow: $shadow-hover;    // Ombre plus prononcée
+    }
+
+    // Stock critique - bordure rouge
+    &.critical-stock {
+      border-color: $danger-color;  // Bordure rouge
+      border-width: 2px;            // Bordure plus épaisse
+    }
+
+    // Badge HOT/NEW
+    .drink-badge {
+      position: absolute;       // Position absolue
+      top: 1rem;                // Position en haut
+      right: 1rem;              // Position à droite
+      padding: 0.25rem 0.75rem; // Padding
+      border-radius: 20px;      // Coins très arrondis
+      font-size: 0.75rem;       // Petite taille
+      font-weight: 700;         // Gras
+      color: white;             // Texte blanc
+
+      &.badge-hot {
+        background: linear-gradient(135deg, #ff6b6b, #ee5a6f);  // Dégradé rouge
+      }
+
+      &.badge-new {
+        background: linear-gradient(135deg, #4ecdc4, #44a08d);  // Dégradé vert
+      }
+    }
+
+    // Badge d'alerte stock
+    .stock-alert-badge {
+      position: absolute;       // Position absolue
+      top: 1rem;                // En haut
+      left: 1rem;               // À gauche
+      padding: 0.25rem 0.75rem; // Padding
+      background: $danger-color;  // Fond rouge
+      color: white;             // Texte blanc
+      border-radius: 20px;      // Coins arrondis
+      font-size: 0.75rem;       // Petite taille
+      font-weight: 600;         // Semi-gras
+    }
+
+    // Image/Icône de la boisson
+    .drink-image {
+      display: flex;            // Flexbox
+      justify-content: center;  // Centrage horizontal
+      align-items: center;      // Centrage vertical
+      height: 120px;            // Hauteur fixe
+      margin-bottom: 1rem;      // Marge en bas
+      background: $bg-light;    // Fond clair
+      border-radius: 8px;       // Coins arrondis
+
+      .drink-icon {
+        font-size: 4rem;        // Grande taille pour l'emoji
+        animation: float 3s ease-in-out infinite;  // Animation flottante
+      }
+    }
+
+    // Informations de la boisson
+    .drink-info {
+      .drink-name {
+        font-size: 1.2rem;      // Taille
+        font-weight: 700;       // Gras
+        color: $text-dark;      // Couleur sombre
+        margin: 0 0 0.5rem 0;   // Marges
+        line-height: 1.3;       // Hauteur de ligne
+      }
+
+      .drink-category {
+        display: inline-block;  // Inline-block
+        font-size: 0.85rem;     // Petite taille
+        padding: 0.25rem 0.75rem;  // Padding
+        border-radius: 20px;    // Coins arrondis
+        margin-bottom: 0.75rem; // Marge
+        font-weight: 600;       // Semi-gras
+
+        // Classes spécifiques par catégorie
+        &.category-beer { background: #fef3c7; color: #92400e; }
+        &.category-sweet { background: #fce7f3; color: #831843; }
+        &.category-champagne { background: #dbeafe; color: #1e40af; }
+        &.category-white-wine { background: #fef9c3; color: #854d0e; }
+        &.category-red-wine { background: #fee2e2; color: #991b1b; }
+        &.category-rose-wine { background: #fce7f3; color: #9f1239; }
+        &.category-sparkling { background: #e0e7ff; color: #3730a3; }
+        &.category-liquor { background: #f3e8ff; color: #6b21a8; }
+        &.category-energy { background: #fef3c7; color: #92400e; }
+        &.category-local { background: #dcfce7; color: #166534; }
+      }
+
+      .drink-description {
+        font-size: 0.9rem;      // Taille réduite
+        color: $text-light;     // Couleur claire
+        margin-bottom: 1rem;    // Marge
+        line-height: 1.5;       // Hauteur de ligne
+        max-height: 3rem;       // Hauteur max (2 lignes)
+        overflow: hidden;       // Cache le débordement
+        text-overflow: ellipsis;  // Points de suspension
+      }
+
+      // Statistiques
+      .drink-stats {
+        display: flex;          // Flexbox
+        flex-direction: column; // Colonne
+        gap: 0.5rem;            // Espacement
+
+        .stat-item {
+          display: flex;        // Flexbox
+          align-items: center;  // Alignement vertical
+          gap: 0.5rem;          // Espacement
+          font-size: 0.9rem;    // Taille
+
+          .stat-icon {
+            font-size: 1.1rem;  // Taille de l'icône
+          }
+
+          .stat-value {
+            color: $text-dark;  // Couleur
+            font-weight: 600;   // Semi-gras
+          }
+
+          // Badges de stock
+          .stock-badge {
+            margin-left: 0.5rem;  // Marge à gauche
+            padding: 0.15rem 0.5rem;  // Padding
+            border-radius: 10px;    // Coins arrondis
+            font-size: 0.75rem;     // Petite taille
+            font-weight: 600;       // Semi-gras
+
+            &.badge-success {
+              background: #d1fae5;  // Fond vert clair
+              color: #065f46;       // Texte vert foncé
+            }
+
+            &.badge-warning {
+              background: #fef3c7;  // Fond jaune clair
+              color: #92400e;       // Texte jaune foncé
+            }
+
+            &.badge-danger {
+              background: #fee2e2;  // Fond rouge clair
+              color: #991b1b;       // Texte rouge foncé
+            }
+          }
+        }
+      }
+    }
+
+    // Actions
+    .drink-actions {
+      display: flex;            // Flexbox
+      gap: 0.5rem;              // Espacement
+      margin-top: 1rem;         // Marge supérieure
+      padding-top: 1rem;        // Padding supérieur
+      border-top: 1px solid $border-color;  // Bordure supérieure
+
+      .btn-icon {
+        flex: 1;                // Prend l'espace disponible
+        padding: 0.5rem;        // Padding
+        border: 1px solid $border-color;  // Bordure
+        background: white;      // Fond blanc
+        border-radius: 6px;     // Coins arrondis
+        cursor: pointer;        // Curseur pointeur
+        font-size: 1.2rem;      // Taille de l'icône
+        transition: all 0.3s;   // Transition
+
+        &:hover {
+          transform: translateY(-2px);  // Soulève au survol
+          box-shadow: $shadow;          // Ombre
+        }
+
+        &.btn-edit:hover {
+          background: #eff6ff;  // Fond bleu clair
+          border-color: #3b82f6;  // Bordure bleue
+        }
+
+        &.btn-view:hover {
+          background: #f0fdf4;  // Fond vert clair
+          border-color: #10b981;  // Bordure verte
+        }
+
+        &.btn-delete:hover {
+          background: #fef2f2;  // Fond rouge clair
+          border-color: #ef4444;  // Bordure rouge
+        }
+      }
+    }
+  }
+}
+
+// Animation flottante pour les icônes
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);   // Position initiale
+  }
+  50% {
+    transform: translateY(-10px);  // Monte
+  }
+}
+
+// ===== MODAL =====
+.modal-overlay {
+  position: fixed;              // Position fixe (couvre l'écran)
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);  // Fond noir semi-transparent
+  display: flex;                // Flexbox
+  justify-content: center;      // Centrage horizontal
+  align-items: center;          // Centrage vertical
+  z-index: 1000;                // Z-index élevé
+  padding: 1rem;                // Padding
+
+  .modal-container {
+    background: white;          // Fond blanc
+    border-radius: 12px;        // Coins arrondis
+    max-width: 600px;           // Largeur maximale
+    width: 100%;                // Largeur totale disponible
+    max-height: 90vh;           // Hauteur maximale
+    overflow-y: auto;           // Scroll vertical si nécessaire
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);  // Ombre prononcée
+
+    .modal-header {
+      display: flex;            // Flexbox
+      justify-content: space-between;  // Espacement
+      align-items: center;      // Alignement vertical
+      padding: 1.5rem;          // Padding
+      border-bottom: 1px solid $border-color;  // Bordure inférieure
+
+      .modal-title {
+        font-size: 1.5rem;      // Taille
+        font-weight: 700;       // Gras
+        color: $text-dark;      // Couleur
+        margin: 0;              // Pas de marge
+      }
+
+      .modal-close-btn {
+        background: none;       // Pas de fond
+        border: none;           // Pas de bordure
+        font-size: 1.5rem;      // Taille
+        color: $text-light;     // Couleur
+        cursor: pointer;        // Curseur pointeur
+        width: 32px;            // Largeur
+        height: 32px;           // Hauteur
+        display: flex;          // Flexbox
+        align-items: center;    // Centrage
+        justify-content: center;  // Centrage
+        border-radius: 6px;     // Coins arrondis
+        transition: all 0.3s;   // Transition
+
+        &:hover {
+          background: $bg-light;  // Fond au survol
+          color: $danger-color;   // Couleur rouge
+        }
+      }
+    }
+
+    .modal-body {
+      padding: 1.5rem;          // Padding
+
+      .drink-form {
+        .form-group {
+          margin-bottom: 1.25rem;  // Marge entre champs
+
+          .form-label {
+            display: block;         // Block pour être sur sa propre ligne
+            font-size: 0.9rem;      // Taille
+            font-weight: 600;       // Semi-gras
+            color: $text-dark;      // Couleur
+            margin-bottom: 0.5rem;  // Marge
+
+            .required {
+              color: $danger-color;  // Étoile rouge pour champs requis
+            }
+          }
+
+          .form-input,
+          .form-textarea {
+            width: 100%;            // Largeur totale
+            padding: 0.75rem;       // Padding
+            border: 1px solid $border-color;  // Bordure
+            border-radius: 6px;     // Coins arrondis
+            font-size: 0.95rem;     // Taille
+            transition: all 0.3s;   // Transition
+
+            &:focus {
+              outline: none;        // Pas de contour
+              border-color: $primary-color;  // Bordure colorée
+              box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);  // Ombre
+            }
+          }
+
+          .form-hint {
+            display: block;         // Block
+            font-size: 0.8rem;      // Petite taille
+            color: $text-light;     // Couleur claire
+            margin-top: 0.25rem;    // Marge supérieure
+          }
+        }
+
+        // Ligne avec plusieurs champs côte à côte
+        .form-row {
+          display: grid;            // Grid
+          grid-template-columns: 1fr 1fr;  // 2 colonnes égales
+          gap: 1rem;                // Espacement
+        }
+      }
+    }
+
+    .modal-footer {
+      display: flex;              // Flexbox
+      justify-content: flex-end;  // Alignement à droite
+      gap: 1rem;                  // Espacement
+      padding: 1.5rem;            // Padding
+      border-top: 1px solid $border-color;  // Bordure supérieure
+    }
+  }
+}
+
+// ===== BOUTONS =====
+.btn {
+  padding: 0.75rem 1.5rem;      // Padding
+  border: none;                 // Pas de bordure
+  border-radius: 6px;           // Coins arrondis
+  font-size: 0.95rem;           // Taille
+  font-weight: 600;             // Semi-gras
+  cursor: pointer;              // Curseur pointeur
+  transition: all 0.3s;         // Transition
+  display: inline-flex;         // Inline-flex
+  align-items: center;          // Alignement vertical
+  gap: 0.5rem;                  // Espacement
+
+  &.btn-primary {
+    background: $primary-color;  // Fond violet
+    color: white;               // Texte blanc
+
+    &:hover {
+      background: darken($primary-color, 10%);  // Assombri au survol
+      transform: translateY(-2px);              // Soulève
+      box-shadow: $shadow-hover;                // Ombre
+    }
+  }
+
+  &.btn-secondary {
+    background: $bg-light;      // Fond clair
+    color: $text-dark;          // Texte sombre
+
+    &:hover {
+      background: darken($bg-light, 5%);  // Légèrement plus sombre
+    }
+  }
+
+  &.btn-cancel {
+    background: transparent;    // Fond transparent
+    color: $text-light;         // Texte clair
+    border: 1px solid $border-color;  // Bordure
+
+    &:hover {
+      background: $bg-light;    // Fond au survol
+    }
+  }
+}
+
+// ===== RESPONSIVE =====
+@media (max-width: 768px) {
+  .drinks-container {
+    padding: 1rem;              // Padding réduit sur mobile
+  }
+
+  .page-header {
+    flex-direction: column;     // Colonne sur mobile
+    align-items: flex-start;    // Alignement à gauche
+    gap: 1rem;                  // Espacement
+  }
+
+  .filters-section {
+    flex-direction: column;     // Colonne
+    align-items: stretch;       // Étire les éléments
+
+    .search-box,
+    .category-filter,
+    .sort-options {
+      width: 100%;              // Largeur totale
+    }
+  }
+
+  .drinks-grid {
+    grid-template-columns: 1fr;  // Une seule colonne sur mobile
+  }
+
+  .form-row {
+    grid-template-columns: 1fr !important;  // Une colonne pour les formulaires
+  }
+}

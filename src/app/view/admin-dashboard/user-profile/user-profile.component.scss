@@ -1,0 +1,1258 @@
+// ===== FICHIER: user-profile.component.scss (PARTIE 1/2) =====
+// Styles pour le profil utilisateur
+
+// ===== VARIABLES =====
+$primary: #6366f1;
+$primary-light: #818cf8;
+$accent: #8b5cf6;
+$success: #10b981;
+$warning: #f59e0b;
+$danger: #ef4444;
+$dark-bg: #0a0e27;
+$card-bg: #1a1f3a;
+$text: #e2e8f0;
+$text-muted: #94a3b8;
+$border: #1e293b;
+
+// ===== CONTENEUR PRINCIPAL =====
+.user-profile-container {
+  // Padding
+  padding: 2rem;
+  // Limite largeur
+  max-width: 1400px;
+  // Centre
+  margin: 0 auto;
+  // Fond
+  background: $dark-bg;
+}
+
+// ===== ALERTES =====
+.alert {
+  // Padding
+  padding: 1rem 1.5rem;
+  // Coins arrondis
+  border-radius: 0.75rem;
+  // Espacement bas
+  margin-bottom: 1.5rem;
+  // Poids de police
+  font-weight: 500;
+  // Animation
+  animation: slideIn 0.3s ease-out;
+
+  // Succès
+  &.alert-success {
+    background: rgba($success, 0.1);
+    border: 1px solid rgba($success, 0.3);
+    color: $success;
+  }
+
+  // Erreur
+  &.alert-error {
+    background: rgba($danger, 0.1);
+    border: 1px solid rgba($danger, 0.3);
+    color: $danger;
+  }
+
+  // Info
+  &.alert-info {
+    background: rgba(#3b82f6, 0.1);
+    border: 1px solid rgba(#3b82f6, 0.3);
+    color: #3b82f6;
+  }
+}
+
+// Animation
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ===== EN-TÊTE DU PROFIL =====
+.profile-header {
+  // Fond
+  background: $card-bg;
+  // Bordure
+  border: 1px solid $border;
+  // Coins arrondis
+  border-radius: 1rem;
+  // Débordement caché
+  overflow: hidden;
+  // Espacement bas
+  margin-bottom: 2rem;
+}
+
+// Couverture de profil
+.profile-cover {
+  // Hauteur
+  height: 150px;
+  // Fond dégradé
+  background: linear-gradient(135deg, $primary, $accent);
+}
+
+// Section infos profil
+.profile-info-section {
+  // Padding
+  padding: 2rem;
+  // Flexbox
+  display: flex;
+  // Espacement
+  gap: 2rem;
+  // Aligner
+  align-items: flex-start;
+  // Flex wrap
+  flex-wrap: wrap;
+}
+
+// Conteneur avatar
+.avatar-large-container {
+  // Position relative
+  position: relative;
+  // Flex shrink
+  flex-shrink: 0;
+}
+
+// Avatar très grand
+.avatar-xxl {
+  // Taille
+  width: 120px;
+  height: 120px;
+  // Cercle
+  border-radius: 50%;
+  // Fond dégradé
+  background: linear-gradient(135deg, $primary, $accent);
+  // Flexbox
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // Taille police
+  font-size: 4rem;
+  // Border
+  border: 4px solid $card-bg;
+}
+
+// Bouton édition avatar
+.btn-edit-avatar {
+  // Position absolue
+  position: absolute;
+  // Bottom right
+  bottom: 0;
+  right: 0;
+  // Taille
+  width: 40px;
+  height: 40px;
+  // Cercle
+  border-radius: 50%;
+  // Fond
+  background: $primary;
+  // Bordure
+  border: none;
+  // Couleur
+  color: white;
+  // Taille police
+  font-size: 1.2rem;
+  // Cursor
+  cursor: pointer;
+  // Transition
+  transition: all 0.3s;
+
+  // Au survol
+  &:hover {
+    background: $primary-light;
+    transform: scale(1.1);
+  }
+}
+
+// Infos basiques
+.profile-basic {
+  // Flex grow
+  flex: 1;
+
+  // Titre h1
+  h1 {
+    // Taille
+    font-size: 2.5rem;
+    // Poids
+    font-weight: 700;
+    // Couleur
+    color: $text;
+    // Espacement bas
+    margin-bottom: 0.5rem;
+    // Pas de marge haut
+    margin-top: 0;
+  }
+
+  // Rôle
+  .role {
+    // Couleur
+    color: $text-muted;
+    // Taille
+    font-size: 1.1rem;
+    // Espacement
+    margin: 0.25rem 0;
+  }
+
+  // Cave
+  .cave {
+    // Couleur
+    color: $text-muted;
+    // Taille
+    font-size: 1rem;
+    // Espacement
+    margin: 0.5rem 0 1rem 0;
+  }
+}
+
+// Badge statut
+.status-badge {
+  // Padding
+  padding: 0.5rem 1rem;
+  // Coins arrondis
+  border-radius: 0.5rem;
+  // Taille
+  font-size: 0.9rem;
+  // Poids
+  font-weight: 600;
+  // Display
+  display: inline-block;
+
+  // Actif
+  &.status-active {
+    background: rgba($success, 0.15);
+    color: $success;
+  }
+
+  // Inactif
+  &.status-inactive {
+    background: rgba(#64748b, 0.15);
+    color: #cbd5e1;
+  }
+
+  // En congé
+  &.status-on-leave {
+    background: rgba($warning, 0.15);
+    color: #fbbf24;
+  }
+}
+
+// Barre de complétude
+.completion-bar {
+  // Largeur complète
+  width: 100%;
+  // Espacement top
+  margin-top: 1.5rem;
+}
+
+// Label de barre
+.bar-label {
+  // Flexbox
+  display: flex;
+  // Espacement
+  justify-content: space-between;
+  // Espacement bas
+  margin-bottom: 0.5rem;
+  // Couleur
+  color: $text-muted;
+  // Taille
+  font-size: 0.9rem;
+
+  // Pourcentage
+  .percentage {
+    // Poids
+    font-weight: 600;
+    // Couleur primaire
+    color: $primary;
+  }
+}
+
+// Conteneur barre
+.bar-container {
+  // Hauteur
+  height: 8px;
+  // Fond
+  background: rgba(0, 0, 0, 0.3);
+  // Coins arrondis
+  border-radius: 4px;
+  // Débordement caché
+  overflow: hidden;
+}
+
+// Remplissage barre
+.bar-fill {
+  // Hauteur complète
+  height: 100%;
+  // Fond dégradé
+  background: linear-gradient(90deg, $primary, $primary-light);
+  // Transition
+  transition: width 0.5s ease;
+}
+
+// Actions profil
+.profile-actions {
+  // Largeur complète
+  width: 100%;
+  // Flexbox
+  display: flex;
+  // Espacement
+  gap: 1rem;
+  // Flex wrap
+  flex-wrap: wrap;
+  // Padding top
+  padding-top: 1.5rem;
+  // Bordure top
+  border-top: 1px solid $border;
+}
+
+// ===== ONGLETS =====
+.tabs-container {
+  // Flexbox
+  display: flex;
+  // Espacement
+  gap: 1rem;
+  // Espacement bas
+  margin-bottom: 2rem;
+  // Padding bas
+  padding-bottom: 1rem;
+  // Bordure bas
+  border-bottom: 2px solid $border;
+  // Débordement
+  overflow-x: auto;
+}
+
+// Bouton onglet
+.tab-btn {
+  // Padding
+  padding: 0.75rem 1.5rem;
+  // Cursor
+  cursor: pointer;
+  // Pas de bordure
+  border: none;
+  // Fond
+  background: none;
+  // Couleur
+  color: $text-muted;
+  // Poids
+  font-weight: 600;
+  // Taille
+  font-size: 1rem;
+  // Bordure bas
+  border-bottom: 3px solid transparent;
+  // Transition
+  transition: all 0.3s;
+  // Flex shrink
+  flex-shrink: 0;
+
+  // Au survol
+  &:hover {
+    // Couleur
+    color: $text;
+  }
+
+  // Actif
+  &.active {
+    // Couleur primaire
+    color: $primary-light;
+    // Bordure de couleur
+    border-bottom-color: $primary;
+  }
+}
+
+// ===== CONTENU ONGLETS =====
+.tabs-content {
+  // Fond
+  background: $card-bg;
+  // Bordure
+  border: 1px solid $border;
+  // Coins arrondis
+  border-radius: 1rem;
+  // Padding
+  padding: 2rem;
+  // Débordement
+  overflow: hidden;
+}
+
+// Pane d'onglet
+.tab-pane {
+  // Animation
+  animation: fadeIn 0.3s ease-out;
+}
+
+// Animation fade in
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// ===== AFFICHAGE D'INFOS =====
+.info-display {
+  // Largeur complète
+  width: 100%;
+}
+
+// Grille d'infos
+.info-grid {
+  // Grille CSS
+  display: grid;
+  // Colonnes auto-fit
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  // Espacement
+  gap: 1.5rem;
+}
+
+// Élément d'info
+.info-item {
+  // Flexbox colonne
+  display: flex;
+  flex-direction: column;
+  // Espacement
+  gap: 0.5rem;
+  // Padding
+  padding: 1rem;
+  // Fond
+  background: rgba(0, 0, 0, 0.2);
+  // Coins arrondis
+  border-radius: 0.5rem;
+
+  // Label
+  .label {
+    // Couleur
+    color: $text-muted;
+    // Taille
+    font-size: 0.9rem;
+  }
+
+  // Valeur
+  .value {
+    // Taille
+    font-size: 1.1rem;
+    // Poids
+    font-weight: 600;
+    // Couleur
+    color: $text;
+  }
+}
+
+// ===== ÉDITION D'INFOS =====
+.info-edit {
+  // Flexbox colonne
+  display: flex;
+  flex-direction: column;
+  // Espacement
+  gap: 1.5rem;
+}
+
+// Grille formulaire
+.form-row {
+  // Grille
+  display: grid;
+  // 2 colonnes
+  grid-template-columns: repeat(2, 1fr);
+  // Espacement
+  gap: 1.5rem;
+}
+
+// Groupe formulaire
+.form-group {
+  // Flexbox colonne
+  display: flex;
+  flex-direction: column;
+  // Espacement
+  gap: 0.5rem;
+}
+
+// Label formulaire
+.form-label {
+  // Poids
+  font-weight: 600;
+  // Couleur
+  color: $text;
+  // Taille
+  font-size: 0.95rem;
+}
+
+// Input formulaire
+.form-input {
+  // Padding
+  padding: 0.875rem 1rem;
+  // Fond
+  background: #060918;
+  // Bordure
+  border: 1px solid $border;
+  // Coins arrondis
+  border-radius: 0.5rem;
+  // Couleur
+  color: $text;
+  // Taille
+  font-size: 0.95rem;
+  // Transition
+  transition: all 0.3s;
+  // Font family
+  font-family: inherit;
+
+  // Placeholder
+  &::placeholder {
+    color: $text-muted;
+  }
+
+  // Focus
+  &:focus {
+    border-color: $primary;
+    box-shadow: 0 0 0 3px rgba($primary, 0.1);
+    outline: none;
+  }
+
+  // Erreur
+  &.input-error {
+    border-color: $danger;
+    box-shadow: 0 0 0 3px rgba($danger, 0.1);
+  }
+}
+
+// Actions formulaire
+.form-actions {
+  // Flexbox
+  display: flex;
+  // Espacement
+  gap: 1rem;
+  // Alignement
+  justify-content: flex-end;
+  // Padding top
+  padding-top: 1.5rem;
+  // Bordure top
+  border-top: 1px solid $border;
+}
+
+// ===== BOUTONS =====
+.btn {
+  // Padding
+  padding: 0.875rem 1.75rem;
+  // Bordure
+  border: none;
+  // Coins arrondis
+  border-radius: 0.75rem;
+  // Poids
+  font-weight: 600;
+  // Cursor
+  cursor: pointer;
+  // Transition
+  transition: all 0.3s;
+  // Taille
+  font-size: 0.95rem;
+
+  // Survol
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  // Désactivé
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  // Primaire
+  &.btn-primary {
+    background: $primary;
+    color: white;
+
+    &:hover:not(:disabled) {
+      background: $primary-light;
+      box-shadow: 0 8px 20px rgba($primary, 0.3);
+    }
+  }
+
+  // Secondaire
+  &.btn-secondary {
+    background: #232947;
+    color: $text;
+    border: 1px solid $border;
+
+    &:hover:not(:disabled) {
+      background: rgba($text, 0.05);
+      border-color: $primary;
+    }
+  }
+
+  // Danger
+  &.btn-danger {
+    background: rgba($danger, 0.1);
+    color: $danger;
+    border: 1px solid rgba($danger, 0.2);
+
+    &:hover:not(:disabled) {
+      background: rgba($danger, 0.2);
+    }
+  }
+
+  // Block
+  &.btn-block {
+    width: 100%;
+  }
+}
+
+// ===== GRILLE DE STATISTIQUES =====
+.stats-grid {
+  // Grille CSS
+  display: grid;
+  // Colonnes auto-fill
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  // Espacement
+  gap: 1.5rem;
+}
+
+// Carte statistique
+.stat-card {
+  // Flexbox
+  display: flex;
+  // Direction
+  flex-direction: column;
+  // Espacement
+  gap: 1rem;
+  // Padding
+  padding: 1.5rem;
+  // Fond
+  background: rgba(0, 0, 0, 0.2);
+  // Bordure
+  border: 1px solid $border;
+  // Coins arrondis
+  border-radius: 0.75rem;
+  // Transition
+  transition: all 0.3s;
+
+  // Survol
+  &:hover {
+    transform: translateY(-5px);
+    border-color: $primary;
+  }
+
+  // Icône
+  .stat-icon {
+    // Taille
+    font-size: 2.5rem;
+  }
+
+  // Contenu
+  .stat-content {
+    // Flexbox colonne
+    display: flex;
+    flex-direction: column;
+    // Espacement
+    gap: 0.25rem;
+  }
+
+  // Label
+  .label {
+    // Couleur
+    color: $text-muted;
+    // Taille
+    font-size: 0.9rem;
+  }
+
+  // Valeur
+  .value {
+    // Taille
+    font-size: 1.5rem;
+    // Poids
+    font-weight: 700;
+    // Couleur primaire
+    color: $primary;
+  }
+}
+
+// ===== LISTE D'ACTIVITÉS =====
+.activities-list {
+  // Flexbox colonne
+  display: flex;
+  flex-direction: column;
+  // Espacement
+  gap: 1rem;
+}
+
+// Élément d'activité
+.activity-item {
+  // Flexbox
+  display: flex;
+  // Aligner
+  align-items: flex-start;
+  // Espacement
+  gap: 1rem;
+  // Padding
+  padding: 1rem;
+  // Fond
+  background: rgba(0, 0, 0, 0.2);
+  // Coins arrondis
+  border-radius: 0.75rem;
+  // Bordure gauche
+  border-left: 4px solid $primary;
+}
+
+// Badge d'activité
+.activity-badge {
+  // Taille
+  width: 50px;
+  height: 50px;
+  // Cercle
+  border-radius: 50%;
+  // Flexbox
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // Taille police
+  font-size: 1.5rem;
+  // Flex shrink
+  flex-shrink: 0;
+
+  // Login
+  &.badge-login {
+    background: rgba(#3b82f6, 0.15);
+  }
+
+  // Update
+  &.badge-update {
+    background: rgba($warning, 0.15);
+  }
+
+  // Sale
+  &.badge-sale {
+    background: rgba($success, 0.15);
+  }
+
+// Stock
+  &.badge-stock {
+    background: rgba($warning, 0.15);
+  }
+
+  // System
+  &.badge-system {
+    background: rgba(#8b5cf6, 0.15);
+  }
+
+  // Défaut
+  &.badge-default {
+    background: rgba($text-muted, 0.15);
+  }
+}
+
+// Contenu d'activité
+.activity-content {
+  // Flex grow
+  flex: 1;
+
+  // Titre h4
+  h4 {
+    // Taille
+    font-size: 1rem;
+    // Poids
+    font-weight: 600;
+    // Couleur
+    color: $text;
+    // Espacement
+    margin: 0 0 0.25rem 0;
+  }
+
+  // Paragraphe
+  p {
+    // Couleur
+    color: $text-muted;
+    // Taille
+    font-size: 0.9rem;
+    // Espacement
+    margin: 0;
+    // Hauteur ligne
+    line-height: 1.4;
+  }
+}
+
+// Timestamp d'activité
+.activity-time {
+  // Couleur
+  color: $text-muted;
+  // Taille
+  font-size: 0.8rem;
+  // Flex shrink
+  flex-shrink: 0;
+  // Texte aligné droite
+  text-align: right;
+}
+
+// ===== SECTION SÉCURITÉ =====
+.security-section {
+  // Titre h3
+  h3 {
+    // Taille
+    font-size: 1.5rem;
+    // Poids
+    font-weight: 700;
+    // Couleur
+    color: $text;
+    // Espacement bas
+    margin-bottom: 1.5rem;
+    // Pas de marge haut
+    margin-top: 0;
+  }
+}
+
+// Affichage sécurité
+.security-display {
+  // Padding
+  padding: 1.5rem;
+  // Fond
+  background: rgba(0, 0, 0, 0.2);
+  // Coins arrondis
+  border-radius: 0.75rem;
+
+  // Paragraphe
+  p {
+    // Couleur
+    color: $text-muted;
+    // Espacement bas
+    margin-bottom: 1rem;
+  }
+
+  // Strong
+  strong {
+    // Couleur primaire
+    color: $text;
+  }
+}
+
+// Formulaire mot de passe
+.password-form {
+  // Flexbox colonne
+  display: flex;
+  flex-direction: column;
+  // Espacement
+  gap: 1.5rem;
+}
+
+// Conteneur input mot de passe
+.password-input-container {
+  // Position relative
+  position: relative;
+  // Flexbox
+  display: flex;
+  // Aligner
+  align-items: center;
+
+  // Input
+  .form-input {
+    // Flex grow
+    flex: 1;
+  }
+}
+
+// Bouton toggle mot de passe
+.btn-toggle-password {
+  // Position absolue
+  position: absolute;
+  // Right
+  right: 10px;
+  // Pas de fond
+  background: none;
+  // Pas de bordure
+  border: none;
+  // Couleur
+  color: $text-muted;
+  // Cursor
+  cursor: pointer;
+  // Taille
+  font-size: 1.2rem;
+  // Padding
+  padding: 0.5rem;
+  // Transition
+  transition: all 0.2s;
+
+  // Au survol
+  &:hover {
+    color: $text;
+  }
+}
+
+// Indicateur de force
+.strength-indicator {
+  // Padding
+  padding: 0.5rem 0.75rem;
+  // Coins arrondis
+  border-radius: 0.5rem;
+  // Taille
+  font-size: 0.85rem;
+  // Margin top
+  margin-top: -0.25rem;
+
+  // Faible
+  &.strength-weak {
+    background: rgba($danger, 0.1);
+    color: $danger;
+  }
+
+  // Moyen
+  &.strength-medium {
+    background: rgba($warning, 0.1);
+    color: $warning;
+  }
+
+  // Fort
+  &.strength-strong {
+    background: rgba($success, 0.1);
+    color: $success;
+  }
+}
+
+// ===== RESPONSIVE =====
+@media (max-width: 1024px) {
+  // Info grid
+  .info-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  // Stats grid
+  .stats-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  // Container
+  .user-profile-container {
+    padding: 1rem;
+  }
+
+  // En-tête profil
+  .profile-header {
+    margin-bottom: 1.5rem;
+  }
+
+  // Couverture
+  .profile-cover {
+    height: 100px;
+  }
+
+  // Section infos
+  .profile-info-section {
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+
+  // Avatar
+  .avatar-xxl {
+    width: 100px;
+    height: 100px;
+    font-size: 3rem;
+    border-width: 3px;
+  }
+
+  // Infos basiques
+  .profile-basic {
+    h1 {
+      font-size: 1.8rem;
+    }
+
+    .role {
+      font-size: 1rem;
+    }
+  }
+
+  // Actions profil
+  .profile-actions {
+    flex-direction: column;
+
+    .btn {
+      width: 100%;
+    }
+  }
+
+  // Onglets
+  .tabs-container {
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tab-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  // Contenu onglets
+  .tabs-content {
+    padding: 1.5rem;
+  }
+
+  // Grille formulaire
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  // Actions formulaire
+  .form-actions {
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+
+    .btn {
+      width: 100%;
+    }
+  }
+
+  // Info grid
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  // Stats grid
+  .stats-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  // Container
+  .user-profile-container {
+    padding: 0.5rem;
+  }
+
+  // Section infos
+  .profile-info-section {
+    padding: 1rem;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  // Avatar
+  .avatar-xxl {
+    width: 80px;
+    height: 80px;
+    font-size: 2rem;
+  }
+
+  // Infos basiques
+  .profile-basic {
+    width: 100%;
+
+    h1 {
+      font-size: 1.4rem;
+    }
+
+    .role, .cave {
+      font-size: 0.9rem;
+    }
+  }
+
+  // Actions
+  .profile-actions {
+    width: 100%;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    .btn {
+      font-size: 0.85rem;
+      padding: 0.7rem 1.4rem;
+    }
+  }
+
+  // Onglets
+  .tabs-container {
+    gap: 0;
+    margin-bottom: 1rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tab-btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+
+  // Contenu onglets
+  .tabs-content {
+    padding: 1rem;
+  }
+
+  // Info grid
+  .info-grid {
+    gap: 0.75rem;
+  }
+
+  .info-item {
+    padding: 0.75rem;
+  }
+
+  // Stats grid
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card {
+    padding: 1rem;
+  }
+
+  .stat-card .stat-icon {
+    font-size: 2rem;
+  }
+
+  .stat-card .label {
+    font-size: 0.85rem;
+  }
+
+  .stat-card .value {
+    font-size: 1.3rem;
+  }
+
+  // Activities
+  .activity-item {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .activity-badge {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .activity-time {
+    text-align: left;
+  }
+
+  // Formulaires
+  .form-group {
+    gap: 0.4rem;
+  }
+
+  .form-label {
+    font-size: 0.9rem;
+  }
+
+  .form-input {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  // Mot de passe
+  .password-input-container {
+    gap: 0.5rem;
+  }
+
+  .btn-toggle-password {
+    right: 5px;
+    font-size: 1rem;
+    padding: 0.4rem;
+  }
+}
+
+// ===== FORMAT MONÉTAIRE =====
+// Classe utility pour formatage
+.currency {
+  font-weight: 600;
+  color: $success;
+}
+
+// ===== ANIMATIONS SUPPLÉMENTAIRES =====
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+// Animation erreur
+.form-input.input-error {
+  animation: shake 0.3s ease;
+}
+
+// ===== SCROLLBAR PERSONNALISÉE =====
+// Pour Firefox
+.tabs-content {
+  scrollbar-color: $primary $card-bg;
+  scrollbar-width: thin;
+}
+
+// Pour Chrome/Safari
+.tabs-content::-webkit-scrollbar {
+  height: 8px;
+}
+
+.tabs-content::-webkit-scrollbar-track {
+  background: $card-bg;
+}
+
+.tabs-content::-webkit-scrollbar-thumb {
+  background: $primary;
+  border-radius: 4px;
+
+  &:hover {
+    background: lighten($primary, 10%);
+  }
+}
+
+// ===== IMPRESSION =====
+@media print {
+  // Masquer les boutons
+  .btn,
+  .btn-edit-avatar,
+  .btn-toggle-password,
+  .tab-btn {
+    display: none;
+  }
+
+  // Fond blanc
+  .user-profile-container,
+  .profile-header,
+  .tabs-content {
+    background: white;
+    border: 1px solid #ccc;
+  }
+
+  // Texte noir
+  * {
+    color: black;
+  }
+
+  // Afficher tous les onglets
+  .tab-pane {
+    display: block !important;
+  }
+}
+
+// ===== ACCESSIBILITÉ =====
+// Focus visible
+.tab-btn:focus-visible,
+.btn:focus-visible {
+  outline: 2px solid $primary;
+  outline-offset: 2px;
+}
+
+// Réduit motion
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

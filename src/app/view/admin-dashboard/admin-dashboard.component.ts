@@ -68,7 +68,7 @@ interface ProductivityStat {
 
 // Interface pour une cave
 interface Cave {
-  id: string;
+  id: string;f
   name: string;
   location: string;
   bottles: number;

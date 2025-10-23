@@ -1,0 +1,314 @@
+/* ==========================================
+   STYLES SCSS
+   ========================================== */
+
+// src/app/features/recent-actions/recent-actions.component.scss
+
+$primary-color: #8b5cf6;
+$success-color: #10b981;
+$info-color: #3b82f6;
+$warning-color: #f59e0b;
+$danger-color: #ef4444;
+$text-dark: #1f2937;
+$text-light: #6b7280;
+$bg-light: #f9fafb;
+$border-color: #e5e7eb;
+
+.actions-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+// Timeline
+.actions-timeline {
+  position: relative;
+  padding-left: 3rem;
+  margin-top: 2rem;
+
+  // Ligne verticale
+  &::before {
+    content: '';
+    position: absolute;
+    left: 1rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, $border-color, transparent);
+  }
+
+  .action-item {
+    position: relative;
+    margin-bottom: 2rem;
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+
+    &:hover {
+      transform: translateX(4px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    // Point sur la timeline
+    &::before {
+      content: '';
+      position: absolute;
+      left: -2.5rem;
+      top: 1.5rem;
+      width: 1rem;
+      height: 1rem;
+      border-radius: 50%;
+      background: var(--action-color, $primary-color);
+      border: 3px solid white;
+      box-shadow: 0 0 0 2px var(--action-color, $primary-color);
+    }
+
+    // Couleurs par type
+    &.action-green {
+      --action-color: #{$success-color};
+      border-left: 4px solid $success-color;
+    }
+
+    &.action-blue {
+      --action-color: #{$info-color};
+      border-left: 4px solid $info-color;
+    }
+
+    &.action-orange {
+      --action-color: #{$warning-color};
+      border-left: 4px solid $warning-color;
+    }
+
+    &.action-red {
+      --action-color: #{$danger-color};
+      border-left: 4px solid $danger-color;
+    }
+
+    &.action-gray {
+      --action-color: #{$text-light};
+      border-left: 4px solid $text-light;
+    }
+
+    .action-icon-wrapper {
+      position: absolute;
+      left: -2.75rem;
+      top: 1rem;
+      width: 1.5rem;
+      height: 1.5rem;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .action-icon {
+        font-size: 1.25rem;
+      }
+    }
+
+    .action-content {
+      .action-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 0.75rem;
+
+        .action-title {
+          font-size: 1.1rem;
+          font-weight: 700;
+          color: $text-dark;
+          margin: 0;
+          flex: 1;
+        }
+
+        .action-time {
+          font-size: 0.85rem;
+          color: $text-light;
+          white-space: nowrap;
+          margin-left: 1rem;
+          cursor: help;
+        }
+      }
+
+      .action-details {
+        font-size: 0.95rem;
+        color: $text-dark;
+        line-height: 1.6;
+        margin: 0 0 1rem 0;
+      }
+
+      .action-footer {
+        display: flex;
+        align-items: center;
+
+        .action-type-badge {
+          display: inline-block;
+          padding: 0.25rem 0.75rem;
+          border-radius: 20px;
+          font-size: 0.8rem;
+          font-weight: 600;
+
+          &.action-green {
+            background: #d1fae5;
+            color: #065f46;
+          }
+
+          &.action-blue {
+            background: #dbeafe;
+            color: #1e40af;
+          }
+
+          &.action-orange {
+            background: #fef3c7;
+            color: #92400e;
+          }
+
+          &.action-red {
+            background: #fee2e2;
+            color: #991b1b;
+          }
+
+          &.action-gray {
+            background: #f3f4f6;
+            color: #4b5563;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Pagination
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding: 1.5rem 0;
+
+  .pagination-btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid $border-color;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    color: $text-dark;
+    transition: all 0.3s;
+
+    &:hover:not(:disabled) {
+      background: $primary-color;
+      color: white;
+      border-color: $primary-color;
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+
+  .pagination-numbers {
+    display: flex;
+    gap: 0.5rem;
+
+    .pagination-number {
+      width: 40px;
+      height: 40px;
+      border: 1px solid $border-color;
+      background: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      color: $text-dark;
+      transition: all 0.3s;
+
+      &:hover:not(:disabled):not(.active) {
+        background: $bg-light;
+      }
+
+      &.active {
+        background: $primary-color;
+        color: white;
+        border-color: $primary-color;
+      }
+
+      &.ellipsis {
+        cursor: default;
+        border: none;
+
+        &:hover {
+          background: transparent;
+        }
+      }
+
+      &:disabled {
+        cursor: default;
+      }
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .actions-container {
+    padding: 1rem;
+  }
+
+  .actions-timeline {
+    padding-left: 2rem;
+
+    &::before {
+      left: 0.5rem;
+    }
+
+    .action-item {
+      &::before {
+        left: -1.75rem;
+        width: 0.75rem;
+        height: 0.75rem;
+      }
+
+      .action-icon-wrapper {
+        left: -2rem;
+        width: 1.25rem;
+        height: 1.25rem;
+
+        .action-icon {
+          font-size: 1rem;
+        }
+      }
+
+      .action-content .action-header {
+        flex-direction: column;
+        gap: 0.5rem;
+
+        .action-time {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+
+  .stats-section {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .filters-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .pagination {
+    flex-direction: column;
+
+    .pagination-numbers {
+      order: -1;
+      margin-bottom: 1rem;
+    }
+  }
+}

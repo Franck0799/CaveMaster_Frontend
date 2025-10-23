@@ -1,0 +1,628 @@
+// ===== FICHIER: cave-create.component.scss =====
+// Styles pour le composant de gestion des caves
+
+// ===== VARIABLES COULEURS =====
+$primary: #6366f1;           // Violet principal
+$primary-light: #818cf8;     // Violet clair
+$accent: #8b5cf6;            // Violet accent
+$success: #10b981;           // Vert
+$warning: #f59e0b;           // Orange
+$danger: #ef4444;            // Rouge
+$dark-bg: #0a0e27;           // Fond sombre principal
+$darker-bg: #060918;         // Fond encore plus sombre
+$card-bg: #1a1f3a;           // Fond des cartes
+$text: #e2e8f0;              // Texte principal
+$text-muted: #94a3b8;        // Texte secondaire
+$border: #1e293b;            // Bordures
+
+// ===== CONTENEUR PRINCIPAL =====
+.cave-create-container {
+  // Padding externe pour l'espacement
+  padding: 2rem;
+  // Limite la largeur maximale
+  max-width: 1400px;
+  // Centre le conteneur
+  margin: 0 auto;
+  // Fond de couleur
+  background: $dark-bg;
+}
+
+// ===== MESSAGES D'ALERTE =====
+.alert {
+  // Padding interne pour l'espacement du texte
+  padding: 1rem 1.5rem;
+  // Coins arrondis
+  border-radius: 0.75rem;
+  // Espacement bas pour séparer du reste du contenu
+  margin-bottom: 1.5rem;
+  // Poids de police
+  font-weight: 500;
+  // Animation d'entrée
+  animation: slideIn 0.3s ease-out;
+
+  // Style pour succès
+  &.alert-success {
+    // Fond avec transparence
+    background: rgba($success, 0.1);
+    // Bordure fine
+    border: 1px solid rgba($success, 0.3);
+    // Couleur du texte
+    color: $success;
+  }
+
+  // Style pour erreur
+  &.alert-error {
+    background: rgba($danger, 0.1);
+    border: 1px solid rgba($danger, 0.3);
+    color: $danger;
+  }
+
+  // Style pour info
+  &.alert-info {
+    background: rgba(#3b82f6, 0.1);
+    border: 1px solid rgba(#3b82f6, 0.3);
+    color: #3b82f6;
+  }
+}
+
+// ===== ANIMATION D'ALERTE =====
+@keyframes slideIn {
+  // Début : masqué et décalé
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  // Fin : visible et en place
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ===== EN-TÊTE DU SECTION =====
+.section-header {
+  // Flexbox pour alignement horizontal
+  display: flex;
+  // Espacement entre les éléments
+  justify-content: space-between;
+  // Centrer verticalement
+  align-items: center;
+  // Espacement bas
+  margin-bottom: 2rem;
+
+  // Style du titre h2
+  h2 {
+    // Taille de police
+    font-size: 1.75rem;
+    // Épaisseur de police
+    font-weight: 700;
+    // Couleur du texte
+    color: $text;
+    // Pas de marge par défaut
+    margin: 0;
+  }
+}
+
+// ===== CONTENEUR DU FORMULAIRE =====
+.form-container {
+  // Fond pour les cartes
+  background: $card-bg;
+  // Bordure fine
+  border: 1px solid $border;
+  // Coins arrondis
+  border-radius: 1rem;
+  // Padding interne
+  padding: 2rem;
+  // Espacement bas
+  margin-bottom: 2rem;
+  // Transition pour les interactions
+  transition: all 0.3s;
+
+  // Style au survol
+  &:hover {
+    // Changement de bordure
+    border-color: $primary;
+    // Ombre pour le relief
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  // Style du formulaire
+  form {
+    // Flexbox colonne
+    display: flex;
+    // Direction verticale
+    flex-direction: column;
+    // Espacement entre les enfants
+    gap: 1.5rem;
+  }
+}
+
+// ===== GROUPES DE FORMULAIRE =====
+.form-group {
+  // Flexbox colonne
+  display: flex;
+  // Direction verticale
+  flex-direction: column;
+  // Espacement entre label et input
+  gap: 0.5rem;
+}
+
+// ===== ÉTIQUETTES DE FORMULAIRE =====
+.form-label {
+  // Poids de police
+  font-weight: 600;
+  // Couleur du texte
+  color: $text;
+  // Taille de police
+  font-size: 0.95rem;
+}
+
+// ===== INPUTS DE FORMULAIRE =====
+.form-input,
+.form-textarea {
+  // Padding interne
+  padding: 0.875rem 1rem;
+  // Fond de couleur
+  background: $darker-bg;
+  // Bordure fine
+  border: 1px solid $border;
+  // Coins arrondis
+  border-radius: 0.5rem;
+  // Couleur du texte
+  color: $text;
+  // Taille de police
+  font-size: 0.95rem;
+  // Transition pour les interactions
+  transition: all 0.3s;
+  // Family de police
+  font-family: inherit;
+
+  // Placeholder style
+  &::placeholder {
+    color: $text-muted;
+  }
+
+  // Style au focus
+  &:focus {
+    // Bordure de couleur primaire
+    border-color: $primary;
+    // Ombre au focus
+    box-shadow: 0 0 0 3px rgba($primary, 0.1);
+    // Enlever le outline par défaut
+    outline: none;
+  }
+
+  // Style en cas d'erreur
+  &.input-error {
+    // Bordure rouge
+    border-color: $danger;
+    // Ombre d'erreur
+    box-shadow: 0 0 0 3px rgba($danger, 0.1);
+  }
+}
+
+// ===== TEXTAREA SPÉCIFIQUE =====
+.form-textarea {
+  // Hauteur minimum
+  min-height: 100px;
+  // Redimensionnable verticalement
+  resize: vertical;
+  // Police monospace optionnelle
+  font-family: inherit;
+}
+
+// ===== TEXTE D'ERREUR =====
+.error-text {
+  // Couleur rouge
+  color: $danger;
+  // Taille réduite
+  font-size: 0.85rem;
+  // Léger margin négatif
+  margin-top: -0.25rem;
+}
+
+// ===== BOUTONS =====
+.btn {
+  // Padding interne
+  padding: 0.875rem 1.75rem;
+  // Pas de bordure
+  border: none;
+  // Coins arrondis
+  border-radius: 0.75rem;
+  // Poids de police
+  font-weight: 600;
+  // Cursor pointer
+  cursor: pointer;
+  // Transition pour les interactions
+  transition: all 0.3s;
+  // Taille de police
+  font-size: 0.95rem;
+  // Affichage inline-flex pour aligner le contenu
+  display: inline-flex;
+  // Aligner les éléments au centre
+  align-items: center;
+  // Espacement entre les éléments
+  gap: 0.5rem;
+
+  // Style au survol (si pas désactivé)
+  &:hover:not(:disabled) {
+    // Légère levée
+    transform: translateY(-2px);
+    // Ombre
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  // Style quand désactivé
+  &:disabled {
+    // Transparence réduite
+    opacity: 0.5;
+    // Cursor non-cliquable
+    cursor: not-allowed;
+  }
+
+  // Bouton primaire
+  &.btn-primary {
+    // Fond violet
+    background: $primary;
+    // Texte blanc
+    color: white;
+
+    // Au survol
+    &:hover:not(:disabled) {
+      // Violet plus clair
+      background: $primary-light;
+      // Ombre spécifique
+      box-shadow: 0 8px 20px rgba($primary, 0.3);
+    }
+  }
+
+  // Bouton secondaire
+  &.btn-secondary {
+    // Fond gris
+    background: $card-bg;
+    // Texte clair
+    color: $text;
+    // Bordure fine
+    border: 1px solid $border;
+
+    // Au survol
+    &:hover:not(:disabled) {
+      // Fond plus clair
+      background: rgba($text, 0.05);
+      // Bordure de couleur primaire
+      border-color: $primary;
+    }
+  }
+
+  // Bouton danger
+  &.btn-danger {
+    // Fond rouge transparent
+    background: rgba($danger, 0.1);
+    // Texte rouge
+    color: $danger;
+    // Bordure rouge
+    border: 1px solid rgba($danger, 0.2);
+
+    // Au survol
+    &:hover:not(:disabled) {
+      // Fond rouge plus opaque
+      background: rgba($danger, 0.2);
+      // Ombre rouge
+      box-shadow: 0 8px 15px rgba($danger, 0.2);
+    }
+  }
+
+  // Bouton petit
+  &.btn-sm {
+    // Padding réduit
+    padding: 0.5rem 1rem;
+    // Texte plus petit
+    font-size: 0.85rem;
+  }
+}
+
+// ===== ACTIONS DU FORMULAIRE =====
+.form-actions {
+  // Flexbox horizontal
+  display: flex;
+  // Espacement entre les boutons
+  gap: 1rem;
+  // Alignement à droite
+  justify-content: flex-end;
+  // Espacement haut
+  margin-top: 1.5rem;
+  // Padding haut
+  padding-top: 1.5rem;
+  // Bordure supérieure
+  border-top: 1px solid $border;
+}
+
+// ===== CONTENEUR DE LISTE DES CAVES =====
+.caves-list-container {
+  // Titre h3
+  h3 {
+    // Taille de police
+    font-size: 1.5rem;
+    // Poids de police
+    font-weight: 700;
+    // Couleur du texte
+    color: $text;
+    // Espacement bas
+    margin-bottom: 1.5rem;
+    // Pas de marge haut
+    margin-top: 0;
+  }
+}
+
+// ===== GRILLE DE CAVES =====
+.caves-grid {
+  // Grille CSS auto-fill
+  display: grid;
+  // Colonnes minimales 320px
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  // Espacement entre les cartes
+  gap: 1.5rem;
+}
+
+// ===== CARTES DE CAVES =====
+.cave-item {
+  // Fond pour les cartes
+  background: $card-bg;
+  // Bordure fine
+  border: 1px solid $border;
+  // Coins arrondis
+  border-radius: 1rem;
+  // Padding interne
+  padding: 1.5rem;
+  // Transition pour les interactions
+  transition: all 0.3s;
+
+  // Style au survol
+  &:hover {
+    // Levée légère
+    transform: translateY(-5px);
+    // Bordure de couleur primaire
+    border-color: $primary;
+    // Ombre
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+}
+
+// ===== EN-TÊTE DE LA CARTE =====
+.cave-item-header {
+  // Flexbox pour layout horizontal
+  display: flex;
+  // Espacement entre nom et badge
+  justify-content: space-between;
+  // Alignement en haut
+  align-items: flex-start;
+  // Espacement bas
+  margin-bottom: 1rem;
+
+  // Titre h4
+  h4 {
+    // Taille de police
+    font-size: 1.25rem;
+    // Poids de police
+    font-weight: 700;
+    // Espacement bas
+    margin-bottom: 0.25rem;
+    // Pas de marge haut
+    margin-top: 0;
+    // Couleur du texte
+    color: $text;
+  }
+}
+
+// ===== LOCALISATION =====
+.cave-location {
+  // Couleur texte secondaire
+  color: $text-muted;
+  // Taille réduite
+  font-size: 0.9rem;
+  // Pas de marge
+  margin: 0;
+}
+
+// ===== BADGE D'OCCUPATION =====
+.occupancy-badge {
+  // Fond transparent primaire
+  background: rgba($primary, 0.15);
+  // Texte de couleur primaire
+  color: $primary;
+  // Padding interne
+  padding: 0.5rem 1rem;
+  // Coins arrondis
+  border-radius: 0.5rem;
+  // Poids de police
+  font-weight: 600;
+  // Taille de police
+  font-size: 0.9rem;
+}
+
+// ===== STATISTIQUES DE LA CAVE =====
+.cave-stats {
+  // Grille CSS
+  display: grid;
+  // 3 colonnes égales
+  grid-template-columns: repeat(3, 1fr);
+  // Espacement entre colonnes
+  gap: 1rem;
+  // Margin externe
+  margin: 1rem 0;
+  // Padding interne
+  padding: 1rem;
+  // Fond semi-transparent
+  background: rgba(0, 0, 0, 0.2);
+  // Coins arrondis
+  border-radius: 0.5rem;
+}
+
+// ===== ÉLÉMENT DE STATUT =====
+.stat {
+  // Flexbox colonne
+  display: flex;
+  // Direction verticale
+  flex-direction: column;
+  // Centrer le texte
+  text-align: center;
+
+  // Label du statut
+  .label {
+    // Affichage en bloc
+    display: block;
+    // Couleur texte muted
+    color: $text-muted;
+    // Taille réduite
+    font-size: 0.85rem;
+    // Espacement bas
+    margin-bottom: 0.25rem;
+  }
+
+  // Valeur du statut
+  .value {
+    // Affichage en bloc
+    display: block;
+    // Taille augmentée
+    font-size: 1.5rem;
+    // Poids de police
+    font-weight: 700;
+    // Couleur primaire
+    color: $primary;
+  }
+}
+
+// ===== DESCRIPTION DE LA CAVE =====
+.cave-description {
+  // Couleur texte secondaire
+  color: $text-muted;
+  // Taille de police
+  font-size: 0.9rem;
+  // Hauteur de ligne
+  line-height: 1.5;
+  // Margin externe
+  margin: 1rem 0;
+}
+
+// ===== ACTIONS DE LA CARTE =====
+.cave-item-actions {
+  // Flexbox horizontal
+  display: flex;
+  // Espacement entre les boutons
+  gap: 0.5rem;
+  // Padding haut
+  padding-top: 1rem;
+  // Bordure supérieure
+  border-top: 1px solid $border;
+}
+
+// ===== ÉTAT VIDE =====
+.empty-state {
+  // Couvre toutes les colonnes
+  grid-column: 1 / -1;
+  // Centrer le texte
+  text-align: center;
+  // Padding interne
+  padding: 3rem 2rem;
+  // Couleur texte secondaire
+  color: $text-muted;
+
+  // Paragraphe
+  p {
+    // Taille augmentée
+    font-size: 1.1rem;
+    // Pas de marge
+    margin: 0;
+  }
+}
+
+// ===== RESPONSIVE DESIGN =====
+@media (max-width: 1024px) {
+  // Grille sur 2 colonnes
+  .caves-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  // Container avec moins de padding
+  .cave-create-container {
+    padding: 1rem;
+  }
+
+  // En-tête en colonne
+  .section-header {
+    // Direction verticale
+    flex-direction: column;
+    // Alignement à gauche
+    align-items: flex-start;
+    // Espacement entre éléments
+    gap: 1rem;
+
+    // Titre plus petit
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
+
+  // Grille sur 1 colonne
+  .caves-grid {
+    grid-template-columns: 1fr;
+  }
+
+  // Stats sur 2 colonnes au lieu de 3
+  .cave-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  // Boutons en colonne
+  .form-actions {
+    // Direction verticale inversée
+    flex-direction: column-reverse;
+    // Alignement à droite supprimé
+    justify-content: flex-end;
+
+    // Boutons pleine largeur
+    .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  // Formulaire avec moins de padding
+  .form-container {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  // Container mobile
+  .cave-create-container {
+    padding: 0.5rem;
+  }
+
+  // En-tête plus petit
+  .section-header h2 {
+    font-size: 1.25rem;
+  }
+
+  // Stats sur 1 colonne
+  .cave-stats {
+    grid-template-columns: 1fr;
+  }
+
+  // Carte plus compacte
+  .cave-item {
+    padding: 1rem;
+  }
+
+  // Actions empilées
+  .cave-item-actions {
+    flex-direction: column;
+
+    // Boutons pleine largeur
+    .btn-sm {
+      width: 100%;
+    }
+  }
+}

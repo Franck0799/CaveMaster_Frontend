@@ -1,0 +1,790 @@
+// ===== FICHIER: user-lists.component.scss =====
+// Styles pour la liste des utilisateurs
+
+// ===== VARIABLES =====
+$primary: #6366f1;
+$primary-light: #818cf8;
+$accent: #8b5cf6;
+$success: #10b981;
+$danger: #ef4444;
+$dark-bg: #0a0e27;
+$card-bg: #1a1f3a;
+$text: #e2e8f0;
+$text-muted: #94a3b8;
+$border: #1e293b;
+
+// ===== CONTENEUR PRINCIPAL =====
+.user-lists-container {
+  // Padding externe
+  padding: 2rem;
+  // Limite de largeur
+  max-width: 1400px;
+  // Centre le conteneur
+  margin: 0 auto;
+  // Fond
+  background: $dark-bg;
+}
+
+// ===== EN-TÊTE =====
+.header-section {
+  // Espacement bas
+  margin-bottom: 2rem;
+
+  // Titre h2
+  h2 {
+    // Taille de police
+    font-size: 1.75rem;
+    // Poids de police
+    font-weight: 700;
+    // Couleur
+    color: $text;
+    // Pas de marge par défaut
+    margin: 0;
+  }
+}
+
+// ===== BARRE DE RECHERCHE =====
+.search-section {
+  // Espacement bas
+  margin-bottom: 1.5rem;
+}
+
+.search-bar {
+  // Flexbox pour aligner le contenu
+  display: flex;
+  // Fond des cartes
+  background: $card-bg;
+  // Bordure fine
+  border: 1px solid $border;
+  // Coins arrondis
+  border-radius: 0.75rem;
+  // Overflow caché
+  overflow: hidden;
+  // Transition
+  transition: all 0.3s;
+
+  // Style au focus
+  &:focus-within {
+    // Bordure de couleur primaire
+    border-color: $primary;
+    // Ombre
+    box-shadow: 0 0 0 3px rgba($primary, 0.1);
+  }
+}
+
+// Input de recherche
+.search-input {
+  // Flex pour remplir l'espace
+  flex: 1;
+  // Padding
+  padding: 0.875rem 1rem;
+  // Pas de fond
+  background: none;
+  // Pas de bordure
+  border: none;
+  // Couleur du texte
+  color: $text;
+  // Pas d'outline
+  outline: none;
+  // Taille de police
+  font-size: 0.95rem;
+
+  // Style du placeholder
+  &::placeholder {
+    color: $text-muted;
+  }
+}
+
+// ===== SECTION DES FILTRES =====
+.filters-section {
+  // Grille flex
+  display: flex;
+  // Wrap sur petits écrans
+  flex-wrap: wrap;
+  // Espacement entre les éléments
+  gap: 1rem;
+  // Espacement bas
+  margin-bottom: 1.5rem;
+}
+
+// Sélecteurs de filtre
+.filter-select {
+  // Padding
+  padding: 0.875rem 2.5rem 0.875rem 1rem;
+  // Fond
+  background: $card-bg;
+  // Bordure
+  border: 1px solid $border;
+  // Coins arrondis
+  border-radius: 0.75rem;
+  // Couleur
+  color: $text;
+  // Cursor pointer
+  cursor: pointer;
+  // Pas d'outline
+  outline: none;
+  // Taille de police minimale
+  min-width: 180px;
+  // Taille de police
+  font-size: 0.9rem;
+  // Transition
+  transition: all 0.3s;
+
+  // Au focus
+  &:focus {
+    border-color: $primary;
+    box-shadow: 0 0 0 3px rgba($primary, 0.1);
+  }
+
+  // Style des options
+  option {
+    background: #0a0e27;
+    color: $text;
+  }
+}
+
+// ===== BOUTONS =====
+.btn {
+  // Padding
+  padding: 0.875rem 1.75rem;
+  // Pas de bordure
+  border: none;
+  // Coins arrondis
+  border-radius: 0.75rem;
+  // Poids de police
+  font-weight: 600;
+  // Cursor pointer
+  cursor: pointer;
+  // Transition
+  transition: all 0.3s;
+  // Taille de police
+  font-size: 0.95rem;
+
+  // Au survol (si pas désactivé)
+  &:hover:not(:disabled) {
+    // Levée
+    transform: translateY(-2px);
+    // Ombre
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  // Quand désactivé
+  &:disabled {
+    // Transparence
+    opacity: 0.5;
+    // Cursor non-cliquable
+    cursor: not-allowed;
+  }
+
+  // Bouton primaire
+  &.btn-primary {
+    background: $primary;
+    color: white;
+
+    &:hover:not(:disabled) {
+      background: $primary-light;
+    }
+  }
+
+  // Bouton secondaire
+  &.btn-secondary {
+    background: $card-bg;
+    color: $text;
+    border: 1px solid $border;
+
+    &:hover:not(:disabled) {
+      background: rgba($text, 0.05);
+      border-color: $primary;
+    }
+  }
+
+  // Bouton petit
+  &.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  // Bouton bloc
+  &.btn-block {
+    width: 100%;
+  }
+}
+
+// ===== STATISTIQUES GLOBALES =====
+.stats-summary {
+  // Grille CSS
+  display: grid;
+  // Colonnes auto-fill
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  // Espacement
+  gap: 1rem;
+  // Padding
+  padding: 1.5rem;
+  // Fond
+  background: $card-bg;
+  // Bordure
+  border: 1px solid $border;
+  // Coins arrondis
+  border-radius: 1rem;
+  // Espacement bas
+  margin-bottom: 1.5rem;
+}
+
+// Élément de statistique
+.stat-item {
+  // Flexbox colonne
+  display: flex;
+  // Direction verticale
+  flex-direction: column;
+  // Espacement
+  gap: 0.5rem;
+
+  // Label
+  .stat-label {
+    // Couleur texte secondaire
+    color: $text-muted;
+    // Taille réduite
+    font-size: 0.9rem;
+  }
+
+  // Valeur
+  .stat-value {
+    // Taille augmentée
+    font-size: 1.3rem;
+    // Poids de police
+    font-weight: 700;
+    // Couleur primaire
+    color: $primary;
+  }
+}
+
+// ===== TABLEAU =====
+.users-table-container {
+  // Débordement horizontal
+  overflow-x: auto;
+  // Espacement bas
+  margin-bottom: 2rem;
+  // Bordure
+  border: 1px solid $border;
+  // Coins arrondis
+  border-radius: 1rem;
+  // Overflow caché
+  overflow: hidden;
+}
+
+// Tableau
+.users-table {
+  // Largeur complète
+  width: 100%;
+  // Collapse des bordures
+  border-collapse: collapse;
+  // Fond
+  background: $card-bg;
+
+  // En-têtes
+  thead {
+    // Fond légèrement plus foncé
+    background: rgba(0, 0, 0, 0.3);
+    // Bordure bas
+    border-bottom: 2px solid $border;
+  }
+
+  // Cellules d'en-tête
+  th {
+    // Padding
+    padding: 1rem;
+    // Texte aligné à gauche
+    text-align: left;
+    // Poids de police
+    font-weight: 600;
+    // Couleur
+    color: $text;
+    // Taille de police
+    font-size: 0.9rem;
+
+    // Si triable
+    &.sortable {
+      // Cursor pointer
+      cursor: pointer;
+      // Transition
+      transition: all 0.2s;
+
+      // Au survol
+      &:hover {
+        // Fond
+        background: rgba($primary, 0.1);
+        // Couleur primaire
+        color: $primary-light;
+      }
+    }
+
+    // Alignement à droite
+    &.text-right {
+      text-align: right;
+    }
+  }
+
+  // Lignes
+  tr {
+    // Bordure bas
+    border-bottom: 1px solid $border;
+    // Transition
+    transition: all 0.3s;
+
+    // Au survol
+    &:hover {
+      // Fond
+      background: rgba($primary, 0.05);
+    }
+  }
+
+  // Cellules
+  td {
+    // Padding
+    padding: 1rem;
+    // Couleur
+    color: $text;
+
+    // Alignement à droite
+    &.text-right {
+      text-align: right;
+    }
+  }
+
+  // Dernière ligne
+  tbody tr:last-child {
+    border-bottom: none;
+  }
+}
+
+// ===== CELLULE UTILISATEUR =====
+.user-cell {
+  // Flexbox horizontal
+  display: flex;
+  // Aligner au centre
+  align-items: center;
+  // Espacement
+  gap: 0.75rem;
+
+  // Avatar
+  .avatar {
+    // Taille
+    width: 32px;
+    height: 32px;
+    // Fond dégradé
+    background: linear-gradient(135deg, $primary, $accent);
+    // Flexbox pour centrer
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // Cercle
+    border-radius: 50%;
+    // Taille de police
+    font-size: 1rem;
+  }
+}
+
+// ===== BADGES =====
+.badge {
+  // Padding
+  padding: 0.4rem 0.8rem;
+  // Coins arrondis
+  border-radius: 0.5rem;
+  // Taille réduite
+  font-size: 0.85rem;
+  // Poids de police
+  font-weight: 600;
+  // Display inline
+  display: inline-block;
+
+  // Badge actif
+  &.badge-active {
+    background: rgba($success, 0.15);
+    color: $success;
+  }
+
+  // Badge inactif
+  &.badge-inactive {
+    background: rgba(#64748b, 0.15);
+    color: #cbd5e1;
+  }
+
+  // Badge en congé
+  &.badge-on-leave {
+    background: rgba(#f59e0b, 0.15);
+    color: #fbbf24;
+  }
+}
+
+// ===== ICÔNES BOUTON =====
+.btn-icon {
+  // Pas de fond
+  background: none;
+  // Pas de bordure
+  border: none;
+  // Couleur texte muted
+  color: $text-muted;
+  // Cursor pointer
+  cursor: pointer;
+  // Taille
+  font-size: 1.2rem;
+  // Padding
+  padding: 0.5rem;
+  // Transition
+  transition: all 0.3s;
+
+  // Au survol
+  &:hover {
+    // Couleur primaire
+    color: $primary;
+    // Légère levée
+    transform: scale(1.2);
+  }
+}
+
+// ===== MESSAGE VIDE =====
+.empty-message {
+  // Texte centré
+  text-align: center;
+  // Padding
+  padding: 3rem 2rem;
+  // Couleur texte muted
+  color: $text-muted;
+  // Taille de police
+  font-size: 1.1rem;
+}
+
+// ===== PAGINATION =====
+.pagination-container {
+  // Flexbox horizontal
+  display: flex;
+  // Aligner au centre
+  align-items: center;
+  // Centrer
+  justify-content: center;
+  // Espacement entre les éléments
+  gap: 1rem;
+  // Padding
+  padding: 2rem;
+  // Flex wrap
+  flex-wrap: wrap;
+}
+
+// Info pagination
+.page-info {
+  // Couleur texte
+  color: $text;
+  // Poids de police
+  font-weight: 600;
+}
+
+// Numéros de page
+.page-numbers {
+  // Flexbox
+  display: flex;
+  // Espacement
+  gap: 0.5rem;
+  // Flex wrap
+  flex-wrap: wrap;
+
+  // Boutons de page
+  .btn-sm {
+    // Padding réduit
+    padding: 0.5rem 0.75rem;
+    // Fond
+    background: $card-bg;
+    // Bordure
+    border: 1px solid $border;
+    // Couleur
+    color: $text;
+
+    // Au survol
+    &:hover {
+      background: rgba($primary, 0.15);
+      border-color: $primary;
+    }
+
+    // Quand actif
+    &.active {
+      background: $primary;
+      border-color: $primary;
+      color: white;
+    }
+  }
+}
+
+// ===== MODAL =====
+.modal-overlay {
+  // Position fixe
+  position: fixed;
+  // Plein écran
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  // Fond semi-transparent
+  background: rgba(0, 0, 0, 0.8);
+  // Z-index
+  z-index: 1000;
+  // Flexbox pour centrer
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // Animation
+  animation: fadeIn 0.3s ease-out;
+}
+
+// Modal content
+.modal-content {
+  // Fond
+  background: $card-bg;
+  // Coins arrondis
+  border-radius: 1rem;
+  // Largeur
+  width: 90%;
+  // Hauteur maximale
+  max-width: 600px;
+  // Debordement
+  max-height: 80vh;
+  overflow-y: auto;
+  // Bordure
+  border: 1px solid $border;
+  // Animation
+  animation: slideUp 0.3s ease-out;
+}
+
+// En-tête du modal
+.modal-header {
+  // Flexbox
+  display: flex;
+  // Espacement
+  justify-content: space-between;
+  // Aligner
+  align-items: center;
+  // Padding
+  padding: 2rem;
+  // Bordure bas
+  border-bottom: 1px solid $border;
+
+  // Titre h3
+  h3 {
+    // Pas de marge
+    margin: 0;
+    // Couleur
+    color: $text;
+  }
+}
+
+// Bouton fermer
+.close-btn {
+  // Taille
+  width: 40px;
+  height: 40px;
+  // Cercle
+  border-radius: 50%;
+  // Fond
+  background: rgba($danger, 0.1);
+  // Bordure
+  border: none;
+  // Couleur
+  color: $danger;
+  // Cursor pointer
+  cursor: pointer;
+  // Taille de police
+  font-size: 1.5rem;
+  // Transition
+  transition: all 0.3s;
+
+  // Au survol
+  &:hover {
+    background: rgba($danger, 0.2);
+    transform: rotate(90deg);
+  }
+}
+
+// Corps du modal
+.modal-body {
+  // Padding
+  padding: 2rem;
+}
+
+// Détails utilisateur
+.user-details {
+  // Flexbox colonne
+  display: flex;
+  // Direction verticale
+  flex-direction: column;
+  // Espacement
+  gap: 1rem;
+}
+
+// Ligne de détail
+.detail-row {
+  // Flexbox
+  display: flex;
+  // Espacement
+  justify-content: space-between;
+  // Aligner
+  align-items: center;
+  // Padding
+  padding: 0.75rem;
+  // Bordure bas
+  border-bottom: 1px solid $border;
+
+  // Label
+  .label {
+    // Poids de police
+    font-weight: 600;
+    // Couleur
+    color: $text-muted;
+  }
+
+  // Dernière ligne sans bordure
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+// ===== ANIMATIONS =====
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ===== INDICATEUR DE TRI =====
+.sort-indicator {
+  // Taille réduite
+  font-size: 0.8rem;
+  // Marge gauche
+  margin-left: 0.5rem;
+}
+
+// ===== RESPONSIVE =====
+@media (max-width: 1024px) {
+  // Container avec moins de padding
+  .user-lists-container {
+    padding: 1rem;
+  }
+
+  // Grille des statistiques sur 2 colonnes
+  .stats-summary {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+
+  // Filtres empilés
+  .filters-section {
+    flex-direction: column;
+
+    .filter-select {
+      width: 100%;
+      min-width: unset;
+    }
+  }
+
+  // Tableau débordement
+  .users-table-container {
+    overflow-x: auto;
+  }
+
+  .users-table {
+    font-size: 0.85rem;
+
+    th, td {
+      padding: 0.75rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  // Titre plus petit
+  .header-section h2 {
+    font-size: 1.5rem;
+  }
+
+  // Statistiques sur 1 colonne
+  .stats-summary {
+    grid-template-columns: 1fr;
+  }
+
+  // Pagination verticale
+  .pagination-container {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .page-info, .page-numbers {
+    width: 100%;
+    justify-content: center;
+  }
+
+  // Modal plus petit
+  .modal-content {
+    width: 95%;
+    max-height: 90vh;
+  }
+
+  .modal-header {
+    padding: 1.5rem;
+
+    h3 {
+      font-size: 1.2rem;
+    }
+  }
+
+  .modal-body {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  // Container compacte
+  .user-lists-container {
+    padding: 0.5rem;
+  }
+
+  // Titre très petit
+  .header-section h2 {
+    font-size: 1.25rem;
+  }
+
+  // Tableau sur petits écrans
+  .users-table {
+    font-size: 0.75rem;
+
+    th, td {
+      padding: 0.5rem;
+    }
+  }
+
+  // Cellule utilisateur compacte
+  .user-cell {
+    gap: 0.5rem;
+
+    .avatar {
+      width: 24px;
+      height: 24px;
+      font-size: 0.8rem;
+    }
+  }
+
+  // Pagination plus compacte
+  .page-numbers .btn-sm {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.75rem;
+  }
+}

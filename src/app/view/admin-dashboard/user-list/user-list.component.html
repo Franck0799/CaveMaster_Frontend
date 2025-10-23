@@ -1,0 +1,251 @@
+<!-- ===== FICHIER: user-lists.component.html ===== -->
+<!-- Template pour la liste des utilisateurs avec filtrage et pagination -->
+
+<div class="user-lists-container">
+
+  <!-- En-tête avec titre -->
+  <div class="header-section">
+    <h2>👥 Liste des Utilisateurs</h2>
+  </div>
+
+  <!-- Barre de recherche -->
+  <div class="search-section">
+    <div class="search-bar">
+      <input
+        type="text"
+        placeholder="🔍 Rechercher par nom, prénom, email..."
+        (input)="onSearch($any($event.target).value)"
+        class="search-input">
+    </div>
+  </div>
+
+  <!-- Section des filtres -->
+  <div class="filters-section">
+    <!-- Filtre par rôle -->
+    <select class="filter-select"
+            (change)="onFilterChange('role', $any($event.target).value)">
+      <option value="">Tous les rôles</option>
+      <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+    </select>
+
+    <!-- Filtre par cave -->
+    <select class="filter-select"
+            (change)="onFilterChange('cave', $any($event.target).value)">
+      <option value="">Toutes les caves</option>
+      <option *ngFor="let cave of caves" [value]="cave">{{ cave }}</option>
+    </select>
+
+    <!-- Filtre par statut -->
+    <select class="filter-select"
+            (change)="onFilterChange('status', $any($event.target).value)">
+      <option value="">Tous les statuts</option>
+      <option value="active">🟢 Actif</option>
+      <option value="inactive">🔴 Inactif</option>
+      <option value="on-leave">🟡 En congé</option>
+    </select>
+
+    <!-- Bouton réinitialiser les filtres -->
+    <button (click)="resetFilters()" class="btn btn-secondary">
+      ↻ Réinitialiser
+    </button>
+  </div>
+
+  <!-- Statistiques globales (affichées si résultats) -->
+  <div class="stats-summary" *ngIf="filteredUsers.length > 0">
+    <div class="stat-item">
+      <span class="stat-label">💰 Ventes totales:</span>
+      <span class="stat-value">{{ formatCurrency(getStatistics().totalSales) }}</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">⏱️ Heures totales:</span>
+      <span class="stat-value">{{ getStatistics().totalHours }}h</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">⭐ Satisfaction moyenne:</span>
+      <span class="stat-value">{{ getStatistics().averageSatisfaction }}</span>
+    </div>
+  </div>
+
+  <!-- Tableau des utilisateurs -->
+  <div class="users-table-container">
+    <table class="users-table">
+      <!-- En-tête du tableau -->
+      <thead>
+        <tr>
+          <!-- Colonne Prénom (triable) -->
+          <th (click)="changeSortField('firstName')" class="sortable">
+            👤 Prénom
+            <span *ngIf="sortField === 'firstName'" class="sort-indicator">
+              {{ sortDirection === 'asc' ? '▲' : '▼' }}
+            </span>
+          </th>
+          <!-- Colonne Nom (triable) -->
+          <th (click)="changeSortField('lastName')" class="sortable">
+            Nom
+            <span *ngIf="sortField === 'lastName'" class="sort-indicator">
+              {{ sortDirection === 'asc' ? '▲' : '▼' }}
+            </span>
+          </th>
+          <!-- Colonne Email -->
+          <th>📧 Email</th>
+          <!-- Colonne Rôle (triable) -->
+          <th (click)="changeSortField('role')" class="sortable">
+            Rôle
+            <span *ngIf="sortField === 'role'" class="sort-indicator">
+              {{ sortDirection === 'asc' ? '▲' : '▼' }}
+            </span>
+          </th>
+          <!-- Colonne Cave -->
+          <th>🏢 Cave</th>
+          <!-- Colonne Statut -->
+          <th>📊 Statut</th>
+          <!-- Colonne Ventes -->
+          <th class="text-right">💰 Ventes</th>
+          <!-- Colonne Heures -->
+          <th class="text-right">⏱️ Heures</th>
+          <!-- Colonne Actions -->
+          <th>⚙️ Actions</th>
+        </tr>
+      </thead>
+
+      <!-- Corps du tableau -->
+      <tbody>
+        <!-- Boucle sur les utilisateurs filtrés et paginés -->
+        <tr *ngFor="let user of filteredUsers" class="user-row">
+          <!-- Colonne Prénom avec avatar -->
+          <td>
+            <div class="user-cell">
+              <span class="avatar">{{ user.avatar }}</span>
+              <span>{{ user.firstName }}</span>
+            </div>
+          </td>
+          <!-- Colonne Nom -->
+          <td>{{ user.lastName }}</td>
+          <!-- Colonne Email -->
+          <td>{{ user.email }}</td>
+          <!-- Colonne Rôle -->
+          <td>{{ user.role }}</td>
+          <!-- Colonne Cave -->
+          <td>{{ user.cave }}</td>
+          <!-- Colonne Statut avec badge -->
+          <td>
+            <span class="badge" [ngClass]="getStatusBadgeClass(user.status)">
+              {{ getStatusLabel(user.status) }}
+            </span>
+          </td>
+          <!-- Colonne Ventes alignée à droite -->
+          <td class="text-right">{{ formatCurrency(user.performance.sales) }}</td>
+          <!-- Colonne Heures alignée à droite -->
+          <td class="text-right">{{ user.performance.hours }}h</td>
+          <!-- Colonne Actions -->
+          <td>
+            <button (click)="viewUserDetails(user)" class="btn-icon" title="Voir détails">
+              👁️
+            </button>
+          </td>
+        </tr>
+
+        <!-- Message si aucun résultat -->
+        <tr *ngIf="filteredUsers.length === 0">
+          <td colspan="9" class="empty-message">
+            📭 Aucun utilisateur trouvé
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination-container" *ngIf="totalPages > 1">
+    <!-- Bouton page précédente -->
+    <button (click)="previousPage()"
+            class="btn btn-secondary"
+            [disabled]="currentPage === 1">
+      ◀ Précédent
+    </button>
+
+    <!-- Information de pagination -->
+    <div class="page-info">
+      Page {{ currentPage }} / {{ totalPages }}
+    </div>
+
+    <!-- Boutons de numéros de page -->
+    <div class="page-numbers">
+      <button *ngFor="let page of [].constructor(totalPages); let i = index"
+              (click)="goToPage(i + 1)"
+              class="btn btn-sm"
+              [class.active]="currentPage === i + 1">
+        {{ i + 1 }}
+      </button>
+    </div>
+
+    <!-- Bouton page suivante -->
+    <button (click)="nextPage()"
+            class="btn btn-secondary"
+            [disabled]="currentPage === totalPages">
+      Suivant ▶
+    </button>
+  </div>
+
+  <!-- Modal de détails utilisateur -->
+  <div *ngIf="isDetailModalOpen && selectedUser"
+       class="modal-overlay"
+       (click)="closeDetailModal()">
+    <!-- Contenu du modal -->
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <!-- En-tête du modal -->
+      <div class="modal-header">
+        <h3>👤 Détails de {{ selectedUser.firstName }} {{ selectedUser.lastName }}</h3>
+        <!-- Bouton fermer -->
+        <button (click)="closeDetailModal()" class="close-btn">×</button>
+      </div>
+
+      <!-- Corps du modal -->
+      <div class="modal-body">
+        <!-- Détails de l'utilisateur -->
+        <div class="user-details">
+          <!-- Ligne Email -->
+          <div class="detail-row">
+            <span class="label">📧 Email:</span>
+            <span>{{ selectedUser.email }}</span>
+          </div>
+          <!-- Ligne Téléphone -->
+          <div class="detail-row">
+            <span class="label">📱 Téléphone:</span>
+            <span>{{ selectedUser.phone }}</span>
+          </div>
+          <!-- Ligne Rôle -->
+          <div class="detail-row">
+            <span class="label">👔 Rôle:</span>
+            <span>{{ selectedUser.role }}</span>
+          </div>
+          <!-- Ligne Cave -->
+          <div class="detail-row">
+            <span class="label">🏢 Cave:</span>
+            <span>{{ selectedUser.cave }}</span>
+          </div>
+          <!-- Ligne Date d'embauche -->
+          <div class="detail-row">
+            <span class="label">📅 Date d'embauche:</span>
+            <span>{{ selectedUser.joinDate }}</span>
+          </div>
+          <!-- Ligne Ventes -->
+          <div class="detail-row">
+            <span class="label">💰 Ventes totales:</span>
+            <span>{{ formatCurrency(selectedUser.performance.sales) }}</span>
+          </div>
+          <!-- Ligne Heures -->
+          <div class="detail-row">
+            <span class="label">⏱️ Heures travaillées:</span>
+            <span>{{ selectedUser.performance.hours }}h</span>
+          </div>
+          <!-- Ligne Satisfaction -->
+          <div class="detail-row">
+            <span class="label">⭐ Satisfaction:</span>
+            <span>{{ selectedUser.performance.satisfaction }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

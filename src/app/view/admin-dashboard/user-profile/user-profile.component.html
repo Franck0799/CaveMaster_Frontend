@@ -1,0 +1,394 @@
+<!-- ===== FICHIER: user-profile.component.html ===== -->
+<!-- Template pour l'affichage et gestion du profil utilisateur -->
+
+<div class="user-profile-container">
+
+  <!-- Message de feedback -->
+  <div *ngIf="message"
+       class="alert"
+       [ngClass]="'alert-' + messageType">
+    {{ message }}
+  </div>
+
+  <!-- En-tête du profil -->
+  <div class="profile-header" *ngIf="userProfile">
+    <!-- Couverture de profil -->
+    <div class="profile-cover"></div>
+
+    <!-- Section infos de profil -->
+    <div class="profile-info-section">
+      <!-- Avatar grand avec bouton édition -->
+      <div class="avatar-large-container">
+        <span class="avatar-xxl">{{ userProfile.avatar }}</span>
+        <button (click)="startEditingProfile()" class="btn-edit-avatar" title="Changer avatar">
+          ✏️
+        </button>
+      </div>
+
+      <!-- Infos basiques -->
+      <div class="profile-basic">
+        <h1>{{ userProfile.firstName }} {{ userProfile.lastName }}</h1>
+        <p class="role">👔 {{ userProfile.role }}</p>
+        <p class="cave">🏢 {{ userProfile.cave }}</p>
+
+        <!-- Badge statut -->
+        <span class="status-badge" [ngClass]="'status-' + userProfile.status">
+          {{ userProfile.status === 'active' ? '🟢 Actif' :
+             userProfile.status === 'inactive' ? '🔴 Inactif' :
+             '🟡 En congé' }}
+        </span>
+      </div>
+
+      <!-- Barre de complétude du profil -->
+      <div class="completion-bar">
+        <div class="bar-label">
+          <span>Profil complété:</span>
+          <span class="percentage">{{ getProfileCompletion() }}%</span>
+        </div>
+        <div class="bar-container">
+          <div class="bar-fill" [style.width.%]="getProfileCompletion()"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Boutons d'action -->
+    <div class="profile-actions">
+      <button (click)="startEditingProfile()" class="btn btn-primary" *ngIf="!isEditingProfile">
+        ✏️ Éditer le profil
+      </button>
+      <button (click)="downloadReport()" class="btn btn-secondary">
+        📥 Télécharger rapport
+      </button>
+      <button (click)="exportProfileData()" class="btn btn-secondary">
+        💾 Exporter données
+      </button>
+      <button (click)="logout()" class="btn btn-danger">
+        🚪 Déconnexion
+      </button>
+    </div>
+  </div>
+
+  <!-- Onglets de navigation -->
+  <div class="tabs-container">
+    <button class="tab-btn"
+            [class.active]="activeTab === 'info'"
+            (click)="switchTab('info')">
+      👤 Infos personnelles
+    </button>
+    <button class="tab-btn"
+            [class.active]="activeTab === 'stats'"
+            (click)="switchTab('stats')">
+      📊 Statistiques
+    </button>
+    <button class="tab-btn"
+            [class.active]="activeTab === 'activities'"
+            (click)="switchTab('activities')">
+      📋 Activités
+    </button>
+    <button class="tab-btn"
+            [class.active]="activeTab === 'security'"
+            (click)="switchTab('security')">
+      🔒 Sécurité
+    </button>
+  </div>
+
+  <!-- Contenu des onglets -->
+  <div class="tabs-content">
+
+    <!-- ONGLET 1: INFORMATIONS PERSONNELLES -->
+    <div *ngIf="activeTab === 'info'" class="tab-pane" [ngIf]="userProfile">
+
+      <!-- Mode affichage -->
+      <div *ngIf="!isEditingProfile" class="info-display">
+        <div class="info-grid">
+          <!-- Ligne 1 -->
+          <div class="info-item">
+            <span class="label">📧 Email</span>
+            <span class="value">{{ userProfile.email }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">📱 Téléphone</span>
+            <span class="value">{{ userProfile.phone }}</span>
+          </div>
+
+          <!-- Ligne 2 -->
+          <div class="info-item">
+            <span class="label">📅 Date de naissance</span>
+            <span class="value">{{ formatDate(userProfile.birthDate) }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">📍 Adresse</span>
+            <span class="value">{{ userProfile.address }}</span>
+          </div>
+
+          <!-- Ligne 3 -->
+          <div class="info-item">
+            <span class="label">👥 Contact d'urgence</span>
+            <span class="value">{{ userProfile.emergencyContact }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">📞 Téléphone urgence</span>
+            <span class="value">{{ userProfile.emergencyPhone }}</span>
+          </div>
+
+          <!-- Ligne 4 -->
+          <div class="info-item">
+            <span class="label">🏦 Compte bancaire</span>
+            <span class="value">{{ userProfile.bankAccount }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">🏪 Banque</span>
+            <span class="value">{{ userProfile.bankName }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mode édition -->
+      <form *ngIf="isEditingProfile" [formGroup]="profileForm" class="info-edit">
+        <!-- Prénom & Nom -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Prénom</label>
+            <input type="text" class="form-input" formControlName="firstName">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nom</label>
+            <input type="text" class="form-input" formControlName="lastName">
+          </div>
+        </div>
+
+        <!-- Email & Téléphone -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" formControlName="email">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Téléphone</label>
+            <input type="tel" class="form-input" formControlName="phone">
+          </div>
+        </div>
+
+        <!-- Date naissance & Adresse -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Date de naissance</label>
+            <input type="date" class="form-input" formControlName="birthDate">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Adresse</label>
+            <input type="text" class="form-input" formControlName="address">
+          </div>
+        </div>
+
+        <!-- Contact urgence -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Contact d'urgence</label>
+            <input type="text" class="form-input" formControlName="emergencyContact">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Téléphone urgence</label>
+            <input type="tel" class="form-input" formControlName="emergencyPhone">
+          </div>
+        </div>
+
+        <!-- Infos bancaires -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Compte bancaire</label>
+            <input type="text" class="form-input" formControlName="bankAccount">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Banque</label>
+            <input type="text" class="form-input" formControlName="bankName">
+          </div>
+        </div>
+
+        <!-- Boutons -->
+        <div class="form-actions">
+          <button type="button" (click)="cancelEditingProfile()" class="btn btn-secondary">
+            ✕ Annuler
+          </button>
+          <button type="button" (click)="saveProfile()"
+                  [disabled]="profileForm.invalid"
+                  class="btn btn-primary">
+            💾 Enregistrer
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- ONGLET 2: STATISTIQUES -->
+    <div *ngIf="activeTab === 'stats'" class="tab-pane" [ngIf]="userProfile">
+      <div class="stats-grid">
+        <!-- Ventes totales -->
+        <div class="stat-card">
+          <div class="stat-icon">💰</div>
+          <div class="stat-content">
+            <span class="label">Ventes totales</span>
+            <span class="value">{{ formatCurrency(userProfile.statistics.totalSales) }}</span>
+          </div>
+        </div>
+
+        <!-- Heures travaillées -->
+        <div class="stat-card">
+          <div class="stat-icon">⏱️</div>
+          <div class="stat-content">
+            <span class="label">Heures travaillées</span>
+            <span class="value">{{ userProfile.statistics.totalHours }}h</span>
+          </div>
+        </div>
+
+        <!-- Moyenne par jour -->
+        <div class="stat-card">
+          <div class="stat-icon">📈</div>
+          <div class="stat-content">
+            <span class="label">Moyenne/jour</span>
+            <span class="value">{{ formatCurrency(userProfile.statistics.averageSalesPerDay) }}</span>
+          </div>
+        </div>
+
+        <!-- Bonus mensuel -->
+        <div class="stat-card">
+          <div class="stat-icon">🎁</div>
+          <div class="stat-content">
+            <span class="label">Bonus mensuel</span>
+            <span class="value">{{ formatCurrency(userProfile.statistics.monthlyBonus) }}</span>
+          </div>
+        </div>
+
+        <!-- Performance -->
+        <div class="stat-card">
+          <div class="stat-icon">⭐</div>
+          <div class="stat-content">
+            <span class="label">Note performance</span>
+            <span class="value">{{ userProfile.statistics.performanceRating }}/100</span>
+          </div>
+        </div>
+
+        <!-- Présence -->
+        <div class="stat-card">
+          <div class="stat-icon">✅</div>
+          <div class="stat-content">
+            <span class="label">Taux présence</span>
+            <span class="value">{{ userProfile.statistics.attendanceRate }}%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ONGLET 3: ACTIVITÉS -->
+    <div *ngIf="activeTab === 'activities'" class="tab-pane">
+      <div class="activities-list">
+        <!-- Boucle sur les activités affichées -->
+        <div *ngFor="let activity of getDisplayedActivities()" class="activity-item">
+          <!-- Icône avec badge du type -->
+          <div class="activity-badge" [ngClass]="getActivityBadgeClass(activity.type)">
+            {{ activity.icon }}
+          </div>
+
+          <!-- Contenu de l'activité -->
+          <div class="activity-content">
+            <h4>{{ activity.title }}</h4>
+            <p>{{ activity.description }}</p>
+          </div>
+
+          <!-- Timestamp -->
+          <div class="activity-time">
+            {{ activity.timestamp }}
+          </div>
+        </div>
+
+        <!-- Bouton charger plus -->
+        <button *ngIf="activitiesDisplayCount < allActivities.length"
+                (click)="loadMoreActivities()"
+                class="btn btn-secondary btn-block">
+          ⬇️ Charger plus d'activités
+        </button>
+      </div>
+    </div>
+
+    <!-- ONGLET 4: SÉCURITÉ -->
+    <div *ngIf="activeTab === 'security'" class="tab-pane">
+      <div class="security-section">
+        <h3>🔒 Changer le mot de passe</h3>
+
+        <!-- Mode affichage -->
+        <div *ngIf="!isChangingPassword" class="security-display">
+          <p>Votre mot de passe a été mis à jour le <strong>{{ userProfile?.lastUpdateDate }}</strong></p>
+          <button (click)="isChangingPassword = true" class="btn btn-primary">
+            🔑 Changer le mot de passe
+          </button>
+        </div>
+
+        <!-- Mode édition -->
+        <form *ngIf="isChangingPassword" [formGroup]="passwordForm" class="password-form">
+          <!-- Mot de passe actuel -->
+          <div class="form-group">
+            <label class="form-label">Mot de passe actuel *</label>
+            <div class="password-input-container">
+              <input [type]="showPasswords ? 'text' : 'password'"
+                     class="form-input"
+                     formControlName="currentPassword"
+                     placeholder="••••••••">
+              <button type="button"
+                      (click)="togglePasswordVisibility()"
+                      class="btn-toggle-password">
+                {{ showPasswords ? '🙈' : '👁️' }}
+              </button>
+            </div>
+          </div>
+
+          <!-- Nouveau mot de passe -->
+          <div class="form-group">
+            <label class="form-label">Nouveau mot de passe *</label>
+            <div class="password-input-container">
+              <input [type]="showPasswords ? 'text' : 'password'"
+                     class="form-input"
+                     formControlName="newPassword"
+                     placeholder="••••••••"
+                     (input)="evaluatePasswordStrength()">
+              <button type="button"
+                      (click)="togglePasswordVisibility()"
+                      class="btn-toggle-password">
+                {{ showPasswords ? '🙈' : '👁️' }}
+              </button>
+            </div>
+
+            <!-- Indicateur de force -->
+            <div class="strength-indicator" [ngClass]="'strength-' + passwordStrength">
+              <span>Force: <strong>{{ passwordStrength }}</strong></span>
+            </div>
+          </div>
+
+          <!-- Confirmation mot de passe -->
+          <div class="form-group">
+            <label class="form-label">Confirmer le mot de passe *</label>
+            <div class="password-input-container">
+              <input [type]="showPasswords ? 'text' : 'password'"
+                     class="form-input"
+                     formControlName="confirmPassword"
+                     placeholder="••••••••">
+            </div>
+          </div>
+
+          <!-- Boutons -->
+          <div class="form-actions">
+            <button type="button"
+                    (click)="isChangingPassword = false; passwordForm.reset()"
+                    class="btn btn-secondary">
+              ✕ Annuler
+            </button>
+            <button type="button"
+                    (click)="changePassword()"
+                    [disabled]="passwordForm.invalid"
+                    class="btn btn-primary">
+              🔐 Changer le mot de passe
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
