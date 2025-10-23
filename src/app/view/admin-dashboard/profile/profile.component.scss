@@ -1,318 +1,499 @@
-/* ==========================================
-   STYLES SCSS
-   ========================================== */
-
-$primary-color: #8b5cf6;
+// ===== Variables =====
+$primary-color: #4f46e5;
+$secondary-color: #6366f1;
 $success-color: #10b981;
 $danger-color: #ef4444;
-$text-dark: #1f2937;
-$text-light: #6b7280;
-$bg-light: #f9fafb;
-$border-color: #e5e7eb;
+$info-color: #3b82f6;
+$warning-color: #f59e0b;
+$bg-light: #f8fafc;
+$bg-white: #ffffff;
+$text-primary: #1e293b;
+$text-secondary: #64748b;
+$border-color: #e2e8f0;
 
-.profile-container {
-  padding: 2rem;
-  max-width: 900px;
-  margin: 0 auto;
-  min-height: 100vh;
+// ===== Page principale =====
+.page-section {
+  padding: 2rem; // Espacement général
+  background: $bg-light; // Fond clair
+  min-height: 100vh; // Hauteur minimale
 }
 
-.profile-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
+.content-section {
+  max-width: 900px; // Largeur maximale centrée
+  margin: 0 auto; // Centrage
+}
 
+// ===== En-tête =====
+.section-header {
+  display: flex; // Flexbox
+  justify-content: space-between; // Espace entre titre et actions
+  align-items: center; // Centrage vertical
+  margin-bottom: 2rem; // Marge en bas
+  
+  .section-title-main {
+    font-size: 2rem; // Grande taille
+    font-weight: 700; // Très gras
+    color: $text-primary; // Couleur sombre
+    margin: 0;
+  }
+  
   .header-actions {
-    display: flex;
-    gap: 1rem;
+    display: flex; // Flexbox
+    gap: 0.75rem; // Espace entre boutons
   }
 }
 
-// Alertes
-.alert {
-  padding: 1rem;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  font-weight: 600;
-
-  &.alert-success {
-    background: #d1fae5;
-    color: #065f46;
-    border: 1px solid #10b981;
-  }
-
-  &.alert-error {
-    background: #fee2e2;
-    color: #991b1b;
-    border: 1px solid $danger-color;
-  }
+// ===== Carte principale du profil =====
+.profile-card {
+  background: $bg-white; // Fond blanc
+  border-radius: 12px; // Coins arrondis
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); // Ombre légère
+  overflow: hidden; // Masque le débordement
 }
 
-// Carte principale
-.profile-main-card {
-  background: white;
-  border: 1px solid $border-color;
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
-
-  .profile-avatar-section {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    margin-bottom: 2rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid $border-color;
-
-    .avatar-wrapper {
-      position: relative;
-
-      .avatar-large {
-        width: 120px;
-        height: 120px;
-        background: linear-gradient(135deg, $primary-color, #a78bfa);
-        color: white;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 3rem;
-        font-weight: 700;
-      }
-
-      .avatar-change-btn {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        width: 40px;
-        height: 40px;
-        background: white;
-        border: 2px solid $primary-color;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        font-size: 1.5rem;
-        transition: all 0.3s;
-
-        &:hover {
-          background: $primary-color;
-          transform: scale(1.1);
-        }
-      }
+// ===== En-tête du profil =====
+.profile-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); // Dégradé violet
+  padding: 3rem 2rem; // Grand espacement
+  display: flex; // Flexbox
+  flex-direction: column; // Direction verticale
+  align-items: center; // Centrage horizontal
+  text-align: center; // Centrage du texte
+  position: relative; // Pour positionnement
+  
+  // Conteneur de l'avatar
+  .profile-avatar-container {
+    position: relative; // Pour le bouton de changement
+    margin-bottom: 1.5rem; // Marge en bas
+    
+    // Avatar large
+    .profile-avatar-large {
+      width: 120px; // Largeur fixe
+      height: 120px; // Hauteur fixe
+      border-radius: 50%; // Forme circulaire
+      background: $bg-white; // Fond blanc
+      display: flex; // Centrage
+      align-items: center; // Centrage vertical
+      justify-content: center; // Centrage horizontal
+      font-size: 4rem; // Très grande taille pour emoji
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); // Ombre prononcée
+      border: 4px solid $bg-white; // Bordure blanche
     }
-
-    .profile-basic-info {
-      h2 {
-        font-size: 2rem;
-        color: $text-dark;
-        margin: 0 0 0.5rem 0;
-      }
-
-      .role-badge {
-        display: inline-block;
-        padding: 0.25rem 1rem;
-        background: linear-gradient(135deg, $primary-color, #a78bfa);
-        color: white;
-        border-radius: 20px;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-      }
-
-      .join-date {
-        color: $text-light;
-        font-size: 0.9rem;
+    
+    // Bouton de changement d'avatar
+    .change-avatar-btn {
+      position: absolute; // Position absolue
+      bottom: 0; // En bas
+      right: 0; // À droite
+      background: $primary-color; // Fond bleu
+      color: white; // Texte blanc
+      border: none; // Pas de bordure
+      border-radius: 20px; // Très arrondi
+      padding: 0.5rem 1rem; // Espacement interne
+      font-size: 0.75rem; // Petite taille
+      font-weight: 600; // Semi-gras
+      cursor: pointer; // Curseur pointeur
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); // Ombre
+      transition: all 0.2s ease; // Animation
+      
+      &:hover {
+        background: darken($primary-color, 10%); // Fond plus foncé
+        transform: scale(1.05); // Légère augmentation
       }
     }
   }
-
-  .profile-stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1.5rem;
-
-    .stat-item {
-      text-align: center;
-      padding: 1rem;
-      background: $bg-light;
-      border-radius: 8px;
-
-      .stat-icon {
-        font-size: 2rem;
-        margin-bottom: 0.5rem;
-      }
-
-      .stat-value {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: $text-dark;
-        margin-bottom: 0.25rem;
-      }
-
-      .stat-label {
-        font-size: 0.8rem;
-        color: $text-light;
-        text-transform: uppercase;
+  
+  // Informations de base
+  .profile-basic-info {
+    color: white; // Texte blanc
+    
+    h3 {
+      font-size: 2rem; // Grande taille
+      font-weight: 700; // Très gras
+      margin: 0 0 0.5rem 0; // Marge en bas
+    }
+    
+    .profile-role-badge {
+      display: inline-block; // Inline pour centrage
+      background: rgba(255, 255, 255, 0.2); // Fond blanc semi-transparent
+      padding: 0.5rem 1rem; // Espacement interne
+      border-radius: 20px; // Très arrondi
+      font-size: 0.875rem; // Petite taille
+      font-weight: 600; // Semi-gras
+      margin-bottom: 0.75rem; // Marge en bas
+    }
+    
+    .profile-join-date {
+      font-size: 0.9rem; // Taille normale
+      opacity: 0.9; // Légère transparence
+      
+      .days-badge {
+        background: rgba(255, 255, 255, 0.2); // Fond semi-transparent
+        padding: 0.25rem 0.5rem; // Petit espacement
+        border-radius: 12px; // Arrondi
+        font-size: 0.75rem; // Très petite taille
+        margin-left: 0.5rem; // Marge à gauche
       }
     }
   }
 }
 
-// Section formulaire
+// ===== Sections du profil =====
 .profile-form-section,
-.password-section {
-  background: white;
-  border: 1px solid $border-color;
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
-
-  .section-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: $text-dark;
-    margin: 0 0 1.5rem 0;
+.password-section,
+.profile-stats-section,
+.account-actions-section {
+  padding: 2rem; // Espacement interne
+  border-bottom: 1px solid $border-color; // Bordure en bas
+  
+  &:last-child {
+    border-bottom: none; // Pas de bordure pour le dernier
   }
+}
 
-  .section-header-with-toggle {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-  }
+// ===== Sous-titre de section =====
+.section-subtitle {
+  font-size: 1.25rem; // Taille moyenne
+  font-weight: 600; // Semi-gras
+  color: $text-primary; // Couleur sombre
+  margin: 0 0 1.5rem 0; // Marge en bas
+  display: flex; // Flexbox
+  align-items: center; // Centrage vertical
+  gap: 0.5rem; // Espace entre icône et texte
+}
 
-  .form-group {
-    margin-bottom: 1.25rem;
-
-    .form-label {
-      display: block;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: $text-dark;
-      margin-bottom: 0.5rem;
-    }
-
-    .form-input {
-      width: 100%;
-      padding: 0.75rem;
-      border: 1px solid $border-color;
-      border-radius: 6px;
-      font-size: 0.95rem;
-      transition: all 0.3s;
-
-      &:focus {
-        outline: none;
-        border-color: $primary-color;
-        box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
-      }
-
-      &:disabled {
-        background: $bg-light;
-        color: $text-light;
-        cursor: not-allowed;
-      }
-    }
-
-    .form-hint {
-      display: block;
-      font-size: 0.8rem;
-      color: $text-light;
-      margin-top: 0.25rem;
-    }
-  }
-
+// ===== Formulaire du profil =====
+.profile-form {
+  // Ligne avec plusieurs champs
   .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    display: grid; // Grille
+    grid-template-columns: 1fr 1fr; // 2 colonnes égales
+    gap: 1rem; // Espace entre colonnes
   }
 }
 
-.password-form {
-  animation: slideDown 0.3s ease-out;
+.form-group {
+  margin-bottom: 1.5rem; // Marge entre champs
+  
+  .form-label {
+    display: block; // Bloc
+    margin-bottom: 0.5rem; // Marge en bas
+    font-size: 0.875rem; // Petite taille
+    font-weight: 600; // Semi-gras
+    color: $text-primary; // Couleur sombre
+  }
+  
+  .form-input {
+    width: 100%; // Largeur totale
+    padding: 0.75rem; // Espacement interne
+    border: 1px solid $border-color; // Bordure grise
+    border-radius: 8px; // Coins arrondis
+    font-size: 0.9rem; // Taille du texte
+    transition: all 0.2s ease; // Animation
+    background: $bg-white; // Fond blanc
+    
+    // État focus
+    &:focus {
+      outline: none; // Pas de contour
+      border-color: $primary-color; // Bordure bleue
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); // Ombre bleue
+    }
+    
+    // État désactivé
+    &.disabled,
+    &:disabled {
+      background: $bg-light; // Fond gris clair
+      color: $text-secondary; // Texte gris
+      cursor: not-allowed; // Curseur interdit
+    }
+    
+    &::placeholder {
+      color: #94a3b8; // Gris clair
+    }
+  }
+  
+  // Indication/aide
+  .form-hint {
+    display: block; // Bloc
+    margin-top: 0.25rem; // Petite marge en haut
+    font-size: 0.75rem; // Très petite taille
+    color: $text-secondary; // Gris
+  }
 }
 
+// ===== Section mot de passe =====
+.password-section {
+  .password-header {
+    display: flex; // Flexbox
+    justify-content: space-between; // Espace entre titre et icône
+    align-items: center; // Centrage vertical
+    cursor: pointer; // Curseur pointeur
+    user-select: none; // Pas de sélection de texte
+    
+    &:hover {
+      .section-subtitle {
+        color: $primary-color; // Couleur bleue au survol
+      }
+    }
+    
+    .toggle-icon {
+      font-size: 0.875rem; // Petite taille
+      color: $text-secondary; // Gris
+      transition: transform 0.2s ease; // Animation de rotation
+    }
+  }
+  
+  .password-form {
+    margin-top: 1.5rem; // Marge en haut
+    animation: slideDown 0.3s ease-out; // Animation d'apparition
+  }
+}
+
+// ===== Animation de slide down =====
 @keyframes slideDown {
   from {
-    opacity: 0;
-    transform: translateY(-10px);
+    opacity: 0; // Invisible
+    max-height: 0; // Hauteur nulle
+    transform: translateY(-10px); // Décalé vers le haut
   }
   to {
-    opacity: 1;
-    transform: translateY(0);
+    opacity: 1; // Visible
+    max-height: 500px; // Hauteur maximale
+    transform: translateY(0); // Position normale
   }
 }
 
-// Boutons
+// ===== Statistiques du profil =====
+.profile-stats-grid {
+  display: grid; // Grille
+  grid-template-columns: repeat(4, 1fr); // 4 colonnes égales
+  gap: 1.5rem; // Espace entre items
+}
+
+.profile-stat-item {
+  text-align: center; // Centrage du texte
+  padding: 1.5rem; // Espacement interne
+  background: $bg-light; // Fond gris clair
+  border-radius: 8px; // Coins arrondis
+  transition: all 0.3s ease; // Animation
+  
+  &:hover {
+    transform: translateY(-4px); // Déplacement vers le haut
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); // Ombre
+  }
+  
+  .profile-stat-icon {
+    font-size: 2rem; // Grande taille
+    margin-bottom: 0.5rem; // Marge en bas
+  }
+  
+  .profile-stat-value {
+    font-size: 1.5rem; // Taille importante
+    font-weight: 700; // Très gras
+    color: $text-primary; // Couleur sombre
+    margin-bottom: 0.25rem; // Petite marge
+  }
+  
+  .profile-stat-label {
+    font-size: 0.75rem; // Petite taille
+    color: $text-secondary; // Couleur grise
+    text-transform: uppercase; // Majuscules
+    letter-spacing: 0.5px; // Espacement des lettres
+  }
+}
+
+// ===== Actions du compte =====
+.account-actions-grid {
+  display: grid; // Grille
+  grid-template-columns: 1fr 1fr; // 2 colonnes
+  gap: 1rem; // Espace entre boutons
+}
+
+.action-btn {
+  display: flex; // Flexbox
+  align-items: center; // Centrage vertical
+  gap: 1rem; // Espace entre icône et contenu
+  padding: 1.5rem; // Espacement interne
+  border: 2px solid $border-color; // Bordure
+  border-radius: 8px; // Coins arrondis
+  background: $bg-white; // Fond blanc
+  cursor: pointer; // Curseur pointeur
+  transition: all 0.2s ease; // Animation
+  text-align: left; // Alignement à gauche
+  
+  .action-icon {
+    font-size: 2rem; // Grande taille
+    flex-shrink: 0; // Ne pas rétrécir
+  }
+  
+  .action-content {
+    flex: 1; // Prend l'espace restant
+    
+    .action-title {
+      font-size: 1rem; // Taille normale
+      font-weight: 600; // Semi-gras
+      color: $text-primary; // Couleur sombre
+      margin-bottom: 0.25rem; // Petite marge
+    }
+    
+    .action-description {
+      font-size: 0.75rem; // Petite taille
+      color: $text-secondary; // Couleur grise
+    }
+  }
+  
+  // Variante info
+  &.action-btn-info {
+    border-color: $info-color; // Bordure bleue
+    
+    &:hover {
+      background: rgba(59, 130, 246, 0.05); // Fond bleu clair
+      border-color: darken($info-color, 10%); // Bordure plus foncée
+      transform: translateY(-2px); // Déplacement
+    }
+  }
+  
+  // Variante danger
+  &.action-btn-danger {
+    border-color: $danger-color; // Bordure rouge
+    
+    &:hover {
+      background: rgba(239, 68, 68, 0.05); // Fond rouge clair
+      border-color: darken($danger-color, 10%); // Bordure plus foncée
+      transform: translateY(-2px); // Déplacement
+    }
+  }
+}
+
+// ===== Pied du profil (bouton sauvegarde) =====
+.profile-footer {
+  padding: 2rem; // Espacement interne
+  background: $bg-light; // Fond gris clair
+  
+  .btn-large {
+    width: 100%; // Largeur totale
+    padding: 1rem; // Grand espacement
+    font-size: 1rem; // Taille normale
+  }
+}
+
+// ===== Boutons standards =====
 .btn {
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
-
+  padding: 0.75rem 1.5rem; // Espacement interne
+  border-radius: 8px; // Coins arrondis
+  border: none; // Pas de bordure
+  font-size: 0.9rem; // Taille du texte
+  font-weight: 600; // Semi-gras
+  cursor: pointer; // Curseur pointeur
+  transition: all 0.2s ease; // Animation
+  display: inline-flex; // Flexbox inline
+  align-items: center; // Centrage vertical
+  gap: 0.5rem; // Espace entre icône et texte
+  
+  // Bouton primaire
   &.btn-primary {
-    background: $primary-color;
-    color: white;
-
+    background: $primary-color; // Fond bleu
+    color: white; // Texte blanc
+    
     &:hover {
-      background: darken($primary-color, 10%);
+      background: darken($primary-color, 10%); // Fond plus foncé
+      transform: translateY(-2px); // Déplacement
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3); // Ombre
     }
   }
-
+  
+  // Bouton secondaire
   &.btn-secondary {
-    background: $bg-light;
-    color: $text-dark;
-    border: 1px solid $border-color;
-
+    background: $secondary-color; // Fond violet
+    color: white; // Texte blanc
+    
     &:hover {
-      background: darken($bg-light, 5%);
+      background: darken($secondary-color, 10%); // Fond plus foncé
+      transform: translateY(-2px); // Déplacement
     }
   }
-
-  &.btn-success {
-    background: $success-color;
-    color: white;
-
+  
+  // Bouton annulation
+  &.btn-cancel {
+    background: transparent; // Fond transparent
+    color: $text-secondary; // Texte gris
+    border: 1px solid $border-color; // Bordure grise
+    
     &:hover {
-      background: darken($success-color, 10%);
+      background: $bg-light; // Fond gris clair
+      border-color: darken($border-color, 10%); // Bordure plus foncée
     }
   }
-
+  
+  // Bouton pleine largeur
   &.btn-block {
-    width: 100%;
-    margin-top: 1rem;
+    width: 100%; // Largeur totale
+    justify-content: center; // Centrage du contenu
   }
 }
 
-// Responsive
+// ===== Responsive (tablette) =====
 @media (max-width: 768px) {
-  .profile-container {
-    padding: 1rem;
+  .section-header {
+    flex-direction: column; // Colonne
+    align-items: flex-start; // Alignement à gauche
+    gap: 1rem; // Espace entre éléments
   }
-
+  
   .profile-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
+    padding: 2rem 1.5rem; // Espacement réduit
   }
-
-  .profile-avatar-section {
-    flex-direction: column;
-    text-align: center;
-  }
-
+  
   .profile-stats-grid {
-    grid-template-columns: 1fr 1fr !important;
+    grid-template-columns: repeat(2, 1fr); // 2 colonnes sur tablette
   }
-
+  
+  .account-actions-grid {
+    grid-template-columns: 1fr; // Une seule colonne
+  }
+  
   .form-row {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: 1fr; // Une seule colonne pour les champs
+  }
+}
+
+// ===== Responsive (mobile) =====
+@media (max-width: 480px) {
+  .page-section {
+    padding: 1rem; // Espacement réduit
+  }
+  
+  .profile-header {
+    padding: 1.5rem 1rem; // Espacement réduit
+    
+    .profile-avatar-container .profile-avatar-large {
+      width: 100px; // Taille réduite
+      height: 100px; // Taille réduite
+      font-size: 3rem; // Taille emoji réduite
+    }
+    
+    .profile-basic-info h3 {
+      font-size: 1.5rem; // Taille réduite
+    }
+  }
+  
+  .profile-form-section,
+  .password-section,
+  .profile-stats-section,
+  .account-actions-section {
+    padding: 1.5rem 1rem; // Espacement réduit
+  }
+  
+  .profile-stats-grid {
+    grid-template-columns: 1fr; // Une seule colonne
+  }
+  
+  .action-btn {
+    flex-direction: column; // Direction verticale
+    text-align: center; // Centrage du texte
+    
+    .action-icon {
+      margin-bottom: 0.5rem; // Marge en bas
+    }
   }
 }

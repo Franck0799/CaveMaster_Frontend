@@ -1,156 +1,214 @@
-// ==========================================
-// FICHIER: src/app/features/profile/profile.component.ts
-// DESCRIPTION: Composant pour gérer le profil utilisateur
-// ==========================================
+import { Component, OnInit } from '@angular/core';
 
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { UserProfile } from '../../core/models/models';
-import { DataService } from '../../core/services/data.service';
+/**
+ * Interface pour le profil utilisateur
+ */
+interface UserProfile {
+  avatar: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  role: string;
+  joinDate: string;
+  stats: {
+    caves: number;
+    managers: number;
+    employees: number;
+    totalSales: string;
+  };
+}
 
+/**
+ * Interface pour le formulaire de changement de mot de passe
+ */
+interface PasswordForm {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
+/**
+ * Composant Profile - Profil utilisateur
+ * Permet de consulter et modifier les informations du compte
+ */
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit, OnDestroy {
+export class ProfileComponent implements OnInit {
+  
+  // Profil de l'utilisateur
+  userProfile: UserProfile = {
+    avatar: '👨‍💼',
+    firstName: 'Amadou',
+    lastName: 'Diallo',
+    email: 'amadou.diallo@drinkstore.com',
+    phone: '+234 801 234 5678',
+    role: 'Administrateur',
+    joinDate: '15 janvier 2024',
+    stats: {
+      caves: 3,
+      managers: 6,
+      employees: 25,
+      totalSales: '9.85M'
+    }
+  };
 
-  // Profil utilisateur
-  userProfile: UserProfile | null = null;
-
-  // Formulaire de modification
-  profileForm: Partial<UserProfile> = {};
+  // Sauvegarde du profil original (pour annulation)
+  private originalProfile: UserProfile;
 
   // Formulaire de changement de mot de passe
-  passwordForm = {
+  passwordForm: PasswordForm = {
     currentPassword: '',
     newPassword: '',
     confirmPassword: ''
   };
 
-  // États UI
-  isLoading: boolean = false;
-  isEditing: boolean = false;
-  showPasswordSection: boolean = false;
+  // États des sections
+  isEditMode: boolean = false;
+  isPasswordSectionOpen: boolean = false;
 
-  // Messages
-  successMessage: string = '';
-  errorMessage: string = '';
-
-  private destroy$ = new Subject<void>();
-
-  constructor(private dataService: DataService) {}
+  constructor() {
+    // Sauvegarde du profil original
+    this.originalProfile = { ...this.userProfile };
+  }
 
   ngOnInit(): void {
-    this.loadProfile();
+    // Chargement du profil depuis le backend
+    this.loadUserProfile();
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+  /**
+   * Charge le profil utilisateur depuis le backend
+   */
+  loadUserProfile(): void {
+    // TODO: Appel API pour charger le profil
+    console.log('Chargement du profil utilisateur...');
   }
 
-  // Chargement du profil
-  loadProfile(): void {
-    this.isLoading = true;
-
-    this.dataService.userProfile$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(profile => {
-        if (profile) {
-          this.userProfile = profile;
-          this.profileForm = { ...profile };
-        }
-        this.isLoading = false;
-      });
-  }
-
-  // Mode édition
+  /**
+   * Active le mode édition du profil
+   */
   enableEditMode(): void {
-    this.isEditing = true;
-    this.profileForm = { ...this.userProfile };
+    this.isEditMode = true;
+    // Sauvegarde pour annulation
+    this.originalProfile = { ...this.userProfile };
   }
 
+  /**
+   * Annule les modifications et restaure le profil original
+   */
   cancelEdit(): void {
-    this.isEditing = false;
-    this.profileForm = { ...this.userProfile };
-    this.clearMessages();
+    this.isEditMode = false;
+    // Restauration du profil original
+    this.userProfile = { ...this.originalProfile };
   }
 
-  // Sauvegarde du profil
+  /**
+   * Enregistre les modifications du profil
+   */
   saveProfile(): void {
-    if (!this.profileForm.firstName || !this.profileForm.lastName ||
-        !this.profileForm.email) {
-      this.showError('Veuillez remplir tous les champs obligatoires');
+    // Validation des données
+    if (!this.validateProfile()) {
+      alert('Veuillez remplir tous les champs obligatoires correctement');
       return;
+    }
+
+    // TODO: Appel API pour sauvegarder
+    console.log('Sauvegarde du profil:', this.userProfile);
+
+    // Simulation de sauvegarde
+    this.isEditMode = false;
+    alert('Profil mis à jour avec succès !');
+
+    // Mise à jour du profil original
+    this.originalProfile = { ...this.userProfile };
+  }
+
+  /**
+   * Valide les données du profil
+   * @returns true si le profil est valide
+   */
+  validateProfile(): boolean {
+    // Vérification des champs obligatoires
+    if (!this.userProfile.firstName || !this.userProfile.lastName) {
+      return false;
     }
 
     // Validation de l'email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(this.profileForm.email)) {
-      this.showError('Email invalide');
-      return;
+    if (!emailRegex.test(this.userProfile.email)) {
+      return false;
     }
 
-    // Sauvegarde via le service
-    this.dataService.updateUserProfile(this.profileForm);
-    this.isEditing = false;
-    this.showSuccess('Profil mis à jour avec succès');
+    return true;
   }
 
-  // Toggle section mot de passe
+  /**
+   * Toggle l'affichage de la section changement de mot de passe
+   */
   togglePasswordSection(): void {
-    this.showPasswordSection = !this.showPasswordSection;
-    if (this.showPasswordSection) {
+    this.isPasswordSectionOpen = !this.isPasswordSectionOpen;
+    
+    // Réinitialise le formulaire si on ferme la section
+    if (!this.isPasswordSectionOpen) {
       this.resetPasswordForm();
     }
   }
 
-  // Changement de mot de passe
+  /**
+   * Change le mot de passe de l'utilisateur
+   */
   changePassword(): void {
-    const { currentPassword, newPassword, confirmPassword } = this.passwordForm;
-
-    // Validations
-    if (!currentPassword || !newPassword || !confirmPassword) {
-      this.showError('Veuillez remplir tous les champs du mot de passe');
+    // Validation du formulaire
+    if (!this.validatePasswordForm()) {
       return;
     }
 
-    if (newPassword.length < 8) {
-      this.showError('Le nouveau mot de passe doit contenir au moins 8 caractères');
-      return;
-    }
-
-    if (newPassword !== confirmPassword) {
-      this.showError('Les mots de passe ne correspondent pas');
-      return;
-    }
-
-    // Vérification de la force du mot de passe
-    if (!this.isPasswordStrong(newPassword)) {
-      this.showError('Le mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre');
-      return;
-    }
-
-    // Simulation de changement de mot de passe (à remplacer par un appel API)
-    // Dans un cas réel, vous enverriez ceci à votre backend
+    // TODO: Appel API pour changer le mot de passe
     console.log('Changement de mot de passe...');
 
+    // Simulation de succès
+    alert('Mot de passe modifié avec succès !');
+    
+    // Réinitialisation du formulaire
     this.resetPasswordForm();
-    this.showPasswordSection = false;
-    this.showSuccess('Mot de passe modifié avec succès');
+    this.isPasswordSectionOpen = false;
   }
 
-  // Validation force du mot de passe
-  isPasswordStrong(password: string): boolean {
-    const hasUpperCase = /[A-Z]/.test(password);
-    const hasLowerCase = /[a-z]/.test(password);
-    const hasNumber = /\d/.test(password);
-    return hasUpperCase && hasLowerCase && hasNumber;
+  /**
+   * Valide le formulaire de changement de mot de passe
+   * @returns true si le formulaire est valide
+   */
+  validatePasswordForm(): boolean {
+    // Vérification que tous les champs sont remplis
+    if (!this.passwordForm.currentPassword || 
+        !this.passwordForm.newPassword || 
+        !this.passwordForm.confirmPassword) {
+      alert('Veuillez remplir tous les champs');
+      return false;
+    }
+
+    // Vérification que les nouveaux mots de passe correspondent
+    if (this.passwordForm.newPassword !== this.passwordForm.confirmPassword) {
+      alert('Les nouveaux mots de passe ne correspondent pas');
+      return false;
+    }
+
+    // Vérification de la longueur minimale
+    if (this.passwordForm.newPassword.length < 8) {
+      alert('Le mot de passe doit contenir au moins 8 caractères');
+      return false;
+    }
+
+    return true;
   }
 
-  // Réinitialise le formulaire de mot de passe
+  /**
+   * Réinitialise le formulaire de mot de passe
+   */
   resetPasswordForm(): void {
     this.passwordForm = {
       currentPassword: '',
@@ -159,51 +217,76 @@ export class ProfileComponent implements OnInit, OnDestroy {
     };
   }
 
-  // Gestion des messages
-  showSuccess(message: string): void {
-    this.successMessage = message;
-    this.errorMessage = '';
-    setTimeout(() => this.successMessage = '', 5000);
+  /**
+   * Retourne les initiales de l'utilisateur
+   * @returns Initiales (ex: "AD")
+   */
+  getUserInitials(): string {
+    return `${this.userProfile.firstName.charAt(0)}${this.userProfile.lastName.charAt(0)}`.toUpperCase();
   }
 
-  showError(message: string): void {
-    this.errorMessage = message;
-    this.successMessage = '';
-    setTimeout(() => this.errorMessage = '', 5000);
+  /**
+   * Calcule le nombre de jours depuis l'inscription
+   * @returns Nombre de jours
+   */
+  getDaysSinceJoin(): number {
+    // TODO: Calcul réel basé sur la date d'inscription
+    return 280; // Exemple
   }
 
-  clearMessages(): void {
-    this.successMessage = '';
-    this.errorMessage = '';
+  /**
+   * Ouvre le sélecteur d'avatar
+   */
+  changeAvatar(): void {
+    // Liste d'avatars disponibles
+    const avatars = ['👨‍💼', '👩‍💼', '👨‍🏫', '👩‍🏫', '👨‍💻', '👩‍💻', '🧑‍💼', '🧑‍🏫'];
+    
+    // Simulation de sélection aléatoire (dans une vraie app, ouvrir un modal)
+    const randomAvatar = avatars[Math.floor(Math.random() * avatars.length)];
+    this.userProfile.avatar = randomAvatar;
+    
+    console.log('Avatar changé:', randomAvatar);
   }
 
-  // Upload d'avatar (simulation)
-  onAvatarChange(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
-      const file = input.files[0];
+  /**
+   * Supprime le compte utilisateur
+   */
+  deleteAccount(): void {
+    const confirmation = confirm(
+      'Êtes-vous sûr de vouloir supprimer votre compte ?\n' +
+      'Cette action est irréversible et toutes vos données seront supprimées.'
+    );
 
-      // Vérification du type de fichier
-      if (!file.type.startsWith('image/')) {
-        this.showError('Veuillez sélectionner une image');
-        return;
+    if (confirmation) {
+      const doubleConfirmation = confirm(
+        'Dernière confirmation : voulez-vous vraiment supprimer définitivement votre compte ?'
+      );
+
+      if (doubleConfirmation) {
+        // TODO: Appel API pour supprimer le compte
+        console.log('Suppression du compte...');
+        alert('Votre compte sera supprimé. Vous allez être déconnecté.');
+        // Redirection vers la page de connexion
       }
-
-      // Vérification de la taille (max 2MB)
-      if (file.size > 2 * 1024 * 1024) {
-        this.showError('L\'image ne doit pas dépasser 2MB');
-        return;
-      }
-
-      // Simulation de l'upload
-      this.showSuccess('Avatar mis à jour (fonctionnalité en développement)');
     }
   }
 
-  // Obtenir les initiales pour l'avatar
-  getInitials(): string {
-    if (!this.userProfile) return '';
-    return `${this.userProfile.firstName.charAt(0)}${this.userProfile.lastName.charAt(0)}`.toUpperCase();
+  /**
+   * Exporte les données du compte
+   */
+  exportAccountData(): void {
+    console.log('Export des données du compte...');
+    
+    // Simulation de téléchargement de données
+    alert('Vos données ont été exportées et téléchargées au format JSON');
+    
+    // Dans une vraie app:
+    // const dataStr = JSON.stringify(this.userProfile, null, 2);
+    // const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    // const url = URL.createObjectURL(dataBlob);
+    // const link = document.createElement('a');
+    // link.href = url;
+    // link.download = 'mon-compte-drinkstore.json';
+    // link.click();
   }
 }
-

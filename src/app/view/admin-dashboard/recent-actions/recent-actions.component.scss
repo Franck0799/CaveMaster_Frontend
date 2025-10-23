@@ -1,314 +1,427 @@
-/* ==========================================
-   STYLES SCSS
-   ========================================== */
-
-// src/app/features/recent-actions/recent-actions.component.scss
-
-$primary-color: #8b5cf6;
+// ===== Variables =====
+$primary-color: #4f46e5;
 $success-color: #10b981;
-$info-color: #3b82f6;
-$warning-color: #f59e0b;
 $danger-color: #ef4444;
-$text-dark: #1f2937;
-$text-light: #6b7280;
-$bg-light: #f9fafb;
-$border-color: #e5e7eb;
+$warning-color: #f59e0b;
+$info-color: #3b82f6;
+$bg-light: #f8fafc;
+$bg-white: #ffffff;
+$text-primary: #1e293b;
+$text-secondary: #64748b;
+$border-color: #e2e8f0;
 
-.actions-container {
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  min-height: 100vh;
+// ===== Conteneur principal =====
+.recent-actions-container {
+  background: $bg-white; // Fond blanc
+  border-radius: 12px; // Coins arrondis
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); // Ombre légère
+  overflow: hidden; // Masque le débordement
 }
 
-// Timeline
-.actions-timeline {
-  position: relative;
-  padding-left: 3rem;
-  margin-top: 2rem;
-
-  // Ligne verticale
-  &::before {
-    content: '';
-    position: absolute;
-    left: 1rem;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: linear-gradient(to bottom, $border-color, transparent);
+// ===== En-tête des actions =====
+.actions-header {
+  display: flex; // Flexbox
+  justify-content: space-between; // Espace entre titre et contrôles
+  align-items: center; // Centrage vertical
+  padding: 1.5rem; // Espacement interne
+  border-bottom: 1px solid $border-color; // Bordure en bas
+  
+  .actions-title {
+    font-size: 1.25rem; // Taille moyenne
+    font-weight: 600; // Semi-gras
+    color: $text-primary; // Couleur sombre
+    margin: 0; // Pas de marge
+    display: flex; // Flexbox
+    align-items: center; // Centrage vertical
+    gap: 0.5rem; // Espace entre icône et texte
   }
+  
+  .actions-controls {
+    display: flex; // Flexbox
+    gap: 0.5rem; // Espace entre boutons
+  }
+}
 
-  .action-item {
-    position: relative;
-    margin-bottom: 2rem;
-    background: white;
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s;
+// ===== Boutons icônes =====
+.btn-icon {
+  width: 36px; // Largeur fixe
+  height: 36px; // Hauteur fixe
+  border-radius: 6px; // Coins arrondis
+  border: none; // Pas de bordure
+  background: $bg-light; // Fond gris clair
+  cursor: pointer; // Curseur pointeur
+  font-size: 1rem; // Taille de l'icône
+  transition: all 0.2s ease; // Animation
+  display: flex; // Centrage
+  align-items: center; // Centrage vertical
+  justify-content: center; // Centrage horizontal
+  
+  &:hover {
+    background: #e2e8f0; // Fond plus foncé
+    transform: scale(1.1); // Légère augmentation
+  }
+  
+  &.btn-danger:hover {
+    background: rgba(239, 68, 68, 0.1); // Fond rouge clair
+    color: $danger-color; // Texte rouge
+  }
+}
 
+// ===== Indicateur de chargement =====
+.loading-indicator {
+  display: flex; // Flexbox
+  flex-direction: column; // Direction verticale
+  align-items: center; // Centrage horizontal
+  justify-content: center; // Centrage vertical
+  padding: 3rem; // Grand espacement
+  
+  // Animation spinner
+  .spinner {
+    width: 40px; // Largeur
+    height: 40px; // Hauteur
+    border: 4px solid $bg-light; // Bordure grise
+    border-top-color: $primary-color; // Bordure bleue en haut
+    border-radius: 50%; // Forme circulaire
+    animation: spin 1s linear infinite; // Animation de rotation
+    margin-bottom: 1rem; // Marge en bas
+  }
+  
+  p {
+    color: $text-secondary; // Couleur grise
+    font-size: 0.9rem; // Petite taille
+  }
+}
+
+// Animation de rotation
+@keyframes spin {
+  to {
+    transform: rotate(360deg); // Rotation complète
+  }
+}
+
+// ===== Liste des actions =====
+.actions-list {
+  max-height: 600px; // Hauteur maximale
+  overflow-y: auto; // Scroll vertical
+  padding: 0.5rem; // Petit espacement
+  
+  // Personnalisation de la scrollbar
+  &::-webkit-scrollbar {
+    width: 6px; // Largeur fine
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: transparent; // Fond transparent
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1); // Gris clair
+    border-radius: 3px; // Arrondi
+    
     &:hover {
-      transform: translateX(4px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    // Point sur la timeline
-    &::before {
-      content: '';
-      position: absolute;
-      left: -2.5rem;
-      top: 1.5rem;
-      width: 1rem;
-      height: 1rem;
-      border-radius: 50%;
-      background: var(--action-color, $primary-color);
-      border: 3px solid white;
-      box-shadow: 0 0 0 2px var(--action-color, $primary-color);
-    }
-
-    // Couleurs par type
-    &.action-green {
-      --action-color: #{$success-color};
-      border-left: 4px solid $success-color;
-    }
-
-    &.action-blue {
-      --action-color: #{$info-color};
-      border-left: 4px solid $info-color;
-    }
-
-    &.action-orange {
-      --action-color: #{$warning-color};
-      border-left: 4px solid $warning-color;
-    }
-
-    &.action-red {
-      --action-color: #{$danger-color};
-      border-left: 4px solid $danger-color;
-    }
-
-    &.action-gray {
-      --action-color: #{$text-light};
-      border-left: 4px solid $text-light;
-    }
-
-    .action-icon-wrapper {
-      position: absolute;
-      left: -2.75rem;
-      top: 1rem;
-      width: 1.5rem;
-      height: 1.5rem;
-      background: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      .action-icon {
-        font-size: 1.25rem;
-      }
-    }
-
-    .action-content {
-      .action-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        margin-bottom: 0.75rem;
-
-        .action-title {
-          font-size: 1.1rem;
-          font-weight: 700;
-          color: $text-dark;
-          margin: 0;
-          flex: 1;
-        }
-
-        .action-time {
-          font-size: 0.85rem;
-          color: $text-light;
-          white-space: nowrap;
-          margin-left: 1rem;
-          cursor: help;
-        }
-      }
-
-      .action-details {
-        font-size: 0.95rem;
-        color: $text-dark;
-        line-height: 1.6;
-        margin: 0 0 1rem 0;
-      }
-
-      .action-footer {
-        display: flex;
-        align-items: center;
-
-        .action-type-badge {
-          display: inline-block;
-          padding: 0.25rem 0.75rem;
-          border-radius: 20px;
-          font-size: 0.8rem;
-          font-weight: 600;
-
-          &.action-green {
-            background: #d1fae5;
-            color: #065f46;
-          }
-
-          &.action-blue {
-            background: #dbeafe;
-            color: #1e40af;
-          }
-
-          &.action-orange {
-            background: #fef3c7;
-            color: #92400e;
-          }
-
-          &.action-red {
-            background: #fee2e2;
-            color: #991b1b;
-          }
-
-          &.action-gray {
-            background: #f3f4f6;
-            color: #4b5563;
-          }
-        }
-      }
+      background: rgba(0, 0, 0, 0.2); // Plus foncé au survol
     }
   }
 }
 
-// Pagination
-.pagination {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 2rem;
-  padding: 1.5rem 0;
-
-  .pagination-btn {
-    padding: 0.5rem 1rem;
-    border: 1px solid $border-color;
-    background: white;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 600;
-    color: $text-dark;
-    transition: all 0.3s;
-
-    &:hover:not(:disabled) {
-      background: $primary-color;
-      color: white;
-      border-color: $primary-color;
-    }
-
-    &:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-    }
+// ===== Item d'action =====
+.action-item {
+  display: flex; // Flexbox
+  align-items: center; // Centrage vertical
+  gap: 1rem; // Espace entre éléments
+  padding: 1rem; // Espacement interne
+  border-radius: 8px; // Coins arrondis
+  transition: all 0.2s ease; // Animation
+  position: relative; // Pour positionnement du bouton delete
+  
+  &.action-item-hoverable:hover {
+    background: $bg-light; // Fond gris clair au survol
+    
+    .action-time {
+    font-size: 0.75rem; // Très petite taille
+    color: $text-secondary; // Couleur grise
+    white-space: nowrap; // Pas de retour à la ligne
   }
-
-  .pagination-numbers {
-    display: flex;
-    gap: 0.5rem;
-
-    .pagination-number {
-      width: 40px;
-      height: 40px;
-      border: 1px solid $border-color;
-      background: white;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 600;
-      color: $text-dark;
-      transition: all 0.3s;
-
-      &:hover:not(:disabled):not(.active) {
-        background: $bg-light;
-      }
-
-      &.active {
-        background: $primary-color;
-        color: white;
-        border-color: $primary-color;
-      }
-
-      &.ellipsis {
-        cursor: default;
-        border: none;
-
-        &:hover {
-          background: transparent;
-        }
-      }
-
-      &:disabled {
-        cursor: default;
-      }
+  
+  .action-delete {
+    width: 24px; // Largeur fixe
+    height: 24px; // Hauteur fixe
+    border-radius: 50%; // Forme circulaire
+    border: none; // Pas de bordure
+    background: rgba(239, 68, 68, 0.1); // Fond rouge clair
+    color: $danger-color; // Texte rouge
+    font-size: 1.25rem; // Taille de l'icône
+    cursor: pointer; // Curseur pointeur
+    display: flex; // Centrage
+    align-items: center; // Centrage vertical
+    justify-content: center; // Centrage horizontal
+    opacity: 0; // Caché par défaut
+    pointer-events: none; // Désactivé par défaut
+    transition: all 0.2s ease; // Animation
+    
+    &:hover {
+      background: rgba(239, 68, 68, 0.2); // Fond plus foncé
+      transform: scale(1.1); // Légère augmentation
     }
   }
 }
 
-// Responsive
+// ===== État vide =====
+.empty-state {
+  text-align: center; // Centrage du texte
+  padding: 4rem 2rem; // Grand espacement
+  
+  .empty-icon {
+    font-size: 4rem; // Très grande icône
+    margin-bottom: 1rem; // Marge en bas
+    opacity: 0.5; // Semi-transparent
+  }
+  
+  p {
+    color: $text-secondary; // Couleur grise
+    font-size: 1rem; // Taille normale
+    margin: 0; // Pas de marge
+  }
+}
+
+// ===== Pied avec bouton "Charger plus" =====
+.actions-footer {
+  padding: 1rem; // Espacement interne
+  border-top: 1px solid $border-color; // Bordure en haut
+}
+
+// ===== Boutons standards =====
+.btn {
+  padding: 0.75rem 1.5rem; // Espacement interne
+  border-radius: 8px; // Coins arrondis
+  border: none; // Pas de bordure
+  font-size: 0.9rem; // Taille du texte
+  font-weight: 600; // Semi-gras
+  cursor: pointer; // Curseur pointeur
+  transition: all 0.2s ease; // Animation
+  display: inline-flex; // Flexbox inline
+  align-items: center; // Centrage vertical
+  justify-content: center; // Centrage horizontal
+  gap: 0.5rem; // Espace entre icône et texte
+  
+  // Bouton secondaire
+  &.btn-secondary {
+    background: $text-secondary; // Fond gris
+    color: white; // Texte blanc
+    
+    &:hover {
+      background: darken($text-secondary, 10%); // Fond plus foncé
+      transform: translateY(-2px); // Déplacement
+    }
+  }
+  
+  // Bouton pleine largeur
+  &.btn-block {
+    width: 100%; // Largeur totale
+  }
+}
+
+// ===== Responsive (mobile) =====
 @media (max-width: 768px) {
-  .actions-container {
-    padding: 1rem;
+  .actions-header {
+    flex-direction: column; // Direction verticale
+    align-items: flex-start; // Alignement à gauche
+    gap: 1rem; // Espace entre éléments
   }
-
-  .actions-timeline {
-    padding-left: 2rem;
-
-    &::before {
-      left: 0.5rem;
-    }
-
-    .action-item {
-      &::before {
-        left: -1.75rem;
-        width: 0.75rem;
-        height: 0.75rem;
-      }
-
-      .action-icon-wrapper {
-        left: -2rem;
-        width: 1.25rem;
-        height: 1.25rem;
-
-        .action-icon {
-          font-size: 1rem;
-        }
-      }
-
-      .action-content .action-header {
-        flex-direction: column;
-        gap: 0.5rem;
-
-        .action-time {
-          margin-left: 0;
-        }
-      }
+  
+  .action-item {
+    flex-wrap: wrap; // Retour à la ligne
+    
+    .action-meta {
+      width: 100%; // Largeur totale
+      flex-direction: row; // Direction horizontale
+      justify-content: space-between; // Espace entre éléments
+      margin-top: 0.5rem; // Marge en haut
     }
   }
-
-  .stats-section {
-    grid-template-columns: repeat(2, 1fr) !important;
+}time {
+    font-size: 0.75rem; // Très petite taille
+    color: $text-secondary; // Couleur grise
+    white-space: nowrap; // Pas de retour à la ligne
   }
-
-  .filters-section {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .pagination {
-    flex-direction: column;
-
-    .pagination-numbers {
-      order: -1;
-      margin-bottom: 1rem;
+  
+  .action-delete {
+    width: 24px; // Largeur fixe
+    height: 24px; // Hauteur fixe
+    border-radius: 50%; // Forme circulaire
+    border: none; // Pas de bordure
+    background: rgba(239, 68, 68, 0.1); // Fond rouge clair
+    color: $danger-color; // Texte rouge
+    font-size: 1.25rem; // Taille de l'icône
+    cursor: pointer; // Curseur pointeur
+    display: flex; // Centrage
+    align-items: center; // Centrage vertical
+    justify-content: center; // Centrage horizontal
+    opacity: 0; // Caché par défaut
+    pointer-events: none; // Désactivé par défaut
+    transition: all 0.2s ease; // Animation
+    
+    &:hover {
+      background: rgba(239, 68, 68, 0.2); // Fond plus foncé
+      transform: scale(1.1); // Légère augmentation
     }
   }
 }
+
+// ===== État vide =====
+.empty-state {
+  text-align: center; // Centrage du texte
+  padding: 4rem 2rem; // Grand espacement
+  
+  .empty-icon {
+    font-size: 4rem; // Très grande icône
+    margin-bottom: 1rem; // Marge en bas
+    opacity: 0.5; // Semi-transparent
+  }
+  
+  p {
+    color: $text-secondary; // Couleur grise
+    font-size: 1rem; // Taille normale
+    margin: 0; // Pas de marge
+  }
+}
+
+// ===== Pied avec bouton "Charger plus" =====
+.actions-footer {
+  padding: 1rem; // Espacement interne
+  border-top: 1px solid $border-color; // Bordure en haut
+}
+
+// ===== Boutons standards =====
+.btn {
+  padding: 0.75rem 1.5rem; // Espacement interne
+  border-radius: 8px; // Coins arrondis
+  border: none; // Pas de bordure
+  font-size: 0.9rem; // Taille du texte
+  font-weight: 600; // Semi-gras
+  cursor: pointer; // Curseur pointeur
+  transition: all 0.2s ease; // Animation
+  display: inline-flex; // Flexbox inline
+  align-items: center; // Centrage vertical
+  justify-content: center; // Centrage horizontal
+  gap: 0.5rem; // Espace entre icône et texte
+  
+  // Bouton secondaire
+  &.btn-secondary {
+    background: $text-secondary; // Fond gris
+    color: white; // Texte blanc
+    
+    &:hover {
+      background: darken($text-secondary, 10%); // Fond plus foncé
+      transform: translateY(-2px); // Déplacement
+    }
+  }
+  
+  // Bouton pleine largeur
+  &.btn-block {
+    width: 100%; // Largeur totale
+  }
+}
+
+// ===== Responsive (mobile) =====
+@media (max-width: 768px) {
+  .actions-header {
+    flex-direction: column; // Direction verticale
+    align-items: flex-start; // Alignement à gauche
+    gap: 1rem; // Espace entre éléments
+  }
+  
+  .action-item {
+    flex-wrap: wrap; // Retour à la ligne
+    
+    .action-meta {
+      width: 100%; // Largeur totale
+      flex-direction: row; // Direction horizontale
+      justify-content: space-between; // Espace entre éléments
+      margin-top: 0.5rem; // Marge en haut
+    }
+  }
+}
+delete {
+      opacity: 1; // Affiche le bouton supprimer
+      pointer-events: auto; // Active les interactions
+    }
+  }
+}
+
+// ===== Icône de l'action =====
+.action-icon {
+  width: 50px; // Largeur fixe
+  height: 50px; // Hauteur fixe
+  border-radius: 50%; // Forme circulaire
+  display: flex; // Centrage
+  align-items: center; // Centrage vertical
+  justify-content: center; // Centrage horizontal
+  font-size: 1.5rem; // Taille de l'emoji
+  flex-shrink: 0; // Ne pas rétrécir
+  
+  // Type: Ajout
+  &.action-type-add {
+    background: rgba(16, 185, 129, 0.1); // Fond vert clair
+    color: $success-color; // Texte vert
+  }
+  
+  // Type: Suppression
+  &.action-type-remove {
+    background: rgba(239, 68, 68, 0.1); // Fond rouge clair
+    color: $danger-color; // Texte rouge
+  }
+  
+  // Type: Modification
+  &.action-type-update {
+    background: rgba(59, 130, 246, 0.1); // Fond bleu clair
+    color: $info-color; // Texte bleu
+  }
+  
+  // Type: Alerte
+  &.action-type-alert {
+    background: rgba(245, 158, 11, 0.1); // Fond orange clair
+    color: $warning-color; // Texte orange
+  }
+  
+  // Type par défaut
+  &.action-type-default {
+    background: rgba(100, 116, 139, 0.1); // Fond gris clair
+    color: $text-secondary; // Texte gris
+  }
+}
+
+// ===== Contenu de l'action =====
+.action-content {
+  flex: 1; // Prend l'espace disponible
+  min-width: 0; // Permet l'ellipsis
+  
+  .action-title {
+    font-size: 0.9rem; // Taille normale
+    font-weight: 600; // Semi-gras
+    color: $text-primary; // Couleur sombre
+    margin-bottom: 0.25rem; // Petite marge
+  }
+  
+  .action-details {
+    font-size: 0.8rem; // Petite taille
+    color: $text-secondary; // Couleur grise
+    line-height: 1.4; // Hauteur de ligne
+  }
+  
+  .action-user {
+    font-size: 0.75rem; // Très petite taille
+    color: $primary-color; // Couleur bleue
+    margin-top: 0.25rem; // Petite marge
+    font-weight: 500; // Poids moyen
+  }
+}
+
+// ===== Métadonnées de l'action =====
+.action-meta {
+  display: flex; // Flexbox
+  flex-direction: column; // Direction verticale
+  align-items: flex-end; // Alignement à droite
+  gap: 0.5rem; // Espace entre éléments
+  
+  .action-

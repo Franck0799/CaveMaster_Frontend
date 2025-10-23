@@ -1,385 +1,337 @@
-/* ==========================================
-   STYLES SCSS
-   ========================================== */
-
-// src/app/features/scan/scan.component.scss
-
-$primary-color: #8b5cf6;
+// ===== Variables =====
+$primary-color: #4f46e5;
+$secondary-color: #6366f1;
 $success-color: #10b981;
 $danger-color: #ef4444;
 $info-color: #3b82f6;
-$text-dark: #1f2937;
-$text-light: #6b7280;
-$bg-light: #f9fafb;
-$border-color: #e5e7eb;
+$bg-light: #f8fafc;
+$bg-white: #ffffff;
+$text-primary: #1e293b;
+$text-secondary: #64748b;
+$border-color: #e2e8f0;
+$scan-line-color: #4ade80;
 
-.scan-container {
-  padding: 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
-  min-height: 100vh;
+// ===== Page principale =====
+.page-section {
+  padding: 2rem; // Espacement général
+  background: $bg-light; // Fond clair
+  min-height: 100vh; // Hauteur minimale
 }
 
-.scan-main {
-  display: grid;
-  grid-template-columns: 1fr 400px;
-  gap: 2rem;
-  margin-top: 2rem;
+.content-section {
+  max-width: 1200px; // Largeur maximale
+  margin: 0 auto; // Centrage
 }
 
-// Zone de scan
-.scan-area-section {
-  background: white;
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.scan-area {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-}
-
-.scan-frame {
-  position: relative;
-  width: 100%;
-  max-width: 500px;
-  height: 400px;
-  border: 3px dashed $border-color;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: $bg-light;
-  overflow: hidden;
-  transition: all 0.3s;
-
-  &.scanning {
-    border-color: $primary-color;
-    background: linear-gradient(135deg, #f3e8ff, #e9d5ff);
-    animation: pulse 2s infinite;
+// ===== En-tête =====
+.section-header {
+  margin-bottom: 2rem; // Marge en bas
+  
+  .section-title-main {
+    font-size: 2rem; // Grande taille
+    font-weight: 700; // Très gras
+    color: $text-primary; // Couleur sombre
+    margin: 0;
   }
 }
 
-// Animation de pulsation
+// ===== Conteneur principal du scan =====
+.scan-container {
+  display: grid; // Grille CSS
+  grid-template-columns: 1fr 1fr; // 2 colonnes égales
+  gap: 2rem; // Espace entre colonnes
+  margin-bottom: 2rem; // Marge en bas
+}
+
+// ===== Zone de scan =====
+.scan-area {
+  background: $bg-white; // Fond blanc
+  border-radius: 12px; // Coins arrondis
+  padding: 2rem; // Espacement interne
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); // Ombre légère
+  display: flex; // Flexbox
+  flex-direction: column; // Direction verticale
+  gap: 1.5rem; // Espace entre éléments
+}
+
+// ===== Cadre de scan =====
+.scan-frame {
+  position: relative; // Pour positionnement absolu des enfants
+  width: 100%; // Largeur totale
+  aspect-ratio: 4/3; // Ratio largeur/hauteur
+  border: 3px dashed $border-color; // Bordure en pointillés
+  border-radius: 12px; // Coins arrondis
+  display: flex; // Flexbox
+  flex-direction: column; // Direction verticale
+  align-items: center; // Centrage horizontal
+  justify-content: center; // Centrage vertical
+  background: $bg-light; // Fond gris clair
+  transition: all 0.3s ease; // Animation
+  overflow: hidden; // Masque le débordement
+  
+  // Icône de caméra
+  .scan-icon {
+    font-size: 4rem; // Très grande taille
+    margin-bottom: 1rem; // Marge en bas
+    opacity: 0.5; // Semi-transparent
+    transition: opacity 0.3s ease; // Animation
+  }
+  
+  // Texte d'instruction
+  .scan-text {
+    font-size: 1.125rem; // Taille moyenne
+    color: $text-secondary; // Couleur grise
+    text-align: center; // Centrage du texte
+    font-weight: 500; // Poids moyen
+  }
+  
+  // État pendant le scan
+  &.scanning {
+    border-color: $scan-line-color; // Bordure verte
+    border-style: solid; // Bordure solide
+    background: linear-gradient(135deg, rgba(74, 222, 128, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%); // Dégradé léger
+    
+    .scan-icon {
+      opacity: 0.8; // Plus visible
+      animation: pulse 2s ease-in-out infinite; // Animation de pulsation
+    }
+  }
+}
+
+// ===== Ligne de scan animée =====
+.scan-line {
+  position: absolute; // Position absolue
+  left: 0; // Aligné à gauche
+  right: 0; // Aligné à droite
+  height: 2px; // Hauteur fine
+  background: linear-gradient(90deg, transparent 0%, $scan-line-color 50%, transparent 100%); // Dégradé
+  box-shadow: 0 0 10px $scan-line-color; // Lueur
+  animation: scanAnimation 2s linear infinite; // Animation de balayage
+}
+
+// ===== Animation de balayage =====
+@keyframes scanAnimation {
+  0% {
+    top: 0; // Début en haut
+  }
+  100% {
+    top: 100%; // Fin en bas
+  }
+}
+
+// ===== Animation de pulsation =====
 @keyframes pulse {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4);
+    transform: scale(1); // Taille normale
   }
   50% {
-    box-shadow: 0 0 0 20px rgba(139, 92, 246, 0);
+    transform: scale(1.1); // Agrandissement de 10%
   }
 }
 
-// Icône centrale
-.scan-icon {
-  font-size: 6rem;
-  animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
-}
-
-// Ligne de scan animée
-.scan-line {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg,
-    transparent,
-    $success-color,
-    transparent
-  );
-  animation: scan-animation 2s linear infinite;
-}
-
-@keyframes scan-animation {
-  0% { top: 0; }
-  50% { top: 100%; }
-  100% { top: 0; }
-}
-
-// Statut du scan
-.scan-status {
-  text-align: center;
-  margin-top: 2rem;
-
-  .status-icon-large {
-    font-size: 4rem;
-    margin-bottom: 1rem;
-  }
-
-  .status-text {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: $text-dark;
-    margin: 0 0 0.5rem 0;
-
-    &.success { color: $success-color; }
-    &.error { color: $danger-color; }
-  }
-
-  .status-hint {
-    font-size: 0.95rem;
-    color: $text-light;
-    margin: 0;
-  }
-}
-
-// Loader de scan
-.scanning-loader {
-  width: 60px;
-  height: 60px;
-  border: 4px solid $bg-light;
-  border-top-color: $primary-color;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin-bottom: 1rem;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-// Boutons de contrôle
+// ===== Contrôles du scan =====
 .scan-controls {
-  display: flex;
-  gap: 1rem;
-  width: 100%;
-  max-width: 500px;
-
-  .btn-large {
-    flex: 1;
-    padding: 1rem 2rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-
-    .btn-icon {
-      margin-right: 0.5rem;
-      font-size: 1.3rem;
-    }
-  }
+  display: flex; // Flexbox
+  justify-content: center; // Centrage horizontal
+  gap: 1rem; // Espace entre boutons
 }
 
-// Sidebar (résultats et historique)
-.scan-sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-// Carte de résultat
-.result-card {
-  background: white;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-
-  &.success {
-    border-left: 4px solid $success-color;
-  }
-
-  &.error {
-    border-left: 4px solid $danger-color;
-  }
-
+// ===== Résultat du scan =====
+.scan-result {
+  background: $bg-white; // Fond blanc
+  border-radius: 12px; // Coins arrondis
+  padding: 2rem; // Espacement interne
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); // Ombre légère
+  animation: slideIn 0.3s ease-out; // Animation d'entrée
+  
+  // En-tête du résultat
   .result-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-
-    .result-icon-large {
-      font-size: 3rem;
-
-      &.error-icon {
-        font-size: 2.5rem;
-      }
-    }
-
-    .result-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: $text-dark;
-      margin: 0 0 0.25rem 0;
-    }
-
-    .result-category {
-      font-size: 0.9rem;
-      color: $text-light;
+    margin-bottom: 1.5rem; // Marge en bas
+    
+    h3 {
+      font-size: 1.5rem; // Grande taille
+      font-weight: 600; // Semi-gras
+      color: $success-color; // Couleur verte
       margin: 0;
-    }
-
-    .result-error {
-      font-size: 0.9rem;
-      color: $danger-color;
-      margin: 0;
+      display: flex; // Flexbox
+      align-items: center; // Centrage vertical
+      gap: 0.5rem; // Espace entre icône et texte
     }
   }
-
-  .result-details {
-    margin-bottom: 1.5rem;
-
-    .detail-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.75rem 0;
-      border-bottom: 1px solid $border-color;
-
-      &:last-child {
-        border-bottom: none;
-      }
-
-      .detail-label {
-        font-size: 0.9rem;
-        color: $text-light;
-      }
-
-      .detail-value {
-        font-weight: 600;
-        color: $text-dark;
-
-        &.price {
-          color: $success-color;
-          font-size: 1.1rem;
-        }
-
-        &.low-stock {
-          color: $danger-color;
-        }
-      }
+  
+  // Contenu du résultat (JSON formaté)
+  .result-content {
+    background: $bg-light; // Fond gris clair
+    border-radius: 8px; // Coins arrondis
+    padding: 1rem; // Espacement interne
+    margin-bottom: 1.5rem; // Marge en bas
+    
+    pre {
+      margin: 0; // Pas de marge
+      font-family: 'Courier New', monospace; // Police monospace
+      font-size: 0.875rem; // Petite taille
+      color: $text-primary; // Couleur sombre
+      white-space: pre-wrap; // Retour à la ligne automatique
+      word-wrap: break-word; // Coupe les mots longs
     }
   }
-
+  
+  // Actions sur le résultat
   .result-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+    display: flex; // Flexbox
+    flex-direction: column; // Direction verticale
+    gap: 0.75rem; // Espace entre boutons
   }
 }
 
-// Instructions
-.instructions-card {
-  background: linear-gradient(135deg, #fef3c7, #fde68a);
-  border-radius: 12px;
-  padding: 1.5rem;
-
-  .instructions-title {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: $text-dark;
-    margin: 0 0 1rem 0;
+// ===== Animation de slide in =====
+@keyframes slideIn {
+  from {
+    opacity: 0; // Invisible
+    transform: translateX(20px); // Décalé à droite
   }
+  to {
+    opacity: 1; // Visible
+    transform: translateX(0); // Position normale
+  }
+}
 
-  .instructions-list {
-    margin: 0;
-    padding-left: 1.5rem;
-
+// ===== Instructions =====
+.scan-instructions {
+  background: $bg-white; // Fond blanc
+  border-radius: 12px; // Coins arrondis
+  padding: 2rem; // Espacement interne
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); // Ombre légère
+  
+  h3 {
+    font-size: 1.25rem; // Taille moyenne
+    font-weight: 600; // Semi-gras
+    color: $text-primary; // Couleur sombre
+    margin-bottom: 1rem; // Marge en bas
+  }
+  
+  ul {
+    list-style: none; // Pas de puces par défaut
+    padding: 0; // Pas de padding
+    margin: 0 0 1.5rem 0; // Marge en bas
+    
     li {
-      font-size: 0.9rem;
-      color: $text-dark;
-      margin-bottom: 0.5rem;
-      line-height: 1.5;
-
-      &:last-child {
-        margin-bottom: 0;
+      padding: 0.75rem; // Espacement interne
+      margin-bottom: 0.5rem; // Marge en bas
+      background: $bg-light; // Fond gris clair
+      border-radius: 8px; // Coins arrondis
+      border-left: 3px solid $primary-color; // Bordure gauche colorée
+      font-size: 0.9rem; // Taille du texte
+      color: $text-primary; // Couleur sombre
+      
+      // Icône de check avant chaque élément
+      &::before {
+        content: '✓ '; // Icône de check
+        color: $success-color; // Couleur verte
+        font-weight: bold; // Gras
+        margin-right: 0.5rem; // Marge à droite
       }
+    }
+  }
+  
+  // Note technique
+  .scan-note {
+    padding: 1rem; // Espacement interne
+    background: rgba(79, 70, 229, 0.05); // Fond bleu très clair
+    border-radius: 8px; // Coins arrondis
+    border-left: 3px solid $primary-color; // Bordure gauche bleue
+    font-size: 0.875rem; // Petite taille
+    color: $text-secondary; // Couleur grise
+    line-height: 1.6; // Hauteur de ligne
+    
+    strong {
+      color: $primary-color; // Couleur bleue
+      font-weight: 600; // Semi-gras
     }
   }
 }
 
-// Historique
-.history-card {
-  background: white;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-
-  .history-title {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: $text-dark;
-    margin: 0 0 1rem 0;
-  }
-
-  .history-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .history-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.75rem;
-    border-radius: 8px;
-    background: $bg-light;
-    transition: all 0.3s;
-
+// ===== Boutons =====
+.btn {
+  padding: 0.75rem 1.5rem; // Espacement interne
+  border-radius: 8px; // Coins arrondis
+  border: none; // Pas de bordure
+  font-size: 0.9rem; // Taille du texte
+  font-weight: 600; // Semi-gras
+  cursor: pointer; // Curseur pointeur
+  transition: all 0.2s ease; // Animation
+  display: inline-flex; // Flexbox inline
+  align-items: center; // Centrage vertical
+  justify-content: center; // Centrage horizontal
+  gap: 0.5rem; // Espace entre icône et texte
+  width: 100%; // Largeur totale
+  
+  // Bouton primaire
+  &.btn-primary {
+    background: $primary-color; // Fond bleu
+    color: white; // Texte blanc
+    
     &:hover {
-      background: darken($bg-light, 3%);
+      background: darken($primary-color, 10%); // Fond plus foncé
+      transform: translateY(-2px); // Déplacement vers le haut
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3); // Ombre
     }
-
-    &.success {
-      border-left: 3px solid $success-color;
+  }
+  
+  // Bouton secondaire
+  &.btn-secondary {
+    background: $secondary-color; // Fond bleu-violet
+    color: white; // Texte blanc
+    
+    &:hover {
+      background: darken($secondary-color, 10%); // Fond plus foncé
+      transform: translateY(-2px); // Déplacement
     }
-
-    &.error {
-      border-left: 3px solid $danger-color;
+  }
+  
+  // Bouton danger
+  &.btn-danger {
+    background: $danger-color; // Fond rouge
+    color: white; // Texte blanc
+    
+    &:hover {
+      background: darken($danger-color, 10%); // Fond plus foncé
+      transform: translateY(-2px); // Déplacement
     }
-
-    .history-icon {
-      font-size: 2rem;
-      flex-shrink: 0;
-    }
-
-    .history-info {
-      flex: 1;
-
-      .history-name {
-        font-weight: 600;
-        color: $text-dark;
-        font-size: 0.9rem;
-        margin-bottom: 0.25rem;
-      }
-
-      .history-time {
-        font-size: 0.8rem;
-        color: $text-light;
-      }
+  }
+  
+  // Bouton info
+  &.btn-info {
+    background: $info-color; // Fond bleu clair
+    color: white; // Texte blanc
+    
+    &:hover {
+      background: darken($info-color, 10%); // Fond plus foncé
+      transform: translateY(-2px); // Déplacement
     }
   }
 }
 
-// Responsive
-@media (max-width: 1024px) {
-  .scan-main {
-    grid-template-columns: 1fr;
-  }
-
-  .scan-sidebar {
-    order: -1;
-  }
-}
-
-@media (max-width: 768px) {
+// ===== Responsive (mobile) =====
+@media (max-width: 968px) {
   .scan-container {
-    padding: 1rem;
+    grid-template-columns: 1fr; // Une seule colonne
   }
-
+  
   .scan-frame {
-    height: 300px;
+    aspect-ratio: 3/2; // Ratio différent sur mobile
   }
+}
 
-  .stats-section {
-    grid-template-columns: repeat(2, 1fr) !important;
+@media (max-width: 480px) {
+  .scan-controls {
+    flex-direction: column; // Boutons en colonne
+  }
+  
+  .result-actions {
+    .btn {
+      font-size: 0.8rem; // Texte plus petit
+      padding: 0.6rem 1rem; // Espacement réduit
+    }
   }
 }

@@ -6,8 +6,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Drink, DrinkCategory } from '../../core/models/models';
-import { DataService } from '../../core/services/data.service';
+import { Drink, DrinkCategory } from '../../../core/models/models';
+import { DataService } from '../../../core/services/data.service';
 
 /**
  * Composant de gestion des boissons

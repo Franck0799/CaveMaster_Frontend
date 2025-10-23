@@ -1,216 +1,246 @@
-// ==========================================
-// FICHIER: src/app/features/scan/scan.component.ts
-// DESCRIPTION: Composant pour scanner les codes-barres des produits
-// ==========================================
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { DataService } from '../../core/services/data.service';
-import { Drink } from '../../core/models/models';
+/**
+ * Interface pour le résultat du scan
+ */
+interface ScanResult {
+  barcode: string;
+  productName: string;
+  category: string;
+  price: number;
+  stock: number;
+  timestamp: Date;
+}
 
+/**
+ * Composant Scan - Scanner de code-barres
+ * Permet de scanner des produits et d'obtenir leurs informations
+ */
 @Component({
   selector: 'app-scan',
   templateUrl: './scan.component.html',
   styleUrls: ['./scan.component.scss']
 })
-export class ScanComponent implements OnInit {
+export class ScanComponent implements OnInit, OnDestroy {
+  
+  // État du scan
+  isScanActive: boolean = false;
+  
+  // Résultat du scan
+  scanResult: ScanResult | null = null;
+  
+  // Timer pour simulation du scan
+  private scanTimer: any = null;
 
-  // États du scan
-  isScanActive: boolean = false;     // Indique si le scan est en cours
-  scanResult: any = null;            // Résultat du scan
-  scanError: string = '';            // Message d'erreur éventuel
-
-  // Historique des scans
-  scanHistory: any[] = [];
-
-  // Statistiques
-  stats = {
-    totalScans: 0,
-    successfulScans: 0,
-    failedScans: 0,
-    todayScans: 0
-  };
-
-  constructor(
-    private router: Router,
-    private dataService: DataService
-  ) {}
+  constructor() {}
 
   ngOnInit(): void {
-    this.loadScanHistory();
-    this.calculateStats();
+    // Initialisation du composant
+    console.log('Composant Scan initialisé');
+  }
+
+  ngOnDestroy(): void {
+    // Nettoyage lors de la destruction du composant
+    this.stopScan();
   }
 
   /**
    * Démarre le processus de scan
-   * Simulation d'un scan de code-barre (3 secondes)
    */
   startScan(): void {
-    this.isScanActive = true;           // Active l'animation
-    this.scanResult = null;              // Réinitialise le résultat
-    this.scanError = '';                 // Efface les erreurs
-
-    // Simulation du scan (à remplacer par une vraie API de scan)
-    setTimeout(() => {
-      this.performScan();
-    }, 3000);  // 3 secondes de scan
+    // Active l'état de scan
+    this.isScanActive = true;
+    
+    // Réinitialise le résultat précédent
+    this.scanResult = null;
+    
+    console.log('Scan démarré...');
+    
+    // Simulation du scan (3 secondes)
+    // Dans une vraie app, on utiliserait une librairie de scan de code-barres
+    this.scanTimer = setTimeout(() => {
+      this.completeScan();
+    }, 3000);
   }
 
   /**
-   * Effectue le scan et récupère les informations du produit
-   * Dans un cas réel, cette méthode appellerait une API de scan
+   * Arrête le processus de scan
    */
-  private performScan(): void {
-    // Code simulé (dans la réalité, viendrait d'un scanner physique ou caméra)
-    const scannedCode = this.generateRandomBarcode();
-
-    // Recherche du produit dans la base de données
-    const drinks = this.dataService.getDrinks();
-    const foundDrink = drinks.find(d => d.id === scannedCode);
-
-    this.isScanActive = false;  // Arrête l'animation
-
-    if (foundDrink) {
-      // Produit trouvé
-      this.scanResult = {
-        code: scannedCode,
-        drinkId: foundDrink.id,
-        drinkName: foundDrink.name,
-        category: foundDrink.category,
-        price: foundDrink.price,
-        stock: foundDrink.stock,
-        icon: foundDrink.icon,
-        found: true,
-        timestamp: new Date()
-      };
-
-      // Ajoute à l'historique
-      this.addToHistory(this.scanResult);
-      this.stats.successfulScans++;
-    } else {
-      // Produit non trouvé
-      this.scanResult = {
-        code: scannedCode,
-        found: false,
-        timestamp: new Date()
-      };
-
-      this.scanError = 'Produit non trouvé dans la base de données';
-      this.stats.failedScans++;
+  stopScan(): void {
+    // Désactive l'état de scan
+    this.isScanActive = false;
+    
+    // Annule le timer s'il existe
+    if (this.scanTimer) {
+      clearTimeout(this.scanTimer);
+      this.scanTimer = null;
     }
-
-    this.stats.totalScans++;
-    this.stats.todayScans++;
+    
+    console.log('Scan arrêté');
   }
 
   /**
-   * Génère un code-barre aléatoire (simulation)
-   * Dans un cas réel, le code viendrait du scanner
+   * Complète le scan et génère un résultat
    */
-  private generateRandomBarcode(): string {
-    const drinks = this.dataService.getDrinks();
-    if (drinks.length > 0) {
-      // 70% de chance de trouver un produit existant
-      if (Math.random() > 0.3) {
-        const randomDrink = drinks[Math.floor(Math.random() * drinks.length)];
-        return randomDrink.id;
+  private completeScan(): void {
+    // Désactive l'état de scan
+    this.isScanActive = false;
+    
+    // Génère un résultat de scan simulé
+    this.scanResult = this.generateMockScanResult();
+    
+    console.log('Scan terminé:', this.scanResult);
+    
+    // Émet un son de confirmation (optionnel)
+    this.playBeepSound();
+  }
+
+  /**
+   * Génère un résultat de scan simulé pour la démo
+   * @returns Résultat de scan simulé
+   */
+  private generateMockScanResult(): ScanResult {
+    // Données de produits simulées
+    const mockProducts = [
+      {
+        barcode: '3256220025508',
+        productName: 'Château Margaux 2015',
+        category: 'Vin Rouge',
+        price: 450000,
+        stock: 12
+      },
+      {
+        barcode: '3161780254897',
+        productName: 'Champagne Moët & Chandon',
+        category: 'Champagne',
+        price: 85000,
+        stock: 25
+      },
+      {
+        barcode: '5449000000996',
+        productName: 'Heineken 33cl',
+        category: 'Bière',
+        price: 1500,
+        stock: 150
+      },
+      {
+        barcode: '8712000043094',
+        productName: 'Martini Rosso',
+        category: 'Liqueur',
+        price: 8500,
+        stock: 30
       }
-    }
-    // Génère un code inexistant
-    return 'NOTFOUND_' + Math.random().toString(36).substr(2, 9);
+    ];
+    
+    // Sélectionne un produit aléatoire
+    const randomProduct = mockProducts[Math.floor(Math.random() * mockProducts.length)];
+    
+    return {
+      ...randomProduct,
+      timestamp: new Date()
+    };
   }
 
   /**
-   * Réinitialise le scan pour en faire un nouveau
+   * Réinitialise le scan pour un nouveau scan
    */
   resetScan(): void {
     this.scanResult = null;
-    this.scanError = '';
     this.isScanActive = false;
+    
+    console.log('Scan réinitialisé');
+  }
+
+  /**
+   * Formate le résultat du scan en JSON lisible
+   * @returns JSON formaté du résultat
+   */
+  getFormattedScanResult(): string {
+    if (!this.scanResult) return '';
+    
+    return JSON.stringify({
+      'Code-barres': this.scanResult.barcode,
+      'Nom du produit': this.scanResult.productName,
+      'Catégorie': this.scanResult.category,
+      'Prix': `${this.formatPrice(this.scanResult.price)} FCFA`,
+      'Stock disponible': `${this.scanResult.stock} unités`,
+      'Date du scan': this.formatDate(this.scanResult.timestamp)
+    }, null, 2);
+  }
+
+  /**
+   * Formate un prix en ajoutant des séparateurs de milliers
+   * @param price - Prix à formater
+   * @returns Prix formaté
+   */
+  formatPrice(price: number): string {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  }
+
+  /**
+   * Formate une date en format lisible
+   * @param date - Date à formater
+   * @returns Date formatée
+   */
+  formatDate(date: Date): string {
+    return date.toLocaleString('fr-FR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  }
+
+  /**
+   * Joue un son de confirmation (bip)
+   * Dans une vraie app, on utiliserait l'API Audio
+   */
+  private playBeepSound(): void {
+    // Simulation du son
+    console.log('🔊 Bip!');
+    
+    // Dans une vraie implémentation:
+    // const audio = new Audio('assets/sounds/beep.mp3');
+    // audio.play();
   }
 
   /**
    * Ajoute le produit scanné au stock
    */
   addToStock(): void {
-    if (this.scanResult && this.scanResult.found) {
-      // Redirige vers la page d'entrées avec le produit pré-sélectionné
-      this.router.navigate(['/entries'], {
-        queryParams: { drinkId: this.scanResult.drinkId }
-      });
-    }
+    if (!this.scanResult) return;
+    
+    console.log('Ajout au stock:', this.scanResult);
+    
+    // TODO: Appel API pour ajouter au stock
+    alert(`Produit "${this.scanResult.productName}" ajouté au stock avec succès !`);
+    
+    // Réinitialise pour un nouveau scan
+    this.resetScan();
   }
 
   /**
-   * Affiche les détails du produit scanné
+   * Ouvre le formulaire de modification des informations du produit
    */
-  viewDetails(): void {
-    if (this.scanResult && this.scanResult.found) {
-      this.router.navigate(['/drinks']);
-    }
+  editProductInfo(): void {
+    if (!this.scanResult) return;
+    
+    console.log('Modification du produit:', this.scanResult);
+    
+    // TODO: Ouvrir modal ou naviguer vers page de modification
+    alert('Ouverture du formulaire de modification...');
   }
 
   /**
-   * Modifie les informations du produit
+   * Affiche l'historique du produit scanné
    */
-  editProduct(): void {
-    if (this.scanResult && this.scanResult.found) {
-      this.router.navigate(['/drinks']);
-    }
-  }
-
-  /**
-   * Ajoute un scan à l'historique
-   */
-  private addToHistory(scan: any): void {
-    this.scanHistory.unshift(scan);  // Ajoute au début
-    // Garde seulement les 10 derniers
-    if (this.scanHistory.length > 10) {
-      this.scanHistory = this.scanHistory.slice(0, 10);
-    }
-  }
-
-  /**
-   * Charge l'historique des scans (depuis localStorage par exemple)
-   */
-  private loadScanHistory(): void {
-    const saved = localStorage.getItem('scanHistory');
-    if (saved) {
-      this.scanHistory = JSON.parse(saved);
-    }
-  }
-
-  /**
-   * Calcule les statistiques
-   */
-  private calculateStats(): void {
-    this.stats.totalScans = this.scanHistory.length;
-    this.stats.successfulScans = this.scanHistory.filter(s => s.found).length;
-    this.stats.failedScans = this.scanHistory.filter(s => !s.found).length;
-
-    // Scans d'aujourd'hui
-    const today = new Date().toDateString();
-    this.stats.todayScans = this.scanHistory.filter(s =>
-      new Date(s.timestamp).toDateString() === today
-    ).length;
-  }
-
-  /**
-   * Formate un nombre avec séparateurs
-   */
-  formatNumber(num: number): string {
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-  }
-
-  /**
-   * Formate une date
-   */
-  formatDate(date: Date): string {
-    return new Date(date).toLocaleString('fr-FR', {
-      hour: '2-digit',
-      minute: '2-digit',
-      day: '2-digit',
-      month: 'short'
-    });
+  viewProductHistory(): void {
+    if (!this.scanResult) return;
+    
+    console.log('Historique du produit:', this.scanResult);
+    
+    // TODO: Navigation vers page d'historique
+    alert('Affichage de l\'historique du produit...');
   }
 }

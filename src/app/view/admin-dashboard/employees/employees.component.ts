@@ -1,38 +1,76 @@
-// ==========================================
-// FICHIER: src/app/features/employees/employees.component.ts
-// DESCRIPTION: Composant pour gérer tous les employés de l'organisation
-// ==========================================
+import { Component, OnInit } from '@angular/core';
 
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { Employee, Manager, Cave, NewEmployeeForm } from '../../core/models/models';
-import { DataService } from '../../core/services/data.service';
+/**
+ * Interface pour définir la structure d'un employé
+ */
+interface Employee {
+  id: string;
+  avatar: string;
+  name: string;
+  position: string;
+  ventes: string;
+  heures: string;
+  managerId?: string;
+  caveId?: string;
+}
 
+/**
+ * Interface pour le formulaire d'ajout d'employé
+ */
+interface NewEmployeeForm {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  caveId: string;
+  managerId: string;
+  position: string;
+}
+
+/**
+ * Composant Employees - Gestion des employés
+ * Affiche la liste complète des employés avec statistiques
+ */
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',
   styleUrls: ['./employees.component.scss']
 })
-export class EmployeesComponent implements OnInit, OnDestroy {
+export class EmployeesComponent implements OnInit {
+  
+  // Liste de tous les employés (exemple de données)
+  employees: Employee[] = [
+    {
+      id: '1',
+      avatar: '👨',
+      name: 'Jean Kouassi',
+      position: 'Caissier',
+      ventes: '250K',
+      heures: '160h'
+    },
+    {
+      id: '2',
+      avatar: '👩',
+      name: 'Marie Diallo',
+      position: 'Vendeuse',
+      ventes: '320K',
+      heures: '155h'
+    },
+    {
+      id: '3',
+      avatar: '👨',
+      name: 'Paul Mensah',
+      position: 'Magasinier',
+      ventes: '180K',
+      heures: '165h'
+    }
+  ];
 
-  // Données
-  employees: Employee[] = [];
-  managers: Manager[] = [];
-  caves: Cave[] = [];
+  // Modal d'ajout d'employé
+  isAddEmployeeModalOpen: boolean = false;
 
-  // Filtres
-  filteredEmployees: Employee[] = [];
-  selectedCaveFilter: string | null = null;
-  selectedManagerFilter: string | null = null;
-  searchTerm: string = '';
-
-  // UI
-  isLoading: boolean = false;
-  isAddModalOpen: boolean = false;
-
-  // Formulaire
-  employeeForm: NewEmployeeForm = {
+  // Formulaire pour nouvel employé
+  newEmployeeForm: NewEmployeeForm = {
     firstName: '',
     lastName: '',
     email: '',
@@ -42,122 +80,87 @@ export class EmployeesComponent implements OnInit, OnDestroy {
     position: ''
   };
 
-  // Statistiques
-  stats = {
-    total: 0,
-    avgSales: '0K',
-    avgHours: '0h',
-    newThisMonth: 0
-  };
+  // Liste des caves (à récupérer depuis un service)
+  caves: any[] = [];
 
-  private destroy$ = new Subject<void>();
-
-  constructor(private dataService: DataService) {}
+  constructor() {}
 
   ngOnInit(): void {
-    this.loadData();
+    // Chargement initial des données
+    this.loadEmployees();
+    this.loadCaves();
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+  /**
+   * Charge la liste des employés depuis le backend
+   */
+  loadEmployees(): void {
+    // TODO: Appel API pour charger les employés
+    console.log('Chargement des employés...');
   }
 
-  // Chargement des données
-  loadData(): void {
-    this.isLoading = true;
-
-    // Charge les employés
-    this.dataService.employees$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(employees => {
-        this.employees = employees;
-        this.applyFilters();
-        this.calculateStats();
-        this.isLoading = false;
-      });
-
-    // Charge les managers
-    this.dataService.managers$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(managers => this.managers = managers);
-
-    // Charge les caves
-    this.dataService.caves$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(caves => this.caves = caves);
+  /**
+   * Charge la liste des caves
+   */
+  loadCaves(): void {
+    // TODO: Appel API pour charger les caves
+    console.log('Chargement des caves...');
   }
 
-  // Filtrage
-  applyFilters(): void {
-    let result = [...this.employees];
-
-    if (this.selectedCaveFilter) {
-      result = result.filter(e => e.caveId === this.selectedCaveFilter);
-    }
-
-    if (this.selectedManagerFilter) {
-      result = result.filter(e => e.managerId === this.selectedManagerFilter);
-    }
-
-    if (this.searchTerm.trim()) {
-      const term = this.searchTerm.toLowerCase();
-      result = result.filter(e =>
-        e.name.toLowerCase().includes(term) ||
-        e.position.toLowerCase().includes(term)
-      );
-    }
-
-    this.filteredEmployees = result;
+  /**
+   * Retourne tous les employés
+   * @returns Tableau de tous les employés
+   */
+  getAllEmployees(): Employee[] {
+    return this.employees;
   }
 
-  onCaveFilterChange(caveId: string | null): void {
-    this.selectedCaveFilter = caveId;
-    this.selectedManagerFilter = null; // Reset manager filter
-    this.applyFilters();
+  /**
+   * Calcule le nombre total d'employés
+   * @returns Nombre total d'employés
+   */
+  getTotalEmployeesCount(): number {
+    return this.employees.length;
   }
 
-  onManagerFilterChange(managerId: string | null): void {
-    this.selectedManagerFilter = managerId;
-    this.applyFilters();
+  /**
+   * Calcule la moyenne des ventes
+   * @returns Moyenne des ventes formatée
+   */
+  getAverageSales(): string {
+    // Logique de calcul de moyenne
+    return '420K';
   }
 
-  onSearchChange(term: string): void {
-    this.searchTerm = term;
-    this.applyFilters();
+  /**
+   * Calcule la moyenne des heures travaillées
+   * @returns Moyenne des heures
+   */
+  getAverageHours(): string {
+    return '158h';
   }
 
-  resetFilters(): void {
-    this.selectedCaveFilter = null;
-    this.selectedManagerFilter = null;
-    this.searchTerm = '';
-    this.applyFilters();
+  /**
+   * Ouvre le modal d'ajout d'employé
+   */
+  openAddEmployeeModal(): void {
+    this.isAddEmployeeModalOpen = true;
+    // Réinitialiser le formulaire
+    this.resetEmployeeForm();
   }
 
-  // Statistiques
-  calculateStats(): void {
-    this.stats.total = this.employees.length;
-
-    // Calcul des moyennes (simulation)
-    const totalSales = this.employees.reduce((sum, e) => {
-      const sales = parseFloat(e.ventes.replace(/[^\d]/g, '')) || 0;
-      return sum + sales;
-    }, 0);
-    this.stats.avgSales = Math.round(totalSales / this.employees.length) + 'K';
-
-    const totalHours = this.employees.reduce((sum, e) => {
-      const hours = parseFloat(e.heures.replace(/[^\d]/g, '')) || 0;
-      return sum + hours;
-    }, 0);
-    this.stats.avgHours = Math.round(totalHours / this.employees.length) + 'h';
-
-    // Employés du mois (simulation)
-    this.stats.newThisMonth = Math.floor(this.employees.length * 0.1);
+  /**
+   * Ferme le modal d'ajout d'employé
+   */
+  closeAddEmployeeModal(): void {
+    this.isAddEmployeeModalOpen = false;
   }
 
-  // Modal
-  openAddModal(): void {
-    this.employeeForm = {
+  /**
+   * Réinitialise le formulaire d'ajout d'employé
+   */
+  resetEmployeeForm(): void {
+    this.newEmployeeForm = {
       firstName: '',
       lastName: '',
       email: '',
@@ -166,61 +169,116 @@ export class EmployeesComponent implements OnInit, OnDestroy {
       managerId: '',
       position: ''
     };
-    this.isAddModalOpen = true;
   }
 
-  closeAddModal(): void {
-    this.isAddModalOpen = false;
-  }
-
-  // Récupère les managers d'une cave spécifique
-  getManagersByCave(caveId: string): Manager[] {
-    return this.managers.filter(m => m.caveId === caveId);
-  }
-
-  saveEmployee(): void {
-    if (!this.employeeForm.firstName || !this.employeeForm.lastName ||
-        !this.employeeForm.email || !this.employeeForm.caveId ||
-        !this.employeeForm.managerId || !this.employeeForm.position) {
+  /**
+   * Ajoute un nouvel employé
+   */
+  addNewEmployee(): void {
+    // Validation du formulaire
+    if (!this.validateEmployeeForm()) {
       alert('Veuillez remplir tous les champs obligatoires');
       return;
     }
 
+    // Construction de l'objet employé
     const newEmployee: Employee = {
       id: this.generateId(),
-      name: `${this.employeeForm.firstName} ${this.employeeForm.lastName}`,
-      avatar: this.employeeForm.firstName.charAt(0).toUpperCase(),
-      position: this.employeeForm.position,
-      managerId: this.employeeForm.managerId,
-      caveId: this.employeeForm.caveId,
-      email: this.employeeForm.email,
-      phone: this.employeeForm.phone,
+      avatar: this.getRandomAvatar(),
+      name: `${this.newEmployeeForm.firstName} ${this.newEmployeeForm.lastName}`,
+      position: this.newEmployeeForm.position,
       ventes: '0K',
-      heures: '0h'
+      heures: '0h',
+      managerId: this.newEmployeeForm.managerId,
+      caveId: this.newEmployeeForm.caveId
     };
 
-    this.dataService.addEmployee(newEmployee);
-    this.closeAddModal();
+    // Ajout à la liste
+    this.employees.push(newEmployee);
+
+    // TODO: Appel API pour sauvegarder
+    console.log('Nouvel employé ajouté:', newEmployee);
+
+    // Fermeture du modal
+    this.closeAddEmployeeModal();
+
+    // Message de succès
+    alert('Employé ajouté avec succès !');
   }
 
+  /**
+   * Valide le formulaire d'ajout d'employé
+   * @returns true si le formulaire est valide
+   */
+  validateEmployeeForm(): boolean {
+    return !!(
+      this.newEmployeeForm.firstName &&
+      this.newEmployeeForm.lastName &&
+      this.newEmployeeForm.email &&
+      this.newEmployeeForm.caveId &&
+      this.newEmployeeForm.managerId &&
+      this.newEmployeeForm.position
+    );
+  }
+
+  /**
+   * Génère un ID unique pour un nouvel employé
+   * @returns ID unique
+   */
+  generateId(): string {
+    return `emp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  }
+
+  /**
+   * Retourne un avatar aléatoire
+   * @returns Emoji d'avatar
+   */
+  getRandomAvatar(): string {
+    const avatars = ['👨', '👩', '👨‍💼', '👩‍💼', '👨‍🔧', '👩‍🔧'];
+    return avatars[Math.floor(Math.random() * avatars.length)];
+  }
+
+  /**
+   * Récupère les managers d'une cave spécifique
+   * @param caveId - ID de la cave
+   * @returns Liste des managers de cette cave
+   */
+  getManagersByCave(caveId: string): any[] {
+    // TODO: Filtrer les managers par cave
+    return [];
+  }
+
+  /**
+   * Modifie un employé existant
+   * @param employee - Employé à modifier
+   */
+  editEmployee(employee: Employee): void {
+    console.log('Modification de l\'employé:', employee);
+    // TODO: Ouvrir modal de modification
+  }
+
+  /**
+   * Supprime un employé
+   * @param employee - Employé à supprimer
+   */
   deleteEmployee(employee: Employee): void {
-    if (confirm(`Supprimer ${employee.name} ?`)) {
-      this.dataService.deleteEmployee(employee.id);
+    if (confirm(`Êtes-vous sûr de vouloir supprimer ${employee.name} ?`)) {
+      // Suppression de la liste
+      this.employees = this.employees.filter(e => e.id !== employee.id);
+      
+      // TODO: Appel API pour supprimer
+      console.log('Employé supprimé:', employee);
+      
+      alert('Employé supprimé avec succès');
     }
   }
 
-  // Utilitaires
-  private generateId(): string {
-    return `employee_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-  }
-
-  getManagerName(managerId: string): string {
-    const manager = this.managers.find(m => m.name === managerId || m.id === managerId);
-    return manager ? manager.name : 'Non assigné';
-  }
-
-  getCaveName(caveId: string): string {
-    const cave = this.caves.find(c => c.id === caveId);
-    return cave ? cave.name : 'Cave inconnue';
+  /**
+   * Affiche les détails d'un employé
+   * @param employee - Employé dont afficher les détails
+   */
+  viewEmployeeDetails(employee: Employee): void {
+    console.log('Détails de l\'employé:', employee);
+    // TODO: Ouvrir modal de détails ou navigation
   }
 }

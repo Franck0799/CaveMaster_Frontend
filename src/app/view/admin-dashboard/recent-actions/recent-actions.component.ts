@@ -1,337 +1,244 @@
-// ==========================================
-// FICHIER: src/app/features/recent-actions/recent-actions.component.ts
-// DESCRIPTION: Composant pour afficher l'historique des actions récentes
-// ==========================================
+import { Component, OnInit } from '@angular/core';
 
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { RecentAction } from '../../core/models/models';
-import { DataService } from '../../core/services/data.service';
+/**
+ * Interface pour définir une action récente
+ */
+interface RecentAction {
+  id: string;
+  type: 'add' | 'remove' | 'update' | 'alert'; // Type d'action
+  icon: string; // Emoji de l'icône
+  title: string; // Titre de l'action
+  details: string; // Détails de l'action
+  time: string; // Temps relatif (ex: "Il y a 5 min")
+  timestamp: Date; // Timestamp exact
+  userId?: string; // ID de l'utilisateur qui a fait l'action
+  userName?: string; // Nom de l'utilisateur
+}
 
+/**
+ * Composant RecentActions - Affiche les actions récentes du système
+ * Utilisé comme composant réutilisable dans le dashboard
+ */
 @Component({
   selector: 'app-recent-actions',
   templateUrl: './recent-actions.component.html',
   styleUrls: ['./recent-actions.component.scss']
 })
-export class RecentActionsComponent implements OnInit, OnDestroy {
+export class RecentActionsComponent implements OnInit {
+  
+  // Liste des actions récentes
+  recentActions: RecentAction[] = [];
 
-  // Données
-  actions: RecentAction[] = [];
-  filteredActions: RecentAction[] = [];
+  // Nombre d'actions à afficher par défaut
+  displayLimit: number = 10;
 
-  // Filtres
-  selectedType: string | null = null;
-  periodFilter: number = 7; // 7 derniers jours par défaut
-  searchTerm: string = '';
-
-  // Pagination
-  currentPage: number = 1;
-  itemsPerPage: number = 20;
-  totalPages: number = 1;
-
-  // États UI
+  // État de chargement
   isLoading: boolean = false;
 
-  // Types d'actions disponibles
-  actionTypes = [
-    { value: 'vente', label: 'Ventes', icon: '💰', color: 'green' },
-    { value: 'entree', label: 'Entrées', icon: '📥', color: 'blue' },
-    { value: 'sortie', label: 'Sorties', icon: '📤', color: 'orange' },
-    { value: 'alerte', label: 'Alertes', icon: '⚠️', color: 'red' },
-    { value: 'info', label: 'Informations', icon: 'ℹ️', color: 'gray' }
-  ];
-
-  // Périodes disponibles
-  periods = [
-    { value: 1, label: "Aujourd'hui" },
-    { value: 7, label: '7 derniers jours' },
-    { value: 30, label: '30 derniers jours' },
-    { value: 90, label: '3 derniers mois' },
-    { value: 0, label: 'Toutes les actions' }
-  ];
-
-  // Statistiques
-  stats = {
-    total: 0,
-    ventes: 0,
-    entrees: 0,
-    sorties: 0,
-    alertes: 0
-  };
-
-  private destroy$ = new Subject<void>();
-
-  constructor(private dataService: DataService) {}
+  constructor() {}
 
   ngOnInit(): void {
-    this.loadActions();
-  }
+    // Chargement initial des actions
+    this.loadRecentActions();
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+    // Mise à jour automatique toutes les 30 secondes
+    setInterval(() => {
+      this.refreshActions();
+    }, 30000);
   }
 
   /**
-   * Charge les actions depuis le service
+   * Charge les actions récentes depuis le backend
    */
-  loadActions(): void {
+  loadRecentActions(): void {
     this.isLoading = true;
 
-    this.dataService.recentActions$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (actions) => {
-          this.actions = actions.sort((a, b) =>
-            new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
-          );
-          this.applyFilters();
-          this.calculateStats();
-          this.isLoading = false;
-        },
-        error: (error) => {
-          console.error('Erreur lors du chargement des actions:', error);
-          this.isLoading = false;
-        }
-      });
+    // TODO: Appel API pour charger les actions
+    // Simulation avec des données de test
+    this.recentActions = this.generateMockActions();
+
+    this.isLoading = false;
+    console.log('Actions récentes chargées:', this.recentActions.length);
   }
 
   /**
-   * Applique tous les filtres
+   * Rafraîchit la liste des actions
    */
-  applyFilters(): void {
-    let result = [...this.actions];
-
-    // Filtre par type
-    if (this.selectedType) {
-      result = result.filter(a => a.type === this.selectedType);
-    }
-
-    // Filtre par période
-    if (this.periodFilter > 0) {
-      const cutoffDate = new Date();
-      cutoffDate.setDate(cutoffDate.getDate() - this.periodFilter);
-      result = result.filter(a =>
-        new Date(a.timestamp) >= cutoffDate
-      );
-    }
-
-    // Filtre par recherche
-    if (this.searchTerm.trim()) {
-      const term = this.searchTerm.toLowerCase();
-      result = result.filter(a =>
-        a.title.toLowerCase().includes(term) ||
-        a.details.toLowerCase().includes(term)
-      );
-    }
-
-    this.filteredActions = result;
-    this.calculatePagination();
-    this.currentPage = 1; // Reset à la première page
+  refreshActions(): void {
+    console.log('Rafraîchissement des actions...');
+    this.loadRecentActions();
   }
 
   /**
-   * Change le filtre de type
+   * Génère des actions de test pour la démo
+   * @returns Liste d'actions simulées
    */
-  onTypeFilterChange(type: string | null): void {
-    this.selectedType = type;
-    this.applyFilters();
+  private generateMockActions(): RecentAction[] {
+    const now = new Date();
+    
+    return [
+      {
+        id: '1',
+        type: 'add',
+        icon: '📦',
+        title: 'Nouvelle entrée de stock',
+        details: '50 bouteilles de Château Margaux 2015 ajoutées',
+        time: 'Il y a 5 min',
+        timestamp: new Date(now.getTime() - 5 * 60000),
+        userName: 'Jean Kouassi'
+      },
+      {
+        id: '2',
+        type: 'remove',
+        icon: '📤',
+        title: 'Sortie de stock',
+        details: '12 bouteilles de Champagne Moët vendues',
+        time: 'Il y a 15 min',
+        timestamp: new Date(now.getTime() - 15 * 60000),
+        userName: 'Marie Diallo'
+      },
+      {
+        id: '3',
+        type: 'add',
+        icon: '👤',
+        title: 'Nouvel employé ajouté',
+        details: 'Paul Mensah - Magasinier à Cave Principale',
+        time: 'Il y a 1 heure',
+        timestamp: new Date(now.getTime() - 60 * 60000),
+        userName: 'Admin'
+      },
+      {
+        id: '4',
+        type: 'alert',
+        icon: '⚠️',
+        title: 'Stock faible détecté',
+        details: 'Heineken 33cl - Seulement 8 unités restantes',
+        time: 'Il y a 2 heures',
+        timestamp: new Date(now.getTime() - 120 * 60000)
+      },
+      {
+        id: '5',
+        type: 'update',
+        icon: '✏️',
+        title: 'Produit modifié',
+        details: 'Prix du Martini Rosso mis à jour: 8500 FCFA',
+        time: 'Il y a 3 heures',
+        timestamp: new Date(now.getTime() - 180 * 60000),
+        userName: 'Sophie Martin'
+      },
+      {
+        id: '6',
+        type: 'add',
+        icon: '🛒',
+        title: 'Nouvelle commande',
+        details: 'Commande #1234 - Client: Amadou Diallo',
+        time: 'Il y a 4 heures',
+        timestamp: new Date(now.getTime() - 240 * 60000)
+      }
+    ];
   }
 
   /**
-   * Change le filtre de période
-   */
-  onPeriodFilterChange(days: number): void {
-    this.periodFilter = days;
-    this.applyFilters();
-  }
-
-  /**
-   * Change le terme de recherche
-   */
-  onSearchChange(term: string): void {
-    this.searchTerm = term;
-    this.applyFilters();
-  }
-
-  /**
-   * Réinitialise tous les filtres
-   */
-  resetFilters(): void {
-    this.selectedType = null;
-    this.periodFilter = 7;
-    this.searchTerm = '';
-    this.applyFilters();
-  }
-
-  /**
-   * Calcule les statistiques
-   */
-  calculateStats(): void {
-    this.stats.total = this.filteredActions.length;
-    this.stats.ventes = this.filteredActions.filter(a => a.type === 'vente').length;
-    this.stats.entrees = this.filteredActions.filter(a => a.type === 'entree').length;
-    this.stats.sorties = this.filteredActions.filter(a => a.type === 'sortie').length;
-    this.stats.alertes = this.filteredActions.filter(a => a.type === 'alerte').length;
-  }
-
-  /**
-   * Calcule la pagination
-   */
-  calculatePagination(): void {
-    this.totalPages = Math.ceil(this.filteredActions.length / this.itemsPerPage);
-  }
-
-  /**
-   * Récupère les actions de la page actuelle
-   */
-  getPaginatedActions(): RecentAction[] {
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    const end = start + this.itemsPerPage;
-    return this.filteredActions.slice(start, end);
-  }
-
-  /**
-   * Va à une page spécifique
-   */
-  goToPage(page: number): void {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-    }
-  }
-
-  /**
-   * Page précédente
-   */
-  previousPage(): void {
-    this.goToPage(this.currentPage - 1);
-  }
-
-  /**
-   * Page suivante
-   */
-  nextPage(): void {
-    this.goToPage(this.currentPage + 1);
-  }
-
-  /**
-   * Récupère la classe CSS selon le type d'action
+   * Retourne la classe CSS selon le type d'action
+   * @param type - Type d'action
+   * @returns Classe CSS correspondante
    */
   getActionTypeClass(type: string): string {
-    const typeObj = this.actionTypes.find(t => t.value === type);
-    return `action-${typeObj?.color || 'gray'}`;
+    const classMap: { [key: string]: string } = {
+      'add': 'action-type-add',
+      'remove': 'action-type-remove',
+      'update': 'action-type-update',
+      'alert': 'action-type-alert'
+    };
+    
+    return classMap[type] || 'action-type-default';
   }
 
   /**
-   * Récupère l'icône selon le type
+   * Filtre les actions par type
+   * @param type - Type d'action à filtrer
+   * @returns Actions filtrées
    */
-  getActionIcon(type: string): string {
-    const typeObj = this.actionTypes.find(t => t.value === type);
-    return typeObj?.icon || 'ℹ️';
+  filterByType(type: string): RecentAction[] {
+    if (!type || type === 'all') {
+      return this.recentActions;
+    }
+    return this.recentActions.filter(action => action.type === type);
   }
 
   /**
-   * Formate une date en format relatif
+   * Retourne les actions limitées au nombre à afficher
+   * @returns Actions à afficher
    */
-  getRelativeTime(date: Date): string {
+  getDisplayedActions(): RecentAction[] {
+    return this.recentActions.slice(0, this.displayLimit);
+  }
+
+  /**
+   * Charge plus d'actions
+   */
+  loadMore(): void {
+    this.displayLimit += 10;
+    console.log('Affichage de', this.displayLimit, 'actions');
+  }
+
+  /**
+   * Vérifie s'il y a plus d'actions à afficher
+   * @returns true s'il reste des actions
+   */
+  hasMore(): boolean {
+    return this.displayLimit < this.recentActions.length;
+  }
+
+  /**
+   * Calcule le temps relatif depuis une action
+   * @param timestamp - Date de l'action
+   * @returns Temps relatif formaté
+   */
+  getRelativeTime(timestamp: Date): string {
     const now = new Date();
-    const diff = now.getTime() - new Date(date).getTime();
-    const seconds = Math.floor(diff / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(minutes / 60);
-    const days = Math.floor(hours / 24);
+    const diffMs = now.getTime() - timestamp.getTime();
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMins / 60);
+    const diffDays = Math.floor(diffHours / 24);
 
-    if (seconds < 60) return 'À l\'instant';
-    if (minutes < 60) return `Il y a ${minutes} minute${minutes > 1 ? 's' : ''}`;
-    if (hours < 24) return `Il y a ${hours} heure${hours > 1 ? 's' : ''}`;
-    if (days < 7) return `Il y a ${days} jour${days > 1 ? 's' : ''}`;
-    if (days < 30) return `Il y a ${Math.floor(days / 7)} semaine${Math.floor(days / 7) > 1 ? 's' : ''}`;
-    return `Il y a ${Math.floor(days / 30)} mois`;
+    if (diffMins < 1) return 'À l\'instant';
+    if (diffMins < 60) return `Il y a ${diffMins} min`;
+    if (diffHours < 24) return `Il y a ${diffHours} heure${diffHours > 1 ? 's' : ''}`;
+    return `Il y a ${diffDays} jour${diffDays > 1 ? 's' : ''}`;
   }
 
   /**
-   * Formate une date complète
+   * Supprime une action de la liste
+   * @param actionId - ID de l'action à supprimer
    */
-  formatFullDate(date: Date): string {
-    return new Date(date).toLocaleString('fr-FR', {
-      day: '2-digit',
-      month: 'long',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    });
-  }
-
-  /**
-   * Export des actions en CSV
-   */
-  exportToCSV(): void {
-    if (this.filteredActions.length === 0) {
-      alert('Aucune action à exporter');
-      return;
+  deleteAction(actionId: string): void {
+    if (confirm('Voulez-vous vraiment supprimer cette action de l\'historique ?')) {
+      this.recentActions = this.recentActions.filter(a => a.id !== actionId);
+      console.log('Action supprimée:', actionId);
     }
-
-    const headers = ['Date', 'Type', 'Titre', 'Détails'];
-    const rows = this.filteredActions.map(action => [
-      this.formatFullDate(action.timestamp),
-      action.type,
-      action.title.replace(/,/g, ';'), // Échappe les virgules
-      action.details.replace(/,/g, ';')
-    ]);
-
-    const csvContent = [
-      headers.join(','),
-      ...rows.map(row => row.join(','))
-    ].join('\n');
-
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `actions-${new Date().toISOString().split('T')[0]}.csv`;
-    link.style.visibility = 'hidden';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
   }
 
   /**
-   * Génère les numéros de page à afficher
+   * Efface toutes les actions
    */
-  getPageNumbers(): number[] {
-    const pages: number[] = [];
-    const maxVisible = 5;
-
-    if (this.totalPages <= maxVisible) {
-      for (let i = 1; i <= this.totalPages; i++) {
-        pages.push(i);
-      }
-    } else {
-      if (this.currentPage <= 3) {
-        for (let i = 1; i <= maxVisible - 1; i++) {
-          pages.push(i);
-        }
-        pages.push(-1); // Ellipsis
-        pages.push(this.totalPages);
-      } else if (this.currentPage >= this.totalPages - 2) {
-        pages.push(1);
-        pages.push(-1);
-        for (let i = this.totalPages - (maxVisible - 2); i <= this.totalPages; i++) {
-          pages.push(i);
-        }
-      } else {
-        pages.push(1);
-        pages.push(-1);
-        for (let i = this.currentPage - 1; i <= this.currentPage + 1; i++) {
-          pages.push(i);
-        }
-        pages.push(-1);
-        pages.push(this.totalPages);
-      }
+  clearAllActions(): void {
+    if (confirm('Voulez-vous vraiment effacer tout l\'historique des actions ?')) {
+      this.recentActions = [];
+      console.log('Historique effacé');
     }
+  }
 
-    return pages;
+  /**
+   * Exporte l'historique des actions
+   */
+  exportActions(): void {
+    console.log('Export de l\'historique...');
+    
+    // Dans une vraie app, on créerait un fichier CSV ou JSON
+    const dataStr = JSON.stringify(this.recentActions, null, 2);
+    console.log('Données exportées:', dataStr);
+    
+    alert('Historique exporté avec succès !');
   }
 }

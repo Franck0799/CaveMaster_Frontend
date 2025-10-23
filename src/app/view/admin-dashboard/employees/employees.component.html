@@ -1,255 +1,248 @@
-<!-- ==========================================
-     TEMPLATE HTML (employees.component.html)
-     ========================================== -->
-
-<div class="employees-container">
-
-  <!-- EN-TÊTE -->
-  <header class="page-header">
-    <div class="header-content">
-      <h1 class="page-title">👨‍💼 Mes Employés</h1>
-      <p class="page-subtitle">
-        Gérez tous vos employés - {{ filteredEmployees.length }} employé(s)
-      </p>
+<!-- ===== PAGE MES EMPLOYÉS ===== -->
+<div class="page-section">
+  
+  <!-- Section de contenu principal -->
+  <section class="content-section">
+    
+    <!-- ===== En-tête de page avec titre et bouton d'ajout ===== -->
+    <div class="section-header">
+      <!-- Titre de la page -->
+      <h2 class="section-title-main">👨‍💼 Mes Employés</h2>
+      
+      <!-- Bouton pour ajouter un nouvel employé -->
+      <button class="btn btn-primary" (click)="openAddEmployeeModal()">
+        ➕ Ajouter un employé
+      </button>
     </div>
-    <button class="btn btn-primary" (click)="openAddModal()">
-      ➕ Ajouter un employé
-    </button>
-  </header>
 
-  <!-- STATISTIQUES -->
-  <section class="stats-section">
-    <div class="stat-card stat-primary">
-      <div class="stat-icon">👥</div>
-      <div class="stat-content">
-        <div class="stat-value">{{ stats.total }}</div>
-        <div class="stat-label">Total employés</div>
+    <!-- ===== Statistiques globales des employés ===== -->
+    <div class="employees-stats-grid">
+      
+      <!-- Carte stat: Total Employés -->
+      <div class="stat-card stat-card-blue">
+        <div class="stat-icon">👥</div>
+        <div class="stat-content">
+          <div class="stat-label">Total Employés</div>
+          <!-- Affichage dynamique du nombre total -->
+          <div class="stat-value">{{ getTotalEmployeesCount() }}</div>
+          <div class="stat-change positive">+5 ce mois</div>
+        </div>
+      </div>
+
+      <!-- Carte stat: Ventes Moyennes -->
+      <div class="stat-card stat-card-green">
+        <div class="stat-icon">💰</div>
+        <div class="stat-content">
+          <div class="stat-label">Ventes Moyennes</div>
+          <div class="stat-value">{{ getAverageSales() }}</div>
+          <div class="stat-change positive">+12% ce mois</div>
+        </div>
+      </div>
+
+      <!-- Carte stat: Heures Moyennes -->
+      <div class="stat-card stat-card-purple">
+        <div class="stat-icon">⏱️</div>
+        <div class="stat-content">
+          <div class="stat-label">Heures Moyennes</div>
+          <div class="stat-value">{{ getAverageHours() }}</div>
+          <div class="stat-change neutral">Stable</div>
+        </div>
       </div>
     </div>
 
-    <div class="stat-card stat-success">
-      <div class="stat-icon">💰</div>
-      <div class="stat-content">
-        <div class="stat-value">{{ stats.avgSales }}</div>
-        <div class="stat-label">Ventes moyennes</div>
+    <!-- ===== Tableau de tous les employés ===== -->
+    <div class="employees-table">
+      
+      <!-- En-tête du tableau -->
+      <div class="table-header">
+        <h3>Liste complète des employés</h3>
       </div>
-    </div>
 
-    <div class="stat-card stat-info">
-      <div class="stat-icon">⏱️</div>
-      <div class="stat-content">
-        <div class="stat-value">{{ stats.avgHours }}</div>
-        <div class="stat-label">Heures moyennes</div>
-      </div>
-    </div>
-
-    <div class="stat-card stat-warning">
-      <div class="stat-icon">✨</div>
-      <div class="stat-content">
-        <div class="stat-value">+{{ stats.newThisMonth }}</div>
-        <div class="stat-label">Nouveaux ce mois</div>
+      <!-- Contenu du tableau -->
+      <div class="table-content">
+        
+        <!-- Boucle sur chaque employé -->
+        <div *ngFor="let employee of getAllEmployees()" class="employee-row">
+          
+          <!-- Avatar de l'employé -->
+          <div class="employee-avatar-sm">{{ employee.avatar }}</div>
+          
+          <!-- Détails de l'employé (nom et poste) -->
+          <div class="employee-details">
+            <div class="employee-name-bold">{{ employee.name }}</div>
+            <div class="employee-position-sm">{{ employee.position }}</div>
+          </div>
+          
+          <!-- Métriques de performance -->
+          <div class="employee-metrics">
+            <!-- Ventes réalisées -->
+            <span class="metric-item">💰 {{ employee.ventes }}</span>
+            <!-- Heures travaillées -->
+            <span class="metric-item">⏱️ {{ employee.heures }}</span>
+          </div>
+          
+          <!-- Actions disponibles sur chaque ligne -->
+          <div class="employee-row-actions">
+            <!-- Bouton modifier -->
+            <button class="btn-icon" 
+                    title="Modifier"
+                    (click)="editEmployee(employee)">
+              ✏️
+            </button>
+            
+            <!-- Bouton voir détails -->
+            <button class="btn-icon" 
+                    title="Voir détails"
+                    (click)="viewEmployeeDetails(employee)">
+              👁️
+            </button>
+            
+            <!-- Bouton supprimer -->
+            <button class="btn-icon btn-danger" 
+                    title="Supprimer"
+                    (click)="deleteEmployee(employee)">
+              🗑️
+            </button>
+          </div>
+        </div>
+        
+        <!-- Message si aucun employé -->
+        <div *ngIf="getAllEmployees().length === 0" class="empty-state">
+          <div class="empty-icon">📭</div>
+          <p>Aucun employé pour le moment</p>
+          <button class="btn btn-primary" (click)="openAddEmployeeModal()">
+            Ajouter le premier employé
+          </button>
+        </div>
       </div>
     </div>
   </section>
+</div>
 
-  <!-- FILTRES -->
-  <section class="filters-section">
-    <div class="search-box">
-      <input type="text" class="search-input"
-             placeholder="🔍 Rechercher..."
-             [(ngModel)]="searchTerm"
-             (ngModelChange)="onSearchChange($event)">
-      <button *ngIf="searchTerm"
-              class="clear-btn"
-              (click)="searchTerm = ''; onSearchChange('')">✕</button>
+<!-- ===== MODAL AJOUTER EMPLOYÉ ===== -->
+<div *ngIf="isAddEmployeeModalOpen" 
+     class="modal" 
+     (click)="closeAddEmployeeModal()">
+  
+  <!-- Contenu du modal (empêche la fermeture au clic) -->
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    
+    <!-- En-tête du modal -->
+    <div class="modal-header">
+      <h2 class="modal-title">➕ Ajouter un nouvel employé</h2>
+      <!-- Bouton de fermeture -->
+      <button class="close-btn" (click)="closeAddEmployeeModal()">×</button>
     </div>
 
-    <div class="filter-group">
-      <label class="filter-label">Cave :</label>
-      <select class="filter-select"
-              [(ngModel)]="selectedCaveFilter"
-              (ngModelChange)="onCaveFilterChange($event)">
-        <option [ngValue]="null">Toutes les caves</option>
-        <option *ngFor="let cave of caves" [ngValue]="cave.id">
-          {{ cave.name }}
-        </option>
-      </select>
+    <!-- Corps du modal avec formulaire -->
+    <div class="modal-body">
+      <form>
+        
+        <!-- Champ: Prénom -->
+        <div class="form-group">
+          <label class="form-label">Prénom *</label>
+          <input type="text"
+                 class="form-input"
+                 [(ngModel)]="newEmployeeForm.firstName"
+                 name="firstName"
+                 placeholder="Ex: Alice"
+                 required>
+        </div>
+
+        <!-- Champ: Nom -->
+        <div class="form-group">
+          <label class="form-label">Nom *</label>
+          <input type="text"
+                 class="form-input"
+                 [(ngModel)]="newEmployeeForm.lastName"
+                 name="lastName"
+                 placeholder="Ex: Martin"
+                 required>
+        </div>
+
+        <!-- Champ: Email -->
+        <div class="form-group">
+          <label class="form-label">Email *</label>
+          <input type="email"
+                 class="form-input"
+                 [(ngModel)]="newEmployeeForm.email"
+                 name="email"
+                 placeholder="Ex: alice.martin@drinkstore.com"
+                 required>
+        </div>
+
+        <!-- Champ: Téléphone -->
+        <div class="form-group">
+          <label class="form-label">Téléphone</label>
+          <input type="tel"
+                 class="form-input"
+                 [(ngModel)]="newEmployeeForm.phone"
+                 name="phone"
+                 placeholder="Ex: +234 801 234 5678">
+        </div>
+
+        <!-- Champ: Cave d'affectation -->
+        <div class="form-group">
+          <label class="form-label">Cave d'affectation *</label>
+          <select class="form-input"
+                  [(ngModel)]="newEmployeeForm.caveId"
+                  name="caveId"
+                  required>
+            <option value="">Sélectionner une cave...</option>
+            <!-- Boucle sur les caves disponibles -->
+            <option *ngFor="let cave of caves" [value]="cave.id">
+              {{ cave.name }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Champ: Manager (affiché seulement si cave sélectionnée) -->
+        <div class="form-group" *ngIf="newEmployeeForm.caveId">
+          <label class="form-label">Manager de supervision *</label>
+          <select class="form-input"
+                  [(ngModel)]="newEmployeeForm.managerId"
+                  name="managerId"
+                  required>
+            <option value="">Sélectionner un manager...</option>
+            <!-- Boucle sur les managers de la cave sélectionnée -->
+            <option *ngFor="let manager of getManagersByCave(newEmployeeForm.caveId)"
+                    [value]="manager.name">
+              {{ manager.name }} - {{ manager.role }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Champ: Poste -->
+        <div class="form-group">
+          <label class="form-label">Poste *</label>
+          <select class="form-input"
+                  [(ngModel)]="newEmployeeForm.position"
+                  name="position"
+                  required>
+            <option value="">Sélectionner un poste...</option>
+            <option value="Caissier(ère)">Caissier(ère)</option>
+            <option value="Vendeur(se)">Vendeur(se)</option>
+            <option value="Magasinier">Magasinier</option>
+            <option value="Livreur">Livreur</option>
+            <option value="Assistant(e)">Assistant(e)</option>
+            <option value="Sommelier">Sommelier</option>
+            <option value="Conseiller(ère)">Conseiller(ère)</option>
+          </select>
+        </div>
+      </form>
     </div>
 
-    <div class="filter-group" *ngIf="selectedCaveFilter">
-      <label class="filter-label">Manager :</label>
-      <select class="filter-select"
-              [(ngModel)]="selectedManagerFilter"
-              (ngModelChange)="onManagerFilterChange($event)">
-        <option [ngValue]="null">Tous les managers</option>
-        <option *ngFor="let manager of getManagersByCave(selectedCaveFilter)"
-                [ngValue]="manager.name">
-          {{ manager.name }}
-        </option>
-      </select>
-    </div>
-
-    <button class="btn btn-secondary"
-            (click)="resetFilters()"
-            *ngIf="selectedCaveFilter || selectedManagerFilter || searchTerm">
-      🔄 Réinitialiser
-    </button>
-  </section>
-
-  <!-- CHARGEMENT -->
-  <div *ngIf="isLoading" class="loading-spinner">
-    <div class="spinner"></div>
-    <p>Chargement des employés...</p>
-  </div>
-
-  <!-- TABLEAU DES EMPLOYÉS -->
-  <section *ngIf="!isLoading && filteredEmployees.length > 0"
-           class="employees-table">
-    <div class="table-wrapper">
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Employé</th>
-            <th>Poste</th>
-            <th>Manager</th>
-            <th>Cave</th>
-            <th class="text-center">Ventes</th>
-            <th class="text-center">Heures</th>
-            <th class="text-center">Actions</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr *ngFor="let employee of filteredEmployees" class="table-row">
-            <td class="employee-cell">
-              <div class="employee-avatar">{{ employee.avatar }}</div>
-              <div class="employee-info">
-                <div class="employee-name">{{ employee.name }}</div>
-                <div class="employee-email">{{ employee.email }}</div>
-              </div>
-            </td>
-
-            <td><span class="position-badge">{{ employee.position }}</span></td>
-            <td>{{ getManagerName(employee.managerId) }}</td>
-            <td><span class="cave-badge">📍 {{ getCaveName(employee.caveId) }}</span></td>
-            <td class="text-center"><span class="sales-badge">💰 {{ employee.ventes }}</span></td>
-            <td class="text-center"><span class="hours-badge">⏱️ {{ employee.heures }}</span></td>
-
-            <td class="text-center actions-cell">
-              <button class="btn-icon" title="Modifier">✏️</button>
-              <button class="btn-icon" title="Détails">👁️</button>
-              <button class="btn-icon btn-danger"
-                      title="Supprimer"
-                      (click)="deleteEmployee(employee)">🗑️</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- MODAL AJOUT EMPLOYÉ -->
-  <div *ngIf="isAddModalOpen" class="modal-overlay" (click)="closeAddModal()">
-    <div class="modal-container" (click)="$event.stopPropagation()">
-      <header class="modal-header">
-        <h2 class="modal-title">➕ Ajouter un Employé</h2>
-        <button class="modal-close-btn" (click)="closeAddModal()">✕</button>
-      </header>
-
-      <div class="modal-body">
-        <form class="employee-form">
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label">Prénom <span class="required">*</span></label>
-              <input type="text" class="form-input"
-                     [(ngModel)]="employeeForm.firstName"
-                     name="firstName" placeholder="Alice" required>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Nom <span class="required">*</span></label>
-              <input type="text" class="form-input"
-                     [(ngModel)]="employeeForm.lastName"
-                     name="lastName" placeholder="Martin" required>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Email <span class="required">*</span></label>
-            <input type="email" class="form-input"
-                   [(ngModel)]="employeeForm.email"
-                   name="email"
-                   placeholder="alice.martin@drinkstore.com" required>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Téléphone</label>
-            <input type="tel" class="form-input"
-                   [(ngModel)]="employeeForm.phone"
-                   name="phone"
-                   placeholder="+234 801 234 5678">
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Cave d'affectation <span class="required">*</span></label>
-            <select class="form-input"
-                    [(ngModel)]="employeeForm.caveId"
-                    name="caveId" required>
-              <option value="">Sélectionner une cave...</option>
-              <option *ngFor="let cave of caves" [value]="cave.id">
-                {{ cave.name }}
-              </option>
-            </select>
-          </div>
-
-          <div class="form-group" *ngIf="employeeForm.caveId">
-            <label class="form-label">Manager <span class="required">*</span></label>
-            <select class="form-input"
-                    [(ngModel)]="employeeForm.managerId"
-                    name="managerId" required>
-              <option value="">Sélectionner un manager...</option>
-              <option *ngFor="let manager of getManagersByCave(employeeForm.caveId)"
-                      [value]="manager.name">
-                {{ manager.name }} - {{ manager.role }}
-              </option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Poste <span class="required">*</span></label>
-            <select class="form-input"
-                    [(ngModel)]="employeeForm.position"
-                    name="position" required>
-              <option value="">Sélectionner un poste...</option>
-              <option value="Caissier(ère)">Caissier(ère)</option>
-              <option value="Vendeur(se)">Vendeur(se)</option>
-              <option value="Magasinier">Magasinier</option>
-              <option value="Livreur">Livreur</option>
-              <option value="Assistant(e)">Assistant(e)</option>
-              <option value="Sommelier">Sommelier</option>
-              <option value="Conseiller(ère)">Conseiller(ère)</option>
-            </select>
-          </div>
-        </form>
-      </div>
-
-      <footer class="modal-footer">
-        <button class="btn btn-cancel" (click)="closeAddModal()">Annuler</button>
-        <button class="btn btn-primary" (click)="saveEmployee()">
-          💾 Ajouter l'employé
-        </button>
-      </footer>
+    <!-- Pied du modal avec boutons d'action -->
+    <div class="modal-footer">
+      <!-- Bouton annuler -->
+      <button class="btn btn-cancel" (click)="closeAddEmployeeModal()">
+        Annuler
+      </button>
+      
+      <!-- Bouton confirmer -->
+      <button class="btn btn-primary" (click)="addNewEmployee()">
+        Ajouter l'employé
+      </button>
     </div>
   </div>
-
-  <!-- AUCUN RÉSULTAT -->
-  <div *ngIf="!isLoading && filteredEmployees.length === 0"
-       class="no-results">
-    <div class="no-results-icon">👨‍💼</div>
-    <h3>Aucun employé trouvé</h3>
-    <button class="btn btn-primary" (click)="openAddModal()">
-      ➕ Ajouter un employé
-    </button>
-  </div>
-
 </div>

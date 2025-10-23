@@ -1,382 +1,462 @@
-/* ==========================================
-   STYLES SCSS
-   ========================================== */
-
-/*
-// src/app/features/settings/settings.component.scss
-
-$primary-color: #8b5cf6;
+// ===== Variables =====
+$primary-color: #4f46e5;
+$secondary-color: #6366f1;
 $success-color: #10b981;
 $danger-color: #ef4444;
-$text-dark: #1f2937;
-$text-light: #6b7280;
-$bg-light: #f9fafb;
-$border-color: #e5e7eb;
+$bg-light: #f8fafc;
+$bg-white: #ffffff;
+$text-primary: #1e293b;
+$text-secondary: #64748b;
+$border-color: #e2e8f0;
 
+// ===== Page principale =====
+.page-section {
+  padding: 2rem; // Espacement général
+  background: $bg-light; // Fond clair
+  min-height: 100vh; // Hauteur minimale
+}
+
+.content-section {
+  max-width: 1200px; // Largeur maximale
+  margin: 0 auto; // Centrage
+}
+
+// ===== En-tête =====
+.section-header {
+  display: flex; // Flexbox
+  justify-content: space-between; // Espace entre éléments
+  align-items: center; // Centrage vertical
+  margin-bottom: 2rem; // Marge en bas
+  
+  .section-title-main {
+    font-size: 2rem; // Grande taille
+    font-weight: 700; // Très gras
+    color: $text-primary; // Couleur sombre
+    margin: 0;
+  }
+  
+  // Indicateur de modifications non sauvegardées
+  .unsaved-indicator {
+    background: rgba(245, 158, 11, 0.1); // Fond orange clair
+    color: #f59e0b; // Texte orange
+    padding: 0.5rem 1rem; // Espacement
+    border-radius: 20px; // Très arrondi
+    font-size: 0.875rem; // Petite taille
+    font-weight: 600; // Semi-gras
+    animation: pulse 2s ease-in-out infinite; // Animation pulsation
+  }
+}
+
+// Animation pulsation
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1; // Opaque
+  }
+  50% {
+    opacity: 0.7; // Semi-transparent
+  }
+}
+
+// ===== Conteneur des paramètres =====
 .settings-container {
-  padding: 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
-  min-height: 100vh;
+  background: $bg-white; // Fond blanc
+  border-radius: 12px; // Coins arrondis
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); // Ombre légère
+  overflow: hidden; // Masque débordement
 }
 
-.settings-content {
-  display: grid;
-  grid-template-columns: 250px 1fr;
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-// Sidebar
-.settings-sidebar {
-  background: white;
-  border-radius: 12px;
-  padding: 1rem;
-  height: fit-content;
-  position: sticky;
-  top: 2rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.settings-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-
-  .nav-item {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem 1rem;
-    border: none;
+// ===== Onglets de navigation =====
+.settings-tabs {
+  display: flex; // Flexbox
+  border-bottom: 2px solid $border-color; // Bordure en bas
+  overflow-x: auto; // Scroll horizontal si nécessaire
+  
+  // Masquer la scrollbar
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+  
+  &::-webkit-scrollbar-track {
     background: transparent;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s;
-    text-align: left;
-    width: 100%;
-
-    .nav-icon {
-      font-size: 1.25rem;
-    }
-
-    .nav-text {
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: $text-dark;
-    }
-
-    &:hover {
-      background: $bg-light;
-    }
-
-    &.active {
-      background: linear-gradient(135deg, #f3e8ff, #e9d5ff);
-      color: $primary-color;
-
-      .nav-text {
-        color: $primary-color;
-        font-weight: 600;
-      }
-    }
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
   }
 }
 
-// Main content
-.settings-main {
-  background: white;
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.settings-section {
-  .section-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: $text-dark;
-    margin: 0 0 2rem 0;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid $border-color;
+.settings-tab {
+  padding: 1rem 1.5rem; // Espacement interne
+  border: none; // Pas de bordure
+  background: transparent; // Fond transparent
+  font-size: 0.9rem; // Taille du texte
+  font-weight: 600; // Semi-gras
+  color: $text-secondary; // Couleur grise
+  cursor: pointer; // Curseur pointeur
+  transition: all 0.2s ease; // Animation
+  border-bottom: 3px solid transparent; // Bordure invisible par défaut
+  white-space: nowrap; // Pas de retour ligne
+  
+  &:hover {
+    color: $text-primary; // Couleur plus sombre
+    background: rgba(0, 0, 0, 0.02); // Fond très léger
+  }
+  
+  // Onglet actif
+  &.active {
+    color: $primary-color; // Couleur bleue
+    border-bottom-color: $primary-color; // Bordure bleue
+    background: rgba(79, 70, 229, 0.05); // Fond bleu très clair
   }
 }
 
-// Settings groups
-.settings-group {
-  margin-bottom: 2rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid $border-color;
+// ===== Contenu des onglets =====
+.settings-content {
+  padding: 2rem; // Espacement interne
+  min-height: 500px; // Hauteur minimale
+}
 
+// ===== Panneau de paramètres =====
+.settings-panel {
+  animation: fadeIn 0.3s ease-out; // Animation d'apparition
+}
+
+// Animation fade in
+@keyframes fadeIn {
+  from {
+    opacity: 0; // Invisible
+    transform: translateY(10px); // Décalé vers le bas
+  }
+  to {
+    opacity: 1; // Visible
+    transform: translateY(0); // Position normale
+  }
+}
+
+// Titre du panneau
+.panel-title {
+  font-size: 1.5rem; // Grande taille
+  font-weight: 600; // Semi-gras
+  color: $text-primary; // Couleur sombre
+  margin: 0 0 1.5rem 0; // Marge en bas
+}
+
+// Sous-titre de section
+.subsection-title {
+  font-size: 1.125rem; // Taille moyenne
+  font-weight: 600; // Semi-gras
+  color: $text-primary; // Couleur sombre
+  margin: 2rem 0 1rem 0; // Marges verticales
+}
+
+// ===== Item de paramètre =====
+.setting-item {
+  display: flex; // Flexbox
+  justify-content: space-between; // Espace entre label et control
+  align-items: center; // Centrage vertical
+  padding: 1.5rem 0; // Espacement vertical
+  border-bottom: 1px solid $border-color; // Bordure en bas
+  
   &:last-child {
-    border-bottom: none;
+    border-bottom: none; // Pas de bordure pour le dernier
   }
-
+  
+  // Label du paramètre
   .setting-label {
-    display: block;
-    font-size: 1rem;
-    font-weight: 600;
-    color: $text-dark;
-    margin-bottom: 0.5rem;
-  }
-
-  .setting-input {
-    width: 100%;
-    max-width: 400px;
-    padding: 0.75rem;
-    border: 1px solid $border-color;
-    border-radius: 8px;
-    font-size: 0.95rem;
-
-    &:focus {
-      outline: none;
-      border-color: $primary-color;
-      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+    flex: 1; // Prend l'espace disponible
+    margin-right: 2rem; // Marge à droite
+    
+    strong {
+      display: block; // Bloc
+      font-size: 0.9rem; // Taille normale
+      font-weight: 600; // Semi-gras
+      color: $text-primary; // Couleur sombre
+      margin-bottom: 0.25rem; // Petite marge
+    }
+    
+    .setting-description {
+      display: block; // Bloc
+      font-size: 0.8rem; // Petite taille
+      color: $text-secondary; // Couleur grise
+      line-height: 1.4; // Hauteur de ligne
     }
   }
-
-  .setting-hint {
-    font-size: 0.85rem;
-    color: $text-light;
-    margin-top: 0.5rem;
-  }
-
-  .setting-value {
-    font-size: 0.95rem;
-    color: $text-dark;
-    font-weight: 500;
+  
+  // Actions sur le paramètre
+  .setting-actions {
+    display: flex; // Flexbox
+    align-items: center; // Centrage vertical
+    gap: 1rem; // Espace entre éléments
   }
 }
 
-// Toggle switch
-.setting-toggle {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+// ===== Champs de saisie =====
+.setting-input {
+  min-width: 200px; // Largeur minimale
+  padding: 0.5rem 0.75rem; // Espacement interne
+  border: 1px solid $border-color; // Bordure grise
+  border-radius: 6px; // Coins arrondis
+  font-size: 0.875rem; // Petite taille
+  color: $text-primary; // Couleur sombre
+  background: $bg-white; // Fond blanc
+  transition: all 0.2s ease; // Animation
+  
+  &:focus {
+    outline: none; // Pas de contour
+    border-color: $primary-color; // Bordure bleue
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); // Ombre bleue
+  }
 }
 
+// Groupe de champ avec suffixe
+.setting-input-group {
+  display: flex; // Flexbox
+  align-items: center; // Centrage vertical
+  gap: 0.5rem; // Espace entre éléments
+  
+  .input-suffix {
+    font-size: 0.875rem; // Petite taille
+    color: $text-secondary; // Couleur grise
+    font-weight: 500; // Poids moyen
+  }
+}
+
+// ===== Toggle Switch (Interrupteur) =====
 .toggle-switch {
-  position: relative;
-  width: 50px;
-  height: 28px;
-  flex-shrink: 0;
-
+  position: relative; // Position relative
+  display: inline-block; // Inline block
+  width: 50px; // Largeur
+  height: 26px; // Hauteur
+  
   input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-
+    opacity: 0; // Invisible
+    width: 0; // Sans largeur
+    height: 0; // Sans hauteur
+    
+    // État coché
     &:checked + .toggle-slider {
-      background: $primary-color;
-
+      background-color: $primary-color; // Fond bleu
+      
       &:before {
-        transform: translateX(22px);
+        transform: translateX(24px); // Déplacement du curseur
       }
     }
+    
+    // État focus
+    &:focus + .toggle-slider {
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); // Ombre bleue
+    }
   }
-
+  
   .toggle-slider {
-    position: absolute;
-    cursor: pointer;
+    position: absolute; // Position absolue
+    cursor: pointer; // Curseur pointeur
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: #ccc;
-    transition: 0.4s;
-    border-radius: 34px;
-
+    background-color: #cbd5e1; // Fond gris
+    transition: 0.3s; // Animation
+    border-radius: 26px; // Très arrondi
+    
+    // Curseur mobile
     &:before {
-      position: absolute;
-      content: "";
-      height: 20px;
-      width: 20px;
-      left: 4px;
-      bottom: 4px;
-      background-color: white;
-      transition: 0.4s;
-      border-radius: 50%;
+      position: absolute; // Position absolue
+      content: ""; // Contenu vide
+      height: 20px; // Hauteur
+      width: 20px; // Largeur
+      left: 3px; // Position gauche
+      bottom: 3px; // Position bas
+      background-color: white; // Fond blanc
+      transition: 0.3s; // Animation
+      border-radius: 50%; // Forme circulaire
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); // Ombre
     }
   }
 }
 
-// Theme options
-.theme-options {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-top: 1rem;
+// ===== Sélecteurs visuels =====
+.theme-selector,
+.font-size-selector {
+  display: flex; // Flexbox
+  gap: 0.75rem; // Espace entre options
+}
 
-  .theme-option {
-    cursor: pointer;
+.theme-option,
+.font-size-option {
+  padding: 0.75rem 1.25rem; // Espacement interne
+  border: 2px solid $border-color; // Bordure grise
+  border-radius: 8px; // Coins arrondis
+  background: $bg-white; // Fond blanc
+  cursor: pointer; // Curseur pointeur
+  font-size: 0.875rem; // Petite taille
+  font-weight: 600; // Semi-gras
+  color: $text-secondary; // Couleur grise
+  transition: all 0.2s ease; // Animation
+  
+  &:hover {
+    border-color: $primary-color; // Bordure bleue
+    color: $primary-color; // Texte bleu
+  }
+  
+  // Option active
+  &.active {
+    border-color: $primary-color; // Bordure bleue
+    background: $primary-color; // Fond bleu
+    color: white; // Texte blanc
+  }
+}
 
-    input {
-      display: none;
+// ===== Diviseur =====
+.divider {
+  height: 1px; // Hauteur fine
+  background: $border-color; // Couleur grise
+  margin: 2rem 0; // Marges verticales
+}
+
+// ===== Pied des paramètres =====
+.settings-footer {
+  display: flex; // Flexbox
+  justify-content: space-between; // Espace entre gauche et droite
+  align-items: center; // Centrage vertical
+  padding: 1.5rem 2rem; // Espacement interne
+  border-top: 1px solid $border-color; // Bordure en haut
+  background: $bg-light; // Fond gris clair
+  
+  .footer-left,
+  .footer-right {
+    display: flex; // Flexbox
+    gap: 0.75rem; // Espace entre boutons
+  }
+}
+
+// ===== Boutons =====
+.btn {
+  padding: 0.75rem 1.5rem; // Espacement interne
+  border-radius: 8px; // Coins arrondis
+  border: none; // Pas de bordure
+  font-size: 0.9rem; // Taille du texte
+  font-weight: 600; // Semi-gras
+  cursor: pointer; // Curseur pointeur
+  transition: all 0.2s ease; // Animation
+  display: inline-flex; // Flexbox inline
+  align-items: center; // Centrage vertical
+  gap: 0.5rem; // Espace entre icône et texte
+  
+  &:disabled {
+    opacity: 0.5; // Semi-transparent
+    cursor: not-allowed; // Curseur interdit
+  }
+  
+  // Bouton petit
+  &.btn-sm {
+    padding: 0.5rem 1rem; // Espacement réduit
+    font-size: 0.8rem; // Taille réduite
+  }
+  
+  // Bouton primaire
+  &.btn-primary {
+    background: $primary-color; // Fond bleu
+    color: white; // Texte blanc
+    
+    &:hover:not(:disabled) {
+      background: darken($primary-color, 10%); // Fond plus foncé
+      transform: translateY(-2px); // Déplacement
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3); // Ombre
     }
-
-    .theme-card {
-      padding: 1.5rem;
-      border: 2px solid $border-color;
-      border-radius: 8px;
-      text-align: center;
-      transition: all 0.3s;
-
-      .theme-icon {
-        font-size: 2rem;
-        display: block;
-        margin-bottom: 0.5rem;
-      }
-
-      .theme-label {
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: $text-dark;
-      }
-
-      &:hover {
-        border-color: $primary-color;
-        transform: translateY(-2px);
-      }
+  }
+  
+  // Bouton secondaire
+  &.btn-secondary {
+    background: $secondary-color; // Fond violet
+    color: white; // Texte blanc
+    
+    &:hover:not(:disabled) {
+      background: darken($secondary-color, 10%); // Fond plus foncé
     }
-
-    &.active .theme-card {
-      border-color: $primary-color;
-      background: linear-gradient(135deg, #f3e8ff, #e9d5ff);
+  }
+  
+  // Bouton outline
+  &.btn-outline {
+    background: transparent; // Fond transparent
+    color: $text-primary; // Texte sombre
+    border: 1px solid $border-color; // Bordure grise
+    
+    &:hover:not(:disabled) {
+      background: $bg-light; // Fond gris clair
+      border-color: darken($border-color, 10%); // Bordure plus foncée
+    }
+  }
+  
+  // Bouton annulation
+  &.btn-cancel {
+    background: transparent; // Fond transparent
+    color: $text-secondary; // Texte gris
+    border: 1px solid $border-color; // Bordure grise
+    
+    &:hover:not(:disabled) {
+      background: $bg-light; // Fond gris clair
     }
   }
 }
 
-// Danger zone
-.danger-zone {
-  background: #fef2f2;
-  padding: 1.5rem;
-  border-radius: 8px;
-  border: 2px solid $danger-color;
-}
-
-// About card
-.about-card {
-  text-align: center;
-  padding: 2rem;
-
-  .about-logo {
-    font-size: 4rem;
-    margin-bottom: 1rem;
-  }
-
-  h3 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: $text-dark;
-    margin: 0 0 0.5rem 0;
-  }
-
-  .about-version {
-    font-size: 0.9rem;
-    color: $text-light;
-    margin-bottom: 1rem;
-  }
-
-  .about-description {
-    font-size: 1rem;
-    color: $text-dark;
-    margin-bottom: 2rem;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .about-info {
-    background: $bg-light;
-    border-radius: 8px;
-    padding: 1.5rem;
-    margin-bottom: 2rem;
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-
-    .info-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.75rem 0;
-      border-bottom: 1px solid $border-color;
-
-      &:last-child {
-        border-bottom: none;
-      }
-
-      .info-label {
-        font-weight: 600;
-        color: $text-light;
-      }
-
-      .info-value {
-        color: $text-dark;
-      }
+// ===== Responsive (tablette) =====
+@media (max-width: 968px) {
+  .setting-item {
+    flex-direction: column; // Direction verticale
+    align-items: flex-start; // Alignement à gauche
+    gap: 1rem; // Espace entre éléments
+    
+    .setting-label {
+      margin-right: 0; // Pas de marge
+    }
+    
+    .setting-input {
+      width: 100%; // Largeur totale
     }
   }
-
-  .about-links {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-
-    .about-link {
-      color: $primary-color;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.3s;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
+  
+  .theme-selector,
+  .font-size-selector {
+    width: 100%; // Largeur totale
+    flex-wrap: wrap; // Retour à la ligne
+  }
+  
+  .theme-option,
+  .font-size-option {
+    flex: 1; // Prend l'espace disponible
+    min-width: 100px; // Largeur minimale
   }
 }
 
-// File input
-.file-input {
-  display: none;
-}
-
-// Responsive
-@media (max-width: 1024px) {
+// ===== Responsive (mobile) =====
+@media (max-width: 640px) {
+  .page-section {
+    padding: 1rem; // Espacement réduit
+  }
+  
   .settings-content {
-    grid-template-columns: 1fr;
+    padding: 1rem; // Espacement réduit
   }
-
-  .settings-sidebar {
-    position: static;
-  }
-
-  .settings-nav {
-    flex-direction: row;
-    overflow-x: auto;
-
-    .nav-item {
-      flex-direction: column;
-      min-width: 100px;
-      text-align: center;
-
-      .nav-text {
-        font-size: 0.8rem;
-      }
+  
+  .settings-footer {
+    flex-direction: column; // Direction verticale
+    gap: 1rem; // Espace entre éléments
+    
+    .footer-left,
+    .footer-right {
+      width: 100%; // Largeur totale
+      justify-content: center; // Centrage
     }
   }
-}
-
-@media (max-width: 768px) {
-  .settings-container {
-    padding: 1rem;
+  
+  .settings-tabs {
+    padding: 0 0.5rem; // Petit espacement
   }
-
-  .theme-options {
-    grid-template-columns: 1fr;
-  }
-
-  .setting-toggle {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
+  
+  .settings-tab {
+    padding: 0.75rem 1rem; // Espacement réduit
+    font-size: 0.8rem; // Taille réduite
   }
 }
-*/

@@ -1,197 +1,431 @@
-/* ==========================================
-   STYLES SCSS (employees.component.scss)
-   Réutilise les styles des autres composants avec ajouts:
-   ========================================== */
-
-// Variables identiques aux autres composants
-$primary-color: #8b5cf6;
+// ===== Variables de couleurs =====
+$primary-color: #4f46e5;
 $success-color: #10b981;
-$info-color: #3b82f6;
-$warning-color: #f59e0b;
 $danger-color: #ef4444;
-$text-dark: #1f2937;
-$text-light: #6b7280;
-$bg-light: #f9fafb;
-$border-color: #e5e7eb;
+$warning-color: #f59e0b;
+$bg-light: #f8fafc;
+$bg-white: #ffffff;
+$text-primary: #1e293b;
+$text-secondary: #64748b;
+$border-color: #e2e8f0;
 
-.employees-container {
-  padding: 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
-  min-height: 100vh;
+// ===== Section principale =====
+.page-section {
+  padding: 2rem; // Espacement général de la page
+  background: $bg-light; // Couleur de fond claire
+  min-height: 100vh; // Hauteur minimale plein écran
 }
 
-// Tableau des employés
+// ===== Section de contenu =====
+.content-section {
+  max-width: 1400px; // Largeur maximale du contenu
+  margin: 0 auto; // Centrage horizontal
+}
+
+// ===== En-tête de section =====
+.section-header {
+  display: flex; // Alignement horizontal
+  justify-content: space-between; // Espace entre titre et bouton
+  align-items: center; // Centrage vertical
+  margin-bottom: 2rem; // Marge en bas
+  
+  // Titre principal
+  .section-title-main {
+    font-size: 2rem; // Grande taille
+    font-weight: 700; // Très gras
+    color: $text-primary; // Couleur sombre
+    margin: 0; // Pas de marge
+  }
+}
+
+// ===== Grille de statistiques des employés =====
+.employees-stats-grid {
+  display: grid; // Grille CSS
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); // Colonnes adaptatives
+  gap: 1.5rem; // Espace entre les cartes
+  margin-bottom: 2rem; // Marge en bas
+}
+
+// ===== Carte de statistique =====
+.stat-card {
+  background: $bg-white; // Fond blanc
+  border-radius: 12px; // Coins arrondis
+  padding: 1.5rem; // Espacement interne
+  display: flex; // Alignement horizontal
+  align-items: center; // Centrage vertical
+  gap: 1rem; // Espace entre icône et contenu
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); // Ombre légère
+  transition: transform 0.2s ease, box-shadow 0.2s ease; // Animation au survol
+  
+  // Effet hover
+  &:hover {
+    transform: translateY(-4px); // Léger déplacement vers le haut
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); // Ombre plus prononcée
+  }
+  
+  // Icône de la carte
+  .stat-icon {
+    font-size: 2.5rem; // Grande taille
+    width: 60px; // Largeur fixe
+    height: 60px; // Hauteur fixe
+    display: flex; // Centrage
+    align-items: center; // Centrage vertical
+    justify-content: center; // Centrage horizontal
+    border-radius: 50%; // Forme circulaire
+    background: rgba(79, 70, 229, 0.1); // Fond coloré léger
+  }
+  
+  // Contenu de la carte
+  .stat-content {
+    flex: 1; // Prend l'espace restant
+    
+    .stat-label {
+      font-size: 0.875rem; // Petite taille
+      color: $text-secondary; // Couleur grise
+      margin-bottom: 0.25rem; // Petite marge
+    }
+    
+    .stat-value {
+      font-size: 1.75rem; // Grande taille
+      font-weight: 700; // Très gras
+      color: $text-primary; // Couleur sombre
+      margin-bottom: 0.25rem; // Petite marge
+    }
+    
+    .stat-change {
+      font-size: 0.75rem; // Très petite taille
+      font-weight: 500; // Poids moyen
+      
+      // Changement positif (vert)
+      &.positive {
+        color: $success-color;
+      }
+      
+      // Changement négatif (rouge)
+      &.negative {
+        color: $danger-color;
+      }
+      
+      // Changement neutre (gris)
+      &.neutral {
+        color: $text-secondary;
+      }
+    }
+  }
+  
+  // Variantes de couleur pour les cartes
+  &.stat-card-blue .stat-icon {
+    background: rgba(59, 130, 246, 0.1);
+  }
+  
+  &.stat-card-green .stat-icon {
+    background: rgba(16, 185, 129, 0.1);
+  }
+  
+  &.stat-card-purple .stat-icon {
+    background: rgba(139, 92, 246, 0.1);
+  }
+}
+
+// ===== Tableau des employés =====
 .employees-table {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-
-  .table-wrapper {
-    overflow-x: auto;
-  }
-
-  .data-table {
-    width: 100%;
-    border-collapse: collapse;
-
-    thead {
-      background: $bg-light;
-
-      th {
-        padding: 1rem;
-        text-align: left;
-        font-weight: 600;
-        color: $text-dark;
-        font-size: 0.9rem;
-        border-bottom: 2px solid $border-color;
-
-        &.text-center {
-          text-align: center;
-        }
-      }
+  background: $bg-white; // Fond blanc
+  border-radius: 12px; // Coins arrondis
+  overflow: hidden; // Masquer le débordement
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); // Ombre légère
+  
+  // En-tête du tableau
+  .table-header {
+    padding: 1.5rem; // Espacement interne
+    border-bottom: 1px solid $border-color; // Bordure en bas
+    
+    h3 {
+      margin: 0; // Pas de marge
+      font-size: 1.25rem; // Taille moyenne
+      font-weight: 600; // Semi-gras
+      color: $text-primary; // Couleur sombre
     }
+  }
+  
+  // Contenu du tableau
+  .table-content {
+    padding: 0.5rem; // Petit espacement
+  }
+}
 
-    tbody {
-      .table-row {
-        border-bottom: 1px solid $border-color;
-        transition: background 0.3s;
+// ===== Ligne d'employé =====
+.employee-row {
+  display: flex; // Alignement horizontal
+  align-items: center; // Centrage vertical
+  gap: 1rem; // Espace entre les éléments
+  padding: 1rem; // Espacement interne
+  border-radius: 8px; // Coins arrondis
+  transition: background 0.2s ease; // Animation au survol
+  
+  // Effet hover
+  &:hover {
+    background: $bg-light; // Fond gris clair
+  }
+  
+  // Avatar petit format
+  .employee-avatar-sm {
+    width: 50px; // Largeur fixe
+    height: 50px; // Hauteur fixe
+    border-radius: 50%; // Forme circulaire
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); // Dégradé
+    display: flex; // Centrage
+    align-items: center; // Centrage vertical
+    justify-content: center; // Centrage horizontal
+    font-size: 1.5rem; // Taille de l'emoji
+    flex-shrink: 0; // Ne pas rétrécir
+  }
+  
+  // Détails de l'employé
+  .employee-details {
+    flex: 1; // Prend l'espace disponible
+    min-width: 0; // Pour permettre l'ellipsis
+    
+    .employee-name-bold {
+      font-size: 1rem; // Taille normale
+      font-weight: 600; // Semi-gras
+      color: $text-primary; // Couleur sombre
+      margin-bottom: 0.25rem; // Petite marge
+    }
+    
+    .employee-position-sm {
+      font-size: 0.875rem; // Petite taille
+      color: $text-secondary; // Couleur grise
+    }
+  }
+  
+  // Métriques de performance
+  .employee-metrics {
+    display: flex; // Alignement horizontal
+    gap: 1.5rem; // Espace entre les métriques
+    
+    .metric-item {
+      font-size: 0.875rem; // Petite taille
+      font-weight: 500; // Poids moyen
+      color: $text-secondary; // Couleur grise
+      white-space: nowrap; // Pas de retour à la ligne
+    }
+  }
+  
+  // Actions sur la ligne
+  .employee-row-actions {
+    display: flex; // Alignement horizontal
+    gap: 0.5rem; // Petit espace entre boutons
+  }
+}
 
-        &:hover {
-          background: $bg-light;
-        }
-
-        td {
-          padding: 1rem;
-          font-size: 0.95rem;
-
-          &.text-center {
-            text-align: center;
-          }
-        }
-
-        // Cellule employé avec avatar
-        .employee-cell {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-
-          .employee-avatar {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, $info-color, #60a5fa);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
-            font-weight: 700;
-            flex-shrink: 0;
-          }
-
-          .employee-info {
-            .employee-name {
-              font-weight: 600;
-              color: $text-dark;
-              margin-bottom: 0.25rem;
-            }
-
-            .employee-email {
-              font-size: 0.85rem;
-              color: $text-light;
-            }
-          }
-        }
-
-        // Badges personnalisés
-        .position-badge {
-          display: inline-block;
-          padding: 0.35rem 0.85rem;
-          background: #f3e8ff;
-          color: #6b21a8;
-          border-radius: 20px;
-          font-size: 0.85rem;
-          font-weight: 600;
-        }
-
-        .cave-badge {
-          display: inline-block;
-          padding: 0.35rem 0.85rem;
-          background: #e0e7ff;
-          color: #3730a3;
-          border-radius: 20px;
-          font-size: 0.85rem;
-          font-weight: 600;
-        }
-
-        .sales-badge {
-          display: inline-block;
-          padding: 0.35rem 0.85rem;
-          background: #d1fae5;
-          color: #065f46;
-          border-radius: 20px;
-          font-size: 0.85rem;
-          font-weight: 600;
-        }
-
-        .hours-badge {
-          display: inline-block;
-          padding: 0.35rem 0.85rem;
-          background: #dbeafe;
-          color: #1e40af;
-          border-radius: 20px;
-          font-size: 0.85rem;
-          font-weight: 600;
-        }
-
-        // Actions
-        .actions-cell {
-          .btn-icon {
-            padding: 0.5rem;
-            border: none;
-            background: none;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: transform 0.3s;
-            margin: 0 0.25rem;
-
-            &:hover {
-              transform: scale(1.2);
-            }
-
-            &.btn-danger:hover {
-              color: $danger-color;
-            }
-          }
-        }
-      }
+// ===== Boutons icônes =====
+.btn-icon {
+  width: 36px; // Largeur fixe
+  height: 36px; // Hauteur fixe
+  border-radius: 6px; // Coins arrondis
+  border: none; // Pas de bordure
+  background: $bg-light; // Fond gris clair
+  cursor: pointer; // Curseur pointeur
+  font-size: 1rem; // Taille de l'icône
+  transition: all 0.2s ease; // Animation
+  display: flex; // Centrage
+  align-items: center; // Centrage vertical
+  justify-content: center; // Centrage horizontal
+  
+  // Effet hover
+  &:hover {
+    background: #e2e8f0; // Fond plus foncé
+    transform: scale(1.1); // Légère augmentation
+  }
+  
+  // Variante danger (suppression)
+  &.btn-danger {
+    &:hover {
+      background: rgba(239, 68, 68, 0.1); // Fond rouge clair
+      color: $danger-color; // Texte rouge
     }
   }
 }
 
-// Responsive
+// ===== État vide =====
+.empty-state {
+  text-align: center; // Centrage du texte
+  padding: 4rem 2rem; // Grand espacement
+  
+  .empty-icon {
+    font-size: 4rem; // Très grande icône
+    margin-bottom: 1rem; // Marge en bas
+  }
+  
+  p {
+    color: $text-secondary; // Couleur grise
+    font-size: 1.125rem; // Taille moyenne
+    margin-bottom: 1.5rem; // Marge en bas
+  }
+}
+
+// ===== Boutons standards =====
+.btn {
+  padding: 0.75rem 1.5rem; // Espacement interne
+  border-radius: 8px; // Coins arrondis
+  border: none; // Pas de bordure
+  font-size: 0.9rem; // Taille du texte
+  font-weight: 600; // Semi-gras
+  cursor: pointer; // Curseur pointeur
+  transition: all 0.2s ease; // Animation
+  display: inline-flex; // Alignement horizontal
+  align-items: center; // Centrage vertical
+  gap: 0.5rem; // Espace entre icône et texte
+  
+  // Bouton primaire
+  &.btn-primary {
+    background: $primary-color; // Fond bleu
+    color: white; // Texte blanc
+    
+    &:hover {
+      background: darken($primary-color, 10%); // Fond plus foncé
+      transform: translateY(-2px); // Déplacement vers le haut
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3); // Ombre
+    }
+  }
+  
+  // Bouton annulation
+  &.btn-cancel {
+    background: transparent; // Fond transparent
+    color: $text-secondary; // Texte gris
+    border: 1px solid $border-color; // Bordure grise
+    
+    &:hover {
+      background: $bg-light; // Fond gris clair
+      border-color: darken($border-color, 10%); // Bordure plus foncée
+    }
+  }
+}
+
+// ===== Modal =====
+.modal {
+  position: fixed; // Position fixe sur l'écran
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); // Fond noir semi-transparent
+  display: flex; // Centrage
+  align-items: center; // Centrage vertical
+  justify-content: center; // Centrage horizontal
+  z-index: 1000; // Au-dessus de tout
+  padding: 1rem; // Espacement
+  
+  // Contenu du modal
+  .modal-content {
+    background: $bg-white; // Fond blanc
+    border-radius: 12px; // Coins arrondis
+    max-width: 600px; // Largeur maximale
+    width: 100%; // Largeur totale disponible
+    max-height: 90vh; // Hauteur maximale
+    overflow-y: auto; // Scroll vertical si nécessaire
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); // Grande ombre
+  }
+  
+  // En-tête du modal
+  .modal-header {
+    display: flex; // Alignement horizontal
+    justify-content: space-between; // Espace entre titre et bouton
+    align-items: center; // Centrage vertical
+    padding: 1.5rem; // Espacement interne
+    border-bottom: 1px solid $border-color; // Bordure en bas
+    
+    .modal-title {
+      margin: 0; // Pas de marge
+      font-size: 1.5rem; // Grande taille
+      font-weight: 600; // Semi-gras
+      color: $text-primary; // Couleur sombre
+    }
+    
+    .close-btn {
+      width: 36px; // Largeur fixe
+      height: 36px; // Hauteur fixe
+      border-radius: 50%; // Forme circulaire
+      border: none; // Pas de bordure
+      background: $bg-light; // Fond gris clair
+      font-size: 1.5rem; // Grande taille
+      cursor: pointer; // Curseur pointeur
+      transition: all 0.2s ease; // Animation
+      
+      &:hover {
+        background: #e2e8f0; // Fond plus foncé
+        transform: rotate(90deg); // Rotation
+      }
+    }
+  }
+  
+  // Corps du modal
+  .modal-body {
+    padding: 1.5rem; // Espacement interne
+  }
+  
+  // Pied du modal
+  .modal-footer {
+    display: flex; // Alignement horizontal
+    justify-content: flex-end; // Alignement à droite
+    gap: 1rem; // Espace entre boutons
+    padding: 1.5rem; // Espacement interne
+    border-top: 1px solid $border-color; // Bordure en haut
+  }
+}
+
+// ===== Formulaire =====
+.form-group {
+  margin-bottom: 1.5rem; // Marge en bas entre champs
+  
+  .form-label {
+    display: block; // Bloc pour être au-dessus de l'input
+    margin-bottom: 0.5rem; // Marge en bas
+    font-size: 0.875rem; // Petite taille
+    font-weight: 600; // Semi-gras
+    color: $text-primary; // Couleur sombre
+  }
+  
+  .form-input {
+    width: 100%; // Largeur totale
+    padding: 0.75rem; // Espacement interne
+    border: 1px solid $border-color; // Bordure grise
+    border-radius: 8px; // Coins arrondis
+    font-size: 0.9rem; // Taille du texte
+    transition: all 0.2s ease; // Animation
+    
+    // État focus (sélectionné)
+    &:focus {
+      outline: none; // Pas de contour par défaut
+      border-color: $primary-color; // Bordure bleue
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); // Ombre bleue
+    }
+    
+    // Placeholder
+    &::placeholder {
+      color: #94a3b8; // Couleur grise claire
+    }
+  }
+}
+
+// ===== Responsive (mobile) =====
 @media (max-width: 768px) {
-  .employees-container {
-    padding: 1rem;
+  .section-header {
+    flex-direction: column; // Colonne sur mobile
+    align-items: flex-start; // Alignement à gauche
+    gap: 1rem; // Espace entre éléments
   }
-
-  .stats-section {
-    grid-template-columns: 1fr 1fr !important;
+  
+  .employee-row {
+    flex-wrap: wrap; // Retour à la ligne
+    
+    .employee-metrics {
+      width: 100%; // Largeur totale
+      justify-content: space-between; // Répartition
+    }
   }
-
-  .filters-section {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .table-wrapper {
-    overflow-x: scroll;
-  }
-
-  .employee-cell {
-    flex-direction: column;
-    align-items: flex-start !important;
+  
+  .employees-stats-grid {
+    grid-template-columns: 1fr; // Une seule colonne
   }
 }

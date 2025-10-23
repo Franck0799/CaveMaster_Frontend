@@ -1,0 +1,432 @@
+<!-- ===== PAGE ACCORDS METS & VINS ===== -->
+<div class="page-section">
+  
+  <section class="content-section">
+    
+    <!-- ===== En-tête avec titre et actions ===== -->
+    <div class="section-header">
+      <div class="header-left">
+        <h2 class="section-title-main">🍽️ Accords Mets & Vins</h2>
+        <p class="section-subtitle">
+          {{ filteredPairings.length }} accord{{ filteredPairings.length > 1 ? 's' : '' }} trouvé{{ filteredPairings.length > 1 ? 's' : '' }}
+        </p>
+      </div>
+      
+      <div class="header-actions">
+        <!-- Bouton exporter -->
+        <button class="btn btn-secondary" (click)="exportToCSV()">
+          <i class="fas fa-download"></i> Exporter
+        </button>
+        
+        <!-- Bouton imprimer -->
+        <button class="btn btn-secondary" (click)="printPairings()">
+          <i class="fas fa-print"></i> Imprimer
+        </button>
+        
+        <!-- Bouton ajouter -->
+        <button class="btn btn-primary" (click)="openAddModal()">
+          <i class="fas fa-plus"></i> Ajouter un accord
+        </button>
+      </div>
+    </div>
+
+    <!-- ===== Barre de recherche et filtres ===== -->
+    <div class="filters-container">
+      
+      <!-- Recherche textuelle -->
+      <div class="search-box">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" 
+               class="search-input" 
+               placeholder="Rechercher un plat, un vin, une région..."
+               [(ngModel)]="searchQuery"
+               (input)="onSearchChange()">
+        <button class="clear-btn" 
+                *ngIf="searchQuery" 
+                (click)="searchQuery = ''; onSearchChange()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <!-- Filtres -->
+      <div class="filters-row">
+        
+        <!-- Filtre par catégorie de plat -->
+        <div class="filter-group">
+          <label class="filter-label">
+            <i class="fas fa-utensils"></i> Catégorie
+          </label>
+          <select class="filter-select" 
+                  [(ngModel)]="selectedCategory"
+                  (change)="onCategoryChange()">
+            <option value="all">Toutes les catégories</option>
+            <option *ngFor="let category of categories" [value]="category">
+              {{ category }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Filtre par type de vin -->
+        <div class="filter-group">
+          <label class="filter-label">
+            <i class="fas fa-wine-bottle"></i> Type de vin
+          </label>
+          <select class="filter-select" 
+                  [(ngModel)]="selectedWineType"
+                  (change)="onWineTypeChange()">
+            <option value="all">Tous les types</option>
+            <option *ngFor="let type of wineTypes" [value]="type">
+              {{ type }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Bouton réinitialiser -->
+        <button class="btn btn-outline" 
+                (click)="resetFilters()"
+                [disabled]="searchQuery === '' && selectedCategory === 'all' && selectedWineType === 'all'">
+          <i class="fas fa-redo"></i> Réinitialiser
+        </button>
+      </div>
+    </div>
+
+    <!-- ===== Indicateur de chargement ===== -->
+    <div *ngIf="isLoading" class="loading-state">
+      <div class="spinner"></div>
+      <p>Chargement des accords...</p>
+    </div>
+
+    <!-- ===== Grille des accords ===== -->
+    <div *ngIf="!isLoading" class="pairing-grid">
+      
+      <!-- Boucle sur les accords filtrés -->
+      <div *ngFor="let pairing of filteredPairings" class="pairing-card">
+        
+        <!-- Badge catégorie -->
+        <div class="pairing-header">
+          <span class="pairing-category">{{ pairing.category }}</span>
+          
+          <!-- Notation -->
+          <div class="pairing-rating" *ngIf="pairing.rating">
+            <span *ngFor="let star of getStars(pairing.rating)" class="star">
+              {{ star ? '⭐' : '☆' }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Contenu principal de l'accord -->
+        <div class="pairing-content">
+          
+          <!-- Plat -->
+          <div class="pairing-item">
+            <div class="pairing-icon dish-icon">{{ pairing.dishIcon }}</div>
+            <div class="pairing-details">
+              <div class="pairing-label">Plat</div>
+              <div class="pairing-name">{{ pairing.dish }}</div>
+            </div>
+          </div>
+
+          <!-- Flèche de liaison -->
+          <div class="pairing-connector">
+            <i class="fas fa-plus"></i>
+          </div>
+
+          <!-- Vin -->
+          <div class="pairing-item">
+            <div class="pairing-icon wine-icon">{{ pairing.wineIcon }}</div>
+            <div class="pairing-details">
+              <div class="pairing-label">Vin</div>
+              <div class="pairing-name">{{ pairing.wine }}</div>
+              <div class="pairing-type">{{ pairing.wineType }}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Description de l'accord -->
+        <div class="pairing-description">
+          <p>{{ pairing.description }}</p>
+        </div>
+
+        <!-- Informations complémentaires -->
+        <div class="pairing-info">
+          <div class="info-item" *ngIf="pairing.temperature">
+            <i class="fas fa-thermometer-half"></i>
+            <span>{{ pairing.temperature }}</span>
+          </div>
+          
+          <div class="info-item" *ngIf="pairing.region">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>{{ pairing.region }}</span>
+          </div>
+          
+          <div class="info-item" *ngIf="pairing.vintage">
+            <i class="fas fa-calendar-alt"></i>
+            <span>{{ pairing.vintage }}</span>
+          </div>
+        </div>
+
+        <!-- Tags -->
+        <div class="pairing-tags" *ngIf="pairing.tags && pairing.tags.length > 0">
+          <span *ngFor="let tag of pairing.tags" class="tag">
+            {{ tag }}
+          </span>
+        </div>
+
+        <!-- Actions sur l'accord -->
+        <div class="pairing-actions">
+          <button class="btn-action btn-action-edit" 
+                  (click)="openEditModal(pairing)"
+                  title="Modifier">
+            <i class="fas fa-edit"></i>
+          </button>
+          
+          <button class="btn-action btn-action-delete" 
+                  (click)="deletePairing(pairing)"
+                  title="Supprimer">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- État vide (aucun accord trouvé) -->
+      <div *ngIf="filteredPairings.length === 0" class="empty-state">
+        <div class="empty-icon">🍽️</div>
+        <h3>Aucun accord trouvé</h3>
+        <p *ngIf="searchQuery || selectedCategory !== 'all' || selectedWineType !== 'all'">
+          Essayez de modifier vos critères de recherche
+        </p>
+        <p *ngIf="!searchQuery && selectedCategory === 'all' && selectedWineType === 'all'">
+          Commencez par créer votre premier accord mets & vins
+        </p>
+        <button class="btn btn-primary" (click)="openAddModal()">
+          <i class="fas fa-plus"></i> Créer un accord
+        </button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ===== MODAL AJOUTER/MODIFIER ACCORD ===== -->
+<div *ngIf="isModalOpen" class="modal" (click)="closeModal()">
+  
+  <div class="modal-content modal-large" (click)="$event.stopPropagation()">
+    
+    <!-- En-tête du modal -->
+    <div class="modal-header">
+      <h2 class="modal-title">
+        <i class="fas fa-wine-glass-alt"></i>
+        {{ isEditMode ? 'Modifier l\'accord' : 'Nouvel accord mets & vins' }}
+      </h2>
+      <button class="close-btn" (click)="closeModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <!-- Corps du modal -->
+    <div class="modal-body">
+      <form>
+        
+        <!-- Section 1: Informations générales -->
+        <div class="form-section">
+          <h3 class="form-section-title">
+            <i class="fas fa-info-circle"></i> Informations générales
+          </h3>
+
+          <!-- Catégorie de plat -->
+          <div class="form-group">
+            <label class="form-label">Catégorie de plat *</label>
+            <select class="form-input" 
+                    [(ngModel)]="pairingForm.category"
+                    name="category"
+                    required>
+              <option value="">Sélectionner une catégorie...</option>
+              <option *ngFor="let category of categories" [value]="category">
+                {{ category }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Type de vin -->
+          <div class="form-group">
+            <label class="form-label">Type de vin *</label>
+            <select class="form-input" 
+                    [(ngModel)]="pairingForm.wineType"
+                    name="wineType"
+                    required>
+              <option value="">Sélectionner un type...</option>
+              <option *ngFor="let type of wineTypes" [value]="type">
+                {{ type }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Section 2: Le plat -->
+        <div class="form-section">
+          <h3 class="form-section-title">
+            <i class="fas fa-utensils"></i> Le plat
+          </h3>
+
+          <div class="form-row">
+            <!-- Nom du plat -->
+            <div class="form-group flex-grow">
+              <label class="form-label">Nom du plat *</label>
+              <input type="text" 
+                     class="form-input" 
+                     [(ngModel)]="pairingForm.dish"
+                     name="dish"
+                     placeholder="Ex: Steak grillé"
+                     required>
+            </div>
+
+            <!-- Icône du plat -->
+            <div class="form-group">
+              <label class="form-label">Icône</label>
+              <select class="form-input icon-select" 
+                      [(ngModel)]="pairingForm.dishIcon"
+                      name="dishIcon">
+                <option *ngFor="let icon of dishIcons" [value]="icon">
+                  {{ icon }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 3: Le vin -->
+        <div class="form-section">
+          <h3 class="form-section-title">
+            <i class="fas fa-wine-bottle"></i> Le vin
+          </h3>
+
+          <div class="form-row">
+            <!-- Nom du vin -->
+            <div class="form-group flex-grow">
+              <label class="form-label">Nom du vin *</label>
+              <input type="text" 
+                     class="form-input" 
+                     [(ngModel)]="pairingForm.wine"
+                     name="wine"
+                     placeholder="Ex: Bordeaux Rouge"
+                     required>
+            </div>
+
+            <!-- Icône du vin -->
+            <div class="form-group">
+              <label class="form-label">Icône</label>
+              <select class="form-input icon-select" 
+                      [(ngModel)]="pairingForm.wineIcon"
+                      name="wineIcon">
+                <option *ngFor="let icon of wineIcons" [value]="icon">
+                  {{ icon }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <!-- Région -->
+            <div class="form-group">
+              <label class="form-label">Région viticole</label>
+              <input type="text" 
+                     class="form-input" 
+                     [(ngModel)]="pairingForm.region"
+                     name="region"
+                     placeholder="Ex: Bordeaux">
+            </div>
+
+            <!-- Millésime -->
+            <div class="form-group">
+              <label class="form-label">Millésime recommandé</label>
+              <input type="text" 
+                     class="form-input" 
+                     [(ngModel)]="pairingForm.vintage"
+                     name="vintage"
+                     placeholder="Ex: 2015-2018">
+            </div>
+          </div>
+
+          <!-- Température de service -->
+          <div class="form-group">
+            <label class="form-label">Température de service *</label>
+            <input type="text" 
+                   class="form-input" 
+                   [(ngModel)]="pairingForm.temperature"
+                   name="temperature"
+                   placeholder="Ex: 16-18°C"
+                   required>
+          </div>
+        </div>
+
+        <!-- Section 4: Description de l'accord -->
+        <div class="form-section">
+          <h3 class="form-section-title">
+            <i class="fas fa-file-alt"></i> Description de l'accord
+          </h3>
+
+          <div class="form-group">
+            <label class="form-label">Description *</label>
+            <textarea class="form-textarea" 
+                      [(ngModel)]="pairingForm.description"
+                      name="description"
+                      rows="4"
+                      placeholder="Décrivez pourquoi cet accord fonctionne bien..."
+                      required></textarea>
+            <small class="form-hint">
+              Expliquez les saveurs, les textures et pourquoi ce vin accompagne bien ce plat
+            </small>
+          </div>
+        </div>
+
+        <!-- Section 5: Tags -->
+        <div class="form-section">
+          <h3 class="form-section-title">
+            <i class="fas fa-tags"></i> Tags (optionnel)
+          </h3>
+
+          <div class="form-group">
+            <label class="form-label">Ajouter des tags pour faciliter la recherche</label>
+            
+            <!-- Tags existants -->
+            <div class="tags-container" *ngIf="pairingForm.tags.length > 0">
+              <span *ngFor="let tag of pairingForm.tags" class="tag tag-removable">
+                {{ tag }}
+                <button type="button" 
+                        class="tag-remove" 
+                        (click)="removeTag(tag)">
+                  <i class="fas fa-times"></i>
+                </button>
+              </span>
+            </div>
+
+            <!-- Input pour ajouter un tag -->
+            <div class="tag-input-group">
+              <input type="text" 
+                     class="form-input" 
+                     #tagInput
+                     placeholder="Ex: classique, élégant, tanins..."
+                     (keyup.enter)="addTag(tagInput.value); tagInput.value = ''">
+              <button type="button" 
+                      class="btn btn-secondary btn-sm"
+                      (click)="addTag(tagInput.value); tagInput.value = ''">
+                <i class="fas fa-plus"></i> Ajouter
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- Pied du modal -->
+    <div class="modal-footer">
+      <button class="btn btn-cancel" (click)="closeModal()">
+        <i class="fas fa-times"></i> Annuler
+      </button>
+      <button class="btn btn-primary" (click)="savePairing()">
+        <i class="fas fa-save"></i> 
+        {{ isEditMode ? 'Enregistrer les modifications' : 'Créer l\'accord' }}
+      </button>
+    </div>
+  </div>
+</div>

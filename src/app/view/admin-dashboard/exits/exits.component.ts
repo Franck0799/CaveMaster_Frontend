@@ -4,10 +4,11 @@
 // ==========================================
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import {CommonModule}
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { StockExit, Drink, Cave } from '../../core/models/models';
-import { DataService } from '../../core/services/data.service';
+import { StockExit, Drink, Cave } from '../../../core/models/models';
+import { DataService } from '../../../core/services/data.service';
 
 @Component({
   selector: 'app-exits',
@@ -260,21 +261,21 @@ export class ExitsComponent implements OnInit, OnDestroy {
   }
 
   getTypeLabel(type: string): string {
-    const labels = {
+    const labels: {[key: string]: string} = {
       'vente': 'Vente',
       'transfert': 'Transfert',
       'perte': 'Perte'
     };
-    return labels[type as keyof typeof labels] || type;
+    return labels[type] || type;
   }
 
   getTypeClass(type: string): string {
-    const classes = {
+    const classes: {[key: string]: string} = {
       'vente': 'type-sale',
       'transfert': 'type-transfer',
       'perte': 'type-loss'
     };
-    return classes[type as keyof typeof classes] || '';
+    return classes[type] || '';
   }
 
   exportToCSV(): void {
@@ -312,5 +313,15 @@ export class ExitsComponent implements OnInit, OnDestroy {
     link.click();
     document.body.removeChild(link);
   }
-}
 
+  viewEntryDetails(exit: StockExit): void {
+    // À implémenter
+    console.log('Voir détails:', exit);
+  }
+
+  deleteEntry(exit: StockExit): void {
+    if (confirm(`Supprimer cette sortie de ${exit.drinkName} ?`)) {
+      this.dataService.deleteStockExit(exit.id);
+    }
+  }
+}
