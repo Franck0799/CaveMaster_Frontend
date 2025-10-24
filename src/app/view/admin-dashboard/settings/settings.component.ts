@@ -46,7 +46,7 @@ interface AppSettings {
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
-  
+
   // Onglet actif
   activeTab: string = 'general';
 
@@ -233,7 +233,7 @@ export class SettingsComponent implements OnInit {
   exportSettings(): void {
     const dataStr = JSON.stringify(this.settings, null, 2);
     console.log('Export des paramètres:', dataStr);
-    
+
     // Dans une vraie app, créer un fichier téléchargeable
     alert('Paramètres exportés avec succès !');
   }
@@ -288,7 +288,7 @@ export class SettingsComponent implements OnInit {
    */
   performManualBackup(): void {
     console.log('Sauvegarde manuelle en cours...');
-    
+
     // Simulation de sauvegarde
     setTimeout(() => {
       alert('Sauvegarde effectuée avec succès !');
@@ -301,10 +301,10 @@ export class SettingsComponent implements OnInit {
    */
   changeTheme(theme: 'light' | 'dark' | 'auto'): void {
     this.settings.display.theme = theme;
-    
+
     // Application du thème (dans une vraie app)
     document.body.setAttribute('data-theme', theme);
-    
+
     this.onSettingsChange();
     console.log('Thème changé:', theme);
   }
@@ -315,10 +315,10 @@ export class SettingsComponent implements OnInit {
    */
   changeFontSize(size: 'small' | 'medium' | 'large'): void {
     this.settings.display.fontSize = size;
-    
+
     // Application de la taille (dans une vraie app)
     document.body.setAttribute('data-font-size', size);
-    
+
     this.onSettingsChange();
     console.log('Taille de police changée:', size);
   }

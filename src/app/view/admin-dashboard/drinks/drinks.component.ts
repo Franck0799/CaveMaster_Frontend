@@ -3,11 +3,50 @@
 // DESCRIPTION: Composant pour gérer l'affichage et la gestion des boissons
 // ==========================================
 
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { Drink, DrinkCategory } from '../../../core/models/models';
-import { DataService } from '../../../core/services/data.service';
+import { Component, OnInit } from '@angular/core';
+
+/**
+ * Énumération des catégories de boissons
+ */
+export enum DrinkCategory {
+  BIERES = 'Bières',
+  SUCRERIES = 'Sucreries',
+  CHAMPAGNE = 'Champagne',
+  VIN_BLANC = 'Vin Blanc',
+  VIN_ROUGE = 'Vin Rouge',
+  VIN_ROSE = 'Vin Rosé',
+  VIN_MOUSSEUX = 'Vin Mousseux',
+  LIQUEURS = 'Liqueurs',
+  BOISSONS_ENERGISANTES = 'Boissons Énergisantes',
+  BOISSONS_LOCALES = 'Boissons Locales'
+}
+
+/**
+ * Interface pour définir une boisson
+ */
+interface Drink {
+  id: string;
+  name: string;
+  category: DrinkCategory;
+  icon: string;
+  price: number;
+  stock: number;
+  description?: string;
+  sales?: number;
+  createdAt?: Date;
+}
+
+/**
+ * Interface pour le formulaire d'ajout/modification de boisson
+ */
+interface DrinkForm {
+  name: string;
+  category: DrinkCategory;
+  icon: string;
+  price: number;
+  stock: number;
+  description: string;
+}
 
 /**
  * Composant de gestion des boissons
@@ -18,7 +57,7 @@ import { DataService } from '../../../core/services/data.service';
   templateUrl: './drinks.component.html',
   styleUrls: ['./drinks.component.scss']
 })
-export class DrinksComponent implements OnInit, OnDestroy {
+export class DrinksComponent implements OnInit {
 
   // ========================================
   // PROPRIÉTÉS
@@ -56,6 +95,11 @@ export class DrinksComponent implements OnInit, OnDestroy {
   isModalOpen: boolean = false;
 
   /**
+   * Indique si on est en mode édition
+   */
+  isEditMode: boolean = false;
+
+  /**
    * Boisson sélectionnée pour modification (null = mode ajout)
    */
   selectedDrink: Drink | null = null;
@@ -63,14 +107,7 @@ export class DrinksComponent implements OnInit, OnDestroy {
   /**
    * Formulaire pour ajouter/modifier une boisson
    */
-  drinkForm: Partial<Drink> = {
-    name: '',
-    category: DrinkCategory.VIN_ROUGE,
-    icon: '🍷',
-    price: 0,
-    stock: 0,
-    description: ''
-  };
+  drinkForm: DrinkForm = this.getEmptyForm();
 
   /**
    * Énumération des catégories (pour le template)
@@ -88,18 +125,18 @@ export class DrinksComponent implements OnInit, OnDestroy {
   sortDirection: 'asc' | 'desc' = 'asc';
 
   /**
-   * Subject pour gérer la désinscription des observables
+   * Icônes disponibles pour les boissons
    */
-  private destroy$ = new Subject<void>();
+  drinkIcons: string[] = [
+    '🍷', '🍺', '🍻', '🥂', '🍾', '🍹', '🍸', '🥃', '🧃', '🥤',
+    '☕', '🍵', '🧋', '🥛', '🍶', '🧉', '🍼', '🥫'
+  ];
 
   // ========================================
   // CONSTRUCTEUR
   // ========================================
 
-  /**
-   * Injection du service de données
-   */
-  constructor(private dataService: DataService) {}
+  constructor() {}
 
   // ========================================
   // LIFECYCLE HOOKS
@@ -107,19 +144,10 @@ export class DrinksComponent implements OnInit, OnDestroy {
 
   /**
    * Initialisation du composant
-   * Charge les données et configure les abonnements
+   * Charge les données
    */
   ngOnInit(): void {
     this.loadDrinks();
-  }
-
-  /**
-   * Nettoyage lors de la destruction du composant
-   * Désabonnement de tous les observables
-   */
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 
   // ========================================
@@ -127,25 +155,93 @@ export class DrinksComponent implements OnInit, OnDestroy {
   // ========================================
 
   /**
-   * Charge la liste des boissons depuis le service
+   * Charge la liste des boissons
    */
   loadDrinks(): void {
     this.isLoading = true;
 
-    // S'abonne aux changements de la liste des boissons
-    this.dataService.drinks$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (drinks) => {
-          this.drinks = drinks;
-          this.applyFilters(); // Applique les filtres après chargement
-          this.isLoading = false;
-        },
-        error: (error) => {
-          console.error('Erreur lors du chargement des boissons:', error);
-          this.isLoading = false;
-        }
-      });
+    // TODO: Appel API
+    // Simulation avec des données de test
+    this.drinks = this.generateMockDrinks();
+    this.filteredDrinks = [...this.drinks];
+
+    this.isLoading = false;
+    console.log('Boissons chargées:', this.drinks.length);
+  }
+
+  /**
+   * Génère des boissons de test pour la démo
+   * @returns Liste de boissons simulées
+   */
+  private generateMockDrinks(): Drink[] {
+    return [
+      {
+        id: '1',
+        name: 'Bordeaux Rouge 2018',
+        category: DrinkCategory.VIN_ROUGE,
+        icon: '🍷',
+        price: 15000,
+        stock: 45,
+        description: 'Vin rouge de Bordeaux, millésime 2018',
+        sales: 120,
+        createdAt: new Date()
+      },
+      {
+        id: '2',
+        name: 'Champagne Moët & Chandon',
+        category: DrinkCategory.CHAMPAGNE,
+        icon: '🍾',
+        price: 35000,
+        stock: 20,
+        description: 'Champagne brut impérial',
+        sales: 85,
+        createdAt: new Date()
+      },
+      {
+        id: '3',
+        name: 'Heineken',
+        category: DrinkCategory.BIERES,
+        icon: '🍺',
+        price: 800,
+        stock: 150,
+        description: 'Bière blonde hollandaise',
+        sales: 450,
+        createdAt: new Date()
+      },
+      {
+        id: '4',
+        name: 'Chablis 2020',
+        category: DrinkCategory.VIN_BLANC,
+        icon: '🍷',
+        price: 12000,
+        stock: 30,
+        description: 'Vin blanc sec de Bourgogne',
+        sales: 95,
+        createdAt: new Date()
+      },
+      {
+        id: '5',
+        name: 'Coca-Cola',
+        category: DrinkCategory.BOISSONS_ENERGISANTES,
+        icon: '🥤',
+        price: 500,
+        stock: 200,
+        description: 'Boisson gazeuse classique',
+        sales: 680,
+        createdAt: new Date()
+      },
+      {
+        id: '6',
+        name: 'Rosé de Provence',
+        category: DrinkCategory.VIN_ROSE,
+        icon: '🍷',
+        price: 9000,
+        stock: 55,
+        description: 'Vin rosé léger et fruité',
+        sales: 145,
+        createdAt: new Date()
+      }
+    ];
   }
 
   // ========================================
@@ -177,21 +273,20 @@ export class DrinksComponent implements OnInit, OnDestroy {
     this.sortDrinks(result);
 
     this.filteredDrinks = result;
+    console.log('Filtres appliqués:', result.length, 'résultats');
   }
 
   /**
    * Gère le changement de catégorie
    */
-  onCategoryChange(category: DrinkCategory | null): void {
-    this.selectedCategory = category;
+  onCategoryChange(): void {
     this.applyFilters();
   }
 
   /**
    * Gère le changement du terme de recherche
    */
-  onSearchChange(term: string): void {
-    this.searchTerm = term;
+  onSearchChange(): void {
     this.applyFilters();
   }
 
@@ -201,7 +296,7 @@ export class DrinksComponent implements OnInit, OnDestroy {
   resetFilters(): void {
     this.selectedCategory = null;
     this.searchTerm = '';
-    this.applyFilters();
+    this.filteredDrinks = [...this.drinks];
   }
 
   // ========================================
@@ -256,15 +351,9 @@ export class DrinksComponent implements OnInit, OnDestroy {
    * Ouvre le modal en mode ajout
    */
   openAddModal(): void {
+    this.isEditMode = false;
     this.selectedDrink = null;
-    this.drinkForm = {
-      name: '',
-      category: DrinkCategory.VIN_ROUGE,
-      icon: '🍷',
-      price: 0,
-      stock: 0,
-      description: ''
-    };
+    this.drinkForm = this.getEmptyForm();
     this.isModalOpen = true;
   }
 
@@ -272,8 +361,16 @@ export class DrinksComponent implements OnInit, OnDestroy {
    * Ouvre le modal en mode modification
    */
   openEditModal(drink: Drink): void {
+    this.isEditMode = true;
     this.selectedDrink = drink;
-    this.drinkForm = { ...drink }; // Clone l'objet
+    this.drinkForm = {
+      name: drink.name,
+      category: drink.category,
+      icon: drink.icon,
+      price: drink.price,
+      stock: drink.stock,
+      description: drink.description || ''
+    };
     this.isModalOpen = true;
   }
 
@@ -282,15 +379,9 @@ export class DrinksComponent implements OnInit, OnDestroy {
    */
   closeModal(): void {
     this.isModalOpen = false;
+    this.isEditMode = false;
     this.selectedDrink = null;
-    this.drinkForm = {
-      name: '',
-      category: DrinkCategory.VIN_ROUGE,
-      icon: '🍷',
-      price: 0,
-      stock: 0,
-      description: ''
-    };
+    this.drinkForm = this.getEmptyForm();
   }
 
   /**
@@ -298,30 +389,72 @@ export class DrinksComponent implements OnInit, OnDestroy {
    */
   saveDrink(): void {
     // Validation basique
-    if (!this.drinkForm.name || !this.drinkForm.price || this.drinkForm.stock === undefined) {
+    if (!this.validateForm()) {
       alert('Veuillez remplir tous les champs obligatoires');
       return;
     }
 
-    if (this.selectedDrink) {
+    if (this.isEditMode && this.selectedDrink) {
       // Mode modification
-      this.dataService.updateDrink(this.selectedDrink.id, this.drinkForm);
+      this.updateDrink();
     } else {
-      // Mode ajout - génère un ID unique
-      const newDrink: Drink = {
-        id: this.generateId(),
-        name: this.drinkForm.name!,
-        category: this.drinkForm.category!,
-        icon: this.drinkForm.icon!,
-        price: this.drinkForm.price!,
-        stock: this.drinkForm.stock!,
-        description: this.drinkForm.description,
-        sales: 0
-      };
-      this.dataService.addDrink(newDrink);
+      // Mode ajout
+      this.addDrink();
     }
+  }
 
+  /**
+   * Ajoute une nouvelle boisson
+   */
+  private addDrink(): void {
+    const newDrink: Drink = {
+      id: this.generateId(),
+      name: this.drinkForm.name,
+      category: this.drinkForm.category,
+      icon: this.drinkForm.icon,
+      price: this.drinkForm.price,
+      stock: this.drinkForm.stock,
+      description: this.drinkForm.description,
+      sales: 0,
+      createdAt: new Date()
+    };
+
+    this.drinks.unshift(newDrink);
+    this.applyFilters();
+
+    // TODO: Appel API
+    console.log('Boisson ajoutée:', newDrink);
+
+    alert('Boisson ajoutée avec succès !');
     this.closeModal();
+  }
+
+  /**
+   * Met à jour une boisson existante
+   */
+  private updateDrink(): void {
+    if (!this.selectedDrink) return;
+
+    const index = this.drinks.findIndex(d => d.id === this.selectedDrink!.id);
+    if (index !== -1) {
+      this.drinks[index] = {
+        ...this.selectedDrink,
+        name: this.drinkForm.name,
+        category: this.drinkForm.category,
+        icon: this.drinkForm.icon,
+        price: this.drinkForm.price,
+        stock: this.drinkForm.stock,
+        description: this.drinkForm.description
+      };
+
+      this.applyFilters();
+
+      // TODO: Appel API
+      console.log('Boisson mise à jour:', this.drinks[index]);
+
+      alert('Boisson mise à jour avec succès !');
+      this.closeModal();
+    }
   }
 
   // ========================================
@@ -332,10 +465,48 @@ export class DrinksComponent implements OnInit, OnDestroy {
    * Supprime une boisson après confirmation
    */
   deleteDrink(drink: Drink): void {
-    const confirmed = confirm(`Êtes-vous sûr de vouloir supprimer "${drink.name}" ?`);
-    if (confirmed) {
-      this.dataService.deleteDrink(drink.id);
+    if (confirm(`Êtes-vous sûr de vouloir supprimer "${drink.name}" ?`)) {
+      this.drinks = this.drinks.filter(d => d.id !== drink.id);
+      this.applyFilters();
+
+      // TODO: Appel API
+      console.log('Boisson supprimée:', drink.id);
+
+      alert('Boisson supprimée avec succès');
     }
+  }
+
+  // ========================================
+  // VALIDATION
+  // ========================================
+
+  /**
+   * Valide le formulaire
+   * @returns true si le formulaire est valide
+   */
+  private validateForm(): boolean {
+    return !!(
+      this.drinkForm.name &&
+      this.drinkForm.category &&
+      this.drinkForm.icon &&
+      this.drinkForm.price > 0 &&
+      this.drinkForm.stock >= 0
+    );
+  }
+
+  /**
+   * Retourne un formulaire vide
+   * @returns Formulaire initialisé
+   */
+  private getEmptyForm(): DrinkForm {
+    return {
+      name: '',
+      category: DrinkCategory.VIN_ROUGE,
+      icon: '🍷',
+      price: 0,
+      stock: 0,
+      description: ''
+    };
   }
 
   // ========================================
@@ -410,5 +581,21 @@ export class DrinksComponent implements OnInit, OnDestroy {
    */
   getDrinkCountByCategory(category: DrinkCategory): number {
     return this.drinks.filter(d => d.category === category).length;
+  }
+
+  /**
+   * Exporte les boissons en CSV
+   */
+  exportToCSV(): void {
+    console.log('Export des boissons en CSV...');
+    // TODO: Implémenter l'export CSV
+    alert('Boissons exportées avec succès !');
+  }
+
+  /**
+   * Imprime les boissons
+   */
+  printDrinks(): void {
+    window.print();
   }
 }
