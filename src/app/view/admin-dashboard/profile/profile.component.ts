@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 /**
  * Interface pour le profil utilisateur
@@ -34,11 +36,14 @@ interface PasswordForm {
  */
 @Component({
   selector: 'app-profile',
+  standalone: true,
+  // Import des modules nécessaires
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  
+
   // Profil de l'utilisateur
   userProfile: UserProfile = {
     avatar: '👨‍💼',
@@ -151,7 +156,7 @@ export class ProfileComponent implements OnInit {
    */
   togglePasswordSection(): void {
     this.isPasswordSectionOpen = !this.isPasswordSectionOpen;
-    
+
     // Réinitialise le formulaire si on ferme la section
     if (!this.isPasswordSectionOpen) {
       this.resetPasswordForm();
@@ -172,7 +177,7 @@ export class ProfileComponent implements OnInit {
 
     // Simulation de succès
     alert('Mot de passe modifié avec succès !');
-    
+
     // Réinitialisation du formulaire
     this.resetPasswordForm();
     this.isPasswordSectionOpen = false;
@@ -184,8 +189,8 @@ export class ProfileComponent implements OnInit {
    */
   validatePasswordForm(): boolean {
     // Vérification que tous les champs sont remplis
-    if (!this.passwordForm.currentPassword || 
-        !this.passwordForm.newPassword || 
+    if (!this.passwordForm.currentPassword ||
+        !this.passwordForm.newPassword ||
         !this.passwordForm.confirmPassword) {
       alert('Veuillez remplir tous les champs');
       return false;
@@ -240,11 +245,11 @@ export class ProfileComponent implements OnInit {
   changeAvatar(): void {
     // Liste d'avatars disponibles
     const avatars = ['👨‍💼', '👩‍💼', '👨‍🏫', '👩‍🏫', '👨‍💻', '👩‍💻', '🧑‍💼', '🧑‍🏫'];
-    
+
     // Simulation de sélection aléatoire (dans une vraie app, ouvrir un modal)
     const randomAvatar = avatars[Math.floor(Math.random() * avatars.length)];
     this.userProfile.avatar = randomAvatar;
-    
+
     console.log('Avatar changé:', randomAvatar);
   }
 
@@ -276,10 +281,10 @@ export class ProfileComponent implements OnInit {
    */
   exportAccountData(): void {
     console.log('Export des données du compte...');
-    
+
     // Simulation de téléchargement de données
     alert('Vos données ont été exportées et téléchargées au format JSON');
-    
+
     // Dans une vraie app:
     // const dataStr = JSON.stringify(this.userProfile, null, 2);
     // const dataBlob = new Blob([dataStr], { type: 'application/json' });

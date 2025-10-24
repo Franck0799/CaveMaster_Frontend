@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 /**
  * Interface pour définir une action récente
@@ -21,11 +23,14 @@ interface RecentAction {
  */
 @Component({
   selector: 'app-recent-actions',
+   standalone: true,
+  // Import des modules nécessaires
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './recent-actions.component.html',
   styleUrls: ['./recent-actions.component.scss']
 })
 export class RecentActionsComponent implements OnInit {
-  
+
   // Liste des actions récentes
   recentActions: RecentAction[] = [];
 
@@ -75,7 +80,7 @@ export class RecentActionsComponent implements OnInit {
    */
   private generateMockActions(): RecentAction[] {
     const now = new Date();
-    
+
     return [
       {
         id: '1',
@@ -150,7 +155,7 @@ export class RecentActionsComponent implements OnInit {
       'update': 'action-type-update',
       'alert': 'action-type-alert'
     };
-    
+
     return classMap[type] || 'action-type-default';
   }
 
@@ -234,11 +239,11 @@ export class RecentActionsComponent implements OnInit {
    */
   exportActions(): void {
     console.log('Export de l\'historique...');
-    
+
     // Dans une vraie app, on créerait un fichier CSV ou JSON
     const dataStr = JSON.stringify(this.recentActions, null, 2);
     console.log('Données exportées:', dataStr);
-    
+
     alert('Historique exporté avec succès !');
   }
 }

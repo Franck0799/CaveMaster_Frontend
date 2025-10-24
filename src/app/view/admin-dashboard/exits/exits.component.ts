@@ -4,6 +4,8 @@
 // ==========================================
 
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 /**
  * Interface pour définir une boisson
@@ -68,6 +70,9 @@ interface StockExitForm {
  */
 @Component({
   selector: 'app-exits',
+  standalone: true,
+    // Import des modules nécessaires
+    imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './exits.component.html',
   styleUrls: ['./exits.component.scss']
 })

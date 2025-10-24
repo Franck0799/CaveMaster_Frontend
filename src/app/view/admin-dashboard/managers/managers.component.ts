@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 /**
  * Interface pour définir la structure d'un manager
@@ -48,11 +50,14 @@ interface NewManagerForm {
  */
 @Component({
   selector: 'app-managers',
+  standalone: true,
+  // Import des modules nécessaires
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './managers.component.html',
   styleUrls: ['./managers.component.scss']
 })
 export class ManagersComponent implements OnInit {
-  
+
   // Liste de tous les managers (données exemple)
   managers: Manager[] = [
     {
@@ -281,10 +286,10 @@ export class ManagersComponent implements OnInit {
     if (confirm(`Êtes-vous sûr de vouloir supprimer ${manager.name} ?`)) {
       // Suppression de la liste
       this.managers = this.managers.filter(m => m.id !== manager.id);
-      
+
       // TODO: Appel API pour supprimer
       console.log('Manager supprimé:', manager);
-      
+
       alert('Manager supprimé avec succès');
     }
   }

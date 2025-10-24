@@ -4,6 +4,8 @@
 // ==========================================
 
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 /**
  * Énumération des catégories de boissons
@@ -54,6 +56,9 @@ interface DrinkForm {
  */
 @Component({
   selector: 'app-drinks',
+  standalone: true,
+  // Import des modules nécessaires
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './drinks.component.html',
   styleUrls: ['./drinks.component.scss']
 })

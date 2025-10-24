@@ -4,6 +4,8 @@
 // ==========================================
 
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 /**
  * Interface pour définir une boisson
@@ -66,6 +68,9 @@ interface StockEntryForm {
  */
 @Component({
   selector: 'app-entries',
+  standalone: true,
+  // Import des modules nécessaires
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './entries.component.html',
   styleUrls: ['./entries.component.scss']
 })

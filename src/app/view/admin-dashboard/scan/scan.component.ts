@@ -1,4 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 /**
  * Interface pour le résultat du scan
@@ -18,17 +20,20 @@ interface ScanResult {
  */
 @Component({
   selector: 'app-scan',
+   standalone: true,
+  // Import des modules nécessaires
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './scan.component.html',
   styleUrls: ['./scan.component.scss']
 })
 export class ScanComponent implements OnInit, OnDestroy {
-  
+
   // État du scan
   isScanActive: boolean = false;
-  
+
   // Résultat du scan
   scanResult: ScanResult | null = null;
-  
+
   // Timer pour simulation du scan
   private scanTimer: any = null;
 
@@ -50,12 +55,12 @@ export class ScanComponent implements OnInit, OnDestroy {
   startScan(): void {
     // Active l'état de scan
     this.isScanActive = true;
-    
+
     // Réinitialise le résultat précédent
     this.scanResult = null;
-    
+
     console.log('Scan démarré...');
-    
+
     // Simulation du scan (3 secondes)
     // Dans une vraie app, on utiliserait une librairie de scan de code-barres
     this.scanTimer = setTimeout(() => {
@@ -69,13 +74,13 @@ export class ScanComponent implements OnInit, OnDestroy {
   stopScan(): void {
     // Désactive l'état de scan
     this.isScanActive = false;
-    
+
     // Annule le timer s'il existe
     if (this.scanTimer) {
       clearTimeout(this.scanTimer);
       this.scanTimer = null;
     }
-    
+
     console.log('Scan arrêté');
   }
 
@@ -85,12 +90,12 @@ export class ScanComponent implements OnInit, OnDestroy {
   private completeScan(): void {
     // Désactive l'état de scan
     this.isScanActive = false;
-    
+
     // Génère un résultat de scan simulé
     this.scanResult = this.generateMockScanResult();
-    
+
     console.log('Scan terminé:', this.scanResult);
-    
+
     // Émet un son de confirmation (optionnel)
     this.playBeepSound();
   }
@@ -131,10 +136,10 @@ export class ScanComponent implements OnInit, OnDestroy {
         stock: 30
       }
     ];
-    
+
     // Sélectionne un produit aléatoire
     const randomProduct = mockProducts[Math.floor(Math.random() * mockProducts.length)];
-    
+
     return {
       ...randomProduct,
       timestamp: new Date()
@@ -147,7 +152,7 @@ export class ScanComponent implements OnInit, OnDestroy {
   resetScan(): void {
     this.scanResult = null;
     this.isScanActive = false;
-    
+
     console.log('Scan réinitialisé');
   }
 
@@ -157,7 +162,7 @@ export class ScanComponent implements OnInit, OnDestroy {
    */
   getFormattedScanResult(): string {
     if (!this.scanResult) return '';
-    
+
     return JSON.stringify({
       'Code-barres': this.scanResult.barcode,
       'Nom du produit': this.scanResult.productName,
@@ -199,7 +204,7 @@ export class ScanComponent implements OnInit, OnDestroy {
   private playBeepSound(): void {
     // Simulation du son
     console.log('🔊 Bip!');
-    
+
     // Dans une vraie implémentation:
     // const audio = new Audio('assets/sounds/beep.mp3');
     // audio.play();
@@ -210,12 +215,12 @@ export class ScanComponent implements OnInit, OnDestroy {
    */
   addToStock(): void {
     if (!this.scanResult) return;
-    
+
     console.log('Ajout au stock:', this.scanResult);
-    
+
     // TODO: Appel API pour ajouter au stock
     alert(`Produit "${this.scanResult.productName}" ajouté au stock avec succès !`);
-    
+
     // Réinitialise pour un nouveau scan
     this.resetScan();
   }
@@ -225,9 +230,9 @@ export class ScanComponent implements OnInit, OnDestroy {
    */
   editProductInfo(): void {
     if (!this.scanResult) return;
-    
+
     console.log('Modification du produit:', this.scanResult);
-    
+
     // TODO: Ouvrir modal ou naviguer vers page de modification
     alert('Ouverture du formulaire de modification...');
   }
@@ -237,9 +242,9 @@ export class ScanComponent implements OnInit, OnDestroy {
    */
   viewProductHistory(): void {
     if (!this.scanResult) return;
-    
+
     console.log('Historique du produit:', this.scanResult);
-    
+
     // TODO: Navigation vers page d'historique
     alert('Affichage de l\'historique du produit...');
   }

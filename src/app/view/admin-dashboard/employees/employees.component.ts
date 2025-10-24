@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 /**
  * Interface pour définir la structure d'un employé
@@ -33,11 +35,14 @@ interface NewEmployeeForm {
  */
 @Component({
   selector: 'app-employees',
+  standalone: true,
+  // Import des modules nécessaires
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './employees.component.html',
   styleUrls: ['./employees.component.scss']
 })
 export class EmployeesComponent implements OnInit {
-  
+
   // Liste de tous les employés (exemple de données)
   employees: Employee[] = [
     {
@@ -265,10 +270,10 @@ export class EmployeesComponent implements OnInit {
     if (confirm(`Êtes-vous sûr de vouloir supprimer ${employee.name} ?`)) {
       // Suppression de la liste
       this.employees = this.employees.filter(e => e.id !== employee.id);
-      
+
       // TODO: Appel API pour supprimer
       console.log('Employé supprimé:', employee);
-      
+
       alert('Employé supprimé avec succès');
     }
   }

@@ -3,6 +3,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 // Interface pour représenter un utilisateur (employé ou manager)
 interface User {
@@ -34,8 +35,8 @@ interface FilterOptions {
 @Component({
   selector: 'app-user-list',
   standalone: true,
-  // Import du module CommonModule pour *ngIf, *ngFor, etc.
-  imports: [CommonModule],
+  // Import des modules nécessaires
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss']
 })
