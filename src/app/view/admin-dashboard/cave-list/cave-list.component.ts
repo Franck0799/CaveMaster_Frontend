@@ -33,7 +33,7 @@ interface FilterOptions {
   templateUrl: './cave-list.component.html',
   styleUrls: ['./cave-list.component.scss']
 })
-export class CaveListsComponent implements OnInit {
+export class CaveListComponent implements OnInit {
 
   // ===== PROPRIÉTÉS DU COMPOSANT =====
 

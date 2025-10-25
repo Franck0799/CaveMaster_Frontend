@@ -40,7 +40,7 @@ interface FilterOptions {
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss']
 })
-export class UserListsComponent implements OnInit {
+export class UserListComponent implements OnInit {
 
   // ===== PROPRIÉTÉS DU COMPOSANT =====
 

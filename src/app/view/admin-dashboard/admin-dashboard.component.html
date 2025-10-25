@@ -1,1103 +1,203 @@
-<!-- ===== FICHIER: admin-dashboard.component.html (PARTIE 1 à 3) ===== -->
-<!-- Ce fichier contient le template HTML du dashboard admin -->
-
+<!-- ===== LAYOUT PRINCIPAL DU DASHBOARD ===== -->
 <div class="dashboard">
+
   <!-- ===== SIDEBAR (MENU LATÉRAL) ===== -->
-    <aside class="sidebar">
-      <!-- Logo en haut -->
-      <div class="sidebar-header">
-        <div class="logo">
-          <span class="logo-icon">🍾</span>
-          <span class="logo-text">DrinkStore Pro</span>
-        </div>
-      </div>
-
-      <!-- Navigation principale -->
-      <nav class="sidebar-section">
-        <!-- Accueil -->
-        <div class="nav-item"
-            [class.active]="activePage === 'home'"
-            (click)="navigateTo('home')">
-          <span class="nav-icon">🏠</span>
-          <span class="nav-text">Accueil</span>
-        </div>
-
-        <!-- Mes caves -->
-        <div class="nav-item"
-            [class.active]="activePage === 'caves'"
-            (click)="navigateTo('caves')">
-          <span class="nav-icon">🍷</span>
-          <span class="nav-text">Mes caves</span>
-        </div>
-      </nav>
-
-      <div class="divider"></div>
-
-      <!-- Section MA CAVE -->
-      <nav class="sidebar-section">
-        <div class="section-title">MA CAVE</div>
-
-        <!-- Mes boissons avec sous-menu -->
-        <div class="nav-item"
-            [class.open]="isDrinksSubmenuOpen"
-            (click)="toggleDrinksSubmenu()">
-          <span class="nav-icon">🍾</span>
-          <span class="nav-text">Mes boissons</span>
-          <span class="submenu-arrow">▶</span>
-        </div>
-
-        <!-- Sous-menu des catégories de boissons -->
-        <div class="submenu" [class.open]="isDrinksSubmenuOpen">
-          <div class="submenu-item">🍺 Bières</div>
-          <div class="submenu-item">🍬 Sucreries</div>
-          <div class="submenu-item">🥂 Champagne</div>
-          <div class="submenu-item">🍷 Vin Blanc</div>
-          <div class="submenu-item">🍷 Vin Rouge</div>
-          <div class="submenu-item">🍷 Vin Rosé</div>
-          <div class="submenu-item">✨ Vin Mousseux</div>
-          <div class="submenu-item">🥃 Liqueurs</div>
-          <div class="submenu-item">⚡ Boissons Énergisantes</div>
-          <div class="submenu-item">🍹 Boissons Locales</div>
-        </div>
-
-        <!-- Autres items de la cave -->
-        <div class="nav-item">
-          <span class="nav-icon">📥</span>
-          <span class="nav-text">Mes entrées</span>
-        </div>
-
-        <div class="nav-item">
-          <span class="nav-icon">📤</span>
-          <span class="nav-text">Mes sorties</span>
-        </div>
-
-        <div class="nav-item"
-            [class.active]="activePage === 'wine-pairing'"
-            (click)="navigateTo('wine-pairing')">
-          <span class="nav-icon">🍽️</span>
-          <span class="nav-text">Mets & Vins</span>
-        </div>
-
-        <div class="nav-item"
-            [class.active]="activePage === 'managers'"
-            (click)="navigateTo('managers')">
-          <span class="nav-icon">👥</span>
-          <span class="nav-text">Mes managers</span>
-        </div>
-
-        <div class="nav-item"
-            [class.active]="activePage === 'employees'"
-            (click)="navigateTo('employees')">
-          <span class="nav-icon">👨‍💼</span>
-          <span class="nav-text">Mes employés</span>
-        </div>
-
-        <div class="nav-item"
-            [class.active]="activePage === 'scan'"
-            (click)="navigateTo('scan')">
-          <span class="nav-icon">📷</span>
-          <span class="nav-text">Scan</span>
-        </div>
-
-        <div class="nav-item" (click)="openProfileModal()">
-          <span class="nav-icon">👤</span>
-          <span class="nav-text">Mon compte</span>
-        </div>
-      </nav>
-
-      <div class="divider"></div>
-
-      <!-- Section INFOS -->
-      <nav class="sidebar-section">
-        <div class="section-title">INFOS</div>
-
-        <div class="nav-item">
-          <span class="nav-icon">❓</span>
-          <span class="nav-text">FAQ</span>
-        </div>
-
-        <div class="nav-item">
-          <span class="nav-icon">📝</span>
-          <span class="nav-text">Notes améliorations</span>
-        </div>
-
-        <div class="nav-item">
-          <span class="nav-icon">📧</span>
-          <span class="nav-text">Nous contacter</span>
-        </div>
-
-        <div class="nav-item">
-          <span class="nav-icon">📚</span>
-          <span class="nav-text">En savoir plus</span>
-        </div>
-      </nav>
-
-      <div class="divider"></div>
-
-      <!-- Réseaux sociaux -->
-      <div class="sidebar-section">
-        <div class="section-title">SUIVEZ-NOUS</div>
-        <div class="social-links">
-          <div class="social-link" title="Instagram">📷</div>
-          <div class="social-link" title="Facebook">📘</div>
-          <div class="social-link" title="WhatsApp">💬</div>
-          <div class="social-link" title="Twitter">🐦</div>
-        </div>
-      </div>
-    </aside>
-
-    <!-- ===== CONTENU PRINCIPAL ===== -->
-    <main class="main-content">
-      <!-- ===== EN-TÊTE DU HAUT ===== -->
-      <header class="top-header">
-        <!-- Barre de recherche à gauche -->
-        <div class="header-left">
-          <div class="search-bar">
-            <input type="text" placeholder="Rechercher un vin millésime, une cave...">
-            <button class="search-btn">🔍</button>
-          </div>
-        </div>
-
-        <!-- Éléments à droite -->
-        <div class="header-right">
-          <!-- Sélecteur de catégories -->
-          <div class="category-selector">
-            <select>
-              <option value="">Toutes les catégories</option>
-              <option value="bieres">Bières</option>
-              <option value="sucreries">Sucreries</option>
-              <option value="vin_blanc">Vin Blanc</option>
-              <option value="vin_rouge">Vin Rouge</option>
-              <option value="vin_rose">Vin Rosé</option>
-              <option value="vin_mousseux">Vin Mousseux</option>
-              <option value="liqueurs">Liqueurs</option>
-              <option value="champagne">Champagne</option>
-              <option value="boissons_energisantes">Boissons Énergisantes</option>
-              <option value="boissons_locales">Boissons Locales</option>
-            </select>
-          </div>
-
-          <!-- Icône panier avec badge -->
-          <div class="header-icon">
-            <span class="icon">🛒</span>
-            <span class="badge">3</span>
-          </div>
-
-          <!-- Icône notifications avec badge -->
-          <div class="header-icon">
-            <span class="icon">🔔</span>
-            <span class="badge">5</span>
-          </div>
-
-          <!-- Profil utilisateur avec dropdown -->
-          <div class="user-profile" (click)="toggleUserDropdown()">
-            <div class="avatar">{{ userProfile.avatar }}</div>
-            <div>
-              <div class="user-name">{{ userProfile.firstName }} {{ userProfile.lastName }}</div>
-              <div class="user-role">{{ userProfile.role }}</div>
-            </div>
-
-            <!-- Menu dropdown -->
-            <div class="user-dropdown" [class.show]="isUserDropdownOpen">
-              <div class="dropdown-item" (click)="openProfileModal()">👤 Mon profil</div>
-              <div class="dropdown-item">⚙️ Paramètres</div>
-              <div class="dropdown-divider"></div>
-              <div class="dropdown-item">💬 Assistance</div>
-              <div class="dropdown-item" (click)="logout()">🚪 Déconnexion</div>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <!-- ===== PAGE ACCUEIL ===== -->
-      <div *ngIf="activePage === 'home'" class="page-section">
-        <!-- CAROUSEL DES BOISSONS VEDETTES -->
-        <section class="carousel-section">
-          <div class="carousel-container">
-            <!-- Bouton précédent -->
-            <button class="carousel-btn" (click)="previousDrink()">❮</button>
-
-            <!-- Contenu du carousel -->
-            <div class="carousel-content">
-              <div class="featured-drink">
-                <!-- Image de la boisson (avec animation flottante) -->
-                <div class="drink-image">{{ getCurrentDrink().icon }}</div>
-
-                <!-- Informations de la boisson -->
-                <div class="drink-info">
-                  <h2>{{ getCurrentDrink().name }}</h2>
-                  <p class="drink-category">{{ getCurrentDrink().category }}</p>
-                  <p class="drink-price">{{ getCurrentDrink().price }}</p>
-                  <p class="drink-stock">{{ getCurrentDrink().stock }}</p>
-                  <button class="view-btn">Voir les détails</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Bouton suivant -->
-            <button class="carousel-btn" (click)="nextDrink()">❯</button>
-          </div>
-
-          <!-- Indicateurs de position (points) -->
-          <div class="carousel-indicators">
-            <span *ngFor="let drink of featuredDrinks; let i = index"
-                  class="indicator"
-                  [class.active]="isIndicatorActive(i)"
-                  (click)="goToDrink(i)">
-            </span>
-          </div>
-        </section>
-
-        <!-- STATISTIQUES RAPIDES -->
-        <section class="content-section">
-          <div class="stats-cards-grid">
-            <!-- Carte 1: Ventes du jour -->
-            <div class="stat-card stat-card-orange">
-              <div class="stat-icon">🔥</div>
-              <div class="stat-content">
-                <div class="stat-label">Ventes du jour</div>
-                <div class="stat-value">1 250 000 FCFA</div>
-                <div class="stat-change positive">+18,5% ce mois</div>
-              </div>
-            </div>
-
-            <!-- Carte 2: Commandes Aujourd'hui -->
-            <div class="stat-card stat-card-green">
-              <div class="stat-icon">🛒</div>
-              <div class="stat-content">
-                <div class="stat-label">Commandes Aujourd'hui</div>
-                <div class="stat-value">45</div>
-                <div class="stat-change positive">+8 depuis hier</div>
-              </div>
-            </div>
-
-            <!-- Carte 3: Stock de Vin -->
-            <div class="stat-card stat-card-purple">
-              <div class="stat-icon">🍷</div>
-              <div class="stat-content">
-                <div class="stat-label">Stock de Vin</div>
-                <div class="stat-value">350</div>
-                <div class="stat-change neutral">Stable</div>
-              </div>
-            </div>
-
-            <!-- Carte 4: Stock Faible -->
-            <div class="stat-card stat-card-warning">
-              <div class="stat-icon">⚠️</div>
-              <div class="stat-content">
-                <div class="stat-label">Stock Faible</div>
-                <div class="stat-value">12</div>
-                <div class="stat-change warning">Attention requise</div>
-              </div>
-            </div>
-
-            <!-- Carte 5: Clients Actifs -->
-            <div class="stat-card stat-card-blue">
-              <div class="stat-icon">👥</div>
-              <div class="stat-content">
-                <div class="stat-label">Clients Actifs</div>
-                <div class="stat-value">892</div>
-                <div class="stat-change positive">+35 ce mois</div>
-              </div>
-            </div>
-
-            <!-- Carte 6: Commandes en Attente -->
-            <div class="stat-card stat-card-yellow">
-              <div class="stat-icon">🍾</div>
-              <div class="stat-content">
-                <div class="stat-label">Commandes en Attente</div>
-                <div class="stat-value">8</div>
-                <div class="stat-change neutral">À traiter</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- PRODUITS POPULAIRES -->
-        <section class="content-section">
-          <div class="section-header">
-            <h2 class="section-title-main">Produits Populaires</h2>
-          </div>
-
-          <div class="products-grid">
-            <!-- Boucle sur les produits -->
-            <div *ngFor="let product of products" class="product-card">
-              <div class="product-image">
-                {{ product.icon }}
-                <!-- Badge HOT ou NEW -->
-                <span *ngIf="product.badge"
-                      class="product-badge"
-                      [ngClass]="'badge-' + product.badge">
-                  {{ product.badge === 'hot' ? 'HOT' : 'NEW' }}
-                </span>
-              </div>
-
-              <div class="product-info">
-                <h3 class="product-name">{{ product.name }}</h3>
-                <p class="product-category">{{ product.category }}</p>
-                <div class="product-stats">
-                  <span class="product-sales">{{ product.sales }} ventes</span>
-                  <span class="product-price">{{ formatNumber(product.price) }} FCFA</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- ACTIONS RÉCENTES -->
-        <section class="content-section">
-          <div class="section-header">
-            <h2 class="section-title-main">Actions Récentes</h2>
-          </div>
-
-          <div class="actions-list">
-            <!-- Boucle sur les actions -->
-            <div *ngFor="let action of recentActions" class="action-item">
-              <div class="action-icon" [ngClass]="getActionTypeClass(action.type)">
-                {{ action.icon }}
-              </div>
-              <div class="action-content">
-                <div class="action-title">{{ action.title }}</div>
-                <div class="action-details">{{ action.details }}</div>
-              </div>
-              <div class="action-time">{{ action.time }}</div>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      <!-- ===== PAGE MES CAVES ===== -->
-      <div *ngIf="activePage === 'caves'" class="page-section">
-        <section class="content-section">
-          <div class="section-header">
-            <h2 class="section-title-main">Mes Caves</h2>
-            <!-- Bouton pour ajouter une nouvelle cave -->
-            <button class="btn btn-primary" (click)="openAddCaveModal()">
-              ➕ Ajouter une cave
-            </button>
-          </div>
-
-          <!-- Grille des caves -->
-          <div class="caves-grid">
-            <!-- Boucle sur les caves -->
-            <div *ngFor="let cave of caves"
-                class="cave-card"
-                (click)="openCaveModal(cave)">
-              <div class="cave-header">
-                <h3 class="cave-name">{{ cave.name }}</h3>
-                <p class="cave-location">📍 {{ cave.location }}</p>
-              </div>
-
-              <div class="cave-stats">
-                <div class="stat-item">
-                  <div class="stat-value">{{ cave.bottles }}</div>
-                  <div class="stat-label">Bouteilles</div>
-                </div>
-                <div class="stat-item">
-                  <div class="stat-value">{{ cave.managersCount }}</div>
-                  <div class="stat-label">Manager{{ cave.managersCount > 1 ? 's' : '' }}</div>
-                </div>
-                <div class="stat-item">
-                  <div class="stat-value">{{ cave.employeesCount }}</div>
-                  <div class="stat-label">Employés</div>
-                </div>
-                <div class="stat-item">
-                  <div class="stat-value">{{ cave.productivity }}%</div>
-                  <div class="stat-label">Productivité</div>
-                </div>
-              </div>
-
-              <div class="cave-actions" (click)="$event.stopPropagation()">
-                <button class="btn btn-sm btn-secondary">📊 Stats</button>
-                <button class="btn btn-sm btn-primary" (click)="openCaveModal(cave)">
-                  Voir détails
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-
-       <!-- ===== FICHIER: admin-dashboard.component.html (PARTIE 2/3) ===== -->
-    <!-- ===== PAGE METS & VINS ===== -->
-    <div *ngIf="activePage === 'wine-pairing'" class="page-section">
-      <section class="content-section">
-        <div class="section-header">
-          <h2 class="section-title-main">🍽️ Accords Mets & Vins</h2>
-          <button class="btn btn-primary">
-            ➕ Ajouter un accord
-          </button>
-        </div>
-
-        <!-- Grille des accords -->
-        <div class="wine-pairing-grid">
-          <!-- Boucle sur les accords mets & vins -->
-          <div *ngFor="let pairing of winePairings" class="pairing-card">
-            <div class="pairing-header">
-              <span class="pairing-category">{{ pairing.category }}</span>
-            </div>
-
-            <div class="pairing-content">
-              <!-- Plat -->
-              <div class="pairing-item">
-                <div class="pairing-icon">{{ pairing.dishIcon }}</div>
-                <div class="pairing-name">{{ pairing.dish }}</div>
-              </div>
-
-              <!-- Flèche de liaison -->
-              <div class="pairing-arrow">🤝</div>
-
-              <!-- Vin -->
-              <div class="pairing-item">
-                <div class="pairing-icon">{{ pairing.wineIcon }}</div>
-                <div class="pairing-name">{{ pairing.wine }}</div>
-              </div>
-            </div>
-
-            <div class="pairing-description">
-              {{ pairing.description }}
-            </div>
-
-            <div class="pairing-actions">
-              <button class="btn btn-sm btn-secondary">✏️ Modifier</button>
-              <button class="btn btn-sm btn-danger">🗑️ Supprimer</button>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- ===== PAGE MES MANAGERS ===== -->
-    <div *ngIf="activePage === 'managers'" class="page-section">
-      <section class="content-section">
-        <div class="section-header">
-          <h2 class="section-title-main">👥 Mes Managers</h2>
-          <button class="btn btn-primary" (click)="openAddManagerModal()">
-            ➕ Ajouter un manager
-          </button>
-        </div>
-
-        <!-- Liste des managers -->
-        <div class="managers-grid">
-          <!-- Boucle sur tous les managers -->
-          <div *ngFor="let manager of getAllManagers()" class="manager-card-full">
-            <div class="manager-header">
-              <div class="manager-avatar-large">{{ manager.avatar }}</div>
-              <div class="manager-info-full">
-                <div class="manager-name-large">{{ manager.name }}</div>
-                <div class="manager-role-large">{{ manager.role }}</div>
-              </div>
-            </div>
-
-            <div class="manager-performance-full">
-              <div class="performance-item">
-                <div class="performance-icon">💰</div>
-                <div class="performance-value">{{ manager.performance.ventes }}</div>
-                <div class="performance-label">Ventes totales</div>
-              </div>
-              <div class="performance-item">
-                <div class="performance-icon">👥</div>
-                <div class="performance-value">{{ manager.performance.equipe }}</div>
-                <div class="performance-label">Équipe</div>
-              </div>
-              <div class="performance-item">
-                <div class="performance-icon">⭐</div>
-                <div class="performance-value">{{ manager.performance.satisfaction }}</div>
-                <div class="performance-label">Satisfaction</div>
-              </div>
-            </div>
-
-            <!-- Toggle pour afficher les employés -->
-            <button class="toggle-employees" (click)="toggleEmployees(manager)">
-              👥 Employés ({{ manager.employees.length }})
-              <span>{{ manager.showEmployees ? '▲' : '▼' }}</span>
-            </button>
-
-            <!-- Liste des employés (affichée conditionnellement) -->
-            <div *ngIf="manager.showEmployees" class="employees-list-full">
-              <div *ngFor="let employee of manager.employees" class="employee-card-full">
-                <div class="employee-avatar">{{ employee.avatar }}</div>
-                <div class="employee-info">
-                  <div class="employee-name">{{ employee.name }}</div>
-                  <div class="employee-position">{{ employee.position }}</div>
-                </div>
-                <div class="employee-stats">
-                  <span class="employee-stat">💰 {{ employee.ventes }}</span>
-                  <span class="employee-stat">⏱️ {{ employee.heures }}</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="manager-actions">
-              <button class="btn btn-sm btn-secondary">✏️ Modifier</button>
-              <button class="btn btn-sm btn-info">📊 Voir stats</button>
-              <button class="btn btn-sm btn-danger">🗑️ Supprimer</button>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- ===== PAGE MES EMPLOYÉS ===== -->
-    <div *ngIf="activePage === 'employees'" class="page-section">
-      <section class="content-section">
-        <div class="section-header">
-          <h2 class="section-title-main">👨‍💼 Mes Employés</h2>
-          <button class="btn btn-primary" (click)="openAddEmployeeModal()">
-            ➕ Ajouter un employé
-          </button>
-        </div>
-
-        <!-- Statistiques globales des employés -->
-        <div class="employees-stats-grid">
-          <div class="stat-card stat-card-blue">
-            <div class="stat-icon">👥</div>
-            <div class="stat-content">
-              <div class="stat-label">Total Employés</div>
-              <div class="stat-value">{{ getAllEmployees().length }}</div>
-              <div class="stat-change positive">+5 ce mois</div>
-            </div>
-          </div>
-
-          <div class="stat-card stat-card-green">
-            <div class="stat-icon">💰</div>
-            <div class="stat-content">
-              <div class="stat-label">Ventes Moyennes</div>
-              <div class="stat-value">420K</div>
-              <div class="stat-change positive">+12% ce mois</div>
-            </div>
-          </div>
-
-          <div class="stat-card stat-card-purple">
-            <div class="stat-icon">⏱️</div>
-            <div class="stat-content">
-              <div class="stat-label">Heures Moyennes</div>
-              <div class="stat-value">158h</div>
-              <div class="stat-change neutral">Stable</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Liste de tous les employés -->
-        <div class="employees-table">
-          <div class="table-header">
-            <h3>Liste complète des employés</h3>
-          </div>
-
-          <div class="table-content">
-            <!-- Boucle sur tous les employés -->
-            <div *ngFor="let employee of getAllEmployees()" class="employee-row">
-              <div class="employee-avatar-sm">{{ employee.avatar }}</div>
-              <div class="employee-details">
-                <div class="employee-name-bold">{{ employee.name }}</div>
-                <div class="employee-position-sm">{{ employee.position }}</div>
-              </div>
-              <div class="employee-metrics">
-                <span class="metric-item">💰 {{ employee.ventes }}</span>
-                <span class="metric-item">⏱️ {{ employee.heures }}</span>
-              </div>
-              <div class="employee-row-actions">
-                <button class="btn-icon" title="Modifier">✏️</button>
-                <button class="btn-icon" title="Voir détails">👁️</button>
-                <button class="btn-icon btn-danger" title="Supprimer">🗑️</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- ===== PAGE SCAN ===== -->
-    <div *ngIf="activePage === 'scan'" class="page-section">
-      <section class="content-section">
-        <div class="section-header">
-          <h2 class="section-title-main">📷 Scanner un Produit</h2>
-        </div>
-
-        <div class="scan-container">
-          <!-- Zone de scan -->
-          <div class="scan-area">
-            <div class="scan-frame" [class.scanning]="isScanActive">
-              <div class="scan-icon">📷</div>
-              <div class="scan-text">
-                <ng-container *ngIf="!isScanActive && !scanResult">
-                  Placez le code-barre devant la caméra
-                </ng-container>
-                <ng-container *ngIf="isScanActive">
-                  Scan en cours...
-                </ng-container>
-                <ng-container *ngIf="scanResult && !isScanActive">
-                  ✓ Scan terminé
-                </ng-container>
-              </div>
-
-              <!-- Animation de scan -->
-              <div *ngIf="isScanActive" class="scan-line"></div>
-            </div>
-
-            <!-- Boutons de contrôle -->
-            <div class="scan-controls">
-              <button class="btn btn-primary"
-                      *ngIf="!isScanActive && !scanResult"
-                      (click)="startScan()">
-                🎬 Démarrer le scan
-              </button>
-
-              <button class="btn btn-secondary"
-                      *ngIf="scanResult"
-                      (click)="resetScan()">
-                🔄 Nouveau scan
-              </button>
-            </div>
-          </div>
-
-          <!-- Résultat du scan -->
-          <div *ngIf="scanResult" class="scan-result">
-            <div class="result-header">
-              <h3>✓ Produit détecté</h3>
-            </div>
-
-            <div class="result-content">
-              <pre>{{ scanResult }}</pre>
-            </div>
-
-            <div class="result-actions">
-              <button class="btn btn-primary">➕ Ajouter au stock</button>
-              <button class="btn btn-secondary">📝 Modifier les infos</button>
-              <button class="btn btn-info">📊 Voir l'historique</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Instructions -->
-        <div class="scan-instructions">
-          <h3>💡 Instructions</h3>
-          <ul>
-            <li>Assurez-vous que le code-barre est bien éclairé</li>
-            <li>Maintenez le code-barre stable et à plat</li>
-            <li>Positionnez-le à environ 15-20 cm de la caméra</li>
-            <li>Attendez le bip de confirmation</li>
-          </ul>
-        </div>
-      </section>
-    </div>
-
-    <!-- ===== MODAL DÉTAILS CAVE ===== -->
-    <div *ngIf="isCaveModalOpen" class="modal" (click)="closeCaveModal()">
-      <div class="modal-content" (click)="$event.stopPropagation()">
-        <div class="modal-header">
-          <h2 class="modal-title">{{ selectedCave?.name }}</h2>
-          <button class="close-btn" (click)="closeCaveModal()">×</button>
-        </div>
-
-        <!-- Onglets -->
-        <div class="modal-tabs">
-          <button class="modal-tab"
-                  [class.active]="activeModalTab === 'managers'"
-                  (click)="switchModalTab('managers')">
-            👥 Managers
-          </button>
-          <button class="modal-tab"
-                  [class.active]="activeModalTab === 'productivity'"
-                  (click)="switchModalTab('productivity')">
-            📊 Productivité
-          </button>
-        </div>
-
-        <div class="modal-body">
-          <!-- ===== ONGLET MANAGERS ===== -->
-          <div *ngIf="activeModalTab === 'managers'" class="tab-content">
-            <div class="managers-list">
-              <!-- Boucle sur les managers de la cave sélectionnée -->
-              <div *ngFor="let manager of selectedCave?.managers" class="manager-card">
-                <div class="manager-header">
-                  <div class="manager-avatar">{{ manager.avatar }}</div>
-                  <div>
-                    <div class="manager-name">{{ manager.name }}</div>
-                    <div class="manager-role">{{ manager.role }}</div>
-                  </div>
-                </div>
-
-                <div class="manager-performance">
-                  <div class="performance-item">
-                    <div class="performance-value">{{ manager.performance.ventes }}</div>
-                    <div class="performance-label">Ventes totales</div>
-                  </div>
-                  <div class="performance-item">
-                    <div class="performance-value">{{ manager.performance.equipe }}</div>
-                    <div class="performance-label">Équipe</div>
-                  </div>
-                  <div class="performance-item">
-                    <div class="performance-value">{{ manager.performance.satisfaction }}</div>
-                    <div class="performance-label">Satisfaction</div>
-                  </div>
-                </div>
-
-                <button class="toggle-employees" (click)="toggleEmployees(manager)">
-                  👥 Voir les employés ({{ manager.employees.length }})
-                  <span>{{ manager.showEmployees ? '▲' : '▼' }}</span>
-                </button>
-
-                <div *ngIf="manager.showEmployees" class="employees-list">
-                  <div *ngFor="let employee of manager.employees" class="employee-card">
-                    <div class="employee-avatar">{{ employee.avatar }}</div>
-                    <div class="employee-info">
-                      <div class="employee-name">{{ employee.name }}</div>
-                      <div class="employee-position">{{ employee.position }}</div>
-                    </div>
-                    <div class="employee-stats">
-                      <span class="employee-stat">💰 {{ employee.ventes }}</span>
-                      <span class="employee-stat">⏱️ {{ employee.heures }}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- ===== ONGLET PRODUCTIVITÉ ===== -->
-          <div *ngIf="activeModalTab === 'productivity'" class="tab-content">
-            <h3 style="margin-bottom: 1.5rem;">Statistiques mensuelles</h3>
-
-            <div class="productivity-grid">
-              <div *ngFor="let stat of selectedCave?.productivityStats"
-                  class="productivity-card">
-                <div class="productivity-month">{{ stat.month }}</div>
-                <div class="productivity-value">{{ stat.value }}</div>
-                <div class="productivity-label">{{ stat.label }}</div>
-              </div>
-            </div>
-
-            <div class="global-stats">
-              <h3>Moyennes globales</h3>
-              <div class="global-stats-grid">
-                <div *ngFor="let stat of selectedCave?.globalStats" class="stat-item">
-                  <div class="stat-value">{{ stat.value }}</div>
-                  <div class="stat-label">{{ stat.label }}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+  <aside class="sidebar">
+    <!-- Logo -->
+    <div class="sidebar-header">
+      <div class="logo">
+        <span class="logo-icon">🍾</span>
+        <span class="logo-text">DrinkStore Pro</span>
       </div>
     </div>
 
-    <!-- ===== FICHIER: admin-dashboard.component.html (PARTIE 3/3) ===== -->
+    <!-- Navigation principale -->
+    <nav class="sidebar-section">
+      <div class="nav-item"
+           [routerLink]="['/admin', 'home']"
+           routerLinkActive="active">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-text">Accueil</span>
+      </div>
 
-    <!-- ===== MODAL AJOUTER MANAGER ===== -->
-    <div *ngIf="isAddManagerModalOpen" class="modal" (click)="closeAddManagerModal()">
-      <div class="modal-content" (click)="$event.stopPropagation()">
-        <div class="modal-header">
-          <h2 class="modal-title">➕ Ajouter un nouveau manager</h2>
-          <button class="close-btn" (click)="closeAddManagerModal()">×</button>
-        </div>
+      <div class="nav-item"
+           [routerLink]="['/admin', 'caves']"
+           routerLinkActive="active">
+        <span class="nav-icon">🍷</span>
+        <span class="nav-text">Mes caves</span>
+      </div>
+    </nav>
 
-        <div class="modal-body">
-          <!-- Formulaire d'ajout de manager -->
-          <form>
-            <div class="form-group">
-              <label class="form-label">Prénom *</label>
-              <input type="text"
-                    class="form-input"
-                    [(ngModel)]="newManagerForm.firstName"
-                    name="firstName"
-                    placeholder="Ex: Jean"
-                    required>
-            </div>
+    <div class="divider"></div>
 
-            <div class="form-group">
-              <label class="form-label">Nom *</label>
-              <input type="text"
-                    class="form-input"
-                    [(ngModel)]="newManagerForm.lastName"
-                    name="lastName"
-                    placeholder="Ex: Kouassi"
-                    required>
-            </div>
+    <!-- Section MA CAVE -->
+    <nav class="sidebar-section">
+      <div class="section-title">MA CAVE</div>
 
-            <div class="form-group">
-              <label class="form-label">Email *</label>
-              <input type="email"
-                    class="form-input"
-                    [(ngModel)]="newManagerForm.email"
-                    name="email"
-                    placeholder="Ex: jean.kouassi@drinkstore.com"
-                    required>
-            </div>
+      <!-- Mes boissons avec sous-menu -->
+      <div class="nav-item"
+           [class.open]="isDrinksSubmenuOpen"
+           (click)="toggleDrinksSubmenu(); $event.stopPropagation()">
+        <span class="nav-icon">🍾</span>
+        <span class="nav-text">Mes boissons</span>
+        <span class="submenu-arrow">▶</span>
+      </div>
 
-            <div class="form-group">
-              <label class="form-label">Téléphone</label>
-              <input type="tel"
-                    class="form-input"
-                    [(ngModel)]="newManagerForm.phone"
-                    name="phone"
-                    placeholder="Ex: +234 801 234 5678">
-            </div>
+      <div class="submenu" [class.open]="isDrinksSubmenuOpen">
+        <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'beers']" routerLinkActive="active">🍺 Bières</div>
+        <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'sweets']" routerLinkActive="active">🍬 Sucreries</div>
+        <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'champagne']" routerLinkActive="active">🥂 Champagne</div>
+        <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'white-wine']" routerLinkActive="active">🍷 Vin Blanc</div>
+        <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'red-wine']" routerLinkActive="active">🍷 Vin Rouge</div>
+        <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'rose-wine']" routerLinkActive="active">🍷 Vin Rosé</div>
+        <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'sparkling-wine']" routerLinkActive="active">✨ Vin Mousseux</div>
+        <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'liquors']" routerLinkActive="active">🥃 Liqueurs</div>
+        <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'energy']" routerLinkActive="active">⚡ Boissons Énergisantes</div>
+        <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'local']" routerLinkActive="active">🍹 Boissons Locales</div>
+      </div>
 
-            <div class="form-group">
-              <label class="form-label">Cave d'affectation *</label>
-              <select class="form-input"
-                      [(ngModel)]="newManagerForm.caveId"
-                      name="caveId"
-                      required>
-                <option value="">Sélectionner une cave...</option>
-                <option *ngFor="let cave of caves" [value]="cave.id">
-                  {{ cave.name }}
-                </option>
-              </select>
-            </div>
+      <div class="nav-item" [routerLink]="['/admin', 'entries']" routerLinkActive="active">
+        <span class="nav-icon">📥</span>
+        <span class="nav-text">Mes entrées</span>
+      </div>
 
-            <div class="form-group">
-              <label class="form-label">Rôle *</label>
-              <select class="form-input"
-                      [(ngModel)]="newManagerForm.role"
-                      name="role"
-                      required>
-                <option value="Manager">Manager</option>
-                <option value="Manager Principal">Manager Principal</option>
-                <option value="Manager Adjoint">Manager Adjoint</option>
-                <option value="Manager Nuit">Manager Nuit</option>
-              </select>
-            </div>
-          </form>
-        </div>
+      <div class="nav-item" [routerLink]="['/admin', 'exits']" routerLinkActive="active">
+        <span class="nav-icon">📤</span>
+        <span class="nav-text">Mes sorties</span>
+      </div>
 
-        <div class="modal-footer">
-          <button class="btn btn-cancel" (click)="closeAddManagerModal()">Annuler</button>
-          <button class="btn btn-primary" (click)="addNewManager()">Ajouter le manager</button>
-        </div>
+      <div class="nav-item" [routerLink]="['/admin', 'wine-pairing']" routerLinkActive="active">
+        <span class="nav-icon">🍽️</span>
+        <span class="nav-text">Mets & Vins</span>
+      </div>
+
+      <div class="nav-item" [routerLink]="['/admin', 'managers']" routerLinkActive="active">
+        <span class="nav-icon">👥</span>
+        <span class="nav-text">Mes managers</span>
+      </div>
+
+      <div class="nav-item" [routerLink]="['/admin', 'employees']" routerLinkActive="active">
+        <span class="nav-icon">👨‍💼</span>
+        <span class="nav-text">Mes employés</span>
+      </div>
+
+      <div class="nav-item" [routerLink]="['/admin', 'scan']" routerLinkActive="active">
+        <span class="nav-icon">📷</span>
+        <span class="nav-text">Scan</span>
+      </div>
+
+      <div class="nav-item" [routerLink]="['/admin', 'profile']" routerLinkActive="active">
+        <span class="nav-icon">👤</span>
+        <span class="nav-text">Mon compte</span>
+      </div>
+    </nav>
+
+    <div class="divider"></div>
+
+    <!-- Section INFOS -->
+    <nav class="sidebar-section">
+      <div class="section-title">INFOS</div>
+
+      <div class="nav-item" [routerLink]="['/admin', 'faq']" routerLinkActive="active">
+        <span class="nav-icon">❓</span>
+        <span class="nav-text">FAQ</span>
+      </div>
+
+      <div class="nav-item" [routerLink]="['/admin', 'improvements']" routerLinkActive="active">
+        <span class="nav-icon">📝</span>
+        <span class="nav-text">Notes améliorations</span>
+      </div>
+
+      <div class="nav-item" [routerLink]="['/admin', 'contact']" routerLinkActive="active">
+        <span class="nav-icon">📧</span>
+        <span class="nav-text">Nous contacter</span>
+      </div>
+
+      <div class="nav-item" [routerLink]="['/admin', 'about']" routerLinkActive="active">
+        <span class="nav-icon">📚</span>
+        <span class="nav-text">En savoir plus</span>
+      </div>
+    </nav>
+
+    <div class="divider"></div>
+
+    <!-- Réseaux sociaux -->
+    <div class="sidebar-section">
+      <div class="section-title">SUIVEZ-NOUS</div>
+      <div class="social-links">
+        <div class="social-link" title="Instagram">📷</div>
+        <div class="social-link" title="Facebook">📘</div>
+        <div class="social-link" title="WhatsApp">💬</div>
+        <div class="social-link" title="Twitter">🐦</div>
       </div>
     </div>
+  </aside>
 
-    <!-- ===== MODAL AJOUTER EMPLOYÉ ===== -->
-    <div *ngIf="isAddEmployeeModalOpen" class="modal" (click)="closeAddEmployeeModal()">
-      <div class="modal-content" (click)="$event.stopPropagation()">
-        <div class="modal-header">
-          <h2 class="modal-title">➕ Ajouter un nouvel employé</h2>
-          <button class="close-btn" (click)="closeAddEmployeeModal()">×</button>
-        </div>
-
-        <div class="modal-body">
-          <!-- Formulaire d'ajout d'employé -->
-          <form>
-            <div class="form-group">
-              <label class="form-label">Prénom *</label>
-              <input type="text"
-                    class="form-input"
-                    [(ngModel)]="newEmployeeForm.firstName"
-                    name="firstName"
-                    placeholder="Ex: Alice"
-                    required>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Nom *</label>
-              <input type="text"
-                    class="form-input"
-                    [(ngModel)]="newEmployeeForm.lastName"
-                    name="lastName"
-                    placeholder="Ex: Martin"
-                    required>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Email *</label>
-              <input type="email"
-                    class="form-input"
-                    [(ngModel)]="newEmployeeForm.email"
-                    name="email"
-                    placeholder="Ex: alice.martin@drinkstore.com"
-                    required>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Téléphone</label>
-              <input type="tel"
-                    class="form-input"
-                    [(ngModel)]="newEmployeeForm.phone"
-                    name="phone"
-                    placeholder="Ex: +234 801 234 5678">
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Cave d'affectation *</label>
-              <select class="form-input"
-                      [(ngModel)]="newEmployeeForm.caveId"
-                      name="caveId"
-                      required>
-                <option value="">Sélectionner une cave...</option>
-                <option *ngFor="let cave of caves" [value]="cave.id">
-                  {{ cave.name }}
-                </option>
-              </select>
-            </div>
-
-            <div class="form-group" *ngIf="newEmployeeForm.caveId">
-              <label class="form-label">Manager de supervision *</label>
-              <select class="form-input"
-                      [(ngModel)]="newEmployeeForm.managerId"
-                      name="managerId"
-                      required>
-                <option value="">Sélectionner un manager...</option>
-                <option *ngFor="let manager of getManagersByCave(newEmployeeForm.caveId)"
-                        [value]="manager.name">
-                  {{ manager.name }} - {{ manager.role }}
-                </option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Poste *</label>
-              <select class="form-input"
-                      [(ngModel)]="newEmployeeForm.position"
-                      name="position"
-                      required>
-                <option value="">Sélectionner un poste...</option>
-                <option value="Caissier(ère)">Caissier(ère)</option>
-                <option value="Vendeur(se)">Vendeur(se)</option>
-                <option value="Magasinier">Magasinier</option>
-                <option value="Livreur">Livreur</option>
-                <option value="Assistant(e)">Assistant(e)</option>
-                <option value="Sommelier">Sommelier</option>
-                <option value="Conseiller(ère)">Conseiller(ère)</option>
-              </select>
-            </div>
-          </form>
-        </div>
-
-        <div class="modal-footer">
-          <button class="btn btn-cancel" (click)="closeAddEmployeeModal()">Annuler</button>
-          <button class="btn btn-primary" (click)="addNewEmployee()">Ajouter l'employé</button>
+  <!-- ===== CONTENU PRINCIPAL ===== -->
+  <main class="main-content">
+    <!-- En-tête du haut -->
+    <header class="top-header">
+      <!-- Barre de recherche -->
+      <div class="header-left">
+        <div class="search-bar">
+          <input type="text" placeholder="Rechercher un vin millésime, une cave...">
+          <button class="search-btn">🔍</button>
         </div>
       </div>
-    </div>
 
-    <!-- ===== MODAL PROFIL UTILISATEUR ===== -->
-    <div *ngIf="isProfileModalOpen" class="modal" (click)="closeProfileModal()">
-      <div class="modal-content" (click)="$event.stopPropagation()">
-        <div class="modal-header">
-          <h2 class="modal-title">👤 Mon Profil</h2>
-          <button class="close-btn" (click)="closeProfileModal()">×</button>
+      <!-- Éléments à droite -->
+      <div class="header-right">
+        <!-- Sélecteur de catégories -->
+        <div class="category-selector">
+          <select>
+            <option value="">Toutes les catégories</option>
+            <option value="bieres">Bières</option>
+            <option value="sucreries">Sucreries</option>
+            <option value="vin_blanc">Vin Blanc</option>
+            <option value="vin_rouge">Vin Rouge</option>
+            <option value="vin_rose">Vin Rosé</option>
+            <option value="vin_mousseux">Vin Mousseux</option>
+            <option value="liqueurs">Liqueurs</option>
+            <option value="champagne">Champagne</option>
+            <option value="boissons_energisantes">Boissons Énergisantes</option>
+            <option value="boissons_locales">Boissons Locales</option>
+          </select>
         </div>
 
-        <div class="modal-body">
-          <!-- Avatar et informations de base -->
-          <div class="profile-header">
-            <div class="profile-avatar-large">{{ userProfile.avatar }}</div>
-            <div class="profile-basic-info">
-              <h3>{{ userProfile.firstName }} {{ userProfile.lastName }}</h3>
-              <p class="profile-role-badge">{{ userProfile.role }}</p>
-              <p class="profile-join-date">Membre depuis le {{ userProfile.joinDate }}</p>
-            </div>
-          </div>
-
-          <!-- Formulaire de modification du profil -->
-          <form class="profile-form">
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label">Prénom</label>
-                <input type="text"
-                      class="form-input"
-                      [(ngModel)]="userProfile.firstName"
-                      name="firstName">
-              </div>
-
-              <div class="form-group">
-                <label class="form-label">Nom</label>
-                <input type="text"
-                      class="form-input"
-                      [(ngModel)]="userProfile.lastName"
-                      name="lastName">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Email</label>
-              <input type="email"
-                    class="form-input"
-                    [(ngModel)]="userProfile.email"
-                    name="email">
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Téléphone</label>
-              <input type="tel"
-                    class="form-input"
-                    [(ngModel)]="userProfile.phone"
-                    name="phone">
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Rôle</label>
-              <input type="text"
-                    class="form-input"
-                    [value]="userProfile.role"
-                    disabled>
-              <small class="form-hint">Le rôle ne peut pas être modifié</small>
-            </div>
-          </form>
-
-          <!-- Section changement de mot de passe -->
-          <div class="password-section">
-            <h4>🔒 Changer le mot de passe</h4>
-            <form>
-              <div class="form-group">
-                <label class="form-label">Mot de passe actuel</label>
-                <input type="password" class="form-input" placeholder="••••••••">
-              </div>
-
-              <div class="form-group">
-                <label class="form-label">Nouveau mot de passe</label>
-                <input type="password" class="form-input" placeholder="••••••••">
-              </div>
-
-              <div class="form-group">
-                <label class="form-label">Confirmer le mot de passe</label>
-                <input type="password" class="form-input" placeholder="••••••••">
-              </div>
-
-              <button type="button" class="btn btn-secondary btn-block">
-                Changer le mot de passe
-              </button>
-            </form>
-          </div>
-
-          <!-- Statistiques du profil -->
-          <div class="profile-stats">
-            <h4>📊 Mes Statistiques</h4>
-            <div class="profile-stats-grid">
-              <div class="profile-stat-item">
-                <div class="profile-stat-icon">🍷</div>
-                <div class="profile-stat-value">3</div>
-                <div class="profile-stat-label">Caves gérées</div>
-              </div>
-              <div class="profile-stat-item">
-                <div class="profile-stat-icon">👥</div>
-                <div class="profile-stat-value">6</div>
-                <div class="profile-stat-label">Managers</div>
-              </div>
-              <div class="profile-stat-item">
-                <div class="profile-stat-icon">👨‍💼</div>
-                <div class="profile-stat-value">25</div>
-                <div class="profile-stat-label">Employés</div>
-              </div>
-              <div class="profile-stat-item">
-                <div class="profile-stat-icon">💰</div>
-                <div class="profile-stat-value">9.85M</div>
-                <div class="profile-stat-label">Ventes totales</div>
-              </div>
-            </div>
-          </div>
+        <!-- Icône panier -->
+        <div class="header-icon">
+          <span class="icon">🛒</span>
+          <span class="badge">3</span>
         </div>
 
-        <div class="modal-footer">
-          <button class="btn btn-cancel" (click)="closeProfileModal()">Annuler</button>
-          <button class="btn btn-primary" (click)="saveProfile()">
-            💾 Enregistrer les modifications
-          </button>
+        <!-- Icône notifications -->
+        <div class="header-icon">
+          <span class="icon">🔔</span>
+          <span class="badge">5</span>
+        </div>
+
+        <!-- Profil utilisateur avec dropdown -->
+        <div class="user-profile" (click)="toggleUserDropdown()">
+          <div class="avatar">{{ userProfile.avatar }}</div>
+          <div>
+            <div class="user-name">{{ userProfile.firstName }} {{ userProfile.lastName }}</div>
+            <div class="user-role">{{ userProfile.role }}</div>
+          </div>
+
+          <!-- Menu dropdown -->
+          <div class="user-dropdown" [class.show]="isUserDropdownOpen">
+            <div class="dropdown-item" [routerLink]="['/admin', 'profile']">👤 Mon profil</div>
+            <div class="dropdown-item" [routerLink]="['/admin', 'settings']">⚙️ Paramètres</div>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-item">💬 Assistance</div>
+            <div class="dropdown-item" (click)="logout()">🚪 Déconnexion</div>
+          </div>
         </div>
       </div>
-    </div>
+    </header>
+
+    <!-- ===== ROUTER OUTLET - C'EST ICI QUE LES PAGES S'AFFICHENT ===== -->
+    <router-outlet></router-outlet>
+
   </main>
-
 </div>
