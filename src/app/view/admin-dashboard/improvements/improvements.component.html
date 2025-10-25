@@ -1,0 +1,80 @@
+<!-- improvements.component.html -->
+<div class="page-section">
+  <div class="content-section">
+    <!-- Header -->
+    <div class="section-header">
+      <h1 class="section-title-main">
+        <i class="fas fa-history"></i>
+        Améliorations & Mises à Jour
+      </h1>
+    </div>
+
+    <!-- Intro -->
+    <div class="improvements-intro">
+      <p>
+        Découvrez les dernières améliorations et fonctionnalités ajoutées à CaveMaster.
+        Nous mettons régulièrement à jour notre plateforme pour vous offrir la meilleure expérience.
+      </p>
+    </div>
+
+    <!-- Timeline -->
+    <div class="improvements-timeline">
+      <div
+        *ngFor="let improvement of improvements"
+        class="improvement-item"
+      >
+        <!-- Marker -->
+        <div
+          class="improvement-marker"
+          [ngClass]="{
+            'marker-feature': improvement.type === 'feature',
+            'marker-fix': improvement.type === 'fix',
+            'marker-enhancement': improvement.type === 'enhancement'
+          }"
+        >
+          {{ getTypeIcon(improvement.type) }}
+        </div>
+
+        <!-- Content -->
+        <div class="improvement-content">
+          <div class="improvement-header">
+            <span class="improvement-version">{{ improvement.version }}</span>
+            <span class="improvement-date">
+              {{ improvement.date | date: 'dd MMMM yyyy' }}
+            </span>
+          </div>
+
+          <span
+            class="improvement-type"
+            [ngClass]="{
+              'type-feature': improvement.type === 'feature',
+              'type-fix': improvement.type === 'fix',
+              'type-enhancement': improvement.type === 'enhancement'
+            }"
+          >
+            {{ getTypeLabel(improvement.type) }}
+          </span>
+
+          <h4 class="improvement-title">{{ improvement.title }}</h4>
+          <p class="improvement-description">{{ improvement.description }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Suggestion Box -->
+    <div class="suggestion-box">
+      <h3>
+        <i class="fas fa-lightbulb"></i>
+        Suggérer une amélioration
+      </h3>
+      <p>
+        Vous avez une idée pour améliorer CaveMaster ?
+        Nous sommes toujours à l'écoute de vos suggestions !
+      </p>
+      <button class="btn btn-primary btn-large">
+        <i class="fas fa-comment-dots"></i>
+        Envoyer une suggestion
+      </button>
+    </div>
+  </div>
+</div>

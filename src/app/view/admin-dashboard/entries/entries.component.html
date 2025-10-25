@@ -67,11 +67,11 @@ DESCRIPTION: Template pour la gestion des entrées de stock
         class="search-input"
         placeholder="🔍 Rechercher une entrée..."
         [(ngModel)]="searchTerm"
-        (ngModelChange)="onSearchChange($event)">
+        (ngModelChange)="onSearchChange()">
       <button
         *ngIf="searchTerm"
         class="clear-btn"
-        (click)="searchTerm = ''; onSearchChange('')">
+        (click)="searchTerm = ''; onSearchChange()">
         ✕
       </button>
     </div>
@@ -82,7 +82,7 @@ DESCRIPTION: Template pour la gestion des entrées de stock
       <select
         class="filter-select"
         [(ngModel)]="selectedCaveFilter"
-        (ngModelChange)="onCaveFilterChange($event)">
+        (ngModelChange)="onCaveFilterChange()">
         <option [ngValue]="null">Toutes les caves</option>
         <option *ngFor="let cave of caves" [ngValue]="cave.id">
           {{ cave.name }}
@@ -96,7 +96,7 @@ DESCRIPTION: Template pour la gestion des entrées de stock
       <select
         class="filter-select"
         [(ngModel)]="periodFilter"
-        (ngModelChange)="onPeriodFilterChange($event)">
+        (ngModelChange)="onPeriodFilterChange()">
         <option [value]="7">7 derniers jours</option>
         <option [value]="30">30 derniers jours</option>
         <option [value]="90">3 derniers mois</option>

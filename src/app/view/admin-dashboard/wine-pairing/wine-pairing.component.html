@@ -1,8 +1,8 @@
 <!-- ===== PAGE ACCORDS METS & VINS ===== -->
 <div class="page-section">
-  
+
   <section class="content-section">
-    
+
     <!-- ===== En-tête avec titre et actions ===== -->
     <div class="section-header">
       <div class="header-left">
@@ -11,18 +11,18 @@
           {{ filteredPairings.length }} accord{{ filteredPairings.length > 1 ? 's' : '' }} trouvé{{ filteredPairings.length > 1 ? 's' : '' }}
         </p>
       </div>
-      
+
       <div class="header-actions">
         <!-- Bouton exporter -->
         <button class="btn btn-secondary" (click)="exportToCSV()">
           <i class="fas fa-download"></i> Exporter
         </button>
-        
+
         <!-- Bouton imprimer -->
         <button class="btn btn-secondary" (click)="printPairings()">
           <i class="fas fa-print"></i> Imprimer
         </button>
-        
+
         <!-- Bouton ajouter -->
         <button class="btn btn-primary" (click)="openAddModal()">
           <i class="fas fa-plus"></i> Ajouter un accord
@@ -32,17 +32,17 @@
 
     <!-- ===== Barre de recherche et filtres ===== -->
     <div class="filters-container">
-      
+
       <!-- Recherche textuelle -->
       <div class="search-box">
         <i class="fas fa-search search-icon"></i>
-        <input type="text" 
-               class="search-input" 
+        <input type="text"
+               class="search-input"
                placeholder="Rechercher un plat, un vin, une région..."
                [(ngModel)]="searchQuery"
                (input)="onSearchChange()">
-        <button class="clear-btn" 
-                *ngIf="searchQuery" 
+        <button class="clear-btn"
+                *ngIf="searchQuery"
                 (click)="searchQuery = ''; onSearchChange()">
           <i class="fas fa-times"></i>
         </button>
@@ -50,13 +50,13 @@
 
       <!-- Filtres -->
       <div class="filters-row">
-        
+
         <!-- Filtre par catégorie de plat -->
         <div class="filter-group">
           <label class="filter-label">
             <i class="fas fa-utensils"></i> Catégorie
           </label>
-          <select class="filter-select" 
+          <select class="filter-select"
                   [(ngModel)]="selectedCategory"
                   (change)="onCategoryChange()">
             <option value="all">Toutes les catégories</option>
@@ -71,7 +71,7 @@
           <label class="filter-label">
             <i class="fas fa-wine-bottle"></i> Type de vin
           </label>
-          <select class="filter-select" 
+          <select class="filter-select"
                   [(ngModel)]="selectedWineType"
                   (change)="onWineTypeChange()">
             <option value="all">Tous les types</option>
@@ -82,7 +82,7 @@
         </div>
 
         <!-- Bouton réinitialiser -->
-        <button class="btn btn-outline" 
+        <button class="btn btn-outline"
                 (click)="resetFilters()"
                 [disabled]="searchQuery === '' && selectedCategory === 'all' && selectedWineType === 'all'">
           <i class="fas fa-redo"></i> Réinitialiser
@@ -98,14 +98,14 @@
 
     <!-- ===== Grille des accords ===== -->
     <div *ngIf="!isLoading" class="pairing-grid">
-      
+
       <!-- Boucle sur les accords filtrés -->
       <div *ngFor="let pairing of filteredPairings" class="pairing-card">
-        
+
         <!-- Badge catégorie -->
         <div class="pairing-header">
           <span class="pairing-category">{{ pairing.category }}</span>
-          
+
           <!-- Notation -->
           <div class="pairing-rating" *ngIf="pairing.rating">
             <span *ngFor="let star of getStars(pairing.rating)" class="star">
@@ -116,7 +116,7 @@
 
         <!-- Contenu principal de l'accord -->
         <div class="pairing-content">
-          
+
           <!-- Plat -->
           <div class="pairing-item">
             <div class="pairing-icon dish-icon">{{ pairing.dishIcon }}</div>
@@ -153,12 +153,12 @@
             <i class="fas fa-thermometer-half"></i>
             <span>{{ pairing.temperature }}</span>
           </div>
-          
+
           <div class="info-item" *ngIf="pairing.region">
             <i class="fas fa-map-marker-alt"></i>
             <span>{{ pairing.region }}</span>
           </div>
-          
+
           <div class="info-item" *ngIf="pairing.vintage">
             <i class="fas fa-calendar-alt"></i>
             <span>{{ pairing.vintage }}</span>
@@ -174,13 +174,13 @@
 
         <!-- Actions sur l'accord -->
         <div class="pairing-actions">
-          <button class="btn-action btn-action-edit" 
+          <button class="btn-action btn-action-edit"
                   (click)="openEditModal(pairing)"
                   title="Modifier">
             <i class="fas fa-edit"></i>
           </button>
-          
-          <button class="btn-action btn-action-delete" 
+
+          <button class="btn-action btn-action-delete"
                   (click)="deletePairing(pairing)"
                   title="Supprimer">
             <i class="fas fa-trash"></i>
@@ -208,9 +208,9 @@
 
 <!-- ===== MODAL AJOUTER/MODIFIER ACCORD ===== -->
 <div *ngIf="isModalOpen" class="modal" (click)="closeModal()">
-  
+
   <div class="modal-content modal-large" (click)="$event.stopPropagation()">
-    
+
     <!-- En-tête du modal -->
     <div class="modal-header">
       <h2 class="modal-title">
@@ -225,7 +225,7 @@
     <!-- Corps du modal -->
     <div class="modal-body">
       <form>
-        
+
         <!-- Section 1: Informations générales -->
         <div class="form-section">
           <h3 class="form-section-title">
@@ -235,7 +235,7 @@
           <!-- Catégorie de plat -->
           <div class="form-group">
             <label class="form-label">Catégorie de plat *</label>
-            <select class="form-input" 
+            <select class="form-input"
                     [(ngModel)]="pairingForm.category"
                     name="category"
                     required>
@@ -249,7 +249,7 @@
           <!-- Type de vin -->
           <div class="form-group">
             <label class="form-label">Type de vin *</label>
-            <select class="form-input" 
+            <select class="form-input"
                     [(ngModel)]="pairingForm.wineType"
                     name="wineType"
                     required>
@@ -271,8 +271,8 @@
             <!-- Nom du plat -->
             <div class="form-group flex-grow">
               <label class="form-label">Nom du plat *</label>
-              <input type="text" 
-                     class="form-input" 
+              <input type="text"
+                     class="form-input"
                      [(ngModel)]="pairingForm.dish"
                      name="dish"
                      placeholder="Ex: Steak grillé"
@@ -282,7 +282,7 @@
             <!-- Icône du plat -->
             <div class="form-group">
               <label class="form-label">Icône</label>
-              <select class="form-input icon-select" 
+              <select class="form-input icon-select"
                       [(ngModel)]="pairingForm.dishIcon"
                       name="dishIcon">
                 <option *ngFor="let icon of dishIcons" [value]="icon">
@@ -303,8 +303,8 @@
             <!-- Nom du vin -->
             <div class="form-group flex-grow">
               <label class="form-label">Nom du vin *</label>
-              <input type="text" 
-                     class="form-input" 
+              <input type="text"
+                     class="form-input"
                      [(ngModel)]="pairingForm.wine"
                      name="wine"
                      placeholder="Ex: Bordeaux Rouge"
@@ -314,7 +314,7 @@
             <!-- Icône du vin -->
             <div class="form-group">
               <label class="form-label">Icône</label>
-              <select class="form-input icon-select" 
+              <select class="form-input icon-select"
                       [(ngModel)]="pairingForm.wineIcon"
                       name="wineIcon">
                 <option *ngFor="let icon of wineIcons" [value]="icon">
@@ -328,8 +328,8 @@
             <!-- Région -->
             <div class="form-group">
               <label class="form-label">Région viticole</label>
-              <input type="text" 
-                     class="form-input" 
+              <input type="text"
+                     class="form-input"
                      [(ngModel)]="pairingForm.region"
                      name="region"
                      placeholder="Ex: Bordeaux">
@@ -338,8 +338,8 @@
             <!-- Millésime -->
             <div class="form-group">
               <label class="form-label">Millésime recommandé</label>
-              <input type="text" 
-                     class="form-input" 
+              <input type="text"
+                     class="form-input"
                      [(ngModel)]="pairingForm.vintage"
                      name="vintage"
                      placeholder="Ex: 2015-2018">
@@ -349,8 +349,8 @@
           <!-- Température de service -->
           <div class="form-group">
             <label class="form-label">Température de service *</label>
-            <input type="text" 
-                   class="form-input" 
+            <input type="text"
+                   class="form-input"
                    [(ngModel)]="pairingForm.temperature"
                    name="temperature"
                    placeholder="Ex: 16-18°C"
@@ -366,7 +366,7 @@
 
           <div class="form-group">
             <label class="form-label">Description *</label>
-            <textarea class="form-textarea" 
+            <textarea class="form-textarea"
                       [(ngModel)]="pairingForm.description"
                       name="description"
                       rows="4"
@@ -386,13 +386,13 @@
 
           <div class="form-group">
             <label class="form-label">Ajouter des tags pour faciliter la recherche</label>
-            
+
             <!-- Tags existants -->
             <div class="tags-container" *ngIf="pairingForm.tags.length > 0">
               <span *ngFor="let tag of pairingForm.tags" class="tag tag-removable">
                 {{ tag }}
-                <button type="button" 
-                        class="tag-remove" 
+                <button type="button"
+                        class="tag-remove"
                         (click)="removeTag(tag)">
                   <i class="fas fa-times"></i>
                 </button>
@@ -401,12 +401,12 @@
 
             <!-- Input pour ajouter un tag -->
             <div class="tag-input-group">
-              <input type="text" 
-                     class="form-input" 
+              <input type="text"
+                     class="form-input"
                      #tagInput
                      placeholder="Ex: classique, élégant, tanins..."
                      (keyup.enter)="addTag(tagInput.value); tagInput.value = ''">
-              <button type="button" 
+              <button type="button"
                       class="btn btn-secondary btn-sm"
                       (click)="addTag(tagInput.value); tagInput.value = ''">
                 <i class="fas fa-plus"></i> Ajouter
@@ -424,7 +424,7 @@
         <i class="fas fa-times"></i> Annuler
       </button>
       <button class="btn btn-primary" (click)="savePairing()">
-        <i class="fas fa-save"></i> 
+        <i class="fas fa-save"></i>
         {{ isEditMode ? 'Enregistrer les modifications' : 'Créer l\'accord' }}
       </button>
     </div>

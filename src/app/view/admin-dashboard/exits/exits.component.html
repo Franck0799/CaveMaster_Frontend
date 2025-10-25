@@ -68,11 +68,11 @@
         class="search-input"
         placeholder="🔍 Rechercher..."
         [(ngModel)]="searchTerm"
-        (ngModelChange)="onSearchChange($event)">
+        (ngModelChange)="onSearchChange()">
       <button
         *ngIf="searchTerm"
         class="clear-btn"
-        (click)="searchTerm = ''; onSearchChange('')">✕</button>
+        (click)="searchTerm = ''; onSearchChange()">✕</button>
     </div>
 
     <div class="filter-group">
@@ -80,7 +80,7 @@
       <select
         class="filter-select"
         [(ngModel)]="selectedCaveFilter"
-        (ngModelChange)="onCaveFilterChange($event)">
+        (ngModelChange)="onCaveFilterChange()">
         <option [ngValue]="null">Toutes les caves</option>
         <option *ngFor="let cave of caves" [ngValue]="cave.id">{{ cave.name }}</option>
       </select>
@@ -91,7 +91,7 @@
       <select
         class="filter-select"
         [(ngModel)]="selectedTypeFilter"
-        (ngModelChange)="onTypeFilterChange($event)">
+        (ngModelChange)="onTypeFilterChange()">
         <option [ngValue]="null">Tous les types</option>
         <option value="vente">Vente</option>
         <option value="transfert">Transfert</option>
@@ -104,7 +104,7 @@
       <select
         class="filter-select"
         [(ngModel)]="periodFilter"
-        (ngModelChange)="onPeriodFilterChange($event)">
+        (ngModelChange)="onPeriodFilterChange()">
         <option [value]="7">7 derniers jours</option>
         <option [value]="30">30 derniers jours</option>
         <option [value]="90">3 derniers mois</option>

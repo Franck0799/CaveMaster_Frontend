@@ -30,12 +30,12 @@ DESCRIPTION: Template HTML pour la gestion des boissons
         class="search-input"
         placeholder="🔍 Rechercher une boisson..."
         [(ngModel)]="searchTerm"
-        (ngModelChange)="onSearchChange($event)">
+        (ngModelChange)="onSearchChange()">
       <!-- Bouton pour effacer la recherche -->
       <button
         *ngIf="searchTerm"
         class="clear-search-btn"
-        (click)="searchTerm = ''; onSearchChange('')"
+        (click)="searchTerm = ''; onSearchChange()"
         title="Effacer la recherche">
         ✕
       </button>
@@ -47,7 +47,7 @@ DESCRIPTION: Template HTML pour la gestion des boissons
       <select
         class="category-select"
         [(ngModel)]="selectedCategory"
-        (ngModelChange)="onCategoryChange($event)">
+        (ngModelChange)="onCategoryChange()">
         <option [ngValue]="null">Toutes les catégories</option>
         <option
           *ngFor="let category of drinkCategories"

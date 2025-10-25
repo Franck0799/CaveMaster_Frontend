@@ -36,6 +36,7 @@ interface Drink {
   description?: string;
   sales?: number;
   createdAt?: Date;
+  badge?: 'hot' | 'new' ;
 }
 
 /**

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 /**
  * Interface pour définir un accord mets & vins
@@ -43,11 +45,14 @@ interface WinePairingForm {
  */
 @Component({
   selector: 'app-wine-pairing',
+   standalone: true,
+  // Import des modules nécessaires
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './wine-pairing.component.html',
   styleUrls: ['./wine-pairing.component.scss']
 })
 export class WinePairingComponent implements OnInit {
-  
+
   // Liste des accords mets & vins
   winePairings: WinePairing[] = [];
 
@@ -242,7 +247,7 @@ export class WinePairingComponent implements OnInit {
     // Filtre par recherche textuelle
     if (this.searchQuery.trim()) {
       const query = this.searchQuery.toLowerCase();
-      result = result.filter(pairing => 
+      result = result.filter(pairing =>
         pairing.dish.toLowerCase().includes(query) ||
         pairing.wine.toLowerCase().includes(query) ||
         pairing.description.toLowerCase().includes(query) ||
