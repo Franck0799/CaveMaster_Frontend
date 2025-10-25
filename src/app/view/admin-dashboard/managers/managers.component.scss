@@ -1,524 +1,847 @@
-// ===== Variables =====
-$primary-color: #4f46e5;
-$secondary-color: #6366f1;
+// ===== Variables - Thème sombre =====
+$primary-color: #8b5cf6;
+$secondary-color: #a78bfa;
 $success-color: #10b981;
 $danger-color: #ef4444;
 $info-color: #3b82f6;
-$bg-light: #f8fafc;
-$bg-white: #ffffff;
-$text-primary: #1e293b;
-$text-secondary: #64748b;
-$border-color: #e2e8f0;
+$warning-color: #f59e0b;
+$bg-dark: #0f172a;
+$bg-card: #1e293b;
+$bg-darker: #0a0f1e;
+$text-dark: #e5e7eb;
+$text-secondary: #9ca3af;
+$text-light: #6b7280;
+$border-color: #334155;
+$shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 
 // ===== Page principale =====
 .page-section {
-  padding: 2rem; // Espacement général
-  background: $bg-light; // Fond clair
-  min-height: 100vh; // Hauteur minimale
+  padding: 2rem;
+  background: $bg-dark;
+  min-height: 100vh;
+  color: $text-dark;
 }
 
 .content-section {
-  max-width: 1400px; // Largeur maximale
-  margin: 0 auto; // Centrage
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 // ===== En-tête =====
 .section-header {
-  display: flex; // Alignement horizontal
-  justify-content: space-between; // Espace entre éléments
-  align-items: center; // Centrage vertical
-  margin-bottom: 2rem; // Marge en bas
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid $border-color;
+
   .section-title-main {
-    font-size: 2rem; // Grande taille
-    font-weight: 700; // Très gras
-    color: $text-primary; // Couleur sombre
+    font-size: 2rem;
+    font-weight: 700;
+    color: $text-dark;
     margin: 0;
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 0.75rem;
   }
 }
 
 // ===== Grille de statistiques des managers =====
 .managers-stats-grid {
-  display: grid; // Grille CSS
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); // Colonnes adaptatives
-  gap: 1.5rem; // Espace entre cartes
-  margin-bottom: 2rem; // Marge en bas
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 // ===== Cartes de statistiques =====
 .stat-card {
-  background: $bg-white; // Fond blanc
-  border-radius: 12px; // Coins arrondis
-  padding: 1.5rem; // Espacement interne
-  display: flex; // Alignement horizontal
-  align-items: center; // Centrage vertical
-  gap: 1rem; // Espace entre icône et contenu
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); // Ombre légère
-  transition: all 0.3s ease; // Animation
-  
+  background: $bg-card;
+  border: 1px solid $border-color;
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: $shadow;
+  transition: all 0.3s ease;
+
   &:hover {
-    transform: translateY(-4px); // Déplacement vers le haut
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); // Ombre plus prononcée
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
   }
-  
+
   .stat-icon {
-    font-size: 2.5rem; // Grande taille
-    width: 60px; // Largeur fixe
-    height: 60px; // Hauteur fixe
-    display: flex; // Centrage
-    align-items: center; // Centrage vertical
-    justify-content: center; // Centrage horizontal
-    border-radius: 50%; // Forme circulaire
+    font-size: 2.5rem;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    flex-shrink: 0;
   }
-  
+
   .stat-content {
-    flex: 1; // Prend l'espace restant
-    
+    flex: 1;
+
     .stat-label {
-      font-size: 0.875rem; // Petite taille
-      color: $text-secondary; // Gris
+      font-size: 0.875rem;
+      color: $text-secondary;
       margin-bottom: 0.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
-    
+
     .stat-value {
-      font-size: 1.75rem; // Grande taille
-      font-weight: 700; // Très gras
-      color: $text-primary; // Sombre
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: $text-dark;
       margin-bottom: 0.25rem;
     }
-    
+
     .stat-change {
-      font-size: 0.75rem; // Très petite
+      font-size: 0.75rem;
       font-weight: 500;
-      
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.125rem 0.5rem;
+      border-radius: 12px;
+
       &.positive {
-        color: $success-color; // Vert
+        color: $success-color;
+        background: rgba(16, 185, 129, 0.1);
       }
-      
+
       &.negative {
-        color: $danger-color; // Rouge
+        color: $danger-color;
+        background: rgba(239, 68, 68, 0.1);
       }
-      
+
       &.neutral {
-        color: $text-secondary; // Gris
+        color: $text-secondary;
+        background: rgba(156, 163, 175, 0.1);
       }
     }
   }
-  
+
   // Variantes de couleur
-  &.stat-card-blue .stat-icon {
-    background: rgba(59, 130, 246, 0.1);
+  &.stat-card-blue {
+    border-left: 4px solid $info-color;
+
+    .stat-icon {
+      background: rgba(59, 130, 246, 0.15);
+      color: $info-color;
+    }
   }
-  
-  &.stat-card-green .stat-icon {
-    background: rgba(16, 185, 129, 0.1);
+
+  &.stat-card-green {
+    border-left: 4px solid $success-color;
+
+    .stat-icon {
+      background: rgba(16, 185, 129, 0.15);
+      color: $success-color;
+    }
   }
-  
-  &.stat-card-purple .stat-icon {
-    background: rgba(139, 92, 246, 0.1);
+
+  &.stat-card-purple {
+    border-left: 4px solid $primary-color;
+
+    .stat-icon {
+      background: rgba(139, 92, 246, 0.15);
+      color: $primary-color;
+    }
+  }
+
+  &.stat-card-orange {
+    border-left: 4px solid $warning-color;
+
+    .stat-icon {
+      background: rgba(245, 158, 11, 0.15);
+      color: $warning-color;
+    }
   }
 }
 
 // ===== Grille des managers =====
 .managers-grid {
-  display: grid; // Grille CSS
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); // Colonnes adaptatives
-  gap: 1.5rem; // Espace entre cartes
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 1.5rem;
 }
 
 // ===== Carte manager complète =====
 .manager-card-full {
-  background: $bg-white; // Fond blanc
-  border-radius: 12px; // Coins arrondis
-  padding: 1.5rem; // Espacement interne
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); // Ombre légère
-  transition: all 0.3s ease; // Animation
-  
+  background: $bg-card;
+  border: 1px solid $border-color;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: $shadow;
+  transition: all 0.3s ease;
+
   &:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12); // Ombre plus prononcée
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    border-color: rgba(139, 92, 246, 0.5);
   }
-  
+
   // En-tête de la carte
   .manager-header {
-    display: flex; // Alignement horizontal
-    align-items: center; // Centrage vertical
-    gap: 1rem; // Espace entre avatar et info
-    margin-bottom: 1.5rem; // Marge en bas
-    
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid $border-color;
+
     .manager-avatar-large {
-      width: 70px; // Largeur fixe
-      height: 70px; // Hauteur fixe
-      border-radius: 50%; // Forme circulaire
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); // Dégradé
-      display: flex; // Centrage
-      align-items: center; // Centrage vertical
-      justify-content: center; // Centrage horizontal
-      font-size: 2.5rem; // Grande taille emoji
-      flex-shrink: 0; // Ne pas rétrécir
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      flex-shrink: 0;
+      border: 3px solid rgba(139, 92, 246, 0.3);
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
     }
-    
+
     .manager-info-full {
-      flex: 1; // Prend l'espace restant
-      
+      flex: 1;
+
       .manager-name-large {
-        font-size: 1.25rem; // Grande taille
-        font-weight: 600; // Semi-gras
-        color: $text-primary; // Sombre
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: $text-dark;
         margin-bottom: 0.25rem;
       }
-      
+
       .manager-role-large {
-        font-size: 0.9rem; // Taille moyenne
-        color: $text-secondary; // Gris
+        font-size: 0.9rem;
+        color: $text-secondary;
         font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        &::before {
+          content: "👔";
+          font-size: 1rem;
+        }
       }
     }
   }
-  
+
   // Performance du manager
   .manager-performance-full {
-    display: grid; // Grille CSS
-    grid-template-columns: repeat(3, 1fr); // 3 colonnes égales
-    gap: 1rem; // Espace entre items
-    margin-bottom: 1.5rem; // Marge en bas
-    
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+
     .performance-item {
-      text-align: center; // Centrage du texte
-      padding: 1rem; // Espacement interne
-      background: $bg-light; // Fond gris clair
-      border-radius: 8px; // Coins arrondis
-      
-      .performance-icon {
-        font-size: 1.5rem; // Taille icône
-        margin-bottom: 0.5rem; // Marge en bas
+      text-align: center;
+      padding: 1rem;
+      background: rgba(139, 92, 246, 0.05);
+      border: 1px solid $border-color;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: rgba(139, 92, 246, 0.1);
+        transform: translateY(-2px);
       }
-      
+
+      .performance-icon {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+
       .performance-value {
-        font-size: 1.125rem; // Taille moyenne-grande
-        font-weight: 600; // Semi-gras
-        color: $text-primary; // Sombre
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: $text-dark;
         margin-bottom: 0.25rem;
       }
-      
+
       .performance-label {
-        font-size: 0.75rem; // Petite taille
-        color: $text-secondary; // Gris
+        font-size: 0.75rem;
+        color: $text-secondary;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
       }
     }
   }
-  
+
   // Bouton toggle employés
   .toggle-employees {
-    width: 100%; // Largeur totale
-    padding: 0.75rem; // Espacement interne
-    border: 1px solid $border-color; // Bordure grise
-    background: transparent; // Fond transparent
-    border-radius: 8px; // Coins arrondis
-    cursor: pointer; // Curseur pointeur
-    font-size: 0.9rem; // Taille du texte
-    font-weight: 500; // Poids moyen
-    color: $text-primary; // Couleur sombre
-    display: flex; // Alignement horizontal
-    justify-content: space-between; // Espace entre texte et flèche
-    align-items: center; // Centrage vertical
-    transition: all 0.2s ease; // Animation
-    margin-bottom: 1rem; // Marge en bas
-    
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid $border-color;
+    background: transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: $text-dark;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s ease;
+    margin-bottom: 1rem;
+
     &:hover {
-      background: $bg-light; // Fond gris clair
-      border-color: $primary-color; // Bordure bleue
+      background: rgba(139, 92, 246, 0.1);
+      border-color: $primary-color;
+      color: $primary-color;
     }
-    
+
     span {
-      font-size: 0.875rem; // Petite taille pour flèche
+      font-size: 0.875rem;
+      transition: transform 0.3s ease;
+    }
+
+    &.expanded span {
+      transform: rotate(180deg);
     }
   }
-  
+
   // Liste des employés
   .employees-list-full {
-    max-height: 400px; // Hauteur maximale
-    overflow-y: auto; // Scroll vertical
-    margin-bottom: 1rem; // Marge en bas
-    padding: 0.5rem; // Petit espacement
-    background: $bg-light; // Fond gris clair
-    border-radius: 8px; // Coins arrondis
-    
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background: $bg-darker;
+    border-radius: 8px;
+    border: 1px solid $border-color;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: $bg-dark;
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: $border-color;
+      border-radius: 4px;
+
+      &:hover {
+        background: $primary-color;
+      }
+    }
+
     // Message si vide
     .empty-employees {
-      text-align: center; // Centrage
-      padding: 2rem; // Espacement
-      color: $text-secondary; // Gris
-      font-size: 0.9rem; // Petite taille
+      text-align: center;
+      padding: 2rem;
+      color: $text-secondary;
+      font-size: 0.9rem;
+      font-style: italic;
     }
   }
-  
+
   // Carte employé
   .employee-card-full {
-    display: flex; // Alignement horizontal
-    align-items: center; // Centrage vertical
-    gap: 1rem; // Espace entre éléments
-    padding: 0.75rem; // Espacement interne
-    background: $bg-white; // Fond blanc
-    border-radius: 6px; // Coins arrondis
-    margin-bottom: 0.5rem; // Marge en bas
-    transition: all 0.2s ease; // Animation
-    
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    background: $bg-card;
+    border: 1px solid $border-color;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+    transition: all 0.2s ease;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
     &:hover {
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); // Ombre au survol
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      border-color: rgba(139, 92, 246, 0.5);
+      transform: translateX(4px);
     }
-    
+
     .employee-avatar {
-      width: 40px; // Largeur fixe
-      height: 40px; // Hauteur fixe
-      border-radius: 50%; // Forme circulaire
-      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); // Dégradé
-      display: flex; // Centrage
-      align-items: center; // Centrage vertical
-      justify-content: center; // Centrage horizontal
-      font-size: 1.25rem; // Taille emoji
-      flex-shrink: 0; // Ne pas rétrécir
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+      border: 2px solid rgba(245, 87, 108, 0.3);
     }
-    
+
     .employee-info {
-      flex: 1; // Prend l'espace disponible
-      
+      flex: 1;
+
       .employee-name {
-        font-size: 0.9rem; // Taille normale
-        font-weight: 600; // Semi-gras
-        color: $text-primary; // Sombre
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: $text-dark;
         margin-bottom: 0.125rem;
       }
-      
+
       .employee-position {
-        font-size: 0.75rem; // Petite taille
-        color: $text-secondary; // Gris
+        font-size: 0.75rem;
+        color: $text-secondary;
       }
     }
-    
+
     .employee-stats {
-      display: flex; // Alignement horizontal
-      gap: 0.75rem; // Espace entre stats
-      
+      display: flex;
+      gap: 0.75rem;
+
       .employee-stat {
-        font-size: 0.75rem; // Petite taille
-        color: $text-secondary; // Gris
-        white-space: nowrap; // Pas de retour ligne
+        font-size: 0.75rem;
+        color: $text-secondary;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+
+        i {
+          color: $primary-color;
+        }
       }
     }
   }
-  
+
   // Actions sur le manager
   .manager-actions {
-    display: flex; // Alignement horizontal
-    gap: 0.5rem; // Petit espace entre boutons
-    justify-content: flex-end; // Alignement à droite
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    padding-top: 1rem;
+    border-top: 1px solid $border-color;
   }
 }
 
 // ===== Boutons =====
 .btn {
-  padding: 0.75rem 1.5rem; // Espacement interne
-  border-radius: 8px; // Coins arrondis
-  border: none; // Pas de bordure
-  font-size: 0.9rem; // Taille du texte
-  font-weight: 600; // Semi-gras
-  cursor: pointer; // Curseur pointeur
-  transition: all 0.2s ease; // Animation
-  display: inline-flex; // Alignement horizontal
-  align-items: center; // Centrage vertical
-  gap: 0.5rem; // Espace entre icône et texte
-  
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
   // Petit bouton
   &.btn-sm {
-    padding: 0.5rem 1rem; // Espacement réduit
-    font-size: 0.8rem; // Taille réduite
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
   }
-  
+
   // Bouton primaire
   &.btn-primary {
-    background: $primary-color; // Fond bleu
-    color: white; // Texte blanc
-    
-    &:hover {
-      background: darken($primary-color, 10%); // Fond plus foncé
-      transform: translateY(-2px); // Déplacement
-      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3); // Ombre
+    background: $primary-color;
+    color: white;
+
+    &:hover:not(:disabled) {
+      background: darken($primary-color, 10%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
     }
   }
-  
+
   // Bouton secondaire
   &.btn-secondary {
-    background: $text-secondary; // Fond gris
-    color: white; // Texte blanc
-    
-    &:hover {
-      background: darken($text-secondary, 10%); // Fond plus foncé
+    background: $text-secondary;
+    color: white;
+
+    &:hover:not(:disabled) {
+      background: darken($text-secondary, 10%);
     }
   }
-  
+
   // Bouton info
   &.btn-info {
-    background: $info-color; // Fond bleu clair
-    color: white; // Texte blanc
-    
-    &:hover {
-      background: darken($info-color, 10%); // Fond plus foncé
+    background: $info-color;
+    color: white;
+
+    &:hover:not(:disabled) {
+      background: darken($info-color, 10%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
     }
   }
-  
+
   // Bouton danger
   &.btn-danger {
-    background: $danger-color; // Fond rouge
-    color: white; // Texte blanc
-    
-    &:hover {
-      background: darken($danger-color, 10%); // Fond plus foncé
+    background: $danger-color;
+    color: white;
+
+    &:hover:not(:disabled) {
+      background: darken($danger-color, 10%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
     }
   }
-  
+
   // Bouton annuler
   &.btn-cancel {
-    background: transparent; // Fond transparent
-    color: $text-secondary; // Texte gris
-    border: 1px solid $border-color; // Bordure grise
-    
+    background: transparent;
+    color: $text-secondary;
+    border: 1px solid $border-color;
+
     &:hover {
-      background: $bg-light; // Fond gris clair
+      background: rgba(255, 255, 255, 0.05);
+      border-color: $text-light;
+    }
+  }
+
+  // Bouton icon seulement
+  &.btn-icon {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    justify-content: center;
+    border: 1px solid $border-color;
+    background: transparent;
+    color: $text-secondary;
+
+    &:hover {
+      background: rgba(139, 92, 246, 0.1);
+      border-color: $primary-color;
+      color: $primary-color;
     }
   }
 }
 
 // ===== État vide =====
 .empty-state {
-  grid-column: 1 / -1; // Prend toute la largeur de la grille
-  text-align: center; // Centrage du texte
-  padding: 4rem 2rem; // Grand espacement
-  
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 2rem;
+
   .empty-icon {
-    font-size: 4rem; // Très grande icône
-    margin-bottom: 1rem; // Marge en bas
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.3;
   }
-  
+
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: $text-dark;
+    margin-bottom: 0.5rem;
+  }
+
   p {
-    color: $text-secondary; // Gris
-    font-size: 1.125rem; // Taille moyenne
-    margin-bottom: 1.5rem; // Marge en bas
+    color: $text-secondary;
+    font-size: 1.125rem;
+    margin-bottom: 1.5rem;
   }
 }
 
-// ===== Modal (même style que employees) =====
+// ===== Modal =====
 .modal {
-  position: fixed; // Position fixe
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5); // Fond noir semi-transparent
-  display: flex; // Centrage
-  align-items: center; // Centrage vertical
-  justify-content: center; // Centrage horizontal
-  z-index: 1000; // Au-dessus de tout
-  padding: 1rem; // Espacement
-  
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  backdrop-filter: blur(4px);
+
   .modal-content {
-    background: $bg-white; // Fond blanc
-    border-radius: 12px; // Coins arrondis
-    max-width: 600px; // Largeur maximale
-    width: 100%; // Largeur totale
-    max-height: 90vh; // Hauteur maximale
-    overflow-y: auto; // Scroll vertical
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); // Grande ombre
-  }
-  
-  .modal-header {
-    display: flex; // Alignement horizontal
-    justify-content: space-between; // Espace entre titre et bouton
-    align-items: center; // Centrage vertical
-    padding: 1.5rem; // Espacement
-    border-bottom: 1px solid $border-color; // Bordure en bas
-    
-    .modal-title {
-      margin: 0;
-      font-size: 1.5rem; // Grande taille
-      font-weight: 600; // Semi-gras
-      color: $text-primary; // Sombre
+    background: $bg-card;
+    border: 1px solid $border-color;
+    border-radius: 16px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    animation: slideUp 0.3s ease-out;
+
+    &::-webkit-scrollbar {
+      width: 8px;
     }
-    
-    .close-btn {
-      width: 36px; // Largeur fixe
-      height: 36px; // Hauteur fixe
-      border-radius: 50%; // Forme circulaire
-      border: none; // Pas de bordure
-      background: $bg-light; // Fond gris clair
-      font-size: 1.5rem; // Grande taille
-      cursor: pointer; // Curseur pointeur
-      transition: all 0.2s ease; // Animation
-      
+
+    &::-webkit-scrollbar-track {
+      background: $bg-dark;
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: $border-color;
+      border-radius: 4px;
+
       &:hover {
-        background: #e2e8f0; // Fond plus foncé
-        transform: rotate(90deg); // Rotation
+        background: $primary-color;
       }
     }
   }
-  
-  .modal-body {
-    padding: 1.5rem; // Espacement
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.75rem 2rem;
+    border-bottom: 1px solid $border-color;
+    background: rgba(139, 92, 246, 0.05);
+
+    .modal-title {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: $text-dark;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+
+      i {
+        color: $primary-color;
+      }
+    }
+
+    .close-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      background: rgba(239, 68, 68, 0.1);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      color: $text-secondary;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: rgba(239, 68, 68, 0.2);
+        border-color: $danger-color;
+        color: $danger-color;
+        transform: rotate(90deg);
+      }
+    }
   }
-  
+
+  .modal-body {
+    padding: 2rem;
+  }
+
   .modal-footer {
-    display: flex; // Alignement horizontal
-    justify-content: flex-end; // Alignement à droite
-    gap: 1rem; // Espace entre boutons
-    padding: 1.5rem; // Espacement
-    border-top: 1px solid $border-color; // Bordure en haut
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding: 1.5rem 2rem;
+    border-top: 1px solid $border-color;
+    background: rgba(15, 23, 42, 0.5);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 // ===== Formulaire =====
 .form-group {
-  margin-bottom: 1.5rem; // Marge entre champs
-  
+  margin-bottom: 1.5rem;
+
   .form-label {
-    display: block; // Bloc
-    margin-bottom: 0.5rem; // Marge en bas
-    font-size: 0.875rem; // Petite taille
-    font-weight: 600; // Semi-gras
-    color: $text-primary; // Sombre
-  }
-  
-  .form-input {
-    width: 100%; // Largeur totale
-    padding: 0.75rem; // Espacement interne
-    border: 1px solid $border-color; // Bordure grise
-    border-radius: 8px; // Coins arrondis
-    font-size: 0.9rem; // Taille du texte
-    transition: all 0.2s ease; // Animation
-    
-    &:focus {
-      outline: none; // Pas de contour
-      border-color: $primary-color; // Bordure bleue
-      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); // Ombre bleue
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: $text-dark;
+
+    .required {
+      color: $danger-color;
+      margin-left: 0.25rem;
     }
-    
+  }
+
+  .form-input,
+  .form-select {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1.5px solid $border-color;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    background: $bg-dark;
+    color: $text-dark;
+    transition: all 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+    }
+
     &::placeholder {
-      color: #94a3b8; // Gris clair
+      color: $text-light;
+    }
+  }
+
+  .form-select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239ca3af' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+  }
+
+  .form-textarea {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1.5px solid $border-color;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    background: $bg-dark;
+    color: $text-dark;
+    resize: vertical;
+    min-height: 100px;
+    line-height: 1.5;
+    transition: all 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+    }
+
+    &::placeholder {
+      color: $text-light;
     }
   }
 }
 
+// ===== État de chargement =====
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid $border-color;
+    border-top-color: $primary-color;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: $text-secondary;
+    font-size: 1rem;
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 // ===== Responsive =====
 @media (max-width: 768px) {
+  .page-section {
+    padding: 1rem;
+  }
+
   .managers-grid {
-    grid-template-columns: 1fr; // Une seule colonne
+    grid-template-columns: 1fr;
   }
-  
+
+  .managers-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
   .section-header {
-    flex-direction: column; // Colonne
-    align-items: flex-start; // Alignement à gauche
-    gap: 1rem; // Espace
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+
+    .section-title-main {
+      font-size: 1.5rem;
+    }
+
+    .header-actions {
+      width: 100%;
+      flex-direction: column;
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
   }
-  
+
   .manager-performance-full {
-    grid-template-columns: 1fr; // Une colonne
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card {
+    .stat-icon {
+      width: 50px;
+      height: 50px;
+      font-size: 2rem;
+    }
+  }
+
+  .modal-content {
+    margin: 1rem;
+    max-height: calc(100vh - 2rem);
+  }
+
+  .modal-header {
+    padding: 1.25rem;
+
+    .modal-title {
+      font-size: 1.25rem;
+    }
+  }
+
+  .modal-body {
+    padding: 1.25rem;
+  }
+
+  .modal-footer {
+    padding: 1.25rem;
+    flex-direction: column;
+
+    .btn {
+      width: 100%;
+      justify-content: center;
+    }
   }
 }

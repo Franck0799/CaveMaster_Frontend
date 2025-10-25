@@ -96,7 +96,7 @@
   <div class="tabs-content">
 
     <!-- ONGLET 1: INFORMATIONS PERSONNELLES -->
-    <div *ngIf="activeTab === 'info'" class="tab-pane" [ngIf]="userProfile">
+    <div *ngIf="activeTab === 'info' && userProfile" class="tab-pane" >
 
       <!-- Mode affichage -->
       <div *ngIf="!isEditingProfile" class="info-display">
@@ -220,7 +220,8 @@
     </div>
 
     <!-- ONGLET 2: STATISTIQUES -->
-    <div *ngIf="activeTab === 'stats'" class="tab-pane" [ngIf]="userProfile">
+       <div *ngIf="activeTab === 'stats' && userProfile" class="tab-pane" >
+
       <div class="stats-grid">
         <!-- Ventes totales -->
         <div class="stat-card">

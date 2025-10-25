@@ -157,7 +157,6 @@ $transition: all 0.3s;
 
   &.open .submenu-arrow {
     transform: rotate(90deg);
-    color:$primary;
   }
 }
 
@@ -165,7 +164,6 @@ $transition: all 0.3s;
   font-size: 1.2rem;
   width: 20px;
   text-align: center;
-  transform: scale(1.1);
 }
 
 .nav-text {
@@ -199,11 +197,6 @@ $transition: all 0.3s;
   &:hover {
     background: rgba($primary, 0.1);
     color: $text;
-
-    &.active {
-    background: rgba($primary, 0.15);
-    color: $primary-light;
-    border-left: 3px solid $primary;
   }
 }
 
@@ -1995,5 +1988,4 @@ $transition: all 0.3s;
   .pairing-arrow {
     transform: rotate(90deg);
   }
-}
 }

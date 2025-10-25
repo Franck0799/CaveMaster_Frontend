@@ -1,313 +1,334 @@
-// ===== Variables =====
-$primary-color: #4f46e5;
-$secondary-color: #6366f1;
+// ===== Variables - Dark Mode =====
+$primary-color: #6366f1;
+$secondary-color: #818cf8;
 $success-color: #10b981;
 $danger-color: #ef4444;
 $info-color: #3b82f6;
-$bg-light: #f8fafc;
-$bg-white: #ffffff;
-$text-primary: #1e293b;
-$text-secondary: #64748b;
-$border-color: #e2e8f0;
+$bg-dark: #0f172a;
+$bg-darker: #020617;
+$bg-card: #1e293b;
+$text-primary: #f1f5f9;
+$text-secondary: #94a3b8;
+$border-color: #334155;
 $scan-line-color: #4ade80;
 
 // ===== Page principale =====
 .page-section {
-  padding: 2rem; // Espacement général
-  background: $bg-light; // Fond clair
-  min-height: 100vh; // Hauteur minimale
+  padding: 2rem;
+  background: $bg-dark;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .content-section {
-  max-width: 1200px; // Largeur maximale
-  margin: 0 auto; // Centrage
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 // ===== En-tête =====
 .section-header {
-  margin-bottom: 2rem; // Marge en bas
-  
+  margin-bottom: 2rem;
+  text-align: center;
+
   .section-title-main {
-    font-size: 2rem; // Grande taille
-    font-weight: 700; // Très gras
-    color: $text-primary; // Couleur sombre
+    font-size: 2rem;
+    font-weight: 700;
+    color: $text-primary;
     margin: 0;
   }
 }
 
 // ===== Conteneur principal du scan =====
 .scan-container {
-  display: grid; // Grille CSS
-  grid-template-columns: 1fr 1fr; // 2 colonnes égales
-  gap: 2rem; // Espace entre colonnes
-  margin-bottom: 2rem; // Marge en bas
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 // ===== Zone de scan =====
 .scan-area {
-  background: $bg-white; // Fond blanc
-  border-radius: 12px; // Coins arrondis
-  padding: 2rem; // Espacement interne
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); // Ombre légère
-  display: flex; // Flexbox
-  flex-direction: column; // Direction verticale
-  gap: 1.5rem; // Espace entre éléments
+  background: $bg-card;
+  border: 1px solid $border-color;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 // ===== Cadre de scan =====
 .scan-frame {
-  position: relative; // Pour positionnement absolu des enfants
-  width: 100%; // Largeur totale
-  aspect-ratio: 4/3; // Ratio largeur/hauteur
-  border: 3px dashed $border-color; // Bordure en pointillés
-  border-radius: 12px; // Coins arrondis
-  display: flex; // Flexbox
-  flex-direction: column; // Direction verticale
-  align-items: center; // Centrage horizontal
-  justify-content: center; // Centrage vertical
-  background: $bg-light; // Fond gris clair
-  transition: all 0.3s ease; // Animation
-  overflow: hidden; // Masque le débordement
-  
-  // Icône de caméra
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/3;
+  border: 3px dashed $border-color;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: $bg-darker;
+  transition: all 0.3s ease;
+  overflow: hidden;
+
   .scan-icon {
-    font-size: 4rem; // Très grande taille
-    margin-bottom: 1rem; // Marge en bas
-    opacity: 0.5; // Semi-transparent
-    transition: opacity 0.3s ease; // Animation
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    color: $text-secondary;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
   }
-  
-  // Texte d'instruction
+
   .scan-text {
-    font-size: 1.125rem; // Taille moyenne
-    color: $text-secondary; // Couleur grise
-    text-align: center; // Centrage du texte
-    font-weight: 500; // Poids moyen
+    font-size: 1.125rem;
+    color: $text-secondary;
+    text-align: center;
+    font-weight: 500;
   }
-  
-  // État pendant le scan
+
   &.scanning {
-    border-color: $scan-line-color; // Bordure verte
-    border-style: solid; // Bordure solide
-    background: linear-gradient(135deg, rgba(74, 222, 128, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%); // Dégradé léger
-    
+    border-color: $scan-line-color;
+    border-style: solid;
+    background: linear-gradient(135deg, rgba(74, 222, 128, 0.08) 0%, rgba(16, 185, 129, 0.08) 100%);
+    box-shadow: 0 0 20px rgba(74, 222, 128, 0.2);
+
     .scan-icon {
-      opacity: 0.8; // Plus visible
-      animation: pulse 2s ease-in-out infinite; // Animation de pulsation
+      opacity: 0.8;
+      color: $scan-line-color;
+      animation: pulse 2s ease-in-out infinite;
     }
   }
 }
 
 // ===== Ligne de scan animée =====
 .scan-line {
-  position: absolute; // Position absolue
-  left: 0; // Aligné à gauche
-  right: 0; // Aligné à droite
-  height: 2px; // Hauteur fine
-  background: linear-gradient(90deg, transparent 0%, $scan-line-color 50%, transparent 100%); // Dégradé
-  box-shadow: 0 0 10px $scan-line-color; // Lueur
-  animation: scanAnimation 2s linear infinite; // Animation de balayage
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0%, $scan-line-color 50%, transparent 100%);
+  box-shadow: 0 0 15px $scan-line-color, 0 0 30px rgba(74, 222, 128, 0.5);
+  animation: scanAnimation 2s linear infinite;
 }
 
 // ===== Animation de balayage =====
 @keyframes scanAnimation {
   0% {
-    top: 0; // Début en haut
+    top: 0;
   }
   100% {
-    top: 100%; // Fin en bas
+    top: 100%;
   }
 }
 
 // ===== Animation de pulsation =====
 @keyframes pulse {
   0%, 100% {
-    transform: scale(1); // Taille normale
+    transform: scale(1);
   }
   50% {
-    transform: scale(1.1); // Agrandissement de 10%
+    transform: scale(1.1);
   }
 }
 
 // ===== Contrôles du scan =====
 .scan-controls {
-  display: flex; // Flexbox
-  justify-content: center; // Centrage horizontal
-  gap: 1rem; // Espace entre boutons
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
 }
 
 // ===== Résultat du scan =====
 .scan-result {
-  background: $bg-white; // Fond blanc
-  border-radius: 12px; // Coins arrondis
-  padding: 2rem; // Espacement interne
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); // Ombre légère
-  animation: slideIn 0.3s ease-out; // Animation d'entrée
-  
-  // En-tête du résultat
+  background: $bg-card;
+  border: 1px solid $border-color;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  animation: slideIn 0.3s ease-out;
+
   .result-header {
-    margin-bottom: 1.5rem; // Marge en bas
-    
+    margin-bottom: 1.5rem;
+
     h3 {
-      font-size: 1.5rem; // Grande taille
-      font-weight: 600; // Semi-gras
-      color: $success-color; // Couleur verte
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: $success-color;
       margin: 0;
-      display: flex; // Flexbox
-      align-items: center; // Centrage vertical
-      gap: 0.5rem; // Espace entre icône et texte
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
   }
-  
-  // Contenu du résultat (JSON formaté)
+
   .result-content {
-    background: $bg-light; // Fond gris clair
-    border-radius: 8px; // Coins arrondis
-    padding: 1rem; // Espacement interne
-    margin-bottom: 1.5rem; // Marge en bas
-    
+    background: $bg-darker;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+
     pre {
-      margin: 0; // Pas de marge
-      font-family: 'Courier New', monospace; // Police monospace
-      font-size: 0.875rem; // Petite taille
-      color: $text-primary; // Couleur sombre
-      white-space: pre-wrap; // Retour à la ligne automatique
-      word-wrap: break-word; // Coupe les mots longs
+      margin: 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.875rem;
+      color: $text-primary;
+      white-space: pre-wrap;
+      word-wrap: break-word;
     }
   }
-  
-  // Actions sur le résultat
+
   .result-actions {
-    display: flex; // Flexbox
-    flex-direction: column; // Direction verticale
-    gap: 0.75rem; // Espace entre boutons
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
   }
 }
 
 // ===== Animation de slide in =====
 @keyframes slideIn {
   from {
-    opacity: 0; // Invisible
-    transform: translateX(20px); // Décalé à droite
+    opacity: 0;
+    transform: translateX(20px);
   }
   to {
-    opacity: 1; // Visible
-    transform: translateX(0); // Position normale
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
 // ===== Instructions =====
 .scan-instructions {
-  background: $bg-white; // Fond blanc
-  border-radius: 12px; // Coins arrondis
-  padding: 2rem; // Espacement interne
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); // Ombre légère
-  
+  background: $bg-card;
+  border: 1px solid $border-color;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  max-width: 600px;
+  margin: 0 auto 2rem;
+
   h3 {
-    font-size: 1.25rem; // Taille moyenne
-    font-weight: 600; // Semi-gras
-    color: $text-primary; // Couleur sombre
-    margin-bottom: 1rem; // Marge en bas
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin-bottom: 1rem;
   }
-  
+
   ul {
-    list-style: none; // Pas de puces par défaut
-    padding: 0; // Pas de padding
-    margin: 0 0 1.5rem 0; // Marge en bas
-    
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+
     li {
-      padding: 0.75rem; // Espacement interne
-      margin-bottom: 0.5rem; // Marge en bas
-      background: $bg-light; // Fond gris clair
-      border-radius: 8px; // Coins arrondis
-      border-left: 3px solid $primary-color; // Bordure gauche colorée
-      font-size: 0.9rem; // Taille du texte
-      color: $text-primary; // Couleur sombre
-      
-      // Icône de check avant chaque élément
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      background: $bg-darker;
+      border-radius: 8px;
+      border-left: 3px solid $primary-color;
+      font-size: 0.9rem;
+      color: $text-primary;
+
       &::before {
-        content: '✓ '; // Icône de check
-        color: $success-color; // Couleur verte
-        font-weight: bold; // Gras
-        margin-right: 0.5rem; // Marge à droite
+        content: '✓ ';
+        color: $success-color;
+        font-weight: bold;
+        margin-right: 0.5rem;
       }
     }
   }
-  
-  // Note technique
+
   .scan-note {
-    padding: 1rem; // Espacement interne
-    background: rgba(79, 70, 229, 0.05); // Fond bleu très clair
-    border-radius: 8px; // Coins arrondis
-    border-left: 3px solid $primary-color; // Bordure gauche bleue
-    font-size: 0.875rem; // Petite taille
-    color: $text-secondary; // Couleur grise
-    line-height: 1.6; // Hauteur de ligne
-    
+    padding: 1rem;
+    background: rgba(99, 102, 241, 0.1);
+    border-radius: 8px;
+    border-left: 3px solid $primary-color;
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    font-size: 0.875rem;
+    color: $text-secondary;
+    line-height: 1.6;
+
     strong {
-      color: $primary-color; // Couleur bleue
-      font-weight: 600; // Semi-gras
+      color: $primary-color;
+      font-weight: 600;
     }
   }
 }
 
 // ===== Boutons =====
 .btn {
-  padding: 0.75rem 1.5rem; // Espacement interne
-  border-radius: 8px; // Coins arrondis
-  border: none; // Pas de bordure
-  font-size: 0.9rem; // Taille du texte
-  font-weight: 600; // Semi-gras
-  cursor: pointer; // Curseur pointeur
-  transition: all 0.2s ease; // Animation
-  display: inline-flex; // Flexbox inline
-  align-items: center; // Centrage vertical
-  justify-content: center; // Centrage horizontal
-  gap: 0.5rem; // Espace entre icône et texte
-  width: 100%; // Largeur totale
-  
-  // Bouton primaire
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+
   &.btn-primary {
-    background: $primary-color; // Fond bleu
-    color: white; // Texte blanc
-    
+    background: $primary-color;
+    color: white;
+
     &:hover {
-      background: darken($primary-color, 10%); // Fond plus foncé
-      transform: translateY(-2px); // Déplacement vers le haut
-      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3); // Ombre
+      background: lighten($primary-color, 10%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
     }
   }
-  
-  // Bouton secondaire
+
   &.btn-secondary {
-    background: $secondary-color; // Fond bleu-violet
-    color: white; // Texte blanc
-    
+    background: $secondary-color;
+    color: white;
+
     &:hover {
-      background: darken($secondary-color, 10%); // Fond plus foncé
-      transform: translateY(-2px); // Déplacement
+      background: lighten($secondary-color, 10%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(129, 140, 248, 0.4);
     }
   }
-  
-  // Bouton danger
+
   &.btn-danger {
-    background: $danger-color; // Fond rouge
-    color: white; // Texte blanc
-    
+    background: $danger-color;
+    color: white;
+
     &:hover {
-      background: darken($danger-color, 10%); // Fond plus foncé
-      transform: translateY(-2px); // Déplacement
+      background: lighten($danger-color, 10%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
     }
   }
-  
-  // Bouton info
+
   &.btn-info {
-    background: $info-color; // Fond bleu clair
-    color: white; // Texte blanc
-    
+    background: $info-color;
+    color: white;
+
     &:hover {
-      background: darken($info-color, 10%); // Fond plus foncé
-      transform: translateY(-2px); // Déplacement
+      background: lighten($info-color, 10%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    }
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+
+    &:hover {
+      transform: none;
+      box-shadow: none;
     }
   }
 }
@@ -315,23 +336,32 @@ $scan-line-color: #4ade80;
 // ===== Responsive (mobile) =====
 @media (max-width: 968px) {
   .scan-container {
-    grid-template-columns: 1fr; // Une seule colonne
+    grid-template-columns: 1fr;
+    max-width: 600px;
   }
-  
+
   .scan-frame {
-    aspect-ratio: 3/2; // Ratio différent sur mobile
+    aspect-ratio: 3/2;
   }
 }
 
 @media (max-width: 480px) {
-  .scan-controls {
-    flex-direction: column; // Boutons en colonne
+  .page-section {
+    padding: 1rem;
   }
-  
+
+  .scan-controls {
+    flex-direction: column;
+  }
+
   .result-actions {
     .btn {
-      font-size: 0.8rem; // Texte plus petit
-      padding: 0.6rem 1rem; // Espacement réduit
+      font-size: 0.8rem;
+      padding: 0.6rem 1rem;
     }
+  }
+
+  .scan-instructions {
+    padding: 1.5rem;
   }
 }
