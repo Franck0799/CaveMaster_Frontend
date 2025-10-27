@@ -1,0 +1,201 @@
+// settings.component.html
+/*
+<section class="content-section">
+  <div class="section-header">
+    <h2 class="section-title-main">Paramètres</h2>
+    <p class="section-subtitle">Configurez votre application selon vos besoins</p>
+  </div>
+
+  <div class="settings-container">
+    <!-- Paramètres Généraux -->
+    <div class="settings-card">
+      <div class="settings-card-header">
+        <h3>⚙️ Paramètres Généraux</h3>
+      </div>
+      <div class="settings-card-body">
+        <div class="setting-group">
+          <label class="setting-label">Nom de l'entreprise</label>
+          <input type="text" [(ngModel)]="nomEntreprise" class="setting-input">
+        </div>
+
+        <div class="setting-row">
+          <div class="setting-group">
+            <label class="setting-label">Devise</label>
+            <select [(ngModel)]="devise" class="setting-input">
+              <option value="FCFA">FCFA (XOF)</option>
+              <option value="EUR">Euro (EUR)</option>
+              <option value="USD">Dollar (USD)</option>
+            </select>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">Langue</label>
+            <select [(ngModel)]="langue" class="setting-input">
+              <option value="fr">Français</option>
+              <option value="en">English</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label">Fuseau horaire</label>
+          <select [(ngModel)]="fuseau" class="setting-input">
+            <option value="Africa/Abidjan">Africa/Abidjan (GMT)</option>
+            <option value="Africa/Lagos">Africa/Lagos (WAT)</option>
+            <option value="Africa/Dakar">Africa/Dakar (GMT)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notifications -->
+    <div class="settings-card">
+      <div class="settings-card-header">
+        <h3>🔔 Notifications</h3>
+      </div>
+      <div class="settings-card-body">
+        <div class="setting-toggle">
+          <div class="toggle-info">
+            <div class="toggle-label">Notifications par Email</div>
+            <div class="toggle-desc">Recevoir les notifications importantes par email</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" [(ngModel)]="notifEmail">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-toggle">
+          <div class="toggle-info">
+            <div class="toggle-label">Notifications par SMS</div>
+            <div class="toggle-desc">Recevoir les alertes urgentes par SMS</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" [(ngModel)]="notifSMS">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-toggle">
+          <div class="toggle-info">
+            <div class="toggle-label">Notifications Push</div>
+            <div class="toggle-desc">Notifications en temps réel sur l'application</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" [(ngModel)]="notifPush">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-divider"></div>
+
+        <div class="setting-toggle">
+          <div class="toggle-info">
+            <div class="toggle-label">Alertes Stock Faible</div>
+            <div class="toggle-desc">Être notifié quand le stock atteint le seuil d'alerte</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" [(ngModel)]="notifStockFaible">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-toggle">
+          <div class="toggle-info">
+            <div class="toggle-label">Nouvelles Commandes</div>
+            <div class="toggle-desc">Être notifié lors de nouvelles commandes</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" [(ngModel)]="notifNouvelleCommande">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Caisse -->
+    <div class="settings-card">
+      <div class="settings-card-header">
+        <h3>💰 Caisse</h3>
+      </div>
+      <div class="settings-card-body">
+        <div class="setting-group">
+          <label class="setting-label">Fond de caisse par défaut</label>
+          <div class="input-with-unit">
+            <input type="number" [(ngModel)]="fondCaisseDefaut" class="setting-input">
+            <span class="input-unit">FCFA</span>
+          </div>
+        </div>
+
+        <div class="setting-toggle">
+          <div class="toggle-info">
+            <div class="toggle-label">Autoriser les Crédits</div>
+            <div class="toggle-desc">Permettre les ventes à crédit</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" [(ngModel)]="autoriserCredit">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-group" *ngIf="autoriserCredit">
+          <label class="setting-label">Limite de crédit</label>
+          <div class="input-with-unit">
+            <input type="number" [(ngModel)]="limiteCredit" class="setting-input">
+            <span class="input-unit">FCFA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stock -->
+    <div class="settings-card">
+      <div class="settings-card-header">
+        <h3>📦 Stock</h3>
+      </div>
+      <div class="settings-card-body">
+        <div class="setting-group">
+          <label class="setting-label">Seuil d'alerte par défaut</label>
+          <div class="input-with-unit">
+            <input type="number" [(ngModel)]="seuilAlerteDefaut" class="setting-input">
+            <span class="input-unit">unités</span>
+          </div>
+        </div>
+
+        <div class="setting-toggle">
+          <div class="toggle-info">
+            <div class="toggle-label">Gestion par Lots</div>
+            <div class="toggle-desc">Suivre les numéros de lots pour le stock</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" [(ngModel)]="gestionLots">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-toggle">
+          <div class="toggle-info">
+            <div class="toggle-label">Date d'Expiration</div>
+            <div class="toggle-desc">Gérer les dates de péremption des produits</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" [(ngModel)]="dateExpiration">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Boutons d'action -->
+  <div class="settings-actions">
+    <button class="btn-reset" (click)="resetSettings()">
+      🔄 Réinitialiser
+    </button>
+    <button class="btn-save" (click)="saveSettings()">
+      💾 Enregistrer les Modifications
+    </button>
+  </div>
+</section>
+*/
+

@@ -205,6 +205,87 @@
     </button>
   </div>
 
+  <!-- Modal d'ajout de cave -->
+  <div *ngIf="isAddModalOpen"
+       class="modal-overlay"
+       (click)="closeAddModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <!-- En-tête du modal -->
+      <div class="modal-header">
+        <h3>➕ Ajouter une nouvelle cave</h3>
+        <button (click)="closeAddModal()" class="close-btn">×</button>
+      </div>
+
+      <!-- Formulaire d'ajout -->
+      <div class="modal-body">
+        <form [formGroup]="caveForm" (ngSubmit)="submitAddCaveForm()" class="edit-form">
+          <!-- Champ Nom -->
+          <div class="form-group">
+            <label class="form-label">Nom de la cave *</label>
+            <input type="text"
+                   class="form-input"
+                   formControlName="name"
+                   placeholder="Ex: Cave Principale"
+                   [class.input-error]="isFieldInvalid('name')">
+            <small *ngIf="isFieldInvalid('name')" class="error-text">
+              ⚠️ Minimum 3 caractères requis
+            </small>
+          </div>
+
+          <!-- Champ Localisation -->
+          <div class="form-group">
+            <label class="form-label">Localisation *</label>
+            <select class="form-input"
+                    formControlName="location"
+                    [class.input-error]="isFieldInvalid('location')">
+              <option value="">Sélectionner une région...</option>
+              <option *ngFor="let region of regions" [value]="region">
+                📍 {{ region }}
+              </option>
+            </select>
+            <small *ngIf="isFieldInvalid('location')" class="error-text">
+              ⚠️ Veuillez sélectionner une localisation
+            </small>
+          </div>
+
+          <!-- Champ Capacité -->
+          <div class="form-group">
+            <label class="form-label">Capacité (bouteilles) *</label>
+            <input type="number"
+                   class="form-input"
+                   formControlName="capacity"
+                   placeholder="Ex: 500"
+                   min="1"
+                   [class.input-error]="isFieldInvalid('capacity')">
+            <small *ngIf="isFieldInvalid('capacity')" class="error-text">
+              ⚠️ La capacité doit être supérieure à 0
+            </small>
+          </div>
+
+          <!-- Champ Description -->
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <textarea class="form-textarea"
+                      formControlName="description"
+                      placeholder="Description détaillée de la cave..."
+                      rows="4"></textarea>
+          </div>
+
+           <!-- Boutons -->
+          <div class="form-actions">
+            <button type="button" (click)="closeAddModal()" class="btn btn-secondary">
+              ✕ Annuler
+            </button>
+            <button type="submit" class="btn btn-primary">
+              ➕ Créer cave
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
   <!-- Modal de détails cave -->
   <div *ngIf="isDetailModalOpen && selectedCave"
        class="modal-overlay"

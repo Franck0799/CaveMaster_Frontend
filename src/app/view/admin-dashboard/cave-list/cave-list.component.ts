@@ -1,35 +1,35 @@
 // ===== FICHIER: cave-lists.component.ts =====
-// Ce composant gère l'affichage de la liste des caves avec pagination
+// Ce composant gère l'affichage de la liste des caves avec pagination et modal d'ajout
 
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 // Interface pour une cave
 interface Cave {
-  id: string;              // Identifiant unique
-  name: string;            // Nom de la cave
-  location: string;        // Localisation
-  description: string;     // Description
-  capacity: number;        // Capacité totale
-  bottles: number;         // Bouteilles actuelles
-  managersCount: number;   // Nombre de managers
-  employeesCount: number;  // Nombre d'employés
-  productivity: number;    // Pourcentage de productivité
-  createdDate: Date;       // Date de création
+  id: string;
+  name: string;
+  location: string;
+  description: string;
+  capacity: number;
+  bottles: number;
+  managersCount: number;
+  employeesCount: number;
+  productivity: number;
+  createdDate: Date;
 }
 
 // Interface pour les filtres
 interface FilterOptions {
-  searchTerm: string;      // Terme de recherche
-  location: string;        // Localisation filtrée
-  capacity: string;        // Capacité filtrée
+  searchTerm: string;
+  location: string;
+  capacity: string;
 }
 
 @Component({
   selector: 'app-cave-lists',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './cave-list.component.html',
   styleUrls: ['./cave-list.component.scss']
 })
@@ -69,12 +69,24 @@ export class CaveListComponent implements OnInit {
 
   isDetailModalOpen: boolean = false;
   isEditModalOpen: boolean = false;
+  isAddModalOpen: boolean = false; // Nouveau modal d'ajout
 
   currentPage: number = 1;
   itemsPerPage: number = 6;
   totalPages: number = 1;
 
-  constructor() {}
+  // Formulaire pour ajouter une cave
+  caveForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) {
+    // Initialise le formulaire réactif
+    this.caveForm = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      location: ['', Validators.required],
+      capacity: ['', [Validators.required, Validators.min(1)]],
+      description: ['']
+    });
+  }
 
   ngOnInit(): void {
     this.loadCaves();
@@ -344,8 +356,69 @@ export class CaveListComponent implements OnInit {
     }, 3000);
   }
 
+  // ===== NOUVELLES MÉTHODES POUR LE MODAL D'AJOUT =====
+
+  /**
+   * Ouvre le modal d'ajout de cave
+   */
   openAddCaveModal(): void {
-    // TODO: Implémenter l'ouverture du modal d'ajout de cave
-    this.showMessage('ℹ️ Fonctionnalité d\'ajout à implémenter', 'info');
+    this.isAddModalOpen = true;
+    this.caveForm.reset();
+  }
+
+  /**
+   * Ferme le modal d'ajout de cave
+   */
+  closeAddModal(): void {
+    this.isAddModalOpen = false;
+    this.caveForm.reset();
+  }
+
+  /**
+   * Vérifie si un champ du formulaire est invalide
+   */
+  isFieldInvalid(fieldName: string): boolean {
+    const field = this.caveForm.get(fieldName);
+    return !!(field && field.invalid && field.touched);
+  }
+
+  /**
+   * Soumet le formulaire d'ajout de cave
+   */
+  submitAddCaveForm(): void {
+    if (this.caveForm.invalid) {
+      this.showMessage('⚠️ Veuillez remplir tous les champs obligatoires correctement', 'error');
+      // Marquer tous les champs comme touchés pour afficher les erreurs
+      Object.keys(this.caveForm.controls).forEach(key => {
+        this.caveForm.get(key)?.markAsTouched();
+      });
+      return;
+    }
+
+    // Créer la nouvelle cave
+    const newCave: Cave = {
+      id: 'cave_' + Date.now(),
+      name: this.caveForm.get('name')?.value,
+      location: this.caveForm.get('location')?.value,
+      capacity: parseInt(this.caveForm.get('capacity')?.value),
+      description: this.caveForm.get('description')?.value || '',
+      createdDate: new Date(),
+      bottles: 0,
+      managersCount: 0,
+      employeesCount: 0,
+      productivity: 0
+    };
+
+    // Ajouter la cave à la liste
+    this.caves.push(newCave);
+
+    // Afficher un message de succès
+    this.showMessage('✓ Cave créée avec succès !', 'success');
+
+    // Fermer le modal
+    this.closeAddModal();
+
+    // Réappliquer les filtres pour mettre à jour l'affichage
+    this.applyFilters();
   }
 }

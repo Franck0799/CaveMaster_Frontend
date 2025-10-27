@@ -9,6 +9,7 @@ $success: #10b981;
 $warning: #f59e0b;
 $danger: #ef4444;
 $dark-bg: #0a0e27;
+$darker-bg: #060918;
 $card-bg: #1a1f3a;
 $text: #e2e8f0;
 $text-muted: #94a3b8;
@@ -16,44 +17,32 @@ $border: #1e293b;
 
 // ===== CONTENEUR PRINCIPAL =====
 .cave-lists-container {
-  // Padding
   padding: 2rem;
-  // Limite largeur
   max-width: 1400px;
-  // Centre
   margin: 0 auto;
-  // Fond
   background: $dark-bg;
 }
 
 // ===== ALERTES =====
 .alert {
-  // Padding
   padding: 1rem 1.5rem;
-  // Coins arrondis
   border-radius: 0.75rem;
-  // Espacement bas
   margin-bottom: 1.5rem;
-  // Poids
   font-weight: 500;
-  // Animation
   animation: slideIn 0.3s ease-out;
 
-  // Succès
   &.alert-success {
     background: rgba($success, 0.1);
     border: 1px solid rgba($success, 0.3);
     color: $success;
   }
 
-  // Erreur
   &.alert-error {
     background: rgba($danger, 0.1);
     border: 1px solid rgba($danger, 0.3);
     color: $danger;
   }
 
-  // Info
   &.alert-info {
     background: rgba(#3b82f6, 0.1);
     border: 1px solid rgba(#3b82f6, 0.3);
@@ -61,7 +50,6 @@ $border: #1e293b;
   }
 }
 
-// Animation slide in
 @keyframes slideIn {
   from {
     opacity: 0;
@@ -75,73 +63,47 @@ $border: #1e293b;
 
 // ===== EN-TÊTE =====
 .header-section {
-  // Flexbox horizontal
   display: flex;
-  // Espacement
   justify-content: space-between;
-  // Aligner
   align-items: center;
-  // Espacement bas
   margin-bottom: 2rem;
 
-  // Titre h2
   h2 {
-    // Taille
     font-size: 1.75rem;
-    // Poids
     font-weight: 700;
-    // Couleur
     color: $text;
-    // Pas de marge
     margin: 0;
   }
 }
 
 // ===== BARRE DE RECHERCHE =====
 .search-section {
-  // Espacement bas
   margin-bottom: 1.5rem;
 }
 
 .search-bar {
-  // Flexbox
   display: flex;
-  // Fond
   background: $card-bg;
-  // Bordure
   border: 1px solid $border;
-  // Coins arrondis
   border-radius: 0.75rem;
-  // Overflow caché
   overflow: hidden;
-  // Transition
   transition: all 0.3s;
 
-  // Focus
   &:focus-within {
     border-color: $primary;
     box-shadow: 0 0 0 3px rgba($primary, 0.1);
   }
 }
 
-// Input recherche
 .search-input {
-  // Flex grow
   flex: 1;
-  // Padding
   padding: 0.875rem 1rem;
-  // Pas de fond
   background: none;
-  // Pas de bordure
   border: none;
-  // Couleur
   color: $text;
-  // Pas d'outline
   outline: none;
-  // Taille
   font-size: 0.95rem;
 
-  // Placeholder
   &::placeholder {
     color: $text-muted;
   }
@@ -149,46 +111,29 @@ $border: #1e293b;
 
 // ===== SECTION FILTRES =====
 .filters-section {
-  // Flexbox horizontal
   display: flex;
-  // Wrap
   flex-wrap: wrap;
-  // Espacement
   gap: 1rem;
-  // Espacement bas
   margin-bottom: 1.5rem;
 }
 
-// Select filtre
 .filter-select {
-  // Padding
   padding: 0.875rem 2.5rem 0.875rem 1rem;
-  // Fond
   background: $card-bg;
-  // Bordure
   border: 1px solid $border;
-  // Coins arrondis
   border-radius: 0.75rem;
-  // Couleur
   color: $text;
-  // Cursor
   cursor: pointer;
-  // Outline
   outline: none;
-  // Min width
   min-width: 180px;
-  // Taille
   font-size: 0.9rem;
-  // Transition
   transition: all 0.3s;
 
-  // Focus
   &:focus {
     border-color: $primary;
     box-shadow: 0 0 0 3px rgba($primary, 0.1);
   }
 
-  // Options
   option {
     background: $dark-bg;
     color: $text;
@@ -197,34 +142,28 @@ $border: #1e293b;
 
 // ===== BOUTONS =====
 .btn {
-  // Padding
   padding: 0.875rem 1.75rem;
-  // Bordure
   border: none;
-  // Coins arrondis
   border-radius: 0.75rem;
-  // Poids
   font-weight: 600;
-  // Cursor
   cursor: pointer;
-  // Transition
   transition: all 0.3s;
-  // Taille
   font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
 
-  // Survol
   &:hover:not(:disabled) {
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
   }
 
-  // Désactivé
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
 
-  // Primaire
   &.btn-primary {
     background: $primary;
     color: white;
@@ -235,7 +174,6 @@ $border: #1e293b;
     }
   }
 
-  // Secondaire
   &.btn-secondary {
     background: $card-bg;
     color: $text;
@@ -247,7 +185,6 @@ $border: #1e293b;
     }
   }
 
-  // Danger
   &.btn-danger {
     background: rgba($danger, 0.1);
     color: $danger;
@@ -258,7 +195,6 @@ $border: #1e293b;
     }
   }
 
-  // Petit
   &.btn-sm {
     padding: 0.5rem 1rem;
     font-size: 0.85rem;
@@ -267,100 +203,63 @@ $border: #1e293b;
 
 // ===== STATISTIQUES CAVES =====
 .caves-stats {
-  // Grille CSS
   display: grid;
-  // Colonnes auto-fit
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  // Espacement
   gap: 1rem;
-  // Padding
   padding: 1.5rem;
-  // Fond
   background: $card-bg;
-  // Bordure
   border: 1px solid $border;
-  // Coins arrondis
   border-radius: 1rem;
-  // Espacement bas
   margin-bottom: 2rem;
 }
 
-// Box statistique
 .stat-box {
-  // Flexbox
   display: flex;
-  // Aligner
   align-items: center;
-  // Espacement
   gap: 1rem;
 
-  // Icône
   .stat-icon {
-    // Taille
     font-size: 2.5rem;
-    // Flex shrink
     flex-shrink: 0;
   }
 
-  // Infos
   .stat-info {
-    // Flexbox colonne
     display: flex;
     flex-direction: column;
-    // Espacement
     gap: 0.25rem;
   }
 
-  // Label
   .stat-label {
-    // Couleur
     color: $text-muted;
-    // Taille
     font-size: 0.9rem;
   }
 
-  // Valeur
   .stat-value {
-    // Taille
     font-size: 1.5rem;
-    // Poids
     font-weight: 700;
-    // Couleur primaire
     color: $primary;
   }
 }
 
 // ===== GRILLE CAVES =====
 .caves-grid {
-  // Grille CSS
   display: grid;
-  // Colonnes auto-fill
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  // Espacement
   gap: 1.5rem;
-  // Espacement bas
   margin-bottom: 2rem;
 }
 
 // ===== CARTE CAVE =====
 .cave-card {
-  // Fond
   background: $card-bg;
-  // Bordure
   border: 1px solid $border;
-  // Coins arrondis
   border-radius: 1rem;
-  // Padding
   padding: 1.5rem;
-  // Transition
   transition: all 0.3s;
-  // Flexbox colonne
   display: flex;
   flex-direction: column;
-  // Espacement
   gap: 1rem;
 
-  // Survol
   &:hover {
     transform: translateY(-5px);
     border-color: $primary;
@@ -368,84 +267,54 @@ $border: #1e293b;
   }
 }
 
-// En-tête carte
 .cave-card-header {
-  // Flexbox
   display: flex;
-  // Espacement
   justify-content: space-between;
-  // Aligner
   align-items: flex-start;
-  // Espacement bas
   margin-bottom: 0.5rem;
 
-  // Titre
   .cave-title {
-    // Flex grow
     flex: 1;
 
-    // H3
     h3 {
-      // Taille
       font-size: 1.3rem;
-      // Poids
       font-weight: 700;
-      // Couleur
       color: $text;
-      // Pas de marge
       margin: 0 0 0.25rem 0;
     }
   }
 }
 
-// Localisation cave
 .cave-location {
-  // Couleur
   color: $text-muted;
-  // Taille
   font-size: 0.9rem;
-  // Pas de marge
   margin: 0;
 }
 
-// Description cave
 .cave-description {
-  // Couleur
   color: $text-muted;
-  // Taille
   font-size: 0.95rem;
-  // Hauteur ligne
   line-height: 1.5;
-  // Pas de marge
   margin: 0;
 }
 
-// Badge productivité
 .productivity-badge {
-  // Padding
   padding: 0.5rem 1rem;
-  // Coins arrondis
   border-radius: 0.5rem;
-  // Taille
   font-size: 0.9rem;
-  // Poids
   font-weight: 600;
-  // Flex shrink
   flex-shrink: 0;
 
-  // Bas
   &.badge-low {
     background: rgba($danger, 0.15);
     color: $danger;
   }
 
-  // Moyen
   &.badge-medium {
     background: rgba($warning, 0.15);
     color: $warning;
   }
 
-  // Haut
   &.badge-high {
     background: rgba($success, 0.15);
     color: $success;
@@ -454,186 +323,119 @@ $border: #1e293b;
 
 // ===== GRILLE STATS =====
 .stats-grid {
-  // Grille CSS
   display: grid;
-  // 2 colonnes
   grid-template-columns: repeat(2, 1fr);
-  // Espacement
   gap: 1rem;
-  // Padding
   padding: 1rem;
-  // Fond
   background: rgba(0, 0, 0, 0.2);
-  // Coins arrondis
   border-radius: 0.75rem;
 }
 
-// Élément stat
 .stat-item {
-  // Flexbox colonne
   display: flex;
   flex-direction: column;
-  // Espacement
   gap: 0.5rem;
-  // Centrer texte
   text-align: center;
 
-  // Label
   .stat-label {
-    // Couleur
     color: $text-muted;
-    // Taille
     font-size: 0.85rem;
   }
 
-  // Valeur
   .stat-value {
-    // Taille
     font-size: 1.5rem;
-    // Poids
     font-weight: 700;
-    // Couleur primaire
     color: $primary;
   }
 }
 
 // ===== BARRE OCCUPATION =====
 .occupancy-bar {
-  // Padding
   padding: 0.75rem;
-  // Fond
   background: rgba(0, 0, 0, 0.1);
-  // Coins arrondis
   border-radius: 0.5rem;
 }
 
-// Label barre
 .bar-label {
-  // Flexbox
   display: flex;
-  // Espacement
   justify-content: space-between;
-  // Espacement bas
   margin-bottom: 0.5rem;
-  // Couleur
   color: $text-muted;
-  // Taille
   font-size: 0.85rem;
 
-  // Pourcentage
   .percentage {
-    // Poids
     font-weight: 600;
-    // Couleur primaire
     color: $primary;
   }
 }
 
-// Conteneur barre
 .bar-container {
-  // Hauteur
   height: 6px;
-  // Fond
   background: rgba(0, 0, 0, 0.3);
-  // Coins arrondis
   border-radius: 3px;
-  // Overflow
   overflow: hidden;
 }
 
-// Remplissage
 .bar-fill {
-  // Hauteur
   height: 100%;
-  // Fond dégradé
   background: linear-gradient(90deg, $primary, $primary-light);
-  // Transition
   transition: width 0.5s ease;
 }
 
 // ===== ACTIONS CARTE =====
 .cave-card-actions {
-  // Flexbox
   display: flex;
-  // Wrap
   flex-wrap: wrap;
-  // Espacement
   gap: 0.5rem;
-  // Padding top
   padding-top: 1rem;
-  // Bordure top
   border-top: 1px solid $border;
-  // Flex grow pour repousser en bas
   margin-top: auto;
 }
 
 // ===== ÉTAT VIDE =====
 .empty-state {
-  // Couvre toutes colonnes
   grid-column: 1 / -1;
-  // Centrer
   text-align: center;
-  // Padding
   padding: 4rem 2rem;
-  // Couleur
   color: $text-muted;
 
-  // Paragraphe
   p {
-    // Taille
     font-size: 1.2rem;
-    // Pas de marge
     margin: 0;
   }
 }
 
 // ===== PAGINATION =====
 .pagination-container {
-  // Flexbox
   display: flex;
-  // Aligner au centre
   align-items: center;
-  // Centrer
   justify-content: center;
-  // Espacement
   gap: 1rem;
-  // Padding
   padding: 2rem;
-  // Flex wrap
   flex-wrap: wrap;
 }
 
-// Info pagination
 .page-info {
-  // Couleur
   color: $text;
-  // Poids
   font-weight: 600;
 }
 
-// Numéros page
 .page-numbers {
-  // Flexbox
   display: flex;
-  // Espacement
   gap: 0.5rem;
-  // Wrap
   flex-wrap: wrap;
 
-  // Bouton page
   .btn-sm {
     padding: 0.5rem 0.75rem;
     background: $card-bg;
     border: 1px solid $border;
     color: $text;
 
-    // Survol
     &:hover {
       background: rgba($primary, 0.15);
       border-color: $primary;
     }
 
-    // Actif
     &.active {
       background: $primary;
       border-color: $primary;
@@ -644,235 +446,203 @@ $border: #1e293b;
 
 // ===== MODALS =====
 .modal-overlay {
-  // Position fixe
   position: fixed;
-  // Plein écran
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  // Fond semi-transparent
   background: rgba(0, 0, 0, 0.8);
-  // Z-index
   z-index: 1000;
-  // Flexbox pour centrer
   display: flex;
   align-items: center;
   justify-content: center;
-  // Animation
   animation: fadeIn 0.3s ease-out;
+  padding: 1rem;
 }
 
-// Contenu modal
 .modal-content {
-  // Fond
   background: $card-bg;
-  // Coins arrondis
   border-radius: 1rem;
-  // Largeur
   width: 90%;
-  // Max width
   max-width: 600px;
-  // Hauteur max
-  max-height: 80vh;
-  // Débordement
+  max-height: 85vh;
   overflow-y: auto;
-  // Bordure
   border: 1px solid $border;
-  // Animation
   animation: slideUp 0.3s ease-out;
-}
 
-// En-tête modal
-.modal-header {
-  // Flexbox
-  display: flex;
-  // Espacement
-  justify-content: space-between;
-  // Aligner
-  align-items: center;
-  // Padding
-  padding: 2rem;
-  // Bordure bas
-  border-bottom: 1px solid $border;
+  // Barre de défilement personnalisée
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
 
-  // Titre h3
-  h3 {
-    // Pas de marge
-    margin: 0;
-    // Couleur
-    color: $text;
+  &::-webkit-scrollbar-track {
+    background: $darker-bg;
+    border-radius: 0 1rem 1rem 0;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $primary;
+    border-radius: 4px;
+
+    &:hover {
+      background: $primary-light;
+    }
   }
 }
 
-// Bouton fermer
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  border-bottom: 1px solid $border;
+  position: sticky;
+  top: 0;
+  background: $card-bg;
+  z-index: 10;
+
+  h3 {
+    margin: 0;
+    color: $text;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+}
+
 .close-btn {
-  // Taille
   width: 40px;
   height: 40px;
-  // Cercle
   border-radius: 50%;
-  // Fond
   background: rgba($danger, 0.1);
-  // Bordure
   border: none;
-  // Couleur
   color: $danger;
-  // Cursor
   cursor: pointer;
-  // Taille police
   font-size: 1.5rem;
-  // Transition
   transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 
-  // Survol
   &:hover {
     background: rgba($danger, 0.2);
     transform: rotate(90deg);
   }
 }
 
-// Corps modal
 .modal-body {
-  // Padding
   padding: 2rem;
 }
 
-// Détails cave
+// ===== DÉTAILS CAVE =====
 .cave-details {
-  // Flexbox colonne
   display: flex;
   flex-direction: column;
-  // Espacement
   gap: 1rem;
 }
 
-// Ligne détail
 .detail-row {
-  // Flexbox
   display: flex;
-  // Espacement
   justify-content: space-between;
-  // Aligner
   align-items: center;
-  // Padding
   padding: 0.75rem;
-  // Bordure bas
   border-bottom: 1px solid $border;
 
-  // Dernière ligne
   &:last-child {
     border-bottom: none;
   }
 
-  // Label
   .label {
-    // Poids
     font-weight: 600;
-    // Couleur
     color: $text-muted;
   }
 
-  // Valeur
   .value {
-    // Couleur
     color: $text;
+    text-align: right;
 
-    // Productivité bas
     &.value-low {
       color: $danger;
     }
 
-    // Productivité moyen
     &.value-medium {
       color: $warning;
     }
 
-    // Productivité haut
     &.value-high {
       color: $success;
     }
   }
 }
 
-// ===== FORMULAIRE ÉDITION =====
+// ===== FORMULAIRE (ÉDITION ET AJOUT) =====
 .edit-form {
-  // Flexbox colonne
   display: flex;
   flex-direction: column;
-  // Espacement
   gap: 1.5rem;
 }
 
-// Groupe formulaire
 .form-group {
-  // Flexbox colonne
   display: flex;
   flex-direction: column;
-  // Espacement
   gap: 0.5rem;
 }
 
-// Label formulaire
 .form-label {
-  // Poids
   font-weight: 600;
-  // Couleur
   color: $text;
+  font-size: 0.95rem;
 }
 
-// Input formulaire
 .form-input,
 .form-textarea {
-  // Padding
   padding: 0.875rem 1rem;
-  // Fond
-  background: #060918;
-  // Bordure
+  background: $darker-bg;
   border: 1px solid $border;
-  // Coins arrondis
   border-radius: 0.5rem;
-  // Couleur
   color: $text;
-  // Taille
   font-size: 0.95rem;
-  // Transition
   transition: all 0.3s;
-  // Font family
   font-family: inherit;
+  width: 100%;
 
-  // Placeholder
   &::placeholder {
     color: $text-muted;
   }
 
-  // Focus
   &:focus {
     border-color: $primary;
     box-shadow: 0 0 0 3px rgba($primary, 0.1);
     outline: none;
   }
+
+  // Style en cas d'erreur
+  &.input-error {
+    border-color: $danger;
+    box-shadow: 0 0 0 3px rgba($danger, 0.1);
+  }
 }
 
-// Textarea
 .form-textarea {
-  // Resize vertical
   resize: vertical;
-  // Min height
   min-height: 100px;
 }
 
-// Actions formulaire
-.form-actions {
-  // Flexbox
+// Texte d'erreur
+.error-text {
+  color: $danger;
+  font-size: 0.85rem;
+  margin-top: -0.25rem;
   display: flex;
-  // Espacement
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.form-actions {
+  display: flex;
   gap: 1rem;
-  // Alignement
   justify-content: flex-end;
-  // Padding top
   padding-top: 1.5rem;
-  // Bordure top
   border-top: 1px solid $border;
 }
 
@@ -899,24 +669,20 @@ $border: #1e293b;
 
 // ===== RESPONSIVE =====
 @media (max-width: 1024px) {
-  // Grille caves
   .caves-grid {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   }
 
-  // Stats grid
-  .stat-item {
-    grid-template-columns: 1fr;
+  .caves-stats {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 768px) {
-  // Container
   .cave-lists-container {
     padding: 1rem;
   }
 
-  // En-tête
   .header-section {
     flex-direction: column;
     align-items: flex-start;
@@ -925,9 +691,12 @@ $border: #1e293b;
     h2 {
       font-size: 1.5rem;
     }
+
+    .btn {
+      width: 100%;
+    }
   }
 
-  // Filtres
   .filters-section {
     flex-direction: column;
 
@@ -935,24 +704,25 @@ $border: #1e293b;
       width: 100%;
       min-width: unset;
     }
+
+    .btn {
+      width: 100%;
+    }
   }
 
-  // Stats caves
   .caves-stats {
     grid-template-columns: repeat(2, 1fr);
+    padding: 1rem;
   }
 
-  // Grille caves
   .caves-grid {
     grid-template-columns: 1fr;
   }
 
-  // Stats grid
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  // Pagination
   .pagination-container {
     flex-direction: column;
     padding: 1rem;
@@ -963,7 +733,6 @@ $border: #1e293b;
     justify-content: center;
   }
 
-  // Modal
   .modal-content {
     width: 95%;
     max-height: 90vh;
@@ -981,7 +750,6 @@ $border: #1e293b;
     padding: 1.5rem;
   }
 
-  // Actions carte
   .cave-card-actions {
     gap: 0.4rem;
 
@@ -992,20 +760,25 @@ $border: #1e293b;
       font-size: 0.75rem;
     }
   }
+
+  .form-actions {
+    flex-direction: column-reverse;
+
+    .btn {
+      width: 100%;
+    }
+  }
 }
 
 @media (max-width: 480px) {
-  // Container
   .cave-lists-container {
     padding: 0.5rem;
   }
 
-  // En-tête
   .header-section h2 {
     font-size: 1.25rem;
   }
 
-  // Stats caves
   .caves-stats {
     grid-template-columns: 1fr;
   }
@@ -1014,17 +787,14 @@ $border: #1e293b;
     padding: 0.75rem;
   }
 
-  // Grille caves
   .caves-grid {
     gap: 1rem;
   }
 
-  // Carte cave
   .cave-card {
     padding: 1rem;
   }
 
-  // En-tête carte
   .cave-card-header {
     flex-direction: column;
     gap: 0.5rem;
@@ -1034,14 +804,12 @@ $border: #1e293b;
     }
   }
 
-  // Stats grid
   .stats-grid {
     grid-template-columns: 1fr;
     gap: 0.75rem;
     padding: 0.75rem;
   }
 
-  // Stat item
   .stat-item {
     gap: 0.25rem;
   }
@@ -1054,13 +822,11 @@ $border: #1e293b;
     font-size: 1.25rem;
   }
 
-  // Badge productivité
   .productivity-badge {
     padding: 0.4rem 0.8rem;
     font-size: 0.8rem;
   }
 
-  // Barre occupation
   .occupancy-bar {
     padding: 0.5rem;
   }
@@ -1074,7 +840,6 @@ $border: #1e293b;
     height: 5px;
   }
 
-  // Actions carte
   .cave-card-actions {
     gap: 0.3rem;
     padding-top: 0.75rem;
@@ -1086,7 +851,6 @@ $border: #1e293b;
     }
   }
 
-  // Pagination
   .pagination-container {
     gap: 0.5rem;
     padding: 1rem 0.5rem;
@@ -1105,10 +869,13 @@ $border: #1e293b;
     }
   }
 
-  // Modal
   .modal-header {
     padding: 1rem;
     gap: 0.5rem;
+
+    h3 {
+      font-size: 1.1rem;
+    }
   }
 
   .modal-body {
@@ -1121,7 +888,6 @@ $border: #1e293b;
     font-size: 1.2rem;
   }
 
-  // Détails cave
   .detail-row {
     flex-direction: column;
     align-items: flex-start;
@@ -1134,10 +900,10 @@ $border: #1e293b;
 
     .value {
       font-size: 0.9rem;
+      text-align: left;
     }
   }
 
-  // Formulaire
   .form-group {
     gap: 0.4rem;
   }
@@ -1156,10 +922,14 @@ $border: #1e293b;
     min-height: 80px;
   }
 
-  // Actions formulaire
+  .error-text {
+    font-size: 0.8rem;
+  }
+
   .form-actions {
     flex-direction: column-reverse;
     gap: 0.75rem;
+    padding-top: 1rem;
 
     .btn {
       width: 100%;
@@ -1169,14 +939,13 @@ $border: #1e293b;
 
 // ===== IMPRESSION =====
 @media print {
-  // Masquer les boutons
   .btn,
   .close-btn,
-  .cave-card-actions {
-    display: none;
+  .cave-card-actions,
+  .modal-overlay {
+    display: none !important;
   }
 
-  // Fond blanc
   .cave-lists-container,
   .cave-card,
   .modal-content {
@@ -1184,22 +953,22 @@ $border: #1e293b;
     border: 1px solid #ccc;
   }
 
-  // Texte noir
   * {
-    color: black;
+    color: black !important;
   }
 }
 
 // ===== ACCESSIBILITÉ =====
-// Focus visible
 .btn:focus-visible,
 .filter-select:focus-visible,
-.search-input:focus-visible {
+.search-input:focus-visible,
+.form-input:focus-visible,
+.form-textarea:focus-visible,
+.close-btn:focus-visible {
   outline: 2px solid $primary;
   outline-offset: 2px;
 }
 
-// Réduit motion
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;

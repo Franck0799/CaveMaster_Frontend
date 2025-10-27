@@ -1,8 +1,8 @@
 <!-- ===== PAGE SCAN ===== -->
 <div class="page-section">
-  
+
   <section class="content-section">
-    
+
     <!-- En-tête de la page -->
     <div class="section-header">
       <h2 class="section-title-main">📷 Scanner un Produit</h2>
@@ -10,28 +10,28 @@
 
     <!-- Conteneur principal du scan -->
     <div class="scan-container">
-      
+
       <!-- ===== Zone de scan ===== -->
       <div class="scan-area">
-        
+
         <!-- Cadre de scan avec animation -->
         <div class="scan-frame" [class.scanning]="isScanActive">
-          
+
           <!-- Icône de caméra -->
           <div class="scan-icon">📷</div>
-          
+
           <!-- Texte d'instruction dynamique -->
           <div class="scan-text">
             <!-- Message initial: avant le scan -->
             <ng-container *ngIf="!isScanActive && !scanResult">
               Placez le code-barre devant la caméra
             </ng-container>
-            
+
             <!-- Message pendant le scan -->
             <ng-container *ngIf="isScanActive">
               Scan en cours...
             </ng-container>
-            
+
             <!-- Message après le scan -->
             <ng-container *ngIf="scanResult && !isScanActive">
               ✓ Scan terminé
@@ -44,7 +44,7 @@
 
         <!-- ===== Boutons de contrôle ===== -->
         <div class="scan-controls">
-          
+
           <!-- Bouton pour démarrer le scan -->
           <button class="btn btn-primary"
                   *ngIf="!isScanActive && !scanResult"
@@ -70,7 +70,7 @@
 
       <!-- ===== Résultat du scan ===== -->
       <div *ngIf="scanResult" class="scan-result">
-        
+
         <!-- En-tête du résultat -->
         <div class="result-header">
           <h3>✓ Produit détecté</h3>
@@ -83,17 +83,17 @@
 
         <!-- Actions disponibles sur le produit scanné -->
         <div class="result-actions">
-          
+
           <!-- Bouton: Ajouter au stock -->
           <button class="btn btn-primary" (click)="addToStock()">
             ➕ Ajouter au stock
           </button>
-          
+
           <!-- Bouton: Modifier les infos -->
           <button class="btn btn-secondary" (click)="editProductInfo()">
             📝 Modifier les infos
           </button>
-          
+
           <!-- Bouton: Voir l'historique -->
           <button class="btn btn-info" (click)="viewProductHistory()">
             📊 Voir l'historique
@@ -105,7 +105,7 @@
     <!-- ===== Instructions d'utilisation ===== -->
     <div class="scan-instructions">
       <h3>💡 Instructions</h3>
-      
+
       <ul>
         <!-- Liste des bonnes pratiques pour scanner -->
         <li>Assurez-vous que le code-barre est bien éclairé</li>
@@ -113,11 +113,11 @@
         <li>Positionnez-le à environ 15-20 cm de la caméra</li>
         <li>Attendez le bip de confirmation</li>
       </ul>
-      
+
       <!-- Note technique -->
       <div class="scan-note">
-        <strong>Note:</strong> Cette démo simule le scan d'un code-barres. 
-        Dans une application réelle, une caméra serait utilisée pour scanner 
+        <strong>Note:</strong> Ceci est une simulation du scan d'un code-barres,
+        avec des données statiques. A la finalisation une caméra serait utilisée pour scanner
         de véritables codes-barres.
       </div>
     </div>

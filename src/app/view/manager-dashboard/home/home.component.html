@@ -1,0 +1,64 @@
+
+    <!-- ===== PAGE DASHBOARD ===== -->
+    <div *ngIf="activeTab === 'dashboard'" class="page-section">
+      <section class="content-section">
+        <div class="section-header">
+          <h2 class="section-title-main">Tableau de Bord</h2>
+          <p class="section-subtitle">Vue d'ensemble de votre activité</p>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card" (click)="navigateTo('caisse')">
+            <div class="stat-card-content">
+              <div class="stat-icon-wrapper stat-icon-orange">
+                <span>💰</span>
+              </div>
+              <div class="stat-info">
+                <div class="stat-label">Ventes du Jour</div>
+                <div class="stat-value stat-value-orange">850K</div>
+                <div class="stat-change positive">+12% vs hier</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-card" (click)="navigateTo('orders')">
+            <div class="stat-card-content">
+              <div class="stat-icon-wrapper stat-icon-green">
+                <span>🛒</span>
+              </div>
+              <div class="stat-info">
+                <div class="stat-label">Commandes</div>
+                <div class="stat-value stat-value-green">34</div>
+                <div class="stat-change positive">+8 nouvelles</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-card" (click)="navigateTo('team')">
+            <div class="stat-card-content">
+              <div class="stat-icon-wrapper stat-icon-blue">
+                <span>👥</span>
+              </div>
+              <div class="stat-info">
+                <div class="stat-label">Équipe en Service</div>
+                <div class="stat-value stat-value-blue">8/12</div>
+                <div class="stat-change positive">4 en pause</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-card" (click)="navigateTo('alerts')">
+            <div class="stat-card-content">
+              <div class="stat-icon-wrapper stat-icon-warning">
+                <span>⚠️</span>
+              </div>
+              <div class="stat-info">
+                <div class="stat-label">Alertes Actives</div>
+                <div class="stat-value stat-value-warning">12</div>
+                <div class="stat-change warning">3 urgentes</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>

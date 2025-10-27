@@ -1,0 +1,61 @@
+// ===== team.component.html =====
+
+<section class="content-section">
+  <div class="section-header">
+    <h2 class="section-title-main">Mon Équipe</h2>
+    <p class="section-subtitle">Gestion en temps réel de votre personnel</p>
+  </div>
+
+  <!-- Statistiques équipe -->
+  <div class="team-stats">
+    <div class="team-stat-card">
+      <span class="stat-icon">👥</span>
+      <div class="stat-content">
+        <div class="stat-label">Total Personnel</div>
+        <div class="stat-value">{{getTotalMembers()}}</div>
+      </div>
+    </div>
+    <div class="team-stat-card active">
+      <span class="stat-icon">✅</span>
+      <div class="stat-content">
+        <div class="stat-label">En Service</div>
+        <div class="stat-value">{{getMembersEnService()}}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grille des membres -->
+  <div class="team-grid">
+    <div class="team-card" *ngFor="let member of teamData">
+      <div class="team-member-header">
+        <div class="team-avatar">
+          {{member.avatar}}
+          <div class="status-indicator" [class]="'status-' + member.status"></div>
+        </div>
+        <div class="team-info">
+          <div class="team-name">{{member.name}}</div>
+          <div class="team-position">{{member.position}}</div>
+        </div>
+      </div>
+      <div class="team-details">
+        <div class="detail-row">
+          <span class="detail-label">Statut</span>
+          <span class="status-badge" [class]="'badge-' + member.status">{{member.statusText}}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Heure de début</span>
+          <span class="detail-value">{{member.heureDebut}}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Temps de travail</span>
+          <span class="detail-value">{{member.tempsTravail}}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Pause restante</span>
+          <span class="detail-value">{{member.pauseRestante}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
