@@ -53,16 +53,16 @@ export class AboutComponent implements OnInit {
 
   team: TeamMember[] = [
     {
-      name: 'Amadou Diallo',
-      role: 'CEO & Fondateur',
+      name: 'Franck KONGO',
+      role: 'CEO, Fondateur & Développeur Full-Stack',
       avatar: '👨‍💼',
-      bio: 'Expert en gestion de caves avec 15 ans d\'expérience'
+      bio: 'Spécialiste en gestion de caves '
     },
     {
-      name: 'Marie Kouassi',
+      name: 'Auxence CHABEHOU',
       role: 'CTO',
-      avatar: '👩‍💻',
-      bio: 'Développeuse senior spécialisée en solutions cloud'
+      avatar: '👨‍💼',
+      bio: 'Développeuse senior full-stack'
     }
   ];
 

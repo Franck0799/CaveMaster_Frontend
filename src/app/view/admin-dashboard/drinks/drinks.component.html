@@ -10,8 +10,12 @@ DESCRIPTION: Template HTML pour la gestion des boissons
     <!-- Titre et description -->
     <div class="header-content">
       <h1 class="page-title">🍾 Mes Boissons</h1>
+
       <p class="page-subtitle">
-        Gérez votre inventaire de boissons - {{ filteredDrinks.length }} produit(s) affiché(s)
+        <span *ngIf="selectedCategory" class="active-filter">
+          Catégorie : <strong>{{ selectedCategory }}</strong> -
+        </span>
+        {{ filteredDrinks.length }} produit(s) affiché(s)
       </p>
     </div>
 
@@ -62,7 +66,7 @@ DESCRIPTION: Template HTML pour la gestion des boissons
       class="btn btn-secondary"
       (click)="resetFilters()"
       *ngIf="selectedCategory || searchTerm">
-      🔄 Réinitialiser
+      🔄 Tous récupérer
     </button>
 
     <!-- Options de tri -->
@@ -108,7 +112,7 @@ DESCRIPTION: Template HTML pour la gestion des boissons
     <div class="no-results-icon">🔍</div>
     <h3>Aucune boisson trouvée</h3>
     <p *ngIf="searchTerm || selectedCategory">
-      Essayez de modifier vos critères de recherche
+      Essayez de modifier vos critères de recherche ou cliquez sur "Réinitialiser"
     </p>
     <p *ngIf="!searchTerm && !selectedCategory">
       Commencez par ajouter votre première boisson

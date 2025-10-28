@@ -73,54 +73,54 @@ const routes: Routes = [
 
       // Routes pour chaque catégorie de boissons
       {
-        path: 'drinks/beers',
+        path: 'drinks/Bières',
         component: DrinksComponent,
-        data: { title: 'Bières', icon: '🍺', category: 'beers' }
+        data: { title: 'Bières', icon: '🍺', category: 'Bières' }
       },
       {
-        path: 'drinks/sweets',
+        path: 'drinks/Sucreries',
         component: DrinksComponent,
-        data: { title: 'Sucreries', icon: '🍬', category: 'sweets' }
+        data: { title: 'Sucreries', icon: '🍬', category: 'Sucreries' }
       },
       {
-        path: 'drinks/champagne',
+        path: 'drinks/Champagne',
         component: DrinksComponent,
-        data: { title: 'Champagne', icon: '🥂', category: 'champagne' }
+        data: { title: 'Champagne', icon: '🥂', category: 'Champagne' }
       },
       {
-        path: 'drinks/white-wine',
+        path: 'drinks/Vin Blanc',
         component: DrinksComponent,
-        data: { title: 'Vin Blanc', icon: '🍷', category: 'white-wine' }
+        data: { title: 'Vin Blanc', icon: '🍷', category: 'Vin Blanc' }
       },
       {
-        path: 'drinks/red-wine',
+        path: 'drinks/Vin Rouge',
         component: DrinksComponent,
-        data: { title: 'Vin Rouge', icon: '🍷', category: 'red-wine' }
+        data: { title: 'Vin Rouge', icon: '🍷', category: 'Vin Rouge' }
       },
       {
-        path: 'drinks/rose-wine',
+        path: 'drinks/Vin Rosé',
         component: DrinksComponent,
-        data: { title: 'Vin Rosé', icon: '🍷', category: 'rose-wine' }
+        data: { title: 'Vin Rosé', icon: '🍷', category: 'Vin Rosé' }
       },
       {
-        path: 'drinks/sparkling-wine',
+        path: 'drinks/Vin Mousseux',
         component: DrinksComponent,
-        data: { title: 'Vin Mousseux', icon: '✨', category: 'sparkling-wine' }
+        data: { title: 'Vin Mousseux', icon: '✨', category: 'Vin Mousseux' }
       },
       {
-        path: 'drinks/liquors',
+        path: 'drinks/Liqueurs',
         component: DrinksComponent,
-        data: { title: 'Liqueurs', icon: '🥃', category: 'liquors' }
+        data: { title: 'Liqueurs', icon: '🥃', category: 'Liqueurs' }
       },
       {
-        path: 'drinks/energy',
+        path: 'drinks/Boissons Énergisantes',
         component: DrinksComponent,
-        data: { title: 'Boissons Énergisantes', icon: '⚡', category: 'energy' }
+        data: { title: 'Boissons Énergisantes', icon: '⚡', category: 'Boissons Énergisantes' }
       },
       {
-        path: 'drinks/local',
+        path: 'drinks/Boissons Locales',
         component: DrinksComponent,
-        data: { title: 'Boissons Locales', icon: '🍹', category: 'local' }
+        data: { title: 'Boissons Locales', icon: '🍹', category: 'Boissons Locales' }
       },
 
       // 📥 Mes entrées

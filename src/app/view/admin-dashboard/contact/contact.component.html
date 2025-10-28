@@ -43,7 +43,7 @@
           <i class="fas fa-clock"></i>
           <div>
             <strong>Horaires</strong>
-            <p>Lundi - Vendredi: 8h - 18h<br>Samedi: 9h - 14h<br>Dimanche: Fermé</p>
+            <p>Lundi - Vendredi: 8h - 17h<br>Samedi: 9h - 14h<br>Dimanche: Fermé</p>
           </div>
         </div>
 
@@ -94,7 +94,7 @@
           </div>
 
           <div class="form-group">
-            <label for="subject">Sujet *</label>
+            <label for="subject">Objet *</label>
             <input
               type="text"
               id="subject"
@@ -123,7 +123,7 @@
             [disabled]="isSubmitting"
           >
             <i class="fas" [ngClass]="isSubmitting ? 'fa-spinner fa-spin' : 'fa-paper-plane'"></i>
-            {{ isSubmitting ? 'Envoi en cours...' : 'Envoyer le message' }}
+            {{ isSubmitting ? 'Envoi en cours...' : 'Envoyer' }}
           </button>
         </form>
       </div>

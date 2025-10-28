@@ -1,11 +1,14 @@
 // ==========================================
-// FICHIER: src/app/features/drinks/drinks.component.ts
+// FICHIER: src/app/view/admin-dashboard/drinks/drinks.component.ts
 // DESCRIPTION: Composant pour gérer l'affichage et la gestion des boissons
+// AVEC FILTRAGE AUTOMATIQUE PAR CATÉGORIE VIA URL
 // ==========================================
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 /**
  * Énumération des catégories de boissons
@@ -24,6 +27,22 @@ export enum DrinkCategory {
 }
 
 /**
+ * Mapping entre les slugs d'URL et les catégories
+ */
+const CATEGORY_SLUG_MAP: { [key: string]: DrinkCategory } = {
+  'Bières': DrinkCategory.BIERES,
+  'Sucreries': DrinkCategory.SUCRERIES,
+  'Champagne': DrinkCategory.CHAMPAGNE,
+  'Vin Blanc': DrinkCategory.VIN_BLANC,
+  'Vin Rouge': DrinkCategory.VIN_ROUGE,
+  'Vin Rosé': DrinkCategory.VIN_ROSE,
+  'Vin Mousseux': DrinkCategory.VIN_MOUSSEUX,
+  'Liqueurs': DrinkCategory.LIQUEURS,
+  'Boissons Énergisantes': DrinkCategory.BOISSONS_ENERGISANTES,
+  'Boissons Locales': DrinkCategory.BOISSONS_LOCALES
+};
+
+/**
  * Interface pour définir une boisson
  */
 interface Drink {
@@ -36,7 +55,7 @@ interface Drink {
   description?: string;
   sales?: number;
   createdAt?: Date;
-  badge?: 'hot' | 'new' ;
+  badge?: 'hot' | 'new';
 }
 
 /**
@@ -58,12 +77,11 @@ interface DrinkForm {
 @Component({
   selector: 'app-drinks',
   standalone: true,
-  // Import des modules nécessaires
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './drinks.component.html',
   styleUrls: ['./drinks.component.scss']
 })
-export class DrinksComponent implements OnInit {
+export class DrinksComponent implements OnInit, OnDestroy {
 
   // ========================================
   // PROPRIÉTÉS
@@ -138,11 +156,19 @@ export class DrinksComponent implements OnInit {
     '☕', '🍵', '🧋', '🥛', '🍶', '🧉', '🍼', '🥫'
   ];
 
+  /**
+   * Subscription pour les changements de route
+   */
+  private routeSubscription?: Subscription;
+
   // ========================================
   // CONSTRUCTEUR
   // ========================================
 
-  constructor() {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   // ========================================
   // LIFECYCLE HOOKS
@@ -150,10 +176,40 @@ export class DrinksComponent implements OnInit {
 
   /**
    * Initialisation du composant
-   * Charge les données
+   * Charge les données et écoute les changements de route
    */
   ngOnInit(): void {
+    // Charge les boissons
     this.loadDrinks();
+
+    // Écoute les changements de données de route (pour les catégories)
+    this.routeSubscription = this.route.data.subscribe(data => {
+      // Si une catégorie est définie dans les données de route
+      if (data['category']) {
+        const categorySlug = data['category'];
+        const category = CATEGORY_SLUG_MAP[categorySlug];
+
+        if (category) {
+          console.log('🔍 Filtrage automatique par catégorie:', category);
+          this.selectedCategory = category;
+          this.applyFilters();
+        }
+      } else {
+        // Pas de catégorie = afficher toutes les boissons
+        console.log('📋 Affichage de toutes les boissons');
+        this.selectedCategory = null;
+        this.applyFilters();
+      }
+    });
+  }
+
+  /**
+   * Nettoyage lors de la destruction du composant
+   */
+  ngOnDestroy(): void {
+    if (this.routeSubscription) {
+      this.routeSubscription.unsubscribe();
+    }
   }
 
   // ========================================
@@ -166,13 +222,13 @@ export class DrinksComponent implements OnInit {
   loadDrinks(): void {
     this.isLoading = true;
 
-    // TODO: Appel API
+    // TODO: Appel API réel
     // Simulation avec des données de test
     this.drinks = this.generateMockDrinks();
     this.filteredDrinks = [...this.drinks];
 
     this.isLoading = false;
-    console.log('Boissons chargées:', this.drinks.length);
+    console.log('✅ Boissons chargées:', this.drinks.length);
   }
 
   /**
@@ -181,8 +237,45 @@ export class DrinksComponent implements OnInit {
    */
   private generateMockDrinks(): Drink[] {
     return [
+      // Bières
       {
         id: '1',
+        name: 'Heineken',
+        category: DrinkCategory.BIERES,
+        icon: '🍺',
+        price: 800,
+        stock: 150,
+        description: 'Bière blonde hollandaise',
+        sales: 450,
+        createdAt: new Date(),
+        badge: 'hot'
+      },
+      {
+        id: '2',
+        name: 'Guinness',
+        category: DrinkCategory.BIERES,
+        icon: '🍺',
+        price: 1000,
+        stock: 100,
+        description: 'Bière brune irlandaise',
+        sales: 320,
+        createdAt: new Date()
+      },
+      {
+        id: '3',
+        name: 'Corona',
+        category: DrinkCategory.BIERES,
+        icon: '🍺',
+        price: 900,
+        stock: 120,
+        description: 'Bière blonde mexicaine',
+        sales: 280,
+        createdAt: new Date()
+      },
+
+      // Vins Rouges
+      {
+        id: '4',
         name: 'Bordeaux Rouge 2018',
         category: DrinkCategory.VIN_ROUGE,
         icon: '🍷',
@@ -192,8 +285,10 @@ export class DrinksComponent implements OnInit {
         sales: 120,
         createdAt: new Date()
       },
+
+      // Champagne
       {
-        id: '2',
+        id: '5',
         name: 'Champagne Moët & Chandon',
         category: DrinkCategory.CHAMPAGNE,
         icon: '🍾',
@@ -201,32 +296,26 @@ export class DrinksComponent implements OnInit {
         stock: 20,
         description: 'Champagne brut impérial',
         sales: 85,
-        createdAt: new Date()
+        createdAt: new Date(),
+        badge: 'new'
       },
+
+      // Vins Blancs
       {
-        id: '3',
-        name: 'Heineken',
-        category: DrinkCategory.BIERES,
-        icon: '🍺',
-        price: 800,
-        stock: 150,
-        description: 'Bière blonde hollandaise',
-        sales: 450,
-        createdAt: new Date()
-      },
-      {
-        id: '4',
+        id: '6',
         name: 'Chablis 2020',
         category: DrinkCategory.VIN_BLANC,
-        icon: '🍷',
+        icon: '🥂',
         price: 12000,
         stock: 30,
         description: 'Vin blanc sec de Bourgogne',
         sales: 95,
         createdAt: new Date()
       },
+
+      // Boissons Énergisantes
       {
-        id: '5',
+        id: '7',
         name: 'Coca-Cola',
         category: DrinkCategory.BOISSONS_ENERGISANTES,
         icon: '🥤',
@@ -237,14 +326,64 @@ export class DrinksComponent implements OnInit {
         createdAt: new Date()
       },
       {
-        id: '6',
+        id: '8',
+        name: 'Red Bull',
+        category: DrinkCategory.BOISSONS_ENERGISANTES,
+        icon: '⚡',
+        price: 1500,
+        stock: 180,
+        description: 'Boisson énergisante',
+        sales: 540,
+        createdAt: new Date()
+      },
+
+      // Vins Rosés
+      {
+        id: '9',
         name: 'Rosé de Provence',
         category: DrinkCategory.VIN_ROSE,
-        icon: '🍷',
+        icon: '🌸',
         price: 9000,
         stock: 55,
         description: 'Vin rosé léger et fruité',
         sales: 145,
+        createdAt: new Date()
+      },
+
+      // Liqueurs
+      {
+        id: '10',
+        name: 'Martini',
+        category: DrinkCategory.LIQUEURS,
+        icon: '🍸',
+        price: 8000,
+        stock: 40,
+        description: 'Vermouth italien',
+        sales: 110,
+        createdAt: new Date()
+      },
+
+      // Boissons Locales
+      {
+        id: '11',
+        name: 'Bandji',
+        category: DrinkCategory.BOISSONS_LOCALES,
+        icon: '🥥',
+        price: 300,
+        stock: 90,
+        description: 'Vin de palme traditionnel',
+        sales: 200,
+        createdAt: new Date()
+      },
+      {
+        id: '12',
+        name: 'Tchapalo',
+        category: DrinkCategory.BOISSONS_LOCALES,
+        icon: '🌾',
+        price: 250,
+        stock: 75,
+        description: 'Bière de mil locale',
+        sales: 180,
         createdAt: new Date()
       }
     ];
@@ -279,7 +418,7 @@ export class DrinksComponent implements OnInit {
     this.sortDrinks(result);
 
     this.filteredDrinks = result;
-    console.log('Filtres appliqués:', result.length, 'résultats');
+    console.log('📊 Filtres appliqués:', result.length, 'résultat(s)');
   }
 
   /**
@@ -302,7 +441,9 @@ export class DrinksComponent implements OnInit {
   resetFilters(): void {
     this.selectedCategory = null;
     this.searchTerm = '';
-    this.filteredDrinks = [...this.drinks];
+
+    // Navigue vers la page principale des boissons (sans catégorie)
+    this.router.navigate(['/admin', 'drinks']);
   }
 
   // ========================================
@@ -396,7 +537,7 @@ export class DrinksComponent implements OnInit {
   saveDrink(): void {
     // Validation basique
     if (!this.validateForm()) {
-      alert('Veuillez remplir tous les champs obligatoires');
+      alert('⚠️ Veuillez remplir tous les champs obligatoires');
       return;
     }
 
@@ -429,9 +570,9 @@ export class DrinksComponent implements OnInit {
     this.applyFilters();
 
     // TODO: Appel API
-    console.log('Boisson ajoutée:', newDrink);
+    console.log('✅ Boisson ajoutée:', newDrink);
 
-    alert('Boisson ajoutée avec succès !');
+    alert('✅ Boisson ajoutée avec succès !');
     this.closeModal();
   }
 
@@ -456,9 +597,9 @@ export class DrinksComponent implements OnInit {
       this.applyFilters();
 
       // TODO: Appel API
-      console.log('Boisson mise à jour:', this.drinks[index]);
+      console.log('✅ Boisson mise à jour:', this.drinks[index]);
 
-      alert('Boisson mise à jour avec succès !');
+      alert('✅ Boisson mise à jour avec succès !');
       this.closeModal();
     }
   }
@@ -471,14 +612,14 @@ export class DrinksComponent implements OnInit {
    * Supprime une boisson après confirmation
    */
   deleteDrink(drink: Drink): void {
-    if (confirm(`Êtes-vous sûr de vouloir supprimer "${drink.name}" ?`)) {
+    if (confirm(`❌ Êtes-vous sûr de vouloir supprimer "${drink.name}" ?`)) {
       this.drinks = this.drinks.filter(d => d.id !== drink.id);
       this.applyFilters();
 
       // TODO: Appel API
-      console.log('Boisson supprimée:', drink.id);
+      console.log('🗑️ Boisson supprimée:', drink.id);
 
-      alert('Boisson supprimée avec succès');
+      alert('✅ Boisson supprimée avec succès');
     }
   }
 
@@ -538,16 +679,16 @@ export class DrinksComponent implements OnInit {
    */
   getCategoryClass(category: DrinkCategory): string {
     const classMap: { [key in DrinkCategory]: string } = {
-      [DrinkCategory.BIERES]: 'category-beer',
-      [DrinkCategory.SUCRERIES]: 'category-sweet',
-      [DrinkCategory.CHAMPAGNE]: 'category-champagne',
-      [DrinkCategory.VIN_BLANC]: 'category-white-wine',
-      [DrinkCategory.VIN_ROUGE]: 'category-red-wine',
-      [DrinkCategory.VIN_ROSE]: 'category-rose-wine',
-      [DrinkCategory.VIN_MOUSSEUX]: 'category-sparkling',
-      [DrinkCategory.LIQUEURS]: 'category-liquor',
-      [DrinkCategory.BOISSONS_ENERGISANTES]: 'category-energy',
-      [DrinkCategory.BOISSONS_LOCALES]: 'category-local'
+      [DrinkCategory.BIERES]: 'category-Bieres',
+      [DrinkCategory.SUCRERIES]: 'category-Sucreries',
+      [DrinkCategory.CHAMPAGNE]: 'category-Champagne',
+      [DrinkCategory.VIN_BLANC]: 'category-Vin Blanc',
+      [DrinkCategory.VIN_ROUGE]: 'category-Vin Rouge',
+      [DrinkCategory.VIN_ROSE]: 'category-Vin Rosé',
+      [DrinkCategory.VIN_MOUSSEUX]: 'category-Vin Mousseux',
+      [DrinkCategory.LIQUEURS]: 'category-liqueurs',
+      [DrinkCategory.BOISSONS_ENERGISANTES]: 'category-boissons ergisantes',
+      [DrinkCategory.BOISSONS_LOCALES]: 'category-boissons locales'
     };
     return classMap[category] || '';
   }
@@ -593,9 +734,9 @@ export class DrinksComponent implements OnInit {
    * Exporte les boissons en CSV
    */
   exportToCSV(): void {
-    console.log('Export des boissons en CSV...');
+    console.log('📥 Export des boissons en CSV...');
     // TODO: Implémenter l'export CSV
-    alert('Boissons exportées avec succès !');
+    alert('✅ Boissons exportées avec succès !');
   }
 
   /**

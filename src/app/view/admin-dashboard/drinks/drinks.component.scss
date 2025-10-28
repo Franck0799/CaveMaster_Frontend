@@ -812,3 +812,242 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);   // Effet glow rouge
     grid-template-columns: 1fr !important;
   }
 }
+// ===== STYLES POUR LA SIDEBAR =====
+.sidebar-section {
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-section-title {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    margin: 0;
+  }
+}
+
+.sidebar-item,
+.nav-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: left;
+  border-left: 3px solid transparent;
+
+  .nav-icon {
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+  }
+
+  .nav-label {
+    flex: 1;
+  }
+
+  .nav-badge,
+  .badge {
+    margin-left: auto;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 0.25rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: white;
+    transform: translateX(4px);
+
+    .nav-icon {
+      transform: scale(1.15);
+    }
+
+    .nav-badge,
+    .badge {
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+  }
+
+  // État actif/sélectionné
+  &.active,
+  &.nav-item-active {
+    background-color: rgba(139, 92, 246, 0.2);
+    color: white;
+    border-left-color: $primary-color;
+    font-weight: 600;
+    box-shadow: inset 0 0 20px rgba(139, 92, 246, 0.1);
+
+    .nav-icon {
+      transform: scale(1.1);
+      filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.6));
+    }
+
+    .nav-badge,
+    .badge {
+      background-color: rgba(139, 92, 246, 0.5);
+      color: white;
+      box-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+    }
+
+    &:hover {
+      background-color: rgba(139, 92, 246, 0.3);
+    }
+  }
+
+  // État danger (pour déconnexion par exemple)
+  &.nav-item-danger {
+    &:hover {
+      background-color: rgba(239, 68, 68, 0.1);
+      color: $danger-color;
+      border-left-color: $danger-color;
+
+      .nav-icon {
+        filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.6));
+      }
+    }
+  }
+}
+
+// ===== ANIMATION POUR LES BADGES DANS LA SIDEBAR =====
+@keyframes badge-pulse-sidebar {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.sidebar-item.active .nav-badge,
+.nav-item.active .badge {
+  animation: badge-pulse-sidebar 2s ease-in-out infinite;
+}
+
+// ===== RESPONSIVE POUR LA SIDEBAR =====
+@media (max-width: 768px) {
+  .sidebar-item,
+  .nav-item {
+    padding: 0.6rem 0.75rem;
+    font-size: 0.85rem;
+
+    .nav-icon {
+      font-size: 1rem;
+    }
+
+    .nav-badge,
+    .badge {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+    }
+  }
+}
+
+// ===== AMÉLIORATION DU MESSAGE "AUCUN RÉSULTAT" =====
+// Remplace ou complète le style existant
+.no-results {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: $text-secondary;
+
+  .no-results-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    animation: pulse 2s ease-in-out infinite, rotate-shake 3s ease-in-out infinite;
+  }
+
+  @keyframes rotate-shake {
+    0%, 100% {
+      transform: rotate(0deg) scale(1);
+    }
+    25% {
+      transform: rotate(-5deg) scale(1.05);
+    }
+    75% {
+      transform: rotate(5deg) scale(1.05);
+    }
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    color: $text-primary;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+
+    // Style pour le texte suggérant de modifier les filtres
+    &:first-of-type {
+      color: $primary-color;
+      font-weight: 500;
+    }
+  }
+}
+
+// ===== EFFET DE TRANSITION POUR LES FILTRES =====
+// Amélioration visuelle quand on applique un filtre
+.drinks-grid {
+  animation: fadeInGrid 0.4s ease-out;
+}
+
+@keyframes fadeInGrid {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ===== STYLE POUR LE COMPTEUR DANS LE DROPDOWN =====
+// Améliore l'apparence des options du select
+.category-select {
+  option {
+    padding: 0.5rem;
+    background: $bg-darker;
+    color: $text-primary;
+
+    &:hover {
+      background: lighten($bg-darker, 5%);
+    }
+  }
+}
+
+// ===== INDICATEUR VISUEL DANS LA BARRE DE FILTRES =====
+// Ajoute un indicateur quand un filtre est actif
+.filters-section {
+  &.has-active-filter {
+    border-color: $primary-color;
+    box-shadow: $shadow, $glow-primary;
+  }
+}
+
+// Ajoutez cette classe conditionnellement dans votre HTML si besoin:
+// [class.has-active-filter]="selectedCategory || searchTerm"

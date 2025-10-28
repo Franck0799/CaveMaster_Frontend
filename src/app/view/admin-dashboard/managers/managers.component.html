@@ -1,13 +1,11 @@
 <!-- ===== PAGE MES MANAGERS ===== -->
 <div class="page-section">
-  
+
   <section class="content-section">
-    
+
     <!-- ===== En-tête avec titre et bouton d'ajout ===== -->
     <div class="section-header">
       <h2 class="section-title-main">👥 Mes Managers</h2>
-      
-      <!-- Bouton pour ajouter un nouveau manager -->
       <button class="btn btn-primary" (click)="openAddManagerModal()">
         ➕ Ajouter un manager
       </button>
@@ -15,8 +13,8 @@
 
     <!-- ===== Statistiques globales ===== -->
     <div class="managers-stats-grid">
-      
-      <!-- Carte: Total Managers -->
+
+      <!-- Total Managers -->
       <div class="stat-card stat-card-blue">
         <div class="stat-icon">👥</div>
         <div class="stat-content">
@@ -26,63 +24,86 @@
         </div>
       </div>
 
-      <!-- Carte: Employés Supervisés -->
+      <!-- Managers Présents -->
       <div class="stat-card stat-card-green">
-        <div class="stat-icon">👨‍💼</div>
+        <div class="stat-icon">✅</div>
         <div class="stat-content">
-          <div class="stat-label">Employés Supervisés</div>
-          <div class="stat-value">{{ getTotalEmployeesSupervised() }}</div>
-          <div class="stat-change positive">+8 ce mois</div>
+          <div class="stat-label">Présents Aujourd'hui</div>
+          <div class="stat-value">{{ getPresentManagersCount() }}</div>
+          <div class="stat-change positive">En service</div>
         </div>
       </div>
 
-      <!-- Carte: Ventes Totales -->
-      <div class="stat-card stat-card-purple">
-        <div class="stat-icon">💰</div>
+      <!-- Managers Absents -->
+      <div class="stat-card stat-card-red">
+        <div class="stat-icon">❌</div>
         <div class="stat-content">
-          <div class="stat-label">Ventes Totales</div>
-          <div class="stat-value">{{ getTotalSales() }} FCFA</div>
-          <div class="stat-change positive">+15% ce mois</div>
+          <div class="stat-label">Absents</div>
+          <div class="stat-value">{{ getAbsentManagersCount() }}</div>
+          <div class="stat-change negative">Aujourd'hui</div>
+        </div>
+      </div>
+
+      <!-- En Congé -->
+      <div class="stat-card stat-card-orange">
+        <div class="stat-icon">🏖️</div>
+        <div class="stat-content">
+          <div class="stat-label">En Congé</div>
+          <div class="stat-value">{{ getOnLeaveManagersCount() }}</div>
+          <div class="stat-change neutral">Actuellement</div>
         </div>
       </div>
     </div>
 
     <!-- ===== Liste des managers ===== -->
     <div class="managers-grid">
-      
+
       <!-- Boucle sur tous les managers -->
       <div *ngFor="let manager of getAllManagers()" class="manager-card-full">
-        
+
         <!-- En-tête de la carte manager -->
         <div class="manager-header">
-          <!-- Avatar du manager -->
           <div class="manager-avatar-large">{{ manager.avatar }}</div>
-          
-          <!-- Informations du manager -->
+
           <div class="manager-info-full">
             <div class="manager-name-large">{{ manager.name }}</div>
             <div class="manager-role-large">{{ manager.role }}</div>
+
+            <!-- Badge de disponibilité -->
+            <div class="availability-badge" [ngClass]="getStatusClass(manager.availability.status)">
+              <span class="status-icon">{{ getStatusIcon(manager.availability.status) }}</span>
+              <span class="status-text">{{ manager.availability.status | titlecase }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Heures d'arrivée/départ (si présent) -->
+        <div class="manager-schedule" *ngIf="manager.availability.status === 'présent'">
+          <div class="schedule-item">
+            <span class="schedule-label">Arrivée:</span>
+            <span class="schedule-time">🕐 {{ manager.availability.heureArrivee }}</span>
+          </div>
+          <div class="schedule-item" *ngIf="manager.availability.heureDepart">
+            <span class="schedule-label">Départ:</span>
+            <span class="schedule-time">🕔 {{ manager.availability.heureDepart }}</span>
           </div>
         </div>
 
         <!-- Indicateurs de performance -->
         <div class="manager-performance-full">
-          
-          <!-- Ventes -->
+
           <div class="performance-item">
             <div class="performance-icon">💰</div>
             <div class="performance-value">{{ manager.performance.ventes }}</div>
             <div class="performance-label">Ventes totales</div>
           </div>
-          
-          <!-- Équipe -->
+
           <div class="performance-item">
             <div class="performance-icon">👥</div>
             <div class="performance-value">{{ manager.performance.equipe }}</div>
             <div class="performance-label">Équipe</div>
           </div>
-          
-          <!-- Satisfaction -->
+
           <div class="performance-item">
             <div class="performance-icon">⭐</div>
             <div class="performance-value">{{ manager.performance.satisfaction }}</div>
@@ -93,33 +114,26 @@
         <!-- Bouton pour afficher/masquer les employés -->
         <button class="toggle-employees" (click)="toggleEmployees(manager)">
           👥 Employés ({{ manager.employees.length }})
-          <!-- Flèche indicatrice -->
           <span>{{ manager.showEmployees ? '▲' : '▼' }}</span>
         </button>
 
-        <!-- ===== Liste des employés (affichée conditionnellement) ===== -->
+        <!-- Liste des employés (affichée conditionnellement) -->
         <div *ngIf="manager.showEmployees" class="employees-list-full">
-          
-          <!-- Boucle sur les employés du manager -->
+
           <div *ngFor="let employee of manager.employees" class="employee-card-full">
-            
-            <!-- Avatar de l'employé -->
             <div class="employee-avatar">{{ employee.avatar }}</div>
-            
-            <!-- Informations de l'employé -->
+
             <div class="employee-info">
               <div class="employee-name">{{ employee.name }}</div>
               <div class="employee-position">{{ employee.position }}</div>
             </div>
-            
-            <!-- Statistiques de l'employé -->
+
             <div class="employee-stats">
               <span class="employee-stat">💰 {{ employee.ventes }}</span>
               <span class="employee-stat">⏱️ {{ employee.heures }}</span>
             </div>
           </div>
 
-          <!-- Message si aucun employé -->
           <div *ngIf="manager.employees.length === 0" class="empty-employees">
             <p>Aucun employé assigné à ce manager</p>
           </div>
@@ -127,17 +141,22 @@
 
         <!-- Actions sur le manager -->
         <div class="manager-actions">
-          <!-- Bouton modifier -->
-          <button class="btn btn-sm btn-secondary" (click)="editManager(manager)">
+          <!-- Voir profil complet -->
+          <button class="btn btn-sm btn-info" (click)="viewManagerStats(manager)">
+            👁️ Voir profil
+          </button>
+
+          <!-- Voir historique -->
+          <button class="btn btn-sm btn-secondary" (click)="viewAvailabilityHistory(manager)">
+            📊 Historique
+          </button>
+
+          <!-- Modifier -->
+          <button class="btn btn-sm btn-edit" (click)="editManager(manager)">
             ✏️ Modifier
           </button>
-          
-          <!-- Bouton voir stats -->
-          <button class="btn btn-sm btn-info" (click)="viewManagerStats(manager)">
-            📊 Voir stats
-          </button>
-          
-          <!-- Bouton supprimer -->
+
+          <!-- Supprimer -->
           <button class="btn btn-sm btn-danger" (click)="deleteManager(manager)">
             🗑️ Supprimer
           </button>
@@ -157,88 +176,50 @@
 </div>
 
 <!-- ===== MODAL AJOUTER MANAGER ===== -->
-<div *ngIf="isAddManagerModalOpen" 
-     class="modal" 
-     (click)="closeAddManagerModal()">
-  
-  <!-- Contenu du modal -->
+<div *ngIf="isAddManagerModalOpen" class="modal" (click)="closeAddManagerModal()">
   <div class="modal-content" (click)="$event.stopPropagation()">
-    
-    <!-- En-tête du modal -->
     <div class="modal-header">
       <h2 class="modal-title">➕ Ajouter un nouveau manager</h2>
       <button class="close-btn" (click)="closeAddManagerModal()">×</button>
     </div>
 
-    <!-- Corps du modal avec formulaire -->
     <div class="modal-body">
       <form>
-        
-        <!-- Champ: Prénom -->
         <div class="form-group">
           <label class="form-label">Prénom *</label>
-          <input type="text"
-                 class="form-input"
-                 [(ngModel)]="newManagerForm.firstName"
-                 name="firstName"
-                 placeholder="Ex: Jean"
-                 required>
+          <input type="text" class="form-input" [(ngModel)]="newManagerForm.firstName"
+                 name="firstName" placeholder="Ex: Jean" required>
         </div>
 
-        <!-- Champ: Nom -->
         <div class="form-group">
           <label class="form-label">Nom *</label>
-          <input type="text"
-                 class="form-input"
-                 [(ngModel)]="newManagerForm.lastName"
-                 name="lastName"
-                 placeholder="Ex: Kouassi"
-                 required>
+          <input type="text" class="form-input" [(ngModel)]="newManagerForm.lastName"
+                 name="lastName" placeholder="Ex: Kouassi" required>
         </div>
 
-        <!-- Champ: Email -->
         <div class="form-group">
           <label class="form-label">Email *</label>
-          <input type="email"
-                 class="form-input"
-                 [(ngModel)]="newManagerForm.email"
-                 name="email"
-                 placeholder="Ex: jean.kouassi@drinkstore.com"
-                 required>
+          <input type="email" class="form-input" [(ngModel)]="newManagerForm.email"
+                 name="email" placeholder="Ex: jean.kouassi@drinkstore.com" required>
         </div>
 
-        <!-- Champ: Téléphone -->
         <div class="form-group">
           <label class="form-label">Téléphone</label>
-          <input type="tel"
-                 class="form-input"
-                 [(ngModel)]="newManagerForm.phone"
-                 name="phone"
-                 placeholder="Ex: +234 801 234 5678">
+          <input type="tel" class="form-input" [(ngModel)]="newManagerForm.phone"
+                 name="phone" placeholder="Ex: +234 801 234 5678">
         </div>
 
-        <!-- Champ: Cave d'affectation -->
         <div class="form-group">
           <label class="form-label">Cave d'affectation *</label>
-          <select class="form-input"
-                  [(ngModel)]="newManagerForm.caveId"
-                  name="caveId"
-                  required>
+          <select class="form-input" [(ngModel)]="newManagerForm.caveId" name="caveId" required>
             <option value="">Sélectionner une cave...</option>
-            <!-- Boucle sur les caves -->
-            <option *ngFor="let cave of caves" [value]="cave.id">
-              {{ cave.name }}
-            </option>
+            <option *ngFor="let cave of caves" [value]="cave.id">{{ cave.name }}</option>
           </select>
         </div>
 
-        <!-- Champ: Rôle -->
         <div class="form-group">
           <label class="form-label">Rôle *</label>
-          <select class="form-input"
-                  [(ngModel)]="newManagerForm.role"
-                  name="role"
-                  required>
+          <select class="form-input" [(ngModel)]="newManagerForm.role" name="role" required>
             <option value="Manager">Manager</option>
             <option value="Manager Principal">Manager Principal</option>
             <option value="Manager Adjoint">Manager Adjoint</option>
@@ -248,13 +229,286 @@
       </form>
     </div>
 
-    <!-- Pied du modal -->
     <div class="modal-footer">
-      <button class="btn btn-cancel" (click)="closeAddManagerModal()">
-        Annuler
+      <button class="btn btn-cancel" (click)="closeAddManagerModal()">Annuler</button>
+      <button class="btn btn-primary" (click)="addNewManager()">Ajouter le manager</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL VOIR PROFIL COMPLET ===== -->
+<div *ngIf="isViewDetailsModalOpen && selectedManager" class="modal" (click)="closeDetailsModal()">
+  <div class="modal-content modal-content-large" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">👤 Profil de {{ selectedManager.name }}</h2>
+      <button class="close-btn" (click)="closeDetailsModal()">×</button>
+    </div>
+
+    <div class="modal-body">
+      <!-- Résumé du profil -->
+      <div class="profile-summary">
+        <div class="profile-avatar-large">{{ selectedManager.avatar }}</div>
+        <div class="profile-info">
+          <h3>{{ selectedManager.name }}</h3>
+          <p class="profile-position">{{ selectedManager.role }}</p>
+          <div class="availability-badge-large" [ngClass]="getStatusClass(selectedManager.availability.status)">
+            {{ getStatusIcon(selectedManager.availability.status) }}
+            {{ selectedManager.availability.status | titlecase }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Informations personnelles -->
+      <div class="info-section">
+        <h4 class="section-subtitle">📋 Informations Personnelles</h4>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-label">Email:</span>
+            <span class="info-value">{{ selectedManager.email }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Téléphone:</span>
+            <span class="info-value">{{ selectedManager.phone }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Rôle:</span>
+            <span class="info-value">{{ selectedManager.role }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Cave:</span>
+            <span class="info-value">{{ selectedManager.caveId || 'Non assignée' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Disponibilité actuelle -->
+      <div class="info-section">
+        <h4 class="section-subtitle">⏰ Disponibilité Actuelle</h4>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-label">Statut:</span>
+            <span class="info-value" [ngClass]="getStatusClass(selectedManager.availability.status)">
+              {{ selectedManager.availability.status | titlecase }}
+            </span>
+          </div>
+          <div class="info-item" *ngIf="selectedManager.availability.heureArrivee">
+            <span class="info-label">Heure d'arrivée:</span>
+            <span class="info-value">{{ selectedManager.availability.heureArrivee }}</span>
+          </div>
+          <div class="info-item" *ngIf="selectedManager.availability.heureDepart">
+            <span class="info-label">Heure de départ:</span>
+            <span class="info-value">{{ selectedManager.availability.heureDepart }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Performance -->
+      <div class="info-section">
+        <h4 class="section-subtitle">📊 Performance</h4>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-label">Ventes totales:</span>
+            <span class="info-value">{{ selectedManager.performance.ventes }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Taille de l'équipe:</span>
+            <span class="info-value">{{ selectedManager.performance.equipe }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Satisfaction:</span>
+            <span class="info-value">{{ selectedManager.performance.satisfaction }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Équipe -->
+      <div class="info-section" *ngIf="selectedManager.employees.length > 0">
+        <h4 class="section-subtitle">👥 Équipe Supervisée ({{ selectedManager.employees.length }})</h4>
+        <div class="team-list">
+          <div *ngFor="let employee of selectedManager.employees" class="team-member">
+            <span class="member-avatar">{{ employee.avatar }}</span>
+            <div class="member-info">
+              <span class="member-name">{{ employee.name }}</span>
+              <span class="member-position">{{ employee.position }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="viewAvailabilityHistory(selectedManager)">
+        📊 Voir l'historique
       </button>
-      <button class="btn btn-primary" (click)="addNewManager()">
-        Ajouter le manager
+      <button class="btn btn-primary" (click)="editManager(selectedManager); closeDetailsModal()">
+        ✏️ Modifier le profil
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL MODIFIER MANAGER ===== -->
+<div *ngIf="isEditManagerModalOpen && editManagerForm" class="modal" (click)="closeEditManagerModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">✏️ Modifier le manager</h2>
+      <button class="close-btn" (click)="closeEditManagerModal()">×</button>
+    </div>
+
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label class="form-label">Prénom *</label>
+          <input type="text" class="form-input" [(ngModel)]="editManagerForm.firstName"
+                 name="firstName" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Nom *</label>
+          <input type="text" class="form-input" [(ngModel)]="editManagerForm.lastName"
+                 name="lastName" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Email *</label>
+          <input type="email" class="form-input" [(ngModel)]="editManagerForm.email"
+                 name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Téléphone</label>
+          <input type="tel" class="form-input" [(ngModel)]="editManagerForm.phone"
+                 name="phone">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Rôle *</label>
+          <select class="form-input" [(ngModel)]="editManagerForm.role" name="role" required>
+            <option value="Manager">Manager</option>
+            <option value="Manager Principal">Manager Principal</option>
+            <option value="Manager Adjoint">Manager Adjoint</option>
+            <option value="Manager Nuit">Manager Nuit</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Statut de disponibilité</label>
+          <select class="form-input" [(ngModel)]="editManagerForm.availability.status" name="status">
+            <option value="présent">✅ Présent</option>
+            <option value="absent">❌ Absent</option>
+            <option value="congé">🏖️ En Congé</option>
+          </select>
+        </div>
+
+        <div class="form-group" *ngIf="editManagerForm.availability.status === 'présent'">
+          <label class="form-label">Heure d'arrivée</label>
+          <input type="time" class="form-input" [(ngModel)]="editManagerForm.availability.heureArrivee"
+                 name="heureArrivee">
+        </div>
+
+        <div class="form-group" *ngIf="editManagerForm.availability.status === 'présent'">
+          <label class="form-label">Heure de départ</label>
+          <input type="time" class="form-input" [(ngModel)]="editManagerForm.availability.heureDepart"
+                 name="heureDepart">
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-cancel" (click)="closeEditManagerModal()">Annuler</button>
+      <button class="btn btn-primary" (click)="saveManagerChanges()">
+        💾 Enregistrer les modifications
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL HISTORIQUE DE DISPONIBILITÉ ===== -->
+<div *ngIf="isViewHistoryModalOpen && selectedManager" class="modal" (click)="closeHistoryModal()">
+  <div class="modal-content modal-content-large" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">📊 Historique de {{ selectedManager.name }}</h2>
+      <button class="close-btn" (click)="closeHistoryModal()">×</button>
+    </div>
+
+    <div class="modal-body">
+      <!-- Statistiques résumées -->
+      <div class="history-stats">
+        <div class="history-stat-card">
+          <div class="stat-icon-small">✅</div>
+          <div class="stat-content-small">
+            <div class="stat-value-small">
+              {{ getHistoryPresentDays(selectedManager) }}
+            </div>
+            <div class="stat-label-small">Jours présents</div>
+          </div>
+        </div>
+
+        <div class="history-stat-card">
+          <div class="stat-icon-small">❌</div>
+          <div class="stat-content-small">
+            <div class="stat-value-small">
+              {{ getHistoryAbsentDays(selectedManager) }}
+            </div>
+            <div class="stat-label-small">Jours absents</div>
+          </div>
+        </div>
+
+        <div class="history-stat-card">
+          <div class="stat-icon-small">🏖️</div>
+          <div class="stat-content-small">
+            <div class="stat-value-small">
+             {{ getHistoryLeaveDays(selectedManager) }}
+            </div>
+            <div class="stat-label-small">Jours de congé</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tableau d'historique -->
+      <div class="history-table">
+        <div class="history-table-header">
+          <h4>Historique des 30 derniers jours</h4>
+        </div>
+
+        <div class="history-table-content">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Statut</th>
+                <th>Arrivée</th>
+                <th>Départ</th>
+                <th>Durée</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let record of selectedManager.availabilityHistory"
+                  [ngClass]="'row-' + record.status">
+                <td class="date-cell">{{ record.date }}</td>
+                <td>
+                  <span class="status-badge-small" [ngClass]="getStatusClass(record.status)">
+                    {{ getStatusIcon(record.status) }} {{ record.status | titlecase }}
+                  </span>
+                </td>
+                <td class="time-cell">{{ record.heureArrivee || '-' }}</td>
+                <td class="time-cell">{{ record.heureDepart || '-' }}</td>
+                <td class="duration-cell">{{ record.duree || '-' }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div *ngIf="selectedManager.availabilityHistory.length === 0" class="empty-history">
+            <p>Aucun historique disponible pour ce manager</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="closeHistoryModal()">Fermer</button>
+      <button class="btn btn-primary" (click)="closeHistoryModal(); editManager(selectedManager)">
+        ✏️ Modifier le profil
       </button>
     </div>
   </div>

@@ -1,23 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 /**
- * Interface pour définir la structure d'un manager
+ * Interface pour l'historique de disponibilité
  */
-interface Manager {
-  id: string;
-  avatar: string;
-  name: string;
-  role: string;
-  performance: {
-    ventes: string;
-    equipe: string;
-    satisfaction: string;
-  };
-  employees: Employee[];
-  showEmployees?: boolean; // Pour toggle l'affichage des employés
-  caveId?: string;
+interface AvailabilityHistory {
+  date: string;
+  status: 'présent' | 'absent' | 'congé';
+  heureArrivee?: string;
+  heureDepart?: string;
+  duree?: string;
+}
+
+/**
+ * Interface pour la disponibilité actuelle
+ */
+interface Availability {
+  status: 'présent' | 'absent' | 'congé';
+  heureArrivee?: string;
+  heureDepart?: string;
+  lastUpdate: string;
 }
 
 /**
@@ -33,6 +36,30 @@ interface Employee {
 }
 
 /**
+ * Interface pour définir la structure d'un manager
+ */
+interface Manager {
+  id: string;
+  avatar: string;
+  name: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  role: string;
+  performance: {
+    ventes: string;
+    equipe: string;
+    satisfaction: string;
+  };
+  employees: Employee[];
+  showEmployees?: boolean;
+  caveId?: string;
+  availability: Availability;
+  availabilityHistory: AvailabilityHistory[];
+}
+
+/**
  * Interface pour le formulaire d'ajout de manager
  */
 interface NewManagerForm {
@@ -44,26 +71,25 @@ interface NewManagerForm {
   role: string;
 }
 
-/**
- * Composant Managers - Gestion des managers
- * Affiche tous les managers avec leurs employés
- */
 @Component({
   selector: 'app-managers',
   standalone: true,
-  // Import des modules nécessaires
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './managers.component.html',
   styleUrls: ['./managers.component.scss']
 })
 export class ManagersComponent implements OnInit {
 
-  // Liste de tous les managers (données exemple)
+  // Liste de tous les managers avec disponibilité
   managers: Manager[] = [
     {
       id: '1',
       avatar: '👨‍💼',
+      firstName: 'Jean',
+      lastName: 'Dupont',
       name: 'Jean Dupont',
+      email: 'jean.dupont@drinkstore.com',
+      phone: '+234 801 111 2222',
       role: 'Manager Principal',
       performance: {
         ventes: '1.2M FCFA',
@@ -88,12 +114,28 @@ export class ManagersComponent implements OnInit {
           heures: '155h'
         }
       ],
-      showEmployees: false
+      showEmployees: false,
+      availability: {
+        status: 'présent',
+        heureArrivee: '07:45',
+        heureDepart: '18:30',
+        lastUpdate: '2025-01-27T07:45:00'
+      },
+      availabilityHistory: [
+        { date: '2025-01-27', status: 'présent', heureArrivee: '07:45', heureDepart: '18:30', duree: '10h45' },
+        { date: '2025-01-26', status: 'présent', heureArrivee: '07:50', heureDepart: '18:00', duree: '10h10' },
+        { date: '2025-01-25', status: 'présent', heureArrivee: '07:40', heureDepart: '18:15', duree: '10h35' },
+        { date: '2025-01-24', status: 'absent', heureArrivee: '-', heureDepart: '-', duree: '-' }
+      ]
     },
     {
       id: '2',
       avatar: '👩‍💼',
+      firstName: 'Marie',
+      lastName: 'Martin',
       name: 'Marie Martin',
+      email: 'marie.martin@drinkstore.com',
+      phone: '+234 802 333 4444',
       role: 'Manager',
       performance: {
         ventes: '980K FCFA',
@@ -110,12 +152,28 @@ export class ManagersComponent implements OnInit {
           heures: '165h'
         }
       ],
-      showEmployees: false
+      showEmployees: false,
+      availability: {
+        status: 'congé',
+        lastUpdate: '2025-01-25T00:00:00'
+      },
+      availabilityHistory: [
+        { date: '2025-01-27', status: 'congé', heureArrivee: '-', heureDepart: '-', duree: '-' },
+        { date: '2025-01-26', status: 'congé', heureArrivee: '-', heureDepart: '-', duree: '-' },
+        { date: '2025-01-25', status: 'présent', heureArrivee: '08:00', heureDepart: '17:30', duree: '9h30' },
+        { date: '2025-01-24', status: 'présent', heureArrivee: '08:10', heureDepart: '17:45', duree: '9h35' }
+      ]
     }
   ];
 
-  // Modal d'ajout de manager
+  // Modals
   isAddManagerModalOpen: boolean = false;
+  isEditManagerModalOpen: boolean = false;
+  isViewDetailsModalOpen: boolean = false;
+  isViewHistoryModalOpen: boolean = false;
+
+  // Manager sélectionné pour les modals
+  selectedManager: Manager | null = null;
 
   // Formulaire pour nouveau manager
   newManagerForm: NewManagerForm = {
@@ -127,13 +185,19 @@ export class ManagersComponent implements OnInit {
     role: 'Manager'
   };
 
+  // Formulaire d'édition
+  editManagerForm: Manager | null = null;
+
   // Liste des caves
-  caves: any[] = [];
+  caves: any[] = [
+    { id: 'cave1', name: 'Cave Abidjan Centre' },
+    { id: 'cave2', name: 'Cave Cocody' },
+    { id: 'cave3', name: 'Cave Yopougon' }
+  ];
 
   constructor() {}
 
   ngOnInit(): void {
-    // Chargement initial
     this.loadManagers();
     this.loadCaves();
   }
@@ -142,7 +206,6 @@ export class ManagersComponent implements OnInit {
    * Charge la liste des managers depuis le backend
    */
   loadManagers(): void {
-    // TODO: Appel API
     console.log('Chargement des managers...');
   }
 
@@ -150,13 +213,11 @@ export class ManagersComponent implements OnInit {
    * Charge la liste des caves
    */
   loadCaves(): void {
-    // TODO: Appel API
     console.log('Chargement des caves...');
   }
 
   /**
    * Retourne tous les managers
-   * @returns Liste complète des managers
    */
   getAllManagers(): Manager[] {
     return this.managers;
@@ -164,10 +225,53 @@ export class ManagersComponent implements OnInit {
 
   /**
    * Toggle l'affichage des employés d'un manager
-   * @param manager - Manager dont afficher/masquer les employés
    */
   toggleEmployees(manager: Manager): void {
     manager.showEmployees = !manager.showEmployees;
+  }
+
+  /**
+   * Calcule le nombre total de managers
+   */
+  getTotalManagersCount(): number {
+    return this.managers.length;
+  }
+
+  /**
+   * Compte les managers présents
+   */
+  getPresentManagersCount(): number {
+    return this.managers.filter(m => m.availability.status === 'présent').length;
+  }
+
+  /**
+   * Compte les managers absents
+   */
+  getAbsentManagersCount(): number {
+    return this.managers.filter(m => m.availability.status === 'absent').length;
+  }
+
+  /**
+   * Compte les managers en congé
+   */
+  getOnLeaveManagersCount(): number {
+    return this.managers.filter(m => m.availability.status === 'congé').length;
+  }
+
+  /**
+   * Calcule le nombre total d'employés supervisés
+   */
+  getTotalEmployeesSupervised(): number {
+    return this.managers.reduce((total, manager) => {
+      return total + manager.employees.length;
+    }, 0);
+  }
+
+  /**
+   * Calcule les ventes totales de tous les managers
+   */
+  getTotalSales(): string {
+    return '2.18M';
   }
 
   /**
@@ -203,17 +307,19 @@ export class ManagersComponent implements OnInit {
    * Ajoute un nouveau manager
    */
   addNewManager(): void {
-    // Validation
     if (!this.validateManagerForm()) {
       alert('Veuillez remplir tous les champs obligatoires');
       return;
     }
 
-    // Construction de l'objet manager
     const newManager: Manager = {
       id: this.generateId(),
       avatar: this.getRandomAvatar(),
+      firstName: this.newManagerForm.firstName,
+      lastName: this.newManagerForm.lastName,
       name: `${this.newManagerForm.firstName} ${this.newManagerForm.lastName}`,
+      email: this.newManagerForm.email,
+      phone: this.newManagerForm.phone,
       role: this.newManagerForm.role,
       performance: {
         ventes: '0 FCFA',
@@ -222,25 +328,22 @@ export class ManagersComponent implements OnInit {
       },
       employees: [],
       showEmployees: false,
-      caveId: this.newManagerForm.caveId
+      caveId: this.newManagerForm.caveId,
+      availability: {
+        status: 'absent',
+        lastUpdate: new Date().toISOString()
+      },
+      availabilityHistory: []
     };
 
-    // Ajout à la liste
     this.managers.push(newManager);
-
-    // TODO: Appel API
     console.log('Nouveau manager ajouté:', newManager);
-
-    // Fermeture du modal
     this.closeAddManagerModal();
-
-    // Message de succès
     alert('Manager ajouté avec succès !');
   }
 
   /**
    * Valide le formulaire de manager
-   * @returns true si le formulaire est valide
    */
   validateManagerForm(): boolean {
     return !!(
@@ -254,7 +357,6 @@ export class ManagersComponent implements OnInit {
 
   /**
    * Génère un ID unique
-   * @returns ID unique généré
    */
   generateId(): string {
     return `mgr_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
@@ -262,7 +364,6 @@ export class ManagersComponent implements OnInit {
 
   /**
    * Retourne un avatar aléatoire
-   * @returns Emoji d'avatar
    */
   getRandomAvatar(): string {
     const avatars = ['👨‍💼', '👩‍💼', '👨‍🏫', '👩‍🏫', '👨‍💻', '👩‍💻'];
@@ -270,63 +371,123 @@ export class ManagersComponent implements OnInit {
   }
 
   /**
-   * Modifie un manager existant
-   * @param manager - Manager à modifier
+   * Ouvre le modal d'édition avec les informations du manager
    */
   editManager(manager: Manager): void {
-    console.log('Modification du manager:', manager);
-    // TODO: Ouvrir modal de modification
+    this.selectedManager = manager;
+    this.editManagerForm = { ...manager };
+    this.isEditManagerModalOpen = true;
+  }
+
+  /**
+   * Ferme le modal d'édition
+   */
+  closeEditManagerModal(): void {
+    this.isEditManagerModalOpen = false;
+    this.selectedManager = null;
+    this.editManagerForm = null;
+  }
+
+  /**
+   * Sauvegarde les modifications du manager
+   */
+  saveManagerChanges(): void {
+    if (!this.editManagerForm) return;
+
+    const index = this.managers.findIndex(m => m.id === this.editManagerForm!.id);
+    if (index !== -1) {
+      this.managers[index] = { ...this.editManagerForm };
+      console.log('Manager modifié:', this.managers[index]);
+      alert('Informations mises à jour avec succès !');
+      this.closeEditManagerModal();
+    }
   }
 
   /**
    * Supprime un manager
-   * @param manager - Manager à supprimer
    */
   deleteManager(manager: Manager): void {
     if (confirm(`Êtes-vous sûr de vouloir supprimer ${manager.name} ?`)) {
-      // Suppression de la liste
       this.managers = this.managers.filter(m => m.id !== manager.id);
-
-      // TODO: Appel API pour supprimer
       console.log('Manager supprimé:', manager);
-
       alert('Manager supprimé avec succès');
     }
   }
 
   /**
    * Affiche les statistiques détaillées d'un manager
-   * @param manager - Manager dont afficher les stats
    */
   viewManagerStats(manager: Manager): void {
-    console.log('Statistiques du manager:', manager);
-    // TODO: Navigation vers page de stats ou modal
+    this.selectedManager = manager;
+    this.isViewDetailsModalOpen = true;
   }
 
   /**
-   * Calcule le nombre total de managers
-   * @returns Nombre total de managers
+   * Ferme le modal de détails
    */
-  getTotalManagersCount(): number {
-    return this.managers.length;
+  closeDetailsModal(): void {
+    this.isViewDetailsModalOpen = false;
+    this.selectedManager = null;
   }
 
   /**
-   * Calcule le nombre total d'employés supervisés
-   * @returns Nombre total d'employés
+   * Affiche l'historique de disponibilité
    */
-  getTotalEmployeesSupervised(): number {
-    return this.managers.reduce((total, manager) => {
-      return total + manager.employees.length;
-    }, 0);
+  viewAvailabilityHistory(manager: Manager): void {
+    this.selectedManager = manager;
+    this.isViewHistoryModalOpen = true;
   }
 
   /**
-   * Calcule les ventes totales de tous les managers
-   * @returns Ventes totales formatées
+   * Ferme le modal d'historique
    */
-  getTotalSales(): string {
-    // TODO: Calcul réel des ventes
-    return '2.18M';
+  closeHistoryModal(): void {
+    this.isViewHistoryModalOpen = false;
+    this.selectedManager = null;
+  }
+
+  /**
+   * Retourne la classe CSS selon le statut
+   */
+  getStatusClass(status: string): string {
+    switch(status) {
+      case 'présent': return 'status-present';
+      case 'absent': return 'status-absent';
+      case 'congé': return 'status-leave';
+      default: return '';
+    }
+  }
+
+  /**
+   * Retourne l'icône selon le statut
+   */
+  getStatusIcon(status: string): string {
+    switch(status) {
+      case 'présent': return '✅';
+      case 'absent': return '❌';
+      case 'congé': return '🏖️';
+      default: return '❓';
+    }
+  }
+
+  /**
+   * Compte les jours présents dans l'historique
+   */
+  getHistoryPresentDays(manager: Manager): number {
+    return manager.availabilityHistory.filter(h => h.status === 'présent').length;
+  }
+
+  /**
+   * Compte les jours absents dans l'historique
+   */
+  getHistoryAbsentDays(manager: Manager): number {
+    return manager.availabilityHistory.filter(h => h.status === 'absent').length;
+  }
+
+  /**
+   * Compte les jours de congé dans l'historique
+   */
+  getHistoryLeaveDays(manager: Manager): number {
+    return manager.availabilityHistory.filter(h => h.status === 'congé').length;
   }
 }

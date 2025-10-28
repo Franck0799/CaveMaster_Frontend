@@ -515,8 +515,8 @@ export class WinePairingComponent implements OnInit {
   /**
    * Exporte les accords en CSV
    */
-  exportToCSV(): void {
-    console.log('Export des accords en CSV...');
+  exportToPDF(): void {
+    console.log('Export des accords en PDF...');
     // TODO: Implémenter l'export CSV
     alert('Accords exportés avec succès !');
   }

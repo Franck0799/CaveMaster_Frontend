@@ -1,5 +1,39 @@
+// ===== VARIABLES SASS =====
+// Les variables SASS commencent par $ (dollar) au lieu de --
+// Elles sont compilées AVANT que le CSS n'arrive au navigateur
+// C'est pour ça qu'elles fonctionnent toujours, même sur de vieux navigateurs
 
-@import '../../../styles/variables';
+$primary: #8b5cf6;           // Couleur principale (violet)
+$primary-light: #a78bfa;     // Version plus claire du violet
+$accent: #6366f1;            // Couleur d'accentuation (indigo)
+$success: #10b981;           // Vert pour les succès
+$warning: #f59e0b;           // Orange pour les avertissements
+$danger: #ef4444;            // Rouge pour les dangers
+$info: #3b82f6;              // Bleu pour les informations
+$dark-bg: #0a0d1f;           // Fond sombre principal
+$darker-bg: #060918;         // Fond encore plus sombre
+$card-bg: #1a1d35;           // Fond des cartes
+$card-hover: #232947;        // Fond des cartes au survol
+$text: #e2e8f0;              // Couleur du texte principal
+$text-muted: #94a3b8;        // Texte atténué (moins visible)
+$border: #1e293b;            // Couleur des bordures
+
+// ===== RÉINITIALISATION =====
+// Le * signifie "tous les éléments"
+// On réinitialise les marges et espacements par défaut du navigateur
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; // La largeur inclut padding et border
+}
+
+// ===== STYLES DE BASE =====
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  // linear-gradient crée un dégradé de couleurs pour le fond
+  background: linear-gradient(135deg, #000000 0%, #0a0f1e 50%, #111827 100%);
+  color: white;
+}
 
 .content-section {
   padding: 2rem;

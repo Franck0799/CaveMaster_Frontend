@@ -1,111 +1,173 @@
 <!-- ===== PAGE MES EMPLOYÉS ===== -->
 <div class="page-section">
-  
-  <!-- Section de contenu principal -->
+
   <section class="content-section">
-    
-    <!-- ===== En-tête de page avec titre et bouton d'ajout ===== -->
+
+    <!-- ===== En-tête de page ===== -->
     <div class="section-header">
-      <!-- Titre de la page -->
       <h2 class="section-title-main">👨‍💼 Mes Employés</h2>
-      
-      <!-- Bouton pour ajouter un nouvel employé -->
       <button class="btn btn-primary" (click)="openAddEmployeeModal()">
         ➕ Ajouter un employé
       </button>
     </div>
 
-    <!-- ===== Statistiques globales des employés ===== -->
+    <!-- ===== Statistiques globales ===== -->
     <div class="employees-stats-grid">
-      
-      <!-- Carte stat: Total Employés -->
+
+      <!-- Total Employés -->
       <div class="stat-card stat-card-blue">
         <div class="stat-icon">👥</div>
         <div class="stat-content">
           <div class="stat-label">Total Employés</div>
-          <!-- Affichage dynamique du nombre total -->
           <div class="stat-value">{{ getTotalEmployeesCount() }}</div>
           <div class="stat-change positive">+5 ce mois</div>
         </div>
       </div>
 
-      <!-- Carte stat: Ventes Moyennes -->
+      <!-- Employés Présents -->
       <div class="stat-card stat-card-green">
-        <div class="stat-icon">💰</div>
+        <div class="stat-icon">✅</div>
         <div class="stat-content">
-          <div class="stat-label">Ventes Moyennes</div>
-          <div class="stat-value">{{ getAverageSales() }}</div>
-          <div class="stat-change positive">+12% ce mois</div>
+          <div class="stat-label">Présents Aujourd'hui</div>
+          <div class="stat-value">{{ getPresentEmployeesCount() }}</div>
+          <div class="stat-change positive">En service</div>
         </div>
       </div>
 
-      <!-- Carte stat: Heures Moyennes -->
-      <div class="stat-card stat-card-purple">
-        <div class="stat-icon">⏱️</div>
+      <!-- Employés Absents -->
+      <div class="stat-card stat-card-red">
+        <div class="stat-icon">❌</div>
         <div class="stat-content">
-          <div class="stat-label">Heures Moyennes</div>
-          <div class="stat-value">{{ getAverageHours() }}</div>
-          <div class="stat-change neutral">Stable</div>
+          <div class="stat-label">Absents</div>
+          <div class="stat-value">{{ getAbsentEmployeesCount() }}</div>
+          <div class="stat-change negative">Aujourd'hui</div>
+        </div>
+      </div>
+
+      <!-- En Congé -->
+      <div class="stat-card stat-card-orange">
+        <div class="stat-icon">🏖️</div>
+        <div class="stat-content">
+          <div class="stat-label">En Congé</div>
+          <div class="stat-value">{{ getOnLeaveEmployeesCount() }}</div>
+          <div class="stat-change neutral">Actuellement</div>
         </div>
       </div>
     </div>
 
-    <!-- ===== Tableau de tous les employés ===== -->
+    <!-- ===== Tableau des employés ===== -->
     <div class="employees-table">
-      
-      <!-- En-tête du tableau -->
+
       <div class="table-header">
         <h3>Liste complète des employés</h3>
       </div>
 
-      <!-- Contenu du tableau -->
-      <div class="table-content">
-        
-        <!-- Boucle sur chaque employé -->
-        <div *ngFor="let employee of getAllEmployees()" class="employee-row">
-          
-          <!-- Avatar de l'employé -->
-          <div class="employee-avatar-sm">{{ employee.avatar }}</div>
-          
-          <!-- Détails de l'employé (nom et poste) -->
+        <div class="table-column-headers">
+            <div>Nom et poste</div>
+            <div>Disponibilité</div>
+            <div>Arrivée</div>
+            <div>Départ</div>
+            <div>Revenus total</div>
+            <div>Heures eff</div>
+            <div>Options</div>
+
+        </div>
+
+    <div class="table-content">
+
+    <!-- Boucle sur chaque employé -->
+    <div *ngFor="let employee of getAllEmployees()" class="employee-row">
+
+      <!-- Colonne 1: Avatar + Nom et poste -->
+      <div class="employee-info-wrapper">
+        <div class="employee-info">
+          <div class="employee-avatar-sm">
+            {{ employee.avatar }}
+            <span class="status-indicator"
+                  [ngClass]="{
+                    'present': employee.availability.status === 'présent',
+                    'absent': employee.availability.status === 'absent',
+                    'leave': employee.availability.status === 'congé'
+                  }">
+            </span>
+          </div>
           <div class="employee-details">
             <div class="employee-name-bold">{{ employee.name }}</div>
             <div class="employee-position-sm">{{ employee.position }}</div>
           </div>
-          
-          <!-- Métriques de performance -->
-          <div class="employee-metrics">
-            <!-- Ventes réalisées -->
-            <span class="metric-item">💰 {{ employee.ventes }}</span>
-            <!-- Heures travaillées -->
-            <span class="metric-item">⏱️ {{ employee.heures }}</span>
-          </div>
-          
-          <!-- Actions disponibles sur chaque ligne -->
-          <div class="employee-row-actions">
-            <!-- Bouton modifier -->
-            <button class="btn-icon" 
-                    title="Modifier"
-                    (click)="editEmployee(employee)">
-              ✏️
-            </button>
-            
-            <!-- Bouton voir détails -->
-            <button class="btn-icon" 
-                    title="Voir détails"
-                    (click)="viewEmployeeDetails(employee)">
-              👁️
-            </button>
-            
-            <!-- Bouton supprimer -->
-            <button class="btn-icon btn-danger" 
-                    title="Supprimer"
-                    (click)="deleteEmployee(employee)">
-              🗑️
-            </button>
-          </div>
         </div>
-        
+      </div>
+
+      <!-- Colonne 2: Badge de disponibilité -->
+      <div class="availability-badge" [ngClass]="getStatusClass(employee.availability.status)">
+        <span class="status-icon">{{ getStatusIcon(employee.availability.status) }}</span>
+        <span class="status-text">{{ employee.availability.status | titlecase }}</span>
+      </div>
+
+                <!-- Colonne 3: Arrivée -->
+      <div class="info-badge-cell">
+            <span class="info-badge" *ngIf="employee.availability.status === 'présent'; else dashArrivee">
+              🕐 {{ employee.availability.heureArrivee }}
+            </span>
+            <ng-template #dashArrivee>
+              <span class="info-badge">-</span>
+            </ng-template>
+      </div>
+
+          <!-- Colonne 4: Départ -->
+      <div class="info-badge-cell">
+            <span class="info-badge" *ngIf="employee.availability.status === 'présent' && employee.availability.heureDepart; else dashDepart">
+              🕐 {{ employee.availability.heureDepart }}
+            </span>
+            <ng-template #dashDepart>
+              <span class="info-badge">-</span>
+            </ng-template>
+      </div>
+
+      <!-- Colonne 5: Rev. total -->
+      <div class="info-badge-cell">
+        <span class="info-badge">
+          💰 {{ employee.ventes }}
+        </span>
+      </div>
+
+      <!-- Colonne 6: Heures -->
+      <div class="info-badge-cell">
+        <span class="info-badge">
+          ⏱️ {{ employee.heures }}
+        </span>
+      </div>
+
+
+        <!-- Actions sous l'avatar -->
+        <div class="employee-row-actions">
+          <button class="btn-icon btn-view"
+                  title="Voir le profil"
+                  (click)="viewEmployeeDetails(employee)">
+            👁️
+          </button>
+
+          <button class="btn-icon btn-history"
+                  title="Voir l'historique"
+                  (click)="viewAvailabilityHistory(employee)">
+            📊
+          </button>
+
+          <button class="btn-icon btn-edit"
+                  title="Modifier"
+                  (click)="editEmployee(employee)">
+            ✏️
+          </button>
+
+          <button class="btn-icon btn-danger"
+                  title="Supprimer"
+                  (click)="deleteEmployee(employee)">
+            🗑️
+          </button>
+        </div>
+
+    </div>
+
         <!-- Message si aucun employé -->
         <div *ngIf="getAllEmployees().length === 0" class="empty-state">
           <div class="empty-icon">📭</div>
@@ -120,91 +182,51 @@
 </div>
 
 <!-- ===== MODAL AJOUTER EMPLOYÉ ===== -->
-<div *ngIf="isAddEmployeeModalOpen" 
-     class="modal" 
-     (click)="closeAddEmployeeModal()">
-  
-  <!-- Contenu du modal (empêche la fermeture au clic) -->
+<div *ngIf="isAddEmployeeModalOpen" class="modal" (click)="closeAddEmployeeModal()">
   <div class="modal-content" (click)="$event.stopPropagation()">
-    
-    <!-- En-tête du modal -->
     <div class="modal-header">
       <h2 class="modal-title">➕ Ajouter un nouvel employé</h2>
-      <!-- Bouton de fermeture -->
       <button class="close-btn" (click)="closeAddEmployeeModal()">×</button>
     </div>
 
-    <!-- Corps du modal avec formulaire -->
     <div class="modal-body">
       <form>
-        
-        <!-- Champ: Prénom -->
         <div class="form-group">
           <label class="form-label">Prénom *</label>
-          <input type="text"
-                 class="form-input"
-                 [(ngModel)]="newEmployeeForm.firstName"
-                 name="firstName"
-                 placeholder="Ex: Alice"
-                 required>
+          <input type="text" class="form-input" [(ngModel)]="newEmployeeForm.firstName"
+                 name="firstName" placeholder="Ex: Alice" required>
         </div>
 
-        <!-- Champ: Nom -->
         <div class="form-group">
           <label class="form-label">Nom *</label>
-          <input type="text"
-                 class="form-input"
-                 [(ngModel)]="newEmployeeForm.lastName"
-                 name="lastName"
-                 placeholder="Ex: Martin"
-                 required>
+          <input type="text" class="form-input" [(ngModel)]="newEmployeeForm.lastName"
+                 name="lastName" placeholder="Ex: Martin" required>
         </div>
 
-        <!-- Champ: Email -->
         <div class="form-group">
           <label class="form-label">Email *</label>
-          <input type="email"
-                 class="form-input"
-                 [(ngModel)]="newEmployeeForm.email"
-                 name="email"
-                 placeholder="Ex: alice.martin@drinkstore.com"
-                 required>
+          <input type="email" class="form-input" [(ngModel)]="newEmployeeForm.email"
+                 name="email" placeholder="Ex: alice.martin@drinkstore.com" required>
         </div>
 
-        <!-- Champ: Téléphone -->
         <div class="form-group">
           <label class="form-label">Téléphone</label>
-          <input type="tel"
-                 class="form-input"
-                 [(ngModel)]="newEmployeeForm.phone"
-                 name="phone"
-                 placeholder="Ex: +234 801 234 5678">
+          <input type="tel" class="form-input" [(ngModel)]="newEmployeeForm.phone"
+                 name="phone" placeholder="Ex: +234 801 234 5678">
         </div>
 
-        <!-- Champ: Cave d'affectation -->
         <div class="form-group">
           <label class="form-label">Cave d'affectation *</label>
-          <select class="form-input"
-                  [(ngModel)]="newEmployeeForm.caveId"
-                  name="caveId"
-                  required>
+          <select class="form-input" [(ngModel)]="newEmployeeForm.caveId" name="caveId" required>
             <option value="">Sélectionner une cave...</option>
-            <!-- Boucle sur les caves disponibles -->
-            <option *ngFor="let cave of caves" [value]="cave.id">
-              {{ cave.name }}
-            </option>
+            <option *ngFor="let cave of caves" [value]="cave.id">{{ cave.name }}</option>
           </select>
         </div>
 
-        <!-- Champ: Manager (affiché seulement si cave sélectionnée) -->
         <div class="form-group" *ngIf="newEmployeeForm.caveId">
           <label class="form-label">Manager de supervision *</label>
-          <select class="form-input"
-                  [(ngModel)]="newEmployeeForm.managerId"
-                  name="managerId"
-                  required>
+          <select class="form-input" [(ngModel)]="newEmployeeForm.managerId" name="managerId" required>
             <option value="">Sélectionner un manager...</option>
-            <!-- Boucle sur les managers de la cave sélectionnée -->
             <option *ngFor="let manager of getManagersByCave(newEmployeeForm.caveId)"
                     [value]="manager.name">
               {{ manager.name }} - {{ manager.role }}
@@ -212,13 +234,9 @@
           </select>
         </div>
 
-        <!-- Champ: Poste -->
         <div class="form-group">
           <label class="form-label">Poste *</label>
-          <select class="form-input"
-                  [(ngModel)]="newEmployeeForm.position"
-                  name="position"
-                  required>
+          <select class="form-input" [(ngModel)]="newEmployeeForm.position" name="position" required>
             <option value="">Sélectionner un poste...</option>
             <option value="Caissier(ère)">Caissier(ère)</option>
             <option value="Vendeur(se)">Vendeur(se)</option>
@@ -232,16 +250,272 @@
       </form>
     </div>
 
-    <!-- Pied du modal avec boutons d'action -->
     <div class="modal-footer">
-      <!-- Bouton annuler -->
-      <button class="btn btn-cancel" (click)="closeAddEmployeeModal()">
-        Annuler
+      <button class="btn btn-cancel" (click)="closeAddEmployeeModal()">Annuler</button>
+      <button class="btn btn-primary" (click)="addNewEmployee()">Ajouter l'employé</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL VOIR PROFIL COMPLET ===== -->
+<div *ngIf="isViewDetailsModalOpen && selectedEmployee" class="modal" (click)="closeDetailsModal()">
+  <div class="modal-content modal-content-large" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">👤 Profil de {{ selectedEmployee.name }}</h2>
+      <button class="close-btn" (click)="closeDetailsModal()">×</button>
+    </div>
+
+    <div class="modal-body">
+      <!-- Résumé du profil -->
+      <div class="profile-summary">
+        <div class="profile-avatar-large">{{ selectedEmployee.avatar }}</div>
+        <div class="profile-info">
+          <h3>{{ selectedEmployee.name }}</h3>
+          <p class="profile-position">{{ selectedEmployee.position }}</p>
+          <div class="availability-badge-large" [ngClass]="getStatusClass(selectedEmployee.availability.status)">
+            {{ getStatusIcon(selectedEmployee.availability.status) }}
+            {{ selectedEmployee.availability.status | titlecase }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Informations personnelles -->
+      <div class="info-section">
+        <h4 class="section-subtitle">📋 Informations Personnelles</h4>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-label">Email:</span>
+            <span class="info-value">{{ selectedEmployee.email }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Téléphone:</span>
+            <span class="info-value">{{ selectedEmployee.phone }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Poste:</span>
+            <span class="info-value">{{ selectedEmployee.position }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Manager:</span>
+            <span class="info-value">{{ selectedEmployee.managerId || 'Non assigné' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Disponibilité actuelle -->
+      <div class="info-section">
+        <h4 class="section-subtitle">⏰ Disponibilité Actuelle</h4>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-label">Statut:</span>
+            <span class="info-value" [ngClass]="getStatusClass(selectedEmployee.availability.status)">
+              {{ selectedEmployee.availability.status | titlecase }}
+            </span>
+          </div>
+          <div class="info-item" *ngIf="selectedEmployee.availability.heureArrivee">
+            <span class="info-label">Heure d'arrivée:</span>
+            <span class="info-value">{{ selectedEmployee.availability.heureArrivee }}</span>
+          </div>
+          <div class="info-item" *ngIf="selectedEmployee.availability.heureDepart">
+            <span class="info-label">Heure de départ:</span>
+            <span class="info-value">{{ selectedEmployee.availability.heureDepart }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Performance -->
+      <div class="info-section">
+        <h4 class="section-subtitle">📊 Performance</h4>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-label">Ventes totales:</span>
+            <span class="info-value">{{ selectedEmployee.ventes }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Heures travaillées:</span>
+            <span class="info-value">{{ selectedEmployee.heures }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="viewAvailabilityHistory(selectedEmployee)">
+        📊 Voir l'historique
       </button>
-      
-      <!-- Bouton confirmer -->
-      <button class="btn btn-primary" (click)="addNewEmployee()">
-        Ajouter l'employé
+      <button class="btn btn-primary" (click)="editEmployee(selectedEmployee); closeDetailsModal()">
+        ✏️ Modifier le profil
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL MODIFIER EMPLOYÉ ===== -->
+<div *ngIf="isEditEmployeeModalOpen && editEmployeeForm" class="modal" (click)="closeEditEmployeeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">✏️ Modifier l'employé</h2>
+      <button class="close-btn" (click)="closeEditEmployeeModal()">×</button>
+    </div>
+
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label class="form-label">Prénom *</label>
+          <input type="text" class="form-input" [(ngModel)]="editEmployeeForm.firstName"
+                 name="firstName" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Nom *</label>
+          <input type="text" class="form-input" [(ngModel)]="editEmployeeForm.lastName"
+                 name="lastName" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Email *</label>
+          <input type="email" class="form-input" [(ngModel)]="editEmployeeForm.email"
+                 name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Téléphone</label>
+          <input type="tel" class="form-input" [(ngModel)]="editEmployeeForm.phone"
+                 name="phone">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Poste *</label>
+          <select class="form-input" [(ngModel)]="editEmployeeForm.position" name="position" required>
+            <option value="Caissier(ère)">Caissier(ère)</option>
+            <option value="Vendeur(se)">Vendeur(se)</option>
+            <option value="Magasinier">Magasinier</option>
+            <option value="Livreur">Livreur</option>
+            <option value="Assistant(e)">Assistant(e)</option>
+            <option value="Sommelier">Sommelier</option>
+            <option value="Conseiller(ère)">Conseiller(ère)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Statut de disponibilité</label>
+          <select class="form-input" [(ngModel)]="editEmployeeForm.availability.status" name="status">
+            <option value="présent">✅ Présent</option>
+            <option value="absent">❌ Absent</option>
+            <option value="congé">🏖️ En Congé</option>
+          </select>
+        </div>
+
+        <div class="form-group" *ngIf="editEmployeeForm.availability.status === 'présent'">
+          <label class="form-label">Heure d'arrivée</label>
+          <input type="time" class="form-input" [(ngModel)]="editEmployeeForm.availability.heureArrivee"
+                 name="heureArrivee">
+        </div>
+
+        <div class="form-group" *ngIf="editEmployeeForm.availability.status === 'présent'">
+          <label class="form-label">Heure de départ</label>
+          <input type="time" class="form-input" [(ngModel)]="editEmployeeForm.availability.heureDepart"
+                 name="heureDepart">
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-cancel" (click)="closeEditEmployeeModal()">Annuler</button>
+      <button class="btn btn-primary" (click)="saveEmployeeChanges()">
+        💾 Enregistrer les modifications
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL HISTORIQUE DE DISPONIBILITÉ ===== -->
+<div *ngIf="isViewHistoryModalOpen && selectedEmployee" class="modal" (click)="closeHistoryModal()">
+  <div class="modal-content modal-content-large" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">📊 Historique de {{ selectedEmployee.name }}</h2>
+      <button class="close-btn" (click)="closeHistoryModal()">×</button>
+    </div>
+
+    <div class="modal-body">
+      <!-- Statistiques résumées -->
+      <div class="history-stats">
+        <div class="history-stat-card">
+          <div class="stat-icon-small">✅</div>
+          <div class="stat-content-small">
+            <div class="stat-value-small">
+              {{ getHistoryPresentDays(selectedEmployee) }}
+            </div>
+            <div class="stat-label-small">Jours présents</div>
+          </div>
+        </div>
+
+        <div class="history-stat-card">
+          <div class="stat-icon-small">❌</div>
+          <div class="stat-content-small">
+            <div class="stat-value-small">
+              {{ getHistoryAbsentDays(selectedEmployee) }}
+            </div>
+            <div class="stat-label-small">Jours absents</div>
+          </div>
+        </div>
+
+        <div class="history-stat-card">
+          <div class="stat-icon-small">🏖️</div>
+          <div class="stat-content-small">
+            <div class="stat-value-small">
+             {{ getHistoryLeaveDays(selectedEmployee) }}
+            </div>
+            <div class="stat-label-small">Jours de congé</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tableau d'historique -->
+      <div class="history-table">
+        <div class="history-table-header">
+          <h4>Historique des 30 derniers jours</h4>
+        </div>
+
+        <div class="history-table-content">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Statut</th>
+                <th>Arrivée</th>
+                <th>Départ</th>
+                <th>Durée</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let record of selectedEmployee.availabilityHistory"
+                  [ngClass]="'row-' + record.status">
+                <td class="date-cell">{{ record.date }}</td>
+                <td>
+                  <span class="status-badge-small" [ngClass]="getStatusClass(record.status)">
+                    {{ getStatusIcon(record.status) }} {{ record.status | titlecase }}
+                  </span>
+                </td>
+                <td class="time-cell">{{ record.heureArrivee || '-' }}</td>
+                <td class="time-cell">{{ record.heureDepart || '-' }}</td>
+                <td class="duration-cell">{{ record.duree || '-' }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- Message si pas d'historique -->
+          <div *ngIf="selectedEmployee.availabilityHistory.length === 0" class="empty-history">
+            <p>Aucun historique disponible pour cet employé</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="closeHistoryModal()">Fermer</button>
+      <button class="btn btn-primary" (click)="closeHistoryModal(); editEmployee(selectedEmployee)">
+        ✏️ Modifier le profil
       </button>
     </div>
   </div>
