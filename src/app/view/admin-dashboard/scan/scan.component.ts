@@ -15,13 +15,22 @@ interface ScanResult {
 }
 
 /**
+ * Interface pour l'historique des scans
+ */
+interface ScanHistory {
+  id: string;
+  scanResult: ScanResult;
+  action: 'added' | 'modified' | 'viewed';
+  actionDate: Date;
+}
+
+/**
  * Composant Scan - Scanner de code-barres
  * Permet de scanner des produits et d'obtenir leurs informations
  */
 @Component({
   selector: 'app-scan',
-   standalone: true,
-  // Import des modules nécessaires
+  standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './scan.component.html',
   styleUrls: ['./scan.component.scss']
@@ -37,32 +46,126 @@ export class ScanComponent implements OnInit, OnDestroy {
   // Timer pour simulation du scan
   private scanTimer: any = null;
 
-  constructor() {}
+  // Gestion du modal de modification
+  showEditModal: boolean = false;
+  editForm!: FormGroup;
+
+  // Gestion du modal d'ajout au stock
+  showStockModal: boolean = false;
+  stockForm!: FormGroup;
+
+  // Gestion du modal d'historique
+  showHistoryModal: boolean = false;
+  scanHistory: ScanHistory[] = [];
+
+  // Liste des catégories disponibles
+  categories: string[] = [
+    'Vin Rouge',
+    'Vin Blanc',
+    'Vin Rosé',
+    'Champagne',
+    'Bière',
+    'Liqueur',
+    'Whisky',
+    'Vodka',
+    'Rhum',
+    'Cognac',
+    'Gin',
+    'Tequila',
+    'Cocktails',
+    'Soft Drinks',
+    'Eau',
+    'Jus'
+  ];
+
+  constructor(private fb: FormBuilder) {
+    this.initForms();
+  }
 
   ngOnInit(): void {
-    // Initialisation du composant
     console.log('Composant Scan initialisé');
+    this.loadScanHistory();
   }
 
   ngOnDestroy(): void {
-    // Nettoyage lors de la destruction du composant
     this.stopScan();
+  }
+
+  /**
+   * Initialise les formulaires
+   */
+  private initForms(): void {
+    // Formulaire de modification
+    this.editForm = this.fb.group({
+      productName: ['', [Validators.required, Validators.minLength(3)]],
+      category: ['', Validators.required],
+      price: [0, [Validators.required, Validators.min(0)]],
+      stock: [0, [Validators.required, Validators.min(0)]],
+      barcode: ['', Validators.required]
+    });
+
+    // Formulaire d'ajout au stock
+    this.stockForm = this.fb.group({
+      quantity: [1, [Validators.required, Validators.min(1)]],
+      notes: ['']
+    });
+  }
+
+  /**
+   * Charge l'historique depuis localStorage
+   */
+  private loadScanHistory(): void {
+    const stored = localStorage.getItem('scanHistory');
+    if (stored) {
+      this.scanHistory = JSON.parse(stored).map((item: any) => ({
+        ...item,
+        scanResult: {
+          ...item.scanResult,
+          timestamp: new Date(item.scanResult.timestamp)
+        },
+        actionDate: new Date(item.actionDate)
+      }));
+    }
+  }
+
+  /**
+   * Sauvegarde l'historique dans localStorage
+   */
+  private saveScanHistory(): void {
+    localStorage.setItem('scanHistory', JSON.stringify(this.scanHistory));
+  }
+
+  /**
+   * Ajoute une entrée à l'historique
+   */
+  private addToHistory(action: 'added' | 'modified' | 'viewed'): void {
+    if (!this.scanResult) return;
+
+    const historyItem: ScanHistory = {
+      id: `scan_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      scanResult: { ...this.scanResult },
+      action,
+      actionDate: new Date()
+    };
+
+    this.scanHistory.unshift(historyItem);
+
+    // Limite l'historique à 50 entrées
+    if (this.scanHistory.length > 50) {
+      this.scanHistory = this.scanHistory.slice(0, 50);
+    }
+
+    this.saveScanHistory();
   }
 
   /**
    * Démarre le processus de scan
    */
   startScan(): void {
-    // Active l'état de scan
     this.isScanActive = true;
-
-    // Réinitialise le résultat précédent
     this.scanResult = null;
-
     console.log('Scan démarré...');
 
-    // Simulation du scan (3 secondes)
-    // Dans une vraie app, on utiliserait une librairie de scan de code-barres
     this.scanTimer = setTimeout(() => {
       this.completeScan();
     }, 3000);
@@ -72,10 +175,8 @@ export class ScanComponent implements OnInit, OnDestroy {
    * Arrête le processus de scan
    */
   stopScan(): void {
-    // Désactive l'état de scan
     this.isScanActive = false;
 
-    // Annule le timer s'il existe
     if (this.scanTimer) {
       clearTimeout(this.scanTimer);
       this.scanTimer = null;
@@ -88,24 +189,16 @@ export class ScanComponent implements OnInit, OnDestroy {
    * Complète le scan et génère un résultat
    */
   private completeScan(): void {
-    // Désactive l'état de scan
     this.isScanActive = false;
-
-    // Génère un résultat de scan simulé
     this.scanResult = this.generateMockScanResult();
-
     console.log('Scan terminé:', this.scanResult);
-
-    // Émet un son de confirmation (optionnel)
     this.playBeepSound();
   }
 
   /**
    * Génère un résultat de scan simulé pour la démo
-   * @returns Résultat de scan simulé
    */
   private generateMockScanResult(): ScanResult {
-    // Données de produits simulées
     const mockProducts = [
       {
         barcode: '3256220025508',
@@ -137,7 +230,6 @@ export class ScanComponent implements OnInit, OnDestroy {
       }
     ];
 
-    // Sélectionne un produit aléatoire
     const randomProduct = mockProducts[Math.floor(Math.random() * mockProducts.length)];
 
     return {
@@ -152,13 +244,11 @@ export class ScanComponent implements OnInit, OnDestroy {
   resetScan(): void {
     this.scanResult = null;
     this.isScanActive = false;
-
     console.log('Scan réinitialisé');
   }
 
   /**
    * Formate le résultat du scan en JSON lisible
-   * @returns JSON formaté du résultat
    */
   getFormattedScanResult(): string {
     if (!this.scanResult) return '';
@@ -175,8 +265,6 @@ export class ScanComponent implements OnInit, OnDestroy {
 
   /**
    * Formate un prix en ajoutant des séparateurs de milliers
-   * @param price - Prix à formater
-   * @returns Prix formaté
    */
   formatPrice(price: number): string {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
@@ -184,8 +272,6 @@ export class ScanComponent implements OnInit, OnDestroy {
 
   /**
    * Formate une date en format lisible
-   * @param date - Date à formater
-   * @returns Date formatée
    */
   formatDate(date: Date): string {
     return date.toLocaleString('fr-FR', {
@@ -199,53 +285,179 @@ export class ScanComponent implements OnInit, OnDestroy {
 
   /**
    * Joue un son de confirmation (bip)
-   * Dans une vraie app, on utiliserait l'API Audio
    */
   private playBeepSound(): void {
-    // Simulation du son
     console.log('🔊 Bip!');
+  }
 
-    // Dans une vraie implémentation:
-    // const audio = new Audio('assets/sounds/beep.mp3');
-    // audio.play();
+  // ===== MODAL DE MODIFICATION =====
+
+  /**
+   * Ouvre le modal de modification
+   */
+  editProductInfo(): void {
+    if (!this.scanResult) return;
+
+    // Pré-remplit le formulaire avec les données actuelles
+    this.editForm.patchValue({
+      productName: this.scanResult.productName,
+      category: this.scanResult.category,
+      price: this.scanResult.price,
+      stock: this.scanResult.stock,
+      barcode: this.scanResult.barcode
+    });
+
+    this.showEditModal = true;
   }
 
   /**
-   * Ajoute le produit scanné au stock
+   * Ferme le modal de modification
+   */
+  closeEditModal(): void {
+    this.showEditModal = false;
+    this.editForm.reset();
+  }
+
+  /**
+   * Sauvegarde les modifications
+   */
+  saveProductEdits(): void {
+    if (this.editForm.invalid || !this.scanResult) return;
+
+    const formValue = this.editForm.value;
+
+    // Met à jour le résultat du scan
+    this.scanResult = {
+      ...this.scanResult,
+      productName: formValue.productName,
+      category: formValue.category,
+      price: formValue.price,
+      stock: formValue.stock,
+      barcode: formValue.barcode
+    };
+
+    // Ajoute à l'historique
+    this.addToHistory('modified');
+
+    console.log('Produit modifié:', this.scanResult);
+
+    // Ferme le modal
+    this.closeEditModal();
+
+    // TODO: Appel API pour sauvegarder en base de données
+    alert('Modifications enregistrées avec succès !');
+  }
+
+  // ===== MODAL D'AJOUT AU STOCK =====
+
+  /**
+   * Ouvre le modal d'ajout au stock
    */
   addToStock(): void {
     if (!this.scanResult) return;
 
-    console.log('Ajout au stock:', this.scanResult);
+    this.stockForm.patchValue({
+      quantity: 1,
+      notes: ''
+    });
 
-    // TODO: Appel API pour ajouter au stock
-    alert(`Produit "${this.scanResult.productName}" ajouté au stock avec succès !`);
+    this.showStockModal = true;
+  }
+
+  /**
+   * Ferme le modal d'ajout au stock
+   */
+  closeStockModal(): void {
+    this.showStockModal = false;
+    this.stockForm.reset();
+  }
+
+  /**
+   * Confirme l'ajout au stock
+   */
+  confirmAddToStock(): void {
+    if (this.stockForm.invalid || !this.scanResult) return;
+
+    const quantity = this.stockForm.value.quantity;
+    const notes = this.stockForm.value.notes;
+
+    // Met à jour le stock
+    this.scanResult.stock += quantity;
+
+    // Ajoute à l'historique
+    this.addToHistory('added');
+
+    console.log(`Ajout de ${quantity} unité(s) au stock. Notes:`, notes);
+
+    // Ferme le modal
+    this.closeStockModal();
+
+    // TODO: Appel API pour mettre à jour le stock en base de données
+    alert(`${quantity} unité(s) de "${this.scanResult.productName}" ajoutée(s) au stock avec succès !`);
 
     // Réinitialise pour un nouveau scan
     this.resetScan();
   }
 
+  // ===== MODAL D'HISTORIQUE =====
+
   /**
-   * Ouvre le formulaire de modification des informations du produit
+   * Ouvre le modal d'historique
    */
-  editProductInfo(): void {
-    if (!this.scanResult) return;
-
-    console.log('Modification du produit:', this.scanResult);
-
-    // TODO: Ouvrir modal ou naviguer vers page de modification
-    alert('Ouverture du formulaire de modification...');
+  viewProductHistory(): void {
+    this.showHistoryModal = true;
   }
 
   /**
-   * Affiche l'historique du produit scanné
+   * Ferme le modal d'historique
    */
-  viewProductHistory(): void {
-    if (!this.scanResult) return;
+  closeHistoryModal(): void {
+    this.showHistoryModal = false;
+  }
 
-    console.log('Historique du produit:', this.scanResult);
+  /**
+   * Retourne l'icône selon le type d'action
+   */
+  getActionIcon(action: string): string {
+    switch (action) {
+      case 'added': return '➕';
+      case 'modified': return '📝';
+      case 'viewed': return '👁️';
+      default: return '📊';
+    }
+  }
 
-    // TODO: Navigation vers page d'historique
-    alert('Affichage de l\'historique du produit...');
+  /**
+   * Retourne le libellé de l'action
+   */
+  getActionLabel(action: string): string {
+    switch (action) {
+      case 'added': return 'Ajouté au stock';
+      case 'modified': return 'Modifié';
+      case 'viewed': return 'Consulté';
+      default: return 'Action inconnue';
+    }
+  }
+
+  /**
+   * Efface l'historique
+   */
+  clearHistory(): void {
+    if (confirm('Êtes-vous sûr de vouloir effacer tout l\'historique ?')) {
+      this.scanHistory = [];
+      this.saveScanHistory();
+      alert('Historique effacé avec succès !');
+    }
+  }
+
+  /**
+   * Filtre l'historique par produit actuel
+   */
+  getCurrentProductHistory(): ScanHistory[] {
+    if (!this.scanResult) return this.scanHistory;
+
+    return this.scanHistory.filter(
+      item => item.scanResult.barcode === this.scanResult!.barcode
+    );
   }
 }

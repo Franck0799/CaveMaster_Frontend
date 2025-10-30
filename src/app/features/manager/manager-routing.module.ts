@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { ManagerDashboardComponent } from '../../view/manager-dashboard/manager-dashboard.component';
 
 const routes: Routes = [

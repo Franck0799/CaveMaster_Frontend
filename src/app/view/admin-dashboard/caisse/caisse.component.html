@@ -1,0 +1,381 @@
+<div class="caisse-container">
+  <!-- ===== EN-TÊTE ===== -->
+  <header class="page-header">
+    <div class="header-content">
+      <div class="header-left">
+        <h1 class="page-title">💰 Gestion des Caisses</h1>
+        <p class="page-subtitle">Supervision en temps réel de toutes les caisses</p>
+      </div>
+      <div class="header-actions">
+        <button class="action-btn action-btn-primary" (click)="exporterRapport()">
+          <span class="btn-icon">📊</span>
+          <span class="btn-text">Exporter Rapport</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== SÉLECTION DE DATE ===== -->
+  <section class="date-section">
+    <div class="date-selector-card">
+      <label for="dateSelect" class="date-label">
+        <span class="date-icon">📅</span>
+        <span>Date de consultation:</span>
+      </label>
+      <input
+        type="date"
+        id="dateSelect"
+        [(ngModel)]="selectedDate"
+        class="date-input">
+      <div class="date-info">
+        <span class="info-icon">ℹ️</span>
+        <span class="info-text">Mise à jour: {{statistiquesManager.derniereMaj}}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== VUE RÉSUMÉ GLOBAL ===== -->
+  <section class="view-toggle-section">
+    <div class="view-toggle">
+      <button
+        class="toggle-btn"
+        [class.active]="currentView === 'resume'"
+        (click)="switchView('resume')">
+        <span class="toggle-icon">📊</span>
+        <span>Vue Résumé</span>
+      </button>
+      <button
+        class="toggle-btn"
+        [class.active]="currentView === 'details'"
+        (click)="switchView('details')">
+        <span class="toggle-icon">🔍</span>
+        <span>Vue Détaillée</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ===== VUE RÉSUMÉ ===== -->
+  <div *ngIf="currentView === 'resume'" class="resume-view">
+    <!-- Statistiques Globales -->
+    <section class="global-stats-section">
+      <h2 class="section-title">
+        <span class="title-icon">🌍</span>
+        Statistiques Globales
+      </h2>
+
+      <div class="global-stats-grid">
+        <div class="global-stat-card global-stat-total">
+          <div class="stat-icon-wrapper">
+            <span class="stat-icon">💰</span>
+          </div>
+          <div class="stat-content">
+            <div class="stat-label">Total Toutes Caisses</div>
+            <div class="stat-value">{{formatMontant(totalGlobal)}}</div>
+            <div class="stat-detail">{{statistiquesGlobales.length}} caisses actives</div>
+          </div>
+        </div>
+
+        <div class="global-stat-card global-stat-especes">
+          <div class="stat-icon-wrapper">
+            <span class="stat-icon">💵</span>
+          </div>
+          <div class="stat-content">
+            <div class="stat-label">Total Espèces</div>
+            <div class="stat-value">{{formatMontant(totalEspecesGlobal)}}</div>
+            <div class="stat-detail">Toutes caisses confondues</div>
+          </div>
+        </div>
+
+        <div class="global-stat-card global-stat-carte">
+          <div class="stat-icon-wrapper">
+            <span class="stat-icon">💳</span>
+          </div>
+          <div class="stat-content">
+            <div class="stat-label">Total Carte</div>
+            <div class="stat-value">{{formatMontant(totalCarteGlobal)}}</div>
+            <div class="stat-detail">Paiements électroniques</div>
+          </div>
+        </div>
+
+        <div class="global-stat-card global-stat-mobile">
+          <div class="stat-icon-wrapper">
+            <span class="stat-icon">📱</span>
+          </div>
+          <div class="stat-content">
+            <div class="stat-label">Total Mobile</div>
+            <div class="stat-value">{{formatMontant(totalMobileGlobal)}}</div>
+            <div class="stat-detail">Paiements mobiles</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Résumé par Manager -->
+    <section class="managers-summary-section">
+      <h2 class="section-title">
+        <span class="title-icon">👥</span>
+        Résumé par Manager
+      </h2>
+
+      <div class="managers-grid">
+                  <div
+          *ngFor="let stat of statistiquesGlobales"
+          class="manager-summary-card"
+          [class.card-selected]="selectedManagerId === stat.managerId"
+          (click)="selectManager(stat.managerId)">
+
+          <div class="manager-card-header">
+            <div class="manager-avatar">
+              {{getManagerAvatar(stat.managerId)}}
+              <div class="status-dot" [ngClass]="'status-' + getManagerStatut(stat.managerId)"></div>
+            </div>
+            <div class="manager-info">
+              <h3 class="manager-name">{{stat.managerNom}}</h3>
+              <p class="manager-cave">{{stat.cave}}</p>
+            </div>
+          </div>
+
+          <div class="manager-card-body">
+            <div class="summary-stat">
+              <span class="summary-label">Total du jour</span>
+              <span class="summary-value summary-value-total">{{formatMontant(stat.totalJour)}}</span>
+            </div>
+
+            <div class="summary-stats-grid">
+              <div class="mini-stat">
+                <span class="mini-icon">💵</span>
+                <div class="mini-content">
+                  <span class="mini-label">Espèces</span>
+                  <span class="mini-value">{{formatMontant(stat.especes)}}</span>
+                </div>
+              </div>
+
+              <div class="mini-stat">
+                <span class="mini-icon">💳</span>
+                <div class="mini-content">
+                  <span class="mini-label">Carte</span>
+                  <span class="mini-value">{{formatMontant(stat.carte)}}</span>
+                </div>
+              </div>
+
+              <div class="mini-stat">
+                <span class="mini-icon">📱</span>
+                <div class="mini-content">
+                  <span class="mini-label">Mobile</span>
+                  <span class="mini-value">{{formatMontant(stat.mobile)}}</span>
+                </div>
+              </div>
+
+              <div class="mini-stat">
+                <span class="mini-icon">🧾</span>
+                <div class="mini-content">
+                  <span class="mini-label">Transactions</span>
+                  <span class="mini-value">{{stat.nombreTransactions}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="manager-card-footer">
+            <button class="card-action-btn" (click)="switchView('details'); $event.stopPropagation()">
+              <span>Voir détails</span>
+              <span>→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ===== VUE DÉTAILLÉE ===== -->
+  <div *ngIf="currentView === 'details'" class="details-view">
+    <!-- Sélection du Manager -->
+    <section class="manager-selection-section">
+      <h2 class="section-title">
+        <span class="title-icon">👤</span>
+        Sélectionner un Manager
+      </h2>
+
+      <div class="manager-tabs">
+        <button
+          *ngFor="let manager of managersData"
+          class="manager-tab"
+          [class.active]="selectedManagerId === manager.id"
+          (click)="selectManager(manager.id)">
+          <div class="tab-avatar">
+            {{manager.avatar}}
+            <div class="status-indicator" [class]="'status-' + manager.statut"></div>
+          </div>
+          <div class="tab-content">
+            <div class="tab-name">{{manager.nom}}</div>
+            <div class="tab-cave">{{manager.cave}}</div>
+          </div>
+        </button>
+      </div>
+    </section>
+
+    <!-- Informations Manager Sélectionné -->
+    <section class="selected-manager-info" *ngIf="selectedManager">
+      <div class="info-card">
+        <div class="info-header">
+          <div class="info-avatar-large">
+            {{selectedManager.avatar}}
+          </div>
+          <div class="info-details">
+            <h3 class="info-name">{{selectedManager.nom}}</h3>
+            <p class="info-cave">🏢 {{selectedManager.cave}}</p>
+            <p class="info-adresse">📍 {{selectedManager.caveAdresse}}</p>
+          </div>
+          <div class="info-actions">
+            <button class="info-action-btn" (click)="envoyerNotification(selectedManager.id)">
+              <span>📧</span>
+              <span>Notifier</span>
+            </button>
+            <button class="info-action-btn btn-danger" (click)="fermerCaisse(selectedManager.id)">
+              <span>🔒</span>
+              <span>Fermer caisse</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Statistiques du Manager -->
+    <section class="manager-stats-section">
+      <h2 class="section-title">
+        <span class="title-icon">📊</span>
+        Statistiques de Caisse
+      </h2>
+
+      <div class="stats-grid">
+        <div class="stat-card stat-card-total">
+          <div class="stat-icon">💰</div>
+          <div class="stat-content">
+            <div class="stat-label">Total du Jour</div>
+            <div class="stat-value">{{formatMontant(statistiquesManager.totalJour)}}</div>
+            <div class="stat-transactions">{{statistiquesManager.nombreTransactions}} transactions</div>
+          </div>
+        </div>
+
+        <div class="stat-card stat-card-especes">
+          <div class="stat-icon">💵</div>
+          <div class="stat-content">
+            <div class="stat-label">Espèces</div>
+            <div class="stat-value">{{formatMontant(statistiquesManager.especes)}}</div>
+          </div>
+        </div>
+
+        <div class="stat-card stat-card-carte">
+          <div class="stat-icon">💳</div>
+          <div class="stat-content">
+            <div class="stat-label">Carte Bancaire</div>
+            <div class="stat-value">{{formatMontant(statistiquesManager.carte)}}</div>
+          </div>
+        </div>
+
+        <div class="stat-card stat-card-mobile">
+          <div class="stat-icon">📱</div>
+          <div class="stat-content">
+            <div class="stat-label">Paiement Mobile</div>
+            <div class="stat-value">{{formatMontant(statistiquesManager.mobile)}}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filtres des Transactions -->
+    <section class="transactions-filters-section">
+      <h3 class="filter-title">Filtrer par type</h3>
+      <div class="transaction-tabs">
+        <button
+          class="transaction-tab"
+          [class.active]="currentTransactionFilter === 'all'"
+          (click)="filterTransactions('all')">
+          Toutes ({{getTransactionCount('all')}})
+        </button>
+        <button
+          class="transaction-tab"
+          [class.active]="currentTransactionFilter === 'vente'"
+          (click)="filterTransactions('vente')">
+          Ventes ({{getTransactionCount('vente')}})
+        </button>
+        <button
+          class="transaction-tab"
+          [class.active]="currentTransactionFilter === 'remboursement'"
+          (click)="filterTransactions('remboursement')">
+          Remboursements ({{getTransactionCount('remboursement')}})
+        </button>
+        <button
+          class="transaction-tab"
+          [class.active]="currentTransactionFilter === 'ouverture'"
+          (click)="filterTransactions('ouverture')">
+          Ouverture/Fermeture ({{getTransactionCount('ouverture') + getTransactionCount('fermeture')}})
+        </button>
+      </div>
+    </section>
+
+    <!-- Liste des Transactions -->
+    <section class="transactions-list-section">
+      <h2 class="section-title">
+        <span class="title-icon">📝</span>
+        Transactions de la Journée
+      </h2>
+
+      <div class="transactions-container">
+        <div *ngIf="filteredTransactions.length === 0" class="empty-state">
+          <div class="empty-icon">💰</div>
+          <p class="empty-text">Aucune transaction pour cette période</p>
+        </div>
+
+        <div class="transaction-item" *ngFor="let transaction of filteredTransactions">
+          <div class="transaction-header">
+            <div class="transaction-icon" [class]="'transaction-' + transaction.type">
+              <span *ngIf="transaction.type === 'vente'">🛒</span>
+              <span *ngIf="transaction.type === 'remboursement'">↩️</span>
+              <span *ngIf="transaction.type === 'ouverture'">🔓</span>
+              <span *ngIf="transaction.type === 'fermeture'">🔒</span>
+            </div>
+
+            <div class="transaction-info">
+              <div class="transaction-type-row">
+                <span class="transaction-type-badge" [class]="'type-badge-' + transaction.type">
+                  {{transaction.typeText}}
+                </span>
+                <span class="transaction-id">{{transaction.id}}</span>
+              </div>
+              <div class="transaction-datetime">{{transaction.date}} à {{transaction.heure}}</div>
+            </div>
+
+            <div class="transaction-amount"
+                 [class.amount-positive]="transaction.montant > 0"
+                 [class.amount-negative]="transaction.montant < 0">
+              {{transaction.montant > 0 ? '+' : ''}}{{formatMontant(transaction.montant)}}
+            </div>
+          </div>
+
+          <div class="transaction-body">
+            <div class="transaction-detail-row" *ngIf="transaction.client">
+              <span class="detail-icon">👤</span>
+              <span class="detail-text">Client: {{transaction.client}}</span>
+            </div>
+            <div class="transaction-detail-row">
+              <span class="detail-icon">💳</span>
+              <span class="detail-text">{{transaction.moyenPaiementText}}</span>
+            </div>
+            <div class="transaction-detail-row" *ngIf="transaction.reference">
+              <span class="detail-icon">📝</span>
+              <span class="detail-text">Réf: {{transaction.reference}}</span>
+            </div>
+            <div class="transaction-detail-row">
+              <span class="detail-icon">👨‍💼</span>
+              <span class="detail-text">Caissier: {{transaction.caissier}}</span>
+            </div>
+            <div class="transaction-details-text">
+              {{transaction.details}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

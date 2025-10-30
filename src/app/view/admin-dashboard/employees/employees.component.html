@@ -295,8 +295,12 @@
             <span class="info-label">Poste:</span>
             <span class="info-value">{{ selectedEmployee.position }}</span>
           </div>
+           <div class="info-item">
+            <span class="info-label">Cave d'affectation:</span>
+            <span class="info-value">{{ selectedEmployee.caveId || 'Non assignée' }}</span>
+          </div>
           <div class="info-item">
-            <span class="info-label">Manager:</span>
+            <span class="info-label">Manager de supervision:</span>
             <span class="info-value">{{ selectedEmployee.managerId || 'Non assigné' }}</span>
           </div>
         </div>
@@ -349,86 +353,6 @@
     </div>
   </div>
 </div>
-
-<!-- ===== MODAL MODIFIER EMPLOYÉ ===== -->
-<div *ngIf="isEditEmployeeModalOpen && editEmployeeForm" class="modal" (click)="closeEditEmployeeModal()">
-  <div class="modal-content" (click)="$event.stopPropagation()">
-    <div class="modal-header">
-      <h2 class="modal-title">✏️ Modifier l'employé</h2>
-      <button class="close-btn" (click)="closeEditEmployeeModal()">×</button>
-    </div>
-
-    <div class="modal-body">
-      <form>
-        <div class="form-group">
-          <label class="form-label">Prénom *</label>
-          <input type="text" class="form-input" [(ngModel)]="editEmployeeForm.firstName"
-                 name="firstName" required>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Nom *</label>
-          <input type="text" class="form-input" [(ngModel)]="editEmployeeForm.lastName"
-                 name="lastName" required>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Email *</label>
-          <input type="email" class="form-input" [(ngModel)]="editEmployeeForm.email"
-                 name="email" required>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Téléphone</label>
-          <input type="tel" class="form-input" [(ngModel)]="editEmployeeForm.phone"
-                 name="phone">
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Poste *</label>
-          <select class="form-input" [(ngModel)]="editEmployeeForm.position" name="position" required>
-            <option value="Caissier(ère)">Caissier(ère)</option>
-            <option value="Vendeur(se)">Vendeur(se)</option>
-            <option value="Magasinier">Magasinier</option>
-            <option value="Livreur">Livreur</option>
-            <option value="Assistant(e)">Assistant(e)</option>
-            <option value="Sommelier">Sommelier</option>
-            <option value="Conseiller(ère)">Conseiller(ère)</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Statut de disponibilité</label>
-          <select class="form-input" [(ngModel)]="editEmployeeForm.availability.status" name="status">
-            <option value="présent">✅ Présent</option>
-            <option value="absent">❌ Absent</option>
-            <option value="congé">🏖️ En Congé</option>
-          </select>
-        </div>
-
-        <div class="form-group" *ngIf="editEmployeeForm.availability.status === 'présent'">
-          <label class="form-label">Heure d'arrivée</label>
-          <input type="time" class="form-input" [(ngModel)]="editEmployeeForm.availability.heureArrivee"
-                 name="heureArrivee">
-        </div>
-
-        <div class="form-group" *ngIf="editEmployeeForm.availability.status === 'présent'">
-          <label class="form-label">Heure de départ</label>
-          <input type="time" class="form-input" [(ngModel)]="editEmployeeForm.availability.heureDepart"
-                 name="heureDepart">
-        </div>
-      </form>
-    </div>
-
-    <div class="modal-footer">
-      <button class="btn btn-cancel" (click)="closeEditEmployeeModal()">Annuler</button>
-      <button class="btn btn-primary" (click)="saveEmployeeChanges()">
-        💾 Enregistrer les modifications
-      </button>
-    </div>
-  </div>
-</div>
-
 <!-- ===== MODAL HISTORIQUE DE DISPONIBILITÉ ===== -->
 <div *ngIf="isViewHistoryModalOpen && selectedEmployee" class="modal" (click)="closeHistoryModal()">
   <div class="modal-content modal-content-large" (click)="$event.stopPropagation()">
@@ -520,3 +444,104 @@
     </div>
   </div>
 </div>
+
+<!-- ===== MODAL MODIFIER EMPLOYÉ ===== -->
+<div *ngIf="isEditEmployeeModalOpen && editEmployeeForm" class="modal" (click)="closeEditEmployeeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">✏️ Modifier l'employé</h2>
+      <button class="close-btn" (click)="closeEditEmployeeModal()">×</button>
+    </div>
+
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label class="form-label">Prénom *</label>
+          <input type="text" class="form-input" [(ngModel)]="editEmployeeForm.firstName"
+                 name="firstName" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Nom *</label>
+          <input type="text" class="form-input" [(ngModel)]="editEmployeeForm.lastName"
+                 name="lastName" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Email *</label>
+          <input type="email" class="form-input" [(ngModel)]="editEmployeeForm.email"
+                 name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Téléphone</label>
+          <input type="tel" class="form-input" [(ngModel)]="editEmployeeForm.phone"
+                 name="phone">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Cave d'affectation *</label>
+          <select class="form-input" [(ngModel)]="editEmployeeForm.caveId" name="caveId" required>
+            <option value="">Sélectionner une cave...</option>
+            <option *ngFor="let cave of caves" [value]="cave.id">{{ cave.name }}</option>
+          </select>
+        </div>
+
+        <div class="form-group" *ngIf="editEmployeeForm.caveId">
+          <label class="form-label">Manager de supervision *</label>
+          <select class="form-input" [(ngModel)]="editEmployeeForm.managerId" name="managerId" required>
+            <option value="">Sélectionner un manager...</option>
+            <option *ngFor="let manager of getManagersByCave(editEmployeeForm.caveId)"
+                    [value]="manager.name">
+              {{ manager.name }} - {{ manager.role }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Poste *</label>
+          <select class="form-input" [(ngModel)]="editEmployeeForm.position" name="position" required>
+            <option value="Caissier(ère)">Caissier(ère)</option>
+            <option value="Vendeur(se)">Vendeur(se)</option>
+            <option value="Magasinier">Magasinier</option>
+            <option value="Livreur">Livreur</option>
+            <option value="Assistant(e)">Assistant(e)</option>
+            <option value="Sommelier">Sommelier</option>
+            <option value="Conseiller(ère)">Conseiller(ère)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Statut de disponibilité</label>
+          <select class="form-input" [(ngModel)]="editEmployeeForm.availability.status" name="status">
+            <option value="présent">✅ Présent</option>
+            <option value="absent">❌ Absent</option>
+            <option value="congé">🏖️ En Congé</option>
+          </select>
+        </div>
+
+        <div class="form-group" *ngIf="editEmployeeForm.availability.status === 'présent'">
+          <label class="form-label">Heure d'arrivée</label>
+          <input type="time" class="form-input" [(ngModel)]="editEmployeeForm.availability.heureArrivee"
+                 name="heureArrivee">
+        </div>
+
+        <div class="form-group" *ngIf="editEmployeeForm.availability.status === 'présent'">
+          <label class="form-label">Heure de départ</label>
+          <input type="time" class="form-input" [(ngModel)]="editEmployeeForm.availability.heureDepart"
+                 name="heureDepart">
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-cancel" (click)="closeEditEmployeeModal()">Annuler</button>
+      <button class="btn btn-primary" (click)="saveEmployeeChanges()">
+        💾 Enregistrer les modifications
+      </button>
+    </div>
+  </div>
+</div>
+
+
+

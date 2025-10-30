@@ -6,7 +6,7 @@ import { filter } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-// ===== INTERFACES (gardez toutes vos interfaces existantes) =====
+// ===== INTERFACES =====
 interface FeaturedDrink {
   icon: string;
   name: string;
@@ -119,7 +119,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   currentDrinkIndex: number = 0;
   private carouselSubscription?: Subscription;
 
-  // Données (gardez toutes vos données existantes)
+  // Données
   products: Product[] = [
     { id: 1, name: 'Château Margaux', category: 'Vin Rouge', icon: '🍷', sales: 156, price: 25000, badge: 'hot' },
     { id: 2, name: 'Heineken Premium', category: 'Bière', icon: '🍺', sales: 89, price: 1500, badge: 'new' },
@@ -137,7 +137,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     { icon: '🔧', type: 'info', title: 'Maintenance effectuée', details: 'Système de refroidissement • Cave Premium • Opération réussie', time: 'Il y a 2 jours' }
   ];
 
-  // Caves (gardez toutes vos données de caves)
+  // Caves
   caves: Cave[] = [
     {
       id: 'principale',
@@ -170,7 +170,6 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
         { label: 'Taux de croissance', value: '+12.5%' }
       ]
     }
-    // ... ajoutez vos autres caves
   ];
 
   // Modals
@@ -243,42 +242,111 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
 
   /**
    * Met à jour activePage en fonction de l'URL actuelle
+   * AMÉLIORATION: Gère mieux les routes imbriquées et les chemins complets
    */
   private updateActivePageFromRoute(): void {
-    const urlSegments = this.router.url.split('/');
-    const lastSegment = urlSegments[urlSegments.length - 1];
+    const url = this.router.url;
+    console.log('🔍 URL actuelle:', url);
 
-    // Gère les paramètres de query
-    const page = lastSegment.split('?')[0];
+    // Liste des pages valides dans l'ordre de priorité
+    const validPages = [
+      'caisse',
+      'profit',
+      'caves',
+      'managers',
+      'employees',
+      'drinks',
+      'wine-pairing',
+      'scan',
+      'settings',
+      'home'
+    ];
 
-    if (page && page !== 'admin') {
-      this.activePage = page;
-    } else {
-      this.activePage = 'home';
+    // Cherche quelle page correspond à l'URL
+    let foundPage = 'home';
+    for (const page of validPages) {
+      if (url.includes(`/${page}`)) {
+        foundPage = page;
+        break;
+      }
     }
+
+    this.activePage = foundPage;
+    console.log('📄 Page active:', this.activePage);
   }
 
   /**
    * Navigation avec Router
+   * AMÉLIORATION: Gère mieux les chemins relatifs et absolus
    */
-  navigateTo(page: string): void {
-    this.router.navigate(['/admin', page]);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  navigateTo(page: string, event?: Event): void {
+    // Empêche le comportement par défaut si c'est un événement
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    console.log('🚀 Navigation vers:', page);
+
+    // Ferme le dropdown utilisateur si ouvert
+    this.isUserDropdownOpen = false;
+
+    // Construit le chemin complet
+    const navigationPath = ['/admin', page];
+
+    // Navigation avec gestion des erreurs
+    this.router.navigate(navigationPath)
+      .then(success => {
+        if (success) {
+          console.log('✅ Navigation réussie vers:', page);
+          // Scroll vers le haut
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          console.error('❌ Échec de la navigation vers:', page);
+        }
+      })
+      .catch(error => {
+        console.error('❌ Erreur de navigation:', error);
+      });
   }
 
-  toggleDrinksSubmenu(): void {
+  /**
+   * Vérifie si une page est active
+   * AMÉLIORATION: Gère mieux les comparaisons de routes
+   */
+  isPageActive(page: string): boolean {
+    return this.activePage === page;
+  }
+
+  toggleDrinksSubmenu(event?: Event): void {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
     this.isDrinksSubmenuOpen = !this.isDrinksSubmenuOpen;
   }
 
-  toggleUserDropdown(): void {
+  toggleUserDropdown(event?: Event): void {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
     this.isUserDropdownOpen = !this.isUserDropdownOpen;
   }
 
   private handleOutsideClick(event: MouseEvent): void {
     const target = event.target as HTMLElement;
+
+    // Gestion du dropdown utilisateur
     const userProfile = target.closest('.user-profile');
     if (!userProfile && this.isUserDropdownOpen) {
       this.isUserDropdownOpen = false;
+    }
+
+    // Gestion du sous-menu drinks
+    const drinksSubmenu = target.closest('.nav-item-with-submenu');
+    if (!drinksSubmenu && this.isDrinksSubmenuOpen) {
+      this.isDrinksSubmenuOpen = false;
     }
   }
 
@@ -310,7 +378,11 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   // ===== CAVES =====
-  openCaveModal(cave: Cave): void {
+  openCaveModal(cave: Cave, event?: Event): void {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
     this.selectedCave = cave;
     this.isCaveModalOpen = true;
     this.activeModalTab = 'managers';
@@ -321,15 +393,27 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     this.selectedCave = undefined;
   }
 
-  switchModalTab(tab: string): void {
+  switchModalTab(tab: string, event?: Event): void {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
     this.activeModalTab = tab;
   }
 
-  toggleEmployees(manager: Manager): void {
+  toggleEmployees(manager: Manager, event?: Event): void {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
     manager.showEmployees = !manager.showEmployees;
   }
 
-  openAddCaveModal(): void {
+  openAddCaveModal(event?: Event): void {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
     this.isAddCaveModalOpen = true;
   }
 
@@ -362,7 +446,11 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     return allManagers;
   }
 
-  openAddManagerModal(): void {
+  openAddManagerModal(event?: Event): void {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
     this.isAddManagerModalOpen = true;
   }
 
@@ -397,7 +485,11 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     return allEmployees;
   }
 
-  openAddEmployeeModal(): void {
+  openAddEmployeeModal(event?: Event): void {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
     this.isAddEmployeeModalOpen = true;
   }
 
@@ -425,7 +517,11 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   // ===== SCAN =====
-  startScan(): void {
+  startScan(event?: Event): void {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
     this.isScanActive = true;
     this.scanResult = '';
     setTimeout(() => {
@@ -446,8 +542,13 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   // ===== PROFIL =====
-  openProfileModal(): void {
+  openProfileModal(event?: Event): void {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
     this.isProfileModalOpen = true;
+    this.isUserDropdownOpen = false;
   }
 
   closeProfileModal(): void {
@@ -459,7 +560,11 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     this.closeProfileModal();
   }
 
-  logout(): void {
+  logout(event?: Event): void {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
     if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
       alert('👋 À bientôt !');
       this.router.navigate(['/auth']);
@@ -473,5 +578,16 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
 
   getActionTypeClass(type: string): string {
     return type;
+  }
+
+  /**
+   * Méthode de debug pour vérifier l'état de navigation
+   */
+  debugNavigation(): void {
+    console.log('=== DEBUG NAVIGATION ===');
+    console.log('URL actuelle:', this.router.url);
+    console.log('Page active:', this.activePage);
+    console.log('Routes disponibles:', this.router.config);
+    console.log('=======================');
   }
 }

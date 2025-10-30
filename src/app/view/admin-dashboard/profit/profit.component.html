@@ -1,0 +1,163 @@
+<div class="profit-dashboard">
+  <div class="dashboard-header">
+    <h1 class="dashboard-title">
+      <span class="icon">📊</span>
+      Bénéfices & Stocks
+    </h1>
+
+    <button class="btn-export" (click)="exporterDonnees()">
+      <span class="icon">⬇️</span>
+      Exporter
+    </button>
+  </div>
+
+  <!-- Filtres -->
+  <div class="filters-section">
+    <div class="filter-group">
+      <label>Cave</label>
+      <select [formControl]="caveControl" class="filter-select">
+        <option value="toutes">Toutes les caves</option>
+        <option *ngFor="let cave of caves" [value]="cave.id">{{ cave.nom }}</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Période</label>
+      <select [formControl]="periodeControl" class="filter-select">
+        <option *ngFor="let periode of periodes" [value]="periode.value">
+          {{ periode.label }}
+        </option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Catégorie</label>
+      <select [formControl]="categorieControl" class="filter-select">
+        <option value="toutes">Toutes les catégories</option>
+        <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Cartes de statistiques -->
+  <div class="stats-grid">
+    <div class="stat-card stat-card--primary">
+      <div class="stat-icon">💰</div>
+      <div class="stat-content">
+        <div class="stat-label">Bénéfice Total</div>
+        <div class="stat-value">{{ totalBenefice | number:'1.2-2' }} €</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-card--success">
+      <div class="stat-icon">📈</div>
+      <div class="stat-content">
+        <div class="stat-label">Chiffre d'Affaires</div>
+        <div class="stat-value">{{ totalCA | number:'1.2-2' }} €</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-card--info">
+      <div class="stat-icon">🛒</div>
+      <div class="stat-content">
+        <div class="stat-label">Unités Vendues</div>
+        <div class="stat-value">{{ totalVentes }}</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-card--warning">
+      <div class="stat-icon">📦</div>
+      <div class="stat-content">
+        <div class="stat-label">Stock Restant</div>
+        <div class="stat-value">{{ stockTotal }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tableau des bénéfices par catégorie -->
+  <div class="section-card">
+    <h2 class="section-title">Bénéfices par Catégorie</h2>
+
+    <div class="table-responsive">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Catégorie</th>
+            <th class="text-right">Qté Vendue</th>
+            <th class="text-right">CA (€)</th>
+            <th class="text-right">Coût Achat (€)</th>
+            <th class="text-right">Bénéfice (€)</th>
+            <th class="text-right">Marge (%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of beneficesCalcules">
+            <td>
+              <span class="category-badge">{{ item.categorie }}</span>
+            </td>
+            <td class="text-right">{{ item.quantiteVendue }}</td>
+            <td class="text-right">{{ item.chiffreAffaires | number:'1.2-2' }}</td>
+            <td class="text-right">{{ item.coutAchat | number:'1.2-2' }}</td>
+            <td class="text-right profit-value">{{ item.benefice | number:'1.2-2' }}</td>
+            <td class="text-right">
+              <span class="marge-badge" [class.marge-haute]="item.margePercent > 50">
+                {{ item.margePercent | number:'1.1-1' }}%
+              </span>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr class="total-row">
+            <td><strong>TOTAL</strong></td>
+            <td class="text-right"><strong>{{ totalVentes }}</strong></td>
+            <td class="text-right"><strong>{{ totalCA | number:'1.2-2' }}</strong></td>
+            <td class="text-right"><strong>{{ totalCA - totalBenefice | number:'1.2-2' }}</strong></td>
+            <td class="text-right"><strong>{{ totalBenefice | number:'1.2-2' }}</strong></td>
+            <td class="text-right"><strong>{{ totalCA > 0 ? (totalBenefice / totalCA * 100) : 0 | number:'1.1-1' }}%</strong></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <!-- Stock restant par catégorie -->
+  <div class="section-card">
+    <h2 class="section-title">Stock Restant par Catégorie</h2>
+
+    <div class="stock-grid">
+      <div *ngFor="let stock of getStockParCategorie(); let i = index"
+           class="stock-item"
+           [style.border-left-color]="getCouleurCategorie(i)">
+        <div class="stock-category">{{ stock.categorie }}</div>
+        <div class="stock-quantity">{{ stock.quantite }} unités</div>
+        <div class="stock-progress">
+          <div class="progress-bar"
+               [style.width.%]="(stock.quantite / stockTotal * 100)"
+               [style.background-color]="getCouleurCategorie(i)">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Résumé par cave -->
+  <div class="section-card" *ngIf="caveControl.value === 'toutes'">
+    <h2 class="section-title">Résumé par Cave</h2>
+
+    <div class="cave-summary-grid">
+      <div *ngFor="let cave of caves" class="cave-summary-card">
+        <h3 class="cave-name">{{ cave.nom }}</h3>
+        <div class="cave-stats">
+          <div class="cave-stat">
+            <span class="label">Bénéfice</span>
+            <span class="value">{{ calculerBeneficeParCave(cave.nom) | number:'1.2-2' }} €</span>
+          </div>
+          <div class="cave-stat">
+            <span class="label">Stock</span>
+            <span class="value">{{ calculerStockParCave(cave.nom) }} unités</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

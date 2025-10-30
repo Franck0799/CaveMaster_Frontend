@@ -23,6 +23,8 @@ import { RecentActionsComponent } from '../../view/admin-dashboard/recent-action
 import { SettingsComponent } from '../../view/admin-dashboard/settings/settings.component';
 import { UserCreateComponent } from '../../view/admin-dashboard/user-create/user-create.component';
 import { UserListComponent } from '../../view/admin-dashboard/user-list/user-list.component';
+import { ProfitComponent } from '../../view/admin-dashboard/profit/profit.component';
+import { CaisseComponent } from '../../view/admin-dashboard/caisse/caisse.component';
 
 const routes: Routes = [
   {
@@ -135,6 +137,19 @@ const routes: Routes = [
         path: 'exits',
         component: ExitsComponent,
         data: { title: 'Mes Sorties', icon: '📤' }
+      },
+
+       {
+        path: 'caisse',
+        component: CaisseComponent,
+        data: { title: 'Caisse', icon: '💵' }
+      },
+
+       // 📤 Mes PROFITS
+      {
+        path: 'profit',
+        component: ProfitComponent,
+        data: { title: 'Bénéfices & Stocks', icon: '💰' }
       },
 
       // 🍽️ Mets & Vins

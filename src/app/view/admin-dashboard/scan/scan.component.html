@@ -123,3 +123,254 @@
     </div>
   </section>
 </div>
+
+<!-- ===== MODAL DE MODIFICATION ===== -->
+<div class="modal-overlay" *ngIf="showEditModal" (click)="closeEditModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+
+    <!-- En-tête du modal -->
+    <div class="modal-header">
+      <h2>📝 Modifier les informations</h2>
+      <button class="modal-close" (click)="closeEditModal()">✕</button>
+    </div>
+
+    <!-- Corps du modal -->
+    <div class="modal-body">
+      <form [formGroup]="editForm">
+
+        <!-- Nom du produit -->
+        <div class="form-group">
+          <label for="productName">Nom du produit *</label>
+          <input
+            type="text"
+            id="productName"
+            formControlName="productName"
+            class="form-control"
+            placeholder="Ex: Château Margaux 2015">
+          <div class="form-error" *ngIf="editForm.get('productName')?.invalid && editForm.get('productName')?.touched">
+            Le nom du produit est requis (min. 3 caractères)
+          </div>
+        </div>
+
+        <!-- Code-barres -->
+        <div class="form-group">
+          <label for="barcode">Code-barres *</label>
+          <input
+            type="text"
+            id="barcode"
+            formControlName="barcode"
+            class="form-control"
+            placeholder="Ex: 3256220025508">
+          <div class="form-error" *ngIf="editForm.get('barcode')?.invalid && editForm.get('barcode')?.touched">
+            Le code-barres est requis
+          </div>
+        </div>
+
+        <!-- Catégorie -->
+        <div class="form-group">
+          <label for="category">Catégorie *</label>
+          <select
+            id="category"
+            formControlName="category"
+            class="form-control">
+            <option value="">-- Sélectionnez une catégorie --</option>
+            <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+          </select>
+          <div class="form-error" *ngIf="editForm.get('category')?.invalid && editForm.get('category')?.touched">
+            La catégorie est requise
+          </div>
+        </div>
+
+        <!-- Prix -->
+        <div class="form-group">
+          <label for="price">Prix (FCFA) *</label>
+          <input
+            type="number"
+            id="price"
+            formControlName="price"
+            class="form-control"
+            placeholder="Ex: 450000">
+          <div class="form-error" *ngIf="editForm.get('price')?.invalid && editForm.get('price')?.touched">
+            Le prix est requis et doit être positif
+          </div>
+        </div>
+
+        <!-- Stock -->
+        <div class="form-group">
+          <label for="stock">Stock disponible *</label>
+          <input
+            type="number"
+            id="stock"
+            formControlName="stock"
+            class="form-control"
+            placeholder="Ex: 12">
+          <div class="form-error" *ngIf="editForm.get('stock')?.invalid && editForm.get('stock')?.touched">
+            Le stock est requis et doit être positif
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- Pied du modal -->
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="closeEditModal()">
+        Annuler
+      </button>
+      <button
+        class="btn btn-primary"
+        [disabled]="editForm.invalid"
+        (click)="saveProductEdits()">
+        💾 Enregistrer
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL D'AJOUT AU STOCK ===== -->
+<div class="modal-overlay" *ngIf="showStockModal" (click)="closeStockModal()">
+  <div class="modal-content modal-small" (click)="$event.stopPropagation()">
+
+    <!-- En-tête du modal -->
+    <div class="modal-header">
+      <h2>➕ Ajouter au stock</h2>
+      <button class="modal-close" (click)="closeStockModal()">✕</button>
+    </div>
+
+    <!-- Corps du modal -->
+    <div class="modal-body">
+
+      <!-- Infos du produit -->
+      <div class="product-info-box" *ngIf="scanResult">
+        <strong>{{ scanResult.productName }}</strong>
+        <p>Stock actuel: {{ scanResult.stock }} unités</p>
+      </div>
+
+      <form [formGroup]="stockForm">
+
+        <!-- Quantité à ajouter -->
+        <div class="form-group">
+          <label for="quantity">Quantité à ajouter *</label>
+          <input
+            type="number"
+            id="quantity"
+            formControlName="quantity"
+            class="form-control"
+            placeholder="Ex: 10"
+            min="1">
+          <div class="form-error" *ngIf="stockForm.get('quantity')?.invalid && stockForm.get('quantity')?.touched">
+            La quantité doit être au moins 1
+          </div>
+        </div>
+
+        <!-- Notes (optionnel) -->
+        <div class="form-group">
+          <label for="notes">Notes (optionnel)</label>
+          <textarea
+            id="notes"
+            formControlName="notes"
+            class="form-control"
+            rows="3"
+            placeholder="Ex: Livraison du 29/10/2025"></textarea>
+        </div>
+
+      </form>
+
+      <!-- Aperçu du nouveau stock -->
+      <div class="stock-preview" *ngIf="scanResult && stockForm.get('quantity')?.value">
+        <strong>Nouveau stock:</strong>
+        {{ scanResult.stock + stockForm.get('quantity')?.value }} unités
+        <span class="stock-increase">
+          (+{{ stockForm.get('quantity')?.value }})
+        </span>
+      </div>
+    </div>
+
+    <!-- Pied du modal -->
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="closeStockModal()">
+        Annuler
+      </button>
+      <button
+        class="btn btn-primary"
+        [disabled]="stockForm.invalid"
+        (click)="confirmAddToStock()">
+        ✓ Confirmer
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL D'HISTORIQUE ===== -->
+<div class="modal-overlay" *ngIf="showHistoryModal" (click)="closeHistoryModal()">
+  <div class="modal-content modal-large" (click)="$event.stopPropagation()">
+
+    <!-- En-tête du modal -->
+    <div class="modal-header">
+      <h2>📊 Historique des scans</h2>
+      <button class="modal-close" (click)="closeHistoryModal()">✕</button>
+    </div>
+
+    <!-- Corps du modal -->
+    <div class="modal-body">
+
+      <!-- Aucun historique -->
+      <div *ngIf="scanHistory.length === 0" class="empty-state">
+        <div class="empty-icon">📭</div>
+        <p>Aucun scan dans l'historique</p>
+      </div>
+
+      <!-- Liste de l'historique -->
+      <div *ngIf="scanHistory.length > 0" class="history-list">
+
+        <!-- Bouton pour effacer l'historique -->
+        <div class="history-actions">
+          <button class="btn btn-danger btn-sm" (click)="clearHistory()">
+            🗑️ Effacer l'historique
+          </button>
+          <span class="history-count">{{ scanHistory.length }} scan(s)</span>
+        </div>
+
+        <!-- Items d'historique -->
+        <div *ngFor="let item of scanHistory" class="history-item">
+
+          <!-- Icône et action -->
+          <div class="history-icon">
+            {{ getActionIcon(item.action) }}
+          </div>
+
+          <!-- Détails -->
+          <div class="history-details">
+            <h4>{{ item.scanResult.productName }}</h4>
+            <p class="history-meta">
+              <span class="history-category">{{ item.scanResult.category }}</span>
+              <span class="history-barcode">{{ item.scanResult.barcode }}</span>
+            </p>
+            <p class="history-info">
+              <span>{{ formatPrice(item.scanResult.price) }} FCFA</span>
+              <span>•</span>
+              <span>Stock: {{ item.scanResult.stock }} unités</span>
+            </p>
+          </div>
+
+          <!-- Action et date -->
+          <div class="history-action">
+            <span class="action-badge" [class]="'action-' + item.action">
+              {{ getActionLabel(item.action) }}
+            </span>
+            <span class="history-date">
+              {{ formatDate(item.actionDate) }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pied du modal -->
+    <div class="modal-footer">
+      <button class="btn btn-primary" (click)="closeHistoryModal()">
+        Fermer
+      </button>
+    </div>
+  </div>
+</div>

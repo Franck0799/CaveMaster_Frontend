@@ -26,6 +26,14 @@
         <span class="nav-icon">🍷</span>
         <span class="nav-text">Mes caves</span>
       </div>
+
+      <!-- NOUVEAU: Lien vers la page des bénéfices -->
+      <div class="nav-item"
+           [routerLink]="['/admin', 'profit']"
+           routerLinkActive="active">
+        <span class="nav-icon">💰</span>
+        <span class="nav-text">Bénéfices & Stocks</span>
+      </div>
     </nav>
 
     <div class="divider"></div>
@@ -44,17 +52,17 @@
       </div>
 
       <div class="submenu" [class.open]="isDrinksSubmenuOpen">
-  <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Bières']" routerLinkActive="active">🍺 Bières</div>
-  <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Sucreries']" routerLinkActive="active">🍬 Sucreries</div>
-  <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Champagne']" routerLinkActive="active">🥂 Champagne</div>
-  <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Vin Blanc']" routerLinkActive="active">🍷 Vin Blanc</div>
-  <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Vin Rouge']" routerLinkActive="active">🍷 Vin Rouge</div>
-  <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Vin Rosé']" routerLinkActive="active">🍷 Vin Rosé</div>
-  <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Vin Mousseux']" routerLinkActive="active">✨ Vin Mousseux</div>
-  <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Liqueurs']" routerLinkActive="active">🥃 Liqueurs</div>
-  <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Boissons Énergisantes']" routerLinkActive="active">⚡ Boissons Énergisantes</div>
-  <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Boissons Locales']" routerLinkActive="active">🍹 Boissons Locales</div>
-</div>
+        <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Bières']" routerLinkActive="active">🍺 Bières</div>
+        <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Sucreries']" routerLinkActive="active">🍬 Sucreries</div>
+        <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Champagne']" routerLinkActive="active">🥂 Champagne</div>
+        <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Vin Blanc']" routerLinkActive="active">🍷 Vin Blanc</div>
+        <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Vin Rouge']" routerLinkActive="active">🍷 Vin Rouge</div>
+        <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Vin Rosé']" routerLinkActive="active">🍷 Vin Rosé</div>
+        <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Vin Mousseux']" routerLinkActive="active">✨ Vin Mousseux</div>
+        <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Liqueurs']" routerLinkActive="active">🥃 Liqueurs</div>
+        <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Boissons Énergisantes']" routerLinkActive="active">⚡ Boissons Énergisantes</div>
+        <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Boissons Locales']" routerLinkActive="active">🍹 Boissons Locales</div>
+      </div>
 
       <div class="nav-item" [routerLink]="['/admin', 'entries']" routerLinkActive="active">
         <span class="nav-icon">📥</span>
@@ -64,6 +72,11 @@
       <div class="nav-item" [routerLink]="['/admin', 'exits']" routerLinkActive="active">
         <span class="nav-icon">📤</span>
         <span class="nav-text">Mes sorties</span>
+      </div>
+
+       <div class="nav-item" [routerLink]="['/admin','caisse']" routerLinkActive="active">
+        <span class="nav-icon">💵</span>
+        <span class="nav-text">Caisse</span>
       </div>
 
       <div class="nav-item" [routerLink]="['/admin', 'wine-pairing']" routerLinkActive="active">
@@ -155,24 +168,6 @@
 
       <!-- Éléments à droite -->
       <div class="header-right">
-        <!-- Sélecteur de catégories -->
-         <!--
-      <div class="category-selector">
-          <select>
-            <option value="">Toutes les catégories</option>
-            <option value="bieres">Bières</option>
-            <option value="sucreries">Sucreries</option>
-            <option value="vin_blanc">Vin Blanc</option>
-            <option value="vin_rouge">Vin Rouge</option>
-            <option value="vin_rose">Vin Rosé</option>
-            <option value="vin_mousseux">Vin Mousseux</option>
-            <option value="liqueurs">Liqueurs</option>
-            <option value="champagne">Champagne</option>
-            <option value="boissons_energisantes">Boissons Énergisantes</option>
-            <option value="boissons_locales">Boissons Locales</option>
-          </select>
-        </div>
-        -->
         <!-- Icône panier -->
         <div class="header-icon">
           <span class="icon">💬</span>
