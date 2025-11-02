@@ -1,6 +1,7 @@
 <!-- ========================================
-FICHIER: src/app/features/entries/entries.component.html
-DESCRIPTION: Template pour la gestion des entrées de stock
+FICHIER: src/app/view/admin-dashboard/entries/entries.component.html
+DESCRIPTION: Template enrichi pour les entrées de stock avec détails complets
+VERSION ACTUALISÉE
 ======================================== -->
 
 <div class="entries-container">
@@ -10,12 +11,15 @@ DESCRIPTION: Template pour la gestion des entrées de stock
     <div class="header-content">
       <h1 class="page-title">📥 Mes Entrées de Stock</h1>
       <p class="page-subtitle">
-        Gérez les réceptions de marchandises - {{ filteredEntries.length }} entrée(s) affichée(s)
+        Gestion complète des réceptions - {{ filteredEntries.length }} entrée(s) affichée(s)
       </p>
     </div>
     <div class="header-actions">
       <button class="btn btn-secondary" (click)="exportToCSV()" title="Exporter en CSV">
         📊 Exporter
+      </button>
+      <button class="btn btn-secondary" (click)="printEntries()" title="Imprimer">
+        🖨️ Imprimer
       </button>
       <button class="btn btn-primary" (click)="openAddModal()">
         ➕ Nouvelle entrée
@@ -23,7 +27,7 @@ DESCRIPTION: Template pour la gestion des entrées de stock
     </div>
   </header>
 
-  <!-- ===== STATISTIQUES RAPIDES ===== -->
+  <!-- ===== STATISTIQUES ENRICHIES ===== -->
   <section class="stats-section">
     <div class="stat-card stat-primary">
       <div class="stat-icon">📦</div>
@@ -44,36 +48,66 @@ DESCRIPTION: Template pour la gestion des entrées de stock
     <div class="stat-card stat-warning">
       <div class="stat-icon">💰</div>
       <div class="stat-content">
-        <div class="stat-value">{{ formatNumber(stats.totalCost) }} FCFA</div>
+        <div class="stat-value">{{ formatNumber(stats.totalCost) }} F</div>
         <div class="stat-label">Coût total</div>
       </div>
     </div>
 
     <div class="stat-card stat-info">
-      <div class="stat-icon">🕐</div>
+      <div class="stat-icon">📊</div>
       <div class="stat-content">
-        <div class="stat-value">{{ stats.recentEntries }}</div>
-        <div class="stat-label">Entrées (7 derniers jours)</div>
+        <div class="stat-value">{{ formatNumber(stats.averageUnitPrice) }} F</div>
+        <div class="stat-label">Prix moyen unitaire</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-success">
+      <div class="stat-icon">📦</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ stats.totalBulkUnits }}</div>
+        <div class="stat-label">Conditionnements reçus</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-primary">
+      <div class="stat-icon">✅</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ stats.conformityRate }}%</div>
+        <div class="stat-label">Taux de conformité</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-info" *ngIf="stats.topSupplier">
+      <div class="stat-icon">🚚</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ stats.topSupplier }}</div>
+        <div class="stat-label">Fournisseur principal</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-warning" *ngIf="stats.topCategory">
+      <div class="stat-icon">🏆</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ stats.topCategory }}</div>
+        <div class="stat-label">Catégorie la plus reçue</div>
       </div>
     </div>
   </section>
 
-  <!-- ===== FILTRES ===== -->
+  <!-- ===== FILTRES ENRICHIS ===== -->
   <section class="filters-section">
     <!-- Recherche -->
     <div class="search-box">
       <input
         type="text"
         class="search-input"
-        placeholder="🔍 Rechercher par boisson ou fournisseur"
+        placeholder="🔍 Rechercher par boisson, fournisseur, commercial, facture..."
         [(ngModel)]="searchTerm"
         (ngModelChange)="onSearchChange()">
       <button
         *ngIf="searchTerm"
         class="clear-btn"
-        (click)="searchTerm = ''; onSearchChange()">
-        ✕
-      </button>
+        (click)="searchTerm = ''; onSearchChange()">✕</button>
     </div>
 
     <!-- Filtre par cave -->
@@ -85,7 +119,35 @@ DESCRIPTION: Template pour la gestion des entrées de stock
         (ngModelChange)="onCaveFilterChange()">
         <option [ngValue]="null">Toutes les caves</option>
         <option *ngFor="let cave of caves" [ngValue]="cave.id">
-          {{ cave.name }}
+          📍 {{ cave.name }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Filtre par catégorie -->
+    <div class="filter-group">
+      <label class="filter-label">Catégorie :</label>
+      <select
+        class="filter-select"
+        [(ngModel)]="selectedCategoryFilter"
+        (ngModelChange)="onCategoryFilterChange()">
+        <option [ngValue]="null">Toutes les catégories</option>
+        <option *ngFor="let category of drinkCategories" [ngValue]="category">
+          {{ category }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Filtre par fournisseur -->
+    <div class="filter-group">
+      <label class="filter-label">Fournisseur :</label>
+      <select
+        class="filter-select"
+        [(ngModel)]="selectedSupplierFilter"
+        (ngModelChange)="onSupplierFilterChange()">
+        <option [ngValue]="null">Tous les fournisseurs</option>
+        <option *ngFor="let supplier of suppliers" [ngValue]="supplier">
+          🚚 {{ supplier }}
         </option>
       </select>
     </div>
@@ -109,7 +171,7 @@ DESCRIPTION: Template pour la gestion des entrées de stock
     <button
       class="btn btn-secondary"
       (click)="resetFilters()"
-      *ngIf="selectedCaveFilter || searchTerm || periodFilter !== 30">
+      *ngIf="selectedCaveFilter || selectedCategoryFilter || selectedSupplierFilter || searchTerm || periodFilter !== 30">
       🔄 Réinitialiser
     </button>
   </section>
@@ -124,10 +186,10 @@ DESCRIPTION: Template pour la gestion des entrées de stock
   <div *ngIf="!isLoading && filteredEntries.length === 0" class="no-results">
     <div class="no-results-icon">📦</div>
     <h3>Aucune entrée trouvée</h3>
-    <p *ngIf="searchTerm || selectedCaveFilter">
-      Aucune entrée ne correspond à vos critères
+    <p *ngIf="searchTerm || selectedCaveFilter || selectedCategoryFilter || selectedSupplierFilter">
+      Aucune entrée ne correspond à vos critères de recherche
     </p>
-    <p *ngIf="!searchTerm && !selectedCaveFilter">
+    <p *ngIf="!searchTerm && !selectedCaveFilter && !selectedCategoryFilter && !selectedSupplierFilter">
       Commencez par enregistrer votre première entrée de stock
     </p>
     <button class="btn btn-primary" (click)="openAddModal()">
@@ -135,36 +197,105 @@ DESCRIPTION: Template pour la gestion des entrées de stock
     </button>
   </div>
 
-  <!-- ===== TABLEAU DES ENTRÉES ===== -->
+  <!-- ===== TABLEAU DES ENTRÉES ENRICHI ===== -->
   <section *ngIf="!isLoading && filteredEntries.length > 0" class="entries-table">
     <div class="table-wrapper">
       <table class="data-table">
-        <!-- En-têtes du tableau -->
+        <!-- En-têtes -->
         <thead>
           <tr>
             <th>Date</th>
             <th>Boisson</th>
-            <th>Cave</th>
+            <th>Catégorie</th>
+            <th>Conditionnement</th>
             <th class="text-center">Quantité</th>
-            <th class="text-right">Prix Unitaire</th>
+            <th class="text-right">Prix Unit.</th>
             <th class="text-right">Coût Total</th>
             <th>Fournisseur</th>
+            <th>Commercial</th>
+            <th>Cave</th>
+            <th>Qualité</th>
             <th class="text-center">Actions</th>
           </tr>
         </thead>
 
-        <!-- Corps du tableau -->
+        <!-- Corps -->
         <tbody>
-          <tr *ngFor="let entry of filteredEntries" class="table-row">
+          <tr *ngFor="let entry of filteredEntries"
+              class="table-row"
+              [class.recent-entry]="isRecentEntry(entry)"
+              [class.expiry-warning]="isExpiryApproaching(entry)">
+
             <!-- Date -->
             <td class="date-cell">
-              <div class="date-main">{{ formatDate(entry.date) }}</div>
+              <div class="date-main">
+                {{ formatDate(entry.date).split(' à ')[0] }}
+              </div>
               <div class="date-relative">{{ getRelativeDate(entry.date) }}</div>
             </td>
 
-            <!-- Boisson -->
+            <!-- Boisson avec icône -->
             <td class="drink-cell">
-              <div class="drink-name">{{ entry.drinkName }}</div>
+              <div class="drink-info">
+                <span class="drink-icon">{{ entry.drinkIcon }}</span>
+                <div>
+                  <div class="drink-name">{{ entry.drinkName }}</div>
+                  <div class="drink-format">{{ entry.drinkFormat }}</div>
+                </div>
+              </div>
+            </td>
+
+            <!-- Catégorie avec badge coloré -->
+            <td>
+              <span class="category-badge" [ngClass]="getCategoryClass(entry.drinkCategory)">
+                {{ entry.drinkCategory }}
+              </span>
+            </td>
+
+            <!-- Conditionnement détaillé -->
+            <td class="bulk-cell">
+              <div class="bulk-info">
+                <span class="bulk-icon">{{ getBulkUnitIcon(entry.bulkUnit) }}</span>
+                <div>
+                  <div class="bulk-quantity">{{ entry.bulkQuantity }} × {{ entry.bulkUnit }}</div>
+                  <div class="bulk-units">{{ entry.unitsPerBulk }} unités/{{ entry.bulkUnit }}</div>
+                </div>
+              </div>
+            </td>
+
+            <!-- Quantité totale -->
+            <td class="text-center quantity-cell">
+              <span class="quantity-badge">
+                {{ entry.quantity }} unités
+              </span>
+            </td>
+
+            <!-- Prix unitaire -->
+            <td class="text-right price-cell">
+              {{ formatNumber(entry.unitPrice) }} F
+            </td>
+
+            <!-- Coût total -->
+            <td class="text-right total-cell">
+              <strong>{{ formatNumber(entry.totalCost) }} F</strong>
+            </td>
+
+            <!-- Fournisseur -->
+            <td class="supplier-cell">
+              <div class="supplier-info">
+                <div class="supplier-name">{{ entry.supplier }}</div>
+                <div class="supplier-invoice" *ngIf="entry.supplierInvoice">
+                  📄 {{ entry.supplierInvoice }}
+                </div>
+              </div>
+            </td>
+
+            <!-- Commercial -->
+            <td class="commercial-cell">
+              <div class="commercial-info">
+                <div class="commercial-name">{{ entry.commercialName }}</div>
+                <div class="commercial-contact">{{ entry.commercialContact }}</div>
+              </div>
             </td>
 
             <!-- Cave -->
@@ -174,26 +305,11 @@ DESCRIPTION: Template pour la gestion des entrées de stock
               </span>
             </td>
 
-            <!-- Quantité -->
-            <td class="text-center quantity-cell">
-              <span class="quantity-badge">
-                {{ entry.quantity }} unités
+            <!-- Qualité -->
+            <td class="quality-cell">
+              <span class="quality-badge" [ngClass]="getQualityCheckClass(entry.qualityCheck)">
+                {{ getQualityCheckLabel(entry.qualityCheck) }}
               </span>
-            </td>
-
-            <!-- Prix unitaire -->
-            <td class="text-right price-cell">
-              {{ formatNumber(entry.unitPrice) }} FCFA
-            </td>
-
-            <!-- Coût total -->
-            <td class="text-right total-cell">
-              <strong>{{ formatNumber(entry.totalCost) }} FCFA</strong>
-            </td>
-
-            <!-- Fournisseur -->
-            <td class="supplier-cell">
-              {{ entry.supplier || '—' }}
             </td>
 
             <!-- Actions -->
@@ -217,9 +333,9 @@ DESCRIPTION: Template pour la gestion des entrées de stock
     </div>
   </section>
 
-  <!-- ===== MODAL AJOUT D'ENTRÉE ===== -->
+  <!-- ===== MODAL AJOUT D'ENTRÉE ENRICHI ===== -->
   <div *ngIf="isAddModalOpen" class="modal-overlay" (click)="closeAddModal()">
-    <div class="modal-container" (click)="$event.stopPropagation()">
+    <div class="modal-container modal-large" (click)="$event.stopPropagation()">
 
       <!-- En-tête -->
       <header class="modal-header">
@@ -231,109 +347,311 @@ DESCRIPTION: Template pour la gestion des entrées de stock
       <div class="modal-body">
         <form class="entry-form">
 
-          <!-- Sélection de la boisson -->
-          <div class="form-group">
-            <label class="form-label" for="entry-drink">
-              Boisson <span class="required">*</span>
-            </label>
-            <select
-              id="entry-drink"
-              class="form-input"
-              [(ngModel)]="entryForm.drinkId"
-              name="drinkId"
-              required>
-              <option value="">Sélectionner une boisson...</option>
-              <option *ngFor="let drink of drinks" [value]="drink.id">
-                {{ drink.icon }} {{ drink.name }} - Stock actuel: {{ drink.stock }}
-              </option>
-            </select>
-          </div>
-
-          <!-- Sélection de la cave -->
-          <div class="form-group">
-            <label class="form-label" for="entry-cave">
-              Cave de destination <span class="required">*</span>
-            </label>
-            <select
-              id="entry-cave"
-              class="form-input"
-              [(ngModel)]="entryForm.caveId"
-              name="caveId"
-              required>
-              <option value="">Sélectionner une cave...</option>
-              <option *ngFor="let cave of caves" [value]="cave.id">
-                📍 {{ cave.name }} - {{ cave.location }}
-              </option>
-            </select>
-          </div>
-
-          <!-- Ligne : Quantité et Prix unitaire -->
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label" for="entry-quantity">
-                Quantité <span class="required">*</span>
-              </label>
-              <input
-                type="number"
-                id="entry-quantity"
-                class="form-input"
-                [(ngModel)]="entryForm.quantity"
-                name="quantity"
-                min="1"
-                placeholder="Ex: 50"
-                required>
-            </div>
+          <!-- SECTION 1: SÉLECTION BOISSON -->
+          <div class="form-section">
+            <h3 class="section-title">📦 Sélection du produit</h3>
 
             <div class="form-group">
-              <label class="form-label" for="entry-price">
-                Prix unitaire (FCFA) <span class="required">*</span>
+              <label class="form-label" for="entry-drink">
+                Boisson <span class="required">*</span>
               </label>
-              <input
-                type="number"
-                id="entry-price"
+              <select
+                id="entry-drink"
                 class="form-input"
-                [(ngModel)]="entryForm.unitPrice"
-                name="unitPrice"
-                min="0"
-                placeholder="Ex: 2500"
+                [(ngModel)]="entryForm.drinkId"
+                name="drinkId"
+                (ngModelChange)="onDrinkSelected()"
                 required>
+                <option value="">Sélectionner une boisson...</option>
+                <option *ngFor="let drink of drinks" [value]="drink.id">
+                  {{ drink.icon }} {{ drink.name }} ({{ drink.format }}) - Stock: {{ drink.stock }}
+                </option>
+              </select>
             </div>
           </div>
 
-          <!-- Coût total calculé -->
-          <div class="total-cost-display">
-            <span class="total-label">Coût total :</span>
-            <span class="total-value">
-              {{ formatNumber(calculateTotalCost()) }} FCFA
-            </span>
+          <!-- SECTION 2: CONDITIONNEMENT -->
+          <div class="form-section" *ngIf="entryForm.drinkId">
+            <h3 class="section-title">📦 Conditionnement reçu</h3>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="entry-bulk-unit">
+                  Type de conditionnement <span class="required">*</span>
+                </label>
+                <select
+                  id="entry-bulk-unit"
+                  class="form-input"
+                  [(ngModel)]="entryForm.bulkUnit"
+                  name="bulkUnit"
+                  required>
+                  <option *ngFor="let unit of bulkUnits" [value]="unit">
+                    {{ getBulkUnitIcon(unit) }} {{ unit }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="entry-bulk-qty">
+                  Nombre de conditionnements <span class="required">*</span>
+                </label>
+                <input
+                  type="number"
+                  id="entry-bulk-qty"
+                  class="form-input"
+                  [(ngModel)]="entryForm.bulkQuantity"
+                  name="bulkQuantity"
+                  min="1"
+                  (ngModelChange)="calculateTotalUnits()"
+                  placeholder="Ex: 5"
+                  required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="entry-units-per-bulk">
+                  Unités par conditionnement <span class="required">*</span>
+                </label>
+                <input
+                  type="number"
+                  id="entry-units-per-bulk"
+                  class="form-input"
+                  [(ngModel)]="entryForm.unitsPerBulk"
+                  name="unitsPerBulk"
+                  min="1"
+                  (ngModelChange)="calculateTotalUnits()"
+                  placeholder="Ex: 12"
+                  required>
+              </div>
+            </div>
+
+            <!-- Total calculé automatiquement -->
+            <div class="calculation-display">
+              <div class="calc-icon">🔢</div>
+              <div class="calc-content">
+                <div class="calc-label">Quantité totale d'unités :</div>
+                <div class="calc-value">{{ entryForm.totalUnits }} unités</div>
+              </div>
+            </div>
           </div>
 
-          <!-- Fournisseur -->
-          <div class="form-group">
-            <label class="form-label" for="entry-supplier">
-              Fournisseur
-            </label>
-            <input
-              type="text"
-              id="entry-supplier"
-              class="form-input"
-              [(ngModel)]="entryForm.supplier"
-              name="supplier"
-              placeholder="Ex: Distributeur ABC">
+          <!-- SECTION 3: TARIFICATION -->
+          <div class="form-section" *ngIf="entryForm.drinkId">
+            <h3 class="section-title">💰 Tarification</h3>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="entry-unit-price">
+                  Prix unitaire d'achat (FCFA) <span class="required">*</span>
+                </label>
+                <input
+                  type="number"
+                  id="entry-unit-price"
+                  class="form-input"
+                  [(ngModel)]="entryForm.unitPrice"
+                  name="unitPrice"
+                  min="0"
+                  (ngModelChange)="calculateBulkPrice()"
+                  placeholder="Ex: 2500"
+                  required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">
+                  Prix par conditionnement
+                </label>
+                <input
+                  type="number"
+                  class="form-input"
+                  [value]="entryForm.bulkPrice"
+                  disabled
+                  placeholder="Calculé automatiquement">
+                <small class="helper-text">
+                  {{ entryForm.unitPrice }} × {{ entryForm.unitsPerBulk }} = {{ formatNumber(entryForm.bulkPrice) }} F
+                </small>
+              </div>
+            </div>
+
+            <!-- Coût total calculé -->
+            <div class="total-cost-display">
+              <span class="total-label">💵 Coût total de l'entrée :</span>
+              <span class="total-value">
+                {{ formatNumber(entryForm.totalCost) }} FCFA
+              </span>
+            </div>
           </div>
 
-          <!-- Notes -->
-          <div class="form-group">
-            <label class="form-label" for="entry-notes">
-              Notes ou commentaires
-            </label>
-            <textarea
-              id="entry-notes"
-              class="form-textarea"
-              [(ngModel)]="entryForm.notes"
-              name="notes"
-              rows="3"
-              placeholder="Ajoutez des notes sur cette réception..."></textarea>
+          <!-- SECTION 4: FOURNISSEUR ET DOCUMENTS -->
+          <div class="form-section">
+            <h3 class="section-title">🚚 Fournisseur et documents</h3>
+
+            <div class="form-group">
+              <label class="form-label" for="entry-supplier">
+                Fournisseur <span class="required">*</span>
+              </label>
+              <select
+                id="entry-supplier"
+                class="form-input"
+                [(ngModel)]="entryForm.supplier"
+                name="supplier"
+                required>
+                <option *ngFor="let supplier of suppliers" [value]="supplier">
+                  {{ supplier }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="entry-invoice">
+                  Numéro de facture fournisseur
+                </label>
+                <input
+                  type="text"
+                  id="entry-invoice"
+                  class="form-input"
+                  [(ngModel)]="entryForm.supplierInvoice"
+                  name="supplierInvoice"
+                  placeholder="Ex: INV-2024-001234">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="entry-delivery-note">
+                  Numéro de bon de livraison
+                </label>
+                <input
+                  type="text"
+                  id="entry-delivery-note"
+                  class="form-input"
+                  [(ngModel)]="entryForm.deliveryNote"
+                  name="deliveryNote"
+                  placeholder="Ex: BL-2024-005678">
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION 5: DESTINATION ET QUALITÉ -->
+          <div class="form-section">
+            <h3 class="section-title">📍 Destination et contrôle qualité</h3>
+
+            <div class="form-group">
+              <label class="form-label" for="entry-cave">
+                Cave de destination <span class="required">*</span>
+              </label>
+              <select
+                id="entry-cave"
+                class="form-input"
+                [(ngModel)]="entryForm.caveId"
+                name="caveId"
+                required>
+                <option value="">Sélectionner une cave...</option>
+                <option *ngFor="let cave of caves" [value]="cave.id">
+                  📍 {{ cave.name }} - {{ cave.location }}
+                  <span *ngIf="cave.temperature">({{ cave.temperature }})</span>
+                </option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="entry-quality">
+                  Contrôle qualité <span class="required">*</span>
+                </label>
+                <select
+                  id="entry-quality"
+                  class="form-input"
+                  [(ngModel)]="entryForm.qualityCheck"
+                  name="qualityCheck"
+                  required>
+                  <option value="conforme">✅ Conforme</option>
+                  <option value="avec-reserve">⚠️ Avec réserve</option>
+                  <option value="non-conforme">❌ Non conforme</option>
+                </select>
+              </div>
+
+              <div class="form-group" *ngIf="entryForm.qualityCheck !== 'conforme'">
+                <label class="form-label" for="entry-quality-notes">
+                  Notes sur la qualité
+                </label>
+                <input
+                  type="text"
+                  id="entry-quality-notes"
+                  class="form-input"
+                  [(ngModel)]="entryForm.qualityNotes"
+                  name="qualityNotes"
+                  placeholder="Précisez les anomalies...">
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION 6: TRAÇABILITÉ -->
+          <div class="form-section">
+            <h3 class="section-title">🔍 Traçabilité</h3>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="entry-batch">
+                  Numéro de lot fabricant
+                </label>
+                <input
+                  type="text"
+                  id="entry-batch"
+                  class="form-input"
+                  [(ngModel)]="entryForm.batchNumber"
+                  name="batchNumber"
+                  placeholder="Ex: LOT-2024-H-0123">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="entry-expiry">
+                  Date de péremption
+                </label>
+                <input
+                  type="date"
+                  id="entry-expiry"
+                  class="form-input"
+                  [(ngModel)]="entryForm.expiryDate"
+                  name="expiryDate">
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION 7: NOTES -->
+          <div class="form-section">
+            <h3 class="section-title">📝 Notes et commentaires</h3>
+
+            <div class="form-group">
+              <label class="form-label" for="entry-notes">
+                Notes ou observations
+              </label>
+              <textarea
+                id="entry-notes"
+                class="form-textarea"
+                [(ngModel)]="entryForm.notes"
+                name="notes"
+                rows="4"
+                placeholder="Ajoutez des notes sur cette réception (état du colis, conditions de livraison, etc.)..."></textarea>
+            </div>
+          </div>
+
+          <!-- SECTION 8: SUGGESTIONS D'ACCORDS METS-VINS -->
+          <div class="form-section" *ngIf="winePairingSuggestions.length > 0">
+            <h3 class="section-title">🍽️ Suggestions d'accords mets-vins</h3>
+            <p class="section-description">
+              Voici quelques suggestions pour accompagner ce produit :
+            </p>
+
+            <div class="wine-pairing-suggestions">
+              <div class="pairing-card" *ngFor="let suggestion of winePairingSuggestions">
+                <div class="pairing-icon">{{ suggestion.dishIcon }}</div>
+                <div class="pairing-content">
+                  <h4 class="pairing-dish">{{ suggestion.dish }}</h4>
+                  <p class="pairing-description">{{ suggestion.description }}</p>
+                  <div class="pairing-temperature">
+                    🌡️ Servir à {{ suggestion.temperature }}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
         </form>
@@ -346,6 +664,209 @@ DESCRIPTION: Template pour la gestion des entrées de stock
         </button>
         <button class="btn btn-primary" (click)="saveEntry()">
           💾 Enregistrer l'entrée
+        </button>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- ===== MODAL DÉTAILS D'ENTRÉE ===== -->
+  <div *ngIf="isDetailModalOpen && selectedEntry" class="modal-overlay" (click)="closeDetailModal()">
+    <div class="modal-container modal-large" (click)="$event.stopPropagation()">
+
+      <!-- En-tête -->
+      <header class="modal-header">
+        <h2 class="modal-title">
+          {{ selectedEntry.drinkIcon }} Détails de l'entrée - {{ selectedEntry.drinkName }}
+        </h2>
+        <button class="modal-close-btn" (click)="closeDetailModal()">✕</button>
+      </header>
+
+      <!-- Corps -->
+      <div class="modal-body">
+        <div class="details-content">
+
+          <!-- Informations générales -->
+          <div class="detail-section">
+            <h3 class="detail-section-title">📦 Informations générales</h3>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <span class="detail-label">Date de réception :</span>
+                <span class="detail-value">{{ formatDate(selectedEntry.date) }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Boisson :</span>
+                <span class="detail-value">
+                  {{ selectedEntry.drinkIcon }} {{ selectedEntry.drinkName }}
+                </span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Catégorie :</span>
+                <span class="detail-value badge" [ngClass]="getCategoryClass(selectedEntry.drinkCategory)">
+                  {{ selectedEntry.drinkCategory }}
+                </span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Format :</span>
+                <span class="detail-value">{{ selectedEntry.drinkFormat }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Conditionnement -->
+          <div class="detail-section">
+            <h3 class="detail-section-title">📦 Conditionnement</h3>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <span class="detail-label">Type :</span>
+                <span class="detail-value">
+                  {{ getBulkUnitIcon(selectedEntry.bulkUnit) }} {{ selectedEntry.bulkUnit }}
+                </span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Nombre :</span>
+                <span class="detail-value">{{ selectedEntry.bulkQuantity }} {{ selectedEntry.bulkUnit }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Unités par conditionnement :</span>
+                <span class="detail-value">{{ selectedEntry.unitsPerBulk }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Quantité totale :</span>
+                <span class="detail-value highlight">{{ selectedEntry.quantity }} unités</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tarification -->
+          <div class="detail-section">
+            <h3 class="detail-section-title">💰 Tarification</h3>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <span class="detail-label">Prix unitaire :</span>
+                <span class="detail-value">{{ formatNumber(selectedEntry.unitPrice) }} FCFA</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Prix par conditionnement :</span>
+                <span class="detail-value">{{ formatNumber(selectedEntry.bulkPrice) }} FCFA</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Coût total :</span>
+                <span class="detail-value highlight-success">
+                  {{ formatNumber(selectedEntry.totalCost) }} FCFA
+                </span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Taux de marge potentiel :</span>
+                <span class="detail-value">{{ calculateMarginRate(selectedEntry) }}%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fournisseur -->
+          <div class="detail-section">
+            <h3 class="detail-section-title">🚚 Fournisseur et commercial</h3>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <span class="detail-label">Fournisseur :</span>
+                <span class="detail-value">{{ selectedEntry.supplier }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Commercial :</span>
+                <span class="detail-value">{{ selectedEntry.commercialName }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Contact :</span>
+                <span class="detail-value">{{ selectedEntry.commercialContact }}</span>
+              </div>
+              <div class="detail-item" *ngIf="selectedEntry.supplierInvoice">
+                <span class="detail-label">Facture :</span>
+                <span class="detail-value">📄 {{ selectedEntry.supplierInvoice }}</span>
+              </div>
+              <div class="detail-item" *ngIf="selectedEntry.deliveryNote">
+                <span class="detail-label">Bon de livraison :</span>
+                <span class="detail-value">📋 {{ selectedEntry.deliveryNote }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Destination et qualité -->
+          <div class="detail-section">
+            <h3 class="detail-section-title">📍 Destination et qualité</h3>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <span class="detail-label">Cave :</span>
+                <span class="detail-value">📍 {{ getCaveName(selectedEntry.caveId) }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Contrôle qualité :</span>
+                <span class="detail-value badge" [ngClass]="getQualityCheckClass(selectedEntry.qualityCheck)">
+                  {{ getQualityCheckLabel(selectedEntry.qualityCheck) }}
+                </span>
+              </div>
+              <div class="detail-item full-width" *ngIf="selectedEntry.qualityNotes">
+                <span class="detail-label">Notes qualité :</span>
+                <span class="detail-value">{{ selectedEntry.qualityNotes }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Traçabilité -->
+          <div class="detail-section">
+            <h3 class="detail-section-title">🔍 Traçabilité</h3>
+            <div class="detail-grid">
+              <div class="detail-item" *ngIf="selectedEntry.batchNumber">
+                <span class="detail-label">Numéro de lot :</span>
+                <span class="detail-value">{{ selectedEntry.batchNumber }}</span>
+              </div>
+              <div class="detail-item" *ngIf="selectedEntry.expiryDate">
+                <span class="detail-label">Date de péremption :</span>
+                <span class="detail-value" [class.expiry-warning]="isExpiryApproaching(selectedEntry)">
+                  {{ formatDate(selectedEntry.expiryDate).split(' à ')[0] }}
+                  <span *ngIf="isExpiryApproaching(selectedEntry)">
+                    ⚠️ ({{ getDaysUntilExpiry(selectedEntry.expiryDate) }} jours restants)
+                  </span>
+                </span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Enregistré par :</span>
+                <span class="detail-value">{{ selectedEntry.addedBy }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notes -->
+          <div class="detail-section" *ngIf="selectedEntry.notes">
+            <h3 class="detail-section-title">📝 Notes</h3>
+            <div class="detail-notes">
+              {{ selectedEntry.notes }}
+            </div>
+          </div>
+
+          <!-- Suggestions d'accords -->
+          <div class="detail-section" *ngIf="winePairingSuggestions.length > 0">
+            <h3 class="detail-section-title">🍽️ Suggestions d'accords mets-vins</h3>
+            <div class="wine-pairing-suggestions">
+              <div class="pairing-card" *ngFor="let suggestion of winePairingSuggestions">
+                <div class="pairing-icon">{{ suggestion.dishIcon }}</div>
+                <div class="pairing-content">
+                  <h4 class="pairing-dish">{{ suggestion.dish }}</h4>
+                  <p class="pairing-description">{{ suggestion.description }}</p>
+                  <div class="pairing-temperature">
+                    🌡️ Servir à {{ suggestion.temperature }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Pied -->
+      <footer class="modal-footer">
+        <button class="btn btn-secondary" (click)="closeDetailModal()">
+          Fermer
         </button>
       </footer>
 

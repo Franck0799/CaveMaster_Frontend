@@ -585,6 +585,374 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);   // Effet glow rouge
   }
 }
 
+// ==========================================
+// STYLES ADDITIONNELS POUR LE FORMULAIRE COMPLET
+// À AJOUTER AU FICHIER drinks.component.scss
+// ==========================================
+
+// ===== MODAL PLUS LARGE POUR LE FORMULAIRE =====
+.modal-container {
+  max-width: 900px; // Plus large pour accueillir le formulaire complet
+
+  // Amélioration du scroll
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $bg-darker;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $border-color;
+    border-radius: 4px;
+
+    &:hover {
+      background: lighten($border-color, 10%);
+    }
+  }
+}
+
+// ===== SECTIONS DU FORMULAIRE =====
+.form-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: $bg-darker;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: lighten($border-color, 5%);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .section-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: $primary-color;
+    margin: 0 0 1.5rem 0;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid rgba(139, 92, 246, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+// ===== GRILLE DE FORMULAIRE =====
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ===== GROUPES DE FORMULAIRE =====
+.form-group {
+  margin-bottom: 1.25rem;
+
+  .form-label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin-bottom: 0.5rem;
+
+    .required {
+      color: $danger-color;
+      margin-left: 0.25rem;
+    }
+  }
+
+  .form-input,
+  .form-textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid $border-color;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    background: $bg-dark;
+    color: $text-primary;
+    transition: all 0.3s ease;
+    font-family: inherit;
+
+    &::placeholder {
+      color: $text-secondary;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2), $glow-primary;
+      transform: translateY(-1px);
+    }
+
+    &:hover:not(:focus) {
+      border-color: lighten($border-color, 10%);
+    }
+
+    &:disabled,
+    &.form-input-readonly {
+      background: rgba(148, 163, 184, 0.1);
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  .form-hint {
+    display: block;
+    font-size: 0.8rem;
+    color: $text-secondary;
+    margin-top: 0.35rem;
+    font-style: italic;
+
+    &.calculation-hint {
+      color: $success-color;
+      font-style: normal;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+  }
+}
+
+// ===== CARTE D'INFORMATION DE MARGE =====
+.margin-info {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(99, 102, 241, 0.1));
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 8px;
+  animation: fadeInMargin 0.4s ease;
+
+  @keyframes fadeInMargin {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .margin-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    .margin-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+
+      &:not(:last-child) {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .margin-label {
+        font-size: 0.9rem;
+        color: $text-secondary;
+        font-weight: 500;
+      }
+
+      .margin-value {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: $success-color;
+        text-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+        transition: all 0.3s ease;
+
+        &.negative {
+          color: $danger-color;
+          text-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+        }
+
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+
+      &:last-child {
+        .margin-value {
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+}
+
+// ===== AMÉLIORATION DES SELECT =====
+select.form-input {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  padding-right: 2.5rem;
+
+  &:hover {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238b5cf6' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  }
+
+  option {
+    background: $bg-card;
+    color: $text-primary;
+    padding: 0.5rem;
+  }
+}
+
+// ===== AMÉLIORATION DES INPUTS NUMBER =====
+input[type="number"].form-input {
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    opacity: 1;
+    height: 30px;
+  }
+}
+
+// ===== ANIMATIONS D'ENTRÉE POUR LES SECTIONS =====
+.form-section {
+  animation: slideInSection 0.4s ease forwards;
+  opacity: 0;
+
+  @for $i from 1 through 4 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.1}s;
+    }
+  }
+
+  @keyframes slideInSection {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
+
+// ===== INDICATEURS VISUELS POUR LES CHAMPS REQUIS =====
+.form-input:required:invalid {
+  border-left: 3px solid rgba(239, 68, 68, 0.3);
+}
+
+.form-input:required:valid {
+  border-left: 3px solid rgba(16, 185, 129, 0.3);
+}
+
+// ===== AMÉLIORATION DU FOOTER DU MODAL =====
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-top: 1px solid $border-color;
+  background: $bg-darker;
+  border-radius: 0 0 12px 12px;
+
+  .btn {
+    min-width: 120px;
+
+    &:active {
+      transform: translateY(-2px) scale(0.98);
+    }
+  }
+}
+
+// ===== RESPONSIVE POUR LE FORMULAIRE =====
+@media (max-width: 768px) {
+  .modal-container {
+    max-width: 100%;
+    margin: 0.5rem;
+    max-height: 95vh;
+  }
+
+  .form-section {
+    padding: 1rem;
+
+    .section-title {
+      font-size: 1rem;
+    }
+  }
+
+  .form-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  .margin-info {
+    .margin-card {
+      .margin-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+
+        .margin-value {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+}
+
+// ===== ÉTATS DE FOCUS AMÉLIORÉS =====
+.form-group {
+  position: relative;
+
+  &:focus-within {
+    .form-label {
+      color: $primary-color;
+      transform: translateX(2px);
+      transition: all 0.3s ease;
+    }
+  }
+}
+
+// ===== TOOLTIP POUR LES HINTS =====
+.form-hint {
+  position: relative;
+  padding-left: 1.25rem;
+
+  &::before {
+    content: "ℹ️";
+    position: absolute;
+    left: 0;
+    font-size: 0.9rem;
+  }
+
+  &.calculation-hint::before {
+    content: "🔢";
+  }
+}
+
+// ===== AMÉLIORATION DE LA CARTE DE BOISSON =====
+.drink-card {
+  .drink-stats {
+    .stat-item {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+}
+
 // ===== MODAL =====
 .modal-overlay {
   position: fixed;

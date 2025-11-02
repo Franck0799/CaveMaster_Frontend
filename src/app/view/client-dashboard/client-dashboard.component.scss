@@ -1,0 +1,2040 @@
+/* ===== VARIABLES ET RESET ===== */
+
+// Variables de couleur
+$primary: #6366f1;
+$primary-dark: #4f46e5;
+$primary-light: #818cf8;
+$accent: #8b5cf6;
+$success: #10b981;
+$warning: #f59e0b;
+$danger: #ef4444;
+$info: #3b82f6;
+$dark-bg: #0f172a;
+$darker-bg: #020617;
+$card-bg: #1e293b;
+$card-hover: #334155;
+$text: #f1f5f9;
+$text-muted: #94a3b8;
+$border: #334155;
+
+// Gradients
+$gradient-purple: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+$gradient-pink: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+$gradient-blue: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+$gradient-green: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+$gradient-orange: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background: $dark-bg;
+  color: $text;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ===== SCROLLBAR PERSONNALISÉ ===== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $darker-bg;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $border;
+  border-radius: 4px;
+
+  &:hover {
+    background: $primary;
+  }
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ===== STRUCTURE PRINCIPALE ===== */
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ===== SIDEBAR ===== */
+
+/**
+ * La sidebar est une zone de navigation fixe sur le côté gauche
+ * Elle contient le logo, les menus de navigation et reste en place lors du scroll
+ * Sur mobile, elle peut se glisser hors de l'écran (transform)
+ */
+.sidebar {
+  width: 280px;
+  background: $darker-bg;
+  border-right: 1px solid $border;
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 1000;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid $border;
+  position: sticky;
+  top: 0;
+  background: $darker-bg;
+  z-index: 10;
+}
+
+/**
+ * Le logo combine une icône emoji avec le texte "DrinkStore"
+ * Il a un dégradé de couleur appliqué au texte uniquement
+ */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  .logo-icon {
+    font-size: 2.5rem;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .logo-text {
+    font-size: 1.5rem;
+    font-weight: 800;
+    background: $gradient-purple;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+/**
+ * Sections de navigation
+ * Chaque section contient des items avec des icônes et du texte
+ */
+.nav-section {
+  padding: 1.5rem 0;
+}
+
+.section-label {
+  padding: 0.5rem 1.5rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: $text-muted;
+}
+
+/**
+ * Items de navigation individuels
+ * Ils changent de couleur et se décalent vers la droite au survol
+ * Une ligne colorée apparaît à gauche quand actif
+ */
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  color: $text-muted;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-left: 3px solid transparent;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 100%;
+    background: $gradient-purple;
+    opacity: 0.1;
+    transition: width 0.3s ease;
+  }
+
+  &:hover::before {
+    width: 100%;
+  }
+
+  &:hover {
+    color: $text;
+    transform: translateX(8px);
+  }
+
+  &.active {
+    background: rgba($primary, 0.1);
+    color: $primary-light;
+    border-left-color: $primary;
+    font-weight: 600;
+  }
+}
+
+.nav-icon {
+  font-size: 1.3rem;
+  width: 24px;
+  text-align: center;
+  transition: transform 0.3s ease;
+
+  .nav-item:hover & {
+    transform: scale(1.2) rotate(5deg);
+  }
+}
+
+.nav-text {
+  flex: 1;
+  font-size: 0.95rem;
+}
+
+/**
+ * Badge de notification dans la navigation
+ * Affiche un nombre rouge avec animation de pulsation
+ */
+.nav-badge {
+  background: $danger;
+  color: white;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 50px;
+  font-weight: 700;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.divider {
+  height: 1px;
+  background: $border;
+  margin: 1rem 1.5rem;
+}
+
+/* ===== MAIN CONTENT ===== */
+
+/**
+ * La zone principale occupe l'espace restant après la sidebar
+ * Elle a une marge gauche égale à la largeur de la sidebar
+ * En mode mobile, cette marge disparaît quand la sidebar se ferme
+ */
+.main-content {
+  flex: 1;
+  margin-left: 280px;
+  background: $dark-bg;
+  transition: margin-left 0.3s ease;
+  min-height: 100vh;
+}
+
+/* ===== TOP HEADER ===== */
+
+/**
+ * En-tête supérieur collant qui suit le scroll
+ * Contient la barre de recherche et les icônes de profil
+ */
+.top-header {
+  background: $darker-bg;
+  border-bottom: 1px solid $border;
+  padding: 1.25rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex: 1;
+  max-width: 600px;
+}
+
+/**
+ * Menu burger (visible uniquement sur mobile)
+ * Les trois lignes se transforment en X quand actif
+ */
+.burger-menu {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: $card-bg;
+  }
+
+  &.active .burger-line:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+  }
+
+  &.active .burger-line:nth-child(2) {
+    opacity: 0;
+  }
+
+  &.active .burger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+  }
+}
+
+.burger-line {
+  width: 28px;
+  height: 3px;
+  background: $text;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+/**
+ * Barre de recherche avec animation de focus
+ * La bordure devient bleue et une ombre apparaît au clic
+ */
+.search-wrapper {
+  flex: 1;
+  max-width: 500px;
+}
+
+.search-bar {
+  display: flex;
+  background: $card-bg;
+  border: 2px solid $border;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+
+  &:focus-within {
+    border-color: $primary;
+    box-shadow: 0 0 0 4px rgba($primary, 0.1);
+    transform: translateY(-2px);
+  }
+
+  input {
+    flex: 1;
+    padding: 0.875rem 1.25rem;
+    background: none;
+    border: none;
+    color: $text;
+    outline: none;
+    font-size: 0.95rem;
+
+    &::placeholder {
+      color: $text-muted;
+    }
+  }
+}
+
+.search-btn {
+  padding: 0 1.5rem;
+  background: $primary;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.25rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: $primary-dark;
+  }
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/**
+ * Icônes du header (notifications, profil)
+ * Avec badge pour le nombre de notifications
+ */
+.header-icon {
+  position: relative;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  background: $card-bg;
+
+  &:hover {
+    background: $card-hover;
+    transform: translateY(-2px) scale(1.05);
+  }
+}
+
+.icon {
+  font-size: 1.4rem;
+}
+
+/**
+ * Badge rouge affiché en haut à droite des icônes
+ * Contient un nombre de notifications
+ */
+.badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: $danger;
+  color: white;
+  font-size: 0.65rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 50%;
+  font-weight: 700;
+  min-width: 20px;
+  text-align: center;
+  animation: pulse 2s ease-in-out infinite;
+  box-shadow: 0 2px 8px rgba($danger, 0.4);
+}
+
+/**
+ * Profil utilisateur dans le header
+ * Affiche l'avatar, nom et statut
+ */
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: $card-bg;
+
+  &:hover {
+    background: $card-hover;
+    transform: scale(1.02);
+  }
+}
+
+/**
+ * Avatar du profil
+ * Cercle coloré avec emoji et point vert de statut en ligne
+ */
+.avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: $gradient-purple;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  position: relative;
+  border: 3px solid $darker-bg;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 12px;
+    height: 12px;
+    background: $success;
+    border: 2px solid $darker-bg;
+    border-radius: 50%;
+  }
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.user-status {
+  font-size: 0.75rem;
+  color: $text-muted;
+}
+
+/* ===== PAGES ===== */
+
+/**
+ * Section de page qui s'affiche dynamiquement
+ * Seule celle avec classe active est visible
+ */
+.page-section {
+  display: none;
+
+  &.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+  }
+}
+
+.content-wrapper {
+  padding: 2.5rem;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.page-header {
+  margin-bottom: 2.5rem;
+  animation: slideInLeft 0.6s ease;
+}
+
+/**
+ * Titre de page avec dégradé de couleur
+ * Le texte est transparent avec une image de dégradé en arrière-plan
+ */
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  background: $gradient-purple;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.page-subtitle {
+  font-size: 1.05rem;
+  color: $text-muted;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* ===== BOUTONS ===== */
+
+/**
+ * Style de bouton de base
+ * Utilise padding, border-radius et transition pour cohérence
+ * Effet ripple lors du clic
+ */
+.btn {
+  padding: 0.875rem 1.75rem;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+
+  &:active::before {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+.btn-primary {
+  background: $primary;
+  color: white;
+  box-shadow: 0 4px 12px rgba($primary, 0.3);
+
+  &:hover {
+    background: $primary-dark;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba($primary, 0.4);
+  }
+}
+
+.btn-secondary {
+  background: $card-bg;
+  color: $text;
+  border: 2px solid $border;
+
+  &:hover {
+    background: $card-hover;
+    border-color: $primary;
+    transform: translateY(-2px);
+  }
+}
+
+.btn-success {
+  background: $success;
+  color: white;
+  box-shadow: 0 4px 12px rgba($success, 0.3);
+
+  &:hover {
+    background: #059669;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba($success, 0.4);
+  }
+}
+
+.btn-danger {
+  background: $danger;
+  color: white;
+  box-shadow: 0 4px 12px rgba($danger, 0.3);
+
+  &:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba($danger, 0.4);
+  }
+}
+
+/* ===== STATS CARDS ===== */
+
+/**
+ * Grille de cartes statistiques
+ * Utilise auto-fit pour s'adapter au nombre d'éléments
+ * Chaque carte a une hauteur minimale de 280px
+ */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+/**
+ * Carte statistique individuelle
+ * Affiche une valeur avec son label et un changement en pourcentage
+ * Effet de levée au survol avec ombre
+ */
+.stat-card {
+  background: $card-bg;
+  border: 2px solid $border;
+  border-radius: 16px;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+    transition: transform 0.6s ease;
+  }
+
+  &:hover::before {
+    transform: scale(1.2);
+  }
+
+  &:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.stat-icon-wrapper {
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  flex-shrink: 0;
+  transition: all 0.4s ease;
+  position: relative;
+  z-index: 1;
+
+  .stat-card:hover & {
+    transform: scale(1.15) rotate(5deg);
+  }
+}
+
+.stat-content {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: $text-muted;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 2.25rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  transition: all 0.3s ease;
+
+  .stat-card:hover & {
+    transform: scale(1.08);
+  }
+}
+
+.stat-change {
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 50px;
+
+  &.positive {
+    background: rgba($success, 0.15);
+    color: $success;
+  }
+
+  &.negative {
+    background: rgba($danger, 0.15);
+    color: $danger;
+  }
+}
+
+/* ===== VARIANTES DE COULEUR DES STAT CARDS ===== */
+
+/**
+ * Quatre variantes de couleur pour les cartes stats
+ * Chacune a une bordure, icône et valeur colorées différemment
+ */
+.stat-card-purple {
+  border-color: rgba($accent, 0.3);
+
+  &:hover {
+    border-color: $accent;
+    background: linear-gradient(135deg, rgba($accent, 0.05), $card-bg);
+    box-shadow: 0 20px 60px rgba($accent, 0.2);
+  }
+
+  .stat-icon-wrapper {
+    background: rgba($accent, 0.15);
+  }
+
+  &:hover .stat-icon-wrapper {
+    background: rgba($accent, 0.25);
+    box-shadow: 0 12px 32px rgba($accent, 0.3);
+  }
+
+  .stat-value {
+    color: $accent;
+  }
+}
+
+.stat-card-green {
+  border-color: rgba($success, 0.3);
+
+  &:hover {
+    border-color: $success;
+    background: linear-gradient(135deg, rgba($success, 0.05), $card-bg);
+    box-shadow: 0 20px 60px rgba($success, 0.2);
+  }
+
+  .stat-icon-wrapper {
+    background: rgba($success, 0.15);
+  }
+
+  &:hover .stat-icon-wrapper {
+    background: rgba($success, 0.25);
+    box-shadow: 0 12px 32px rgba($success, 0.3);
+  }
+
+  .stat-value {
+    color: $success;
+  }
+}
+
+.stat-card-blue {
+  border-color: rgba($info, 0.3);
+
+  &:hover {
+    border-color: $info;
+    background: linear-gradient(135deg, rgba($info, 0.05), $card-bg);
+    box-shadow: 0 20px 60px rgba($info, 0.2);
+  }
+
+  .stat-icon-wrapper {
+    background: rgba($info, 0.15);
+  }
+
+  &:hover .stat-icon-wrapper {
+    background: rgba($info, 0.25);
+    box-shadow: 0 12px 32px rgba($info, 0.3);
+  }
+
+  .stat-value {
+    color: $info;
+  }
+}
+
+.stat-card-orange {
+  border-color: rgba(251, 146, 60, 0.3);
+
+  &:hover {
+    border-color: #fb923c;
+    background: linear-gradient(135deg, rgba(251, 146, 60, 0.05), $card-bg);
+    box-shadow: 0 20px 60px rgba(251, 146, 60, 0.2);
+  }
+
+  .stat-icon-wrapper {
+    background: rgba(251, 146, 60, 0.15);
+  }
+
+  &:hover .stat-icon-wrapper {
+    background: rgba(251, 146, 60, 0.25);
+    box-shadow: 0 12px 32px rgba(251, 146, 60, 0.3);
+  }
+
+  .stat-value {
+    color: #fb923c;
+  }
+}
+
+/* ===== QUICK ACTIONS ===== */
+
+/**
+ * Grille d'actions rapides
+ * Chaque action est un carré cliquable avec icône et texte
+ */
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.quick-action {
+  background: $card-bg;
+  border: 2px solid $border;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    border-color: $primary;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.quick-action-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+  transition: transform 0.3s ease;
+
+  .quick-action:hover & {
+    transform: scale(1.2) rotate(5deg);
+  }
+}
+
+.quick-action-text {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* ===== PRODUITS GRID ===== */
+
+/**
+ * Grille de produits
+ * Remplit automatiquement les colonnes selon l'espace disponible
+ */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  animation: slideInRight 0.6s ease;
+}
+
+/**
+ * Carte produit avec image, infos et boutons
+ * L'image a un effet de brillance au survol
+ */
+.product-card {
+  background: $card-bg;
+  border: 2px solid $border;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    border-color: $primary;
+  }
+}
+
+.product-image {
+  height: 220px;
+  background: linear-gradient(135deg, rgba($primary, 0.08), rgba($accent, 0.08));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 6rem;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.6s;
+  }
+
+  .product-card:hover &::before {
+    left: 100%;
+  }
+}
+
+.product-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
+}
+
+.badge-hot {
+  background: rgba($danger, 0.9);
+  color: white;
+}
+
+.badge-new {
+  background: rgba($success, 0.9);
+  color: white;
+}
+
+.favorite-btn {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.3rem;
+  transition: all 0.3s ease;
+
+  &:hover,
+  &.active {
+    background: $danger;
+    transform: scale(1.15);
+  }
+}
+
+.product-info {
+  padding: 1.5rem;
+}
+
+.product-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: $text;
+}
+
+.product-category {
+  color: $text-muted;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.product-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.product-price {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: $success;
+}
+
+/**
+ * Bouton ajouter au panier
+ * Cercle avec icône shopping bag
+ */
+.add-to-cart {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: $primary;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.3rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba($primary, 0.3);
+
+  &:hover {
+    background: $primary-dark;
+    transform: scale(1.15);
+    box-shadow: 0 8px 20px rgba($primary, 0.5);
+  }
+}
+
+/* ===== COMMANDES ===== */
+
+/**
+ * Grille de cartes de commandes
+ * Chaque commande affiche image, infos, statut et prix
+ */
+.orders-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.order-card {
+  background: $card-bg;
+  border: 2px solid $border;
+  border-radius: 16px;
+  padding: 1.75rem;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1.5rem;
+  align-items: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateX(8px);
+    border-color: $primary;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.order-image {
+  width: 90px;
+  height: 90px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba($primary, 0.1), rgba($accent, 0.1));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+.order-info {
+  flex: 1;
+}
+
+.order-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.order-details {
+  font-size: 0.9rem;
+  color: $text-muted;
+  margin-bottom: 0.75rem;
+}
+
+.order-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.order-price-section {
+  text-align: right;
+}
+
+.order-price {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: $success;
+  margin-bottom: 0.5rem;
+}
+
+/**
+ * Badge de statut avec couleurs différentes
+ * Vert pour livré, bleu pour traitement, orange pour attente, rouge pour annulé
+ */
+.status-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.status-delivered {
+  background: rgba($success, 0.2);
+  color: $success;
+}
+
+.status-processing {
+  background: rgba($info, 0.2);
+  color: $info;
+}
+
+.status-pending {
+  background: rgba($warning, 0.2);
+  color: $warning;
+}
+
+.status-cancelled {
+  background: rgba($danger, 0.2);
+  color: $danger;
+}
+
+/* ===== PROGRAMME FIDÉLITÉ ===== */
+
+/**
+ * Carte de fidélité avec dégradé de couleur
+ * Affiche les points, le niveau et une barre de progression
+ */
+.loyalty-card {
+  background: $gradient-purple;
+  border-radius: 20px;
+  padding: 2.5rem;
+  color: white;
+  margin-bottom: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba($primary, 0.3);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+  }
+}
+
+.loyalty-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.loyalty-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+}
+
+.loyalty-level {
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.loyalty-points {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.points-value {
+  font-size: 5rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.points-label {
+  font-size: 1.25rem;
+  opacity: 0.95;
+}
+
+.loyalty-progress {
+  position: relative;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  z-index: 1;
+}
+
+.progress-bar {
+  height: 100%;
+  background: white;
+  border-radius: 50px;
+  transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.progress-text {
+  text-align: center;
+  opacity: 0.95;
+  position: relative;
+  z-index: 1;
+  font-size: 1rem;
+}
+
+/* ===== REWARDS ===== */
+
+/**
+ * Grille de récompenses à débloquer
+ * Chacune affiche son coût en points
+ */
+.rewards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.reward-card {
+  background: $card-bg;
+  border: 2px solid $border;
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-8px);
+    border-color: $primary;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.reward-icon {
+  font-size: 4.5rem;
+  margin-bottom: 1.25rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+.reward-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.reward-description {
+  font-size: 0.95rem;
+  color: $text-muted;
+  margin-bottom: 1.25rem;
+}
+
+.reward-cost {
+  font-size: 2rem;
+  font-weight: 800;
+  color: $primary-light;
+  margin-bottom: 1.25rem;
+}
+
+/* ===== ADRESSES ===== */
+
+/**
+ * Grille de cartes d'adresses
+ * Chacune affiche type, adresse complète et actions
+ */
+.addresses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.address-card {
+  background: $card-bg;
+  border: 2px solid $border;
+  border-radius: 16px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-5px);
+    border-color: $primary;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+  }
+
+  &.default {
+    border-color: $success;
+  }
+}
+
+.address-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.address-type {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.default-badge {
+  padding: 0.375rem 0.875rem;
+  background: rgba($success, 0.2);
+  color: $success;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.address-details {
+  color: $text-muted;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.address-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+/* ===== CARTES DE PAIEMENT ===== */
+
+/**
+ * Grille de cartes de crédit
+ * Chacune affiche le numéro, titulaire et expiration
+ */
+.payment-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.5rem;
+}
+
+/**
+ * Carte de crédit avec dégradés différents selon le type
+ * Visa = purple, Mastercard = pink, Amex = blue
+ */
+.credit-card {
+  height: 220px;
+  border-radius: 16px;
+  padding: 2rem;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    animation: rotate 15s linear infinite;
+  }
+
+  &:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  }
+
+  &.visa {
+    background: $gradient-purple;
+  }
+
+  &.mastercard {
+    background: $gradient-pink;
+  }
+
+  &.amex {
+    background: $gradient-blue;
+  }
+}
+
+.card-chip {
+  width: 55px;
+  height: 45px;
+  background: linear-gradient(135deg, #d4af37, #f4e5a1);
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.card-number {
+  font-size: 1.5rem;
+  letter-spacing: 4px;
+  margin-bottom: 2rem;
+  font-family: 'Courier New', monospace;
+  position: relative;
+  z-index: 1;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  position: relative;
+  z-index: 1;
+}
+
+.card-holder-section {
+  flex: 1;
+}
+
+.card-holder {
+  font-size: 0.85rem;
+  opacity: 0.8;
+  margin-bottom: 0.25rem;
+}
+
+.card-name {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.card-expiry-section {
+  text-align: right;
+}
+
+.card-expiry-label {
+  font-size: 0.85rem;
+  opacity: 0.8;
+  margin-bottom: 0.25rem;
+}
+
+.card-expiry {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* ===== NOTIFICATIONS ===== */
+
+/**
+ * Liste de notifications
+ * Chacune peut être marquée comme lue/non lue
+ */
+.notifications-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.notification-item {
+  background: $card-bg;
+  border: 2px solid $border;
+  border-radius: 16px;
+  padding: 1.75rem;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateX(8px);
+    border-color: $primary;
+    background: $card-hover;
+  }
+
+  &.unread {
+    border-left: 4px solid $primary;
+    background: rgba($primary, 0.05);
+  }
+}
+
+.notification-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  flex-shrink: 0;
+
+  &.success {
+    background: rgba($success, 0.15);
+  }
+
+  &.info {
+    background: rgba($info, 0.15);
+  }
+
+  &.warning {
+    background: rgba($warning, 0.15);
+  }
+}
+
+.notification-content {
+  flex: 1;
+}
+
+.notification-title {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.notification-message {
+  font-size: 0.95rem;
+  color: $text-muted;
+  line-height: 1.6;
+}
+
+.notification-time {
+  font-size: 0.85rem;
+  color: $text-muted;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ===== MODAL ===== */
+
+/**
+ * Modal avec backdrop flou
+ * Affiche les détails d'un produit au clic
+ */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+
+  &.active {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+  }
+}
+
+.modal-content {
+  background: $card-bg;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 700px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border: 2px solid $border;
+  animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-header {
+  padding: 2rem;
+  border-bottom: 2px solid $border;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+}
+
+.close-btn {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: $darker-bg;
+  border: none;
+  color: $text;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: $danger;
+    transform: rotate(90deg) scale(1.1);
+  }
+}
+
+.modal-body {
+  padding: 2rem;
+}
+
+.modal-footer {
+  padding: 1.5rem 2rem;
+  border-top: 2px solid $border;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+/* ===== FORMS ===== */
+
+/**
+ * Éléments de formulaire
+ * Inputs, textareas et selects ont le même style
+ */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  color: $text;
+  font-size: 0.95rem;
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  background: $darker-bg;
+  border: 2px solid $border;
+  border-radius: 12px;
+  color: $text;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.3s ease;
+
+  &:focus {
+    border-color: $primary;
+    box-shadow: 0 0 0 4px rgba($primary, 0.1);
+  }
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* ===== CHAT WIDGET ===== */
+
+/**
+ * Bouton chat flottant en bas à droite
+ * Avec badge de nombre de messages
+ */
+.chat-widget {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1500;
+}
+
+.chat-button {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: $gradient-purple;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  box-shadow: 0 10px 40px rgba($primary, 0.5);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  &:hover {
+    transform: scale(1.15);
+    box-shadow: 0 15px 50px rgba($primary, 0.6);
+  }
+}
+
+/**
+ * Badge du chat affichant le nombre de messages non lus
+ * Positionné en haut à droite du bouton
+ */
+.chat-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 28px;
+  height: 28px;
+  background: $danger;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: 3px solid $dark-bg;
+  animation: pulse 2s infinite;
+}
+
+/* ===== EMPTY STATE ===== */
+
+/**
+ * État vide affiché quand il n'y a pas de données
+ * Centralisé avec icône animée
+ */
+.empty-state {
+  text-align: center;
+  padding: 5rem 2rem;
+}
+
+.empty-icon {
+  font-size: 8rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.4;
+  animation: float 3s ease-in-out infinite;
+}
+
+.empty-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.empty-description {
+  color: $text-muted;
+  font-size: 1.05rem;
+  margin-bottom: 2rem;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/**
+ * Breakpoint tablette
+ * Réduit la taille des grilles de statistiques
+ */
+@media (max-width: 1024px) {
+  .stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+/**
+ * Breakpoint mobile
+ * Adapte la layout pour les petits écrans
+ * La sidebar se cache et se glisse depuis le côté
+ * La zone de contenu prend toute la largeur
+ */
+@media (max-width: 768px) {
+  /* La sidebar glisse hors de l'écran par défaut */
+  .sidebar {
+    transform: translateX(-100%);
+
+    &.active {
+      transform: translateX(0);
+    }
+  }
+
+  /**
+   * Sur mobile, la zone principale n'a pas de marge gauche
+   * car la sidebar n'est pas visible
+   */
+  .main-content {
+    margin-left: 0;
+  }
+
+  /* Affiche le menu burger sur mobile */
+  .burger-menu {
+    display: flex;
+  }
+
+  .header-left {
+    gap: 1rem;
+  }
+
+  .search-wrapper {
+    max-width: 100%;
+  }
+
+  .header-right {
+    gap: 0.5rem;
+  }
+
+  /* Masque les infos utilisateur sur mobile pour économiser l'espace */
+  .user-info {
+    display: none;
+  }
+
+  .content-wrapper {
+    padding: 1.5rem;
+  }
+
+  .page-title {
+    font-size: 2rem;
+  }
+
+  /**
+   * Les cartes de stats deviennent en une seule colonne
+   * et affichent le contenu verticalement au lieu d'horizontalement
+   */
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  /* Les grilles de produits, adresses et cartes deviennent une seule colonne */
+  .products-grid,
+  .addresses-grid,
+  .payment-cards-grid,
+  .rewards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Les cartes de commandes affichent tout verticalement */
+  .order-card {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .order-price-section {
+    text-align: center;
+  }
+
+  /* Les actions rapides deviennent 2 colonnes sur mobile */
+  .quick-actions {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/**
+ * Breakpoint petit mobile
+ * Très petits écrans (moins de 480px)
+ */
+@media (max-width: 480px) {
+  .content-wrapper {
+    padding: 1rem;
+  }
+
+  .page-title {
+    font-size: 1.75rem;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+  }
+
+  /* Les actions rapides passent en une seule colonne */
+  .quick-actions {
+    grid-template-columns: 1fr;
+  }
+
+  /**
+   * Les points de fidélité sont réduits en taille
+   * car l'écran est très petit
+   */
+  .loyalty-points .points-value {
+    font-size: 3.5rem;
+  }
+
+  /* Le bouton chat devient plus petit aussi */
+  .chat-button {
+    width: 60px;
+    height: 60px;
+    font-size: 1.75rem;
+  }
+
+  .modal-content {
+    width: 95%;
+    border-radius: 16px;
+  }
+
+  .modal-header {
+    padding: 1.5rem;
+  }
+
+  .modal-body {
+    padding: 1.5rem;
+  }
+
+  .modal-footer {
+    padding: 1rem 1.5rem;
+    flex-direction: column-reverse;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ===== DARK MODE PRÉFÉRENCE UTILISATEUR ===== */
+
+/**
+ * Respecte les préférences de mode sombre du système
+ * (Non utilisé ici car le site est toujours en dark mode)
+ */
+@media (prefers-color-scheme: dark) {
+  // Les styles sombres sont déjà définis par défaut
+}
+
+/* ===== ACCESSIBILITÉ ===== */
+
+/**
+ * Réduit les animations pour les utilisateurs ayant activé
+ * "Réduire le mouvement" dans leurs paramètres d'accessibilité
+ */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/**
+ * Focus visible pour l'accessibilité au clavier
+ * Affiche un contour bleu quand on navigue au clavier
+ */
+.btn:focus-visible,
+.nav-item:focus-visible,
+input:focus-visible {
+  outline: 3px solid $primary;
+  outline-offset: 2px;
+}
+
+/* ===== UTILITIES ===== */
+
+/**
+ * Classe pour masquer du texte
+ * Utilisée pour les labels de formulaire accessibles
+ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

@@ -85,10 +85,10 @@ export class ManagersComponent implements OnInit {
     {
       id: '1',
       avatar: '👨‍💼',
-      firstName: 'Jean',
-      lastName: 'Dupont',
-      name: 'Jean Dupont',
-      email: 'jean.dupont@drinkstore.com',
+      firstName: 'Jaures',
+      lastName: 'Nguessan',
+      name: 'Jaures Nguessan',
+      email: 'jaures.nguessan@caveviking.com',
       phone: '+234 801 111 2222',
       role: 'Manager Principal',
       performance: {
@@ -131,10 +131,10 @@ export class ManagersComponent implements OnInit {
     {
       id: '2',
       avatar: '👩‍💼',
-      firstName: 'Marie',
-      lastName: 'Martin',
-      name: 'Marie Martin',
-      email: 'marie.martin@drinkstore.com',
+      firstName: 'Patricia',
+      lastName: 'Sagou',
+      name: 'Patricia Sagou',
+      email: 'patricia.sagou@caveviking.com',
       phone: '+234 802 333 4444',
       role: 'Manager',
       performance: {

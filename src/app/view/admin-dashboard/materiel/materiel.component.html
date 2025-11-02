@@ -1,0 +1,324 @@
+<div class="material-management">
+  <header class="header">
+    <h1>
+      <i class="icon-warehouse"></i>
+      Gestion du Matériel
+    </h1>
+    <div class="header-actions">
+      <button class="btn btn-export" (click)="exportData()">
+        <i class="icon-download"></i> Exporter
+      </button>
+    </div>
+  </header>
+
+  <!-- Statistiques rapides -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">📦</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ materials.length }}</div>
+        <div class="stat-label">Articles</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">💰</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ getTotalValue() | number:'1.0-0' }} FCFA</div>
+        <div class="stat-label">Valeur totale</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">📄</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ invoices.length }}</div>
+        <div class="stat-label">Factures</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">📊</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ categories.length }}</div>
+        <div class="stat-label">Catégories</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation par onglets -->
+  <div class="tabs">
+    <button
+      class="tab"
+      [class.active]="activeTab === 'materials'"
+      (click)="activeTab = 'materials'">
+      <i class="icon-box"></i> Matériel
+    </button>
+    <button
+      class="tab"
+      [class.active]="activeTab === 'invoices'"
+      (click)="activeTab = 'invoices'">
+      <i class="icon-receipt"></i> Factures
+    </button>
+  </div>
+
+  <!-- Section Matériel -->
+  <div class="tab-content" *ngIf="activeTab === 'materials'">
+    <div class="content-header">
+      <div class="filters">
+        <input
+          type="text"
+          class="search-input"
+          placeholder="🔍 Rechercher un article..."
+          [(ngModel)]="searchTerm">
+
+        <select class="filter-select" [(ngModel)]="selectedCategory">
+          <option value="">Toutes les catégories</option>
+          <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+        </select>
+
+        <select class="filter-select" [(ngModel)]="selectedEtat">
+          <option value="">Tous les états</option>
+          <option *ngFor="let etat of etats" [value]="etat">{{ etat }}</option>
+        </select>
+      </div>
+
+      <button class="btn btn-primary" (click)="showMaterialForm = !showMaterialForm">
+        <i class="icon-plus"></i> Ajouter du matériel
+      </button>
+    </div>
+
+    <!-- Formulaire d'ajout/édition de matériel -->
+    <div class="form-card" *ngIf="showMaterialForm">
+      <h3>{{ editingMaterialId ? 'Modifier' : 'Ajouter' }} un article</h3>
+      <form (ngSubmit)="editingMaterialId ? updateMaterial() : addMaterial()">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Nom de l'article *</label>
+            <input type="text" [(ngModel)]="materialForm.nom" name="nom" required>
+          </div>
+
+          <div class="form-group">
+            <label>Catégorie *</label>
+            <select [(ngModel)]="materialForm.categorie" name="categorie" required>
+              <option value="">Sélectionner...</option>
+              <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Quantité *</label>
+            <input type="number" [(ngModel)]="materialForm.quantite" name="quantite" min="1" required>
+          </div>
+
+          <div class="form-group">
+            <label>État *</label>
+            <select [(ngModel)]="materialForm.etat" name="etat" required>
+              <option *ngFor="let etat of etats" [value]="etat">{{ etat }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Prix unitaire (FCFA) *</label>
+            <input type="number" [(ngModel)]="materialForm.prixUnitaire" name="prixUnitaire" min="0" required>
+          </div>
+
+          <div class="form-group">
+            <label>Date d'acquisition *</label>
+            <input type="date" [(ngModel)]="materialForm.dateAcquisition" name="dateAcquisition" required>
+          </div>
+
+          <div class="form-group">
+            <label>Emplacement *</label>
+            <input type="text" [(ngModel)]="materialForm.emplacement" name="emplacement"
+                   placeholder="Ex: Salle principale, Cuisine, Entrepôt..." required>
+          </div>
+
+          <div class="form-group">
+            <label>Facture associée</label>
+            <select [(ngModel)]="materialForm.factureId" name="factureId">
+              <option value="">Aucune</option>
+              <option *ngFor="let invoice of invoices" [value]="invoice.id">
+                {{ invoice.numero }} - {{ invoice.fournisseur }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group full-width">
+          <label>Description</label>
+          <textarea [(ngModel)]="materialForm.description" name="description"
+                    rows="3" placeholder="Détails supplémentaires..."></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" (click)="resetMaterialForm()">
+            Annuler
+          </button>
+          <button type="submit" class="btn btn-primary">
+            {{ editingMaterialId ? 'Mettre à jour' : 'Ajouter' }}
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Liste du matériel -->
+    <div class="materials-grid">
+      <div class="material-card" *ngFor="let material of getFilteredMaterials()">
+        <div class="material-header">
+          <h4>{{ material.nom }}</h4>
+          <span class="badge" [class]="'badge-' + material.etat.toLowerCase().replace(' ', '-')">
+            {{ material.etat }}
+          </span>
+        </div>
+
+        <div class="material-details">
+          <div class="detail-row">
+            <span class="label">Catégorie:</span>
+            <span class="value">{{ material.categorie }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Quantité:</span>
+            <span class="value">{{ material.quantite }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Prix unitaire:</span>
+            <span class="value">{{ material.prixUnitaire | number:'1.0-0' }} FCFA</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Valeur totale:</span>
+            <span class="value bold">{{ (material.prixUnitaire * material.quantite) | number:'1.0-0' }} FCFA</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Emplacement:</span>
+            <span class="value">{{ material.emplacement }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Date d'achat:</span>
+            <span class="value">{{ material.dateAcquisition | date:'dd/MM/yyyy' }}</span>
+          </div>
+          <div class="detail-row" *ngIf="material.factureId">
+            <span class="label">Facture:</span>
+            <span class="value">{{ getInvoiceByMaterial(material.factureId)?.numero }}</span>
+          </div>
+          <div class="detail-row full-width" *ngIf="material.description">
+            <span class="label">Description:</span>
+            <span class="value">{{ material.description }}</span>
+          </div>
+        </div>
+
+        <div class="material-actions">
+          <button class="btn-icon btn-edit" (click)="editMaterial(material)">
+            <i class="icon-edit"></i> Modifier
+          </button>
+          <button class="btn-icon btn-delete" (click)="deleteMaterial(material.id)">
+            <i class="icon-trash"></i> Supprimer
+          </button>
+        </div>
+      </div>
+
+      <div class="empty-state" *ngIf="getFilteredMaterials().length === 0">
+        <div class="empty-icon">📦</div>
+        <p>Aucun matériel trouvé</p>
+        <button class="btn btn-primary" (click)="showMaterialForm = true">
+          Ajouter du matériel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section Factures -->
+  <div class="tab-content" *ngIf="activeTab === 'invoices'">
+    <div class="content-header">
+      <h2>Gestion des Factures d'Achat</h2>
+      <button class="btn btn-primary" (click)="showInvoiceForm = !showInvoiceForm">
+        <i class="icon-plus"></i> Nouvelle facture
+      </button>
+    </div>
+
+    <!-- Formulaire d'ajout/édition de facture -->
+    <div class="form-card" *ngIf="showInvoiceForm">
+      <h3>{{ editingInvoiceId ? 'Modifier' : 'Nouvelle' }} facture</h3>
+      <form (ngSubmit)="editingInvoiceId ? updateInvoice() : addInvoice()">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Numéro de facture *</label>
+            <input type="text" [(ngModel)]="invoiceForm.numero" name="numero"
+                   placeholder="Ex: FAC-2025-001" required>
+          </div>
+
+          <div class="form-group">
+            <label>Fournisseur *</label>
+            <input type="text" [(ngModel)]="invoiceForm.fournisseur" name="fournisseur"
+                   placeholder="Nom du fournisseur" required>
+          </div>
+
+          <div class="form-group">
+            <label>Date d'achat *</label>
+            <input type="date" [(ngModel)]="invoiceForm.dateAchat" name="dateAchat" required>
+          </div>
+
+          <div class="form-group">
+            <label>Montant total (FCFA) *</label>
+            <input type="number" [(ngModel)]="invoiceForm.montantTotal" name="montantTotal"
+                   min="0" required>
+          </div>
+
+          <div class="form-group full-width">
+            <label>Fichier (optionnel)</label>
+            <input type="file" (change)="onFileSelect($event)"
+                   accept=".pdf,.jpg,.jpeg,.png">
+            <small>Formats acceptés: PDF, JPG, PNG</small>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" (click)="resetInvoiceForm()">
+            Annuler
+          </button>
+          <button type="submit" class="btn btn-primary">
+            {{ editingInvoiceId ? 'Mettre à jour' : 'Enregistrer' }}
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Liste des factures -->
+    <div class="invoices-list">
+      <div class="invoice-card" *ngFor="let invoice of invoices">
+        <div class="invoice-header">
+          <div>
+            <h4>{{ invoice.numero }}</h4>
+            <p class="invoice-supplier">{{ invoice.fournisseur }}</p>
+          </div>
+          <div class="invoice-amount">{{ invoice.montantTotal | number:'1.0-0' }} FCFA</div>
+        </div>
+
+        <div class="invoice-details">
+          <div class="detail-item">
+            <i class="icon-calendar"></i>
+            {{ invoice.dateAchat | date:'dd/MM/yyyy' }}
+          </div>
+          <div class="detail-item" *ngIf="invoice.fichier">
+            <i class="icon-file"></i>
+            {{ invoice.fichier }}
+          </div>
+        </div>
+
+        <div class="invoice-actions">
+          <button class="btn-icon btn-edit" (click)="editInvoice(invoice)">
+            <i class="icon-edit"></i> Modifier
+          </button>
+          <button class="btn-icon btn-delete" (click)="deleteInvoice(invoice.id)">
+            <i class="icon-trash"></i> Supprimer
+          </button>
+        </div>
+      </div>
+
+      <div class="empty-state" *ngIf="invoices.length === 0">
+        <div class="empty-icon">📄</div>
+        <p>Aucune facture enregistrée</p>
+        <button class="btn btn-primary" (click)="showInvoiceForm = true">
+          Ajouter une facture
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -45,7 +45,7 @@
       <div class="stat-icon">💰</div>
       <div class="stat-content">
         <div class="stat-label">Bénéfice Total</div>
-        <div class="stat-value">{{ totalBenefice | number:'1.2-2' }} €</div>
+        <div class="stat-value">{{ totalBenefice | number:'1.2-2' }} fr</div>
       </div>
     </div>
 
@@ -53,7 +53,7 @@
       <div class="stat-icon">📈</div>
       <div class="stat-content">
         <div class="stat-label">Chiffre d'Affaires</div>
-        <div class="stat-value">{{ totalCA | number:'1.2-2' }} €</div>
+        <div class="stat-value">{{ totalCA | number:'1.2-2' }} fr</div>
       </div>
     </div>
 
@@ -84,9 +84,9 @@
           <tr>
             <th>Catégorie</th>
             <th class="text-right">Qté Vendue</th>
-            <th class="text-right">CA (€)</th>
-            <th class="text-right">Coût Achat (€)</th>
-            <th class="text-right">Bénéfice (€)</th>
+            <th class="text-right">CA (fr)</th>
+            <th class="text-right">Coût Achat (fr)</th>
+            <th class="text-right">Bénéfice (fr)</th>
             <th class="text-right">Marge (%)</th>
           </tr>
         </thead>
@@ -150,7 +150,7 @@
         <div class="cave-stats">
           <div class="cave-stat">
             <span class="label">Bénéfice</span>
-            <span class="value">{{ calculerBeneficeParCave(cave.nom) | number:'1.2-2' }} €</span>
+            <span class="value">{{ calculerBeneficeParCave(cave.nom) | number:'1.2-2' }} </span>
           </div>
           <div class="cave-stat">
             <span class="label">Stock</span>

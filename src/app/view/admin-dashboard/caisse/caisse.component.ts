@@ -20,7 +20,7 @@ interface Transaction {
   type: 'vente' | 'remboursement' | 'ouverture' | 'fermeture';
   typeText: string;
   montant: number;
-  moyenPaiement: 'especes' | 'carte' | 'mobile' | 'credit';
+  moyenPaiement: 'especes' | 'Wave' | 'mobile' | 'credit';
   moyenPaiementText: string;
   client?: string;
   reference?: string;
@@ -34,7 +34,7 @@ interface StatistiqueCaisse {
   managerId: string;
   totalJour: number;
   especes: number;
-  carte: number;
+  wave: number;
   mobile: number;
   nombreTransactions: number;
   derniereMaj: string;
@@ -66,31 +66,31 @@ export class CaisseComponent implements OnInit {
       id: 'mgr-1',
       nom: 'Jean Kouassi',
       cave: 'Cave Principale',
-      caveAdresse: 'Lekki Phase 1, Lagos',
+      caveAdresse: 'Lekki Phase 1, Abidjan',
       avatar: '👨‍💼',
       statut: 'actif'
     },
     {
       id: 'mgr-2',
       nom: 'Aminata Diallo',
-      cave: 'Cave Victoria Island',
-      caveAdresse: 'Victoria Island, Lagos',
+      cave: 'Cave Grand Maitre',
+      caveAdresse: 'Grand Maitre,Abidjan',
       avatar: '👩‍💼',
       statut: 'actif'
     },
     {
       id: 'mgr-3',
       nom: 'Ibrahim Cisse',
-      cave: 'Cave Ikoyi',
-      caveAdresse: 'Ikoyi, Lagos',
+      cave: 'Cave Temple du repos',
+      caveAdresse: 'Temple du repos, Abidjan',
       avatar: '👨‍💼',
       statut: 'actif'
     },
     {
       id: 'mgr-4',
       nom: 'Fatou Ndiaye',
-      cave: 'Cave Surulere',
-      caveAdresse: 'Surulere, Lagos',
+      cave: 'Cave La cachette',
+      caveAdresse: 'La cachette, Abidjan',
       avatar: '👩‍💼',
       statut: 'absent'
     }
@@ -106,8 +106,8 @@ export class CaisseComponent implements OnInit {
       type: 'vente',
       typeText: 'Vente',
       montant: 185000,
-      moyenPaiement: 'carte',
-      moyenPaiementText: 'Carte Bancaire',
+      moyenPaiement: 'Wave',
+      moyenPaiementText: 'Wave ',
       client: 'Koffi Mensah',
       reference: 'CMD-2045',
       caissier: 'Alice Martin',
@@ -178,7 +178,7 @@ export class CaisseComponent implements OnInit {
       details: 'Ouverture de caisse du jour'
     },
 
-    // Transactions Manager 2 (Aminata Diallo - Cave Victoria Island)
+    // Transactions Manager 2 (Aminata Diallo - Cave Grand Maitre)
     {
       id: 'tr-2-1',
       date: '29/10/2025',
@@ -186,13 +186,13 @@ export class CaisseComponent implements OnInit {
       type: 'vente',
       typeText: 'Vente',
       montant: 220000,
-      moyenPaiement: 'carte',
-      moyenPaiementText: 'Carte Bancaire',
+      moyenPaiement: 'Wave',
+      moyenPaiementText: 'Wave',
       client: 'Youssef Ahmed',
       reference: 'CMD-3021',
       caissier: 'Mariam Sow',
       managerId: 'mgr-2',
-      caveNom: 'Cave Victoria Island',
+      caveNom: 'Cave Grand Maitre',
       details: '10x Moët & Chandon, 5x Hennessy'
     },
     {
@@ -208,7 +208,7 @@ export class CaisseComponent implements OnInit {
       reference: 'CMD-3020',
       caissier: 'David Kone',
       managerId: 'mgr-2',
-      caveNom: 'Cave Victoria Island',
+      caveNom: 'Cave Grand Maitre',
       details: '3x Champagne Rosé, 2x Vin Rouge'
     },
     {
@@ -224,7 +224,7 @@ export class CaisseComponent implements OnInit {
       reference: 'CMD-3019',
       caissier: 'Mariam Sow',
       managerId: 'mgr-2',
-      caveNom: 'Cave Victoria Island',
+      caveNom: 'Cave Grand Maitre',
       details: '6x Dom Pérignon'
     },
     {
@@ -238,11 +238,11 @@ export class CaisseComponent implements OnInit {
       moyenPaiementText: 'Fond de Caisse',
       caissier: 'Mariam Sow',
       managerId: 'mgr-2',
-      caveNom: 'Cave Victoria Island',
+      caveNom: 'Cave Grand Maitre',
       details: 'Ouverture de caisse du jour'
     },
 
-    // Transactions Manager 3 (Ibrahim Cisse - Cave Ikoyi)
+    // Transactions Manager 3 (Ibrahim Cisse - Cave Temple du repos)
     {
       id: 'tr-3-1',
       date: '29/10/2025',
@@ -250,13 +250,13 @@ export class CaisseComponent implements OnInit {
       type: 'vente',
       typeText: 'Vente',
       montant: 310000,
-      moyenPaiement: 'carte',
-      moyenPaiementText: 'Carte Bancaire',
+      moyenPaiement: 'Wave',
+      moyenPaiementText: 'Wave ',
       client: 'Mrs. Williams',
       reference: 'CMD-4015',
       caissier: 'Emma Sow',
       managerId: 'mgr-3',
-      caveNom: 'Cave Ikoyi',
+      caveNom: 'Cave Temple du repos',
       details: '15x Vin Rouge Premium, 5x Champagne'
     },
     {
@@ -272,7 +272,7 @@ export class CaisseComponent implements OnInit {
       reference: 'CMD-4014',
       caissier: 'Frank Bamba',
       managerId: 'mgr-3',
-      caveNom: 'Cave Ikoyi',
+      caveNom: 'Cave Temple du repos',
       details: '4x Hennessy VSOP, 3x Jack Daniels'
     },
     {
@@ -288,7 +288,7 @@ export class CaisseComponent implements OnInit {
       reference: 'CMD-4013',
       caissier: 'Emma Sow',
       managerId: 'mgr-3',
-      caveNom: 'Cave Ikoyi',
+      caveNom: 'Cave Temple du repos',
       details: '20x Heineken, 10x Soft Drinks'
     },
     {
@@ -302,7 +302,7 @@ export class CaisseComponent implements OnInit {
       moyenPaiementText: 'Fond de Caisse',
       caissier: 'Emma Sow',
       managerId: 'mgr-3',
-      caveNom: 'Cave Ikoyi',
+      caveNom: 'Cave Temple du repos',
       details: 'Ouverture de caisse du jour'
     }
   ];
@@ -356,7 +356,7 @@ export class CaisseComponent implements OnInit {
       managerId: this.selectedManagerId,
       totalJour: transactions.reduce((sum, t) => sum + t.montant, 0),
       especes: positives.filter(t => t.moyenPaiement === 'especes').reduce((sum, t) => sum + t.montant, 0),
-      carte: positives.filter(t => t.moyenPaiement === 'carte').reduce((sum, t) => sum + t.montant, 0),
+      wave: positives.filter(t => t.moyenPaiement === 'Wave').reduce((sum, t) => sum + t.montant, 0),
       mobile: positives.filter(t => t.moyenPaiement === 'mobile').reduce((sum, t) => sum + t.montant, 0),
       nombreTransactions: transactions.length,
       derniereMaj: new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
@@ -376,7 +376,7 @@ export class CaisseComponent implements OnInit {
         cave: manager.cave,
         totalJour: transactions.reduce((sum, t) => sum + t.montant, 0),
         especes: positives.filter(t => t.moyenPaiement === 'especes').reduce((sum, t) => sum + t.montant, 0),
-        carte: positives.filter(t => t.moyenPaiement === 'carte').reduce((sum, t) => sum + t.montant, 0),
+        Wave: positives.filter(t => t.moyenPaiement === 'Wave').reduce((sum, t) => sum + t.montant, 0),
         mobile: positives.filter(t => t.moyenPaiement === 'mobile').reduce((sum, t) => sum + t.montant, 0),
         nombreTransactions: transactions.length
       };
@@ -393,8 +393,8 @@ export class CaisseComponent implements OnInit {
     return this.statistiquesGlobales.reduce((sum, s) => sum + s.especes, 0);
   }
 
-  get totalCarteGlobal(): number {
-    return this.statistiquesGlobales.reduce((sum, s) => sum + s.carte, 0);
+  get totalWaveGlobal(): number {
+    return this.statistiquesGlobales.reduce((sum, s) => sum + s.Wave, 0);
   }
 
   get totalMobileGlobal(): number {

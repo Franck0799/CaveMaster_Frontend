@@ -1,16 +1,14 @@
 <!-- ========================================
 FICHIER: src/app/features/drinks/drinks.component.html
-DESCRIPTION: Template HTML pour la gestion des boissons
+DESCRIPTION: Template HTML pour la gestion des boissons - FORMULAIRE COMPLET
 ======================================== -->
 
 <div class="drinks-container">
 
   <!-- ===== EN-TÊTE DE LA PAGE ===== -->
   <header class="page-header">
-    <!-- Titre et description -->
     <div class="header-content">
       <h1 class="page-title">🍾 Mes Boissons</h1>
-
       <p class="page-subtitle">
         <span *ngIf="selectedCategory" class="active-filter">
           Catégorie : <strong>{{ selectedCategory }}</strong> -
@@ -18,8 +16,6 @@ DESCRIPTION: Template HTML pour la gestion des boissons
         {{ filteredDrinks.length }} produit(s) affiché(s)
       </p>
     </div>
-
-    <!-- Bouton d'ajout -->
     <button class="btn btn-primary" (click)="openAddModal()">
       ➕ Ajouter une boisson
     </button>
@@ -27,7 +23,6 @@ DESCRIPTION: Template HTML pour la gestion des boissons
 
   <!-- ===== BARRE DE FILTRES ET RECHERCHE ===== -->
   <section class="filters-section">
-    <!-- Barre de recherche -->
     <div class="search-box">
       <input
         type="text"
@@ -35,7 +30,6 @@ DESCRIPTION: Template HTML pour la gestion des boissons
         placeholder="🔍 Rechercher une boisson..."
         [(ngModel)]="searchTerm"
         (ngModelChange)="onSearchChange()">
-      <!-- Bouton pour effacer la recherche -->
       <button
         *ngIf="searchTerm"
         class="clear-search-btn"
@@ -45,7 +39,6 @@ DESCRIPTION: Template HTML pour la gestion des boissons
       </button>
     </div>
 
-    <!-- Sélecteur de catégorie -->
     <div class="category-filter">
       <label class="filter-label">Catégorie :</label>
       <select
@@ -61,15 +54,13 @@ DESCRIPTION: Template HTML pour la gestion des boissons
       </select>
     </div>
 
-    <!-- Bouton de réinitialisation -->
     <button
       class="btn btn-secondary"
       (click)="resetFilters()"
       *ngIf="selectedCategory || searchTerm">
-      🔄 Tous récupérer
+      🔄 Réinitialiser
     </button>
 
-    <!-- Options de tri -->
     <div class="sort-options">
       <label class="filter-label">Trier par :</label>
       <div class="sort-buttons">
@@ -91,12 +82,6 @@ DESCRIPTION: Template HTML pour la gestion des boissons
           (click)="changeSortCriteria('stock')">
           Stock {{ getSortIcon('stock') }}
         </button>
-        <button
-          class="sort-btn"
-          [class.active]="currentSort === 'sales'"
-          (click)="changeSortCriteria('sales')">
-          Ventes {{ getSortIcon('sales') }}
-        </button>
       </div>
     </div>
   </section>
@@ -112,10 +97,7 @@ DESCRIPTION: Template HTML pour la gestion des boissons
     <div class="no-results-icon">🔍</div>
     <h3>Aucune boisson trouvée</h3>
     <p *ngIf="searchTerm || selectedCategory">
-      Essayez de modifier vos critères de recherche ou cliquez sur "Réinitialiser"
-    </p>
-    <p *ngIf="!searchTerm && !selectedCategory">
-      Commencez par ajouter votre première boisson
+      Essayez de modifier vos critères de recherche
     </p>
     <button class="btn btn-primary" (click)="openAddModal()">
       ➕ Ajouter une boisson
@@ -124,13 +106,11 @@ DESCRIPTION: Template HTML pour la gestion des boissons
 
   <!-- ===== GRILLE DES BOISSONS ===== -->
   <section *ngIf="!isLoading && filteredDrinks.length > 0" class="drinks-grid">
-    <!-- Boucle sur chaque boisson -->
     <article
       *ngFor="let drink of filteredDrinks"
       class="drink-card"
       [class.critical-stock]="isCriticalStock(drink.stock)">
 
-      <!-- Badge HOT ou NEW -->
       <span
         *ngIf="drink.badge"
         class="drink-badge"
@@ -138,72 +118,56 @@ DESCRIPTION: Template HTML pour la gestion des boissons
         {{ drink.badge === 'hot' ? '🔥 HOT' : '✨ NEW' }}
       </span>
 
-      <!-- Badge de stock critique -->
       <span
         *ngIf="isCriticalStock(drink.stock)"
         class="stock-alert-badge">
         ⚠️ Stock faible
       </span>
 
-      <!-- Image/Icône de la boisson -->
       <div class="drink-image">
         <div class="drink-icon">{{ drink.icon }}</div>
       </div>
 
-      <!-- Informations de la boisson -->
       <div class="drink-info">
-        <!-- Nom -->
         <h3 class="drink-name">{{ drink.name }}</h3>
 
-        <!-- Catégorie -->
         <p class="drink-category" [ngClass]="getCategoryClass(drink.category)">
-          {{ drink.category }}
+          {{ drink.category }} • {{ drink.format }}
         </p>
 
-        <!-- Description (si disponible) -->
         <p *ngIf="drink.description" class="drink-description">
           {{ drink.description }}
         </p>
 
-        <!-- Statistiques -->
         <div class="drink-stats">
-          <!-- Prix -->
           <div class="stat-item">
             <span class="stat-icon">💰</span>
-            <span class="stat-value">{{ formatNumber(drink.price) }} FCFA</span>
+            <span class="stat-value">{{ formatNumber(drink.sellingPrice) }} FCFA/unité</span>
           </div>
 
-          <!-- Stock -->
           <div class="stat-item">
             <span class="stat-icon">📦</span>
             <span class="stat-value">
-              {{ drink.stock }}
+              {{ drink.totalBottles }} bouteilles
               <span [ngClass]="getStockBadge(drink.stock).class" class="stock-badge">
                 {{ getStockBadge(drink.stock).label }}
               </span>
             </span>
           </div>
 
-          <!-- Ventes (si disponible) -->
-          <div *ngIf="drink.sales" class="stat-item">
-            <span class="stat-icon">📊</span>
-            <span class="stat-value">{{ drink.sales }} ventes</span>
+          <div class="stat-item">
+            <span class="stat-icon">🏭</span>
+            <span class="stat-value">{{ drink.supplier }}</span>
           </div>
         </div>
       </div>
 
-      <!-- Actions -->
       <div class="drink-actions">
         <button
           class="btn-icon btn-edit"
           (click)="openEditModal(drink)"
           title="Modifier">
           ✏️
-        </button>
-        <button
-          class="btn-icon btn-view"
-          title="Voir les détails">
-          👁️
         </button>
         <button
           class="btn-icon btn-delete"
@@ -215,11 +179,10 @@ DESCRIPTION: Template HTML pour la gestion des boissons
     </article>
   </section>
 
-  <!-- ===== MODAL AJOUT/MODIFICATION ===== -->
+  <!-- ===== MODAL AJOUT/MODIFICATION - FORMULAIRE COMPLET ===== -->
   <div *ngIf="isModalOpen" class="modal-overlay" (click)="closeModal()">
     <div class="modal-container" (click)="$event.stopPropagation()">
 
-      <!-- En-tête du modal -->
       <header class="modal-header">
         <h2 class="modal-title">
           {{ selectedDrink ? '✏️ Modifier une boisson' : '➕ Ajouter une boisson' }}
@@ -227,64 +190,343 @@ DESCRIPTION: Template HTML pour la gestion des boissons
         <button class="modal-close-btn" (click)="closeModal()">✕</button>
       </header>
 
-      <!-- Corps du modal -->
       <div class="modal-body">
         <form class="drink-form">
 
-          <!-- Nom de la boisson -->
-          <div class="form-group">
-            <label class="form-label" for="drink-name">
-              Nom de la boisson <span class="required">*</span>
-            </label>
-            <input
-              type="text"
-              id="drink-name"
-              class="form-input"
-              [(ngModel)]="drinkForm.name"
-              name="name"
-              placeholder="Ex: Château Margaux 2015"
-              required>
-          </div>
+          <!-- SECTION 1: INFORMATIONS GÉNÉRALES -->
+          <div class="form-section">
+            <h3 class="section-title">📋 Informations générales</h3>
 
-          <!-- Catégorie -->
-          <div class="form-group">
-            <label class="form-label" for="drink-category">
-              Catégorie <span class="required">*</span>
-            </label>
-            <select
-              id="drink-category"
-              class="form-input"
-              [(ngModel)]="drinkForm.category"
-              name="category"
-              required>
-              <option *ngFor="let category of drinkCategories" [value]="category">
-                {{ category }}
-              </option>
-            </select>
-          </div>
+            <div class="form-row">
+              <!-- Nom de la boisson -->
+              <div class="form-group">
+                <label class="form-label" for="drink-name">
+                  Nom de la boisson <span class="required">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="drink-name"
+                  class="form-input"
+                  [(ngModel)]="drinkForm.name"
+                  name="name"
+                  placeholder="Ex: Heineken"
+                  required>
+              </div>
 
-          <!-- Grille pour Prix et Stock -->
-          <div class="form-row">
-            <!-- Prix -->
-            <div class="form-group">
-              <label class="form-label" for="drink-price">
-                Prix (FCFA) <span class="required">*</span>
-              </label>
-              <input
-                type="number"
-                id="drink-price"
-                class="form-input"
-                [(ngModel)]="drinkForm.price"
-                name="price"
-                min="0"
-                placeholder="Ex: 15000"
-                required>
+              <!-- Format -->
+              <div class="form-group">
+                <label class="form-label" for="drink-format">
+                  Format <span class="required">*</span>
+                </label>
+                <select
+                  id="drink-format"
+                  class="form-input"
+                  [(ngModel)]="drinkForm.format"
+                  name="format"
+                  required>
+                  <option *ngFor="let format of drinkFormats" [value]="format">
+                    {{ format }}
+                  </option>
+                </select>
+              </div>
             </div>
 
-            <!-- Stock -->
+            <div class="form-row">
+              <!-- Catégorie -->
+              <div class="form-group">
+                <label class="form-label" for="drink-category">
+                  Catégorie <span class="required">*</span>
+                </label>
+                <select
+                  id="drink-category"
+                  class="form-input"
+                  [(ngModel)]="drinkForm.category"
+                  name="category"
+                  required>
+                  <option *ngFor="let category of drinkCategories" [value]="category">
+                    {{ category }}
+                  </option>
+                </select>
+              </div>
+
+              <!-- Type de conditionnement -->
+              <div class="form-group">
+                <label class="form-label" for="packaging-type">
+                  Type de conditionnement <span class="required">*</span>
+                </label>
+                <select
+                  id="packaging-type"
+                  class="form-input"
+                  [(ngModel)]="drinkForm.packagingType"
+                  name="packagingType"
+                  required>
+                  <option *ngFor="let type of packagingTypes" [value]="type">
+                    {{ type }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Icône -->
+            <div class="form-group">
+              <label class="form-label" for="drink-icon">
+                Icône (Emoji) <span class="required">*</span>
+              </label>
+              <input
+                type="text"
+                id="drink-icon"
+                class="form-input"
+                [(ngModel)]="drinkForm.icon"
+                name="icon"
+                placeholder="Ex: 🍷"
+                maxlength="2"
+                required>
+              <small class="form-hint">
+                Choisissez un emoji pour représenter la boisson
+              </small>
+            </div>
+
+            <!-- Description -->
+            <div class="form-group">
+              <label class="form-label" for="drink-description">
+                Description
+              </label>
+              <textarea
+                id="drink-description"
+                class="form-textarea"
+                [(ngModel)]="drinkForm.description"
+                name="description"
+                rows="3"
+                placeholder="Ajoutez une description..."></textarea>
+            </div>
+          </div>
+
+          <!-- SECTION 2: FOURNISSEUR ET DÉPÔT -->
+          <div class="form-section">
+            <h3 class="section-title">🏭 Fournisseur et dépôt</h3>
+
+            <div class="form-row">
+              <!-- Fournisseur -->
+              <div class="form-group">
+                <label class="form-label" for="supplier">
+                  Fournisseur <span class="required">*</span>
+                </label>
+                <select
+                  id="supplier"
+                  class="form-input"
+                  [(ngModel)]="drinkForm.supplier"
+                  name="supplier"
+                  required>
+                  <option *ngFor="let supplier of suppliers" [value]="supplier">
+                    {{ supplier }}
+                  </option>
+                </select>
+              </div>
+
+              <!-- Dépôt -->
+              <div class="form-group">
+                <label class="form-label" for="depot">
+                  Dépôt qui nous alimente <span class="required">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="depot"
+                  class="form-input"
+                  [(ngModel)]="drinkForm.depot"
+                  name="depot"
+                  placeholder="Ex: Dépôt Abidjan Zone 4"
+                  required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <!-- Nom du commercial -->
+              <div class="form-group">
+                <label class="form-label" for="commercial-name">
+                  Nom du commercial <span class="required">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="commercial-name"
+                  class="form-input"
+                  [(ngModel)]="drinkForm.commercialName"
+                  name="commercialName"
+                  placeholder="Ex: Kouadio Jean"
+                  required>
+              </div>
+
+              <!-- Contact du commercial -->
+              <div class="form-group">
+                <label class="form-label" for="commercial-contact">
+                  Contact du commercial <span class="required">*</span>
+                </label>
+                <input
+                  type="tel"
+                  id="commercial-contact"
+                  class="form-input"
+                  [(ngModel)]="drinkForm.commercialContact"
+                  name="commercialContact"
+                  placeholder="Ex: +225 07 00 00 00 00"
+                  required>
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION 3: QUANTITÉS -->
+          <div class="form-section">
+            <h3 class="section-title">📦 Quantités et conditionnement</h3>
+
+            <div class="form-row">
+              <!-- Unité de gros -->
+              <div class="form-group">
+                <label class="form-label" for="bulk-unit">
+                  Unité de gros <span class="required">*</span>
+                </label>
+                <select
+                  id="bulk-unit"
+                  class="form-input"
+                  [(ngModel)]="drinkForm.bulkUnit"
+                  name="bulkUnit"
+                  (ngModelChange)="calculateTotalBottles()"
+                  required>
+                  <option *ngFor="let unit of bulkUnits" [value]="unit">
+                    {{ unit }}
+                  </option>
+                </select>
+                <small class="form-hint">
+                  Carton, Casier, Pack, etc.
+                </small>
+              </div>
+
+              <!-- Quantité en gros -->
+              <div class="form-group">
+                <label class="form-label" for="bulk-quantity">
+                  Quantité en gros <span class="required">*</span>
+                </label>
+                <input
+                  type="number"
+                  id="bulk-quantity"
+                  class="form-input"
+                  [(ngModel)]="drinkForm.bulkQuantity"
+                  name="bulkQuantity"
+                  (ngModelChange)="calculateTotalBottles()"
+                  min="1"
+                  placeholder="Ex: 3"
+                  required>
+                <small class="form-hint">
+                  Nombre de {{ drinkForm.bulkUnit }}s
+                </small>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <!-- Quantité détaillée -->
+              <div class="form-group">
+                <label class="form-label" for="units-per-bulk">
+                  Quantité détaillée <span class="required">*</span>
+                </label>
+                <input
+                  type="number"
+                  id="units-per-bulk"
+                  class="form-input"
+                  [(ngModel)]="drinkForm.unitsPerBulk"
+                  name="unitsPerBulk"
+                  (ngModelChange)="calculateTotalBottles()"
+                  min="1"
+                  placeholder="Ex: 12"
+                  required>
+                <small class="form-hint">
+                  Nombre de bouteilles par {{ drinkForm.bulkUnit }}
+                </small>
+              </div>
+
+              <!-- Nombre total de bouteilles (calculé automatiquement) -->
+              <div class="form-group">
+                <label class="form-label" for="total-bottles">
+                  Nombre total de bouteilles
+                </label>
+                <input
+                  type="number"
+                  id="total-bottles"
+                  class="form-input form-input-readonly"
+                  [(ngModel)]="drinkForm.totalBottles"
+                  name="totalBottles"
+                  readonly>
+                <small class="form-hint calculation-hint">
+                  ✓ Calculé automatiquement : {{ drinkForm.bulkQuantity }} × {{ drinkForm.unitsPerBulk }} = {{ drinkForm.totalBottles }}
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION 4: PRIX -->
+          <div class="form-section">
+            <h3 class="section-title">💰 Prix et tarification</h3>
+
+            <div class="form-row">
+              <!-- Prix d'achat -->
+              <div class="form-group">
+                <label class="form-label" for="purchase-price">
+                  Prix d'achat par bouteille (FCFA) <span class="required">*</span>
+                </label>
+                <input
+                  type="number"
+                  id="purchase-price"
+                  class="form-input"
+                  [(ngModel)]="drinkForm.purchasePrice"
+                  name="purchasePrice"
+                  (ngModelChange)="calculateMargin()"
+                  min="0"
+                  placeholder="Ex: 650"
+                  required>
+              </div>
+
+              <!-- Prix de vente -->
+              <div class="form-group">
+                <label class="form-label" for="selling-price">
+                  Prix de vente par bouteille (FCFA) <span class="required">*</span>
+                </label>
+                <input
+                  type="number"
+                  id="selling-price"
+                  class="form-input"
+                  [(ngModel)]="drinkForm.sellingPrice"
+                  name="sellingPrice"
+                  (ngModelChange)="calculateMargin()"
+                  min="0"
+                  placeholder="Ex: 800"
+                  required>
+              </div>
+            </div>
+
+            <!-- Calcul de marge -->
+            <div *ngIf="drinkForm.purchasePrice > 0 && drinkForm.sellingPrice > 0" class="margin-info">
+              <div class="margin-card">
+                <div class="margin-item">
+                  <span class="margin-label">Marge par bouteille :</span>
+                  <span class="margin-value" [class.negative]="calculateMargin() < 0">
+                    {{ formatNumber(calculateMargin()) }} FCFA
+                  </span>
+                </div>
+                <div class="margin-item">
+                  <span class="margin-label">Pourcentage de marge :</span>
+                  <span class="margin-value" [class.negative]="calculateMarginPercentage() < 0">
+                    {{ calculateMarginPercentage().toFixed(2) }}%
+                  </span>
+                </div>
+                <div class="margin-item">
+                  <span class="margin-label">Bénéfice total estimé :</span>
+                  <span class="margin-value" [class.negative]="calculateMargin() < 0">
+                    {{ formatNumber(calculateMargin() * drinkForm.totalBottles) }} FCFA
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stock initial -->
             <div class="form-group">
               <label class="form-label" for="drink-stock">
-                Stock <span class="required">*</span>
+                Stock initial <span class="required">*</span>
               </label>
               <input
                 type="number"
@@ -293,47 +535,17 @@ DESCRIPTION: Template HTML pour la gestion des boissons
                 [(ngModel)]="drinkForm.stock"
                 name="stock"
                 min="0"
-                placeholder="Ex: 50"
+                placeholder="Ex: 150"
                 required>
+              <small class="form-hint">
+                Quantité disponible en stock
+              </small>
             </div>
-          </div>
-
-          <!-- Icône -->
-          <div class="form-group">
-            <label class="form-label" for="drink-icon">
-              Icône (Emoji)
-            </label>
-            <input
-              type="text"
-              id="drink-icon"
-              class="form-input"
-              [(ngModel)]="drinkForm.icon"
-              name="icon"
-              placeholder="Ex: 🍷"
-              maxlength="2">
-            <small class="form-hint">
-              Choisissez un emoji pour représenter la boisson
-            </small>
-          </div>
-
-          <!-- Description -->
-          <div class="form-group">
-            <label class="form-label" for="drink-description">
-              Description
-            </label>
-            <textarea
-              id="drink-description"
-              class="form-textarea"
-              [(ngModel)]="drinkForm.description"
-              name="description"
-              rows="4"
-              placeholder="Ajoutez une description détaillée de la boisson..."></textarea>
           </div>
 
         </form>
       </div>
 
-      <!-- Pied du modal -->
       <footer class="modal-footer">
         <button class="btn btn-cancel" (click)="closeModal()">
           Annuler

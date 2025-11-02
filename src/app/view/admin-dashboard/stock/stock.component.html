@@ -1,0 +1,605 @@
+<div class="stock-dashboard">
+  <!-- ========== HEADER ========== -->
+  <div class="dashboard-header">
+    <h1 class="dashboard-title">
+      <span class="icon">📦</span>
+      Gestion des Stocks
+    </h1>
+
+    <div class="header-actions">
+      <button class="btn-view" (click)="toggleViewMode()">
+        <span class="icon">{{ viewMode === 'grid' ? '📋' : '⊞' }}</span>
+        {{ viewMode === 'grid' ? 'Liste' : 'Grille' }}
+      </button>
+      <button class="btn-export" (click)="exportStock()">
+        <span class="icon">⬇️</span>
+        Exporter
+      </button>
+    </div>
+  </div>
+
+  <!-- ========== ALERTES ========== -->
+  <div class="alerts-section" *ngIf="showAlerts && stockAlerts.length > 0">
+    <div class="alerts-header">
+      <h3>⚠️ Alertes Stock ({{ stockAlerts.length }})</h3>
+      <button class="btn-close-alerts" (click)="showAlerts = false">✕</button>
+    </div>
+    <div class="alerts-grid">
+      <div *ngFor="let alert of stockAlerts"
+           class="alert-card"
+           [ngClass]="'alert-' + alert.type">
+        <div class="alert-icon">
+          {{ alert.type === 'critique' ? '🔴' : alert.type === 'faible' ? '🟡' : '🔵' }}
+        </div>
+        <div class="alert-content">
+          <div class="alert-title">{{ alert.itemNom }}</div>
+          <div class="alert-message">{{ alert.message }}</div>
+          <div class="alert-details">
+            Stock: {{ alert.stockActuel }} / Min: {{ alert.stockMinimum }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== STATISTIQUES ========== -->
+  <div class="stats-grid">
+    <div class="stat-card stat-card--primary">
+      <div class="stat-icon">📊</div>
+      <div class="stat-content">
+        <div class="stat-label">Total Articles</div>
+        <div class="stat-value">{{ totalArticles | number:'1.0-0' }}</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-card--success">
+      <div class="stat-icon">💰</div>
+      <div class="stat-content">
+        <div class="stat-label">Valeur Stock</div>
+        <div class="stat-value">{{ valeurTotaleStock | number:'1.0-0' }} FCFA</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-card--danger">
+      <div class="stat-icon">🔴</div>
+      <div class="stat-content">
+        <div class="stat-label">Ruptures</div>
+        <div class="stat-value">{{ articlesEnRupture }}</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-card--warning">
+      <div class="stat-icon">⚠️</div>
+      <div class="stat-content">
+        <div class="stat-label">Stock Faible</div>
+        <div class="stat-value">{{ articlesAlerteFaible }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== FILTRES ========== -->
+  <div class="filters-section">
+    <div class="filter-group">
+      <label>🔍 Recherche</label>
+      <input
+        type="text"
+        [formControl]="searchControl"
+        placeholder="Rechercher un article..."
+        class="filter-input">
+    </div>
+
+    <div class="filter-group">
+      <label>📦 Type</label>
+      <select [formControl]="typeControl" class="filter-select">
+        <option value="tous">Tous les types</option>
+        <option *ngFor="let type of types" [value]="type.value">
+          {{ type.icon }} {{ type.label }}
+        </option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>🏷️ Catégorie</label>
+      <select [formControl]="categorieControl" class="filter-select">
+        <option value="toutes">Toutes les catégories</option>
+        <option *ngFor="let cat of getCategoriesForType()" [value]="cat">
+          {{ cat }}
+        </option>
+      </select>
+    </div>
+
+    <div class="filter-group" *ngIf="typeControl.value === 'tous' || typeControl.value === 'boisson'">
+      <label>🏛️ Cave</label>
+      <select [formControl]="caveControl" class="filter-select">
+        <option value="toutes">Toutes les caves</option>
+        <option *ngFor="let cave of caves" [value]="cave.id">
+          {{ cave.nom }}
+        </option>
+      </select>
+    </div>
+
+    <div class="filter-group" *ngIf="typeControl.value === 'materiel'">
+      <label>⚙️ État</label>
+      <select [formControl]="etatControl" class="filter-select">
+        <option value="tous">Tous les états</option>
+        <option *ngFor="let etat of etats" [value]="etat">
+          {{ etat }}
+        </option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <button class="btn-reset" (click)="resetFilters()">
+        🔄 Réinitialiser
+      </button>
+    </div>
+  </div>
+
+  <!-- ========== OPTIONS DE TRI ========== -->
+  <div class="sort-section">
+    <div class="sort-label">Trier par:</div>
+    <div class="sort-buttons">
+      <button
+        class="sort-btn"
+        [class.active]="currentSort === 'nom'"
+        (click)="changeSortCriteria('nom')">
+        Nom {{ currentSort === 'nom' ? (sortDirection === 'asc' ? '↑' : '↓') : '' }}
+      </button>
+      <button
+        class="sort-btn"
+        [class.active]="currentSort === 'stock'"
+        (click)="changeSortCriteria('stock')">
+        Stock {{ currentSort === 'stock' ? (sortDirection === 'asc' ? '↑' : '↓') : '' }}
+      </button>
+      <button
+        class="sort-btn"
+        [class.active]="currentSort === 'valeur'"
+        (click)="changeSortCriteria('valeur')">
+        Valeur {{ currentSort === 'valeur' ? (sortDirection === 'asc' ? '↑' : '↓') : '' }}
+      </button>
+      <button
+        class="sort-btn"
+        [class.active]="currentSort === 'date'"
+        (click)="changeSortCriteria('date')">
+        Date {{ currentSort === 'date' ? (sortDirection === 'asc' ? '↑' : '↓') : '' }}
+      </button>
+    </div>
+    <div class="results-count">
+      {{ filteredStockItems.length }} article(s) trouvé(s)
+    </div>
+  </div>
+
+  <!-- ========== CHARGEMENT ========== -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Chargement des stocks...</p>
+  </div>
+
+  <!-- ========== GRILLE DE STOCK ========== -->
+  <div *ngIf="!isLoading && viewMode === 'grid'" class="stock-grid">
+    <div *ngFor="let item of filteredStockItems" class="stock-card">
+      <div class="stock-card-header">
+        <div class="stock-icon">{{ item.icon }}</div>
+        <div class="stock-type-badge">{{ getTypeIcon(item.type) }}</div>
+      </div>
+
+      <div class="stock-card-body">
+        <h3 class="stock-name">{{ item.nom }}</h3>
+        <div class="stock-category">{{ item.categorie }}</div>
+
+        <div class="stock-info">
+          <!-- Pour boissons -->
+          <div class="info-item" *ngIf="item.type === 'boisson'">
+            <span class="label">📍</span>
+            <span class="value">{{ item.cave }}</span>
+          </div>
+          <div class="info-item" *ngIf="item.type === 'boisson' && item.format">
+            <span class="label">📏</span>
+            <span class="value">{{ item.format }}</span>
+          </div>
+          <div class="info-item" *ngIf="item.type === 'boisson' && item.supplier">
+            <span class="label">🏭</span>
+            <span class="value">{{ item.supplier }}</span>
+          </div>
+
+          <!-- Pour vins -->
+          <div class="info-item" *ngIf="item.type === 'vin' && item.wineType">
+            <span class="label">🍷</span>
+            <span class="value">{{ item.wineType }}</span>
+          </div>
+          <div class="info-item" *ngIf="item.type === 'vin' && item.region">
+            <span class="label">🌍</span>
+            <span class="value">{{ item.region }}</span>
+          </div>
+          <div class="info-item" *ngIf="item.type === 'vin' && item.vintage">
+            <span class="label">📅</span>
+            <span class="value">{{ item.vintage }}</span>
+          </div>
+          <div class="info-item" *ngIf="item.type === 'vin' && item.temperature">
+            <span class="label">🌡️</span>
+            <span class="value">{{ item.temperature }}</span>
+          </div>
+
+          <!-- Pour matériel -->
+          <div class="info-item" *ngIf="item.type === 'materiel'">
+            <span class="label">📍</span>
+            <span class="value">{{ item.emplacement }}</span>
+          </div>
+        </div>
+
+        <!-- Jauge de stock -->
+        <div class="stock-gauge">
+          <div class="gauge-header">
+            <span class="gauge-label">Stock: {{ item.stockActuel }} {{ item.unitesMesure }}</span>
+            <span class="gauge-status" [ngClass]="getStockStatus(item).class">
+              {{ getStockStatus(item).label }}
+            </span>
+          </div>
+          <div class="gauge-bar">
+            <div class="gauge-fill"
+                 [style.width.%]="getStockPercentage(item)"
+                 [ngClass]="getStockStatus(item).class">
+            </div>
+          </div>
+          <div class="gauge-limits">
+            <span>Min: {{ item.stockMinimum }}</span>
+            <span>Max: {{ item.stockMaximum }}</span>
+          </div>
+        </div>
+
+        <!-- Valeur -->
+        <div class="stock-value">
+          <div class="value-label">Valeur stock</div>
+          <div class="value-amount">
+            {{ item.stockActuel * item.prixAchat | number:'1.0-0' }} FCFA
+          </div>
+        </div>
+
+        <!-- État (pour matériel) -->
+        <div class="stock-etat" *ngIf="item.etat">
+          <span class="etat-badge" [class]="'etat-' + item.etat.toLowerCase()">
+            {{ item.etat }}
+          </span>
+        </div>
+      </div>
+
+      <div class="stock-card-footer">
+        <button class="btn-action btn-details" (click)="openDetailsModal(item)">
+          👁️ Détails
+        </button>
+        <button class="btn-action btn-movement" (click)="openMovementModal(item)">
+          📝 Mouvements
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== LISTE DE STOCK ========== -->
+  <div *ngIf="!isLoading && viewMode === 'list'" class="stock-list">
+    <div class="section-card">
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Article</th>
+              <th>Type</th>
+              <th>Catégorie</th>
+              <th class="text-right">Stock</th>
+              <th class="text-right">Min/Max</th>
+              <th>Localisation</th>
+              <th class="text-right">Valeur</th>
+              <th>État</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of filteredStockItems">
+              <td>
+                <div class="item-cell">
+                  <span class="item-icon">{{ item.icon }}</span>
+                  <span class="item-name">{{ item.nom }}</span>
+                </div>
+              </td>
+              <td>
+                <span class="type-badge">{{ getTypeIcon(item.type) }} {{ item.type }}</span>
+              </td>
+              <td>{{ item.categorie }}</td>
+              <td class="text-right">
+                <span class="stock-value" [ngClass]="getStockStatus(item).class">
+                  {{ item.stockActuel }} {{ item.unitesMesure }}
+                </span>
+              </td>
+              <td class="text-right">
+                <span class="stock-limits">{{ item.stockMinimum }} / {{ item.stockMaximum }}</span>
+              </td>
+              <td>{{ item.cave || item.emplacement }}</td>
+              <td class="text-right">
+                {{ item.stockActuel * item.prixAchat | number:'1.0-0' }} FCFA
+              </td>
+              <td>
+                <span *ngIf="item.etat" class="etat-badge" [class]="'etat-' + item.etat.toLowerCase()">
+                  {{ item.etat }}
+                </span>
+                <span *ngIf="!item.etat" class="status-badge" [ngClass]="getStockStatus(item).class">
+                  {{ getStockStatus(item).label }}
+                </span>
+              </td>
+              <td class="text-center">
+                <button class="btn-action-small btn-info" (click)="openDetailsModal(item)" title="Détails">
+                  👁️
+                </button>
+                <button class="btn-action-small btn-primary" (click)="openMovementModal(item)" title="Mouvements">
+                  📝
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== MESSAGE SI AUCUN RÉSULTAT ========== -->
+  <div *ngIf="!isLoading && filteredStockItems.length === 0" class="no-results">
+    <div class="no-results-icon">📭</div>
+    <h3>Aucun article trouvé</h3>
+    <p>Essayez de modifier vos filtres de recherche</p>
+    <button class="btn-reset" (click)="resetFilters()">Réinitialiser les filtres</button>
+  </div>
+
+  <!-- ========== MODAL MOUVEMENTS ========== -->
+  <div class="modal-overlay" *ngIf="isMovementModalOpen" (click)="closeMovementModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>📝 Mouvements de Stock</h2>
+        <button class="btn-close" (click)="closeMovementModal()">✕</button>
+      </div>
+
+      <div class="modal-body" *ngIf="selectedItem">
+        <div class="item-info">
+          <div class="item-icon-large">{{ selectedItem.icon }}</div>
+          <div>
+            <h3>{{ selectedItem.nom }}</h3>
+            <p>Stock actuel: <strong>{{ selectedItem.stockActuel }} {{ selectedItem.unitesMesure }}</strong></p>
+          </div>
+        </div>
+
+        <div class="movement-forms">
+          <div class="movement-form">
+            <h4>➕ Entrée de stock</h4>
+            <input type="number" #entreeQty placeholder="Quantité" min="1" class="form-input">
+            <input type="text" #entreeMotif placeholder="Motif (ex: Réapprovisionnement)" class="form-input">
+            <button
+              class="btn-submit btn-success"
+              (click)="addStockEntry(selectedItem, +entreeQty.value, entreeMotif.value); entreeQty.value=''; entreeMotif.value=''">
+              ➕ Ajouter
+            </button>
+          </div>
+
+          <div class="movement-form">
+            <h4>➖ Sortie de stock</h4>
+            <input type="number" #sortieQty placeholder="Quantité" min="1" [max]="selectedItem.stockActuel" class="form-input">
+            <input type="text" #sortieMotif placeholder="Motif (ex: Vente, Casse)" class="form-input">
+            <button
+              class="btn-submit btn-danger"
+              (click)="addStockExit(selectedItem, +sortieQty.value, sortieMotif.value); sortieQty.value=''; sortieMotif.value=''">
+              ➖ Retirer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== MODAL DÉTAILS ARTICLE ========== -->
+  <div class="modal-overlay" *ngIf="isDetailsModalOpen" (click)="closeDetailsModal()">
+    <div class="modal-content modal-content-large" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>👁️ Détails de l'Article</h2>
+        <button class="btn-close" (click)="closeDetailsModal()">✕</button>
+      </div>
+
+      <div class="modal-body" *ngIf="selectedItem">
+        <!-- En-tête avec icône et nom -->
+        <div class="item-info-header">
+          <div class="item-icon-xlarge">{{ selectedItem.icon }}</div>
+          <div>
+            <h3>{{ selectedItem.nom }}</h3>
+            <div class="item-meta">
+              <span class="type-badge-detail">{{ getTypeIcon(selectedItem.type) }} {{ selectedItem.type }}</span>
+              <span class="category-badge-detail">{{ selectedItem.categorie }}</span>
+              <span class="status-badge-detail" [ngClass]="getStockStatus(selectedItem).class">
+                {{ getStockStatus(selectedItem).label }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION: Informations générales -->
+        <div class="details-section">
+          <h4 class="details-section-title">📊 Informations Stock</h4>
+          <div class="details-grid">
+            <div class="detail-item">
+              <label>Stock Actuel</label>
+              <span class="value-highlight">{{ selectedItem.stockActuel }} {{ selectedItem.unitesMesure }}</span>
+            </div>
+            <div class="detail-item">
+              <label>Stock Minimum</label>
+              <span>{{ selectedItem.stockMinimum }} {{ selectedItem.unitesMesure }}</span>
+            </div>
+            <div class="detail-item">
+              <label>Stock Maximum</label>
+              <span>{{ selectedItem.stockMaximum }} {{ selectedItem.unitesMesure }}</span>
+            </div>
+            <div class="detail-item">
+              <label>Stock Initial</label>
+              <span>{{ selectedItem.stockInitial }} {{ selectedItem.unitesMesure }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION: Prix et Valeur -->
+        <div class="details-section">
+          <h4 class="details-section-title">💰 Prix et Valeur</h4>
+          <div class="details-grid">
+            <div class="detail-item">
+              <label>Prix d'Achat</label>
+              <span class="value-money">{{ selectedItem.prixAchat | number:'1.0-0' }} FCFA</span>
+            </div>
+            <div class="detail-item" *ngIf="selectedItem.prixVente">
+              <label>Prix de Vente</label>
+              <span class="value-money">{{ selectedItem.prixVente | number:'1.0-0' }} FCFA</span>
+            </div>
+            <div class="detail-item">
+              <label>Valeur Stock Total</label>
+              <span class="value-highlight">{{ selectedItem.stockActuel * selectedItem.prixAchat | number:'1.0-0' }} FCFA</span>
+            </div>
+            <div class="detail-item" *ngIf="selectedItem.prixVente">
+              <label>Marge Unitaire</label>
+              <span class="value-profit">{{ selectedItem.prixVente - selectedItem.prixAchat | number:'1.0-0' }} FCFA</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION SPÉCIFIQUE: Boissons (Drinks) -->
+        <div class="details-section" *ngIf="selectedItem.type === 'boisson'">
+          <h4 class="details-section-title">🍷 Informations Boisson</h4>
+          <div class="details-grid">
+            <div class="detail-item" *ngIf="selectedItem.format">
+              <label>Format</label>
+              <span>{{ selectedItem.format }}</span>
+            </div>
+            <div class="detail-item" *ngIf="selectedItem.packagingType">
+              <label>Type d'Emballage</label>
+              <span>{{ selectedItem.packagingType }}</span>
+            </div>
+            <div class="detail-item" *ngIf="selectedItem.supplier">
+              <label>Fournisseur</label>
+              <span>{{ selectedItem.supplier }}</span>
+            </div>
+            <div class="detail-item" *ngIf="selectedItem.cave">
+              <label>Cave</label>
+              <span>{{ selectedItem.cave }}</span>
+            </div>
+            <div class="detail-item" *ngIf="selectedItem.depot">
+              <label>Dépôt</label>
+              <span>{{ selectedItem.depot }}</span>
+            </div>
+            <div class="detail-item" *ngIf="selectedItem.commercialName">
+              <label>Commercial</label>
+              <span>{{ selectedItem.commercialName }}</span>
+            </div>
+            <div class="detail-item" *ngIf="selectedItem.commercialContact">
+              <label>Contact Commercial</label>
+              <span><a href="tel:{{ selectedItem.commercialContact }}">{{ selectedItem.commercialContact }}</a></span>
+            </div>
+            <div class="detail-item" *ngIf="selectedItem.bulkUnit">
+              <label>Unité de Gros</label>
+              <span>{{ selectedItem.bulkUnit }}</span>
+            </div>
+            <div class="detail-item" *ngIf="selectedItem.bulkQuantity">
+              <label>Quantité en Gros</label>
+              <span>{{ selectedItem.bulkQuantity }} {{ selectedItem.bulkUnit }}</span>
+            </div>
+            <div class="detail-item" *ngIf="selectedItem.unitsPerBulk">
+              <label>Unités par {{ selectedItem.bulkUnit }}</label>
+              <span>{{ selectedItem.unitsPerBulk }}</span>
+            </div>
+            <div class="detail-item" *ngIf="selectedItem.totalBottles">
+              <label>Total Bouteilles</label>
+              <span class="value-highlight">{{ selectedItem.totalBottles }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION SPÉCIFIQUE: Vins (Wine-Pairing) -->
+        <div class="details-section" *ngIf="selectedItem.type === 'vin'">
+          <h4 class="details-section-title">🍾 Informations Vin</h4>
+          <div class="details-grid">
+            <div class="detail-item" *ngIf="selectedItem.wineType">
+              <label>Type de Vin</label>
+              <span>{{ selectedItem.wineType }}</span>
+            </div>
+            <div class="detail-item" *ngIf="selectedItem.region">
+              <label>Région</label>
+              <span>{{ selectedItem.region }}</span>
+            </div>
+            <div class="detail-item" *ngIf="selectedItem.vintage">
+              <label>Millésime</label>
+              <span>{{ selectedItem.vintage }}</span>
+            </div>
+            <div class="detail-item" *ngIf="selectedItem.temperature">
+              <label>Température de Service</label>
+              <span>{{ selectedItem.temperature }}</span>
+            </div>
+            <div class="detail-item" *ngIf="selectedItem.cave">
+              <label>Cave</label>
+              <span>{{ selectedItem.cave }}</span>
+            </div>
+          </div>
+
+          <!-- Accords Mets & Vins -->
+          <div class="pairing-section" *ngIf="selectedItem.pairingWith && selectedItem.pairingWith.length > 0">
+            <label class="pairing-label">🍽️ Accords Mets & Vins Recommandés</label>
+            <div class="pairing-tags">
+              <span class="pairing-tag" *ngFor="let pairing of selectedItem.pairingWith">
+                {{ pairing }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION SPÉCIFIQUE: Matériel -->
+        <div class="details-section" *ngIf="selectedItem.type === 'materiel'">
+          <h4 class="details-section-title">🍴 Informations Matériel</h4>
+          <div class="details-grid">
+            <div class="detail-item" *ngIf="selectedItem.emplacement">
+              <label>Emplacement</label>
+              <span>{{ selectedItem.emplacement }}</span>
+            </div>
+            <div class="detail-item" *ngIf="selectedItem.etat">
+              <label>État</label>
+              <span class="etat-badge" [class]="'etat-' + selectedItem.etat.toLowerCase()">
+                {{ selectedItem.etat }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION: Dates -->
+        <div class="details-section">
+          <h4 class="details-section-title">📅 Historique</h4>
+          <div class="details-grid">
+            <div class="detail-item">
+              <label>Date d'Acquisition</label>
+              <span>{{ selectedItem.dateAcquisition | date:'dd/MM/yyyy' }}</span>
+            </div>
+            <div class="detail-item" *ngIf="selectedItem.dateDerniereEntree">
+              <label>Dernière Entrée</label>
+              <span>{{ selectedItem.dateDerniereEntree | date:'dd/MM/yyyy HH:mm' }}</span>
+            </div>
+            <div class="detail-item" *ngIf="selectedItem.dateDerniereSortie">
+              <label>Dernière Sortie</label>
+              <span>{{ selectedItem.dateDerniereSortie | date:'dd/MM/yyyy HH:mm' }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION: Notes -->
+        <div class="details-section" *ngIf="selectedItem.notes">
+          <h4 class="details-section-title">📝 Notes</h4>
+          <p class="notes-content">{{ selectedItem.notes }}</p>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-secondary" (click)="closeDetailsModal()">
+          Fermer
+        </button>
+        <button class="btn-primary" (click)="openMovementModal(selectedItem!); closeDetailsModal()">
+          📝 Gérer les Mouvements
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

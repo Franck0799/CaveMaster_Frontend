@@ -25,6 +25,12 @@ import { UserCreateComponent } from '../../view/admin-dashboard/user-create/user
 import { UserListComponent } from '../../view/admin-dashboard/user-list/user-list.component';
 import { ProfitComponent } from '../../view/admin-dashboard/profit/profit.component';
 import { CaisseComponent } from '../../view/admin-dashboard/caisse/caisse.component';
+import { FournisseursComponent } from '../../view/admin-dashboard/fournisseur/fournisseur.component';
+import { ClientsComponent } from '../../view/admin-dashboard/client/client.component';
+import { ExpenseComponent } from '../../view/admin-dashboard/depenses/depenses.component';
+import { StockComponent } from '../../view/admin-dashboard/stock/stock.component';
+import { MaterialComponent } from '../../view/admin-dashboard/materiel/materiel.component';
+
 
 const routes: Routes = [
   {
@@ -53,6 +59,7 @@ const routes: Routes = [
         component: CaveListComponent,
         data: { title: 'Mes Caves', icon: '🍷' }
       },
+
       {
         path: 'caves/create',
         component: CaveCreateComponent,
@@ -62,6 +69,20 @@ const routes: Routes = [
         path: 'caves/:id',
         component: CaveListComponent, // ou CaveDetailComponent si vous en avez un
         data: { title: 'Détails de la cave', icon: '🍷' }
+      },
+
+      // Fournisseur
+      {
+        path: 'fournisseur',
+        component: FournisseursComponent,
+        data: { title: 'Fournisseurs', icon: '🏭' }
+      },
+
+      // Client
+      {
+        path: 'client',
+        component: ClientsComponent,
+        data: { title: 'Clients', icon: '🧑‍💼' }
       },
 
       // ===== SECTION MA CAVE =====
@@ -254,6 +275,24 @@ const routes: Routes = [
         path: 'users/:id',
         component: UserProfileComponent,
         data: { title: 'Profil Utilisateur', icon: '👤' }
+      },
+
+      {
+        path: 'depenses',
+        component: ExpenseComponent,
+        data: { title: 'Depenses', icon: '👨‍💼' }
+      },
+
+      {
+        path: 'materiel',
+        component: MaterialComponent,
+        data: { title: 'materiel', icon: '👥' }
+      },
+
+      {
+        path: 'stock',
+        component: StockComponent,
+        data: { title: 'Stocks général', icon: '👨‍💼' }
       },
 
       // ===== ROUTE 404 (pour les routes admin non trouvées) =====

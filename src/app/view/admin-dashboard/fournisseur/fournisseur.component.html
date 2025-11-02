@@ -1,0 +1,902 @@
+<!-- ==================== CONTENEUR PRINCIPAL ==================== -->
+<div class="fournisseurs-container">
+
+  <!-- ==================== EN-TÊTE ==================== -->
+  <div class="header">
+    <h1>
+      <i class="fas fa-truck"></i> Gestion des Fournisseurs
+    </h1>
+
+    <button class="btn-primary" (click)="openAddModal()">
+      <i class="fas fa-plus"></i> Nouveau Fournisseur
+    </button>
+  </div>
+
+  <!-- ==================== STATISTIQUES ==================== -->
+  <div class="stats-section">
+    <div class="stat-card">
+      <div class="stat-icon orange">
+        <i class="fas fa-truck"></i>
+      </div>
+      <div class="stat-info">
+        <h3>{{ getTotalFournisseurs() }}</h3>
+        <p>Total Fournisseurs</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon purple">
+        <i class="fas fa-wine-bottle"></i>
+      </div>
+      <div class="stat-info">
+        <h3>{{ getFournisseursByCategory('Vins & Spiritueux') }}</h3>
+        <p>Vins & Spiritueux</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon green">
+        <i class="fas fa-utensils"></i>
+      </div>
+      <div class="stat-info">
+        <h3>{{ getFournisseursByCategory('Mets et Vin') }}</h3>
+        <p>Mets et Vin</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon blue">
+        <i class="fas fa-tools"></i>
+      </div>
+      <div class="stat-info">
+        <h3>{{ getFournisseursByCategory('Matériel') }}</h3>
+        <p>Matériel</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SECTION DE RECHERCHE ET FILTRES ==================== -->
+  <div class="search-section">
+    <!-- Barre de recherche -->
+    <div class="search-box">
+      <i class="fas fa-search"></i>
+      <input
+        type="text"
+        [(ngModel)]="recherche"
+        (input)="filtrerFournisseurs()"
+        placeholder="Rechercher par nom, type, contact, email ou ville..."
+      >
+    </div>
+
+    <!-- Filtres -->
+    <div class="filters">
+      <div class="filter-group">
+        <label>Catégorie :</label>
+        <div class="filter-buttons">
+          <button
+            [class.active]="filtreCategorie === 'tous'"
+            (click)="changerFiltreCategorie('tous')"
+            class="filter-btn"
+          >
+            Tous
+          </button>
+          <button
+            [class.active]="filtreCategorie === 'Vins & Spiritueux'"
+            (click)="changerFiltreCategorie('Vins & Spiritueux')"
+            class="filter-btn"
+          >
+            <i class="fas fa-wine-bottle"></i> Vins & Spiritueux
+          </button>
+          <button
+            [class.active]="filtreCategorie === 'Mets et Vin'"
+            (click)="changerFiltreCategorie('Mets et Vin')"
+            class="filter-btn"
+          >
+            <i class="fas fa-utensils"></i> Mets et Vin
+          </button>
+          <button
+            [class.active]="filtreCategorie === 'Matériel'"
+            (click)="changerFiltreCategorie('Matériel')"
+            class="filter-btn"
+          >
+            <i class="fas fa-tools"></i> Matériel
+          </button>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label>Statut :</label>
+        <div class="filter-buttons">
+          <button
+            [class.active]="filtreStatut === 'tous'"
+            (click)="changerFiltreStatut('tous')"
+            class="filter-btn"
+          >
+            Tous
+          </button>
+          <button
+            [class.active]="filtreStatut === 'actif'"
+            (click)="changerFiltreStatut('actif')"
+            class="filter-btn"
+          >
+            <i class="fas fa-check-circle"></i> Actifs
+          </button>
+          <button
+            [class.active]="filtreStatut === 'inactif'"
+            (click)="changerFiltreStatut('inactif')"
+            class="filter-btn"
+          >
+            <i class="fas fa-times-circle"></i> Inactifs
+          </button>
+          <button
+            [class.active]="filtreStatut === 'suspendu'"
+            (click)="changerFiltreStatut('suspendu')"
+            class="filter-btn"
+          >
+            <i class="fas fa-pause-circle"></i> Suspendus
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="results-count">
+      <strong>{{ fournisseursFiltres.length }}</strong> fournisseur(s) trouvé(s)
+    </div>
+  </div>
+
+  <!-- ==================== TABLEAU DES FOURNISSEURS ==================== -->
+  <div class="table-container">
+    <table class="fournisseurs-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Entreprise</th>
+          <th>Catégorie</th>
+          <th>Type Activité</th>
+          <th>Contact</th>
+          <th>Email</th>
+          <th>Téléphone</th>
+          <th>Ville</th>
+          <th>Note</th>
+          <th>Statut</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let f of fournisseursFiltres">
+          <td>{{ f.id }}</td>
+
+          <td class="entreprise-name">
+            <strong>{{ f.nomEntreprise }}</strong>
+            <a *ngIf="f.siteWeb" [href]="'https://' + f.siteWeb" target="_blank" class="web-link">
+              <i class="fas fa-external-link-alt"></i>
+            </a>
+          </td>
+
+          <td>
+            <span class="category-badge" [ngClass]="getCategoryClass(f.categorie)">
+              <i [class]="getCategoryIcon(f.categorie)"></i>
+              {{ f.categorie }}
+            </span>
+          </td>
+
+          <td>
+            <span class="type-badge">{{ f.typeActivite }}</span>
+          </td>
+
+          <td>{{ f.contact }}</td>
+
+          <td>
+            <a href="mailto:{{ f.email }}">{{ f.email }}</a>
+          </td>
+
+          <td>{{ f.telephone }}</td>
+
+          <td>{{ f.ville }}</td>
+
+          <td>
+            <div class="note-container" *ngIf="f.noteFournisseur">
+              <i
+                *ngFor="let etoile of getEtoiles(f.noteFournisseur)"
+                class="fas fa-star"
+                [class.filled]="etoile"
+              ></i>
+              <span class="note-value">{{ f.noteFournisseur }}/5</span>
+            </div>
+            <span *ngIf="!f.noteFournisseur">-</span>
+          </td>
+
+          <td>
+            <span class="statut-badge" [ngClass]="getStatutClass(f.statut)">
+              {{ f.statut }}
+            </span>
+          </td>
+
+          <td class="actions">
+            <button
+              class="btn-icon btn-info"
+              (click)="openDetailsModal(f)"
+              title="Voir les détails"
+            >
+              <i class="fas fa-eye"></i>
+            </button>
+
+            <button
+              class="btn-icon btn-edit"
+              (click)="openEditModal(f)"
+              title="Modifier"
+            >
+              <i class="fas fa-edit"></i>
+            </button>
+
+            <button
+              class="btn-icon btn-delete"
+              (click)="supprimerFournisseur(f.id)"
+              title="Supprimer"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="no-results" *ngIf="fournisseursFiltres.length === 0">
+      <i class="fas fa-inbox"></i>
+      <p>Aucun fournisseur trouvé</p>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== MODAL AJOUT FOURNISSEUR ==================== -->
+<div *ngIf="isAddModalOpen" class="modal" (click)="closeAddModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">
+        <i class="fas fa-truck-loading"></i> Ajouter un Nouveau Fournisseur
+      </h2>
+      <button class="close-btn" (click)="closeAddModal()">×</button>
+    </div>
+
+    <form [formGroup]="fournisseurForm" (ngSubmit)="ajouterFournisseur()">
+      <div class="modal-body">
+
+        <!-- Section Informations Entreprise -->
+        <div class="form-section">
+          <h3 class="section-title">
+            <i class="fas fa-building"></i> Informations Entreprise
+          </h3>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nom de l'Entreprise <span class="required">*</span></label>
+              <input
+                type="text"
+                formControlName="nomEntreprise"
+                [class.is-invalid]="submitted && f['nomEntreprise'].errors"
+                placeholder="Ex: Domaine Kouassi Vins"
+              >
+              <div *ngIf="submitted && f['nomEntreprise'].errors" class="error-message">
+                <small *ngIf="f['nomEntreprise'].errors['required']">
+                  <i class="fas fa-exclamation-circle"></i> Le nom de l'entreprise est obligatoire
+                </small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Catégorie <span class="required">*</span></label>
+              <select
+                formControlName="categorie"
+                [class.is-invalid]="submitted && f['categorie'].errors"
+                (change)="onCategorieChange()"
+              >
+                <option value="">-- Sélectionnez --</option>
+                <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+              </select>
+              <div *ngIf="submitted && f['categorie'].errors" class="error-message">
+                <small *ngIf="f['categorie'].errors['required']">
+                  <i class="fas fa-exclamation-circle"></i> La catégorie est obligatoire
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Type d'Activité <span class="required">*</span></label>
+              <select
+                formControlName="typeActivite"
+                [class.is-invalid]="submitted && f['typeActivite'].errors"
+              >
+                <option value="">-- Sélectionnez --</option>
+                <option *ngFor="let type of typesActiviteFiltered" [value]="type">{{ type }}</option>
+              </select>
+              <div *ngIf="submitted && f['typeActivite'].errors" class="error-message">
+                <small *ngIf="f['typeActivite'].errors['required']">
+                  <i class="fas fa-exclamation-circle"></i> Le type d'activité est obligatoire
+                </small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Numéro TVA <span class="required">*</span></label>
+              <input
+                type="text"
+                formControlName="numeroTVA"
+                [class.is-invalid]="submitted && f['numeroTVA'].errors"
+                placeholder="Ex: CI123456789"
+              >
+              <div *ngIf="submitted && f['numeroTVA'].errors" class="error-message">
+                <small *ngIf="f['numeroTVA'].errors['required']">
+                  <i class="fas fa-exclamation-circle"></i> Le numéro de TVA est obligatoire
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Site Web <span class="optional">(optionnel)</span></label>
+              <input
+                type="text"
+                formControlName="siteWeb"
+                [class.is-invalid]="submitted && f['siteWeb'].errors"
+                placeholder="www.exemple.ci"
+              >
+              <div *ngIf="submitted && f['siteWeb'].errors" class="error-message">
+                <small *ngIf="f['siteWeb'].errors['pattern']">
+                  <i class="fas fa-exclamation-circle"></i> Le format du site web n'est pas valide
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section Contact -->
+        <div class="form-section">
+          <h3 class="section-title">
+            <i class="fas fa-id-card"></i> Informations Contact
+          </h3>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nom du Contact <span class="required">*</span></label>
+              <input
+                type="text"
+                formControlName="contact"
+                [class.is-invalid]="submitted && f['contact'].errors"
+                placeholder="Ex: Yao Kouassi"
+              >
+              <div *ngIf="submitted && f['contact'].errors" class="error-message">
+                <small *ngIf="f['contact'].errors['required']">
+                  <i class="fas fa-exclamation-circle"></i> Le nom du contact est obligatoire
+                </small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Email <span class="required">*</span></label>
+              <input
+                type="email"
+                formControlName="email"
+                [class.is-invalid]="submitted && f['email'].errors"
+                placeholder="contact@exemple.ci"
+              >
+              <div *ngIf="submitted && f['email'].errors" class="error-message">
+                <small *ngIf="f['email'].errors['required']">
+                  <i class="fas fa-exclamation-circle"></i> L'email est obligatoire
+                </small>
+                <small *ngIf="f['email'].errors['email']">
+                  <i class="fas fa-exclamation-circle"></i> L'email n'est pas valide
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Téléphone <span class="required">*</span></label>
+              <input
+                type="tel"
+                formControlName="telephone"
+                [class.is-invalid]="submitted && f['telephone'].errors"
+                placeholder="+225 27 XX XX XX XX"
+              >
+              <div *ngIf="submitted && f['telephone'].errors" class="error-message">
+                <small *ngIf="f['telephone'].errors['required']">
+                  <i class="fas fa-exclamation-circle"></i> Le téléphone est obligatoire
+                </small>
+                <small *ngIf="f['telephone'].errors['pattern']">
+                  <i class="fas fa-exclamation-circle"></i> Le format du téléphone n'est pas valide
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section Adresse -->
+        <div class="form-section">
+          <h3 class="section-title">
+            <i class="fas fa-map-marker-alt"></i> Adresse
+          </h3>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Adresse Complète <span class="required">*</span></label>
+              <input
+                type="text"
+                formControlName="adresse"
+                [class.is-invalid]="submitted && f['adresse'].errors"
+                placeholder="Ex: Zone Industrielle PK24"
+              >
+              <div *ngIf="submitted && f['adresse'].errors" class="error-message">
+                <small *ngIf="f['adresse'].errors['required']">
+                  <i class="fas fa-exclamation-circle"></i> L'adresse est obligatoire
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Ville <span class="required">*</span></label>
+              <input
+                type="text"
+                formControlName="ville"
+                [class.is-invalid]="submitted && f['ville'].errors"
+                placeholder="Ex: Abidjan"
+              >
+              <div *ngIf="submitted && f['ville'].errors" class="error-message">
+                <small *ngIf="f['ville'].errors['required']">
+                  <i class="fas fa-exclamation-circle"></i> La ville est obligatoire
+                </small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Pays <span class="required">*</span></label>
+              <select
+                formControlName="pays"
+                [class.is-invalid]="submitted && f['pays'].errors"
+              >
+                <option value="">-- Sélectionnez --</option>
+                <option *ngFor="let p of pays" [value]="p">{{ p }}</option>
+              </select>
+              <div *ngIf="submitted && f['pays'].errors" class="error-message">
+                <small *ngIf="f['pays'].errors['required']">
+                  <i class="fas fa-exclamation-circle"></i> Le pays est obligatoire
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section Paramètres -->
+        <div class="form-section">
+          <h3 class="section-title">
+            <i class="fas fa-cog"></i> Paramètres
+          </h3>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Statut <span class="required">*</span></label>
+              <select formControlName="statut" [class.is-invalid]="submitted && f['statut'].errors">
+                <option value="actif">Actif</option>
+                <option value="inactif">Inactif</option>
+                <option value="suspendu">Suspendu</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Note de Satisfaction <span class="optional">(optionnel)</span></label>
+              <input
+                type="number"
+                formControlName="noteFournisseur"
+                [class.is-invalid]="submitted && f['noteFournisseur'].errors"
+                placeholder="0 à 5"
+                min="0"
+                max="5"
+                step="0.1"
+              >
+              <div *ngIf="submitted && f['noteFournisseur'].errors" class="error-message">
+                <small *ngIf="f['noteFournisseur'].errors['min']">
+                  <i class="fas fa-exclamation-circle"></i> La note doit être supérieure ou égale à 0
+                </small>
+                <small *ngIf="f['noteFournisseur'].errors['max']">
+                  <i class="fas fa-exclamation-circle"></i> La note doit être inférieure ou égale à 5
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" (click)="closeAddModal()">
+          <i class="fas fa-times"></i> Annuler
+        </button>
+        <button type="submit" class="btn-primary" [disabled]="fournisseurForm.invalid">
+          <i class="fas fa-save"></i> Enregistrer
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ==================== MODAL MODIFICATION FOURNISSEUR ==================== -->
+<div *ngIf="isEditModalOpen && fournisseurEnEdition" class="modal" (click)="closeEditModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">
+        <i class="fas fa-truck-loading"></i> Modifier le Fournisseur (#{{ fournisseurEnEdition.id }})
+      </h2>
+      <button class="close-btn" (click)="closeEditModal()">×</button>
+    </div>
+
+    <form [formGroup]="editForm" (ngSubmit)="modifierFournisseur()">
+      <div class="modal-body">
+
+        <!-- Informations non modifiables -->
+        <div class="info-section">
+          <h4><i class="fas fa-info-circle"></i> Informations</h4>
+          <div class="info-grid">
+            <div class="info-item">
+              <label>Date de partenariat :</label>
+              <span>{{ fournisseurEnEdition.datePartenariat | date:'dd/MM/yyyy' }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section Informations Entreprise -->
+        <div class="form-section">
+          <h3 class="section-title">
+            <i class="fas fa-building"></i> Informations Entreprise
+          </h3>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nom de l'Entreprise <span class="required">*</span></label>
+              <input
+                type="text"
+                formControlName="nomEntreprise"
+                [class.is-invalid]="submitted && ef['nomEntreprise'].errors"
+              >
+            </div>
+
+            <div class="form-group">
+              <label>Catégorie <span class="required">*</span></label>
+              <select
+                formControlName="categorie"
+                [class.is-invalid]="submitted && ef['categorie'].errors"
+                (change)="onCategorieChangeEdit()"
+              >
+                <option value="">-- Sélectionnez --</option>
+                <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Type d'Activité <span class="required">*</span></label>
+              <select
+                formControlName="typeActivite"
+                [class.is-invalid]="submitted && ef['typeActivite'].errors"
+              >
+                <option value="">-- Sélectionnez --</option>
+                <option *ngFor="let type of typesActiviteFilteredEdit" [value]="type">{{ type }}</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Numéro TVA <span class="required">*</span></label>
+              <input
+                type="text"
+                formControlName="numeroTVA"
+                [class.is-invalid]="submitted && ef['numeroTVA'].errors"
+              >
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Site Web <span class="optional">(optionnel)</span></label>
+              <input
+                type="text"
+                formControlName="siteWeb"
+                [class.is-invalid]="submitted && ef['siteWeb'].errors"
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Section Contact -->
+        <div class="form-section">
+          <h3 class="section-title">
+            <i class="fas fa-id-card"></i> Informations Contact
+          </h3>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nom du Contact <span class="required">*</span></label>
+              <input
+                type="text"
+                formControlName="contact"
+                [class.is-invalid]="submitted && ef['contact'].errors"
+              >
+            </div>
+
+            <div class="form-group">
+              <label>Email <span class="required">*</span></label>
+              <input
+                type="email"
+                formControlName="email"
+                [class.is-invalid]="submitted && ef['email'].errors"
+              >
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Téléphone <span class="required">*</span></label>
+              <input
+                type="tel"
+                formControlName="telephone"
+                [class.is-invalid]="submitted && ef['telephone'].errors"
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Section Adresse -->
+        <div class="form-section">
+          <h3 class="section-title">
+            <i class="fas fa-map-marker-alt"></i> Adresse
+          </h3>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Adresse Complète <span class="required">*</span></label>
+              <input
+                type="text"
+                formControlName="adresse"
+                [class.is-invalid]="submitted && ef['adresse'].errors"
+              >
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Ville <span class="required">*</span></label>
+              <input
+                type="text"
+                formControlName="ville"
+                [class.is-invalid]="submitted && ef['ville'].errors"
+              >
+            </div>
+
+            <div class="form-group">
+              <label>Pays <span class="required">*</span></label>
+              <select
+                formControlName="pays"
+                [class.is-invalid]="submitted && ef['pays'].errors"
+              >
+                <option value="">-- Sélectionnez --</option>
+                <option *ngFor="let p of pays" [value]="p">{{ p }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section Paramètres -->
+        <div class="form-section">
+          <h3 class="section-title">
+            <i class="fas fa-cog"></i> Paramètres
+          </h3>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Statut <span class="required">*</span></label>
+              <select formControlName="statut">
+                <option value="actif">Actif</option>
+                <option value="inactif">Inactif</option>
+                <option value="suspendu">Suspendu</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Note de Satisfaction <span class="optional">(optionnel)</span></label>
+              <input
+                type="number"
+                formControlName="noteFournisseur"
+                placeholder="0 à 5"
+                min="0"
+                max="5"
+                step="0.1"
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" (click)="closeEditModal()">
+          <i class="fas fa-times"></i> Annuler
+        </button>
+        <button type="submit" class="btn-primary" [disabled]="editForm.invalid || !editForm.dirty">
+          <i class="fas fa-save"></i> Enregistrer
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ==================== MODAL DÉTAILS FOURNISSEUR ==================== -->
+<div *ngIf="isDetailsModalOpen && fournisseurSelectionne" class="modal" (click)="closeDetailsModal()">
+  <div class="modal-content modal-content-large" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">
+        <i class="fas fa-truck"></i> Détails du Fournisseur
+      </h2>
+      <button class="close-btn" (click)="closeDetailsModal()">×</button>
+    </div>
+
+    <div class="modal-body">
+
+      <!-- Bandeau de statut -->
+      <div class="status-banner" [ngClass]="getStatutClass(fournisseurSelectionne.statut)">
+        <i class="fas"
+           [ngClass]="{
+             'fa-check-circle': fournisseurSelectionne.statut === 'actif',
+             'fa-times-circle': fournisseurSelectionne.statut === 'inactif',
+             'fa-pause-circle': fournisseurSelectionne.statut === 'suspendu'
+           }">
+        </i>
+        <span>Fournisseur {{ fournisseurSelectionne.statut }}</span>
+      </div>
+
+      <!-- Section Informations Entreprise -->
+      <div class="info-section">
+        <h3 class="section-subtitle">
+          <i class="fas fa-building"></i> Informations Entreprise
+        </h3>
+
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="value">{{ fournisseurSelectionne.id }}</span>
+            <label><i class="fas fa-hashtag"></i> ID Fournisseur</label>
+          </div>
+
+          <div class="info-item">
+            <label><i class="fas fa-building"></i> Nom de l'Entreprise</label>
+            <span class="value highlight">{{ fournisseurSelectionne.nomEntreprise }}</span>
+          </div>
+
+          <div class="info-item">
+            <label><i class="fas fa-layer-group"></i> Catégorie</label>
+            <span class="category-badge" [ngClass]="getCategoryClass(fournisseurSelectionne.categorie)">
+              <i [class]="getCategoryIcon(fournisseurSelectionne.categorie)"></i>
+              {{ fournisseurSelectionne.categorie }}
+            </span>
+          </div>
+
+          <div class="info-item">
+            <label><i class="fas fa-tags"></i> Type d'Activité</label>
+            <span class="value">{{ fournisseurSelectionne.typeActivite }}</span>
+          </div>
+
+          <div class="info-item">
+            <label><i class="fas fa-file-invoice"></i> Numéro TVA</label>
+            <span class="value">{{ fournisseurSelectionne.numeroTVA }}</span>
+          </div>
+
+          <div class="info-item full-width" *ngIf="fournisseurSelectionne.siteWeb">
+            <label><i class="fas fa-globe"></i> Site Web</label>
+            <a [href]="'https://' + fournisseurSelectionne.siteWeb" target="_blank" class="value link">
+              {{ fournisseurSelectionne.siteWeb }}
+              <i class="fas fa-external-link-alt"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section Contact -->
+      <div class="info-section">
+        <h3 class="section-subtitle">
+          <i class="fas fa-id-card"></i> Informations Contact
+        </h3>
+
+        <div class="info-grid">
+          <div class="info-item">
+            <label><i class="fas fa-user"></i> Nom du Contact</label>
+            <span class="value">{{ fournisseurSelectionne.contact }}</span>
+          </div>
+
+          <div class="info-item">
+            <label><i class="fas fa-envelope"></i> Email</label>
+            <a href="mailto:{{ fournisseurSelectionne.email }}" class="value link">{{ fournisseurSelectionne.email }}</a>
+          </div>
+
+          <div class="info-item">
+            <label><i class="fas fa-phone"></i> Téléphone</label>
+            <a href="tel:{{ fournisseurSelectionne.telephone }}" class="value link">{{ fournisseurSelectionne.telephone }}</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section Adresse -->
+      <div class="info-section">
+        <h3 class="section-subtitle">
+          <i class="fas fa-map-marker-alt"></i> Adresse
+        </h3>
+
+        <div class="info-grid">
+          <div class="info-item full-width">
+            <label><i class="fas fa-home"></i> Adresse Complète</label>
+            <span class="value">{{ fournisseurSelectionne.adresse }}</span>
+          </div>
+
+          <div class="info-item">
+            <label><i class="fas fa-city"></i> Ville</label>
+            <span class="value">{{ fournisseurSelectionne.ville }}</span>
+          </div>
+
+          <div class="info-item">
+            <label><i class="fas fa-flag"></i> Pays</label>
+            <span class="value">{{ fournisseurSelectionne.pays }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section Informations Complémentaires -->
+      <div class="info-section">
+        <h3 class="section-subtitle">
+          <i class="fas fa-info-circle"></i> Informations Complémentaires
+        </h3>
+
+        <div class="info-grid">
+          <div class="info-item">
+            <label><i class="fas fa-calendar-plus"></i> Date de Partenariat</label>
+            <span class="value">{{ fournisseurSelectionne.datePartenariat | date:'dd/MM/yyyy' }}</span>
+          </div>
+
+          <div class="info-item">
+            <label><i class="fas fa-clock"></i> Ancienneté du Partenariat</label>
+            <span class="value">{{ getJoursDepuisPartenariat(fournisseurSelectionne) }} jours</span>
+          </div>
+
+          <div class="info-item">
+            <label><i class="fas fa-toggle-on"></i> Statut</label>
+            <span class="statut-badge" [ngClass]="getStatutClass(fournisseurSelectionne.statut)">
+              {{ fournisseurSelectionne.statut }}
+            </span>
+          </div>
+
+          <div class="info-item">
+            <label><i class="fas fa-star"></i> Note de Satisfaction</label>
+            <div class="note-container" *ngIf="fournisseurSelectionne.noteFournisseur">
+              <i
+                *ngFor="let etoile of getEtoiles(fournisseurSelectionne.noteFournisseur)"
+                class="fas fa-star"
+                [class.filled]="etoile"
+              ></i>
+              <span class="note-value">{{ fournisseurSelectionne.noteFournisseur }}/5</span>
+            </div>
+            <span class="value" *ngIf="!fournisseurSelectionne.noteFournisseur">Non évalué</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-secondary" (click)="closeDetailsModal()">
+        <i class="fas fa-times"></i> Fermer
+      </button>
+      <button class="btn-primary" (click)="openEditModal(fournisseurSelectionne); closeDetailsModal()">
+        <i class="fas fa-edit"></i> Modifier
+      </button>
+    </div>
+  </div>
+</div>

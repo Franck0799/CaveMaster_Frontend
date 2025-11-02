@@ -177,7 +177,7 @@ export class UserProfileComponent implements OnInit {
       id: 'user_1',
       firstName: 'Jean',
       lastName: 'Kouassi',
-      email: 'jean.kouassi@drinkstore.com',
+      email: 'jean.kouassi@caveviking.com',
       phone: '+234 801 234 5678',
       role: 'Manager Principal',
       avatar: '👨‍💼',
@@ -235,7 +235,7 @@ export class UserProfileComponent implements OnInit {
       {
         id: '1',
         title: 'Connexion au système',
-        description: 'Connexion à DrinkStore Pro',
+        description: 'Connexion à caveviking Pro',
         timestamp: '2025-10-18 08:30:00',
         type: 'login',
         icon: '🔓'
@@ -291,7 +291,7 @@ export class UserProfileComponent implements OnInit {
       {
         id: '8',
         title: 'Connexion au système',
-        description: 'Connexion à DrinkStore Pro',
+        description: 'Connexion à caveviking Pro',
         timestamp: '2025-10-14 08:00:00',
         type: 'login',
         icon: '🔓'

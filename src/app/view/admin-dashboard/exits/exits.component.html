@@ -1,18 +1,25 @@
-<!-- Template HTML pour les sorties de stock -->
+<!-- ========================================
+FICHIER: src/app/view/admin-dashboard/exits/exits.component.html
+DESCRIPTION: Template enrichi pour les sorties de stock avec détails complets
+VERSION ACTUALISÉE
+======================================== -->
 
 <div class="exits-container">
 
-  <!-- EN-TÊTE -->
+  <!-- ===== EN-TÊTE ===== -->
   <header class="page-header">
     <div class="header-content">
       <h1 class="page-title">📤 Mes Sorties de Stock</h1>
       <p class="page-subtitle">
-        Gérez les ventes, transferts et pertes - {{ filteredExits.length }} sortie(s)
+        Gestion des ventes, transferts et pertes - {{ filteredExits.length }} sortie(s)
       </p>
     </div>
     <div class="header-actions">
       <button class="btn btn-secondary" (click)="exportToCSV()">
         📊 Exporter
+      </button>
+      <button class="btn btn-secondary" (click)="printExits()">
+        🖨️ Imprimer
       </button>
       <button class="btn btn-primary" (click)="openAddModal()">
         ➕ Nouvelle sortie
@@ -20,7 +27,7 @@
     </div>
   </header>
 
-  <!-- STATISTIQUES -->
+  <!-- ===== STATISTIQUES ENRICHIES ===== -->
   <section class="stats-section">
     <div class="stat-card stat-primary">
       <div class="stat-icon">📤</div>
@@ -41,27 +48,60 @@
     <div class="stat-card stat-success">
       <div class="stat-icon">💰</div>
       <div class="stat-content">
-        <div class="stat-value">{{ formatNumber(stats.totalRevenue) }} FCFA</div>
+        <div class="stat-value">{{ formatNumber(stats.totalRevenue) }} F</div>
         <div class="stat-label">Revenus (ventes)</div>
       </div>
     </div>
 
-    <div class="stat-card stat-info">
-      <div class="stat-icon">🕐</div>
+    <div class="stat-card stat-danger">
+      <div class="stat-icon">❌</div>
       <div class="stat-content">
-        <div class="stat-value">{{ stats.recentExits }}</div>
-        <div class="stat-label">Sorties (7 derniers jours)</div>
+        <div class="stat-value">{{ formatNumber(stats.totalLoss) }} F</div>
+        <div class="stat-label">Pertes totales</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-info">
+      <div class="stat-icon">💵</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ stats.averageMargin }}%</div>
+        <div class="stat-label">Marge moyenne</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-success">
+      <div class="stat-icon">🛒</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ stats.salesCount }}</div>
+        <div class="stat-label">Nombre de ventes</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-info">
+      <div class="stat-icon">🔄</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ stats.transfersCount }}</div>
+        <div class="stat-label">Transferts</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-warning" *ngIf="stats.topCustomer">
+      <div class="stat-icon">👤</div>
+      <div class="stat-content">
+        <div class="stat-value">{{ stats.topCustomer }}</div>
+        <div class="stat-label">Meilleur client</div>
       </div>
     </div>
   </section>
 
-  <!-- FILTRES -->
+  <!-- ===== FILTRES ENRICHIS ===== -->
   <section class="filters-section">
+    <!-- Recherche -->
     <div class="search-box">
       <input
         type="text"
         class="search-input"
-        placeholder="🔍 Rechercher par boisson ou fournisseur"
+        placeholder="🔍 Rechercher par boisson, client, facture..."
         [(ngModel)]="searchTerm"
         (ngModelChange)="onSearchChange()">
       <button
@@ -70,6 +110,7 @@
         (click)="searchTerm = ''; onSearchChange()">✕</button>
     </div>
 
+    <!-- Filtre par cave -->
     <div class="filter-group">
       <label class="filter-label">Cave :</label>
       <select
@@ -77,10 +118,13 @@
         [(ngModel)]="selectedCaveFilter"
         (ngModelChange)="onCaveFilterChange()">
         <option [ngValue]="null">Toutes les caves</option>
-        <option *ngFor="let cave of caves" [ngValue]="cave.id">{{ cave.name }}</option>
+        <option *ngFor="let cave of caves" [ngValue]="cave.id">
+          📍 {{ cave.name }}
+        </option>
       </select>
     </div>
 
+    <!-- Filtre par type -->
     <div class="filter-group">
       <label class="filter-label">Type :</label>
       <select
@@ -88,12 +132,27 @@
         [(ngModel)]="selectedTypeFilter"
         (ngModelChange)="onTypeFilterChange()">
         <option [ngValue]="null">Tous les types</option>
-        <option value="vente">Vente</option>
-        <option value="transfert">Transfert</option>
-        <option value="perte">Perte</option>
+        <option *ngFor="let type of exitTypes" [ngValue]="type">
+          {{ getTypeLabel(type) }}
+        </option>
       </select>
     </div>
 
+    <!-- Filtre par catégorie -->
+    <div class="filter-group">
+      <label class="filter-label">Catégorie :</label>
+      <select
+        class="filter-select"
+        [(ngModel)]="selectedCategoryFilter"
+        (ngModelChange)="onCategoryFilterChange()">
+        <option [ngValue]="null">Toutes les catégories</option>
+        <option *ngFor="let category of drinkCategories" [ngValue]="category">
+          {{ category }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Filtre par période -->
     <div class="filter-group">
       <label class="filter-label">Période :</label>
       <select
@@ -107,72 +166,168 @@
       </select>
     </div>
 
+    <!-- Bouton de réinitialisation -->
     <button
       class="btn btn-secondary"
       (click)="resetFilters()"
-      *ngIf="selectedCaveFilter || selectedTypeFilter || searchTerm">
+      *ngIf="selectedCaveFilter || selectedTypeFilter || selectedCategoryFilter || searchTerm">
       🔄 Réinitialiser
     </button>
   </section>
 
-  <!-- CHARGEMENT -->
+  <!-- ===== CHARGEMENT ===== -->
   <div *ngIf="isLoading" class="loading-spinner">
     <div class="spinner"></div>
     <p>Chargement des sorties...</p>
   </div>
 
-  <!-- AUCUN RÉSULTAT -->
+  <!-- ===== AUCUN RÉSULTAT ===== -->
   <div *ngIf="!isLoading && filteredExits.length === 0" class="no-results">
     <div class="no-results-icon">📤</div>
     <h3>Aucune sortie trouvée</h3>
+    <p *ngIf="searchTerm || selectedCaveFilter || selectedTypeFilter || selectedCategoryFilter">
+      Aucune sortie ne correspond à vos critères
+    </p>
+    <p *ngIf="!searchTerm && !selectedCaveFilter && !selectedTypeFilter && !selectedCategoryFilter">
+      Commencez par enregistrer votre première sortie de stock
+    </p>
     <button class="btn btn-primary" (click)="openAddModal()">
       ➕ Nouvelle sortie
     </button>
   </div>
 
-  <!-- TABLEAU -->
+  <!-- ===== TABLEAU DES SORTIES ENRICHI ===== -->
   <section *ngIf="!isLoading && filteredExits.length > 0" class="exits-table">
     <div class="table-wrapper">
       <table class="data-table">
+        <!-- En-têtes -->
         <thead>
           <tr>
             <th>Date</th>
             <th>Boisson</th>
             <th>Type</th>
-            <th>Cave</th>
+            <th>Catégorie</th>
             <th class="text-center">Quantité</th>
             <th class="text-right">Prix Unit.</th>
             <th class="text-right">Montant</th>
-            <th>Destination</th>
+            <th>Client/Destination</th>
+            <th>Cave</th>
+            <th class="text-right">Marge</th>
             <th class="text-center">Actions</th>
           </tr>
         </thead>
+
+        <!-- Corps -->
         <tbody>
-          <tr *ngFor="let exit of filteredExits" class="table-row">
+          <tr *ngFor="let exit of filteredExits"
+              class="table-row"
+              [class.recent-exit]="isRecentExit(exit)"
+              [class.loss-row]="isLoss(exit)">
+
+            <!-- Date -->
             <td class="date-cell">
-              <div class="date-main">{{ formatDate(exit.date) }}</div>
+              <div class="date-main">
+                {{ formatDate(exit.date).split(' à ')[0] }}
+              </div>
               <div class="date-relative">{{ getRelativeDate(exit.date) }}</div>
             </td>
-            <td class="drink-cell">{{ exit.drinkName }}</td>
+
+            <!-- Boisson avec icône -->
+            <td class="drink-cell">
+              <div class="drink-info">
+                <span class="drink-icon">{{ exit.drinkIcon }}</span>
+                <div>
+                  <div class="drink-name">{{ exit.drinkName }}</div>
+                  <div class="drink-format">{{ exit.drinkFormat }}</div>
+                </div>
+              </div>
+            </td>
+
+            <!-- Type avec badge coloré -->
             <td>
               <span class="type-badge" [ngClass]="getTypeClass(exit.type)">
-                {{ getTypeLabel(exit.type) }}
+                {{ getTypeIcon(exit.type) }} {{ getTypeLabel(exit.type).split(' ')[1] }}
               </span>
             </td>
-            <td class="cave-cell">
-              <span class="cave-badge">📍 {{ getCaveName(exit.caveId) }}</span>
+
+            <!-- Catégorie -->
+            <td>
+              <span class="category-badge" [ngClass]="getCategoryClass(exit.drinkCategory)">
+                {{ exit.drinkCategory }}
+              </span>
             </td>
+
+            <!-- Quantité -->
             <td class="text-center quantity-cell">
-              <span class="quantity-badge">{{ exit.quantity }}</span>
+              <span class="quantity-badge">
+                {{ exit.quantity }}
+              </span>
             </td>
-            <td class="text-right">{{ formatNumber(exit.unitPrice) }} FCFA</td>
+
+            <!-- Prix unitaire -->
+            <td class="text-right">
+              {{ formatNumber(exit.unitPrice) }} F
+            </td>
+
+            <!-- Montant total -->
             <td class="text-right total-cell">
-              <strong>{{ formatNumber(exit.totalAmount) }} FCFA</strong>
+              <strong [class.revenue]="exit.type === 'vente'"
+                      [class.loss]="isLoss(exit)">
+                {{ formatNumber(exit.totalAmount) }} F
+              </strong>
             </td>
-            <td>{{ exit.destination || '—' }}</td>
+
+            <!-- Client/Destination -->
+            <td class="destination-cell">
+              <div class="destination-info">
+                <div class="destination-main" *ngIf="exit.customer">👤 {{ exit.customer }}
+                </div>
+                <div class="destination-secondary" *ngIf="!exit.customer && exit.destination">
+                  {{ exit.destination }}
+                </div>
+                <div class="destination-secondary" *ngIf="exit.transferToCaveId">
+                  🔄 {{ getCaveName(exit.transferToCaveId) }}
+                </div>
+              </div>
+            </td>
+
+            <!-- Cave source -->
+            <td class="cave-cell">
+              <span class="cave-badge">
+                📍 {{ getCaveName(exit.caveId) }}
+              </span>
+            </td>
+
+            <!-- Marge -->
+            <td class="text-right margin-cell">
+              <div *ngIf="exit.type === 'vente'" class="margin-info">
+                <div class="margin-amount">
+                  {{ formatNumber(calculateMargin(exit)) }} F
+                </div>
+                <div class="margin-rate"
+                     [class.margin-good]="calculateMarginRate(exit) >= 20"
+                     [class.margin-medium]="calculateMarginRate(exit) >= 10 && calculateMarginRate(exit) < 20"
+                     [class.margin-low]="calculateMarginRate(exit) < 10">
+                  {{ calculateMarginRate(exit) }}%
+                </div>
+              </div>
+              <span *ngIf="exit.type !== 'vente'" class="margin-na">—</span>
+            </td>
+
+            <!-- Actions -->
             <td class="text-center actions-cell">
-              <button class="btn-icon" title="Détails">👁️</button>
-              <button class="btn-icon btn-danger" title="Supprimer">🗑️</button>
+              <button
+                class="btn-icon"
+                title="Voir les détails"
+                (click)="viewExitDetails(exit)">
+                👁️
+              </button>
+              <button
+                class="btn-icon btn-danger"
+                title="Supprimer"
+                (click)="deleteExit(exit)">
+                🗑️
+              </button>
             </td>
           </tr>
         </tbody>
@@ -180,84 +335,549 @@
     </div>
   </section>
 
-  <!-- MODAL AJOUT -->
+  <!-- ===== MODAL AJOUT DE SORTIE ENRICHI ===== -->
   <div *ngIf="isAddModalOpen" class="modal-overlay" (click)="closeAddModal()">
-    <div class="modal-container" (click)="$event.stopPropagation()">
+    <div class="modal-container modal-large" (click)="$event.stopPropagation()">
+
+      <!-- En-tête -->
       <header class="modal-header">
         <h2 class="modal-title">➕ Nouvelle Sortie de Stock</h2>
         <button class="modal-close-btn" (click)="closeAddModal()">✕</button>
       </header>
 
+      <!-- Corps -->
       <div class="modal-body">
         <form class="exit-form">
-          <div class="form-group">
-            <label class="form-label">Boisson <span class="required">*</span></label>
-            <select class="form-input" [(ngModel)]="exitForm.drinkId" name="drinkId" required>
-              <option value="">Sélectionner...</option>
-              <option *ngFor="let drink of drinks" [value]="drink.id">
-                {{ drink.icon }} {{ drink.name }} - Stock: {{ drink.stock }}
-              </option>
-            </select>
-          </div>
 
-          <div class="form-group">
-            <label class="form-label">Type de sortie <span class="required">*</span></label>
-            <select class="form-input" [(ngModel)]="exitForm.type" name="type" required>
-              <option value="vente">💰 Vente</option>
-              <option value="transfert">🔄 Transfert</option>
-              <option value="perte">⚠️ Perte</option>
-            </select>
-          </div>
+          <!-- SECTION 1: SÉLECTION BOISSON ET TYPE -->
+          <div class="form-section">
+            <h3 class="section-title">📦 Produit et type de sortie</h3>
 
-          <div class="form-group">
-            <label class="form-label">Cave <span class="required">*</span></label>
-            <select class="form-input" [(ngModel)]="exitForm.caveId" name="caveId" required>
-              <option value="">Sélectionner...</option>
-              <option *ngFor="let cave of caves" [value]="cave.id">
-                📍 {{ cave.name }}
-              </option>
-            </select>
-          </div>
-
-          <div class="form-row">
             <div class="form-group">
-              <label class="form-label">Quantité <span class="required">*</span></label>
-              <input type="number" class="form-input" [(ngModel)]="exitForm.quantity"
-                     name="quantity" min="1" required>
+              <label class="form-label" for="exit-drink">
+                Boisson <span class="required">*</span>
+              </label>
+              <select
+                id="exit-drink"
+                class="form-input"
+                [(ngModel)]="exitForm.drinkId"
+                name="drinkId"
+                (ngModelChange)="onDrinkSelected()"
+                required>
+                <option value="">Sélectionner une boisson...</option>
+                <option *ngFor="let drink of drinks" [value]="drink.id">
+                  {{ drink.icon }} {{ drink.name }} ({{ drink.format }}) - Stock: {{ drink.stock }}
+                </option>
+              </select>
             </div>
+
             <div class="form-group">
-              <label class="form-label">Prix unitaire <span class="required">*</span></label>
-              <input type="number" class="form-input" [(ngModel)]="exitForm.unitPrice"
-                     name="unitPrice" min="0" required>
+              <label class="form-label" for="exit-type">
+                Type de sortie <span class="required">*</span>
+              </label>
+              <select
+                id="exit-type"
+                class="form-input"
+                [(ngModel)]="exitForm.type"
+                name="type"
+                (ngModelChange)="onTypeChange()"
+                required>
+                <option *ngFor="let type of exitTypes" [value]="type">
+                  {{ getTypeLabel(type) }}
+                </option>
+              </select>
+              <small class="helper-text">
+                <span *ngIf="exitForm.type === 'vente'">💡 Pour une vente à un client</span>
+                <span *ngIf="exitForm.type === 'transfert'">💡 Pour un transfert vers une autre cave</span>
+                <span *ngIf="exitForm.type === 'perte'">💡 Pour une perte de stock</span>
+                <span *ngIf="exitForm.type === 'casse'">💡 Pour des produits cassés</span>
+                <span *ngIf="exitForm.type === 'peremption'">💡 Pour des produits périmés</span>
+                <span *ngIf="exitForm.type === 'degustation'">💡 Pour une dégustation</span>
+              </small>
             </div>
           </div>
 
-          <div class="total-amount-display">
-            <span class="total-label">Montant total :</span>
-            <span class="total-value">{{ formatNumber(calculateTotalAmount()) }} FCFA</span>
+          <!-- SECTION 2: QUANTITÉ ET TARIFICATION -->
+          <div class="form-section" *ngIf="exitForm.drinkId">
+            <h3 class="section-title">🔢 Quantité et tarification</h3>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="exit-quantity">
+                  Quantité <span class="required">*</span>
+                </label>
+                <input
+                  type="number"
+                  id="exit-quantity"
+                  class="form-input"
+                  [(ngModel)]="exitForm.quantity"
+                  name="quantity"
+                  min="1"
+                  (ngModelChange)="calculateTotalAmount()"
+                  placeholder="Ex: 24"
+                  required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="exit-price">
+                  Prix unitaire (FCFA) <span class="required">*</span>
+                </label>
+                <input
+                  type="number"
+                  id="exit-price"
+                  class="form-input"
+                  [(ngModel)]="exitForm.unitPrice"
+                  name="unitPrice"
+                  min="0"
+                  (ngModelChange)="calculateTotalAmount()"
+                  placeholder="Ex: 800"
+                  required>
+              </div>
+            </div>
+
+            <!-- Montant total calculé -->
+            <div class="total-amount-display" [class.revenue-display]="exitForm.type === 'vente'">
+              <span class="total-label">
+                {{ exitForm.type === 'vente' ? '💵 Montant de la vente' : '💰 Montant total' }} :
+              </span>
+              <span class="total-value">
+                {{ formatNumber(exitForm.totalAmount) }} FCFA
+              </span>
+            </div>
           </div>
 
-          <div class="form-group">
-            <label class="form-label">Destination</label>
-            <input type="text" class="form-input" [(ngModel)]="exitForm.destination"
-                   name="destination" placeholder="Client, cave de destination, etc.">
+          <!-- SECTION 3: CAVE SOURCE -->
+          <div class="form-section">
+            <h3 class="section-title">📍 Cave source</h3>
+
+            <div class="form-group">
+              <label class="form-label" for="exit-cave">
+                Cave de prélèvement <span class="required">*</span>
+              </label>
+              <select
+                id="exit-cave"
+                class="form-input"
+                [(ngModel)]="exitForm.caveId"
+                name="caveId"
+                required>
+                <option value="">Sélectionner une cave...</option>
+                <option *ngFor="let cave of caves" [value]="cave.id">
+                  📍 {{ cave.name }} - {{ cave.location }}
+                </option>
+              </select>
+            </div>
           </div>
 
-          <div class="form-group">
-            <label class="form-label">Notes</label>
-            <textarea class="form-textarea" [(ngModel)]="exitForm.notes"
-                      name="notes" rows="3"></textarea>
+          <!-- SECTION 4: DESTINATION (selon le type) -->
+
+          <!-- Pour VENTE : Client -->
+          <div class="form-section" *ngIf="exitForm.type === 'vente'">
+            <h3 class="section-title">👤 Informations client</h3>
+
+            <div class="form-group">
+              <label class="form-label" for="exit-customer">
+                Nom du client <span class="required">*</span>
+              </label>
+              <input
+                type="text"
+                id="exit-customer"
+                class="form-input"
+                [(ngModel)]="exitForm.customer"
+                name="customer"
+                placeholder="Ex: Restaurant Le Gourmet"
+                required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="exit-customer-contact">
+                Contact du client
+              </label>
+              <input
+                type="text"
+                id="exit-customer-contact"
+                class="form-input"
+                [(ngModel)]="exitForm.customerContact"
+                name="customerContact"
+                placeholder="Ex: +225 07 00 00 00 00">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="exit-destination">
+                Adresse de livraison
+              </label>
+              <input
+                type="text"
+                id="exit-destination"
+                class="form-input"
+                [(ngModel)]="exitForm.destination"
+                name="destination"
+                placeholder="Ex: Cocody, Rue des Jardins">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="exit-invoice">
+                  Numéro de facture
+                </label>
+                <input
+                  type="text"
+                  id="exit-invoice"
+                  class="form-input"
+                  [(ngModel)]="exitForm.invoiceNumber"
+                  name="invoiceNumber"
+                  placeholder="Ex: FACT-2024-001">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="exit-delivery">
+                  Bon de livraison
+                </label>
+                <input
+                  type="text"
+                  id="exit-delivery"
+                  class="form-input"
+                  [(ngModel)]="exitForm.deliveryNote"
+                  name="deliveryNote"
+                  placeholder="Ex: BL-2024-001">
+              </div>
+            </div>
           </div>
+
+          <!-- Pour TRANSFERT : Cave destination -->
+          <div class="form-section" *ngIf="exitForm.type === 'transfert'">
+            <h3 class="section-title">🔄 Cave de destination</h3>
+
+            <div class="form-group">
+              <label class="form-label" for="exit-transfer-cave">
+                Cave de destination <span class="required">*</span>
+              </label>
+              <select
+                id="exit-transfer-cave"
+                class="form-input"
+                [(ngModel)]="exitForm.transferToCaveId"
+                name="transferToCaveId"
+                required>
+                <option value="">Sélectionner une cave...</option>
+                <option *ngFor="let cave of caves"
+                        [value]="cave.id"
+                        [disabled]="cave.id === exitForm.caveId">
+                  📍 {{ cave.name }} - {{ cave.location }}
+                </option>
+              </select>
+              <small class="helper-text">
+                💡 La cave de destination doit être différente de la cave source
+              </small>
+            </div>
+          </div>
+
+          <!-- Pour PERTE/CASSE/PÉREMPTION : Motif -->
+          <div class="form-section" *ngIf="['perte', 'casse', 'peremption'].includes(exitForm.type)">
+            <h3 class="section-title">⚠️ Informations sur la {{ exitForm.type }}</h3>
+
+            <div class="form-group">
+              <label class="form-label" for="exit-loss-reason">
+                Motif de la {{ exitForm.type }} <span class="required">*</span>
+              </label>
+              <textarea
+                id="exit-loss-reason"
+                class="form-textarea"
+                [(ngModel)]="exitForm.lossReason"
+                name="lossReason"
+                rows="3"
+                placeholder="Décrivez la raison de la {{ exitForm.type }}..."
+                required></textarea>
+            </div>
+
+            <div class="form-group" *ngIf="exitForm.type === 'casse'">
+              <label class="form-label" for="exit-breakage">
+                Détails de la casse
+              </label>
+              <textarea
+                id="exit-breakage"
+                class="form-textarea"
+                [(ngModel)]="exitForm.breakageDetails"
+                name="breakageDetails"
+                rows="3"
+                placeholder="Circonstances de la casse, responsabilité..."></textarea>
+            </div>
+          </div>
+
+          <!-- Pour DÉGUSTATION : Détails -->
+          <div class="form-section" *ngIf="exitForm.type === 'degustation'">
+            <h3 class="section-title">🍷 Informations sur la dégustation</h3>
+
+            <div class="form-group">
+              <label class="form-label" for="exit-tasting-destination">
+                Événement / Clients
+              </label>
+              <input
+                type="text"
+                id="exit-tasting-destination"
+                class="form-input"
+                [(ngModel)]="exitForm.destination"
+                name="destination"
+                placeholder="Ex: Séance de dégustation clients VIP">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="exit-tasting-customer">
+                Participants
+              </label>
+              <input
+                type="text"
+                id="exit-tasting-customer"
+                class="form-input"
+                [(ngModel)]="exitForm.customer"
+                name="customer"
+                placeholder="Ex: 15 clients VIP">
+            </div>
+          </div>
+
+          <!-- SECTION 5: NOTES -->
+          <div class="form-section">
+            <h3 class="section-title">📝 Notes et commentaires</h3>
+
+            <div class="form-group">
+              <label class="form-label" for="exit-notes">
+                Notes ou observations
+              </label>
+              <textarea
+                id="exit-notes"
+                class="form-textarea"
+                [(ngModel)]="exitForm.notes"
+                name="notes"
+                rows="4"
+                placeholder="Ajoutez des notes sur cette sortie..."></textarea>
+            </div>
+          </div>
+
+          <!-- SECTION 6: SUGGESTIONS D'ACCORDS (pour ventes) -->
+          <div class="form-section" *ngIf="exitForm.type === 'vente' && winePairingSuggestions.length > 0">
+            <h3 class="section-title">🍽️ Suggestions pour votre client</h3>
+            <p class="section-description">
+              Recommandations d'accords mets-vins à partager avec votre client :
+            </p>
+
+            <div class="wine-pairing-suggestions">
+              <div class="pairing-card" *ngFor="let suggestion of winePairingSuggestions">
+                <div class="pairing-icon">{{ suggestion.dishIcon }}</div>
+                <div class="pairing-content">
+                  <h4 class="pairing-dish">{{ suggestion.dish }}</h4>
+                  <p class="pairing-description">{{ suggestion.description }}</p>
+                  <div class="pairing-temperature">
+                    🌡️ Servir à {{ suggestion.temperature }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </form>
       </div>
 
+      <!-- Pied -->
       <footer class="modal-footer">
-        <button class="btn btn-cancel" (click)="closeAddModal()">Annuler</button>
-        <button class="btn btn-primary" (click)="saveExit()">💾 Enregistrer</button>
+        <button class="btn btn-cancel" (click)="closeAddModal()">
+          Annuler
+        </button>
+        <button class="btn btn-primary" (click)="saveExit()">
+          💾 Enregistrer la sortie
+        </button>
       </footer>
+
+    </div>
+  </div>
+
+  <!-- ===== MODAL DÉTAILS DE SORTIE ===== -->
+  <div *ngIf="isDetailModalOpen && selectedExit" class="modal-overlay" (click)="closeDetailModal()">
+    <div class="modal-container modal-large" (click)="$event.stopPropagation()">
+
+      <!-- En-tête -->
+      <header class="modal-header">
+        <h2 class="modal-title">
+          {{ selectedExit.drinkIcon }} Détails de la sortie - {{ selectedExit.drinkName }}
+        </h2>
+        <button class="modal-close-btn" (click)="closeDetailModal()">✕</button>
+      </header>
+
+      <!-- Corps -->
+      <div class="modal-body">
+        <div class="details-content">
+
+          <!-- Informations générales -->
+          <div class="detail-section">
+            <h3 class="detail-section-title">📦 Informations générales</h3>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <span class="detail-label">Date de sortie :</span>
+                <span class="detail-value">{{ formatDate(selectedExit.date) }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Type :</span>
+                <span class="detail-value badge" [ngClass]="getTypeClass(selectedExit.type)">
+                  {{ getTypeLabel(selectedExit.type) }}
+                </span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Boisson :</span>
+                <span class="detail-value">
+                  {{ selectedExit.drinkIcon }} {{ selectedExit.drinkName }}
+                </span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Catégorie :</span>
+                <span class="detail-value badge" [ngClass]="getCategoryClass(selectedExit.drinkCategory)">
+                  {{ selectedExit.drinkCategory }}
+                </span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Format :</span>
+                <span class="detail-value">{{ selectedExit.drinkFormat }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Cave source :</span>
+                <span class="detail-value">📍 {{ getCaveName(selectedExit.caveId) }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quantité et tarification -->
+          <div class="detail-section">
+            <h3 class="detail-section-title">💰 Quantité et tarification</h3>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <span class="detail-label">Quantité :</span>
+                <span class="detail-value highlight">{{ selectedExit.quantity }} unités</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Prix unitaire :</span>
+                <span class="detail-value">{{ formatNumber(selectedExit.unitPrice) }} FCFA</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Montant total :</span>
+                <span class="detail-value highlight-success">
+                  {{ formatNumber(selectedExit.totalAmount) }} FCFA
+                </span>
+              </div>
+              <div class="detail-item" *ngIf="selectedExit.type === 'vente'">
+                <span class="detail-label">Marge réalisée :</span>
+                <span class="detail-value highlight-success">
+                  {{ formatNumber(calculateMargin(selectedExit)) }} FCFA ({{ calculateMarginRate(selectedExit) }}%)
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Client (vente) -->
+          <div class="detail-section" *ngIf="selectedExit.type === 'vente' && selectedExit.customer">
+            <h3 class="detail-section-title">👤 Informations client</h3>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <span class="detail-label">Client :</span>
+                <span class="detail-value">{{ selectedExit.customer }}</span>
+              </div>
+              <div class="detail-item" *ngIf="selectedExit.customerContact">
+                <span class="detail-label">Contact :</span>
+                <span class="detail-value">{{ selectedExit.customerContact }}</span>
+              </div>
+              <div class="detail-item" *ngIf="selectedExit.destination">
+                <span class="detail-label">Adresse :</span>
+                <span class="detail-value">{{ selectedExit.destination }}</span>
+              </div>
+              <div class="detail-item" *ngIf="selectedExit.invoiceNumber">
+                <span class="detail-label">Facture :</span>
+                <span class="detail-value">📄 {{ selectedExit.invoiceNumber }}</span>
+              </div>
+              <div class="detail-item" *ngIf="selectedExit.deliveryNote">
+                <span class="detail-label">Bon de livraison :</span>
+                <span class="detail-value">📋 {{ selectedExit.deliveryNote }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Transfert -->
+          <div class="detail-section" *ngIf="selectedExit.type === 'transfert' && selectedExit.transferToCaveId">
+            <h3 class="detail-section-title">🔄 Informations de transfert</h3>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <span class="detail-label">Cave source :</span>
+                <span class="detail-value">📍 {{ getCaveName(selectedExit.caveId) }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Cave destination :</span>
+                <span class="detail-value">📍 {{ getCaveName(selectedExit.transferToCaveId) }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Perte/Casse/Péremption -->
+          <div class="detail-section" *ngIf="isLoss(selectedExit)">
+            <h3 class="detail-section-title">⚠️ Informations sur la {{ selectedExit.type }}</h3>
+            <div class="detail-grid">
+              <div class="detail-item full-width" *ngIf="selectedExit.lossReason">
+                <span class="detail-label">Motif :</span>
+                <span class="detail-value">{{ selectedExit.lossReason }}</span>
+              </div>
+              <div class="detail-item full-width" *ngIf="selectedExit.breakageDetails">
+                <span class="detail-label">Détails de la casse :</span>
+                <span class="detail-value">{{ selectedExit.breakageDetails }}</span>
+              </div>
+              <div class="detail-item" *ngIf="selectedExit.expiryDate">
+                <span class="detail-label">Date de péremption :</span>
+                <span class="detail-value">
+                  {{ formatDate(selectedExit.expiryDate).split(' à ')[0] }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Traité par -->
+          <div class="detail-section">
+            <h3 class="detail-section-title">👨‍💼 Traitement</h3>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <span class="detail-label">Traité par :</span>
+                <span class="detail-value">{{ selectedExit.processedByName || selectedExit.processedBy }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notes -->
+          <div class="detail-section" *ngIf="selectedExit.notes">
+            <h3 class="detail-section-title">📝 Notes</h3>
+            <div class="detail-notes">
+              {{ selectedExit.notes }}
+            </div>
+          </div>
+
+          <!-- Suggestions d'accords (ventes) -->
+          <div class="detail-section" *ngIf="selectedExit.type === 'vente' && winePairingSuggestions.length > 0">
+            <h3 class="detail-section-title">🍽️ Suggestions d'accords mets-vins</h3>
+            <div class="wine-pairing-suggestions">
+              <div class="pairing-card" *ngFor="let suggestion of winePairingSuggestions">
+                <div class="pairing-icon">{{ suggestion.dishIcon }}</div>
+                <div class="pairing-content">
+                  <h4 class="pairing-dish">{{ suggestion.dish }}</h4>
+                  <p class="pairing-description">{{ suggestion.description }}</p>
+                  <div class="pairing-temperature">
+                    🌡️ Servir à {{ suggestion.temperature }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Pied -->
+      <footer class="modal-footer">
+        <button class="btn btn-secondary" (click)="closeDetailModal()">
+          Fermer
+        </button>
+      </footer>
+
     </div>
   </div>
 
 </div>
-
-

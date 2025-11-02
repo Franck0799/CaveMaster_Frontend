@@ -7,7 +7,7 @@
     <div class="sidebar-header">
       <div class="logo">
         <span class="logo-icon">🍾</span>
-        <span class="logo-text">DrinkStore Pro</span>
+        <span class="logo-text">CaveViking Pro</span>
       </div>
     </div>
 
@@ -26,132 +26,184 @@
         <span class="nav-icon">🍷</span>
         <span class="nav-text">Mes caves</span>
       </div>
-
-      <!-- NOUVEAU: Lien vers la page des bénéfices -->
-      <div class="nav-item"
-           [routerLink]="['/admin', 'profit']"
-           routerLinkActive="active">
-        <span class="nav-icon">💰</span>
-        <span class="nav-text">Bénéfices & Stocks</span>
-      </div>
     </nav>
 
-    <div class="divider"></div>
+        <div class="divider"></div>
+         <!--SECTION MES FINANCES-->
+      <nav class="sidebar-section">
+        <div class="section-title">FINANCE</div>
 
-    <!-- Section MA CAVE -->
-    <nav class="sidebar-section">
-      <div class="section-title">MA CAVE</div>
+        <div class="nav-item" [routerLink]="['/admin', 'entries']" routerLinkActive="active">
+          <span class="nav-icon">📥</span>
+          <span class="nav-text">Mes entrées</span>
+        </div>
 
-      <!-- Mes boissons avec sous-menu -->
-      <div class="nav-item" [routerLink]="['/admin', 'drinks']" routerLinkActive="active"
-           [class.open]="isDrinksSubmenuOpen"
-           (click)="toggleDrinksSubmenu(); $event.stopPropagation()">
-        <span class="nav-icon">🍾</span>
-        <span class="nav-text">Mes boissons</span>
-        <span class="submenu-arrow">▶</span>
-      </div>
-
-      <div class="submenu" [class.open]="isDrinksSubmenuOpen">
-        <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Bières']" routerLinkActive="active">🍺 Bières</div>
-        <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Sucreries']" routerLinkActive="active">🍬 Sucreries</div>
-        <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Champagne']" routerLinkActive="active">🥂 Champagne</div>
-        <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Vin Blanc']" routerLinkActive="active">🍷 Vin Blanc</div>
-        <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Vin Rouge']" routerLinkActive="active">🍷 Vin Rouge</div>
-        <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Vin Rosé']" routerLinkActive="active">🍷 Vin Rosé</div>
-        <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Vin Mousseux']" routerLinkActive="active">✨ Vin Mousseux</div>
-        <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Liqueurs']" routerLinkActive="active">🥃 Liqueurs</div>
-        <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Boissons Énergisantes']" routerLinkActive="active">⚡ Boissons Énergisantes</div>
-        <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Boissons Locales']" routerLinkActive="active">🍹 Boissons Locales</div>
-      </div>
-
-      <div class="nav-item" [routerLink]="['/admin', 'entries']" routerLinkActive="active">
-        <span class="nav-icon">📥</span>
-        <span class="nav-text">Mes entrées</span>
-      </div>
-
-      <div class="nav-item" [routerLink]="['/admin', 'exits']" routerLinkActive="active">
-        <span class="nav-icon">📤</span>
-        <span class="nav-text">Mes sorties</span>
-      </div>
+        <div class="nav-item" [routerLink]="['/admin', 'exits']" routerLinkActive="active">
+          <span class="nav-icon">📤</span>
+          <span class="nav-text">Mes sorties</span>
+        </div>
 
        <div class="nav-item" [routerLink]="['/admin','caisse']" routerLinkActive="active">
         <span class="nav-icon">💵</span>
         <span class="nav-text">Caisse</span>
+       </div>
+
+       <div class="nav-item" [routerLink]="['/admin', 'depenses']" routerLinkActive="active">
+        <span class="nav-icon">👨‍💼</span>
+        <span class="nav-text">Depenses</span>
       </div>
 
-      <div class="nav-item" [routerLink]="['/admin', 'wine-pairing']" routerLinkActive="active">
-        <span class="nav-icon">🍽️</span>
-        <span class="nav-text">Mets & Vins</span>
-      </div>
+       <div class="nav-item" [routerLink]="['/admin', 'profit']" routerLinkActive="active">
+        <span class="nav-icon">💰</span>
+        <span class="nav-text">Bénéfices</span>
+       </div>
+      </nav>
 
-      <div class="nav-item" [routerLink]="['/admin', 'managers']" routerLinkActive="active">
-        <span class="nav-icon">👥</span>
-        <span class="nav-text">Mes managers</span>
+        <div class="divider"></div>
+
+      <!--SECTION MAGASIN-->
+    <nav class="sidebar-section">
+      <div class="section-title">MAGASIN</div>
+          <div class="nav-item" [routerLink]="['/admin', 'materiel']" routerLinkActive="active">
+            <span class="nav-icon">👥</span>
+            <span class="nav-text">Matériels</span>
+          </div>
+
+      <div class="nav-item" [routerLink]="['/admin', 'stock']" routerLinkActive="active">
+        <span class="nav-icon">👨‍💼</span>
+        <span class="nav-text">Stocks général</span>
       </div>
+    </nav>
+
+       <div class="divider"></div>
+
+      <!--SECTION MON EQUIPE-->
+    <nav class="sidebar-section">
+      <div class="section-title">MON EQUIPE</div>
+          <div class="nav-item" [routerLink]="['/admin', 'managers']" routerLinkActive="active">
+            <span class="nav-icon">👥</span>
+            <span class="nav-text">Mes managers</span>
+          </div>
 
       <div class="nav-item" [routerLink]="['/admin', 'employees']" routerLinkActive="active">
         <span class="nav-icon">👨‍💼</span>
         <span class="nav-text">Mes employés</span>
       </div>
 
-      <div class="nav-item" [routerLink]="['/admin', 'scan']" routerLinkActive="active">
-        <span class="nav-icon">📷</span>
-        <span class="nav-text">Scan</span>
-      </div>
-
-      <div class="nav-item" [routerLink]="['/admin', 'profile']" routerLinkActive="active">
-        <span class="nav-icon">👤</span>
-        <span class="nav-text">Mon compte</span>
+      <div class="nav-item"[routerLink]="['/admin', 'client']"routerLinkActive="active">
+            <span class="nav-icon">🧑‍💼</span>
+            <span class="nav-text">Clients</span>
       </div>
     </nav>
 
-    <div class="divider"></div>
+        <div class="divider"></div>
 
-    <!-- Section INFOS -->
-    <nav class="sidebar-section">
-      <div class="section-title">INFOS</div>
+        <!-- Section PARTENARIAT -->
+        <nav class="sidebar-section">
+          <div class="section-title">PARTENARIAT</div>
+              <div class="nav-item"
+                  [routerLink]="['/admin', 'fournisseur']"routerLinkActive="active">
+                <span class="nav-icon">🏭</span>
+                <span class="nav-text">Fournisseurs</span>
+              </div>
+        </nav>
 
-      <div class="nav-item" [routerLink]="['/admin', 'faq']" routerLinkActive="active">
-        <span class="nav-icon">❓</span>
-        <span class="nav-text">FAQ</span>
-      </div>
+         <div class="divider"></div>
 
-      <div class="nav-item" [routerLink]="['/admin', 'improvements']" routerLinkActive="active">
-        <span class="nav-icon">📝</span>
-        <span class="nav-text">Notes améliorations</span>
-      </div>
+        <!-- Section MA CAVE -->
+        <nav class="sidebar-section">
+          <div class="section-title">MA CAVE</div>
 
-      <div class="nav-item" [routerLink]="['/admin', 'contact']" routerLinkActive="active">
-        <span class="nav-icon">📧</span>
-        <span class="nav-text">Nous contacter</span>
-      </div>
+          <!-- Mes boissons avec sous-menu -->
+          <div class="nav-item" [routerLink]="['/admin', 'drinks']" routerLinkActive="active"
+              [class.open]="isDrinksSubmenuOpen"
+              (click)="toggleDrinksSubmenu(); $event.stopPropagation()">
+            <span class="nav-icon">🍾</span>
+            <span class="nav-text">Mes boissons</span>
+            <span class="submenu-arrow">▶</span>
+          </div>
 
-      <div class="nav-item" [routerLink]="['/admin', 'about']" routerLinkActive="active">
-        <span class="nav-icon">📚</span>
-        <span class="nav-text">En savoir plus</span>
-      </div>
-    </nav>
+          <div class="submenu" [class.open]="isDrinksSubmenuOpen">
+            <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Bières']" routerLinkActive="active">🍺 Bières</div>
+            <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Sucreries']" routerLinkActive="active">🍬 Sucreries</div>
+            <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Champagne']" routerLinkActive="active">🥂 Champagne</div>
+            <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Vin Blanc']" routerLinkActive="active">🍷 Vin Blanc</div>
+            <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Vin Rouge']" routerLinkActive="active">🍷 Vin Rouge</div>
+            <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Vin Rosé']" routerLinkActive="active">🍷 Vin Rosé</div>
+            <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Vin Mousseux']" routerLinkActive="active">✨ Vin Mousseux</div>
+            <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Liqueurs']" routerLinkActive="active">🥃 Liqueurs</div>
+            <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Boissons Énergisantes']" routerLinkActive="active">⚡ Boissons Énergisantes</div>
+            <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Boissons Locales']" routerLinkActive="active">🍹 Boissons Locales</div>
+          </div>
 
-    <div class="divider"></div>
+          <div class="nav-item" [routerLink]="['/admin', 'wine-pairing']" routerLinkActive="active">
+            <span class="nav-icon">🍽️</span>
+            <span class="nav-text">Mets & Vins</span>
+          </div>
 
-    <!-- Réseaux sociaux -->
-    <div class="sidebar-section">
-      <div class="section-title">SUIVEZ-NOUS</div>
-        <div class="social-links">
-          <a href="#" class="social-link">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-          <a href="#" class="social-link">
-            <i class="fab fa-twitter"></i>
-          </a>
-          <a href="#" class="social-link">
-            <i class="fab fa-linkedin-in"></i>
-          </a>
-          <a href="#" class="social-link">
-            <i class="fab fa-instagram"></i>
-          </a>
+        <div class="nav-item" [routerLink]="['/admin', 'scan']" routerLinkActive="active">
+            <span class="nav-icon">📷</span>
+            <span class="nav-text">Scan</span>
+          </div>
+        </nav>
+
+         <div class="divider"></div>
+
+           <!-- Section INFOS -->
+      <nav class="sidebar-section">
+        <div class="section-title">INFOS</div>
+
+        <div class="nav-item" [routerLink]="['/admin', 'faq']" routerLinkActive="active">
+          <span class="nav-icon">❓</span>
+          <span class="nav-text">FAQ</span>
         </div>
-    </div>
+
+        <div class="nav-item" [routerLink]="['/admin', 'improvements']" routerLinkActive="active">
+          <span class="nav-icon">📝</span>
+          <span class="nav-text">Notes améliorations</span>
+        </div>
+
+        <div class="nav-item" [routerLink]="['/admin', 'contact']" routerLinkActive="active">
+          <span class="nav-icon">📧</span>
+          <span class="nav-text">Nous contacter</span>
+        </div>
+
+        <div class="nav-item" [routerLink]="['/admin', 'about']" routerLinkActive="active">
+          <span class="nav-icon">📚</span>
+          <span class="nav-text">En savoir plus</span>
+        </div>
+      </nav>
+
+          <div class="divider"></div>
+
+      <nav class="sidebar-section">
+          <div class="nav-item" [routerLink]="['/admin', 'profile']" routerLinkActive="active">
+            <span class="nav-icon">👤</span>
+            <span class="nav-text">Mon compte</span>
+          </div>
+      </nav>
+
+          <div class="divider"></div>
+
+      <!-- Réseaux sociaux -->
+      <div class="sidebar-section">
+        <div class="section-title">SUIVEZ-NOUS</div>
+          <div class="social-links">
+            <a href="#" class="social-link">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="social-link">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="social-link">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="#" class="social-link">
+              <i class="fab fa-instagram"></i>
+            </a>
+          </div>
+      </div>
+      <div class="divider"></div>
   </aside>
 
   <!-- ===== CONTENU PRINCIPAL ===== -->

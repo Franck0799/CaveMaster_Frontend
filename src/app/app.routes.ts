@@ -36,6 +36,13 @@ export const routes: Routes = [
       requiredRoles: ['waitress'],
     },
   },
+  {path: 'client',
+    loadChildren: () => import('./features/client/client.module').then((m) => m.ClientModule),
+    canActivate: [authGuard],
+    data: {
+      requiredRoles: ['client'],
+    },
+  },
 
   { path: '**', component: NotFoundComponent },
 ];

@@ -49,8 +49,8 @@ export class ProfileComponent implements OnInit {
     avatar: '👨‍💼',
     firstName: 'Amadou',
     lastName: 'Diallo',
-    email: 'amadou.diallo@drinkstore.com',
-    phone: '+234 801 234 5678',
+    email: 'franck.kongo@caveviking.com',
+    phone: '+225 0799025494',
     role: 'Administrateur',
     joinDate: '15 janvier 2024',
     stats: {
@@ -291,7 +291,7 @@ export class ProfileComponent implements OnInit {
     // const url = URL.createObjectURL(dataBlob);
     // const link = document.createElement('a');
     // link.href = url;
-    // link.download = 'mon-compte-drinkstore.json';
+    // link.download = 'mon-compte-caveviking.json';
     // link.click();
   }
 }

@@ -1,0 +1,803 @@
+<!-- ==================== CONTENEUR PRINCIPAL ==================== -->
+<div class="clients-container">
+
+  <!-- ==================== EN-TÊTE ==================== -->
+  <div class="header">
+    <h1>
+      <i class="fas fa-users"></i> Gestion des Clients - Cave à Vin
+    </h1>
+
+    <div class="header-actions">
+      <button class="btn-export" (click)="exporterClients()">
+        <i class="fas fa-download"></i> Exporter
+      </button>
+      <button class="btn-primary" (click)="openAddModal()">
+        <i class="fas fa-user-plus"></i> Nouveau Client
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== STATISTIQUES ==================== -->
+  <div class="stats-section">
+    <div class="stat-card">
+      <div class="stat-icon blue">
+        <i class="fas fa-users"></i>
+      </div>
+      <div class="stat-info">
+        <h3>{{ stats.totalClients }}</h3>
+        <p>Total Clients</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon green">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <div class="stat-info">
+        <h3>{{ stats.clientsActifs }}</h3>
+        <p>Clients Actifs</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon purple">
+        <i class="fas fa-crown"></i>
+      </div>
+      <div class="stat-info">
+        <h3>{{ stats.clientsVIP }}</h3>
+        <p>Clients VIP</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon orange">
+        <i class="fas fa-money-bill-wave"></i>
+      </div>
+      <div class="stat-info">
+        <h3>{{ stats.chiffreAffairesTotal | number:'1.0-0' }} FCFA</h3>
+        <p>Chiffre d'Affaires</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon red">
+        <i class="fas fa-shopping-bag"></i>
+      </div>
+      <div class="stat-info">
+        <h3>{{ stats.panierMoyen | number:'1.0-0' }} FCFA</h3>
+        <p>Panier Moyen</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SECTION DE RECHERCHE ET FILTRES ==================== -->
+  <div class="search-section">
+    <!-- Barre de recherche -->
+    <div class="search-box">
+      <i class="fas fa-search"></i>
+      <input
+        type="text"
+        [(ngModel)]="recherche"
+        (input)="filtrerClients()"
+        placeholder="Rechercher par nom, email, téléphone ou ville..."
+      >
+    </div>
+
+    <!-- Filtres -->
+    <div class="filters">
+      <div class="filter-group">
+        <label>Type de client :</label>
+        <div class="filter-buttons">
+          <button
+            [class.active]="filtreType === 'tous'"
+            (click)="changerFiltreType('tous')"
+            class="filter-btn"
+          >
+            Tous
+          </button>
+          <button
+            [class.active]="filtreType === 'presentiel'"
+            (click)="changerFiltreType('presentiel')"
+            class="filter-btn"
+          >
+            <i class="fas fa-store"></i> Présentiel
+          </button>
+          <button
+            [class.active]="filtreType === 'en ligne'"
+            (click)="changerFiltreType('en ligne')"
+            class="filter-btn"
+          >
+            <i class="fas fa-globe"></i> En Ligne
+          </button>
+          <button
+            [class.active]="filtreType === 'evenementiel'"
+            (click)="changerFiltreType('evenementiel')"
+            class="filter-btn"
+          >
+            <i class="fas fa-calendar-check"></i> Événementiel
+          </button>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label>Statut :</label>
+        <div class="filter-buttons">
+          <button
+            [class.active]="filtreStatut === 'tous'"
+            (click)="changerFiltreStatut('tous')"
+            class="filter-btn"
+          >
+            Tous
+          </button>
+          <button
+            [class.active]="filtreStatut === 'actif'"
+            (click)="changerFiltreStatut('actif')"
+            class="filter-btn"
+          >
+            <i class="fas fa-check-circle"></i> Actifs
+          </button>
+          <button
+            [class.active]="filtreStatut === 'vip'"
+            (click)="changerFiltreStatut('vip')"
+            class="filter-btn"
+          >
+            <i class="fas fa-crown"></i> VIP
+          </button>
+          <button
+            [class.active]="filtreStatut === 'inactif'"
+            (click)="changerFiltreStatut('inactif')"
+            class="filter-btn"
+          >
+            <i class="fas fa-times-circle"></i> Inactifs
+          </button>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label>Programme Fidélité :</label>
+        <div class="filter-buttons">
+          <button
+            [class.active]="filtreFidelite === 'tous'"
+            (click)="changerFiltreFidelite('tous')"
+            class="filter-btn"
+          >
+            Tous
+          </button>
+          <button
+            *ngFor="let niveau of niveauxFidelite"
+            [class.active]="filtreFidelite === niveau"
+            (click)="changerFiltreFidelite(niveau)"
+            class="filter-btn"
+          >
+            {{ getFideliteIcon(niveau) }} {{ niveau }}
+          </button>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label>Catégorie Préférée :</label>
+        <div class="filter-buttons">
+          <button
+            [class.active]="filtreCategorie === 'tous'"
+            (click)="changerFiltreCategorie('tous')"
+            class="filter-btn"
+          >
+            Tous
+          </button>
+          <button
+            *ngFor="let cat of categoriesPreferees"
+            [class.active]="filtreCategorie === cat"
+            (click)="changerFiltreCategorie(cat)"
+            class="filter-btn"
+          >
+            {{ cat }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="results-count">
+      <strong>{{ clientsFiltres.length }}</strong> client(s) trouvé(s)
+    </div>
+  </div>
+
+  <!-- ==================== TABLEAU DES CLIENTS ==================== -->
+  <div class="table-container">
+    <table class="clients-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Client</th>
+          <th>Type</th>
+          <th>Contact</th>
+          <th>Catégorie Préférée</th>
+          <th>Programme Fidélité</th>
+          <th>Points</th>
+          <th>Commandes</th>
+          <th>Total Dépensé</th>
+          <th>Statut</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let c of clientsFiltres">
+          <td>{{ c.id }}</td>
+
+          <td class="client-name">
+            <div class="avatar">
+              {{ getInitiales(c.nom, c.prenom) }}
+            </div>
+            <div class="name-info">
+              <strong>{{ c.nom }} {{ c.prenom }}</strong>
+              <span class="inscription-date">
+                <i class="fas fa-calendar"></i> {{ c.dateInscription | date:'dd/MM/yyyy' }}
+              </span>
+            </div>
+          </td>
+
+          <td>
+            <span class="type-badge" [ngClass]="getTypeClass(c.typeClient)">
+              <i [class]="getTypeIcon(c.typeClient)"></i>
+              {{ c.typeClient }}
+            </span>
+          </td>
+
+          <td>
+            <div class="contact-info">
+              <a href="mailto:{{ c.email }}">{{ c.email }}</a>
+              <span>{{ c.telephone }}</span>
+            </div>
+          </td>
+
+          <td>
+            <span class="category-badge" *ngIf="c.categoriePreferee">
+              {{ c.categoriePreferee }}
+            </span>
+            <span *ngIf="!c.categoriePreferee" class="text-muted">-</span>
+          </td>
+
+          <td>
+            <span class="fidelite-badge" [ngClass]="getFideliteClass(c.programFidelite)" *ngIf="c.programFidelite">
+              {{ getFideliteIcon(c.programFidelite) }} {{ c.programFidelite }}
+            </span>
+          </td>
+
+          <td class="text-center">
+            <span class="points-badge" *ngIf="c.pointsFidelite">
+              {{ c.pointsFidelite }}
+            </span>
+            <span *ngIf="!c.pointsFidelite" class="text-muted">0</span>
+          </td>
+
+          <td class="text-center">
+            <span class="badge-number">{{ c.nombreCommandes }}</span>
+          </td>
+
+          <td class="total-depense">
+            <strong>{{ c.totalDepense | number:'1.0-0' }} FCFA</strong>
+          </td>
+
+          <td>
+            <span class="statut-badge" [ngClass]="getStatutClass(c.statut)">
+              <i [class]="getStatutIcon(c.statut)"></i>
+              {{ c.statut }}
+            </span>
+          </td>
+
+          <td class="actions">
+            <button
+              class="btn-icon btn-info"
+              (click)="openDetailsModal(c)"
+              title="Voir les détails"
+            >
+              <i class="fas fa-eye"></i>
+            </button>
+
+            <button
+              class="btn-icon btn-edit"
+              (click)="openEditModal(c)"
+              title="Modifier"
+            >
+              <i class="fas fa-edit"></i>
+            </button>
+
+            <button
+              class="btn-icon btn-delete"
+              (click)="supprimerClient(c.id)"
+              title="Supprimer"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="no-results" *ngIf="clientsFiltres.length === 0">
+      <i class="fas fa-user-slash"></i>
+      <p>Aucun client trouvé</p>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== MODAL AJOUT CLIENT ==================== -->
+<div *ngIf="isAddModalOpen" class="modal" (click)="closeAddModal()">
+  <div class="modal-content modal-large" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">
+        <i class="fas fa-user-plus"></i> Ajouter un Nouveau Client
+      </h2>
+      <button class="close-btn" (click)="closeAddModal()">×</button>
+    </div>
+
+    <form [formGroup]="clientForm" (ngSubmit)="ajouterClient()">
+      <div class="modal-body">
+
+        <!-- Section Informations Personnelles -->
+        <div class="form-section">
+          <h3 class="section-title">
+            <i class="fas fa-user"></i> Informations Personnelles
+          </h3>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nom <span class="required">*</span></label>
+              <input
+                type="text"
+                formControlName="nom"
+                [class.is-invalid]="submitted && f['nom'].errors"
+                placeholder="Ex: Kouassi"
+              >
+              <div *ngIf="submitted && f['nom'].errors" class="error-message">
+                <small *ngIf="f['nom'].errors['required']">
+                  <i class="fas fa-exclamation-circle"></i> Le nom est obligatoire
+                </small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Prénom <span class="required">*</span></label>
+              <input
+                type="text"
+                formControlName="prenom"
+                [class.is-invalid]="submitted && f['prenom'].errors"
+                placeholder="Ex: Yao"
+              >
+              <div *ngIf="submitted && f['prenom'].errors" class="error-message">
+                <small *ngIf="f['prenom'].errors['required']">
+                  <i class="fas fa-exclamation-circle"></i> Le prénom est obligatoire
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Email <span class="required">*</span></label>
+              <input
+                type="email"
+                formControlName="email"
+                [class.is-invalid]="submitted && f['email'].errors"
+                placeholder="client@exemple.ci"
+              >
+              <div *ngIf="submitted && f['email'].errors" class="error-message">
+                <small *ngIf="f['email'].errors['required']">
+                  <i class="fas fa-exclamation-circle"></i> L'email est obligatoire
+                </small>
+                <small *ngIf="f['email'].errors['email']">
+                  <i class="fas fa-exclamation-circle"></i> L'email n'est pas valide
+                </small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Téléphone <span class="required">*</span></label>
+              <input
+                type="tel"
+                formControlName="telephone"
+                [class.is-invalid]="submitted && f['telephone'].errors"
+                placeholder="+225 27 XX XX XX XX"
+              >
+              <div *ngIf="submitted && f['telephone'].errors" class="error-message">
+                <small *ngIf="f['telephone'].errors['required']">
+                  <i class="fas fa-exclamation-circle"></i> Le téléphone est obligatoire
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Date d'Anniversaire</label>
+              <input
+                type="date"
+                formControlName="anniversaire"
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Section Type & Statut -->
+        <div class="form-section">
+          <h3 class="section-title">
+            <i class="fas fa-tags"></i> Type & Statut
+          </h3>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Type de Client <span class="required">*</span></label>
+              <select
+                formControlName="typeClient"
+                [class.is-invalid]="submitted && f['typeClient'].errors"
+              >
+                <option value="">-- Sélectionnez --</option>
+                <option value="presentiel">Présentiel</option>
+                <option value="en ligne">En Ligne</option>
+                <option value="evenementiel">Événementiel</option>
+              </select>
+              <div *ngIf="submitted && f['typeClient'].errors" class="error-message">
+                <small *ngIf="f['typeClient'].errors['required']">
+                  <i class="fas fa-exclamation-circle"></i> Le type est obligatoire
+                </small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Statut <span class="required">*</span></label>
+              <select formControlName="statut">
+                <option value="actif">Actif</option>
+                <option value="vip">VIP</option>
+                <option value="inactif">Inactif</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section Préférences Cave à Vin -->
+        <div class="form-section">
+          <h3 class="section-title">
+            <i class="fas fa-wine-bottle"></i> Préférences Cave à Vin
+          </h3>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Catégorie Préférée</label>
+              <select formControlName="categoriePreferee">
+                <option value="">-- Sélectionnez --</option>
+                <option *ngFor="let cat of categoriesPreferees" [value]="cat">{{ cat }}</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Programme Fidélité</label>
+              <select formControlName="programFidelite">
+                <option *ngFor="let niveau of niveauxFidelite" [value]="niveau">
+                  {{ getFideliteIcon(niveau) }} {{ niveau }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Niveau de Connaissance du Vin</label>
+              <select formControlName="connaissanceVin">
+                <option value="">-- Sélectionnez --</option>
+                <option *ngFor="let niveau of niveauxConnaissance" [value]="niveau">
+                  {{ getConnaissanceIcon(niveau) }} {{ niveau }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Budget Moyen</label>
+              <select formControlName="budgetMoyen">
+                <option value="">-- Sélectionnez --</option>
+                <option *ngFor="let budget of budgetsMoyens" [value]="budget">{{ budget }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section Adresse -->
+        <div class="form-section">
+          <h3 class="section-title">
+            <i class="fas fa-map-marker-alt"></i> Adresse
+          </h3>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Adresse Complète <span class="required">*</span></label>
+              <input
+                type="text"
+                formControlName="adresse"
+                [class.is-invalid]="submitted && f['adresse'].errors"
+                placeholder="Ex: Cocody Riviera 2"
+              >
+              <div *ngIf="submitted && f['adresse'].errors" class="error-message">
+                <small *ngIf="f['adresse'].errors['required']">
+                  <i class="fas fa-exclamation-circle"></i> L'adresse est obligatoire
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Ville <span class="required">*</span></label>
+              <input
+                type="text"
+                formControlName="ville"
+                [class.is-invalid]="submitted && f['ville'].errors"
+                placeholder="Ex: Abidjan"
+              >
+              <div *ngIf="submitted && f['ville'].errors" class="error-message">
+                <small *ngIf="f['ville'].errors['required']">
+                  <i class="fas fa-exclamation-circle"></i> La ville est obligatoire
+                </small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Pays <span class="required">*</span></label>
+              <select
+                formControlName="pays"
+                [class.is-invalid]="submitted && f['pays'].errors"
+              >
+                <option value="">-- Sélectionnez --</option>
+                <option *ngFor="let p of pays" [value]="p">{{ p }}</option>
+              </select>
+              <div *ngIf="submitted && f['pays'].errors" class="error-message">
+                <small *ngIf="f['pays'].errors['required']">
+                  <i class="fas fa-exclamation-circle"></i> Le pays est obligatoire
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section Notes -->
+        <div class="form-section">
+          <h3 class="section-title">
+            <i class="fas fa-sticky-note"></i> Notes
+          </h3>
+
+          <div class="form-row">
+            <div class="form-group full-width">
+              <label>Notes (Préférences, remarques...)</label>
+              <textarea
+                formControlName="notes"
+                rows="4"
+                placeholder="Ex: Préfère les vins de Bordeaux, achète régulièrement pour des événements..."
+              ></textarea>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" (click)="closeAddModal()">
+          <i class="fas fa-times"></i> Annuler
+        </button>
+        <button type="submit" class="btn-primary" [disabled]="clientForm.invalid">
+          <i class="fas fa-save"></i> Enregistrer
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ==================== MODAL DÉTAILS CLIENT ==================== -->
+<div *ngIf="isDetailsModalOpen && clientSelectionne" class="modal" (click)="closeDetailsModal()">
+  <div class="modal-content modal-content-large" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">
+        <i class="fas fa-user"></i> Profil Client Détaillé
+      </h2>
+      <button class="close-btn" (click)="closeDetailsModal()">×</button>
+    </div>
+
+    <div class="modal-body">
+
+      <!-- Bandeau de statut -->
+      <div class="status-banner" [ngClass]="getStatutClass(clientSelectionne.statut)">
+        <i [class]="getStatutIcon(clientSelectionne.statut)"></i>
+        <span>Client {{ clientSelectionne.statut }}</span>
+        <span class="fidelite-info" *ngIf="clientSelectionne.programFidelite">
+          • {{ getFideliteIcon(clientSelectionne.programFidelite) }} {{ clientSelectionne.programFidelite }}
+        </span>
+      </div>
+
+      <!-- Section Informations Client -->
+      <div class="info-section">
+        <h3 class="section-subtitle">
+          <i class="fas fa-user"></i> Informations Client
+        </h3>
+
+        <div class="info-grid">
+          <div class="info-item">
+            <label><i class="fas fa-hashtag"></i> ID Client</label>
+            <span class="value">{{ clientSelectionne.id }}</span>
+          </div>
+
+          <div class="info-item">
+            <label><i class="fas fa-user"></i> Nom Complet</label>
+            <span class="value highlight">{{ clientSelectionne.nom }} {{ clientSelectionne.prenom }}</span>
+          </div>
+
+          <div class="info-item">
+            <label><i class="fas fa-envelope"></i> Email</label>
+            <a href="mailto:{{ clientSelectionne.email }}" class="value link">{{ clientSelectionne.email }}</a>
+          </div>
+
+          <div class="info-item">
+            <label><i class="fas fa-phone"></i> Téléphone</label>
+            <a href="tel:{{ clientSelectionne.telephone }}" class="value link">{{ clientSelectionne.telephone }}</a>
+          </div>
+
+          <div class="info-item">
+            <label><i class="fas fa-tag"></i> Type de Client</label>
+            <span class="type-badge" [ngClass]="getTypeClass(clientSelectionne.typeClient)">
+              <i [class]="getTypeIcon(clientSelectionne.typeClient)"></i>
+              {{ clientSelectionne.typeClient }}
+            </span>
+          </div>
+
+          <div class="info-item">
+            <label><i class="fas fa-calendar-plus"></i> Inscription</label>
+            <span class="value">{{ clientSelectionne.dateInscription | date:'dd/MM/yyyy' }}</span>
+          </div>
+
+          <div class="info-item" *ngIf="clientSelectionne.anniversaire">
+            <label><i class="fas fa-birthday-cake"></i> Anniversaire</label>
+            <span class="value">{{ clientSelectionne.anniversaire | date:'dd/MM' }}</span>
+          </div>
+
+          <div class="info-item" *ngIf="clientSelectionne.derniereVisite">
+            <label><i class="fas fa-clock"></i> Dernière Visite</label>
+            <span class="value">
+              {{ clientSelectionne.derniereVisite | date:'dd/MM/yyyy' }}
+              <span class="text-muted">(il y a {{ getJoursDepuisDerniereVisite(clientSelectionne) }} jours)</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section Profil Cave à Vin -->
+      <div class="info-section wine-profile">
+        <h3 class="section-subtitle">
+          <i class="fas fa-wine-bottle"></i> Profil Cave à Vin
+        </h3>
+
+        <div class="info-grid">
+          <div class="info-item" *ngIf="clientSelectionne.categoriePreferee">
+            <label><i class="fas fa-heart"></i> Catégorie Préférée</label>
+            <span class="category-badge-detail">{{ clientSelectionne.categoriePreferee }}</span>
+          </div>
+
+          <div class="info-item" *ngIf="clientSelectionne.connaissanceVin">
+            <label><i class="fas fa-graduation-cap"></i> Niveau de Connaissance</label>
+            <span class="value">{{ getConnaissanceIcon(clientSelectionne.connaissanceVin) }} {{ clientSelectionne.connaissanceVin }}</span>
+          </div>
+
+          <div class="info-item" *ngIf="clientSelectionne.budgetMoyen">
+            <label><i class="fas fa-wallet"></i> Budget Moyen</label>
+            <span class="value">{{ clientSelectionne.budgetMoyen }}</span>
+          </div>
+
+          <div class="info-item" *ngIf="clientSelectionne.pointsFidelite">
+            <label><i class="fas fa-star"></i> Points Fidélité</label>
+            <span class="value highlight">{{ clientSelectionne.pointsFidelite }} points</span>
+          </div>
+        </div>
+
+        <!-- Préférences -->
+        <div class="preferences-section" *ngIf="clientSelectionne.preferences">
+          <label class="preferences-label"><i class="fas fa-thumbs-up"></i> Préférences</label>
+          <div class="preferences-tags">
+            <span class="pref-tag" *ngIf="clientSelectionne.preferences.vinsRouges">🍷 Vins Rouges</span>
+            <span class="pref-tag" *ngIf="clientSelectionne.preferences.vinsBlancs">🥂 Vins Blancs</span>
+            <span class="pref-tag" *ngIf="clientSelectionne.preferences.vinsRoses">🌸 Vins Rosés</span>
+            <span class="pref-tag" *ngIf="clientSelectionne.preferences.champagnes">🍾 Champagnes</span>
+            <span class="pref-tag" *ngIf="clientSelectionne.preferences.spiritueux">🥃 Spiritueux</span>
+            <span class="pref-tag" *ngIf="clientSelectionne.preferences.bieres">🍺 Bières</span>
+          </div>
+        </div>
+
+        <!-- Occasions d'achat -->
+        <div class="occasions-section" *ngIf="clientSelectionne.occasionAchat && clientSelectionne.occasionAchat.length > 0">
+          <label class="occasions-label"><i class="fas fa-shopping-cart"></i> Occasions d'Achat</label>
+          <div class="occasions-tags">
+            <span class="occasion-tag" *ngFor="let occasion of clientSelectionne.occasionAchat">
+              {{ occasion }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Accords préférés -->
+        <div class="accords-section" *ngIf="clientSelectionne.accordsPreferees && clientSelectionne.accordsPreferees.length > 0">
+          <label class="accords-label"><i class="fas fa-utensils"></i> Accords Mets & Vins Préférés</label>
+          <div class="accords-tags">
+            <span class="accord-tag" *ngFor="let accord of clientSelectionne.accordsPreferees">
+              🍽️ {{ accord }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section Adresse -->
+      <div class="info-section">
+        <h3 class="section-subtitle">
+          <i class="fas fa-map-marker-alt"></i> Adresse
+        </h3>
+
+        <div class="info-grid">
+          <div class="info-item full-width">
+            <label><i class="fas fa-home"></i> Adresse Complète</label>
+            <span class="value">{{ clientSelectionne.adresse }}</span>
+          </div>
+
+
+          <div class="info-item">
+            <label><i class="fas fa-city"></i> Ville</label>
+            <span class="value">{{ clientSelectionne.ville }}</span>
+          </div>
+
+          <div class="info-item">
+            <label><i class="fas fa-flag"></i> Pays</label>
+            <span class="value">{{ clientSelectionne.pays }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section Statistiques -->
+      <div class="info-section stats-section-detail">
+        <h3 class="section-subtitle">
+          <i class="fas fa-chart-bar"></i> Statistiques d'Achat
+        </h3>
+
+        <div class="info-grid">
+          <div class="info-item">
+            <label><i class="fas fa-shopping-cart"></i> Nombre de Commandes</label>
+            <span class="value highlight">{{ clientSelectionne.nombreCommandes }}</span>
+          </div>
+
+          <div class="info-item">
+            <label><i class="fas fa-money-bill-wave"></i> Total Dépensé</label>
+            <span class="value highlight">{{ clientSelectionne.totalDepense | number:'1.0-0' }} FCFA</span>
+          </div>
+
+          <div class="info-item">
+            <label><i class="fas fa-shopping-bag"></i> Panier Moyen</label>
+            <span class="value">{{ getPanierMoyen(clientSelectionne) | number:'1.0-0' }} FCFA</span>
+          </div>
+
+          <div class="info-item">
+            <label><i class="fas fa-clock"></i> Ancienneté</label>
+            <span class="value">{{ getJoursDepuisInscription(clientSelectionne) }} jours</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section Notes -->
+      <div class="info-section" *ngIf="clientSelectionne.notes">
+        <h3 class="section-subtitle">
+          <i class="fas fa-sticky-note"></i> Notes
+        </h3>
+        <p class="notes-content">{{ clientSelectionne.notes }}</p>
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-secondary" (click)="closeDetailsModal()">
+        <i class="fas fa-times"></i> Fermer
+      </button>
+      <button class="btn-primary" (click)="openEditModal(clientSelectionne); closeDetailsModal()">
+        <i class="fas fa-edit"></i> Modifier
+      </button>
+    </div>
+  </div>
+</div>

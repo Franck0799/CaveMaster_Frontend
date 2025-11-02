@@ -192,7 +192,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   userProfile: UserProfile = {
     firstName: 'Franck',
     lastName: 'KONGO',
-    email: 'franck.kongo@drinkstore.com',
+    email: 'franck.kongo@caveviking.com',
     phone: '+234 801 234 5678',
     role: 'Administrateur',
     avatar: '👤',
@@ -259,7 +259,14 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
       'wine-pairing',
       'scan',
       'settings',
-      'home'
+      'home',
+      'client',
+      'fournisseur',
+      'depenses',
+      'materiel',
+      'stock',
+      'entries',
+      'exits'
     ];
 
     // Cherche quelle page correspond à l'URL

@@ -51,13 +51,13 @@ export class CaveListComponent implements OnInit {
   messageType: 'success' | 'error' | 'info' = 'info';
 
   regions: string[] = [
-    'Lekki Phase 1, Lagos',
-    'Victoria Island, Lagos',
-    'Ikoyi, Lagos',
-    'Ajah, Lagos',
-    'Ikeja, Lagos',
-    'Surulere, Lagos',
-    'Bariga, Lagos'
+    'viking , Abidjan',
+    'Grand Maitre, Abidjan',
+    'Temple du repos, Abidjan',
+    'Mood, Abidjan',
+    'FunHouse, Abidjan',
+    'La cachette, Abidjan',
+    'fun, Abidjan'
   ];
 
   capacites: Array<{value: string, label: string}> = [
@@ -98,7 +98,7 @@ export class CaveListComponent implements OnInit {
       {
         id: 'cave_1',
         name: 'Cave Principale',
-        location: 'Lekki Phase 1, Lagos',
+        location: 'viking , Abidjan',
         description: 'Cave principale avec température et humidité contrôlées',
         capacity: 500,
         bottles: 450,
@@ -110,7 +110,7 @@ export class CaveListComponent implements OnInit {
       {
         id: 'cave_2',
         name: 'Cave Secondaire',
-        location: 'Victoria Island, Lagos',
+        location: 'Grand Maitre, Abidjan',
         description: 'Cave secondaire pour stocks additionnels',
         capacity: 350,
         bottles: 280,
@@ -122,7 +122,7 @@ export class CaveListComponent implements OnInit {
       {
         id: 'cave_3',
         name: 'Cave Premium',
-        location: 'Ikoyi, Lagos',
+        location: 'Temple du repos, Abidjan',
         description: 'Cave premium pour les sélections spéciales',
         capacity: 200,
         bottles: 185,
@@ -133,9 +133,9 @@ export class CaveListComponent implements OnInit {
       },
       {
         id: 'cave_4',
-        name: 'Cave Ajah',
-        location: 'Ajah, Lagos',
-        description: 'Succursale de Ajah',
+        name: 'Cave Mood',
+        location: 'Mood, Abidjan',
+        description: 'La maison du Mood',
         capacity: 300,
         bottles: 210,
         managersCount: 2,
@@ -145,9 +145,9 @@ export class CaveListComponent implements OnInit {
       },
       {
         id: 'cave_5',
-        name: 'Cave Ikeja',
-        location: 'Ikeja, Lagos',
-        description: 'Succursale d\'Ikeja avec zone de dégustation',
+        name: 'Cave FunHouse',
+        location: 'FunHouse, Abidjan',
+        description: 'Le FunHouse avec zone de dégustation',
         capacity: 250,
         bottles: 220,
         managersCount: 1,
@@ -157,8 +157,8 @@ export class CaveListComponent implements OnInit {
       },
       {
         id: 'cave_6',
-        name: 'Cave Surulere',
-        location: 'Surulere, Lagos',
+        name: 'Cave La cachette',
+        location: 'La cachette, Abidjan',
         description: 'Cave de distribution',
         capacity: 400,
         bottles: 350,
@@ -169,8 +169,8 @@ export class CaveListComponent implements OnInit {
       },
       {
         id: 'cave_7',
-        name: 'Cave Bariga',
-        location: 'Bariga, Lagos',
+        name: 'Cave fun',
+        location: 'fun, Abidjan',
         description: 'Petite cave de quartier',
         capacity: 150,
         bottles: 130,

@@ -1,0 +1,206 @@
+<div class="expense-manager">
+  <!-- En-tête principal -->
+  <div class="page-header">
+    <div class="header-content">
+      <div class="header-left">
+        <h1 class="page-title">Gestion des Dépenses</h1>
+        <p class="page-subtitle">Administration et suivi des dépenses</p>
+      </div>
+      <div class="header-actions">
+        <div class="export-dropdown" [class.open]="showExportMenu">
+          <button class="btn btn-secondary" (click)="toggleExportMenu()">
+            <i class="icon">📥</i>
+            <span>Exporter</span>
+            <i class="arrow">▼</i>
+          </button>
+          <div class="dropdown-menu" *ngIf="showExportMenu">
+            <button class="dropdown-item" (click)="exportToCSV()">
+              <i class="icon">📄</i>
+              <span>Exporter en CSV</span>
+            </button>
+            <button class="dropdown-item" (click)="exportToExcel()">
+              <i class="icon">📊</i>
+              <span>Exporter en Excel</span>
+            </button>
+            <button class="dropdown-item" (click)="exportToPDF()">
+              <i class="icon">📑</i>
+              <span>Exporter en PDF</span>
+            </button>
+          </div>
+        </div>
+        <button class="btn btn-primary" (click)="openModal()">
+          <i class="icon">➕</i>
+          <span>Nouvelle Dépense</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Cartes statistiques -->
+    <div class="stats-grid">
+      <div *ngFor="let cat of totalByCategory"
+           class="stat-card stat-card-{{cat.color}}">
+        <div class="stat-icon">
+          <span class="icon-emoji">{{cat.icon}}</span>
+        </div>
+        <div class="stat-content">
+          <p class="stat-label">{{cat.label}}</p>
+          <p class="stat-value">{{cat.total | number:'1.0-0':'fr-FR'}} FCFA</p>
+        </div>
+      </div>
+
+      <div class="stat-card stat-card-total">
+        <div class="stat-icon">
+          <span class="icon-emoji">💎</span>
+        </div>
+        <div class="stat-content">
+          <p class="stat-label">TOTAL GÉNÉRAL</p>
+          <p class="stat-value">{{grandTotal | number:'1.0-0':'fr-FR'}} FCFA</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filtres -->
+  <div class="filters-section">
+    <div class="search-box">
+      <i class="search-icon">🔍</i>
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Rechercher une dépense..."
+        [(ngModel)]="searchTerm">
+    </div>
+    <div class="filter-box">
+      <i class="filter-icon">🎯</i>
+      <select class="filter-select" [(ngModel)]="filterCategory">
+        <option value="all">Toutes catégories</option>
+        <option *ngFor="let cat of categories" [value]="cat.value">
+          {{cat.icon}} {{cat.label}}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Tableau des dépenses -->
+  <div class="expenses-table-container">
+    <table class="expenses-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Catégorie</th>
+          <th>Description</th>
+          <th>Bénéficiaire</th>
+          <th class="text-right">Montant</th>
+          <th class="text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="filteredExpenses.length === 0">
+          <td colspan="6" class="no-data">
+            <div class="empty-state">
+              <span class="empty-icon">📭</span>
+              <p>Aucune dépense trouvée</p>
+            </div>
+          </td>
+        </tr>
+        <tr *ngFor="let expense of filteredExpenses" class="expense-row">
+          <td class="date-cell">
+            {{expense.date | date:'dd/MM/yyyy'}}
+          </td>
+          <td>
+            <span class="category-badge category-{{getCategoryColor(expense.category)}}">
+              <span class="badge-icon">{{getCategoryIcon(expense.category)}}</span>
+              <span class="badge-text">{{getCategoryLabel(expense.category)}}</span>
+            </span>
+          </td>
+          <td class="description-cell">{{expense.description}}</td>
+          <td class="beneficiary-cell">{{expense.beneficiary || '-'}}</td>
+          <td class="amount-cell text-right">
+            <span class="amount">{{expense.amount | number:'1.0-0':'fr-FR'}} FCFA</span>
+          </td>
+          <td class="actions-cell">
+            <div class="action-buttons">
+              <button class="btn-icon btn-edit" (click)="handleEdit(expense)" title="Modifier">
+                <i>✏️</i>
+              </button>
+              <button class="btn-icon btn-delete" (click)="handleDelete(expense.id)" title="Supprimer">
+                <i>🗑️</i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal d'ajout/modification -->
+  <div class="modal" *ngIf="isModalOpen" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2 class="modal-title">
+          {{editingExpense ? 'Modifier la dépense' : 'Nouvelle dépense'}}
+        </h2>
+        <button class="close-btn" (click)="closeModal()">
+          <i>✕</i>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Catégorie</label>
+          <select class="form-input" [(ngModel)]="formData.category">
+            <option *ngFor="let cat of categories" [value]="cat.value">
+              {{cat.icon}} {{cat.label}}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <input
+            type="text"
+            class="form-input"
+            [(ngModel)]="formData.description"
+            placeholder="Ex: Salaire du mois de novembre">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Bénéficiaire (optionnel)</label>
+          <input
+            type="text"
+            class="form-input"
+            [(ngModel)]="formData.beneficiary"
+            placeholder="Ex: Jean Dupont">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Montant (FCFA)</label>
+            <input
+              type="number"
+              class="form-input"
+              [(ngModel)]="formData.amount"
+              placeholder="0">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Date</label>
+            <input
+              type="date"
+              class="form-input"
+              [(ngModel)]="formData.date">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-cancel" (click)="closeModal()">
+          Annuler
+        </button>
+        <button class="btn btn-primary" (click)="handleSubmit()">
+          {{editingExpense ? 'Modifier' : 'Ajouter'}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

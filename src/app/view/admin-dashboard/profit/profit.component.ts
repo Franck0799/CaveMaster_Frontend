@@ -173,7 +173,7 @@ export class ProfitComponent implements OnInit {
   }
 
   private genererCSV(): string {
-    const headers = ['Catégorie', 'Quantité Vendue', 'CA (€)', 'Coût Achat (€)', 'Bénéfice (€)', 'Marge (%)'];
+    const headers = ['Catégorie', 'Quantité Vendue', 'CA (FR)', 'Coût Achat (FR)', 'Bénéfice (FR)', 'Marge (%)'];
     const rows = this.beneficesCalcules.map(b => [
       b.categorie,
       b.quantiteVendue,
