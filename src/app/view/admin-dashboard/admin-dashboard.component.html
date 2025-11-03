@@ -1,259 +1,461 @@
-<!-- ===== LAYOUT PRINCIPAL DU DASHBOARD ===== -->
-<div class="dashboard">
+<!-- ===== FICHIER: admin-dashboard.component.html ===== -->
+<div class="dashboard" [class.sidebar-open]="isMobileSidebarOpen">
+
+  <!-- ===== OVERLAY MOBILE ===== -->
+  <div class="mobile-overlay"
+       *ngIf="isMobileSidebarOpen"
+       (click)="closeMobileSidebar()"></div>
 
   <!-- ===== SIDEBAR (MENU LATÉRAL) ===== -->
-  <aside class="sidebar">
-    <!-- Logo -->
+  <aside class="sidebar" [class.mobile-open]="isMobileSidebarOpen">
+
+    <!-- Logo et bouton fermeture mobile -->
     <div class="sidebar-header">
       <div class="logo">
         <span class="logo-icon">🍾</span>
         <span class="logo-text">CaveViking Pro</span>
       </div>
+      <!-- <button class="mobile-close-btn"
+              (click)="closeMobileSidebar()"
+              aria-label="Fermer le menu">
+        ✕
+      </button>  -->
     </div>
 
     <!-- Navigation principale -->
     <nav class="sidebar-section">
       <div class="nav-item"
            [routerLink]="['/admin', 'home']"
-           routerLinkActive="active">
+           routerLinkActive="active"
+           (click)="closeMobileSidebar()">
         <span class="nav-icon">🏠</span>
         <span class="nav-text">Accueil</span>
       </div>
 
       <div class="nav-item"
            [routerLink]="['/admin', 'caves']"
-           routerLinkActive="active">
+           routerLinkActive="active"
+           (click)="closeMobileSidebar()">
         <span class="nav-icon">🍷</span>
         <span class="nav-text">Mes caves</span>
       </div>
     </nav>
 
-        <div class="divider"></div>
-         <!--SECTION MES FINANCES-->
-      <nav class="sidebar-section">
-        <div class="section-title">FINANCE</div>
+    <div class="divider"></div>
 
-        <div class="nav-item" [routerLink]="['/admin', 'entries']" routerLinkActive="active">
-          <span class="nav-icon">📥</span>
-          <span class="nav-text">Mes entrées</span>
-        </div>
-
-        <div class="nav-item" [routerLink]="['/admin', 'exits']" routerLinkActive="active">
-          <span class="nav-icon">📤</span>
-          <span class="nav-text">Mes sorties</span>
-        </div>
-
-       <div class="nav-item" [routerLink]="['/admin','caisse']" routerLinkActive="active">
-        <span class="nav-icon">💵</span>
-        <span class="nav-text">Caisse</span>
-       </div>
-
-       <div class="nav-item" [routerLink]="['/admin', 'depenses']" routerLinkActive="active">
-        <span class="nav-icon">👨‍💼</span>
-        <span class="nav-text">Depenses</span>
-      </div>
-
-       <div class="nav-item" [routerLink]="['/admin', 'profit']" routerLinkActive="active">
-        <span class="nav-icon">💰</span>
-        <span class="nav-text">Bénéfices</span>
-       </div>
-      </nav>
-
-        <div class="divider"></div>
-
-      <!--SECTION MAGASIN-->
-    <nav class="sidebar-section">
-      <div class="section-title">MAGASIN</div>
-          <div class="nav-item" [routerLink]="['/admin', 'materiel']" routerLinkActive="active">
-            <span class="nav-icon">👥</span>
-            <span class="nav-text">Matériels</span>
-          </div>
-
-      <div class="nav-item" [routerLink]="['/admin', 'stock']" routerLinkActive="active">
-        <span class="nav-icon">👨‍💼</span>
-        <span class="nav-text">Stocks général</span>
-      </div>
-    </nav>
-
-       <div class="divider"></div>
-
-      <!--SECTION MON EQUIPE-->
+    <!-- Section MON EQUIPE -->
     <nav class="sidebar-section">
       <div class="section-title">MON EQUIPE</div>
-          <div class="nav-item" [routerLink]="['/admin', 'managers']" routerLinkActive="active">
-            <span class="nav-icon">👥</span>
-            <span class="nav-text">Mes managers</span>
-          </div>
 
-      <div class="nav-item" [routerLink]="['/admin', 'employees']" routerLinkActive="active">
+      <div class="nav-item"
+           [routerLink]="['/admin', 'managers']"
+           routerLinkActive="active"
+           (click)="closeMobileSidebar()">
+        <span class="nav-icon">👥</span>
+        <span class="nav-text">Mes managers</span>
+      </div>
+
+      <div class="nav-item"
+           [routerLink]="['/admin', 'employees']"
+           routerLinkActive="active"
+           (click)="closeMobileSidebar()">
         <span class="nav-icon">👨‍💼</span>
         <span class="nav-text">Mes employés</span>
       </div>
 
-      <div class="nav-item"[routerLink]="['/admin', 'client']"routerLinkActive="active">
-            <span class="nav-icon">🧑‍💼</span>
-            <span class="nav-text">Clients</span>
+      <div class="nav-item"
+           [routerLink]="['/admin', 'client']"
+           routerLinkActive="active"
+           (click)="closeMobileSidebar()">
+        <span class="nav-icon">🧑‍💼</span>
+        <span class="nav-text">Clients</span>
       </div>
     </nav>
 
-        <div class="divider"></div>
+    <div class="divider"></div>
 
-        <!-- Section PARTENARIAT -->
-        <nav class="sidebar-section">
-          <div class="section-title">PARTENARIAT</div>
-              <div class="nav-item"
-                  [routerLink]="['/admin', 'fournisseur']"routerLinkActive="active">
-                <span class="nav-icon">🏭</span>
-                <span class="nav-text">Fournisseurs</span>
-              </div>
-        </nav>
+    <!-- Section PARTENARIAT -->
+    <nav class="sidebar-section">
+      <div class="section-title">PARTENARIAT</div>
 
-         <div class="divider"></div>
-
-        <!-- Section MA CAVE -->
-        <nav class="sidebar-section">
-          <div class="section-title">MA CAVE</div>
-
-          <!-- Mes boissons avec sous-menu -->
-          <div class="nav-item" [routerLink]="['/admin', 'drinks']" routerLinkActive="active"
-              [class.open]="isDrinksSubmenuOpen"
-              (click)="toggleDrinksSubmenu(); $event.stopPropagation()">
-            <span class="nav-icon">🍾</span>
-            <span class="nav-text">Mes boissons</span>
-            <span class="submenu-arrow">▶</span>
-          </div>
-
-          <div class="submenu" [class.open]="isDrinksSubmenuOpen">
-            <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Bières']" routerLinkActive="active">🍺 Bières</div>
-            <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Sucreries']" routerLinkActive="active">🍬 Sucreries</div>
-            <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Champagne']" routerLinkActive="active">🥂 Champagne</div>
-            <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Vin Blanc']" routerLinkActive="active">🍷 Vin Blanc</div>
-            <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Vin Rouge']" routerLinkActive="active">🍷 Vin Rouge</div>
-            <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Vin Rosé']" routerLinkActive="active">🍷 Vin Rosé</div>
-            <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Vin Mousseux']" routerLinkActive="active">✨ Vin Mousseux</div>
-            <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Liqueurs']" routerLinkActive="active">🥃 Liqueurs</div>
-            <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Boissons Énergisantes']" routerLinkActive="active">⚡ Boissons Énergisantes</div>
-            <div class="submenu-item" [routerLink]="['/admin', 'drinks', 'Boissons Locales']" routerLinkActive="active">🍹 Boissons Locales</div>
-          </div>
-
-          <div class="nav-item" [routerLink]="['/admin', 'wine-pairing']" routerLinkActive="active">
-            <span class="nav-icon">🍽️</span>
-            <span class="nav-text">Mets & Vins</span>
-          </div>
-
-        <div class="nav-item" [routerLink]="['/admin', 'scan']" routerLinkActive="active">
-            <span class="nav-icon">📷</span>
-            <span class="nav-text">Scan</span>
-          </div>
-        </nav>
-
-         <div class="divider"></div>
-
-           <!-- Section INFOS -->
-      <nav class="sidebar-section">
-        <div class="section-title">INFOS</div>
-
-        <div class="nav-item" [routerLink]="['/admin', 'faq']" routerLinkActive="active">
-          <span class="nav-icon">❓</span>
-          <span class="nav-text">FAQ</span>
-        </div>
-
-        <div class="nav-item" [routerLink]="['/admin', 'improvements']" routerLinkActive="active">
-          <span class="nav-icon">📝</span>
-          <span class="nav-text">Notes améliorations</span>
-        </div>
-
-        <div class="nav-item" [routerLink]="['/admin', 'contact']" routerLinkActive="active">
-          <span class="nav-icon">📧</span>
-          <span class="nav-text">Nous contacter</span>
-        </div>
-
-        <div class="nav-item" [routerLink]="['/admin', 'about']" routerLinkActive="active">
-          <span class="nav-icon">📚</span>
-          <span class="nav-text">En savoir plus</span>
-        </div>
-      </nav>
-
-          <div class="divider"></div>
-
-      <nav class="sidebar-section">
-          <div class="nav-item" [routerLink]="['/admin', 'profile']" routerLinkActive="active">
-            <span class="nav-icon">👤</span>
-            <span class="nav-text">Mon compte</span>
-          </div>
-      </nav>
-
-          <div class="divider"></div>
-
-      <!-- Réseaux sociaux -->
-      <div class="sidebar-section">
-        <div class="section-title">SUIVEZ-NOUS</div>
-          <div class="social-links">
-            <a href="#" class="social-link">
-              <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="#" class="social-link">
-              <i class="fab fa-twitter"></i>
-            </a>
-            <a href="#" class="social-link">
-              <i class="fab fa-linkedin-in"></i>
-            </a>
-            <a href="#" class="social-link">
-              <i class="fab fa-instagram"></i>
-            </a>
-          </div>
+      <div class="nav-item"
+           [routerLink]="['/admin', 'fournisseur']"
+           routerLinkActive="active"
+           (click)="closeMobileSidebar()">
+        <span class="nav-icon">🏭</span>
+        <span class="nav-text">Fournisseurs</span>
       </div>
-      <div class="divider"></div>
+    </nav>
+
+    <div class="divider"></div>
+
+    <!-- Section MA CAVE -->
+    <nav class="sidebar-section">
+      <div class="section-title">MA CAVE</div>
+
+      <!-- Mes boissons avec sous-menu -->
+      <div class="nav-item nav-item-with-submenu"
+           [class.open]="isDrinksSubmenuOpen"
+           (click)="toggleDrinksSubmenu($event)">
+        <span class="nav-icon">🍾</span>
+        <span class="nav-text">Mes boissons</span>
+        <span class="submenu-arrow" [class.rotated]="isDrinksSubmenuOpen">▶</span>
+      </div>
+
+      <div class="submenu" [class.open]="isDrinksSubmenuOpen">
+        <div class="submenu-item"
+             [routerLink]="['/admin', 'drinks', 'Bières']"
+             routerLinkActive="active"
+             (click)="closeMobileSidebar()">
+          🍺 Bières
+        </div>
+        <div class="submenu-item"
+             [routerLink]="['/admin', 'drinks', 'Sucreries']"
+             routerLinkActive="active"
+             (click)="closeMobileSidebar()">
+          🍬 Sucreries
+        </div>
+        <div class="submenu-item"
+             [routerLink]="['/admin', 'drinks', 'Champagne']"
+             routerLinkActive="active"
+             (click)="closeMobileSidebar()">
+          🥂 Champagne
+        </div>
+        <div class="submenu-item"
+             [routerLink]="['/admin', 'drinks', 'Vin Blanc']"
+             routerLinkActive="active"
+             (click)="closeMobileSidebar()">
+          🍷 Vin Blanc
+        </div>
+        <div class="submenu-item"
+             [routerLink]="['/admin', 'drinks', 'Vin Rouge']"
+             routerLinkActive="active"
+             (click)="closeMobileSidebar()">
+          🍷 Vin Rouge
+        </div>
+        <div class="submenu-item"
+             [routerLink]="['/admin', 'drinks', 'Vin Rosé']"
+             routerLinkActive="active"
+             (click)="closeMobileSidebar()">
+          🍷 Vin Rosé
+        </div>
+        <div class="submenu-item"
+             [routerLink]="['/admin', 'drinks', 'Vin Mousseux']"
+             routerLinkActive="active"
+             (click)="closeMobileSidebar()">
+          ✨ Vin Mousseux
+        </div>
+        <div class="submenu-item"
+             [routerLink]="['/admin', 'drinks', 'Liqueurs']"
+             routerLinkActive="active"
+             (click)="closeMobileSidebar()">
+          🥃 Liqueurs
+        </div>
+        <div class="submenu-item"
+             [routerLink]="['/admin', 'drinks', 'Boissons Énergisantes']"
+             routerLinkActive="active"
+             (click)="closeMobileSidebar()">
+          ⚡ Boissons Énergisantes
+        </div>
+        <div class="submenu-item"
+             [routerLink]="['/admin', 'drinks', 'Boissons Locales']"
+             routerLinkActive="active"
+             (click)="closeMobileSidebar()">
+          🍹 Boissons Locales
+        </div>
+      </div>
+
+      <div class="nav-item"
+           [routerLink]="['/admin', 'wine-pairing']"
+           routerLinkActive="active"
+           (click)="closeMobileSidebar()">
+        <span class="nav-icon">🍽️</span>
+        <span class="nav-text">Mets & Vins</span>
+      </div>
+
+      <div class="nav-item"
+           [routerLink]="['/admin', 'scan']"
+           routerLinkActive="active"
+           (click)="closeMobileSidebar()">
+        <span class="nav-icon">📷</span>
+        <span class="nav-text">Scan</span>
+      </div>
+    </nav>
+
+    <div class="divider"></div>
+
+    <!-- SECTION MAGASIN -->
+    <nav class="sidebar-section">
+      <div class="section-title">MAGASIN</div>
+      <div class="nav-item"
+           [routerLink]="['/admin', 'materiel']"
+           routerLinkActive="active"
+           (click)="closeMobileSidebar()">
+        <span class="nav-icon">🔧</span>
+        <span class="nav-text">Matériels</span>
+      </div>
+
+      <div class="nav-item"
+           [routerLink]="['/admin', 'stock']"
+           routerLinkActive="active"
+           (click)="closeMobileSidebar()">
+        <span class="nav-icon">📦</span>
+        <span class="nav-text">Stocks général</span>
+      </div>
+    </nav>
+
+    <div class="divider"></div>
+
+    <!-- SECTION MES FINANCES -->
+    <nav class="sidebar-section">
+      <div class="section-title">FINANCE</div>
+
+      <div class="nav-item"
+           [routerLink]="['/admin', 'entries']"
+           routerLinkActive="active"
+           (click)="closeMobileSidebar()">
+        <span class="nav-icon">📥</span>
+        <span class="nav-text">Mes entrées</span>
+      </div>
+
+      <div class="nav-item"
+           [routerLink]="['/admin', 'exits']"
+           routerLinkActive="active"
+           (click)="closeMobileSidebar()">
+        <span class="nav-icon">📤</span>
+        <span class="nav-text">Mes sorties</span>
+      </div>
+
+      <div class="nav-item"
+           [routerLink]="['/admin','caisse']"
+           routerLinkActive="active"
+           (click)="closeMobileSidebar()">
+        <span class="nav-icon">💵</span>
+        <span class="nav-text">Caisse</span>
+      </div>
+
+      <div class="nav-item"
+           [routerLink]="['/admin', 'depenses']"
+           routerLinkActive="active"
+           (click)="closeMobileSidebar()">
+        <span class="nav-icon">💳</span>
+        <span class="nav-text">Dépenses</span>
+      </div>
+
+      <div class="nav-item"
+           [routerLink]="['/admin', 'profit']"
+           routerLinkActive="active"
+           (click)="closeMobileSidebar()">
+        <span class="nav-icon">💰</span>
+        <span class="nav-text">Bénéfices</span>
+      </div>
+    </nav>
+
+    <div class="divider"></div>
+
+    <!-- Section INFOS -->
+    <nav class="sidebar-section">
+      <div class="section-title">INFOS</div>
+      <div class="nav-item"
+           [routerLink]="['/admin', 'faq']"
+           routerLinkActive="active"
+           (click)="closeMobileSidebar()">
+        <span class="nav-icon">❓</span>
+        <span class="nav-text">FAQ</span>
+      </div>
+
+      <div class="nav-item"
+           [routerLink]="['/admin', 'improvements']"
+           routerLinkActive="active"
+           (click)="closeMobileSidebar()">
+        <span class="nav-icon">📝</span>
+        <span class="nav-text">Notes améliorations</span>
+      </div>
+
+      <div class="nav-item"
+           [routerLink]="['/admin', 'contact']"
+           routerLinkActive="active"
+           (click)="closeMobileSidebar()">
+        <span class="nav-icon">📧</span>
+        <span class="nav-text">Nous contacter</span>
+      </div>
+
+      <div class="nav-item"
+           [routerLink]="['/admin', 'about']"
+           routerLinkActive="active"
+           (click)="closeMobileSidebar()">
+        <span class="nav-icon">📚</span>
+        <span class="nav-text">En savoir plus</span>
+      </div>
+    </nav>
+
+    <div class="divider"></div>
+
+    <nav class="sidebar-section">
+      <div class="nav-item"
+           [routerLink]="['/admin', 'profile']"
+           routerLinkActive="active"
+           (click)="closeMobileSidebar()">
+        <span class="nav-icon">👤</span>
+        <span class="nav-text">Mon compte</span>
+      </div>
+    </nav>
+
+    <div class="divider"></div>
+
+    <!-- Réseaux sociaux -->
+    <div class="sidebar-section">
+      <div class="section-title">SUIVEZ-NOUS</div>
+      <div class="social-links">
+        <a href="https://facebook.com" target="_blank" rel="noopener" class="social-link" aria-label="Facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://twitter.com" target="_blank" rel="noopener" class="social-link" aria-label="Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a href="https://instagram.com" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Version -->
+    <div class="sidebar-footer">
+      <p class="version-text">Version 2.0.0</p>
+      <p class="copyright-text">© 2025 CaveViking Pro</p>
+    </div>
   </aside>
 
   <!-- ===== CONTENU PRINCIPAL ===== -->
   <main class="main-content">
+
     <!-- En-tête du haut -->
     <header class="top-header">
+
+      <!-- Bouton menu mobile -->
+     <!--  <button class="mobile-menu-btn"
+              (click)="toggleMobileSidebar()"
+              aria-label="Menu">
+        <span class="menu-icon">☰</span>
+      </button>  -->
+
       <!-- Barre de recherche -->
       <div class="header-left">
         <div class="search-bar">
-          <input type="text" placeholder="Rechercher un vin millésime, une cave...">
-          <button class="search-btn">🔍</button>
+          <input
+            type="text"
+            placeholder="Rechercher un vin, millésime, une cave..."
+            [(ngModel)]="searchTerm"
+            (keyup.enter)="onSearch()"
+            aria-label="Recherche">
+          <button class="search-btn" (click)="onSearch()" aria-label="Rechercher">
+            🔍
+          </button>
         </div>
       </div>
 
       <!-- Éléments à droite -->
       <div class="header-right">
-        <!-- Icône panier -->
-        <div class="header-icon">
+        <!-- Composant de changement de thème -->
+        <app-theme-toggle></app-theme-toggle>
+
+<!--/////////////////////////////////////  VERIFICATION  ////////////////////////////////////////////////////////////////////-->
+          <!-- Sélecteur de catégories -->
+         <div class="category-selector"></div>
+
+        <!-- Icône messages -->
+        <div class="header-icon"
+             [routerLink]="['/admin', 'messages']"
+             role="button"
+             tabindex="0"
+             aria-label="Messages">
           <span class="icon">💬</span>
-          <span class="badge">3</span>
+          <span class="badge" *ngIf="getUnreadMessagesCount() > 0">
+            {{ getUnreadMessagesCount() }}
+          </span>
         </div>
 
         <!-- Icône notifications -->
-        <div class="header-icon">
+        <div class="header-icon"
+             [routerLink]="['/admin', 'notifications']"
+             role="button"
+             tabindex="0"
+             aria-label="Notifications">
           <span class="icon">🔔</span>
-          <span class="badge">5</span>
+          <span class="badge" *ngIf="getUnreadNotificationsCount() > 0">
+            {{ getUnreadNotificationsCount() }}
+          </span>
         </div>
 
         <!-- Profil utilisateur avec dropdown -->
-        <div class="user-profile" (click)="toggleUserDropdown()">
+        <div class="user-profile"
+             (click)="toggleUserDropdown($event)"
+             role="button"
+             tabindex="0"
+             aria-label="Profil utilisateur">
           <div class="avatar">{{ userProfile.avatar }}</div>
-          <div>
+          <div class="user-info">
             <div class="user-name">{{ userProfile.firstName }} {{ userProfile.lastName }}</div>
             <div class="user-role">{{ userProfile.role }}</div>
           </div>
+          <span class="dropdown-arrow" [class.rotated]="isUserDropdownOpen">▼</span>
 
           <!-- Menu dropdown -->
-          <div class="user-dropdown" [class.show]="isUserDropdownOpen">
-            <div class="dropdown-item" [routerLink]="['/admin', 'profile']">👤 Mon profil</div>
-            <div class="dropdown-item" [routerLink]="['/admin', 'settings']">⚙️ Paramètres</div>
+          <div class="user-dropdown"
+               [class.show]="isUserDropdownOpen"
+               (click)="$event.stopPropagation()">
+            <div class="dropdown-item"
+                 [routerLink]="['/admin', 'profile']"
+                 (click)="isUserDropdownOpen = false">
+              <span class="dropdown-icon">👤</span>
+              <span>Mon profil</span>
+            </div>
+            <div class="dropdown-item"
+                 [routerLink]="['/admin', 'settings']"
+                 (click)="isUserDropdownOpen = false">
+              <span class="dropdown-icon">⚙️</span>
+              <span>Paramètres</span>
+            </div>
             <div class="dropdown-divider"></div>
-            <div class="dropdown-item">💬 Assistance</div>
-            <div class="dropdown-item" (click)="logout()">🚪 Déconnexion</div>
+            <div class="dropdown-item"
+                 [routerLink]="['/admin', 'support']"
+                 (click)="isUserDropdownOpen = false">
+              <span class="dropdown-icon">💬</span>
+              <span>Assistance</span>
+            </div>
+            <div class="dropdown-item logout-item" (click)="logout($event)">
+              <span class="dropdown-icon">🚪</span>
+              <span>Déconnexion</span>
+            </div>
           </div>
         </div>
       </div>
     </header>
 
     <!-- ===== ROUTER OUTLET - C'EST ICI QUE LES PAGES S'AFFICHENT ===== -->
-    <router-outlet></router-outlet>
+    <div class="content-wrapper">
+      <router-outlet></router-outlet>
+    </div>
 
+    <!-- Footer -->
+    <footer class="main-footer">
+      <div class="footer-content">
+        <p class="footer-text">
+          © 2025 CaveViking Pro - Tous droits réservés
+        </p>
+        <div class="footer-links">
+          <a [routerLink]="['/admin', 'privacy']" class="footer-link">Confidentialité</a>
+          <span class="separator">•</span>
+          <a [routerLink]="['/admin', 'terms']" class="footer-link">Conditions</a>
+          <span class="separator">•</span>
+          <a [routerLink]="['/admin', 'contact']" class="footer-link">Contact</a>
+        </div>
+      </div>
+    </footer>
   </main>
 </div>

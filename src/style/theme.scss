@@ -1,0 +1,332 @@
+// ==========================================
+// FICHIER: src/styles/themes.scss
+// DESCRIPTION: Variables et styles pour les thèmes clair/sombre
+// ==========================================
+
+// ========================================
+// MIXINS DE THÈMES (modernes, sans @extend)
+// ========================================
+@mixin dark-theme-vars {
+  --primary: #6366f1;
+  --primary-light: #818cf8;
+  --primary-dark: #4f46e5;
+  --accent: #8b5cf6;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #3b82f6;
+
+  --dark-bg: #0a0e27;
+  --darker-bg: #060918;
+  --card-bg: #1a1f3a;
+  --card-hover: #232947;
+
+  --text: #e2e8f0;
+  --text-muted: #94a3b8;
+  --text-primary: #ffffff;
+  --border: #1e293b;
+  --border-light: #334155;
+
+  --input-bg: #1a1f3a;
+  --input-border: #334155;
+  --input-focus: #6366f1;
+}
+
+@mixin light-theme-vars {
+  --primary: #4f46e5;
+  --primary-light: #6366f1;
+  --primary-dark: #4338ca;
+  --accent: #7c3aed;
+  --success: #059669;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --info: #2563eb;
+
+  --dark-bg: #f8fafc;
+  --darker-bg: #ffffff;
+  --card-bg: #ffffff;
+  --card-hover: #f1f5f9;
+
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --text-primary: #0f172a;
+  --border: #e2e8f0;
+  --border-light: #cbd5e1;
+
+  --input-bg: #ffffff;
+  --input-border: #e2e8f0;
+  --input-focus: #4f46e5;
+}
+
+// ========================================
+// APPLICATION AUTOMATIQUE DU THÈME
+// ========================================
+
+@media (prefers-color-scheme: dark) {
+  body.theme-auto,
+  [data-theme="auto"] {
+    @include dark-theme-vars();
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  body.theme-auto,
+  [data-theme="auto"] {
+    @include light-theme-vars();
+  }
+}
+
+
+// ========================================
+// VARIABLES DE COULEURS - THÈME SOMBRE (défaut)
+// ========================================
+:root,
+body.theme-dark,
+[data-theme="dark"] {
+  --primary: #6366f1;
+  --primary-light: #818cf8;
+  --primary-dark: #4f46e5;
+  --accent: #8b5cf6;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #3b82f6;
+  --dark-bg: #0a0e27;
+  --darker-bg: #060918;
+  --card-bg: #1a1f3a;
+  --card-hover: #232947;
+  --text: #e2e8f0;
+  --text-muted: #94a3b8;
+  --text-primary: #ffffff;
+  --border: #1e293b;
+  --border-light: #334155;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.5);
+  --overlay: rgba(0, 0, 0, 0.8);
+  --icon-color: #94a3b8;
+  --input-bg: #1a1f3a;
+  --input-border: #334155;
+  --input-focus: #6366f1;
+}
+
+// ========================================
+// VARIABLES DE COULEURS - THÈME CLAIR
+// ========================================
+body.theme-light,
+[data-theme="light"] {
+  --primary: #4f46e5;
+  --primary-light: #6366f1;
+  --primary-dark: #4338ca;
+  --accent: #7c3aed;
+  --success: #059669;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --info: #2563eb;
+  --dark-bg: #f8fafc;
+  --darker-bg: #ffffff;
+  --card-bg: #ffffff;
+  --card-hover: #f1f5f9;
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --text-primary: #0f172a;
+  --border: #e2e8f0;
+  --border-light: #cbd5e1;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+  --overlay: rgba(255, 255, 255, 0.9);
+  --icon-color: #64748b;
+  --input-bg: #ffffff;
+  --input-border: #e2e8f0;
+  --input-focus: #4f46e5;
+}
+
+// ========================================
+// CLASSES UTILITAIRES POUR LES THÈMES
+// ========================================
+
+// Fond principal
+.bg-main {
+  background-color: var(--dark-bg);
+}
+
+.bg-card {
+  background-color: var(--card-bg);
+}
+
+.bg-darker {
+  background-color: var(--darker-bg);
+}
+
+// Textes
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-normal {
+  color: var(--text);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+// Bordures
+.border-color {
+  border-color: var(--border);
+}
+
+// Ombres
+.shadow-sm {
+  box-shadow: var(--shadow-sm);
+}
+
+.shadow-md {
+  box-shadow: var(--shadow-md);
+}
+
+.shadow-lg {
+  box-shadow: var(--shadow-lg);
+}
+
+.shadow-xl {
+  box-shadow: var(--shadow-xl);
+}
+
+// ========================================
+// TRANSITIONS DOUCES POUR CHANGEMENT DE THÈME
+// ========================================
+body,
+.dashboard,
+.sidebar,
+.main-content,
+.card,
+.modal-content,
+input,
+select,
+textarea,
+button {
+  transition: background-color 0.3s ease,
+              color 0.3s ease,
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
+}
+
+// ========================================
+// STYLES SPÉCIFIQUES AU THÈME CLAIR
+// ========================================
+body.theme-light,
+[data-theme="light"] {
+  .stat-card,
+  .product-card,
+  .cave-card,
+  .manager-card,
+  .action-item {
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    &:hover { box-shadow: var(--shadow-md); }
+  }
+
+  .sidebar {
+    background: var(--darker-bg);
+    border-right: 1px solid var(--border);
+  }
+
+  .nav-item {
+    &:hover { background: rgba(99, 102, 241, 0.08); }
+    &.active { background: rgba(99, 102, 241, 0.12); }
+  }
+
+  input,
+  select,
+  textarea {
+    background: var(--input-bg);
+    border-color: var(--input-border);
+    color: var(--text);
+    &:focus { border-color: var(--input-focus); }
+  }
+
+  .modal { background: rgba(0, 0, 0, 0.5); }
+
+  &::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    &:hover { background: #94a3b8; }
+  }
+}
+
+// ========================================
+// STYLES SPÉCIFIQUES AU THÈME SOMBRE
+// ========================================
+body.theme-dark,
+[data-theme="dark"] {
+  // Ajout d'ajustements si nécessaire
+}
+
+// ========================================
+// ANIMATION POUR LE CHANGEMENT DE THÈME
+// ========================================
+@keyframes theme-transition {
+  0% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+body.theme-transitioning {
+  animation: theme-transition 0.3s ease;
+}
+
+// ========================================
+// MEDIA QUERIES POUR LE MODE AUTO
+// ========================================
+
+@media (prefers-color-scheme: dark) {
+  body.theme-auto,
+  [data-theme="auto"] {
+    // Au lieu d'un @extend, on réapplique simplement les variables du thème sombre :
+    @include dark-theme-vars();
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  body.theme-auto,
+  [data-theme="auto"] {
+    // Applique les variables du thème clair :
+    @include light-theme-vars();
+  }
+}
+
+// ========================================
+// IMPRESSION (TOUJOURS EN MODE CLAIR)
+// ========================================
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  .sidebar,
+  .theme-toggle-btn,
+  button:not(.print-button) {
+    display: none !important;
+  }
+}
+
+
+// ========================================
+// APPLICATION DIRECTE DES THÈMES
+// ========================================
+
+body.theme-dark,
+[data-theme="dark"] {
+  @include dark-theme-vars();
+}
+
+body.theme-light,
+[data-theme="light"] {
+  @include light-theme-vars();
+}

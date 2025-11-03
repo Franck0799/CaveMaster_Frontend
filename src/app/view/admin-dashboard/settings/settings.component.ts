@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ThemeService, Theme } from '../../../core/services/theme.service';
 
 /**
  * Interface pour les paramètres de l'application
@@ -95,15 +96,21 @@ export class SettingsComponent implements OnInit {
   // État des modifications
   hasUnsavedChanges: boolean = false;
 
-  constructor() {
+  constructor(private themeService: ThemeService) {
     // Sauvegarde des paramètres originaux
     this.originalSettings = JSON.parse(JSON.stringify(this.settings));
   }
 
   ngOnInit(): void {
+    // Charge le thème actuel depuis le service
+    const currentTheme = this.themeService.getCurrentTheme();
+    this.settings.display.theme = currentTheme;
+
     // Chargement des paramètres depuis le backend
     this.loadSettings();
   }
+
+
 
   /**
    * Charge les paramètres depuis le backend
@@ -307,11 +314,11 @@ export class SettingsComponent implements OnInit {
   changeTheme(theme: 'light' | 'dark' | 'auto'): void {
     this.settings.display.theme = theme;
 
-    // Application du thème (dans une vraie app)
-    document.body.setAttribute('data-theme', theme);
+    // 🔥 UTILISE LE SERVICE DE THÈME
+    this.themeService.setTheme(theme);
 
     this.onSettingsChange();
-    console.log('Thème changé:', theme);
+    console.log('🎨 Thème changé:', theme);
   }
 
   /**

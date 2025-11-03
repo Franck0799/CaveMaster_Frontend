@@ -4,6 +4,7 @@ import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import { ThemeService } from './core/services/theme.service';
 
 // Import Lucide Icons
 import {
@@ -41,7 +42,7 @@ import {
 } from 'lucide-angular';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideClientHydration(), provideAnimationsAsync(), provideHttpClient(), provideHttpClient(withFetch())]
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideClientHydration(), provideAnimationsAsync(), provideHttpClient(), provideHttpClient(withFetch()), ThemeService, LucideAngularModule]
 };
 
 // Export pour utiliser les icônes dans les composants

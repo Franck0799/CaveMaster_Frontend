@@ -1,0 +1,13 @@
+<button
+  class="theme-toggle-btn"
+  (click)="toggleTheme()"
+  [title]="getTooltip()"
+  type="button">
+  <span class="icon">
+    <ng-container [ngSwitch]="currentTheme">
+      <span *ngSwitchCase="'light'">☀️</span>
+      <span *ngSwitchCase="'dark'">🌙</span>
+      <span *ngSwitchCase="'auto'">🔄</span>
+    </ng-container>
+  </span>
+</button>
