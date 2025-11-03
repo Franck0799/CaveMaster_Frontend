@@ -1,163 +1,574 @@
-<div class="profit-dashboard">
-  <div class="dashboard-header">
-    <h1 class="dashboard-title">
-      <span class="icon">📊</span>
-      Bénéfices & Stocks
-    </h1>
+<!-- ==========================================
+FICHIER: src/app/view/admin-dashboard/benefice/benefice.component.html
+DESCRIPTION: Template du composant de gestion des bénéfices
+========================================== -->
 
-    <button class="btn-export" (click)="exporterDonnees()">
-      <span class="icon">⬇️</span>
-      Exporter
+<div class="benefice-container">
+
+  <!-- ========== EN-TÊTE ========== -->
+  <div class="page-header">
+    <div class="header-content">
+      <div class="header-left">
+        <h1 class="page-title">
+          <span class="icon">💰</span>
+          Analyse des Bénéfices
+        </h1>
+        <p class="page-subtitle">
+          Période: {{ getPeriodLabel() }}
+        </p>
+      </div>
+      <div class="header-right">
+        <button class="btn btn-secondary" (click)="toggleFilters()">
+          <span class="icon">🔍</span>
+          {{ showFilters ? 'Masquer' : 'Afficher' }} Filtres
+        </button>
+        <button class="btn btn-primary" (click)="exportToCSV()">
+          <span class="icon">📊</span>
+          Exporter CSV
+        </button>
+        <button class="btn btn-primary" (click)="exportToPDF()">
+          <span class="icon">📄</span>
+          Imprimer
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== FILTRES ========== -->
+  <div class="filters-section" *ngIf="showFilters">
+    <div class="filters-card">
+      <h3 class="filters-title">🔍 Filtres</h3>
+
+      <!-- Période -->
+      <div class="filter-group">
+        <h4 class="filter-label">📅 Période</h4>
+        <div class="filter-row">
+          <div class="form-group">
+            <label>Type de période</label>
+            <select
+              [(ngModel)]="periodType"
+              (ngModelChange)="onPeriodTypeChange()"
+              class="form-control">
+              <option value="mensuel">Mensuel</option>
+              <option value="trimestriel">Trimestriel</option>
+              <option value="annuel">Annuel</option>
+              <option value="personnalise">Personnalisé</option>
+            </select>
+          </div>
+
+          <!-- Mensuel -->
+          <div class="form-group" *ngIf="periodType === 'mensuel'">
+            <label>Mois</label>
+            <select
+              [(ngModel)]="selectedMonth"
+              (ngModelChange)="onMonthChange()"
+              class="form-control">
+              <option *ngFor="let month of months" [value]="month.value">
+                {{ month.label }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Trimestriel -->
+          <div class="form-group" *ngIf="periodType === 'trimestriel'">
+            <label>Trimestre</label>
+            <select
+              [(ngModel)]="selectedQuarter"
+              (ngModelChange)="onQuarterChange()"
+              class="form-control">
+              <option *ngFor="let quarter of quarters" [value]="quarter.value">
+                {{ quarter.label }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Année (pour mensuel, trimestriel, annuel) -->
+          <div class="form-group" *ngIf="periodType !== 'personnalise'">
+            <label>Année</label>
+            <select
+              [(ngModel)]="selectedYear"
+              (ngModelChange)="onYearChange()"
+              class="form-control">
+              <option *ngFor="let year of availableYears" [value]="year">
+                {{ year }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Période personnalisée -->
+          <div class="form-group" *ngIf="periodType === 'personnalise'">
+            <label>Date de début</label>
+            <input
+              type="date"
+              [(ngModel)]="customStartDate"
+              (ngModelChange)="onPeriodTypeChange()"
+              class="form-control">
+          </div>
+
+          <div class="form-group" *ngIf="periodType === 'personnalise'">
+            <label>Date de fin</label>
+            <input
+              type="date"
+              [(ngModel)]="customEndDate"
+              (ngModelChange)="onPeriodTypeChange()"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <!-- Filtres de critères -->
+      <div class="filter-group">
+        <h4 class="filter-label">🎯 Critères</h4>
+        <div class="filter-grid">
+          <!-- Cave -->
+          <div class="form-group">
+            <label>Cave</label>
+            <select
+              [(ngModel)]="selectedCave"
+              (ngModelChange)="onCaveChange()"
+              class="form-control">
+              <option value="all">Toutes les caves</option>
+              <option *ngFor="let cave of caves" [value]="cave.id">
+                {{ cave.name }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Catégorie -->
+          <div class="form-group">
+            <label>Catégorie</label>
+            <select
+              [(ngModel)]="selectedCategory"
+              (ngModelChange)="onCategoryChange()"
+              class="form-control">
+              <option value="all">Toutes</option>
+              <option *ngFor="let category of drinkCategories" [value]="category">
+                {{ category }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Fournisseur -->
+          <div class="form-group">
+            <label>Fournisseur</label>
+            <select
+              [(ngModel)]="selectedSupplier"
+              (ngModelChange)="onSupplierChange()"
+              class="form-control">
+              <option value="all">Tous</option>
+              <option *ngFor="let supplier of suppliers" [value]="supplier">
+                {{ supplier }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Format -->
+          <div class="form-group">
+            <label>Format</label>
+            <select
+              [(ngModel)]="selectedFormat"
+              (ngModelChange)="onFormatChange()"
+              class="form-control">
+              <option value="all">Tous</option>
+              <option *ngFor="let format of formats" [value]="format">
+                {{ format }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Conditionnement -->
+          <div class="form-group">
+            <label>Conditionnement</label>
+            <select
+              [(ngModel)]="selectedBulkUnit"
+              (ngModelChange)="onBulkUnitChange()"
+              class="form-control">
+              <option value="all">Tous</option>
+              <option *ngFor="let unit of bulkUnits" [value]="unit">
+                {{ unit }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Boisson -->
+          <div class="form-group">
+            <label>Boisson</label>
+            <select
+              [(ngModel)]="selectedDrink"
+              (ngModelChange)="onDrinkChange()"
+              class="form-control">
+              <option value="all">Toutes</option>
+              <option *ngFor="let drink of drinks" [value]="drink.id">
+                {{ drink.icon }} {{ drink.name }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Catégorie de dépense -->
+          <div class="form-group">
+            <label>Catégorie dépense</label>
+            <select
+              [(ngModel)]="selectedExpenseCategory"
+              (ngModelChange)="onExpenseCategoryChange()"
+              class="form-control">
+              <option value="all">Toutes</option>
+              <option *ngFor="let cat of expenseCategories" [value]="cat">
+                {{ cat }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Recherche -->
+          <div class="form-group">
+            <label>Recherche</label>
+            <input
+              type="text"
+              [(ngModel)]="searchTerm"
+              (ngModelChange)="onSearchChange()"
+              placeholder="Rechercher..."
+              class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <!-- Boutons d'action -->
+      <div class="filter-actions">
+        <button class="btn btn-secondary" (click)="resetFilters()">
+          <span class="icon">🔄</span>
+          Réinitialiser
+        </button>
+        <button class="btn btn-primary" (click)="applyFilters()">
+          <span class="icon">✅</span>
+          Appliquer
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== ALERTES ========== -->
+  <div class="alerts-section" *ngIf="getAlerts().length > 0">
+    <div class="alert alert-warning" *ngFor="let alert of getAlerts()">
+      {{ alert }}
+    </div>
+  </div>
+
+  <!-- ========== RECOMMANDATIONS ========== -->
+  <div class="recommendations-section" *ngIf="getRecommendations().length > 0">
+    <div class="recommendations-card">
+      <h3 class="card-title">💡 Recommandations</h3>
+      <ul class="recommendations-list">
+        <li *ngFor="let rec of getRecommendations()">{{ rec }}</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ========== NAVIGATION VUES ========== -->
+  <div class="view-tabs">
+    <button
+      class="tab-btn"
+      [class.active]="viewMode === 'global'"
+      (click)="switchView('global')">
+      <span class="icon">📊</span>
+      Vue Globale
+    </button>
+    <button
+      class="tab-btn"
+      [class.active]="viewMode === 'details'"
+      (click)="switchView('details')">
+      <span class="icon">📋</span>
+      Détails par Produit
     </button>
   </div>
 
-  <!-- Filtres -->
-  <div class="filters-section">
-    <div class="filter-group">
-      <label>Cave</label>
-      <select [formControl]="caveControl" class="filter-select">
-        <option value="toutes">Toutes les caves</option>
-        <option *ngFor="let cave of caves" [value]="cave.id">{{ cave.nom }}</option>
-      </select>
+  <!-- ========== VUE GLOBALE ========== -->
+  <div class="global-view" *ngIf="viewMode === 'global'">
+
+    <!-- Statistiques principales -->
+    <div class="stats-grid">
+      <!-- Chiffre d'affaires -->
+      <div class="stat-card stat-primary">
+        <div class="stat-icon">💵</div>
+        <div class="stat-content">
+          <div class="stat-label">Chiffre d'Affaires</div>
+          <div class="stat-value">{{ formatCurrency(globalStats.chiffreAffaires) }}</div>
+          <div class="stat-detail">{{ globalStats.nombreVentes }} vente(s)</div>
+        </div>
+      </div>
+
+      <!-- Bénéfice Net -->
+      <div class="stat-card stat-success">
+        <div class="stat-icon">{{ getStatusIcon(globalStats.beneficeNet) }}</div>
+        <div class="stat-content">
+          <div class="stat-label">Bénéfice Net</div>
+          <div class="stat-value" [class]="getStatusClass(globalStats.beneficeNet)">
+            {{ formatCurrency(globalStats.beneficeNet) }}
+          </div>
+          <div class="stat-detail">Marge: {{ formatPercentage(globalStats.margeNette) }}</div>
+        </div>
+      </div>
+
+      <!-- Total Coûts -->
+      <div class="stat-card stat-danger">
+        <div class="stat-icon">💸</div>
+        <div class="stat-content">
+          <div class="stat-label">Coûts Totaux</div>
+          <div class="stat-value">{{ formatCurrency(globalStats.coutTotal) }}</div>
+          <div class="stat-detail">
+            Achats + Dépenses + Pertes
+          </div>
+        </div>
+      </div>
+
+      <!-- Marge Nette -->
+      <div class="stat-card stat-info">
+        <div class="stat-icon">📈</div>
+        <div class="stat-content">
+          <div class="stat-label">Marge Nette</div>
+          <div class="stat-value" [class]="getStatusClass(globalStats.margeNette)">
+            {{ formatPercentage(globalStats.margeNette) }}
+          </div>
+          <div class="stat-detail">Rentabilité globale</div>
+        </div>
+      </div>
     </div>
 
-    <div class="filter-group">
-      <label>Période</label>
-      <select [formControl]="periodeControl" class="filter-select">
-        <option *ngFor="let periode of periodes" [value]="periode.value">
-          {{ periode.label }}
-        </option>
-      </select>
+    <!-- Détails des revenus et coûts -->
+    <div class="details-grid">
+      <!-- Revenus -->
+      <div class="detail-card">
+        <h3 class="card-title">💰 Revenus</h3>
+        <div class="detail-list">
+          <div class="detail-item">
+            <span class="detail-label">Ventes totales</span>
+            <span class="detail-value">{{ formatCurrency(globalStats.chiffreAffaires) }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Nombre de ventes</span>
+            <span class="detail-value">{{ globalStats.nombreVentes }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Panier moyen</span>
+            <span class="detail-value">{{ formatCurrency(globalStats.panierMoyen) }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Prix moyen de vente</span>
+            <span class="detail-value">{{ formatCurrency(globalStats.prixMoyenVente) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coûts -->
+      <div class="detail-card">
+        <h3 class="card-title">💸 Coûts</h3>
+        <div class="detail-list">
+          <div class="detail-item">
+            <span class="detail-label">Achats (marchandises)</span>
+            <span class="detail-value text-danger">{{ formatCurrency(globalStats.totalAchats) }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Dépenses (opérationnelles)</span>
+            <span class="detail-value text-danger">{{ formatCurrency(globalStats.totalDepenses) }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Pertes (casse, péremption)</span>
+            <span class="detail-value text-danger">{{ formatCurrency(globalStats.totalPertes) }}</span>
+          </div>
+          <div class="detail-item total-item">
+            <span class="detail-label"><strong>Total coûts</strong></span>
+            <span class="detail-value text-danger"><strong>{{ formatCurrency(globalStats.coutTotal) }}</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stock -->
+      <div class="detail-card">
+        <h3 class="card-title">📦 Stock</h3>
+        <div class="detail-list">
+          <div class="detail-item">
+            <span class="detail-label">Stock de départ (valeur)</span>
+            <span class="detail-value">{{ formatCurrency(globalStats.stockDepart) }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Stock restant (valeur)</span>
+            <span class="detail-value">{{ formatCurrency(globalStats.stockRestant) }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Boissons achetées</span>
+            <span class="detail-value">{{ globalStats.totalBoissonsAchetees }} unités</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Boissons vendues</span>
+            <span class="detail-value">{{ globalStats.totalBoissonsVendues }} unités</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Boissons perdues</span>
+            <span class="detail-value text-danger">{{ globalStats.totalBoissonsPertes }} unités</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Marges -->
+      <div class="detail-card">
+        <h3 class="card-title">📊 Marges</h3>
+        <div class="detail-list">
+          <div class="detail-item">
+            <span class="detail-label">Bénéfice brut</span>
+            <span class="detail-value" [class]="getStatusClass(globalStats.beneficeBrut)">
+              {{ formatCurrency(globalStats.beneficeBrut) }}
+            </span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Marge brute</span>
+            <span class="detail-value" [class]="getStatusClass(globalStats.margeBrute)">
+              {{ formatPercentage(globalStats.margeBrute) }}
+            </span>
+          </div>
+          <div class="detail-item total-item">
+            <span class="detail-label"><strong>Bénéfice net</strong></span>
+            <span class="detail-value" [class]="getStatusClass(globalStats.beneficeNet)">
+              <strong>{{ formatCurrency(globalStats.beneficeNet) }}</strong>
+            </span>
+          </div>
+          <div class="detail-item total-item">
+            <span class="detail-label"><strong>Marge nette</strong></span>
+            <span class="detail-value" [class]="getStatusClass(globalStats.margeNette)">
+              <strong>{{ formatPercentage(globalStats.margeNette) }}</strong>
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="filter-group">
-      <label>Catégorie</label>
-      <select [formControl]="categorieControl" class="filter-select">
-        <option value="toutes">Toutes les catégories</option>
-        <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
-      </select>
+    <!-- Analyses complémentaires -->
+    <div class="analysis-grid">
+      <!-- Top performeurs -->
+      <div class="analysis-card">
+        <h3 class="card-title">🏆 Top 5 - Meilleurs bénéfices</h3>
+        <div class="ranking-list">
+          <div class="ranking-item" *ngFor="let item of getTopPerformers(5); let i = index">
+            <span class="rank">{{ i + 1 }}</span>
+            <span class="item-icon">{{ item.drinkIcon }}</span>
+            <span class="item-name">{{ item.drinkName }}</span>
+            <span class="item-value text-success">{{ formatCurrency(item.benefice) }}</span>
+          </div>
+          <div class="no-data" *ngIf="getTopPerformers(5).length === 0">
+            Aucune donnée disponible
+          </div>
+        </div>
+      </div>
+
+      <!-- Plus vendus -->
+      <div class="analysis-card">
+        <h3 class="card-title">🔥 Top 5 - Plus vendus</h3>
+        <div class="ranking-list">
+          <div class="ranking-item" *ngFor="let item of getMostSoldDrinks(5); let i = index">
+            <span class="rank">{{ i + 1 }}</span>
+            <span class="item-icon">{{ item.drinkIcon }}</span>
+            <span class="item-name">{{ item.drinkName }}</span>
+            <span class="item-value">{{ item.quantiteVendue }} unités</span>
+          </div>
+          <div class="no-data" *ngIf="getMostSoldDrinks(5).length === 0">
+            Aucune donnée disponible
+          </div>
+        </div>
+      </div>
+
+      <!-- Meilleures marges -->
+      <div class="analysis-card">
+        <h3 class="card-title">💎 Top 5 - Meilleures marges</h3>
+        <div class="ranking-list">
+          <div class="ranking-item" *ngFor="let item of getHighestMarginDrinks(5); let i = index">
+            <span class="rank">{{ i + 1 }}</span>
+            <span class="item-icon">{{ item.drinkIcon }}</span>
+            <span class="item-name">{{ item.drinkName }}</span>
+            <span class="item-value text-success">{{ formatPercentage(item.margePourcentage) }}</span>
+          </div>
+          <div class="no-data" *ngIf="getHighestMarginDrinks(5).length === 0">
+            Aucune donnée disponible
+          </div>
+        </div>
+      </div>
+
+      <!-- Moins performants -->
+      <div class="analysis-card">
+        <h3 class="card-title">⚠️ Top 5 - Moins performants</h3>
+        <div class="ranking-list">
+          <div class="ranking-item" *ngFor="let item of getLowPerformers(5); let i = index">
+            <span class="rank">{{ i + 1 }}</span>
+            <span class="item-icon">{{ item.drinkIcon }}</span>
+            <span class="item-name">{{ item.drinkName }}</span>
+            <span class="item-value text-danger">{{ formatCurrency(item.benefice) }}</span>
+          </div>
+          <div class="no-data" *ngIf="getLowPerformers(5).length === 0">
+            Aucune donnée disponible
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Cartes de statistiques -->
-  <div class="stats-grid">
-    <div class="stat-card stat-card--primary">
-      <div class="stat-icon">💰</div>
-      <div class="stat-content">
-        <div class="stat-label">Bénéfice Total</div>
-        <div class="stat-value">{{ totalBenefice | number:'1.2-2' }} fr</div>
-      </div>
-    </div>
-
-    <div class="stat-card stat-card--success">
-      <div class="stat-icon">📈</div>
-      <div class="stat-content">
-        <div class="stat-label">Chiffre d'Affaires</div>
-        <div class="stat-value">{{ totalCA | number:'1.2-2' }} fr</div>
-      </div>
-    </div>
-
-    <div class="stat-card stat-card--info">
-      <div class="stat-icon">🛒</div>
-      <div class="stat-content">
-        <div class="stat-label">Unités Vendues</div>
-        <div class="stat-value">{{ totalVentes }}</div>
-      </div>
-    </div>
-
-    <div class="stat-card stat-card--warning">
-      <div class="stat-icon">📦</div>
-      <div class="stat-content">
-        <div class="stat-label">Stock Restant</div>
-        <div class="stat-value">{{ stockTotal }}</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Tableau des bénéfices par catégorie -->
-  <div class="section-card">
-    <h2 class="section-title">Bénéfices par Catégorie</h2>
-
-    <div class="table-responsive">
+  <!-- ========== VUE DÉTAILS ========== -->
+  <div class="details-view" *ngIf="viewMode === 'details'">
+    <div class="table-container">
       <table class="data-table">
         <thead>
           <tr>
+            <th>#</th>
+            <th>Boisson</th>
             <th>Catégorie</th>
+            <th>Format</th>
+            <th>Fournisseur</th>
+            <th class="text-right">Qté Achetée</th>
             <th class="text-right">Qté Vendue</th>
-            <th class="text-right">CA (fr)</th>
-            <th class="text-right">Coût Achat (fr)</th>
-            <th class="text-right">Bénéfice (fr)</th>
-            <th class="text-right">Marge (%)</th>
+            <th class="text-right">Qté Perdue</th>
+            <th class="text-right">Stock</th>
+            <th class="text-right">Coût Achat</th>
+            <th class="text-right">Revenue Vente</th>
+            <th class="text-right">Bénéfice</th>
+            <th class="text-right">Marge %</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of beneficesCalcules">
+          <tr *ngFor="let item of itemStats; let i = index">
+            <td>{{ i + 1 }}</td>
             <td>
-              <span class="category-badge">{{ item.categorie }}</span>
+              <div class="item-cell">
+                <span class="item-icon">{{ item.drinkIcon }}</span>
+                <span class="item-name">{{ item.drinkName }}</span>
+              </div>
             </td>
+            <td>{{ item.category }}</td>
+            <td>{{ item.format }}</td>
+            <td>{{ item.supplier }}</td>
+            <td class="text-right">{{ item.quantiteAchetee }}</td>
             <td class="text-right">{{ item.quantiteVendue }}</td>
-            <td class="text-right">{{ item.chiffreAffaires | number:'1.2-2' }}</td>
-            <td class="text-right">{{ item.coutAchat | number:'1.2-2' }}</td>
-            <td class="text-right profit-value">{{ item.benefice | number:'1.2-2' }}</td>
-            <td class="text-right">
-              <span class="marge-badge" [class.marge-haute]="item.margePercent > 50">
-                {{ item.margePercent | number:'1.1-1' }}%
-              </span>
+            <td class="text-right text-danger">{{ item.quantitePerdue }}</td>
+            <td class="text-right">{{ item.stockActuel }}</td>
+            <td class="text-right">{{ formatCurrency(item.coutAchat) }}</td>
+            <td class="text-right">{{ formatCurrency(item.revenueVente) }}</td>
+            <td class="text-right" [class]="getStatusClass(item.benefice)">
+              <strong>{{ formatCurrency(item.benefice) }}</strong>
+            </td>
+            <td class="text-right" [class]="getStatusClass(item.margePourcentage)">
+              <strong>{{ formatPercentage(item.margePourcentage) }}</strong>
+            </td>
+          </tr>
+          <tr *ngIf="itemStats.length === 0">
+            <td colspan="13" class="no-data">
+              Aucune donnée disponible pour la période sélectionnée
             </td>
           </tr>
         </tbody>
-        <tfoot>
-          <tr class="total-row">
-            <td><strong>TOTAL</strong></td>
-            <td class="text-right"><strong>{{ totalVentes }}</strong></td>
-            <td class="text-right"><strong>{{ totalCA | number:'1.2-2' }}</strong></td>
-            <td class="text-right"><strong>{{ totalCA - totalBenefice | number:'1.2-2' }}</strong></td>
-            <td class="text-right"><strong>{{ totalBenefice | number:'1.2-2' }}</strong></td>
-            <td class="text-right"><strong>{{ totalCA > 0 ? (totalBenefice / totalCA * 100) : 0 | number:'1.1-1' }}%</strong></td>
-          </tr>
-        </tfoot>
       </table>
     </div>
   </div>
 
-  <!-- Stock restant par catégorie -->
-  <div class="section-card">
-    <h2 class="section-title">Stock Restant par Catégorie</h2>
-
-    <div class="stock-grid">
-      <div *ngFor="let stock of getStockParCategorie(); let i = index"
-           class="stock-item"
-           [style.border-left-color]="getCouleurCategorie(i)">
-        <div class="stock-category">{{ stock.categorie }}</div>
-        <div class="stock-quantity">{{ stock.quantite }} unités</div>
-        <div class="stock-progress">
-          <div class="progress-bar"
-               [style.width.%]="(stock.quantite / stockTotal * 100)"
-               [style.background-color]="getCouleurCategorie(i)">
-          </div>
-        </div>
-      </div>
+  <!-- ========== LOADER ========== -->
+  <div class="loader-overlay" *ngIf="isLoading">
+    <div class="loader">
+      <div class="spinner"></div>
+      <p>Chargement des données...</p>
     </div>
   </div>
 
-  <!-- Résumé par cave -->
-  <div class="section-card" *ngIf="caveControl.value === 'toutes'">
-    <h2 class="section-title">Résumé par Cave</h2>
-
-    <div class="cave-summary-grid">
-      <div *ngFor="let cave of caves" class="cave-summary-card">
-        <h3 class="cave-name">{{ cave.nom }}</h3>
-        <div class="cave-stats">
-          <div class="cave-stat">
-            <span class="label">Bénéfice</span>
-            <span class="value">{{ calculerBeneficeParCave(cave.nom) | number:'1.2-2' }} </span>
-          </div>
-          <div class="cave-stat">
-            <span class="label">Stock</span>
-            <span class="value">{{ calculerStockParCave(cave.nom) }} unités</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>

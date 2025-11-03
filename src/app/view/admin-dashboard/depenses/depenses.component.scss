@@ -23,15 +23,17 @@ $color-green: #22c55e;
 $color-gray: #6b7280;
 $color-orange: #fb923c;
 
-$transition: all 0.3s ease;
+// Animation rapide
+$transition: all 0.15s ease;
+$transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
 // ===== MIXINS =====
 @mixin card-hover {
-  transition: $transition;
+  transition: $transition-smooth;
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
   }
 }
 
@@ -124,7 +126,7 @@ $transition: all 0.3s ease;
   gap: 0.75rem;
   padding: 0.875rem 1.25rem;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.15s;
   background: none;
   border: none;
   width: 100%;
@@ -180,7 +182,7 @@ $transition: all 0.3s ease;
 
   .arrow {
     font-size: 0.7rem;
-    transition: transform 0.3s;
+    transition: transform 0.2s;
   }
 }
 
@@ -188,7 +190,7 @@ $transition: all 0.3s ease;
   transform: rotate(180deg);
 }
 
-// ===== CARTES STATISTIQUES =====
+// ===== CARTES STATISTIQUES (ANIMATIONS RAPIDES) =====
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -203,7 +205,7 @@ $transition: all 0.3s ease;
   display: flex;
   align-items: center;
   gap: 1rem;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); // Animation plus rapide
   position: relative;
   overflow: hidden;
 
@@ -215,7 +217,7 @@ $transition: all 0.3s ease;
     width: 100%;
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
-    transition: left 0.5s;
+    transition: left 0.3s; // Réduit de 0.5s à 0.3s
   }
 
   &:hover::before {
@@ -223,8 +225,8 @@ $transition: all 0.3s ease;
   }
 
   &:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    transform: translateY(-3px) scale(1.015); // Réduit le scale
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); // Ombre moins intense
   }
 }
 
@@ -236,7 +238,7 @@ $transition: all 0.3s ease;
   justify-content: center;
   border-radius: 1rem;
   flex-shrink: 0;
-  transition: all 0.4s ease;
+  transition: all 0.2s ease; // Réduit de 0.4s à 0.2s
 
   .icon-emoji {
     font-size: 2rem;
@@ -244,7 +246,7 @@ $transition: all 0.3s ease;
 }
 
 .stat-card:hover .stat-icon {
-  transform: scale(1.15) rotate(5deg);
+  transform: scale(1.1) rotate(3deg); // Réduit rotation et scale
 }
 
 .stat-content {
@@ -265,14 +267,14 @@ $transition: all 0.3s ease;
   font-weight: 700;
 }
 
-// Variantes de couleur
+// Variantes de couleur (animations rapides)
 .stat-card-blue {
   border-color: rgba($color-blue, 0.3);
 
   &:hover {
     border-color: $color-blue;
     background: linear-gradient(135deg, rgba($color-blue, 0.1), $darker-bg);
-    box-shadow: 0 20px 50px rgba($color-blue, 0.3);
+    box-shadow: 0 15px 35px rgba($color-blue, 0.25);
   }
 
   .stat-icon {
@@ -290,7 +292,7 @@ $transition: all 0.3s ease;
   &:hover {
     border-color: $color-yellow;
     background: linear-gradient(135deg, rgba($color-yellow, 0.1), $darker-bg);
-    box-shadow: 0 20px 50px rgba($color-yellow, 0.3);
+    box-shadow: 0 15px 35px rgba($color-yellow, 0.25);
   }
 
   .stat-icon {
@@ -308,7 +310,7 @@ $transition: all 0.3s ease;
   &:hover {
     border-color: $color-cyan;
     background: linear-gradient(135deg, rgba($color-cyan, 0.1), $darker-bg);
-    box-shadow: 0 20px 50px rgba($color-cyan, 0.3);
+    box-shadow: 0 15px 35px rgba($color-cyan, 0.25);
   }
 
   .stat-icon {
@@ -326,7 +328,7 @@ $transition: all 0.3s ease;
   &:hover {
     border-color: $color-red;
     background: linear-gradient(135deg, rgba($color-red, 0.1), $darker-bg);
-    box-shadow: 0 20px 50px rgba($color-red, 0.3);
+    box-shadow: 0 15px 35px rgba($color-red, 0.25);
   }
 
   .stat-icon {
@@ -344,7 +346,7 @@ $transition: all 0.3s ease;
   &:hover {
     border-color: $color-green;
     background: linear-gradient(135deg, rgba($color-green, 0.1), $darker-bg);
-    box-shadow: 0 20px 50px rgba($color-green, 0.3);
+    box-shadow: 0 15px 35px rgba($color-green, 0.25);
   }
 
   .stat-icon {
@@ -362,7 +364,7 @@ $transition: all 0.3s ease;
   &:hover {
     border-color: $color-gray;
     background: linear-gradient(135deg, rgba($color-gray, 0.1), $darker-bg);
-    box-shadow: 0 20px 50px rgba($color-gray, 0.3);
+    box-shadow: 0 15px 35px rgba($color-gray, 0.25);
   }
 
   .stat-icon {
@@ -380,7 +382,7 @@ $transition: all 0.3s ease;
   &:hover {
     border-color: $primary;
     background: linear-gradient(135deg, rgba($primary, 0.15), $darker-bg);
-    box-shadow: 0 20px 50px rgba($primary, 0.4);
+    box-shadow: 0 15px 35px rgba($primary, 0.35);
   }
 
   .stat-icon {
@@ -484,7 +486,7 @@ $transition: all 0.3s ease;
   tbody {
     tr {
       border-bottom: 1px solid $border;
-      transition: background 0.3s;
+      transition: background 0.15s;
 
       &:hover {
         background: $card-hover;

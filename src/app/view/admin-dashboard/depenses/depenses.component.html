@@ -1,206 +1,283 @@
-<div class="expense-manager">
-  <!-- En-tête principal -->
-  <div class="page-header">
+<!-- ========================================
+     FICHIER: depenses.component.html
+     DESCRIPTION: Template du composant de gestion des dépenses
+     ======================================== -->
+
+<div class="expense-manager-container">
+  <!-- Header -->
+  <div class="header-card">
     <div class="header-content">
-      <div class="header-left">
-        <h1 class="page-title">Gestion des Dépenses</h1>
-        <p class="page-subtitle">Administration et suivi des dépenses</p>
+      <div class="header-title-section">
+        <h1 class="header-title">Gestion des Dépenses</h1>
+        <p class="header-subtitle">Administration et suivi des dépenses</p>
       </div>
+
       <div class="header-actions">
-        <div class="export-dropdown" [class.open]="showExportMenu">
-          <button class="btn btn-secondary" (click)="toggleExportMenu()">
-            <i class="icon">📥</i>
-            <span>Exporter</span>
-            <i class="arrow">▼</i>
+        <div class="export-menu-wrapper">
+          <button
+            type="button"
+            (click)="toggleExportMenu()"
+            class="btn btn-secondary">
+            <span class="icon">📥</span>
+            <span class="btn-text">Exporter</span>
+            <span class="arrow">▼</span>
           </button>
-          <div class="dropdown-menu" *ngIf="showExportMenu">
-            <button class="dropdown-item" (click)="exportToCSV()">
-              <i class="icon">📄</i>
+
+          <div *ngIf="showExportMenu" class="export-menu">
+            <button type="button" (click)="exportToCSV()" class="menu-item">
+              <span>📄</span>
               <span>Exporter en CSV</span>
             </button>
-            <button class="dropdown-item" (click)="exportToExcel()">
-              <i class="icon">📊</i>
+            <button type="button" (click)="exportToExcel()" class="menu-item">
+              <span>📊</span>
               <span>Exporter en Excel</span>
             </button>
-            <button class="dropdown-item" (click)="exportToPDF()">
-              <i class="icon">📑</i>
+            <button type="button" (click)="exportToPDF()" class="menu-item">
+              <span>📑</span>
               <span>Exporter en PDF</span>
             </button>
           </div>
         </div>
-        <button class="btn btn-primary" (click)="openModal()">
-          <i class="icon">➕</i>
-          <span>Nouvelle Dépense</span>
+
+        <button
+          type="button"
+          (click)="openAddModal()"
+          class="btn btn-primary">
+          <span class="icon">➕</span>
+          <span class="btn-text">Nouvelle Dépense</span>
         </button>
       </div>
     </div>
 
-    <!-- Cartes statistiques -->
+    <!-- Stats Cards -->
     <div class="stats-grid">
-      <div *ngFor="let cat of totalByCategory"
-           class="stat-card stat-card-{{cat.color}}">
-        <div class="stat-icon">
-          <span class="icon-emoji">{{cat.icon}}</span>
-        </div>
+      <div
+        *ngFor="let cat of totalByCategory"
+        class="stat-card"
+        [class.stat-card-total]="false">
         <div class="stat-content">
-          <p class="stat-label">{{cat.label}}</p>
-          <p class="stat-value">{{cat.total | number:'1.0-0':'fr-FR'}} FCFA</p>
+          <div
+            class="stat-icon"
+            [ngClass]="'bg-' + cat.color">
+            {{ cat.icon }}
+          </div>
+          <div class="stat-info">
+            <p class="stat-label">{{ cat.label }}</p>
+            <p
+              class="stat-value"
+              [ngClass]="'text-' + cat.color">
+              {{ formatNumber(cat.total) }} <span class="currency">FCFA</span>
+            </p>
+          </div>
         </div>
       </div>
 
       <div class="stat-card stat-card-total">
-        <div class="stat-icon">
-          <span class="icon-emoji">💎</span>
-        </div>
         <div class="stat-content">
-          <p class="stat-label">TOTAL GÉNÉRAL</p>
-          <p class="stat-value">{{grandTotal | number:'1.0-0':'fr-FR'}} FCFA</p>
+          <div class="stat-icon bg-blue-gradient">
+            💎
+          </div>
+          <div class="stat-info">
+            <p class="stat-label">Total Général</p>
+            <p class="stat-value text-blue">
+              {{ formatNumber(grandTotal) }} <span class="currency">FCFA</span>
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Filtres -->
-  <div class="filters-section">
+  <!-- Filters -->
+  <div class="filters-container">
     <div class="search-box">
-      <i class="search-icon">🔍</i>
+      <span class="icon">🔍</span>
       <input
         type="text"
-        class="search-input"
-        placeholder="Rechercher une dépense..."
-        [(ngModel)]="searchTerm">
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="onSearchChange()"
+        placeholder="Rechercher une dépense...">
     </div>
+
     <div class="filter-box">
-      <i class="filter-icon">🎯</i>
-      <select class="filter-select" [(ngModel)]="filterCategory">
+      <span class="icon">🔽</span>
+      <select
+        [(ngModel)]="filterCategory"
+        (ngModelChange)="onCategoryChange()">
         <option value="all">Toutes catégories</option>
-        <option *ngFor="let cat of categories" [value]="cat.value">
-          {{cat.icon}} {{cat.label}}
+        <option
+          *ngFor="let cat of categories"
+          [value]="cat.value">
+          {{ cat.icon }} {{ cat.label }}
         </option>
       </select>
     </div>
   </div>
 
-  <!-- Tableau des dépenses -->
-  <div class="expenses-table-container">
-    <table class="expenses-table">
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Catégorie</th>
-          <th>Description</th>
-          <th>Bénéficiaire</th>
-          <th class="text-right">Montant</th>
-          <th class="text-center">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngIf="filteredExpenses.length === 0">
-          <td colspan="6" class="no-data">
-            <div class="empty-state">
-              <span class="empty-icon">📭</span>
-              <p>Aucune dépense trouvée</p>
-            </div>
-          </td>
-        </tr>
-        <tr *ngFor="let expense of filteredExpenses" class="expense-row">
-          <td class="date-cell">
-            {{expense.date | date:'dd/MM/yyyy'}}
-          </td>
-          <td>
-            <span class="category-badge category-{{getCategoryColor(expense.category)}}">
-              <span class="badge-icon">{{getCategoryIcon(expense.category)}}</span>
-              <span class="badge-text">{{getCategoryLabel(expense.category)}}</span>
-            </span>
-          </td>
-          <td class="description-cell">{{expense.description}}</td>
-          <td class="beneficiary-cell">{{expense.beneficiary || '-'}}</td>
-          <td class="amount-cell text-right">
-            <span class="amount">{{expense.amount | number:'1.0-0':'fr-FR'}} FCFA</span>
-          </td>
-          <td class="actions-cell">
-            <div class="action-buttons">
-              <button class="btn-icon btn-edit" (click)="handleEdit(expense)" title="Modifier">
-                <i>✏️</i>
-              </button>
-              <button class="btn-icon btn-delete" (click)="handleDelete(expense.id)" title="Supprimer">
-                <i>🗑️</i>
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <!-- Table -->
+  <div class="table-container">
+    <div class="table-wrapper">
+      <table class="expenses-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Catégorie</th>
+            <th>Description</th>
+            <th>Bénéficiaire</th>
+            <th class="text-right">Montant</th>
+            <th class="text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="filteredExpenses.length === 0" class="empty-state">
+            <td colspan="6">
+              <div class="empty-content">
+                <span class="empty-icon">📭</span>
+                <p class="empty-text">Aucune dépense trouvée</p>
+              </div>
+            </td>
+          </tr>
+
+          <tr
+            *ngFor="let expense of filteredExpenses"
+            [class.editing]="editingExpenseValue(expense)">
+            <td class="text-secondary">
+              {{ formatDate(expense.date) }}
+            </td>
+            <td>
+              <span
+                class="category-badge"
+                [ngClass]="getCategoryClass(expense.category)">
+                <span>{{ getCategoryIcon(expense.category) }}</span>
+                <span>{{ getCategoryLabel(expense.category) }}</span>
+              </span>
+            </td>
+            <td>{{ expense.description }}</td>
+            <td class="text-secondary">{{ expense.beneficiary || '-' }}</td>
+            <td class="text-right">
+              <span class="amount">{{ formatNumber(expense.amount) }} FCFA</span>
+            </td>
+            <td>
+              <div class="actions">
+                <button
+                  type="button"
+                  (click)="handleEdit(expense)"
+                  class="btn-edit"
+                  title="Modifier">
+                  ✏️
+                </button>
+                <button
+                  type="button"
+                  (click)="handleDelete(expense.id)"
+                  class="btn-delete"
+                  title="Supprimer">
+                  🗑️
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
-  <!-- Modal d'ajout/modification -->
-  <div class="modal" *ngIf="isModalOpen" (click)="closeModal()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
+  <!-- Modal -->
+  <div
+    *ngIf="openModal"
+    class="modal"
+    (click)="closeModal()">
+    <div class="modal-backdrop"></div>
+    <div
+      class="modal-content"
+      (click)="$event.stopPropagation()">
       <div class="modal-header">
-        <h2 class="modal-title">
-          {{editingExpense ? 'Modifier la dépense' : 'Nouvelle dépense'}}
+        <h2>
+          {{ isEditMode ? 'Modifier la dépense' : 'Nouvelle dépense' }}
         </h2>
-        <button class="close-btn" (click)="closeModal()">
-          <i>✕</i>
+        <button
+          type="button"
+          (click)="closeModal()"
+          class="close-btn">
+          ✖️
         </button>
       </div>
 
-      <div class="modal-body">
+      <form
+        (ngSubmit)="handleSubmit($event)"
+        class="modal-form">
         <div class="form-group">
-          <label class="form-label">Catégorie</label>
-          <select class="form-input" [(ngModel)]="formData.category">
-            <option *ngFor="let cat of categories" [value]="cat.value">
-              {{cat.icon}} {{cat.label}}
+          <label for="categoryInput">Catégorie</label>
+          <select
+            id="categoryInput"
+            [(ngModel)]="formData.category"
+            name="category"
+            required>
+            <option
+              *ngFor="let cat of categories"
+              [value]="cat.value">
+              {{ cat.icon }} {{ cat.label }}
             </option>
           </select>
         </div>
 
         <div class="form-group">
-          <label class="form-label">Description</label>
+          <label for="descriptionInput">Description</label>
           <input
             type="text"
-            class="form-input"
+            id="descriptionInput"
             [(ngModel)]="formData.description"
-            placeholder="Ex: Salaire du mois de novembre">
+            name="description"
+            placeholder="Ex: Salaire du mois de novembre"
+            required>
         </div>
 
         <div class="form-group">
-          <label class="form-label">Bénéficiaire (optionnel)</label>
+          <label for="beneficiaryInput">Bénéficiaire (optionnel)</label>
           <input
             type="text"
-            class="form-input"
+            id="beneficiaryInput"
             [(ngModel)]="formData.beneficiary"
+            name="beneficiary"
             placeholder="Ex: Jean Dupont">
         </div>
 
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Montant (FCFA)</label>
+            <label for="amountInput">Montant (FCFA)</label>
             <input
               type="number"
-              class="form-input"
+              id="amountInput"
               [(ngModel)]="formData.amount"
-              placeholder="0">
+              name="amount"
+              placeholder="0"
+              required>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Date</label>
+            <label for="dateInput">Date</label>
             <input
               type="date"
-              class="form-input"
-              [(ngModel)]="formData.date">
+              id="dateInput"
+              [(ngModel)]="formData.date"
+              name="date"
+              required>
           </div>
         </div>
-      </div>
 
-      <div class="modal-footer">
-        <button class="btn btn-cancel" (click)="closeModal()">
-          Annuler
-        </button>
-        <button class="btn btn-primary" (click)="handleSubmit()">
-          {{editingExpense ? 'Modifier' : 'Ajouter'}}
-        </button>
-      </div>
+        <div class="form-actions">
+          <button
+            type="button"
+            (click)="closeModal()"
+            class="btn btn-secondary">
+            Annuler
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary">
+            {{ isEditMode ? 'Modifier' : 'Ajouter' }}
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
