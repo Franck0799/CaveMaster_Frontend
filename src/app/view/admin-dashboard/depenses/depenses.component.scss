@@ -1,38 +1,129 @@
-// ===== VARIABLES =====
+// ========================================
+// VARIABLES
+// ========================================
 $primary: #6366f1;
 $primary-light: #818cf8;
+$primary-dark: #4f46e5;
 $accent: #8b5cf6;
 $success: #10b981;
 $warning: #f59e0b;
 $danger: #ef4444;
 $info: #3b82f6;
+
+// Backgrounds
 $dark-bg: #0a0e27;
 $darker-bg: #060918;
 $card-bg: #1a1f3a;
 $card-hover: #232947;
+
+// Text
 $text: #e2e8f0;
 $text-muted: #94a3b8;
 $border: #1e293b;
 
-// Couleurs des catégories
-$color-blue: #3b82f6;
-$color-yellow: #eab308;
-$color-cyan: #06b6d4;
-$color-red: #ef4444;
-$color-green: #22c55e;
-$color-gray: #6b7280;
-$color-orange: #fb923c;
+// Category Colors
+$colors: (
+  'blue': #3b82f6,
+  'yellow': #eab308,
+  'cyan': #06b6d4,
+  'red': #ef4444,
+  'green': #22c55e,
+  'gray': #6b7280,
+  'orange': #fb923c
+);
 
-// Animation rapide
-$transition: all 0.15s ease;
-$transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+// Transitions
+$transition-fast: all 0.15s ease;
+$transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+$transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-// ===== MIXINS =====
-@mixin card-hover {
+// ========================================
+// KEYFRAMES ANIMATIONS
+// ========================================
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// ========================================
+// MIXINS
+// ========================================
+@mixin glass-effect {
+  background: rgba($card-bg, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@mixin card-hover-effect {
   transition: $transition-smooth;
-
   &:hover {
-    transform: translateY(-3px);
+    transform: translateY(-4px);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
   }
 }
@@ -43,32 +134,58 @@ $transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   border: none;
   font-weight: 600;
   cursor: pointer;
-  transition: $transition;
+  transition: $transition-smooth;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   font-size: 0.95rem;
+  position: relative;
+  overflow: hidden;
 
-  &:hover {
-    transform: translateY(-2px);
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+
+  &:hover::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  &:active {
+    transform: scale(0.98);
   }
 }
 
-// ===== CONTENEUR PRINCIPAL =====
-.expense-manager {
+// ========================================
+// CONTENEUR PRINCIPAL
+// ========================================
+.expense-manager-container {
   min-height: 100vh;
   background: $dark-bg;
   color: $text;
   padding: 2rem;
+  animation: fadeInUp 0.5s ease;
 }
 
-// ===== EN-TÊTE DE PAGE =====
-.page-header {
+// ========================================
+// HEADER CARD
+// ========================================
+.header-card {
   background: $card-bg;
   border: 1px solid $border;
   border-radius: 1.5rem;
   padding: 2rem;
   margin-bottom: 2rem;
+  animation: fadeInDown 0.6s ease;
 }
 
 .header-content {
@@ -76,38 +193,44 @@ $transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
+  gap: 2rem;
 }
 
-.header-left {
+.header-title-section {
   flex: 1;
 }
 
-.page-title {
+.header-title {
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
   background: linear-gradient(135deg, $primary-light, $accent);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: slideInRight 0.7s ease;
 }
 
-.page-subtitle {
+.header-subtitle {
   color: $text-muted;
   font-size: 1rem;
+  animation: slideInRight 0.8s ease;
 }
 
 .header-actions {
   display: flex;
   gap: 1rem;
   align-items: center;
+  animation: slideInRight 0.9s ease;
 }
 
-// ===== DROPDOWN EXPORT =====
-.export-dropdown {
+// ========================================
+// EXPORT MENU
+// ========================================
+.export-menu-wrapper {
   position: relative;
 }
 
-.dropdown-menu {
+.export-menu {
   position: absolute;
   top: calc(100% + 0.5rem);
   right: 0;
@@ -118,41 +241,59 @@ $transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
   z-index: 1000;
   overflow: hidden;
+  animation: scaleIn 0.2s ease;
+
+  .menu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1.25rem;
+    cursor: pointer;
+    transition: $transition-fast;
+    background: none;
+    border: none;
+    width: 100%;
+    color: $text;
+    font-size: 0.95rem;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 3px;
+      background: $primary;
+      transform: scaleY(0);
+      transition: transform 0.3s ease;
+    }
+
+    &:hover {
+      background: $card-hover;
+      padding-left: 1.5rem;
+
+      &::before {
+        transform: scaleY(1);
+      }
+    }
+  }
 }
 
-.dropdown-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.875rem 1.25rem;
-  cursor: pointer;
-  transition: background 0.15s;
-  background: none;
-  border: none;
-  width: 100%;
-  color: $text;
-  font-size: 0.95rem;
-
-  &:hover {
-    background: $card-hover;
-  }
-
-  .icon {
-    font-size: 1.2rem;
-  }
-}
-
-// ===== BOUTONS =====
+// ========================================
+// BOUTONS
+// ========================================
 .btn {
   @include button-base;
 
   &-primary {
-    background: $primary;
+    background: linear-gradient(135deg, $primary, $primary-dark);
     color: white;
 
     &:hover {
-      background: $primary-light;
-      box-shadow: 0 8px 20px rgba($primary, 0.3);
+      background: linear-gradient(135deg, $primary-light, $primary);
+      box-shadow: 0 8px 20px rgba($primary, 0.4);
+      transform: translateY(-2px);
     }
   }
 
@@ -163,34 +304,25 @@ $transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
     &:hover {
       background: $card-hover;
-    }
-  }
-
-  &-cancel {
-    background: $darker-bg;
-    color: $text;
-    border: 1px solid $border;
-
-    &:hover {
-      background: $card-hover;
+      border-color: $primary;
+      transform: translateY(-2px);
     }
   }
 
   .icon {
     font-size: 1.2rem;
+    animation: pulse 2s infinite;
   }
 
   .arrow {
     font-size: 0.7rem;
-    transition: transform 0.2s;
+    transition: transform 0.3s ease;
   }
 }
 
-.export-dropdown.open .arrow {
-  transform: rotate(180deg);
-}
-
-// ===== CARTES STATISTIQUES (ANIMATIONS RAPIDES) =====
+// ========================================
+// STATS GRID
+// ========================================
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -198,16 +330,19 @@ $transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .stat-card {
-  background: $darker-bg;
-  border: 2px solid $border;
+  @include glass-effect;
   border-radius: 1rem;
   padding: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); // Animation plus rapide
+  transition: $transition-smooth;
   position: relative;
   overflow: hidden;
+ // animation: fadeInUp 2s ease backwards;
+
+  @for $i from 1 through 7 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.5}s;
+    }
+  }
 
   &::before {
     content: '';
@@ -216,18 +351,33 @@ $transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
-    transition: left 0.3s; // Réduit de 0.5s à 0.3s
-  }
-
-  &:hover::before {
-    left: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.05),
+      transparent
+    );
+    transition: left 0.5s;
   }
 
   &:hover {
-    transform: translateY(-3px) scale(1.015); // Réduit le scale
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); // Ombre moins intense
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+
+    &::before {
+      left: 100%;
+    }
+
+    .stat-icon {
+      transform: scale(1.15) rotate(5deg);
+    }
   }
+}
+
+.stat-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .stat-icon {
@@ -238,18 +388,11 @@ $transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   justify-content: center;
   border-radius: 1rem;
   flex-shrink: 0;
-  transition: all 0.2s ease; // Réduit de 0.4s à 0.2s
-
-  .icon-emoji {
-    font-size: 2rem;
-  }
+  transition: $transition-bounce;
+  font-size: 2rem;
 }
 
-.stat-card:hover .stat-icon {
-  transform: scale(1.1) rotate(3deg); // Réduit rotation et scale
-}
-
-.stat-content {
+.stat-info {
   flex: 1;
 }
 
@@ -265,115 +408,43 @@ $transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 .stat-value {
   font-size: 1.5rem;
   font-weight: 700;
-}
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
 
-// Variantes de couleur (animations rapides)
-.stat-card-blue {
-  border-color: rgba($color-blue, 0.3);
-
-  &:hover {
-    border-color: $color-blue;
-    background: linear-gradient(135deg, rgba($color-blue, 0.1), $darker-bg);
-    box-shadow: 0 15px 35px rgba($color-blue, 0.25);
-  }
-
-  .stat-icon {
-    background: rgba($color-blue, 0.15);
-  }
-
-  .stat-value {
-    color: $color-blue;
+  .currency {
+    font-size: 0.85rem;
+    color: $text-muted;
   }
 }
 
-.stat-card-yellow {
-  border-color: rgba($color-yellow, 0.3);
-
-  &:hover {
-    border-color: $color-yellow;
-    background: linear-gradient(135deg, rgba($color-yellow, 0.1), $darker-bg);
-    box-shadow: 0 15px 35px rgba($color-yellow, 0.25);
+// Variantes de couleur
+@each $name, $color in $colors {
+  .bg-#{$name} {
+    background: rgba($color, 0.15);
   }
 
-  .stat-icon {
-    background: rgba($color-yellow, 0.15);
+  .text-#{$name} {
+    color: $color;
   }
 
-  .stat-value {
-    color: $color-yellow;
-  }
-}
+  .stat-card:has(.bg-#{$name}) {
+    border-color: rgba($color, 0.3);
 
-.stat-card-cyan {
-  border-color: rgba($color-cyan, 0.3);
-
-  &:hover {
-    border-color: $color-cyan;
-    background: linear-gradient(135deg, rgba($color-cyan, 0.1), $darker-bg);
-    box-shadow: 0 15px 35px rgba($color-cyan, 0.25);
-  }
-
-  .stat-icon {
-    background: rgba($color-cyan, 0.15);
-  }
-
-  .stat-value {
-    color: $color-cyan;
+    &:hover {
+      border-color: $color;
+      background: linear-gradient(135deg, rgba($color, 0.1), $darker-bg);
+      box-shadow: 0 15px 40px rgba($color, 0.3);
+    }
   }
 }
 
-.stat-card-red {
-  border-color: rgba($color-red, 0.3);
-
-  &:hover {
-    border-color: $color-red;
-    background: linear-gradient(135deg, rgba($color-red, 0.1), $darker-bg);
-    box-shadow: 0 15px 35px rgba($color-red, 0.25);
-  }
-
-  .stat-icon {
-    background: rgba($color-red, 0.15);
-  }
-
-  .stat-value {
-    color: $color-red;
-  }
+.bg-blue-gradient {
+  background: linear-gradient(135deg, rgba(#3b82f6, 0.2), rgba(#8b5cf6, 0.2));
 }
 
-.stat-card-green {
-  border-color: rgba($color-green, 0.3);
-
-  &:hover {
-    border-color: $color-green;
-    background: linear-gradient(135deg, rgba($color-green, 0.1), $darker-bg);
-    box-shadow: 0 15px 35px rgba($color-green, 0.25);
-  }
-
-  .stat-icon {
-    background: rgba($color-green, 0.15);
-  }
-
-  .stat-value {
-    color: $color-green;
-  }
-}
-
-.stat-card-gray {
-  border-color: rgba($color-gray, 0.3);
-
-  &:hover {
-    border-color: $color-gray;
-    background: linear-gradient(135deg, rgba($color-gray, 0.1), $darker-bg);
-    box-shadow: 0 15px 35px rgba($color-gray, 0.25);
-  }
-
-  .stat-icon {
-    background: rgba($color-gray, 0.15);
-  }
-
-  .stat-value {
-    color: $color-gray;
-  }
+.text-blue {
+  color: $primary-light;
 }
 
 .stat-card-total {
@@ -382,23 +453,18 @@ $transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   &:hover {
     border-color: $primary;
     background: linear-gradient(135deg, rgba($primary, 0.15), $darker-bg);
-    box-shadow: 0 15px 35px rgba($primary, 0.35);
-  }
-
-  .stat-icon {
-    background: rgba($primary, 0.2);
-  }
-
-  .stat-value {
-    color: $primary-light;
+    box-shadow: 0 15px 40px rgba($primary, 0.4);
   }
 }
 
-// ===== SECTION FILTRES =====
-.filters-section {
+// ========================================
+// FILTRES
+// ========================================
+.filters-container {
   display: flex;
   gap: 1rem;
   margin-bottom: 2rem;
+  animation: fadeInUp 0.7s ease;
 }
 
 .search-box,
@@ -409,51 +475,69 @@ $transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid $border;
   border-radius: 0.75rem;
   padding: 0 1rem;
-  transition: $transition;
+  transition: $transition-smooth;
+
+  .icon {
+    font-size: 1.2rem;
+    margin-right: 0.75rem;
+    opacity: 0.6;
+    transition: $transition-fast;
+  }
 
   &:focus-within {
     border-color: $primary;
-    box-shadow: 0 0 0 3px rgba($primary, 0.1);
+    box-shadow: 0 0 0 3px rgba($primary, 0.15);
+
+    .icon {
+      opacity: 1;
+      animation: pulse 1s ease;
+    }
   }
 }
 
 .search-box {
   flex: 1;
-}
 
-.search-icon,
-.filter-icon {
-  font-size: 1.2rem;
-  margin-right: 0.75rem;
-  opacity: 0.6;
-}
+  input {
+    flex: 1;
+    padding: 0.875rem 0;
+    background: none;
+    border: none;
+    color: $text;
+    outline: none;
+    font-size: 0.95rem;
 
-.search-input,
-.filter-select {
-  flex: 1;
-  padding: 0.875rem 0;
-  background: none;
-  border: none;
-  color: $text;
-  outline: none;
-  font-size: 0.95rem;
-
-  &::placeholder {
-    color: $text-muted;
+    &::placeholder {
+      color: $text-muted;
+    }
   }
 }
 
-.filter-select {
-  cursor: pointer;
-  padding-right: 2rem;
+.filter-box {
+  select {
+    padding: 0.875rem 2rem 0.875rem 0;
+    background: $card-bg;
+    border: none;
+    color: $text;
+    outline: none;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
 }
 
-// ===== TABLEAU DES DÉPENSES =====
-.expenses-table-container {
+// ========================================
+// TABLEAU
+// ========================================
+.table-container {
   background: $card-bg;
   border: 1px solid $border;
   border-radius: 1.5rem;
   overflow: hidden;
+  animation: fadeInUp 0.8s ease;
+}
+
+.table-wrapper {
+  overflow-x: auto;
 }
 
 .expenses-table {
@@ -472,6 +556,7 @@ $transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       letter-spacing: 1px;
       color: $text-muted;
       font-weight: 600;
+      white-space: nowrap;
 
       &.text-right {
         text-align: right;
@@ -486,14 +571,23 @@ $transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   tbody {
     tr {
       border-bottom: 1px solid $border;
-      transition: background 0.15s;
+      transition: $transition-fast;
+      animation: fadeInUp 0.4s ease backwards;
+
+      @for $i from 1 through 20 {
+        &:nth-child(#{$i}) {
+          animation-delay: #{$i * 0.05}s;
+        }
+      }
 
       &:hover {
         background: $card-hover;
+        transform: scale(1.01);
       }
 
-      &:last-child {
-        border-bottom: none;
+      &.editing {
+        background: rgba($primary, 0.1);
+        border-left: 3px solid $primary;
       }
     }
 
@@ -505,34 +599,35 @@ $transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         text-align: right;
       }
 
-      &.no-data {
-        padding: 3rem;
-        text-align: center;
+      &.text-secondary {
+        color: $text-muted;
       }
     }
   }
 }
 
 .empty-state {
+  td {
+    padding: 4rem 2rem !important;
+  }
+}
+
+.empty-content {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  color: $text-muted;
 
   .empty-icon {
     font-size: 4rem;
     opacity: 0.5;
+    animation: pulse 2s infinite;
   }
 
-  p {
+  .empty-text {
+    color: $text-muted;
     font-size: 1.1rem;
   }
-}
-
-.date-cell {
-  color: $text-muted;
-  font-weight: 500;
 }
 
 .category-badge {
@@ -543,68 +638,37 @@ $transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 0.5rem;
   font-size: 0.85rem;
   font-weight: 600;
-  color: white;
+  transition: $transition-fast;
 
-  .badge-icon {
-    font-size: 1.1rem;
+  &:hover {
+    transform: scale(1.05);
   }
 }
 
-.category-blue {
-  background: rgba($color-blue, 0.2);
-  color: $color-blue;
-}
-
-.category-yellow {
-  background: rgba($color-yellow, 0.2);
-  color: $color-yellow;
-}
-
-.category-cyan {
-  background: rgba($color-cyan, 0.2);
-  color: $color-cyan;
-}
-
-.category-red {
-  background: rgba($color-red, 0.2);
-  color: $color-red;
-}
-
-.category-green {
-  background: rgba($color-green, 0.2);
-  color: $color-green;
-}
-
-.category-gray {
-  background: rgba($color-gray, 0.2);
-  color: $color-gray;
-}
-
-.description-cell {
-  font-weight: 500;
-}
-
-.beneficiary-cell {
-  color: $text-muted;
-}
-
-.amount-cell {
-  .amount {
-    font-weight: 700;
-    color: $success;
-    font-size: 1.05rem;
+@each $name, $color in $colors {
+  .cat-#{$name} {
+    background: rgba($color, 0.2);
+    color: $color;
   }
 }
 
-.actions-cell {
-  .action-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-  }
+.amount {
+  font-weight: 700;
+  color: $success;
+  font-size: 1.05rem;
 }
 
-.btn-icon {
+// ========================================
+// ACTIONS
+// ========================================
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-edit,
+.btn-delete {
   width: 36px;
   height: 36px;
   display: flex;
@@ -614,40 +678,69 @@ $transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid $border;
   border-radius: 0.5rem;
   cursor: pointer;
-  transition: $transition;
+  transition: $transition-smooth;
   font-size: 1.1rem;
 
   &:hover {
-    transform: scale(1.1);
-  }
-
-  &.btn-edit:hover {
-    background: rgba($info, 0.2);
-    border-color: $info;
-  }
-
-  &.btn-delete:hover {
-    background: rgba($danger, 0.2);
-    border-color: $danger;
+    transform: scale(1.15) rotate(5deg);
   }
 }
 
-// ===== MODAL =====
+.btn-edit:hover {
+  background: rgba($info, 0.2);
+  border-color: $info;
+  box-shadow: 0 4px 12px rgba($info, 0.3);
+}
+
+.btn-delete:hover {
+  background: rgba($danger, 0.2);
+  border-color: $danger;
+  box-shadow: 0 4px 12px rgba($danger, 0.3);
+}
+
+// ========================================
+// MODAL
+// ========================================
 .modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2000;
   padding: 2rem;
+  animation: fadeInUp 0.3s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: -1;
+  }
 }
 
+//floutage à l'arrière plan
+
+/*.modal-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+}*/
+
 .modal-content {
+  position: relative;
   background: $card-bg;
   border: 1px solid $border;
   border-radius: 1.5rem;
@@ -656,6 +749,7 @@ $transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
+  animation: scaleIn 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .modal-header {
@@ -664,11 +758,11 @@ $transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
 
-.modal-title {
-  font-size: 1.75rem;
-  font-weight: 700;
+  h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+  }
 }
 
 .close-btn {
@@ -681,32 +775,68 @@ $transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid $border;
   border-radius: 50%;
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: $text;
-  transition: $transition;
+  transition: $transition-smooth;
 
   &:hover {
     background: $danger;
     border-color: $danger;
-    transform: rotate(90deg);
+    transform: rotate(90deg) scale(1.1);
   }
 }
 
-.modal-body {
+// ========================================
+// FORMULAIRE
+// ========================================
+.modal-form {
   padding: 2rem;
 }
 
-.modal-footer {
-  padding: 1.5rem 2rem;
-  border-top: 1px solid $border;
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-}
-
-// ===== FORMULAIRES =====
 .form-group {
   margin-bottom: 1.5rem;
+  animation: fadeInUp 0.4s ease backwards;
+
+  @for $i from 1 through 10 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.05}s;
+    }
+  }
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: $text;
+    font-size: 0.9rem;
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    background: $darker-bg;
+    border: 1px solid $border;
+    border-radius: 0.5rem;
+    color: $text;
+    font-size: 0.95rem;
+    outline: none;
+    transition: $transition-smooth;
+
+    &:focus {
+      border-color: $primary;
+      box-shadow: 0 0 0 3px rgba($primary, 0.15);
+      transform: translateY(-2px);
+    }
+
+    &::placeholder {
+      color: $text-muted;
+    }
+  }
+
+  select {
+    cursor: pointer;
+  }
 }
 
 .form-row {
@@ -715,36 +845,18 @@ $transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   gap: 1rem;
 }
 
-.form-label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-  color: $text;
-  font-size: 0.9rem;
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid $border;
+  animation: fadeInUp 0.6s ease;
 }
 
-.form-input {
-  width: 100%;
-  padding: 0.875rem 1rem;
-  background: $darker-bg;
-  border: 1px solid $border;
-  border-radius: 0.5rem;
-  color: $text;
-  font-size: 0.95rem;
-  outline: none;
-  transition: $transition;
-
-  &:focus {
-    border-color: $primary;
-    box-shadow: 0 0 0 3px rgba($primary, 0.1);
-  }
-
-  &::placeholder {
-    color: $text-muted;
-  }
-}
-
-// ===== RESPONSIVE =====
+// ========================================
+// RESPONSIVE
+// ========================================
 @media (max-width: 1024px) {
   .stats-grid {
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -752,11 +864,11 @@ $transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @media (max-width: 768px) {
-  .expense-manager {
+  .expense-manager-container {
     padding: 1rem;
   }
 
-  .page-header {
+  .header-card {
     padding: 1.5rem;
   }
 
@@ -780,11 +892,11 @@ $transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     grid-template-columns: 1fr;
   }
 
-  .filters-section {
+  .filters-container {
     flex-direction: column;
   }
 
-  .expenses-table-container {
+  .table-wrapper {
     overflow-x: auto;
   }
 
@@ -798,5 +910,34 @@ $transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
   .modal {
     padding: 1rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+
+    .btn {
+      width: 100%;
+    }
+  }
+}
+
+// ========================================
+// SCROLLBAR
+// ========================================
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $darker-bg;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $border;
+  border-radius: 4px;
+
+  &:hover {
+    background: $primary;
   }
 }
