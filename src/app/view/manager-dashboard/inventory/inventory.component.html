@@ -1,0 +1,79 @@
+
+<div class="inventory-page">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">Inventaire</h1>
+      <p class="page-subtitle">Dernière mise à jour: {{ lastUpdate | date:'dd/MM/yyyy HH:mm' }}</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-secondary" (click)="exportInventory()">
+        📥 Exporter
+      </button>
+      <button class="btn-primary" (click)="startInventory()">
+        📋 Nouvel inventaire
+      </button>
+    </div>
+  </div>
+
+  <!-- Filtres -->
+  <div class="filters">
+    <select class="filter-select" [(ngModel)]="selectedCategory" (change)="applyFilters()">
+      <option value="all">Toutes catégories</option>
+      <option value="Vin Rouge">Vin Rouge</option>
+      <option value="Vin Blanc">Vin Blanc</option>
+      <option value="Champagne">Champagne</option>
+      <option value="Spiritueux">Spiritueux</option>
+    </select>
+
+    <input type="text"
+           class="search-input"
+           placeholder="Rechercher un produit..."
+           [(ngModel)]="searchTerm"
+           (input)="applyFilters()">
+  </div>
+
+  <!-- Tableau d'inventaire -->
+  <div class="inventory-table">
+    <div class="table-header">
+      <div class="col-name">Produit</div>
+      <div class="col-category">Catégorie</div>
+      <div class="col-stock">Stock</div>
+      <div class="col-unit">Unité</div>
+      <div class="col-last">Dernier inventaire</div>
+      <div class="col-variance">Écart</div>
+      <div class="col-actions">Actions</div>
+    </div>
+
+    <div class="table-row" *ngFor="let item of filteredItems">
+      <div class="col-name">
+        <span class="product-name">{{ item.name }}</span>
+      </div>
+      <div class="col-category">
+        <span class="category-badge">{{ item.category }}</span>
+      </div>
+      <div class="col-stock">
+        <input type="number"
+               class="stock-input"
+               [(ngModel)]="item.stock"
+               (change)="updateStock(item)">
+      </div>
+      <div class="col-unit">
+        <span class="unit-text">{{ item.unit }}</span>
+      </div>
+      <div class="col-last">
+        <span class="date-text">{{ item.lastInventory | date:'dd/MM/yyyy' }}</span>
+      </div>
+      <div class="col-variance">
+        <span class="variance-value"
+              [class.positive]="item.variance > 0"
+              [class.negative]="item.variance < 0">
+          {{ item.variance > 0 ? '+' : '' }}{{ item.variance }}
+        </span>
+      </div>
+      <div class="col-actions">
+        <button class="icon-btn" (click)="viewHistory(item)" title="Historique">📊</button>
+        <button class="icon-btn" (click)="adjustStock(item)" title="Ajuster">✏️</button>
+      </div>
+    </div>
+  </div>
+</div>

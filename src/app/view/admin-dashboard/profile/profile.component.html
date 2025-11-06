@@ -1,21 +1,21 @@
 <!-- ===== PAGE PROFIL UTILISATEUR ===== -->
 <div class="page-section">
-  
+
   <section class="content-section">
-    
+
     <!-- En-tête de la page -->
     <div class="section-header">
       <h2 class="section-title-main">👤 Mon Profil</h2>
-      
+
       <!-- Bouton mode édition -->
       <div class="header-actions">
-        <button class="btn btn-secondary" 
+        <button class="btn btn-secondary"
                 *ngIf="!isEditMode"
                 (click)="enableEditMode()">
           ✏️ Modifier le profil
         </button>
-        
-        <button class="btn btn-cancel" 
+
+        <button class="btn btn-cancel"
                 *ngIf="isEditMode"
                 (click)="cancelEdit()">
           ❌ Annuler
@@ -25,28 +25,28 @@
 
     <!-- ===== Carte principale du profil ===== -->
     <div class="profile-card">
-      
+
       <!-- En-tête avec avatar et informations de base -->
       <div class="profile-header">
-        
+
         <!-- Avatar de l'utilisateur -->
         <div class="profile-avatar-container">
           <div class="profile-avatar-large">{{ userProfile.avatar }}</div>
-          
+
           <!-- Bouton pour changer l'avatar (visible en mode édition) -->
-          <button class="change-avatar-btn" 
+          <button class="change-avatar-btn"
                   *ngIf="isEditMode"
                   (click)="changeAvatar()">
             📷 Changer
           </button>
         </div>
-        
+
         <!-- Informations principales -->
         <div class="profile-basic-info">
           <h3>{{ userProfile.firstName }} {{ userProfile.lastName }}</h3>
           <p class="profile-role-badge">{{ userProfile.role }}</p>
           <p class="profile-join-date">
-            👋 Membre depuis le {{ userProfile.joinDate }} 
+            👋 Membre depuis le {{ userProfile.joinDate }}
             <span class="days-badge">({{ getDaysSinceJoin() }} jours)</span>
           </p>
         </div>
@@ -55,9 +55,9 @@
       <!-- ===== Formulaire d'édition du profil ===== -->
       <div class="profile-form-section">
         <h4 class="section-subtitle">📋 Informations personnelles</h4>
-        
+
         <form class="profile-form">
-          
+
           <!-- Ligne avec 2 champs: Prénom et Nom -->
           <div class="form-row">
             <div class="form-group">
@@ -120,7 +120,7 @@
 
       <!-- ===== Section Changement de mot de passe ===== -->
       <div class="password-section">
-        
+
         <!-- En-tête avec bouton toggle -->
         <div class="password-header" (click)="togglePasswordSection()">
           <h4 class="section-subtitle">🔒 Changer le mot de passe</h4>
@@ -130,12 +130,12 @@
         <!-- Formulaire de mot de passe (affiché conditionnellement) -->
         <div class="password-form" *ngIf="isPasswordSectionOpen">
           <form>
-            
+
             <!-- Mot de passe actuel -->
             <div class="form-group">
               <label class="form-label">Mot de passe actuel *</label>
-              <input type="password" 
-                     class="form-input" 
+              <input type="password"
+                     class="form-input"
                      [(ngModel)]="passwordForm.currentPassword"
                      name="currentPassword"
                      placeholder="••••••••"
@@ -145,8 +145,8 @@
             <!-- Nouveau mot de passe -->
             <div class="form-group">
               <label class="form-label">Nouveau mot de passe *</label>
-              <input type="password" 
-                     class="form-input" 
+              <input type="password"
+                     class="form-input"
                      [(ngModel)]="passwordForm.newPassword"
                      name="newPassword"
                      placeholder="••••••••"
@@ -157,8 +157,8 @@
             <!-- Confirmation du mot de passe -->
             <div class="form-group">
               <label class="form-label">Confirmer le mot de passe *</label>
-              <input type="password" 
-                     class="form-input" 
+              <input type="password"
+                     class="form-input"
                      [(ngModel)]="passwordForm.confirmPassword"
                      name="confirmPassword"
                      placeholder="••••••••"
@@ -166,7 +166,7 @@
             </div>
 
             <!-- Bouton de changement -->
-            <button type="button" 
+            <button type="button"
                     class="btn btn-primary btn-block"
                     (click)="changePassword()">
               🔑 Changer le mot de passe
@@ -178,30 +178,30 @@
       <!-- ===== Statistiques du profil ===== -->
       <div class="profile-stats-section">
         <h4 class="section-subtitle">📊 Mes Statistiques</h4>
-        
+
         <div class="profile-stats-grid">
-          
+
           <!-- Stat: Caves gérées -->
           <div class="profile-stat-item">
             <div class="profile-stat-icon">🍷</div>
             <div class="profile-stat-value">{{ userProfile.stats.caves }}</div>
             <div class="profile-stat-label">Caves gérées</div>
           </div>
-          
+
           <!-- Stat: Managers -->
           <div class="profile-stat-item">
             <div class="profile-stat-icon">👥</div>
             <div class="profile-stat-value">{{ userProfile.stats.managers }}</div>
             <div class="profile-stat-label">Managers</div>
           </div>
-          
+
           <!-- Stat: Employés -->
           <div class="profile-stat-item">
             <div class="profile-stat-icon">👨‍💼</div>
             <div class="profile-stat-value">{{ userProfile.stats.employees }}</div>
             <div class="profile-stat-label">Employés</div>
           </div>
-          
+
           <!-- Stat: Ventes totales -->
           <div class="profile-stat-item">
             <div class="profile-stat-icon">💰</div>
@@ -214,9 +214,9 @@
       <!-- ===== Actions du compte ===== -->
       <div class="account-actions-section">
         <h4 class="section-subtitle">⚙️ Actions du compte</h4>
-        
+
         <div class="account-actions-grid">
-          
+
           <!-- Bouton: Exporter les données -->
           <button class="action-btn action-btn-info" (click)="exportAccountData()">
             <div class="action-icon">📥</div>
@@ -225,7 +225,7 @@
               <div class="action-description">Télécharger toutes vos informations</div>
             </div>
           </button>
-          
+
           <!-- Bouton: Supprimer le compte -->
           <button class="action-btn action-btn-danger" (click)="deleteAccount()">
             <div class="action-icon">🗑️</div>

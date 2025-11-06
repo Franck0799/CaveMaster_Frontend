@@ -1,0 +1,874 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cave-master-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cave-master-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  UserProfile</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/view/admin-dashboard/profile/profile.component.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Interface pour le profil utilisateur</p>
+
+            </p>
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#avatar" 
+>
+                                            avatar
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#email" 
+>
+                                            email
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#firstName" 
+>
+                                            firstName
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#joinDate" 
+>
+                                            joinDate
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#lastName" 
+>
+                                            lastName
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#phone" 
+>
+                                            phone
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#role" 
+>
+                                            role
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#stats" 
+>
+                                            stats
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="avatar"></a>
+                                        <span class="name "><b>avatar</b>
+                                            <a href="#avatar">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>avatar:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="email"></a>
+                                        <span class="name "><b>email</b>
+                                            <a href="#email">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>email:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="firstName"></a>
+                                        <span class="name "><b>firstName</b>
+                                            <a href="#firstName">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>firstName:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="joinDate"></a>
+                                        <span class="name "><b>joinDate</b>
+                                            <a href="#joinDate">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>joinDate:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="lastName"></a>
+                                        <span class="name "><b>lastName</b>
+                                            <a href="#lastName">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>lastName:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="phone"></a>
+                                        <span class="name "><b>phone</b>
+                                            <a href="#phone">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>phone:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="role"></a>
+                                        <span class="name "><b>role</b>
+                                            <a href="#role">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>role:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="stats"></a>
+                                        <span class="name "><b>stats</b>
+                                            <a href="#stats">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>stats:     <code>literal type</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>literal type</code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+
+/**
+ * Interface pour le profil utilisateur
+ */
+interface UserProfile {
+  avatar: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  role: string;
+  joinDate: string;
+  stats: {
+    caves: number;
+    managers: number;
+    employees: number;
+    totalSales: string;
+  };
+}
+
+/**
+ * Interface pour le formulaire de changement de mot de passe
+ */
+interface PasswordForm {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
+/**
+ * Composant Profile - Profil utilisateur
+ * Permet de consulter et modifier les informations du compte
+ */
+@Component({
+  selector: &#x27;app-profile&#x27;,
+  standalone: true,
+  // Import des modules nécessaires
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  templateUrl: &#x27;./profile.component.html&#x27;,
+  styleUrls: [&#x27;./profile.component.scss&#x27;]
+})
+export class ProfileComponent implements OnInit {
+
+  // Profil de l&#x27;utilisateur
+  userProfile: UserProfile &#x3D; {
+    avatar: &#x27;👨‍💼&#x27;,
+    firstName: &#x27;Amadou&#x27;,
+    lastName: &#x27;Diallo&#x27;,
+    email: &#x27;franck.kongo@caveviking.com&#x27;,
+    phone: &#x27;+225 0799025494&#x27;,
+    role: &#x27;Administrateur&#x27;,
+    joinDate: &#x27;15 janvier 2024&#x27;,
+    stats: {
+      caves: 3,
+      managers: 6,
+      employees: 25,
+      totalSales: &#x27;9.85M&#x27;
+    }
+  };
+
+  // Sauvegarde du profil original (pour annulation)
+  private originalProfile: UserProfile;
+
+  // Formulaire de changement de mot de passe
+  passwordForm: PasswordForm &#x3D; {
+    currentPassword: &#x27;&#x27;,
+    newPassword: &#x27;&#x27;,
+    confirmPassword: &#x27;&#x27;
+  };
+
+  // États des sections
+  isEditMode: boolean &#x3D; false;
+  isPasswordSectionOpen: boolean &#x3D; false;
+
+  constructor() {
+    // Sauvegarde du profil original
+    this.originalProfile &#x3D; { ...this.userProfile };
+  }
+
+  ngOnInit(): void {
+    // Chargement du profil depuis le backend
+    this.loadUserProfile();
+  }
+
+  /**
+   * Charge le profil utilisateur depuis le backend
+   */
+  loadUserProfile(): void {
+    // TODO: Appel API pour charger le profil
+    console.log(&#x27;Chargement du profil utilisateur...&#x27;);
+  }
+
+  /**
+   * Active le mode édition du profil
+   */
+  enableEditMode(): void {
+    this.isEditMode &#x3D; true;
+    // Sauvegarde pour annulation
+    this.originalProfile &#x3D; { ...this.userProfile };
+  }
+
+  /**
+   * Annule les modifications et restaure le profil original
+   */
+  cancelEdit(): void {
+    this.isEditMode &#x3D; false;
+    // Restauration du profil original
+    this.userProfile &#x3D; { ...this.originalProfile };
+  }
+
+  /**
+   * Enregistre les modifications du profil
+   */
+  saveProfile(): void {
+    // Validation des données
+    if (!this.validateProfile()) {
+      alert(&#x27;Veuillez remplir tous les champs obligatoires correctement&#x27;);
+      return;
+    }
+
+    // TODO: Appel API pour sauvegarder
+    console.log(&#x27;Sauvegarde du profil:&#x27;, this.userProfile);
+
+    // Simulation de sauvegarde
+    this.isEditMode &#x3D; false;
+    alert(&#x27;Profil mis à jour avec succès !&#x27;);
+
+    // Mise à jour du profil original
+    this.originalProfile &#x3D; { ...this.userProfile };
+  }
+
+  /**
+   * Valide les données du profil
+   * @returns true si le profil est valide
+   */
+  validateProfile(): boolean {
+    // Vérification des champs obligatoires
+    if (!this.userProfile.firstName || !this.userProfile.lastName) {
+      return false;
+    }
+
+    // Validation de l&#x27;email
+    const emailRegex &#x3D; /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(this.userProfile.email)) {
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
+   * Toggle l&#x27;affichage de la section changement de mot de passe
+   */
+  togglePasswordSection(): void {
+    this.isPasswordSectionOpen &#x3D; !this.isPasswordSectionOpen;
+
+    // Réinitialise le formulaire si on ferme la section
+    if (!this.isPasswordSectionOpen) {
+      this.resetPasswordForm();
+    }
+  }
+
+  /**
+   * Change le mot de passe de l&#x27;utilisateur
+   */
+  changePassword(): void {
+    // Validation du formulaire
+    if (!this.validatePasswordForm()) {
+      return;
+    }
+
+    // TODO: Appel API pour changer le mot de passe
+    console.log(&#x27;Changement de mot de passe...&#x27;);
+
+    // Simulation de succès
+    alert(&#x27;Mot de passe modifié avec succès !&#x27;);
+
+    // Réinitialisation du formulaire
+    this.resetPasswordForm();
+    this.isPasswordSectionOpen &#x3D; false;
+  }
+
+  /**
+   * Valide le formulaire de changement de mot de passe
+   * @returns true si le formulaire est valide
+   */
+  validatePasswordForm(): boolean {
+    // Vérification que tous les champs sont remplis
+    if (!this.passwordForm.currentPassword ||
+        !this.passwordForm.newPassword ||
+        !this.passwordForm.confirmPassword) {
+      alert(&#x27;Veuillez remplir tous les champs&#x27;);
+      return false;
+    }
+
+    // Vérification que les nouveaux mots de passe correspondent
+    if (this.passwordForm.newPassword !&#x3D;&#x3D; this.passwordForm.confirmPassword) {
+      alert(&#x27;Les nouveaux mots de passe ne correspondent pas&#x27;);
+      return false;
+    }
+
+    // Vérification de la longueur minimale
+    if (this.passwordForm.newPassword.length &lt; 8) {
+      alert(&#x27;Le mot de passe doit contenir au moins 8 caractères&#x27;);
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
+   * Réinitialise le formulaire de mot de passe
+   */
+  resetPasswordForm(): void {
+    this.passwordForm &#x3D; {
+      currentPassword: &#x27;&#x27;,
+      newPassword: &#x27;&#x27;,
+      confirmPassword: &#x27;&#x27;
+    };
+  }
+
+  /**
+   * Retourne les initiales de l&#x27;utilisateur
+   * @returns Initiales (ex: &quot;AD&quot;)
+   */
+  getUserInitials(): string {
+    return &#x60;${this.userProfile.firstName.charAt(0)}${this.userProfile.lastName.charAt(0)}&#x60;.toUpperCase();
+  }
+
+  /**
+   * Calcule le nombre de jours depuis l&#x27;inscription
+   * @returns Nombre de jours
+   */
+  getDaysSinceJoin(): number {
+    // TODO: Calcul réel basé sur la date d&#x27;inscription
+    return 280; // Exemple
+  }
+
+  /**
+   * Ouvre le sélecteur d&#x27;avatar
+   */
+  changeAvatar(): void {
+    // Liste d&#x27;avatars disponibles
+    const avatars &#x3D; [&#x27;👨‍💼&#x27;, &#x27;👩‍💼&#x27;, &#x27;👨‍🏫&#x27;, &#x27;👩‍🏫&#x27;, &#x27;👨‍💻&#x27;, &#x27;👩‍💻&#x27;, &#x27;🧑‍💼&#x27;, &#x27;🧑‍🏫&#x27;];
+
+    // Simulation de sélection aléatoire (dans une vraie app, ouvrir un modal)
+    const randomAvatar &#x3D; avatars[Math.floor(Math.random() * avatars.length)];
+    this.userProfile.avatar &#x3D; randomAvatar;
+
+    console.log(&#x27;Avatar changé:&#x27;, randomAvatar);
+  }
+
+  /**
+   * Supprime le compte utilisateur
+   */
+  deleteAccount(): void {
+    const confirmation &#x3D; confirm(
+      &#x27;Êtes-vous sûr de vouloir supprimer votre compte ?\n&#x27; +
+      &#x27;Cette action est irréversible et toutes vos données seront supprimées.&#x27;
+    );
+
+    if (confirmation) {
+      const doubleConfirmation &#x3D; confirm(
+        &#x27;Dernière confirmation : voulez-vous vraiment supprimer définitivement votre compte ?&#x27;
+      );
+
+      if (doubleConfirmation) {
+        // TODO: Appel API pour supprimer le compte
+        console.log(&#x27;Suppression du compte...&#x27;);
+        alert(&#x27;Votre compte sera supprimé. Vous allez être déconnecté.&#x27;);
+        // Redirection vers la page de connexion
+      }
+    }
+  }
+
+  /**
+   * Exporte les données du compte
+   */
+  exportAccountData(): void {
+    console.log(&#x27;Export des données du compte...&#x27;);
+
+    // Simulation de téléchargement de données
+    alert(&#x27;Vos données ont été exportées et téléchargées au format JSON&#x27;);
+
+    // Dans une vraie app:
+    // const dataStr &#x3D; JSON.stringify(this.userProfile, null, 2);
+    // const dataBlob &#x3D; new Blob([dataStr], { type: &#x27;application/json&#x27; });
+    // const url &#x3D; URL.createObjectURL(dataBlob);
+    // const link &#x3D; document.createElement(&#x27;a&#x27;);
+    // link.href &#x3D; url;
+    // link.download &#x3D; &#x27;mon-compte-caveviking.json&#x27;;
+    // link.click();
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'UserProfile-1.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

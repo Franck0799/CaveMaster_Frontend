@@ -1,0 +1,1163 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cave-master-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cave-master-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  OrdersComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/view/manager-dashboard/orders/orders.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-orders</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./orders.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./orders.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#currentOrderFilter" >currentOrderFilter</a>
+                            </li>
+                            <li>
+                                <a href="#ordersData" >ordersData</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#filterOrders" >filterOrders</a>
+                            </li>
+                            <li>
+                                <a href="#getOrderCount" >getOrderCount</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#filteredOrders" >filteredOrders</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filterOrders"></a>
+                    <span class="name">
+                        <span ><b>filterOrders</b></span>
+                        <a href="#filterOrders"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>filterOrders(filter: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="108"
+                                    class="link-to-prism">src/app/view/manager-dashboard/orders/orders.component.ts:108</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>filter</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getOrderCount"></a>
+                    <span class="name">
+                        <span ><b>getOrderCount</b></span>
+                        <a href="#getOrderCount"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getOrderCount(status: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="119"
+                                    class="link-to-prism">src/app/view/manager-dashboard/orders/orders.component.ts:119</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>status</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="104"
+                                    class="link-to-prism">src/app/view/manager-dashboard/orders/orders.component.ts:104</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentOrderFilter"></a>
+                    <span class="name">
+                        <span ><b>currentOrderFilter</b></span>
+                        <a href="#currentOrderFilter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;all&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/view/manager-dashboard/orders/orders.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ordersData"></a>
+                    <span class="name">
+                        <span ><b>ordersData</b></span>
+                        <a href="#ordersData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Order[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    {
+      id: &#x27;#CMD-2045&#x27;,
+      status: &#x27;paye&#x27;,
+      statusText: &#x27;Payé&#x27;,
+      client: &#x27;Koffi Mensah&#x27;,
+      date: &#x27;07/10/2025 13:45&#x27;,
+      produits: &#x27;3x Dom Pérignon, 2x Hennessy VSOP&#x27;,
+      total: &#x27;185 000 FCFA&#x27;
+    },
+    {
+      id: &#x27;#CMD-2044&#x27;,
+      status: &#x27;en-cours&#x27;,
+      statusText: &#x27;En cours&#x27;,
+      client: &#x27;Aminata Diallo&#x27;,
+      date: &#x27;07/10/2025 13:30&#x27;,
+      produits: &#x27;5x Château Margaux, 10x Heineken&#x27;,
+      total: &#x27;140 000 FCFA&#x27;
+    },
+    {
+      id: &#x27;#CMD-2043&#x27;,
+      status: &#x27;termine&#x27;,
+      statusText: &#x27;Terminé&#x27;,
+      client: &#x27;Ibrahim Cisse&#x27;,
+      date: &#x27;07/10/2025 12:15&#x27;,
+      produits: &#x27;2x Moët &amp; Chandon, 1x Whisky Premium&#x27;,
+      total: &#x27;75 000 FCFA&#x27;
+    },
+    {
+      id: &#x27;#CMD-2042&#x27;,
+      status: &#x27;paye&#x27;,
+      statusText: &#x27;Payé&#x27;,
+      client: &#x27;Fatou Ndiaye&#x27;,
+      date: &#x27;07/10/2025 11:50&#x27;,
+      produits: &#x27;20x Red Bull, 15x Bières locales&#x27;,
+      total: &#x27;28 500 FCFA&#x27;
+    },
+    {
+      id: &#x27;#CMD-2041&#x27;,
+      status: &#x27;en-cours&#x27;,
+      statusText: &#x27;En cours&#x27;,
+      client: &#x27;Moussa Traore&#x27;,
+      date: &#x27;07/10/2025 11:20&#x27;,
+      produits: &#x27;8x Vin Rouge, 5x Vin Blanc&#x27;,
+      total: &#x27;195 000 FCFA&#x27;
+    },
+    {
+      id: &#x27;#CMD-2040&#x27;,
+      status: &#x27;termine&#x27;,
+      statusText: &#x27;Terminé&#x27;,
+      client: &#x27;Aisha Bamba&#x27;,
+      date: &#x27;07/10/2025 10:45&#x27;,
+      produits: &#x27;1x Dom Pérignon, 2x Champagne Rosé&#x27;,
+      total: &#x27;98 000 FCFA&#x27;
+    },
+    {
+      id: &#x27;#CMD-2039&#x27;,
+      status: &#x27;paye&#x27;,
+      statusText: &#x27;Payé&#x27;,
+      client: &#x27;Sekou Keita&#x27;,
+      date: &#x27;07/10/2025 10:10&#x27;,
+      produits: &#x27;6x Hennessy VSOP, 3x Whisky&#x27;,
+      total: &#x27;250 000 FCFA&#x27;
+    },
+    {
+      id: &#x27;#CMD-2038&#x27;,
+      status: &#x27;en-cours&#x27;,
+      statusText: &#x27;En cours&#x27;,
+      client: &#x27;Mariam Sow&#x27;,
+      date: &#x27;07/10/2025 09:30&#x27;,
+      produits: &#x27;4x Moët &amp; Chandon, 2x Vin Mousseux&#x27;,
+      total: &#x27;112 000 FCFA&#x27;
+    }
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/view/manager-dashboard/orders/orders.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="filteredOrders"></a>
+                        <span class="name"><b>filteredOrders</b><a href="#filteredOrders"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>filteredOrders()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="112" class="link-to-prism">src/app/view/manager-dashboard/orders/orders.component.ts:112</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+
+interface Order {
+  id: string;
+  status: &#x27;paye&#x27; | &#x27;en-cours&#x27; | &#x27;termine&#x27;;
+  statusText: string;
+  client: string;
+  date: string;
+  produits: string;
+  total: string;
+}
+
+@Component({
+  selector: &#x27;app-orders&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: &#x27;./orders.component.html&#x27;,
+  styleUrls: [&#x27;./orders.component.scss&#x27;]
+})
+export class OrdersComponent implements OnInit {
+  currentOrderFilter: string &#x3D; &#x27;all&#x27;;
+
+  ordersData: Order[] &#x3D; [
+    {
+      id: &#x27;#CMD-2045&#x27;,
+      status: &#x27;paye&#x27;,
+      statusText: &#x27;Payé&#x27;,
+      client: &#x27;Koffi Mensah&#x27;,
+      date: &#x27;07/10/2025 13:45&#x27;,
+      produits: &#x27;3x Dom Pérignon, 2x Hennessy VSOP&#x27;,
+      total: &#x27;185 000 FCFA&#x27;
+    },
+    {
+      id: &#x27;#CMD-2044&#x27;,
+      status: &#x27;en-cours&#x27;,
+      statusText: &#x27;En cours&#x27;,
+      client: &#x27;Aminata Diallo&#x27;,
+      date: &#x27;07/10/2025 13:30&#x27;,
+      produits: &#x27;5x Château Margaux, 10x Heineken&#x27;,
+      total: &#x27;140 000 FCFA&#x27;
+    },
+    {
+      id: &#x27;#CMD-2043&#x27;,
+      status: &#x27;termine&#x27;,
+      statusText: &#x27;Terminé&#x27;,
+      client: &#x27;Ibrahim Cisse&#x27;,
+      date: &#x27;07/10/2025 12:15&#x27;,
+      produits: &#x27;2x Moët &amp; Chandon, 1x Whisky Premium&#x27;,
+      total: &#x27;75 000 FCFA&#x27;
+    },
+    {
+      id: &#x27;#CMD-2042&#x27;,
+      status: &#x27;paye&#x27;,
+      statusText: &#x27;Payé&#x27;,
+      client: &#x27;Fatou Ndiaye&#x27;,
+      date: &#x27;07/10/2025 11:50&#x27;,
+      produits: &#x27;20x Red Bull, 15x Bières locales&#x27;,
+      total: &#x27;28 500 FCFA&#x27;
+    },
+    {
+      id: &#x27;#CMD-2041&#x27;,
+      status: &#x27;en-cours&#x27;,
+      statusText: &#x27;En cours&#x27;,
+      client: &#x27;Moussa Traore&#x27;,
+      date: &#x27;07/10/2025 11:20&#x27;,
+      produits: &#x27;8x Vin Rouge, 5x Vin Blanc&#x27;,
+      total: &#x27;195 000 FCFA&#x27;
+    },
+    {
+      id: &#x27;#CMD-2040&#x27;,
+      status: &#x27;termine&#x27;,
+      statusText: &#x27;Terminé&#x27;,
+      client: &#x27;Aisha Bamba&#x27;,
+      date: &#x27;07/10/2025 10:45&#x27;,
+      produits: &#x27;1x Dom Pérignon, 2x Champagne Rosé&#x27;,
+      total: &#x27;98 000 FCFA&#x27;
+    },
+    {
+      id: &#x27;#CMD-2039&#x27;,
+      status: &#x27;paye&#x27;,
+      statusText: &#x27;Payé&#x27;,
+      client: &#x27;Sekou Keita&#x27;,
+      date: &#x27;07/10/2025 10:10&#x27;,
+      produits: &#x27;6x Hennessy VSOP, 3x Whisky&#x27;,
+      total: &#x27;250 000 FCFA&#x27;
+    },
+    {
+      id: &#x27;#CMD-2038&#x27;,
+      status: &#x27;en-cours&#x27;,
+      statusText: &#x27;En cours&#x27;,
+      client: &#x27;Mariam Sow&#x27;,
+      date: &#x27;07/10/2025 09:30&#x27;,
+      produits: &#x27;4x Moët &amp; Chandon, 2x Vin Mousseux&#x27;,
+      total: &#x27;112 000 FCFA&#x27;
+    }
+  ];
+
+  ngOnInit(): void {
+    console.log(&#x27;Orders page loaded&#x27;);
+  }
+
+  filterOrders(filter: string): void {
+    this.currentOrderFilter &#x3D; filter;
+  }
+
+  get filteredOrders(): Order[] {
+    if (this.currentOrderFilter &#x3D;&#x3D;&#x3D; &#x27;all&#x27;) {
+      return this.ordersData;
+    }
+    return this.ordersData.filter(order &#x3D;&gt; order.status &#x3D;&#x3D;&#x3D; this.currentOrderFilter);
+  }
+
+  getOrderCount(status: string): number {
+    if (status &#x3D;&#x3D;&#x3D; &#x27;all&#x27;) {
+      return this.ordersData.length;
+    }
+    return this.ordersData.filter(order &#x3D;&gt; order.status &#x3D;&#x3D;&#x3D; status).length;
+  }
+}
+
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">// orders.component.html
+/*
+&lt;section class&#x3D;&quot;content-section&quot;&gt;
+  &lt;div class&#x3D;&quot;section-header&quot;&gt;
+    &lt;h2 class&#x3D;&quot;section-title-main&quot;&gt;Commandes Récentes&lt;/h2&gt;
+    &lt;p class&#x3D;&quot;section-subtitle&quot;&gt;Suivez l&#x27;état de toutes vos commandes&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;orders-container&quot;&gt;
+    &lt;div class&#x3D;&quot;orders-header&quot;&gt;
+      &lt;h3 style&#x3D;&quot;font-size: 1.2rem; font-weight: 600;&quot;&gt;Filtrer par statut&lt;/h3&gt;
+      &lt;div class&#x3D;&quot;orders-tabs&quot;&gt;
+        &lt;button class&#x3D;&quot;order-tab&quot;
+                [class.active]&#x3D;&quot;currentOrderFilter &#x3D;&#x3D;&#x3D; &#x27;all&#x27;&quot;
+                (click)&#x3D;&quot;filterOrders(&#x27;all&#x27;)&quot;&gt;
+          Toutes ({{getOrderCount(&#x27;all&#x27;)}})
+        &lt;/button&gt;
+        &lt;button class&#x3D;&quot;order-tab&quot;
+                [class.active]&#x3D;&quot;currentOrderFilter &#x3D;&#x3D;&#x3D; &#x27;paye&#x27;&quot;
+                (click)&#x3D;&quot;filterOrders(&#x27;paye&#x27;)&quot;&gt;
+          Payé ({{getOrderCount(&#x27;paye&#x27;)}})
+        &lt;/button&gt;
+        &lt;button class&#x3D;&quot;order-tab&quot;
+                [class.active]&#x3D;&quot;currentOrderFilter &#x3D;&#x3D;&#x3D; &#x27;en-cours&#x27;&quot;
+                (click)&#x3D;&quot;filterOrders(&#x27;en-cours&#x27;)&quot;&gt;
+          En cours ({{getOrderCount(&#x27;en-cours&#x27;)}})
+        &lt;/button&gt;
+        &lt;button class&#x3D;&quot;order-tab&quot;
+                [class.active]&#x3D;&quot;currentOrderFilter &#x3D;&#x3D;&#x3D; &#x27;termine&#x27;&quot;
+                (click)&#x3D;&quot;filterOrders(&#x27;termine&#x27;)&quot;&gt;
+          Terminé ({{getOrderCount(&#x27;termine&#x27;)}})
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;orders-list&quot;&gt;
+      &lt;div *ngIf&#x3D;&quot;filteredOrders.length &#x3D;&#x3D;&#x3D; 0&quot; class&#x3D;&quot;empty-state&quot;&gt;
+        &lt;div class&#x3D;&quot;empty-state-icon&quot;&gt;📦&lt;/div&gt;
+        &lt;p&gt;Aucune commande dans cette catégorie&lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;order-item&quot; *ngFor&#x3D;&quot;let order of filteredOrders&quot;&gt;
+        &lt;div class&#x3D;&quot;order-header-row&quot;&gt;
+          &lt;div class&#x3D;&quot;order-id&quot;&gt;{{order.id}}&lt;/div&gt;
+          &lt;div class&#x3D;&quot;order-status&quot; [class]&#x3D;&quot;&#x27;status-&#x27; + order.status&quot;&gt;{{order.statusText}}&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;order-details&quot;&gt;
+          &lt;div class&#x3D;&quot;order-detail-item&quot;&gt;&lt;span&gt;👤&lt;/span&gt;&lt;span&gt;{{order.client}}&lt;/span&gt;&lt;/div&gt;
+          &lt;div class&#x3D;&quot;order-detail-item&quot;&gt;&lt;span&gt;🕐&lt;/span&gt;&lt;span&gt;{{order.date}}&lt;/span&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;order-products&quot;&gt;📦 {{order.produits}}&lt;/div&gt;
+        &lt;div class&#x3D;&quot;order-total&quot;&gt;
+          &lt;span class&#x3D;&quot;total-label&quot;&gt;Total:&lt;/span&gt;
+          &lt;span class&#x3D;&quot;total-amount&quot;&gt;{{order.total}}&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+*/
+
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./orders.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; RÉINITIALISATION &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+// Le * signifie &quot;tous les éléments&quot;
+// On réinitialise les marges et espacements par défaut du navigateur
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; // La largeur inclut padding et border
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; STYLES DE BASE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+body {
+  font-family: -apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, sans-serif;
+  // linear-gradient crée un dégradé de couleurs pour le fond
+  background: linear-gradient(135deg, #000000 0%, #0a0f1e 50%, #111827 100%);
+  color: white;
+}
+
+.content-section {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  color: var(--text);
+}
+
+.section-header {
+  margin-bottom: 2rem;
+}
+
+.section-title-main {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.orders-container {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.orders-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.orders-tabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.order-tab {
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 600;
+  font-size: 0.9rem;
+
+  &amp;:hover {
+    background: var(--card-hover);
+    color: var(--text);
+  }
+
+  &amp;.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+  }
+}
+
+.orders-list {
+  max-height: 600px;
+  overflow-y: auto;
+
+  &amp;::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &amp;::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+  }
+}
+
+.order-item {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  transition: all 0.3s;
+  cursor: pointer;
+
+  &amp;:hover {
+    background: var(--card-hover);
+    padding-left: 2rem;
+  }
+
+  &amp;:last-child {
+    border-bottom: none;
+  }
+}
+
+.order-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.order-id {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--primary-light);
+}
+
+.order-status {
+  padding: 0.4rem 0.9rem;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.status-paye {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--success);
+}
+
+.status-en-cours {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--warning);
+}
+
+.status-termine {
+  background: rgba(59, 130, 246, 0.15);
+  color: var(--info);
+}
+
+.order-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.order-detail-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.order-products {
+  background: var(--darker-bg);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.order-total {
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.total-label {
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.total-amount {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--success);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-muted);
+}
+
+.empty-state-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+  .orders-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .orders-tabs {
+    width: 100%;
+  }
+
+  .order-tab {
+    flex: 1;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div>// orders.component.html/*<section class="content-section">  <div class="section-header">    <h2 class="section-title-main">Commandes Récentes</h2>    <p class="section-subtitle">Suivez l\'état de toutes vos commandes</p>  </div>  <div class="orders-container">    <div class="orders-header">      <h3 style="font-size: 1.2rem; font-weight: 600;">Filtrer par statut</h3>      <div class="orders-tabs">        <button class="order-tab"                [class.active]="currentOrderFilter === \'all\'"                (click)="filterOrders(\'all\')">          Toutes ({{getOrderCount(\'all\')}})        </button>        <button class="order-tab"                [class.active]="currentOrderFilter === \'paye\'"                (click)="filterOrders(\'paye\')">          Payé ({{getOrderCount(\'paye\')}})        </button>        <button class="order-tab"                [class.active]="currentOrderFilter === \'en-cours\'"                (click)="filterOrders(\'en-cours\')">          En cours ({{getOrderCount(\'en-cours\')}})        </button>        <button class="order-tab"                [class.active]="currentOrderFilter === \'termine\'"                (click)="filterOrders(\'termine\')">          Terminé ({{getOrderCount(\'termine\')}})        </button>      </div>    </div>    <div class="orders-list">      <div *ngIf="filteredOrders.length === 0" class="empty-state">        <div class="empty-state-icon">📦</div>        <p>Aucune commande dans cette catégorie</p>      </div>      <div class="order-item" *ngFor="let order of filteredOrders">        <div class="order-header-row">          <div class="order-id">{{order.id}}</div>          <div class="order-status" [class]="\'status-\' + order.status">{{order.statusText}}</div>        </div>        <div class="order-details">          <div class="order-detail-item"><span>👤</span><span>{{order.client}}</span></div>          <div class="order-detail-item"><span>🕐</span><span>{{order.date}}</span></div>        </div>        <div class="order-products">📦 {{order.produits}}</div>        <div class="order-total">          <span class="total-label">Total:</span>          <span class="total-amount">{{order.total}}</span>        </div>      </div>    </div>  </div></section>*/</div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AdminDashboardComponent', 'selector': 'app-admin-dashboard'},{'name': 'AlertsComponent', 'selector': 'app-alerts'},{'name': 'App', 'selector': 'app-root'},{'name': 'CaisseComponent', 'selector': 'app-caisse'},{'name': 'CaveCreateComponent', 'selector': 'app-cave-create'},{'name': 'CaveListComponent', 'selector': 'app-cave-lists'},{'name': 'ClientDashboardComponent', 'selector': 'app-client-dashboard'},{'name': 'ClientsComponent', 'selector': 'app-client'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DrinksComponent', 'selector': 'app-drinks'},{'name': 'EmployeesComponent', 'selector': 'app-employees'},{'name': 'EntriesComponent', 'selector': 'app-entries'},{'name': 'ExitsComponent', 'selector': 'app-exits'},{'name': 'ExpenseComponent', 'selector': 'app-depenses'},{'name': 'FaqComponent', 'selector': 'app-faq'},{'name': 'FournisseursComponent', 'selector': 'app-fournisseur'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'ImprovementsComponent', 'selector': 'app-improvements'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ManagerDashboardComponent', 'selector': 'app-manager-dashboard'},{'name': 'ManagersComponent', 'selector': 'app-managers'},{'name': 'MaterialComponent', 'selector': 'app-materiel'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'OrdersComponent', 'selector': 'app-orders'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfitComponent', 'selector': 'app-profit'},{'name': 'RecentActionsComponent', 'selector': 'app-recent-actions'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'SalesComponent', 'selector': 'app-sales'},{'name': 'ScanComponent', 'selector': 'app-scan'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'StockComponent', 'selector': 'app-stock'},{'name': 'StockComponent', 'selector': 'app-stock'},{'name': 'TeamComponent', 'selector': 'app-team'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'UserCreateComponent', 'selector': 'app-user-create'},{'name': 'UserListComponent', 'selector': 'app-user-list'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'WaitressDashboardComponent', 'selector': 'app-waitress-dashboard'},{'name': 'WinePairingComponent', 'selector': 'app-wine-pairing'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'OrdersComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'OrdersComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

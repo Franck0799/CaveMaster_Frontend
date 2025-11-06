@@ -1,158 +1,147 @@
 // ===== team.component.ts =====
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 interface TeamMember {
+  id: string;
   name: string;
-  position: string;
   avatar: string;
-  status: 'en-service' | 'pause' | 'pas-service' | 'conge';
-  statusText: string;
-  heureDebut: string;
-  tempsTravail: string;
-  pauseRestante: string;
+  role: string;
+  phone: string;
+  email: string;
+  status: 'present' | 'absent' | 'leave' | 'off';
+  todaySales: number;
+  ordersCompleted: number;
+  rating: number;
+  joinDate: string;
 }
 
 @Component({
   selector: 'app-team',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './team.component.html',
-  styleUrls: ['./team.component.scss']
+    standalone: true,
+    // Import des modules nécessaires
+    imports: [CommonModule, FormsModule, RouterModule, ReactiveFormsModule],
+  templateUrl: `./team.component.html`,
+  styleUrls: [`./team.component.scss`]
 })
 export class TeamComponent implements OnInit {
-  teamData: TeamMember[] = [
+  viewMode: 'grid' | 'list' = 'grid';
+
+  teamMembers: TeamMember[] = [
     {
-      name: 'Alice Martin',
-      position: 'Caissière',
+      id: '1',
+      name: 'Marie Martin',
       avatar: '👩',
-      status: 'en-service',
-      statusText: 'En service',
-      heureDebut: '08:00',
-      tempsTravail: '5h 30min',
-      pauseRestante: '30min'
+      role: 'Serveuse Senior',
+      phone: '+33 6 12 34 56 78',
+      email: 'marie.m@caveviking.com',
+      status: 'present',
+      todaySales: 890,
+      ordersCompleted: 12,
+      rating: 4.8,
+      joinDate: '2023-01-15'
     },
     {
-      name: 'Bob Traore',
-      position: 'Magasinier',
+      id: '2',
+      name: 'Pierre Dubois',
       avatar: '👨',
-      status: 'en-service',
-      statusText: 'En service',
-      heureDebut: '08:00',
-      tempsTravail: '5h 45min',
-      pauseRestante: '15min'
+      role: 'Serveur',
+      phone: '+33 6 23 45 67 89',
+      email: 'pierre.d@caveviking.com',
+      status: 'present',
+      todaySales: 1240,
+      ordersCompleted: 18,
+      rating: 4.6,
+      joinDate: '2023-03-20'
     },
     {
-      name: 'Claire Diop',
-      position: 'Vendeuse',
+      id: '3',
+      name: 'Sophie Laurent',
       avatar: '👩',
-      status: 'pause',
-      statusText: 'En pause',
-      heureDebut: '09:00',
-      tempsTravail: '4h 30min',
-      pauseRestante: '0min (pause)'
+      role: 'Serveuse',
+      phone: '+33 6 34 56 78 90',
+      email: 'sophie.l@caveviking.com',
+      status: 'leave',
+      todaySales: 0,
+      ordersCompleted: 0,
+      rating: 4.7,
+      joinDate: '2023-05-10'
     },
     {
-      name: 'David Kone',
-      position: 'Livreur',
+      id: '4',
+      name: 'Thomas Bernard',
       avatar: '👨',
-      status: 'en-service',
-      statusText: 'En service',
-      heureDebut: '07:00',
-      tempsTravail: '6h 45min',
-      pauseRestante: '45min'
+      role: 'Serveur',
+      phone: '+33 6 45 67 89 01',
+      email: 'thomas.b@caveviking.com',
+      status: 'present',
+      todaySales: 440,
+      ordersCompleted: 6,
+      rating: 4.5,
+      joinDate: '2023-07-01'
     },
     {
-      name: 'Emma Sow',
-      position: 'Assistante',
+      id: '5',
+      name: 'Julie Moreau',
       avatar: '👩',
-      status: 'pause',
-      statusText: 'En pause',
-      heureDebut: '08:30',
-      tempsTravail: '5h 00min',
-      pauseRestante: '0min (pause)'
+      role: 'Serveuse',
+      phone: '+33 6 56 78 90 12',
+      email: 'julie.m@caveviking.com',
+      status: 'off',
+      todaySales: 0,
+      ordersCompleted: 0,
+      rating: 4.9,
+      joinDate: '2022-11-15'
     },
     {
-      name: 'Frank Bamba',
-      position: 'Vendeur',
+      id: '6',
+      name: 'Lucas Petit',
       avatar: '👨',
-      status: 'en-service',
-      statusText: 'En service',
-      heureDebut: '10:00',
-      tempsTravail: '3h 45min',
-      pauseRestante: '1h 00min'
-    },
-    {
-      name: 'Grace Toure',
-      position: 'Caissière',
-      avatar: '👩',
-      status: 'pause',
-      statusText: 'En pause',
-      heureDebut: '09:00',
-      tempsTravail: '4h 30min',
-      pauseRestante: '0min (pause)'
-    },
-    {
-      name: 'Henri Camara',
-      position: 'Magasinier',
-      avatar: '👨',
-      status: 'en-service',
-      statusText: 'En service',
-      heureDebut: '08:00',
-      tempsTravail: '5h 45min',
-      pauseRestante: '15min'
-    },
-    {
-      name: 'Iris Sylla',
-      position: 'Vendeuse',
-      avatar: '👩',
-      status: 'pas-service',
-      statusText: 'Pas en service',
-      heureDebut: '16:00',
-      tempsTravail: '0h 00min',
-      pauseRestante: 'N/A'
-    },
-    {
-      name: 'Julie Sanogo',
-      position: 'Caissière',
-      avatar: '👩',
-      status: 'pas-service',
-      statusText: 'Pas en service',
-      heureDebut: '18:00',
-      tempsTravail: '0h 00min',
-      pauseRestante: 'N/A'
-    },
-    {
-      name: 'Kevin Ouattara',
-      position: 'Vendeur',
-      avatar: '👨',
-      status: 'conge',
-      statusText: 'En congé',
-      heureDebut: '-',
-      tempsTravail: '-',
-      pauseRestante: 'Retour: 15/10'
-    },
-    {
-      name: 'Laura Koffi',
-      position: 'Assistante',
-      avatar: '👩',
-      status: 'conge',
-      statusText: 'En congé',
-      heureDebut: '-',
-      tempsTravail: '-',
-      pauseRestante: 'Retour: 12/10'
+      role: 'Serveur',
+      phone: '+33 6 67 89 01 23',
+      email: 'lucas.p@caveviking.com',
+      status: 'present',
+      todaySales: 750,
+      ordersCompleted: 10,
+      rating: 4.4,
+      joinDate: '2023-09-01'
     }
   ];
 
-  ngOnInit(): void {
-    console.log('Team page loaded');
+  constructor() {}
+
+  ngOnInit(): void {}
+
+  getRatingStars(rating: number): string {
+    const fullStars = Math.floor(rating);
+    return '⭐'.repeat(fullStars);
   }
 
-  getMembersEnService(): number {
-    return this.teamData.filter(m => m.status === 'en-service').length;
+  getStatusLabel(status: string): string {
+    const labels: { [key: string]: string } = {
+      'present': 'Présent',
+      'absent': 'Absent',
+      'leave': 'Congé',
+      'off': 'Repos'
+    };
+    return labels[status] || status;
   }
 
-  getTotalMembers(): number {
-    return this.teamData.length;
+  addMember(): void {
+    console.log('Ajouter un membre');
+  }
+
+  viewMember(member: TeamMember): void {
+    console.log('Voir membre:', member);
+  }
+
+  editMember(member: TeamMember): void {
+    console.log('Modifier membre:', member);
+  }
+
+  contactMember(member: TeamMember): void {
+    console.log('Contacter membre:', member);
   }
 }

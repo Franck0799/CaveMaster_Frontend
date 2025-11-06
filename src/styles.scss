@@ -1,13 +1,237 @@
-/* You can add global styles to this file, and also import other style files */
-/* You can add global styles to this file, and also import other style files */
+/* ==========================================
+   FICHIER: src/styles.scss
+   DESCRIPTION: Styles globaux de l'application
+   ========================================== */
+
+// ===== IMPORTS DES VARIABLES DE THÈME =====
+// IMPORTANT : Doit être importé en premier pour que les variables CSS soient disponibles partout
+@import 'style/theme-variables.scss';
+
+// ===== IMPORTS DES AUTRES STYLES =====
 @import 'style/theme.scss';
 
-@tailwind base;
-@tailwind components;
+// ===== TAILWIND CSS =====
 @tailwind utilities;
 
+// ===== STYLES DE BASE =====
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 
-html, body { height: 100%; }
+  // Utilise les variables CSS pour le background et le texte
+  background-color: var(--dark-bg);
+  color: var(--text);
 
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+  // Smooth scroll
+  scroll-behavior: smooth;
+}
 
+// ===== RESET ET NORMALISATION =====
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+// ===== SCROLLBAR PERSONNALISÉE =====
+// Pour tous les navigateurs basés sur Webkit (Chrome, Safari, Edge)
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--darker-bg);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 5px;
+
+  &:hover {
+    background: var(--primary);
+  }
+}
+
+// Pour Firefox
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) var(--darker-bg);
+}
+
+// ===== CLASSES UTILITAIRES GLOBALES =====
+.text-primary {
+  color: var(--text-primary) !important;
+}
+
+.text-secondary {
+  color: var(--text-secondary) !important;
+}
+
+.bg-card {
+  background-color: var(--card-bg) !important;
+}
+
+.bg-dark {
+  background-color: var(--dark-bg) !important;
+}
+
+.border-color {
+  border-color: var(--border-color) !important;
+}
+
+// ===== ANIMATIONS GLOBALES =====
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Classes d'animation
+.fade-in {
+  animation: fadeIn 0.3s ease;
+}
+
+.slide-in-left {
+  animation: slideInLeft 0.3s ease;
+}
+
+.slide-in-right {
+  animation: slideInRight 0.3s ease;
+}
+
+// ===== SÉLECTION DE TEXTE =====
+::selection {
+  background-color: var(--primary);
+  color: white;
+}
+
+::-moz-selection {
+  background-color: var(--primary);
+  color: white;
+}
+
+// ===== FOCUS VISIBLE =====
+// Améliore l'accessibilité
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+// ===== LIENS PAR DÉFAUT =====
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: var(--primary-light);
+  }
+}
+
+// ===== BOUTONS PAR DÉFAUT =====
+button {
+  font-family: inherit;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+// ===== INPUTS PAR DÉFAUT =====
+input,
+select,
+textarea {
+  font-family: inherit;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+// ===== HELPER CLASSES =====
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+// ===== RESPONSIVE HELPERS =====
+@media (max-width: 768px) {
+  .hide-mobile {
+    display: none !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .hide-desktop {
+    display: none !important;
+  }
+}
+
+// ===== PRINT STYLES =====
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+}

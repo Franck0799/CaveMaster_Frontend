@@ -1,0 +1,551 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cave-master-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cave-master-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content module">
+                   <div class="content-data">
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">Modules</li>
+    <li class="breadcrumb-item" >AdminRoutingModule</li>
+</ol>
+
+
+<ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+        <a href="#info" 
+            class="nav-link"
+            class="nav-link active"
+            role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+    </li>
+    <li class="nav-item">
+        <a href="#source" 
+            class="nav-link"
+            
+            role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/features/admin/admin-routing.module.ts</code>
+        </p>
+
+
+
+
+
+        <div class="container-fluid module">
+            <div class="row">
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { NgModule } from &#x27;@angular/core&#x27;;
+import { RouterModule, Routes } from &#x27;@angular/router&#x27;;
+import { AdminDashboardComponent } from &#x27;../../view/admin-dashboard/admin-dashboard.component&#x27;;
+
+// Import des composants des pages
+import { HomeComponent } from &#x27;../../view/admin-dashboard/home/home.component&#x27;;
+import { CaveListComponent } from &#x27;../../view/admin-dashboard/cave-list/cave-list.component&#x27;;
+import { CaveCreateComponent } from &#x27;../../view/admin-dashboard/cave-create/cave-create.component&#x27;;
+import { WinePairingComponent } from &#x27;../../view/admin-dashboard/wine-pairing/wine-pairing.component&#x27;;
+import { ManagersComponent } from &#x27;../../view/admin-dashboard/managers/managers.component&#x27;;
+import { EmployeesComponent } from &#x27;../../view/admin-dashboard/employees/employees.component&#x27;;
+import { ScanComponent } from &#x27;../../view/admin-dashboard/scan/scan.component&#x27;;
+import { ProfileComponent } from &#x27;../../view/admin-dashboard/profile/profile.component&#x27;;
+import { UserProfileComponent } from &#x27;../../view/admin-dashboard/user-profile/user-profile.component&#x27;;
+import { EntriesComponent } from &#x27;../../view/admin-dashboard/entries/entries.component&#x27;;
+import { ExitsComponent } from &#x27;../../view/admin-dashboard/exits/exits.component&#x27;;
+import { DrinksComponent } from &#x27;../../view/admin-dashboard/drinks/drinks.component&#x27;;
+import { FaqComponent } from &#x27;../../view/admin-dashboard/faq/faq.component&#x27;;
+import { ImprovementsComponent } from &#x27;../../view/admin-dashboard/improvements/improvements.component&#x27;;
+import { ContactComponent } from &#x27;../../view/admin-dashboard/contact/contact.component&#x27;;
+import { AboutComponent } from &#x27;../../view/admin-dashboard/about/about.component&#x27;;
+import { RecentActionsComponent } from &#x27;../../view/admin-dashboard/recent-actions/recent-actions.component&#x27;;
+import { SettingsComponent } from &#x27;../../view/admin-dashboard/settings/settings.component&#x27;;
+import { UserCreateComponent } from &#x27;../../view/admin-dashboard/user-create/user-create.component&#x27;;
+import { UserListComponent } from &#x27;../../view/admin-dashboard/user-list/user-list.component&#x27;;
+import { ProfitComponent } from &#x27;../../view/admin-dashboard/profit/profit.component&#x27;;
+import { CaisseComponent } from &#x27;../../view/admin-dashboard/caisse/caisse.component&#x27;;
+import { FournisseursComponent } from &#x27;../../view/admin-dashboard/fournisseur/fournisseur.component&#x27;;
+import { ClientsComponent } from &#x27;../../view/admin-dashboard/client/client.component&#x27;;
+import { ExpenseComponent } from &#x27;../../view/admin-dashboard/depenses/depenses.component&#x27;;
+import { StockComponent } from &#x27;../../view/admin-dashboard/stock/stock.component&#x27;;
+import { MaterialComponent } from &#x27;../../view/admin-dashboard/materiel/materiel.component&#x27;;
+
+
+const routes: Routes &#x3D; [
+  {
+    path: &#x27;&#x27;,
+    component: AdminDashboardComponent,
+    children: [
+      // Redirection par défaut
+      {
+        path: &#x27;&#x27;,
+        redirectTo: &#x27;home&#x27;,
+        pathMatch: &#x27;full&#x27;
+      },
+
+      // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; PAGES PRINCIPALES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+      // 🏠 Accueil
+      {
+        path: &#x27;home&#x27;,
+        component: HomeComponent,
+        data: { title: &#x27;Accueil&#x27;, icon: &#x27;🏠&#x27; }
+      },
+
+      // 🍷 Gestion des caves
+      {
+        path: &#x27;caves&#x27;,
+        component: CaveListComponent,
+        data: { title: &#x27;Mes Caves&#x27;, icon: &#x27;🍷&#x27; }
+      },
+
+      {
+        path: &#x27;caves/create&#x27;,
+        component: CaveCreateComponent,
+        data: { title: &#x27;Créer une cave&#x27;, icon: &#x27;➕&#x27; }
+      },
+      {
+        path: &#x27;caves/:id&#x27;,
+        component: CaveListComponent, // ou CaveDetailComponent si vous en avez un
+        data: { title: &#x27;Détails de la cave&#x27;, icon: &#x27;🍷&#x27; }
+      },
+
+      // Fournisseur
+      {
+        path: &#x27;fournisseur&#x27;,
+        component: FournisseursComponent,
+        data: { title: &#x27;Fournisseurs&#x27;, icon: &#x27;🏭&#x27; }
+      },
+
+      // Client
+      {
+        path: &#x27;client&#x27;,
+        component: ClientsComponent,
+        data: { title: &#x27;Clients&#x27;, icon: &#x27;🧑‍💼&#x27; }
+      },
+
+      // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; SECTION MA CAVE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+      // 🍾 Gestion des boissons
+      {
+        path: &#x27;drinks&#x27;,
+        component: DrinksComponent,
+        data: { title: &#x27;Mes Boissons&#x27;, icon: &#x27;🍾&#x27; }
+      },
+
+      // Routes pour chaque catégorie de boissons
+      {
+        path: &#x27;drinks/Bières&#x27;,
+        component: DrinksComponent,
+        data: { title: &#x27;Bières&#x27;, icon: &#x27;🍺&#x27;, category: &#x27;Bières&#x27; }
+      },
+      {
+        path: &#x27;drinks/Sucreries&#x27;,
+        component: DrinksComponent,
+        data: { title: &#x27;Sucreries&#x27;, icon: &#x27;🍬&#x27;, category: &#x27;Sucreries&#x27; }
+      },
+      {
+        path: &#x27;drinks/Champagne&#x27;,
+        component: DrinksComponent,
+        data: { title: &#x27;Champagne&#x27;, icon: &#x27;🥂&#x27;, category: &#x27;Champagne&#x27; }
+      },
+      {
+        path: &#x27;drinks/Vin Blanc&#x27;,
+        component: DrinksComponent,
+        data: { title: &#x27;Vin Blanc&#x27;, icon: &#x27;🍷&#x27;, category: &#x27;Vin Blanc&#x27; }
+      },
+      {
+        path: &#x27;drinks/Vin Rouge&#x27;,
+        component: DrinksComponent,
+        data: { title: &#x27;Vin Rouge&#x27;, icon: &#x27;🍷&#x27;, category: &#x27;Vin Rouge&#x27; }
+      },
+      {
+        path: &#x27;drinks/Vin Rosé&#x27;,
+        component: DrinksComponent,
+        data: { title: &#x27;Vin Rosé&#x27;, icon: &#x27;🍷&#x27;, category: &#x27;Vin Rosé&#x27; }
+      },
+      {
+        path: &#x27;drinks/Vin Mousseux&#x27;,
+        component: DrinksComponent,
+        data: { title: &#x27;Vin Mousseux&#x27;, icon: &#x27;✨&#x27;, category: &#x27;Vin Mousseux&#x27; }
+      },
+      {
+        path: &#x27;drinks/Liqueurs&#x27;,
+        component: DrinksComponent,
+        data: { title: &#x27;Liqueurs&#x27;, icon: &#x27;🥃&#x27;, category: &#x27;Liqueurs&#x27; }
+      },
+      {
+        path: &#x27;drinks/Boissons Énergisantes&#x27;,
+        component: DrinksComponent,
+        data: { title: &#x27;Boissons Énergisantes&#x27;, icon: &#x27;⚡&#x27;, category: &#x27;Boissons Énergisantes&#x27; }
+      },
+      {
+        path: &#x27;drinks/Boissons Locales&#x27;,
+        component: DrinksComponent,
+        data: { title: &#x27;Boissons Locales&#x27;, icon: &#x27;🍹&#x27;, category: &#x27;Boissons Locales&#x27; }
+      },
+
+      // 📥 Mes entrées
+      {
+        path: &#x27;entries&#x27;,
+        component: EntriesComponent,
+        data: { title: &#x27;Mes Entrées&#x27;, icon: &#x27;📥&#x27; }
+      },
+
+      // 📤 Mes sorties
+      {
+        path: &#x27;exits&#x27;,
+        component: ExitsComponent,
+        data: { title: &#x27;Mes Sorties&#x27;, icon: &#x27;📤&#x27; }
+      },
+
+       {
+        path: &#x27;caisse&#x27;,
+        component: CaisseComponent,
+        data: { title: &#x27;Caisse&#x27;, icon: &#x27;💵&#x27; }
+      },
+
+       // 📤 Mes PROFITS
+      {
+        path: &#x27;profit&#x27;,
+        component: ProfitComponent,
+        data: { title: &#x27;Bénéfices &amp; Stocks&#x27;, icon: &#x27;💰&#x27; }
+      },
+
+      // 🍽️ Mets &amp; Vins
+      {
+        path: &#x27;wine-pairing&#x27;,
+        component: WinePairingComponent,
+        data: { title: &#x27;Mets &amp; Vins&#x27;, icon: &#x27;🍽️&#x27; }
+      },
+
+      // 👥 Mes managers
+      {
+        path: &#x27;managers&#x27;,
+        component: ManagersComponent,
+        data: { title: &#x27;Mes Managers&#x27;, icon: &#x27;👥&#x27; }
+      },
+
+      // 👨‍💼 Mes employés
+      {
+        path: &#x27;employees&#x27;,
+        component: EmployeesComponent,
+        data: { title: &#x27;Mes Employés&#x27;, icon: &#x27;👨‍💼&#x27; }
+      },
+
+      // 📷 Scan
+      {
+        path: &#x27;scan&#x27;,
+        component: ScanComponent,
+        data: { title: &#x27;Scanner un Produit&#x27;, icon: &#x27;📷&#x27; }
+      },
+
+      // 👤 Mon compte / Profil
+      {
+        path: &#x27;profile&#x27;,
+        component: ProfileComponent,
+        data: { title: &#x27;Mon Profil&#x27;, icon: &#x27;👤&#x27; }
+      },
+
+      // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; SECTION INFOS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+      // ❓ FAQ
+      {
+        path: &#x27;faq&#x27;,
+        component: FaqComponent,
+        data: { title: &#x27;FAQ&#x27;, icon: &#x27;❓&#x27; }
+      },
+
+      // 📝 Notes d&#x27;amélioration
+      {
+        path: &#x27;improvements&#x27;,
+        component: ImprovementsComponent,
+        data: { title: &#x27;Notes d\&#x27;amélioration&#x27;, icon: &#x27;📝&#x27; }
+      },
+
+      // 📧 Nous contacter
+      {
+        path: &#x27;contact&#x27;,
+        component: ContactComponent,
+        data: { title: &#x27;Nous Contacter&#x27;, icon: &#x27;📧&#x27; }
+      },
+
+      // 📚 En savoir plus
+      {
+        path: &#x27;about&#x27;,
+        component: AboutComponent,
+        data: { title: &#x27;En Savoir Plus&#x27;, icon: &#x27;📚&#x27; }
+      },
+
+      // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; AUTRES PAGES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+      // 📋 Actions récentes
+      {
+        path: &#x27;recent-actions&#x27;,
+        component: RecentActionsComponent,
+        data: { title: &#x27;Actions Récentes&#x27;, icon: &#x27;📋&#x27; }
+      },
+
+      // ⚙️ Paramètres
+      {
+        path: &#x27;settings&#x27;,
+        component: SettingsComponent,
+        data: { title: &#x27;Paramètres&#x27;, icon: &#x27;⚙️&#x27; }
+      },
+
+      // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; GESTION DES UTILISATEURS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+      // 👥 Liste des utilisateurs
+      {
+        path: &#x27;users&#x27;,
+        component: UserListComponent,
+        data: { title: &#x27;Liste des Utilisateurs&#x27;, icon: &#x27;👥&#x27; }
+      },
+
+      // ➕ Créer un utilisateur
+      {
+        path: &#x27;users/create&#x27;,
+        component: UserCreateComponent,
+        data: { title: &#x27;Créer un Utilisateur&#x27;, icon: &#x27;➕&#x27; }
+      },
+
+      // 👤 Profil utilisateur
+      {
+        path: &#x27;users/:id&#x27;,
+        component: UserProfileComponent,
+        data: { title: &#x27;Profil Utilisateur&#x27;, icon: &#x27;👤&#x27; }
+      },
+
+      {
+        path: &#x27;depenses&#x27;,
+        component: ExpenseComponent,
+        data: { title: &#x27;Depenses&#x27;, icon: &#x27;👨‍💼&#x27; }
+      },
+
+      {
+        path: &#x27;materiel&#x27;,
+        component: MaterialComponent,
+        data: { title: &#x27;materiel&#x27;, icon: &#x27;👥&#x27; }
+      },
+
+      {
+        path: &#x27;stock&#x27;,
+        component: StockComponent,
+        data: { title: &#x27;Stocks général&#x27;, icon: &#x27;👨‍💼&#x27; }
+      },
+
+      // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; ROUTE 404 (pour les routes admin non trouvées) &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+      {
+        path: &#x27;**&#x27;,
+        redirectTo: &#x27;home&#x27;
+      }
+    ]
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class AdminRoutingModule { }
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'module';
+            var COMPODOC_CURRENT_PAGE_URL = 'AdminRoutingModule.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

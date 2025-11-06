@@ -1,79 +1,158 @@
-// ===== sales.component.ts =====
+// SALES COMPONENT (Historique des ventes)
+// ==========================================
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-interface VenteProduit {
-  nom: string;
-  quantite: number;
-  ca: number;
-  evolution: number;
+
+interface Sale {
+  id: string;
+  date: Date;
+  server: string;
+  tableNumber: string;
+  items: number;
+  amount: number;
+  paymentMethod: 'cash' | 'card' | 'mixed';
+  tip?: number;
 }
 
-interface VenteParPeriode {
-  jour: string;
-  montant: number;
+interface SalesStats {
+  totalSales: number;
+  totalOrders: number;
+  averageTicket: number;
+  cashSales: number;
+  cardSales: number;
 }
 
 @Component({
   selector: 'app-sales',
   standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './sales.component.html',
-  styleUrls: ['./sales.component.scss']
+    // Import des modules nécessaires
+    imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  templateUrl: `./sales.component.html`,
+  styleUrls: [`./sales.component.scss`]
 })
 export class SalesComponent implements OnInit {
-  selectedPeriode: string = 'jour';
-  selectedCave: string = 'all';
+  selectedPeriod = 'today';
 
-  ventesStats = {
-    caJour: 850000,
-    caObjectif: 1000000,
-    nombreVentes: 34,
-    panierMoyen: 25000,
-    tauxConversion: 78,
-    evolutionCA: 12
+  stats: SalesStats = {
+    totalSales: 8450,
+    totalOrders: 156,
+    averageTicket: 54.17,
+    cashSales: 3240,
+    cardSales: 5210
   };
 
-  topProduits: VenteProduit[] = [
-    { nom: 'Hennessy VSOP', quantite: 45, ca: 1260000, evolution: 15 },
-    { nom: 'Dom Pérignon', quantite: 32, ca: 1440000, evolution: 8 },
-    { nom: 'Moët & Chandon', quantite: 28, ca: 980000, evolution: -5 },
-    { nom: 'Heineken', quantite: 250, ca: 200000, evolution: 22 },
-    { nom: 'Château Margaux', quantite: 18, ca: 324000, evolution: 3 }
+  sales: Sale[] = [
+    {
+      id: 'VNT001',
+      date: new Date('2025-01-06T14:30:00'),
+      server: 'Marie M.',
+      tableNumber: 'T12',
+      items: 3,
+      amount: 506,
+      paymentMethod: 'card',
+      tip: 20
+    },
+    {
+      id: 'VNT002',
+      date: new Date('2025-01-06T14:15:00'),
+      server: 'Pierre D.',
+      tableNumber: 'T05',
+      items: 2,
+      amount: 275,
+      paymentMethod: 'cash'
+    },
+    {
+      id: 'VNT003',
+      date: new Date('2025-01-06T13:45:00'),
+      server: 'Sophie L.',
+      tableNumber: 'T08',
+      items: 2,
+      amount: 130,
+      paymentMethod: 'card',
+      tip: 10
+    },
+    {
+      id: 'VNT004',
+      date: new Date('2025-01-06T13:30:00'),
+      server: 'Marie M.',
+      tableNumber: 'T15',
+      items: 4,
+      amount: 171,
+      paymentMethod: 'mixed'
+    },
+    {
+      id: 'VNT005',
+      date: new Date('2025-01-06T13:00:00'),
+      server: 'Thomas B.',
+      tableNumber: 'T03',
+      items: 5,
+      amount: 425,
+      paymentMethod: 'card',
+      tip: 25
+    },
+    {
+      id: 'VNT006',
+      date: new Date('2025-01-06T12:45:00'),
+      server: 'Pierre D.',
+      tableNumber: 'T10',
+      items: 3,
+      amount: 198,
+      paymentMethod: 'cash'
+    }
   ];
 
-  ventesParJour: VenteParPeriode[] = [
-    { jour: 'Lun', montant: 720000 },
-    { jour: 'Mar', montant: 850000 },
-    { jour: 'Mer', montant: 680000 },
-    { jour: 'Jeu', montant: 920000 },
-    { jour: 'Ven', montant: 1150000 },
-    { jour: 'Sam', montant: 1380000 },
-    { jour: 'Dim', montant: 950000 }
-  ];
+  constructor() {}
 
   ngOnInit(): void {
-    this.loadSalesData();
+    this.loadSales();
   }
 
-  loadSalesData(): void {
-    console.log('Loading sales data...');
+  loadSales(): void {
+    console.log('Chargement des ventes:', this.selectedPeriod);
+    // TODO: Appel API
   }
 
-  formatMontant(montant: number): string {
-    return new Intl.NumberFormat('fr-FR').format(montant) + ' FCFA';
+  getCashPercentage(): number {
+    return Math.round((this.stats.cashSales / this.stats.totalSales) * 100);
   }
 
-  getProgressPercent(): number {
-    return (this.ventesStats.caJour / this.ventesStats.caObjectif) * 100;
+  getCardPercentage(): number {
+    return Math.round((this.stats.cardSales / this.stats.totalSales) * 100);
   }
 
-  getMaxVente(): number {
-    return Math.max(...this.ventesParJour.map(v => v.montant));
+  getSalesByServer(): Array<{name: string, amount: number}> {
+    const serverSales = new Map<string, number>();
+
+    this.sales.forEach(sale => {
+      const current = serverSales.get(sale.server) || 0;
+      serverSales.set(sale.server, current + sale.amount);
+    });
+
+    return Array.from(serverSales.entries())
+      .map(([name, amount]) => ({ name, amount }))
+      .sort((a, b) => b.amount - a.amount);
   }
 
-  getBarHeight(montant: number): number {
-    return (montant / this.getMaxVente()) * 100;
+  getPaymentLabel(method: string): string {
+    const labels: { [key: string]: string } = {
+      'cash': '💵 Espèces',
+      'card': '💳 Carte',
+      'mixed': '💰 Mixte'
+    };
+    return labels[method] || method;
+  }
+
+  viewSale(sale: Sale): void {
+    console.log('Voir vente:', sale);
+  }
+
+  printReceipt(sale: Sale): void {
+    console.log('Imprimer reçu:', sale.id);
+  }
+
+  exportSales(): void {
+    console.log('Exporter les ventes');
   }
 }

@@ -1,0 +1,4413 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cave-master-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cave-master-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  UserProfileComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/view/admin-dashboard/user-profile/user-profile.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-user-profile</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>FormsModule</code>
+                            <code>ReactiveFormsModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./user-profile.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./user-profile.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#activeTab" >activeTab</a>
+                            </li>
+                            <li>
+                                <a href="#activitiesDisplayCount" >activitiesDisplayCount</a>
+                            </li>
+                            <li>
+                                <a href="#allActivities" >allActivities</a>
+                            </li>
+                            <li>
+                                <a href="#currentPasswordInput" >currentPasswordInput</a>
+                            </li>
+                            <li>
+                                <a href="#isChangingPassword" >isChangingPassword</a>
+                            </li>
+                            <li>
+                                <a href="#isEditingProfile" >isEditingProfile</a>
+                            </li>
+                            <li>
+                                <a href="#message" >message</a>
+                            </li>
+                            <li>
+                                <a href="#messageType" >messageType</a>
+                            </li>
+                            <li>
+                                <a href="#passwordForm" >passwordForm</a>
+                            </li>
+                            <li>
+                                <a href="#passwordStrength" >passwordStrength</a>
+                            </li>
+                            <li>
+                                <a href="#profileForm" >profileForm</a>
+                            </li>
+                            <li>
+                                <a href="#selectedAvatar" >selectedAvatar</a>
+                            </li>
+                            <li>
+                                <a href="#showPasswords" >showPasswords</a>
+                            </li>
+                            <li>
+                                <a href="#userProfile" >userProfile</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#cancelEditingProfile" >cancelEditingProfile</a>
+                            </li>
+                            <li>
+                                <a href="#changePassword" >changePassword</a>
+                            </li>
+                            <li>
+                                <a href="#downloadReport" >downloadReport</a>
+                            </li>
+                            <li>
+                                <a href="#evaluatePasswordStrength" >evaluatePasswordStrength</a>
+                            </li>
+                            <li>
+                                <a href="#exportProfileData" >exportProfileData</a>
+                            </li>
+                            <li>
+                                <a href="#formatCurrency" >formatCurrency</a>
+                            </li>
+                            <li>
+                                <a href="#formatDate" >formatDate</a>
+                            </li>
+                            <li>
+                                <a href="#getActivityBadgeClass" >getActivityBadgeClass</a>
+                            </li>
+                            <li>
+                                <a href="#getDisplayedActivities" >getDisplayedActivities</a>
+                            </li>
+                            <li>
+                                <a href="#getProfileCompletion" >getProfileCompletion</a>
+                            </li>
+                            <li>
+                                <a href="#isFieldInvalid" >isFieldInvalid</a>
+                            </li>
+                            <li>
+                                <a href="#loadActivities" >loadActivities</a>
+                            </li>
+                            <li>
+                                <a href="#loadMoreActivities" >loadMoreActivities</a>
+                            </li>
+                            <li>
+                                <a href="#loadUserProfile" >loadUserProfile</a>
+                            </li>
+                            <li>
+                                <a href="#logout" >logout</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#saveProfile" >saveProfile</a>
+                            </li>
+                            <li>
+                                <a href="#selectAvatar" >selectAvatar</a>
+                            </li>
+                            <li>
+                                <a href="#showMessage" >showMessage</a>
+                            </li>
+                            <li>
+                                <a href="#startEditingProfile" >startEditingProfile</a>
+                            </li>
+                            <li>
+                                <a href="#switchTab" >switchTab</a>
+                            </li>
+                            <li>
+                                <a href="#togglePasswordVisibility" >togglePasswordVisibility</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(formBuilder: FormBuilder)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="107" class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:107</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>formBuilder</td>
+                                                  
+                                                        <td>
+                                                                    <code>FormBuilder</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cancelEditingProfile"></a>
+                    <span class="name">
+                        <span ><b>cancelEditingProfile</b></span>
+                        <a href="#cancelEditingProfile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cancelEditingProfile()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="320"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:320</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Annule les modifications et quitte le mode édition</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changePassword"></a>
+                    <span class="name">
+                        <span ><b>changePassword</b></span>
+                        <a href="#changePassword"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>changePassword()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="373"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:373</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Change le mot de passe utilisateur</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="downloadReport"></a>
+                    <span class="name">
+                        <span ><b>downloadReport</b></span>
+                        <a href="#downloadReport"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>downloadReport()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="611"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:611</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Télécharge un rapport du profil utilisateur</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="evaluatePasswordStrength"></a>
+                    <span class="name">
+                        <span ><b>evaluatePasswordStrength</b></span>
+                        <a href="#evaluatePasswordStrength"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>evaluatePasswordStrength()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="409"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:409</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Évalue la résistance du mot de passe saisi</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportProfileData"></a>
+                    <span class="name">
+                        <span ><b>exportProfileData</b></span>
+                        <a href="#exportProfileData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportProfileData()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="626"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:626</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Exporte les données du profil en JSON</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatCurrency"></a>
+                    <span class="name">
+                        <span ><b>formatCurrency</b></span>
+                        <a href="#formatCurrency"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatCurrency(amount: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="555"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:555</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>amount</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatDate"></a>
+                    <span class="name">
+                        <span ><b>formatDate</b></span>
+                        <a href="#formatDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatDate(dateString: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="543"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:543</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Formate une date en format lisible</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>dateString</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>La date en string</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>La date formatée</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getActivityBadgeClass"></a>
+                    <span class="name">
+                        <span ><b>getActivityBadgeClass</b></span>
+                        <a href="#getActivityBadgeClass"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getActivityBadgeClass(type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="519"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:519</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retourne la classe CSS pour le badge du type d&#39;activité</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Le type d&#39;activité</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>La classe CSS correspondante</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getDisplayedActivities"></a>
+                    <span class="name">
+                        <span ><b>getDisplayedActivities</b></span>
+                        <a href="#getDisplayedActivities"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getDisplayedActivities()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="564"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:564</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retourne les activités à afficher (avec limite)</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/Activity.html" target="_self" >Activity[]</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Les activités filtrées</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getProfileCompletion"></a>
+                    <span class="name">
+                        <span ><b>getProfileCompletion</b></span>
+                        <a href="#getProfileCompletion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getProfileCompletion()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="455"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:455</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Calcule le pourcentage de complétude du profil</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Le pourcentage entre 0 et 100</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isFieldInvalid"></a>
+                    <span class="name">
+                        <span ><b>isFieldInvalid</b></span>
+                        <a href="#isFieldInvalid"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isFieldInvalid(fieldName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="599"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:599</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Vérifie si un champ du formulaire est invalide et a été touché</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>fieldName</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Le nom du champ</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>true si le champ est invalide et touché</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadActivities"></a>
+                    <span class="name">
+                        <span ><b>loadActivities</b></span>
+                        <a href="#loadActivities"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadActivities()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="232"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:232</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Charge la liste des activités récentes</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadMoreActivities"></a>
+                    <span class="name">
+                        <span ><b>loadMoreActivities</b></span>
+                        <a href="#loadMoreActivities"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadMoreActivities()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="573"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:573</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Charge et affiche plus d&#39;activités</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadUserProfile"></a>
+                    <span class="name">
+                        <span ><b>loadUserProfile</b></span>
+                        <a href="#loadUserProfile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadUserProfile()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="174"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:174</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Charge les données du profil utilisateur
+À remplacer par un appel API backend</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="logout"></a>
+                    <span class="name">
+                        <span ><b>logout</b></span>
+                        <a href="#logout"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>logout()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="661"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:661</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Déconnecte l&#39;utilisateur</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="161"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:161</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveProfile"></a>
+                    <span class="name">
+                        <span ><b>saveProfile</b></span>
+                        <a href="#saveProfile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>saveProfile()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="332"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:332</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Sauvegarde les modifications du profil</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectAvatar"></a>
+                    <span class="name">
+                        <span ><b>selectAvatar</b></span>
+                        <a href="#selectAvatar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>selectAvatar(avatar: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="503"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:503</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Change l&#39;avatar sélectionné</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>avatar</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Le nouvel avatar (emoji)</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showMessage"></a>
+                    <span class="name">
+                        <span ><b>showMessage</b></span>
+                        <a href="#showMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>showMessage(msg: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, type: "success" | "error" | "info")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="485"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:485</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Affiche un message temporaire (succès, erreur, info)</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>msg</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Le message à afficher</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                        <code>&quot;success&quot; | &quot;error&quot; | &quot;info&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Le type de message</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="startEditingProfile"></a>
+                    <span class="name">
+                        <span ><b>startEditingProfile</b></span>
+                        <a href="#startEditingProfile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>startEditingProfile()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="311"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:311</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Active le mode édition du profil</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="switchTab"></a>
+                    <span class="name">
+                        <span ><b>switchTab</b></span>
+                        <a href="#switchTab"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>switchTab(tab: "info" | "stats" | "activities" | "security")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="588"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:588</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Change l&#39;onglet actif</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>tab</td>
+                                            <td>
+                                                        <code>&quot;info&quot; | &quot;stats&quot; | &quot;activities&quot; | &quot;security&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Le nom de l&#39;onglet à afficher</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="togglePasswordVisibility"></a>
+                    <span class="name">
+                        <span ><b>togglePasswordVisibility</b></span>
+                        <a href="#togglePasswordVisibility"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>togglePasswordVisibility()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="445"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:445</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Bascule l&#39;affichage des mots de passe</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="activeTab"></a>
+                    <span class="name">
+                        <span ><b>activeTab</b></span>
+                        <a href="#activeTab"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;info&quot; | &quot;stats&quot; | &quot;activities&quot; | &quot;security&quot;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;info&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="104" class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:104</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="activitiesDisplayCount"></a>
+                    <span class="name">
+                        <span ><b>activitiesDisplayCount</b></span>
+                        <a href="#activitiesDisplayCount"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>5</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="101" class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:101</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="allActivities"></a>
+                    <span class="name">
+                        <span ><b>allActivities</b></span>
+                        <a href="#allActivities"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Activity.html" target="_self" >Activity[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="98" class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:98</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentPasswordInput"></a>
+                    <span class="name">
+                        <span ><b>currentPasswordInput</b></span>
+                        <a href="#currentPasswordInput"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="89" class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:89</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isChangingPassword"></a>
+                    <span class="name">
+                        <span ><b>isChangingPassword</b></span>
+                        <a href="#isChangingPassword"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="80" class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:80</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isEditingProfile"></a>
+                    <span class="name">
+                        <span ><b>isEditingProfile</b></span>
+                        <a href="#isEditingProfile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="77" class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:77</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="message"></a>
+                    <span class="name">
+                        <span ><b>message</b></span>
+                        <a href="#message"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="83" class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:83</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="messageType"></a>
+                    <span class="name">
+                        <span ><b>messageType</b></span>
+                        <a href="#messageType"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;success&quot; | &quot;error&quot; | &quot;info&quot;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;info&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:86</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="passwordForm"></a>
+                    <span class="name">
+                        <span ><b>passwordForm</b></span>
+                        <a href="#passwordForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:74</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="passwordStrength"></a>
+                    <span class="name">
+                        <span ><b>passwordStrength</b></span>
+                        <a href="#passwordStrength"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;weak&quot; | &quot;medium&quot; | &quot;strong&quot;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;weak&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="92" class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:92</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="profileForm"></a>
+                    <span class="name">
+                        <span ><b>profileForm</b></span>
+                        <a href="#profileForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:71</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedAvatar"></a>
+                    <span class="name">
+                        <span ><b>selectedAvatar</b></span>
+                        <a href="#selectedAvatar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="107" class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:107</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showPasswords"></a>
+                    <span class="name">
+                        <span ><b>showPasswords</b></span>
+                        <a href="#showPasswords"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="95" class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:95</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userProfile"></a>
+                    <span class="name">
+                        <span ><b>userProfile</b></span>
+                        <a href="#userProfile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>UserProfile | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/app/view/admin-dashboard/user-profile/user-profile.component.ts:68</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+
+// Interface pour l&#x27;activité récente
+interface Activity {
+  id: string;           // Identifiant unique
+  title: string;        // Titre de l&#x27;activité
+  description: string;  // Description détaillée
+  timestamp: string;    // Date et heure de l&#x27;activité
+  type: &#x27;login&#x27; | &#x27;update&#x27; | &#x27;sale&#x27; | &#x27;stock&#x27; | &#x27;system&#x27;; // Type d&#x27;activité
+  icon: string;         // Emoji d&#x27;icône
+}
+
+// Interface pour les statistiques utilisateur
+interface UserStatistics {
+  totalSales: number;         // Total des ventes
+  totalHours: number;         // Total des heures travaillées
+  averageSalesPerDay: number; // Moyenne de ventes par jour
+  monthlyBonus: number;       // Bonus mensuel
+  performanceRating: number;  // Note de performance (0-100)
+  attendanceRate: number;     // Taux de présence (0-100%)
+}
+
+// Interface pour le profil utilisateur
+interface UserProfile {
+  id: string;                  // Identifiant unique
+  firstName: string;           // Prénom
+  lastName: string;            // Nom de famille
+  email: string;               // Email
+  phone: string;               // Téléphone
+  role: string;                // Rôle/Poste
+  avatar: string;              // Emoji d&#x27;avatar
+  cave: string;                // Cave d&#x27;affectation
+  department: string;          // Département
+  manager: string;             // Manager de supervision
+  status: &#x27;active&#x27; | &#x27;inactive&#x27; | &#x27;on-leave&#x27;; // Statut
+  joinDate: string;            // Date d&#x27;embauche
+  birthDate: string;           // Date de naissance
+  address: string;             // Adresse personnelle
+  emergencyContact: string;    // Contact d&#x27;urgence
+  emergencyPhone: string;      // Téléphone d&#x27;urgence
+  bankAccount: string;         // Numéro de compte bancaire
+  bankName: string;            // Nom de la banque
+  socialSecurityNumber: string; // Numéro de sécurité sociale
+  lastUpdateDate: string;      // Date de dernière mise à jour
+  profileComplete: boolean;    // Profil complété à 100%
+  statistics: UserStatistics;  // Statistiques de l&#x27;utilisateur
+  activities: Activity[];      // Activités récentes
+}
+
+@Component({
+  selector: &#x27;app-user-profile&#x27;,
+  standalone: true,
+  // Imports des modules nécessaires
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  templateUrl: &#x27;./user-profile.component.html&#x27;,
+  styleUrls: [&#x27;./user-profile.component.scss&#x27;]
+})
+export class UserProfileComponent implements OnInit {
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; PROPRIÉTÉS DU COMPOSANT &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  // Profil utilisateur actuellement affichée
+  userProfile: UserProfile | null &#x3D; null;
+
+  // Formulaire réactif pour modifier le profil
+  profileForm: FormGroup;
+
+  // Formulaire pour changer le mot de passe
+  passwordForm: FormGroup;
+
+  // Flag indiquant si on est en mode édition du profil
+  isEditingProfile: boolean &#x3D; false;
+
+  // Flag indiquant si on modifie le mot de passe
+  isChangingPassword: boolean &#x3D; false;
+
+  // Message de succès/erreur
+  message: string &#x3D; &#x27;&#x27;;
+
+  // Type de message (success, error, info)
+  messageType: &#x27;success&#x27; | &#x27;error&#x27; | &#x27;info&#x27; &#x3D; &#x27;info&#x27;;
+
+  // Mot de passe actuel pour vérification
+  currentPasswordInput: string &#x3D; &#x27;&#x27;;
+
+  // Indicateur de résistance du mot de passe
+  passwordStrength: &#x27;weak&#x27; | &#x27;medium&#x27; | &#x27;strong&#x27; &#x3D; &#x27;weak&#x27;;
+
+  // Flag pour afficher/masquer les mots de passe
+  showPasswords: boolean &#x3D; false;
+
+  // Liste des activités récentes (complète)
+  allActivities: Activity[] &#x3D; [];
+
+  // Nombre d&#x27;activités à afficher par défaut
+  activitiesDisplayCount: number &#x3D; 5;
+
+  // Onglet actif dans le profil (infos, stats, activités)
+  activeTab: &#x27;info&#x27; | &#x27;stats&#x27; | &#x27;activities&#x27; | &#x27;security&#x27; &#x3D; &#x27;info&#x27;;
+
+  // Avatar sélectionné pour changement
+  selectedAvatar: string &#x3D; &#x27;&#x27;;
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; CONSTRUCTEUR AVEC INJECTION DE DÉPENDANCES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  constructor(private formBuilder: FormBuilder) {
+    // Initialise le formulaire de profil avec validation
+    this.profileForm &#x3D; this.formBuilder.group({
+      // Champ prénom : obligatoire
+      firstName: [&#x27;&#x27;, [Validators.required, Validators.minLength(2)]],
+
+      // Champ nom : obligatoire
+      lastName: [&#x27;&#x27;, [Validators.required, Validators.minLength(2)]],
+
+      // Champ email : obligatoire et doit être un email valide
+      email: [&#x27;&#x27;, [Validators.required, Validators.email]],
+
+      // Champ téléphone : optionnel mais avec pattern
+      phone: [&#x27;&#x27;, [Validators.pattern(/^\+?[0-9\s\-\(\)]+$/)]],
+
+      // Champ date de naissance : optionnel
+      birthDate: [&#x27;&#x27;],
+
+      // Champ adresse : optionnel
+      address: [&#x27;&#x27;],
+
+      // Champ contact d&#x27;urgence : optionnel
+      emergencyContact: [&#x27;&#x27;],
+
+      // Champ téléphone d&#x27;urgence : optionnel
+      emergencyPhone: [&#x27;&#x27;, [Validators.pattern(/^\+?[0-9\s\-\(\)]+$/)]],
+
+      // Champ numéro de compte bancaire : optionnel
+      bankAccount: [&#x27;&#x27;],
+
+      // Champ nom de la banque : optionnel
+      bankName: [&#x27;&#x27;],
+
+      // Champ numéro de sécurité sociale : optionnel
+      socialSecurityNumber: [&#x27;&#x27;]
+    });
+
+    // Initialise le formulaire de changement de mot de passe
+    this.passwordForm &#x3D; this.formBuilder.group({
+      // Mot de passe actuel : obligatoire
+      currentPassword: [&#x27;&#x27;, Validators.required],
+
+      // Nouveau mot de passe : obligatoire, min 8 caractères
+      newPassword: [&#x27;&#x27;, [Validators.required, Validators.minLength(8)]],
+
+      // Confirmation du nouveau mot de passe : obligatoire
+      confirmPassword: [&#x27;&#x27;, Validators.required]
+    });
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE D&#x27;INITIALISATION &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  ngOnInit(): void {
+    // Charge le profil utilisateur au démarrage
+    this.loadUserProfile();
+
+    // Charge les activités récentes
+    this.loadActivities();
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE CHARGEMENT DU PROFIL &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Charge les données du profil utilisateur
+   * À remplacer par un appel API backend
+   */
+  loadUserProfile(): void {
+    // Données mockées du profil utilisateur
+    this.userProfile &#x3D; {
+      id: &#x27;user_1&#x27;,
+      firstName: &#x27;Jean&#x27;,
+      lastName: &#x27;Kouassi&#x27;,
+      email: &#x27;jean.kouassi@caveviking.com&#x27;,
+      phone: &#x27;+234 801 234 5678&#x27;,
+      role: &#x27;Manager Principal&#x27;,
+      avatar: &#x27;👨‍💼&#x27;,
+      cave: &#x27;Cave Principale&#x27;,
+      department: &#x27;Management&#x27;,
+      manager: &#x27;Franck KONGO&#x27;,
+      status: &#x27;active&#x27;,
+      joinDate: &#x27;2023-01-15&#x27;,
+      birthDate: &#x27;1985-06-20&#x27;,
+      address: &#x27;123 Rue de Lekki, Lagos&#x27;,
+      emergencyContact: &#x27;Marie Kouassi&#x27;,
+      emergencyPhone: &#x27;+234 805 678 9012&#x27;,
+      bankAccount: &#x27;******* 4567&#x27;,
+      bankName: &#x27;GTBank&#x27;,
+      socialSecurityNumber: &#x27;****-****-****&#x27;,
+      lastUpdateDate: &#x27;2025-09-15&#x27;,
+      profileComplete: true,
+      statistics: {
+        totalSales: 2500000,
+        totalHours: 160,
+        averageSalesPerDay: 83333,
+        monthlyBonus: 50000,
+        performanceRating: 96,
+        attendanceRate: 98
+      },
+      activities: []
+    };
+
+    // Stocke l&#x27;avatar actuel
+    this.selectedAvatar &#x3D; this.userProfile.avatar;
+
+    // Remplit le formulaire avec les données du profil
+    this.profileForm.patchValue({
+      firstName: this.userProfile.firstName,
+      lastName: this.userProfile.lastName,
+      email: this.userProfile.email,
+      phone: this.userProfile.phone,
+      birthDate: this.userProfile.birthDate,
+      address: this.userProfile.address,
+      emergencyContact: this.userProfile.emergencyContact,
+      emergencyPhone: this.userProfile.emergencyPhone,
+      bankAccount: this.userProfile.bankAccount,
+      bankName: this.userProfile.bankName,
+      socialSecurityNumber: this.userProfile.socialSecurityNumber
+    });
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE CHARGEMENT DES ACTIVITÉS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Charge la liste des activités récentes
+   */
+  loadActivities(): void {
+    // Données mockées des activités récentes
+    this.allActivities &#x3D; [
+      {
+        id: &#x27;1&#x27;,
+        title: &#x27;Connexion au système&#x27;,
+        description: &#x27;Connexion à caveviking Pro&#x27;,
+        timestamp: &#x27;2025-10-18 08:30:00&#x27;,
+        type: &#x27;login&#x27;,
+        icon: &#x27;🔓&#x27;
+      },
+      {
+        id: &#x27;2&#x27;,
+        title: &#x27;Mise à jour de profil&#x27;,
+        description: &#x27;Modification du numéro de téléphone&#x27;,
+        timestamp: &#x27;2025-10-17 14:15:00&#x27;,
+        type: &#x27;update&#x27;,
+        icon: &#x27;✏️&#x27;
+      },
+      {
+        id: &#x27;3&#x27;,
+        title: &#x27;Vente enregistrée&#x27;,
+        description: &#x27;5 bouteilles de Château Margaux - 125 000 FCFA&#x27;,
+        timestamp: &#x27;2025-10-17 11:45:00&#x27;,
+        type: &#x27;sale&#x27;,
+        icon: &#x27;💰&#x27;
+      },
+      {
+        id: &#x27;4&#x27;,
+        title: &#x27;Mise à jour de stock&#x27;,
+        description: &#x27;50 bouteilles ajoutées - Cave Principale&#x27;,
+        timestamp: &#x27;2025-10-16 09:20:00&#x27;,
+        type: &#x27;stock&#x27;,
+        icon: &#x27;📥&#x27;
+      },
+      {
+        id: &#x27;5&#x27;,
+        title: &#x27;Rapport mensuel généré&#x27;,
+        description: &#x27;Rapport de performance de septembre 2025&#x27;,
+        timestamp: &#x27;2025-10-15 16:00:00&#x27;,
+        type: &#x27;system&#x27;,
+        icon: &#x27;📊&#x27;
+      },
+      {
+        id: &#x27;6&#x27;,
+        title: &#x27;Vente enregistrée&#x27;,
+        description: &#x27;2 bouteilles de Dom Pérignon - 90 000 FCFA&#x27;,
+        timestamp: &#x27;2025-10-15 13:30:00&#x27;,
+        type: &#x27;sale&#x27;,
+        icon: &#x27;💰&#x27;
+      },
+      {
+        id: &#x27;7&#x27;,
+        title: &#x27;Changement de mot de passe&#x27;,
+        description: &#x27;Mise à jour du mot de passe de sécurité&#x27;,
+        timestamp: &#x27;2025-10-14 10:00:00&#x27;,
+        type: &#x27;system&#x27;,
+        icon: &#x27;🔐&#x27;
+      },
+      {
+        id: &#x27;8&#x27;,
+        title: &#x27;Connexion au système&#x27;,
+        description: &#x27;Connexion à caveviking Pro&#x27;,
+        timestamp: &#x27;2025-10-14 08:00:00&#x27;,
+        type: &#x27;login&#x27;,
+        icon: &#x27;🔓&#x27;
+      }
+    ];
+
+    // Ajoute les activités au profil utilisateur
+    if (this.userProfile) {
+      this.userProfile.activities &#x3D; this.allActivities;
+    }
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE D&#x27;ACTIVATION DU MODE ÉDITION &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Active le mode édition du profil
+   */
+  startEditingProfile(): void {
+    // Active le flag de mode édition
+    this.isEditingProfile &#x3D; true;
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE D&#x27;ANNULATION DE L&#x27;ÉDITION &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Annule les modifications et quitte le mode édition
+   */
+  cancelEditingProfile(): void {
+    // Désactive le mode édition
+    this.isEditingProfile &#x3D; false;
+
+    // Récharge le profil depuis les données (annule les changements)
+    this.loadUserProfile();
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE SAUVEGARDE DU PROFIL &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Sauvegarde les modifications du profil
+   */
+  saveProfile(): void {
+    // Vérifie que le formulaire est valide
+    if (this.profileForm.invalid) {
+      // Affiche une erreur
+      this.showMessage(&#x27;⚠️ Veuillez remplir tous les champs obligatoires correctement&#x27;, &#x27;error&#x27;);
+      return;
+    }
+
+    // Vérifie que le profil utilisateur existe
+    if (!this.userProfile) {
+      this.showMessage(&#x27;⚠️ Erreur: profil utilisateur non trouvé&#x27;, &#x27;error&#x27;);
+      return;
+    }
+
+    // Met à jour le profil avec les valeurs du formulaire
+    this.userProfile.firstName &#x3D; this.profileForm.get(&#x27;firstName&#x27;)?.value;
+    this.userProfile.lastName &#x3D; this.profileForm.get(&#x27;lastName&#x27;)?.value;
+    this.userProfile.email &#x3D; this.profileForm.get(&#x27;email&#x27;)?.value;
+    this.userProfile.phone &#x3D; this.profileForm.get(&#x27;phone&#x27;)?.value;
+    this.userProfile.birthDate &#x3D; this.profileForm.get(&#x27;birthDate&#x27;)?.value;
+    this.userProfile.address &#x3D; this.profileForm.get(&#x27;address&#x27;)?.value;
+    this.userProfile.emergencyContact &#x3D; this.profileForm.get(&#x27;emergencyContact&#x27;)?.value;
+    this.userProfile.emergencyPhone &#x3D; this.profileForm.get(&#x27;emergencyPhone&#x27;)?.value;
+    this.userProfile.bankAccount &#x3D; this.profileForm.get(&#x27;bankAccount&#x27;)?.value;
+    this.userProfile.bankName &#x3D; this.profileForm.get(&#x27;bankName&#x27;)?.value;
+    this.userProfile.socialSecurityNumber &#x3D; this.profileForm.get(&#x27;socialSecurityNumber&#x27;)?.value;
+
+    // Met à jour la date de dernière modification
+    this.userProfile.lastUpdateDate &#x3D; new Date().toISOString().split(&#x27;T&#x27;)[0];
+
+    // Désactive le mode édition
+    this.isEditingProfile &#x3D; false;
+
+    // Affiche un message de succès
+    this.showMessage(&#x27;✓ Profil mis à jour avec succès !&#x27;, &#x27;success&#x27;);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE CHANGEMENT DE MOT DE PASSE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Change le mot de passe utilisateur
+   */
+  changePassword(): void {
+    // Vérifie que le formulaire de mot de passe est valide
+    if (this.passwordForm.invalid) {
+      // Affiche une erreur
+      this.showMessage(&#x27;⚠️ Veuillez remplir tous les champs correctement&#x27;, &#x27;error&#x27;);
+      return;
+    }
+
+    // Récupère le nouveau mot de passe
+    const newPassword &#x3D; this.passwordForm.get(&#x27;newPassword&#x27;)?.value;
+
+    // Récupère la confirmation du mot de passe
+    const confirmPassword &#x3D; this.passwordForm.get(&#x27;confirmPassword&#x27;)?.value;
+
+    // Vérifie que les deux mots de passe correspondent
+    if (newPassword !&#x3D;&#x3D; confirmPassword) {
+      // Affiche une erreur
+      this.showMessage(&#x27;⚠️ Les mots de passe ne correspondent pas&#x27;, &#x27;error&#x27;);
+      return;
+    }
+
+    // En production, on enverrait une requête au serveur
+    // Ici on simule juste la réussite
+    this.showMessage(&#x27;✓ Mot de passe changé avec succès !&#x27;, &#x27;success&#x27;);
+
+    // Réinitialise le formulaire de mot de passe
+    this.passwordForm.reset();
+
+    // Désactive le mode changement de mot de passe
+    this.isChangingPassword &#x3D; false;
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE D&#x27;ÉVALUATION DE LA RÉSISTANCE DU MOT DE PASSE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Évalue la résistance du mot de passe saisi
+   */
+  evaluatePasswordStrength(): void {
+    // Récupère le nouveau mot de passe
+    const password &#x3D; this.passwordForm.get(&#x27;newPassword&#x27;)?.value || &#x27;&#x27;;
+
+    // Initilialise le score à 0
+    let strength &#x3D; 0;
+
+    // Ajoute 1 point si le mot de passe contient au moins 8 caractères
+    if (password.length &gt;&#x3D; 8) strength++;
+
+    // Ajoute 1 point s&#x27;il contient des lettres majuscules
+    if (/[A-Z]/.test(password)) strength++;
+
+    // Ajoute 1 point s&#x27;il contient des lettres minuscules
+    if (/[a-z]/.test(password)) strength++;
+
+    // Ajoute 1 point s&#x27;il contient des chiffres
+    if (/\d/.test(password)) strength++;
+
+    // Ajoute 1 point s&#x27;il contient des caractères spéciaux
+    if (/[!@#$%^&amp;*]/.test(password)) strength++;
+
+    // Détermine le niveau de résistance basé sur le score
+    if (strength &lt;&#x3D; 2) {
+      this.passwordStrength &#x3D; &#x27;weak&#x27;;
+    } else if (strength &lt;&#x3D; 4) {
+      this.passwordStrength &#x3D; &#x27;medium&#x27;;
+    } else {
+      this.passwordStrength &#x3D; &#x27;strong&#x27;;
+    }
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE D&#x27;AFFICHAGE/MASQUAGE DES MOTS DE PASSE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Bascule l&#x27;affichage des mots de passe
+   */
+  togglePasswordVisibility(): void {
+    // Inverse le flag d&#x27;affichage
+    this.showPasswords &#x3D; !this.showPasswords;
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE CALCUL DE POURCENTAGE DE PROFIL COMPLET &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Calcule le pourcentage de complétude du profil
+   * @returns Le pourcentage entre 0 et 100
+   */
+  getProfileCompletion(): number {
+    // Vérifie que le profil existe
+    if (!this.userProfile) return 0;
+
+    // Initialise le compteur de champs
+    let completedFields &#x3D; 0;
+    const totalFields &#x3D; 10; // Nombre de champs à considérer
+
+    // Vérifie chaque champ obligatoire
+    if (this.userProfile.firstName) completedFields++;
+    if (this.userProfile.lastName) completedFields++;
+    if (this.userProfile.email) completedFields++;
+    if (this.userProfile.phone) completedFields++;
+    if (this.userProfile.birthDate) completedFields++;
+    if (this.userProfile.address) completedFields++;
+    if (this.userProfile.emergencyContact) completedFields++;
+    if (this.userProfile.emergencyPhone) completedFields++;
+    if (this.userProfile.bankAccount) completedFields++;
+    if (this.userProfile.bankName) completedFields++;
+
+    // Retourne le pourcentage
+    return Math.round((completedFields / totalFields) * 100);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE D&#x27;AFFICHAGE DE MESSAGE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Affiche un message temporaire (succès, erreur, info)
+   * @param msg Le message à afficher
+   * @param type Le type de message
+   */
+  showMessage(msg: string, type: &#x27;success&#x27; | &#x27;error&#x27; | &#x27;info&#x27;): void {
+    // Stocke le message
+    this.message &#x3D; msg;
+
+    // Stocke le type de message
+    this.messageType &#x3D; type;
+
+    // Efface le message après 3 secondes
+    setTimeout(() &#x3D;&gt; {
+      this.message &#x3D; &#x27;&#x27;;
+    }, 3000);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE CHANGEMENT D&#x27;AVATAR &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Change l&#x27;avatar sélectionné
+   * @param avatar Le nouvel avatar (emoji)
+   */
+  selectAvatar(avatar: string): void {
+    // Stocke le nouvel avatar
+    this.selectedAvatar &#x3D; avatar;
+
+    // Met à jour le profil avec le nouvel avatar
+    if (this.userProfile) {
+      this.userProfile.avatar &#x3D; avatar;
+    }
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE DÉTERMINATION DE LA CLASSE DE BADGE D&#x27;ACTIVITÉ &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Retourne la classe CSS pour le badge du type d&#x27;activité
+   * @param type Le type d&#x27;activité
+   * @returns La classe CSS correspondante
+   */
+  getActivityBadgeClass(type: string): string {
+    // Retourne une classe différente selon le type d&#x27;activité
+    switch (type) {
+      case &#x27;login&#x27;:
+        return &#x27;badge-login&#x27;;
+      case &#x27;update&#x27;:
+        return &#x27;badge-update&#x27;;
+      case &#x27;sale&#x27;:
+        return &#x27;badge-sale&#x27;;
+      case &#x27;stock&#x27;:
+        return &#x27;badge-stock&#x27;;
+      case &#x27;system&#x27;:
+        return &#x27;badge-system&#x27;;
+      default:
+        return &#x27;badge-default&#x27;;
+    }
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE FORMATAGE DE DATE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Formate une date en format lisible
+   * @param dateString La date en string
+   * @returns La date formatée
+   */
+  formatDate(dateString: string): string {
+    // Crée un objet Date à partir du string
+    const date &#x3D; new Date(dateString);
+
+    // Retourne la date formatée en français
+    return date.toLocaleDateString(&#x27;fr-FR&#x27;, {
+      year: &#x27;numeric&#x27;,
+      month: &#x27;long&#x27;,
+      day: &#x27;numeric&#x27;
+    });
+  }
+
+  formatCurrency(amount: number): string {
+  return amount.toLocaleString(&#x27;fr-FR&#x27;) + &#x27; FCFA&#x27;;
+}
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE D&#x27;OBTENTION DES ACTIVITÉS À AFFICHER &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Retourne les activités à afficher (avec limite)
+   * @returns Les activités filtrées
+   */
+  getDisplayedActivities(): Activity[] {
+    // Retourne les X premières activités (où X &#x3D; activitiesDisplayCount)
+    return this.allActivities.slice(0, this.activitiesDisplayCount);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE D&#x27;AFFICHAGE DE PLUS D&#x27;ACTIVITÉS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Charge et affiche plus d&#x27;activités
+   */
+  loadMoreActivities(): void {
+    // Augmente le nombre d&#x27;activités à afficher (par 5)
+    this.activitiesDisplayCount +&#x3D; 5;
+
+    // Limite à la taille maximum de la liste
+    if (this.activitiesDisplayCount &gt; this.allActivities.length) {
+      this.activitiesDisplayCount &#x3D; this.allActivities.length;
+    }
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE CHANGEMENT D&#x27;ONGLET &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Change l&#x27;onglet actif
+   * @param tab Le nom de l&#x27;onglet à afficher
+   */
+  switchTab(tab: &#x27;info&#x27; | &#x27;stats&#x27; | &#x27;activities&#x27; | &#x27;security&#x27;): void {
+    // Met à jour l&#x27;onglet actif
+    this.activeTab &#x3D; tab;
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE VÉRIFICATION DE VALIDITÉ DE CHAMP &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Vérifie si un champ du formulaire est invalide et a été touché
+   * @param fieldName Le nom du champ
+   * @returns true si le champ est invalide et touché
+   */
+  isFieldInvalid(fieldName: string): boolean {
+    // Récupère le champ du formulaire de profil
+    const field &#x3D; this.profileForm.get(fieldName);
+
+    // Retourne true si le champ est invalide ET a été touché
+    return !!(field &amp;&amp; field.invalid &amp;&amp; field.touched);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE TÉLÉCHARGEMENT DE RAPPORT &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Télécharge un rapport du profil utilisateur
+   */
+  downloadReport(): void {
+    // Affiche un message d&#x27;information
+    this.showMessage(&#x27;📥 Rapport en cours de téléchargement...&#x27;, &#x27;info&#x27;);
+
+    // Simule le téléchargement (en production, ce serait un appel API)
+    setTimeout(() &#x3D;&gt; {
+      // Affiche un message de succès
+      this.showMessage(&#x27;✓ Rapport téléchargé avec succès !&#x27;, &#x27;success&#x27;);
+    }, 2000);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE D&#x27;EXPORT DES DONNÉES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Exporte les données du profil en JSON
+   */
+  exportProfileData(): void {
+    // Vérifie que le profil existe
+    if (!this.userProfile) {
+      this.showMessage(&#x27;⚠️ Erreur: profil utilisateur non trouvé&#x27;, &#x27;error&#x27;);
+      return;
+    }
+
+    // Crée une chaîne JSON du profil
+    const dataString &#x3D; JSON.stringify(this.userProfile, null, 2);
+
+    // Crée un blob à partir de la chaîne
+    const blob &#x3D; new Blob([dataString], { type: &#x27;application/json&#x27; });
+
+    // Crée une URL pour le blob
+    const url &#x3D; URL.createObjectURL(blob);
+
+    // Crée un élément &lt;a&gt; pour télécharger
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; url;
+    link.download &#x3D; &#x60;profil_${this.userProfile.firstName}_${this.userProfile.lastName}.json&#x60;;
+
+    // Déclenche le téléchargement
+    link.click();
+
+    // Libère l&#x27;URL
+    URL.revokeObjectURL(url);
+
+    // Affiche un message de succès
+    this.showMessage(&#x27;✓ Données exportées avec succès !&#x27;, &#x27;success&#x27;);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE DÉCONNEXION &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Déconnecte l&#x27;utilisateur
+   */
+  logout(): void {
+    // Demande une confirmation
+    if (confirm(&#x27;Êtes-vous sûr de vouloir vous déconnecter ?&#x27;)) {
+      // Affiche un message d&#x27;information
+      this.showMessage(&#x27;👋 Déconnexion en cours...&#x27;, &#x27;info&#x27;);
+
+      // Redirige vers la page de connexion après 1 seconde
+      setTimeout(() &#x3D;&gt; {
+        // En production: this.router.navigate([&#x27;/login&#x27;]);
+        console.log(&#x27;Redirection vers la page de connexion&#x27;);
+      }, 1000);
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; FICHIER: user-profile.component.html &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+&lt;!-- Template pour l&#x27;affichage et gestion du profil utilisateur --&gt;
+
+&lt;div class&#x3D;&quot;user-profile-container&quot;&gt;
+
+  &lt;!-- Message de feedback --&gt;
+  &lt;div *ngIf&#x3D;&quot;message&quot;
+       class&#x3D;&quot;alert&quot;
+       [ngClass]&#x3D;&quot;&#x27;alert-&#x27; + messageType&quot;&gt;
+    {{ message }}
+  &lt;/div&gt;
+
+  &lt;!-- En-tête du profil --&gt;
+  &lt;div class&#x3D;&quot;profile-header&quot; *ngIf&#x3D;&quot;userProfile&quot;&gt;
+    &lt;!-- Couverture de profil --&gt;
+    &lt;div class&#x3D;&quot;profile-cover&quot;&gt;&lt;/div&gt;
+
+    &lt;!-- Section infos de profil --&gt;
+    &lt;div class&#x3D;&quot;profile-info-section&quot;&gt;
+      &lt;!-- Avatar grand avec bouton édition --&gt;
+      &lt;div class&#x3D;&quot;avatar-large-container&quot;&gt;
+        &lt;span class&#x3D;&quot;avatar-xxl&quot;&gt;{{ userProfile.avatar }}&lt;/span&gt;
+        &lt;button (click)&#x3D;&quot;startEditingProfile()&quot; class&#x3D;&quot;btn-edit-avatar&quot; title&#x3D;&quot;Changer avatar&quot;&gt;
+          ✏️
+        &lt;/button&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Infos basiques --&gt;
+      &lt;div class&#x3D;&quot;profile-basic&quot;&gt;
+        &lt;h1&gt;{{ userProfile.firstName }} {{ userProfile.lastName }}&lt;/h1&gt;
+        &lt;p class&#x3D;&quot;role&quot;&gt;👔 {{ userProfile.role }}&lt;/p&gt;
+        &lt;p class&#x3D;&quot;cave&quot;&gt;🏢 {{ userProfile.cave }}&lt;/p&gt;
+
+        &lt;!-- Badge statut --&gt;
+        &lt;span class&#x3D;&quot;status-badge&quot; [ngClass]&#x3D;&quot;&#x27;status-&#x27; + userProfile.status&quot;&gt;
+          {{ userProfile.status &#x3D;&#x3D;&#x3D; &#x27;active&#x27; ? &#x27;🟢 Actif&#x27; :
+             userProfile.status &#x3D;&#x3D;&#x3D; &#x27;inactive&#x27; ? &#x27;🔴 Inactif&#x27; :
+             &#x27;🟡 En congé&#x27; }}
+        &lt;/span&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Barre de complétude du profil --&gt;
+      &lt;div class&#x3D;&quot;completion-bar&quot;&gt;
+        &lt;div class&#x3D;&quot;bar-label&quot;&gt;
+          &lt;span&gt;Profil complété:&lt;/span&gt;
+          &lt;span class&#x3D;&quot;percentage&quot;&gt;{{ getProfileCompletion() }}%&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;bar-container&quot;&gt;
+          &lt;div class&#x3D;&quot;bar-fill&quot; [style.width.%]&#x3D;&quot;getProfileCompletion()&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Boutons d&#x27;action --&gt;
+    &lt;div class&#x3D;&quot;profile-actions&quot;&gt;
+      &lt;button (click)&#x3D;&quot;startEditingProfile()&quot; class&#x3D;&quot;btn btn-primary&quot; *ngIf&#x3D;&quot;!isEditingProfile&quot;&gt;
+        ✏️ Éditer le profil
+      &lt;/button&gt;
+      &lt;button (click)&#x3D;&quot;downloadReport()&quot; class&#x3D;&quot;btn btn-secondary&quot;&gt;
+        📥 Télécharger rapport
+      &lt;/button&gt;
+      &lt;button (click)&#x3D;&quot;exportProfileData()&quot; class&#x3D;&quot;btn btn-secondary&quot;&gt;
+        💾 Exporter données
+      &lt;/button&gt;
+      &lt;button (click)&#x3D;&quot;logout()&quot; class&#x3D;&quot;btn btn-danger&quot;&gt;
+        🚪 Déconnexion
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Onglets de navigation --&gt;
+  &lt;div class&#x3D;&quot;tabs-container&quot;&gt;
+    &lt;button class&#x3D;&quot;tab-btn&quot;
+            [class.active]&#x3D;&quot;activeTab &#x3D;&#x3D;&#x3D; &#x27;info&#x27;&quot;
+            (click)&#x3D;&quot;switchTab(&#x27;info&#x27;)&quot;&gt;
+      👤 Infos personnelles
+    &lt;/button&gt;
+    &lt;button class&#x3D;&quot;tab-btn&quot;
+            [class.active]&#x3D;&quot;activeTab &#x3D;&#x3D;&#x3D; &#x27;stats&#x27;&quot;
+            (click)&#x3D;&quot;switchTab(&#x27;stats&#x27;)&quot;&gt;
+      📊 Statistiques
+    &lt;/button&gt;
+    &lt;button class&#x3D;&quot;tab-btn&quot;
+            [class.active]&#x3D;&quot;activeTab &#x3D;&#x3D;&#x3D; &#x27;activities&#x27;&quot;
+            (click)&#x3D;&quot;switchTab(&#x27;activities&#x27;)&quot;&gt;
+      📋 Activités
+    &lt;/button&gt;
+    &lt;button class&#x3D;&quot;tab-btn&quot;
+            [class.active]&#x3D;&quot;activeTab &#x3D;&#x3D;&#x3D; &#x27;security&#x27;&quot;
+            (click)&#x3D;&quot;switchTab(&#x27;security&#x27;)&quot;&gt;
+      🔒 Sécurité
+    &lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Contenu des onglets --&gt;
+  &lt;div class&#x3D;&quot;tabs-content&quot;&gt;
+
+    &lt;!-- ONGLET 1: INFORMATIONS PERSONNELLES --&gt;
+    &lt;div *ngIf&#x3D;&quot;activeTab &#x3D;&#x3D;&#x3D; &#x27;info&#x27; &amp;&amp; userProfile&quot; class&#x3D;&quot;tab-pane&quot; &gt;
+
+      &lt;!-- Mode affichage --&gt;
+      &lt;div *ngIf&#x3D;&quot;!isEditingProfile&quot; class&#x3D;&quot;info-display&quot;&gt;
+        &lt;div class&#x3D;&quot;info-grid&quot;&gt;
+          &lt;!-- Ligne 1 --&gt;
+          &lt;div class&#x3D;&quot;info-item&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;📧 Email&lt;/span&gt;
+            &lt;span class&#x3D;&quot;value&quot;&gt;{{ userProfile.email }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;info-item&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;📱 Téléphone&lt;/span&gt;
+            &lt;span class&#x3D;&quot;value&quot;&gt;{{ userProfile.phone }}&lt;/span&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Ligne 2 --&gt;
+          &lt;div class&#x3D;&quot;info-item&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;📅 Date de naissance&lt;/span&gt;
+            &lt;span class&#x3D;&quot;value&quot;&gt;{{ formatDate(userProfile.birthDate) }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;info-item&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;📍 Adresse&lt;/span&gt;
+            &lt;span class&#x3D;&quot;value&quot;&gt;{{ userProfile.address }}&lt;/span&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Ligne 3 --&gt;
+          &lt;div class&#x3D;&quot;info-item&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;👥 Contact d&#x27;urgence&lt;/span&gt;
+            &lt;span class&#x3D;&quot;value&quot;&gt;{{ userProfile.emergencyContact }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;info-item&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;📞 Téléphone urgence&lt;/span&gt;
+            &lt;span class&#x3D;&quot;value&quot;&gt;{{ userProfile.emergencyPhone }}&lt;/span&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Ligne 4 --&gt;
+          &lt;div class&#x3D;&quot;info-item&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;🏦 Compte bancaire&lt;/span&gt;
+            &lt;span class&#x3D;&quot;value&quot;&gt;{{ userProfile.bankAccount }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;info-item&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;🏪 Banque&lt;/span&gt;
+            &lt;span class&#x3D;&quot;value&quot;&gt;{{ userProfile.bankName }}&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Mode édition --&gt;
+      &lt;form *ngIf&#x3D;&quot;isEditingProfile&quot; [formGroup]&#x3D;&quot;profileForm&quot; class&#x3D;&quot;info-edit&quot;&gt;
+        &lt;!-- Prénom &amp; Nom --&gt;
+        &lt;div class&#x3D;&quot;form-row&quot;&gt;
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label class&#x3D;&quot;form-label&quot;&gt;Prénom&lt;/label&gt;
+            &lt;input type&#x3D;&quot;text&quot; class&#x3D;&quot;form-input&quot; formControlName&#x3D;&quot;firstName&quot;&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label class&#x3D;&quot;form-label&quot;&gt;Nom&lt;/label&gt;
+            &lt;input type&#x3D;&quot;text&quot; class&#x3D;&quot;form-input&quot; formControlName&#x3D;&quot;lastName&quot;&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Email &amp; Téléphone --&gt;
+        &lt;div class&#x3D;&quot;form-row&quot;&gt;
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label class&#x3D;&quot;form-label&quot;&gt;Email&lt;/label&gt;
+            &lt;input type&#x3D;&quot;email&quot; class&#x3D;&quot;form-input&quot; formControlName&#x3D;&quot;email&quot;&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label class&#x3D;&quot;form-label&quot;&gt;Téléphone&lt;/label&gt;
+            &lt;input type&#x3D;&quot;tel&quot; class&#x3D;&quot;form-input&quot; formControlName&#x3D;&quot;phone&quot;&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Date naissance &amp; Adresse --&gt;
+        &lt;div class&#x3D;&quot;form-row&quot;&gt;
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label class&#x3D;&quot;form-label&quot;&gt;Date de naissance&lt;/label&gt;
+            &lt;input type&#x3D;&quot;date&quot; class&#x3D;&quot;form-input&quot; formControlName&#x3D;&quot;birthDate&quot;&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label class&#x3D;&quot;form-label&quot;&gt;Adresse&lt;/label&gt;
+            &lt;input type&#x3D;&quot;text&quot; class&#x3D;&quot;form-input&quot; formControlName&#x3D;&quot;address&quot;&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Contact urgence --&gt;
+        &lt;div class&#x3D;&quot;form-row&quot;&gt;
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label class&#x3D;&quot;form-label&quot;&gt;Contact d&#x27;urgence&lt;/label&gt;
+            &lt;input type&#x3D;&quot;text&quot; class&#x3D;&quot;form-input&quot; formControlName&#x3D;&quot;emergencyContact&quot;&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label class&#x3D;&quot;form-label&quot;&gt;Téléphone urgence&lt;/label&gt;
+            &lt;input type&#x3D;&quot;tel&quot; class&#x3D;&quot;form-input&quot; formControlName&#x3D;&quot;emergencyPhone&quot;&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Infos bancaires --&gt;
+        &lt;div class&#x3D;&quot;form-row&quot;&gt;
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label class&#x3D;&quot;form-label&quot;&gt;Compte bancaire&lt;/label&gt;
+            &lt;input type&#x3D;&quot;text&quot; class&#x3D;&quot;form-input&quot; formControlName&#x3D;&quot;bankAccount&quot;&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label class&#x3D;&quot;form-label&quot;&gt;Banque&lt;/label&gt;
+            &lt;input type&#x3D;&quot;text&quot; class&#x3D;&quot;form-input&quot; formControlName&#x3D;&quot;bankName&quot;&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Boutons --&gt;
+        &lt;div class&#x3D;&quot;form-actions&quot;&gt;
+          &lt;button type&#x3D;&quot;button&quot; (click)&#x3D;&quot;cancelEditingProfile()&quot; class&#x3D;&quot;btn btn-secondary&quot;&gt;
+            ✕ Annuler
+          &lt;/button&gt;
+          &lt;button type&#x3D;&quot;button&quot; (click)&#x3D;&quot;saveProfile()&quot;
+                  [disabled]&#x3D;&quot;profileForm.invalid&quot;
+                  class&#x3D;&quot;btn btn-primary&quot;&gt;
+            💾 Enregistrer
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+
+    &lt;!-- ONGLET 2: STATISTIQUES --&gt;
+       &lt;div *ngIf&#x3D;&quot;activeTab &#x3D;&#x3D;&#x3D; &#x27;stats&#x27; &amp;&amp; userProfile&quot; class&#x3D;&quot;tab-pane&quot; &gt;
+
+      &lt;div class&#x3D;&quot;stats-grid&quot;&gt;
+        &lt;!-- Ventes totales --&gt;
+        &lt;div class&#x3D;&quot;stat-card&quot;&gt;
+          &lt;div class&#x3D;&quot;stat-icon&quot;&gt;💰&lt;/div&gt;
+          &lt;div class&#x3D;&quot;stat-content&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;Ventes totales&lt;/span&gt;
+            &lt;span class&#x3D;&quot;value&quot;&gt;{{ formatCurrency(userProfile.statistics.totalSales) }}&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Heures travaillées --&gt;
+        &lt;div class&#x3D;&quot;stat-card&quot;&gt;
+          &lt;div class&#x3D;&quot;stat-icon&quot;&gt;⏱️&lt;/div&gt;
+          &lt;div class&#x3D;&quot;stat-content&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;Heures travaillées&lt;/span&gt;
+            &lt;span class&#x3D;&quot;value&quot;&gt;{{ userProfile.statistics.totalHours }}h&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Moyenne par jour --&gt;
+        &lt;div class&#x3D;&quot;stat-card&quot;&gt;
+          &lt;div class&#x3D;&quot;stat-icon&quot;&gt;📈&lt;/div&gt;
+          &lt;div class&#x3D;&quot;stat-content&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;Moyenne/jour&lt;/span&gt;
+            &lt;span class&#x3D;&quot;value&quot;&gt;{{ formatCurrency(userProfile.statistics.averageSalesPerDay) }}&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Bonus mensuel --&gt;
+        &lt;div class&#x3D;&quot;stat-card&quot;&gt;
+          &lt;div class&#x3D;&quot;stat-icon&quot;&gt;🎁&lt;/div&gt;
+          &lt;div class&#x3D;&quot;stat-content&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;Bonus mensuel&lt;/span&gt;
+            &lt;span class&#x3D;&quot;value&quot;&gt;{{ formatCurrency(userProfile.statistics.monthlyBonus) }}&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Performance --&gt;
+        &lt;div class&#x3D;&quot;stat-card&quot;&gt;
+          &lt;div class&#x3D;&quot;stat-icon&quot;&gt;⭐&lt;/div&gt;
+          &lt;div class&#x3D;&quot;stat-content&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;Note performance&lt;/span&gt;
+            &lt;span class&#x3D;&quot;value&quot;&gt;{{ userProfile.statistics.performanceRating }}/100&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Présence --&gt;
+        &lt;div class&#x3D;&quot;stat-card&quot;&gt;
+          &lt;div class&#x3D;&quot;stat-icon&quot;&gt;✅&lt;/div&gt;
+          &lt;div class&#x3D;&quot;stat-content&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;Taux présence&lt;/span&gt;
+            &lt;span class&#x3D;&quot;value&quot;&gt;{{ userProfile.statistics.attendanceRate }}%&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- ONGLET 3: ACTIVITÉS --&gt;
+    &lt;div *ngIf&#x3D;&quot;activeTab &#x3D;&#x3D;&#x3D; &#x27;activities&#x27;&quot; class&#x3D;&quot;tab-pane&quot;&gt;
+      &lt;div class&#x3D;&quot;activities-list&quot;&gt;
+        &lt;!-- Boucle sur les activités affichées --&gt;
+        &lt;div *ngFor&#x3D;&quot;let activity of getDisplayedActivities()&quot; class&#x3D;&quot;activity-item&quot;&gt;
+          &lt;!-- Icône avec badge du type --&gt;
+          &lt;div class&#x3D;&quot;activity-badge&quot; [ngClass]&#x3D;&quot;getActivityBadgeClass(activity.type)&quot;&gt;
+            {{ activity.icon }}
+          &lt;/div&gt;
+
+          &lt;!-- Contenu de l&#x27;activité --&gt;
+          &lt;div class&#x3D;&quot;activity-content&quot;&gt;
+            &lt;h4&gt;{{ activity.title }}&lt;/h4&gt;
+            &lt;p&gt;{{ activity.description }}&lt;/p&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Timestamp --&gt;
+          &lt;div class&#x3D;&quot;activity-time&quot;&gt;
+            {{ activity.timestamp }}
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Bouton charger plus --&gt;
+        &lt;button *ngIf&#x3D;&quot;activitiesDisplayCount &lt; allActivities.length&quot;
+                (click)&#x3D;&quot;loadMoreActivities()&quot;
+                class&#x3D;&quot;btn btn-secondary btn-block&quot;&gt;
+          ⬇️ Charger plus d&#x27;activités
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- ONGLET 4: SÉCURITÉ --&gt;
+    &lt;div *ngIf&#x3D;&quot;activeTab &#x3D;&#x3D;&#x3D; &#x27;security&#x27;&quot; class&#x3D;&quot;tab-pane&quot;&gt;
+      &lt;div class&#x3D;&quot;security-section&quot;&gt;
+        &lt;h3&gt;🔒 Changer le mot de passe&lt;/h3&gt;
+
+        &lt;!--  affichage --&gt;
+        &lt;div *ngIf&#x3D;&quot;!isChangingPassword&quot; class&#x3D;&quot;security-display&quot;&gt;
+          &lt;p&gt;Votre mot de passe a été mis à jour le &lt;strong&gt;{{ userProfile?.lastUpdateDate }}&lt;/strong&gt;&lt;/p&gt;
+          &lt;button (click)&#x3D;&quot;isChangingPassword &#x3D; true&quot; class&#x3D;&quot;btn btn-primary&quot;&gt;
+            🔑 Changer le mot de passe
+          &lt;/button&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Mode édition --&gt;
+        &lt;form *ngIf&#x3D;&quot;isChangingPassword&quot; [formGroup]&#x3D;&quot;passwordForm&quot; class&#x3D;&quot;password-form&quot;&gt;
+          &lt;!-- Mot de passe actuel --&gt;
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label class&#x3D;&quot;form-label&quot;&gt;Mot de passe actuel *&lt;/label&gt;
+            &lt;div class&#x3D;&quot;password-input-container&quot;&gt;
+              &lt;input [type]&#x3D;&quot;showPasswords ? &#x27;text&#x27; : &#x27;password&#x27;&quot;
+                     class&#x3D;&quot;form-input&quot;
+                     formControlName&#x3D;&quot;currentPassword&quot;
+                     placeholder&#x3D;&quot;••••••••&quot;&gt;
+              &lt;button type&#x3D;&quot;button&quot;
+                      (click)&#x3D;&quot;togglePasswordVisibility()&quot;
+                      class&#x3D;&quot;btn-toggle-password&quot;&gt;
+                {{ showPasswords ? &#x27;🙈&#x27; : &#x27;👁️&#x27; }}
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Nouveau mot de passe --&gt;
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label class&#x3D;&quot;form-label&quot;&gt;Nouveau mot de passe *&lt;/label&gt;
+            &lt;div class&#x3D;&quot;password-input-container&quot;&gt;
+              &lt;input [type]&#x3D;&quot;showPasswords ? &#x27;text&#x27; : &#x27;password&#x27;&quot;
+                     class&#x3D;&quot;form-input&quot;
+                     formControlName&#x3D;&quot;newPassword&quot;
+                     placeholder&#x3D;&quot;••••••••&quot;
+                     (input)&#x3D;&quot;evaluatePasswordStrength()&quot;&gt;
+              &lt;button type&#x3D;&quot;button&quot;
+                      (click)&#x3D;&quot;togglePasswordVisibility()&quot;
+                      class&#x3D;&quot;btn-toggle-password&quot;&gt;
+                {{ showPasswords ? &#x27;🙈&#x27; : &#x27;👁️&#x27; }}
+              &lt;/button&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Indicateur de force --&gt;
+            &lt;div class&#x3D;&quot;strength-indicator&quot; [ngClass]&#x3D;&quot;&#x27;strength-&#x27; + passwordStrength&quot;&gt;
+              &lt;span&gt;Force: &lt;strong&gt;{{ passwordStrength }}&lt;/strong&gt;&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Confirmation mot de passe --&gt;
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label class&#x3D;&quot;form-label&quot;&gt;Confirmer le mot de passe *&lt;/label&gt;
+            &lt;div class&#x3D;&quot;password-input-container&quot;&gt;
+              &lt;input [type]&#x3D;&quot;showPasswords ? &#x27;text&#x27; : &#x27;password&#x27;&quot;
+                     class&#x3D;&quot;form-input&quot;
+                     formControlName&#x3D;&quot;confirmPassword&quot;
+                     placeholder&#x3D;&quot;••••••••&quot;&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Boutons --&gt;
+          &lt;div class&#x3D;&quot;form-actions&quot;&gt;
+            &lt;button type&#x3D;&quot;button&quot;
+                    (click)&#x3D;&quot;isChangingPassword &#x3D; false; passwordForm.reset()&quot;
+                    class&#x3D;&quot;btn btn-secondary&quot;&gt;
+              ✕ Annuler
+            &lt;/button&gt;
+            &lt;button type&#x3D;&quot;button&quot;
+                    (click)&#x3D;&quot;changePassword()&quot;
+                    [disabled]&#x3D;&quot;passwordForm.invalid&quot;
+                    class&#x3D;&quot;btn btn-primary&quot;&gt;
+              🔐 Changer le mot de passe
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/form&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./user-profile.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; CONTENEUR PRINCIPAL &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.user-profile-container {
+  // Padding
+  padding: 2rem;
+  // Limite largeur
+  max-width: 1400px;
+  // Centre
+  margin: 0 auto;
+  // Fond
+  background: var(--dark-bg);
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; ALERTES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.alert {
+  // Padding
+  padding: 1rem 1.5rem;
+  // Coins arrondis
+  border-radius: 0.75rem;
+  // Espacement bas
+  margin-bottom: 1.5rem;
+  // Poids de police
+  font-weight: 500;
+  // Animation
+  animation: slideIn 0.3s ease-out;
+
+  // Succès
+  &amp;.alert-success {
+    background: rgba(var(--success), 0.1);
+    border: 1px solid rgba(var(--success), 0.3);
+    color: var(--success);
+  }
+
+  // Erreur
+  &amp;.alert-error {
+    background: rgba(var(--danger), 0.1);
+    border: 1px solid rgba(var(--danger), 0.3);
+    color: var(--danger);
+  }
+
+  // Info
+  &amp;.alert-info {
+    background: rgba(#3b82f6, 0.1);
+    border: 1px solid rgba(#3b82f6, 0.3);
+    color: #3b82f6;
+  }
+}
+
+// Animation
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; EN-TÊTE DU PROFIL &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.profile-header {
+  // Fond
+  background: var(--card-bg);
+  // Bordure
+  border: 1px solid var(--border);
+  // Coins arrondis
+  border-radius: 1rem;
+  // Débordement caché
+  overflow: hidden;
+  // Espacement bas
+  margin-bottom: 2rem;
+}
+
+// Couverture de profil
+.profile-cover {
+  // Hauteur
+  height: 150px;
+  // Fond dégradé
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+}
+
+// Section infos profil
+.profile-info-section {
+  // Padding
+  padding: 2rem;
+  // Flexbox
+  display: flex;
+  // Espacement
+  gap: 2rem;
+  // Aligner
+  align-items: flex-start;
+  // Flex wrap
+  flex-wrap: wrap;
+}
+
+// Conteneur avatar
+.avatar-large-container {
+  // Position relative
+  position: relative;
+  // Flex shrink
+  flex-shrink: 0;
+}
+
+// Avatar très grand
+.avatar-xxl {
+  // Taille
+  width: 120px;
+  height: 120px;
+  // Cercle
+  border-radius: 50%;
+  // Fond dégradé
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  // Flexbox
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // Taille police
+  font-size: 4rem;
+  // Border
+  border: 4px solid var(--card-bg);
+}
+
+// Bouton édition avatar
+.btn-edit-avatar {
+  // Position absolue
+  position: absolute;
+  // Bottom right
+  bottom: 0;
+  right: 0;
+  // Taille
+  width: 40px;
+  height: 40px;
+  // Cercle
+  border-radius: 50%;
+  // Fond
+  background: var(--primary);
+  // Bordure
+  border: none;
+  // Couleur
+  color: white;
+  // Taille police
+  font-size: 1.2rem;
+  // Cursor
+  cursor: pointer;
+  // Transition
+  transition: all 0.3s;
+
+  // Au survol
+  &amp;:hover {
+    background: var(--primary-light);
+    transform: scale(1.1);
+  }
+}
+
+// Infos basiques
+.profile-basic {
+  // Flex grow
+  flex: 1;
+
+  // Titre h1
+  h1 {
+    // Taille
+    font-size: 2.5rem;
+    // Poids
+    font-weight: 700;
+    // Couleur
+    color: var(--text);
+    // Espacement bas
+    margin-bottom: 0.5rem;
+    // Pas de marge haut
+    margin-top: 0;
+  }
+
+  // Rôle
+  .role {
+    // Couleur
+    color: var(--text-muted);
+    // Taille
+    font-size: 1.1rem;
+    // Espacement
+    margin: 0.25rem 0;
+  }
+
+  // Cave
+  .cave {
+    // Couleur
+    color: var(--text-muted);
+    // Taille
+    font-size: 1rem;
+    // Espacement
+    margin: 0.5rem 0 1rem 0;
+  }
+}
+
+// Badge statut
+.status-badge {
+  // Padding
+  padding: 0.5rem 1rem;
+  // Coins arrondis
+  border-radius: 0.5rem;
+  // Taille
+  font-size: 0.9rem;
+  // Poids
+  font-weight: 600;
+  // Display
+  display: inline-block;
+
+  // Actif
+  &amp;.status-active {
+    background: rgba(var(--success), 0.15);
+    color: var(--success);
+  }
+
+  // Inactif
+  &amp;.status-inactive {
+    background: rgba(#64748b, 0.15);
+    color: #cbd5e1;
+  }
+
+  // En congé
+  &amp;.status-on-leave {
+    background: rgba(var(--warning), 0.15);
+    color: #fbbf24;
+  }
+}
+
+// Barre de complétude
+.completion-bar {
+  // Largeur complète
+  width: 100%;
+  // Espacement top
+  margin-top: 1.5rem;
+}
+
+// Label de barre
+.bar-label {
+  // Flexbox
+  display: flex;
+  // Espacement
+  justify-content: space-between;
+  // Espacement bas
+  margin-bottom: 0.5rem;
+  // Couleur
+  color: var(--text-muted);
+  // Taille
+  font-size: 0.9rem;
+
+  // Pourcentage
+  .percentage {
+    // Poids
+    font-weight: 600;
+    // Couleur primaire
+    color: var(--primary);
+  }
+}
+
+// Conteneur barre
+.bar-container {
+  // Hauteur
+  height: 8px;
+  // Fond
+  background: rgba(0, 0, 0, 0.3);
+  // Coins arrondis
+  border-radius: 4px;
+  // Débordement caché
+  overflow: hidden;
+}
+
+// Remplissage barre
+.bar-fill {
+  // Hauteur complète
+  height: 100%;
+  // Fond dégradé
+  background: linear-gradient(90deg, var(--primary), var(--primary-light));
+  // Transition
+  transition: width 0.5s ease;
+}
+
+// Actions profil
+.profile-actions {
+  // Largeur complète
+  width: 100%;
+  // Flexbox
+  display: flex;
+  // Espacement
+  gap: 1rem;
+  // Flex wrap
+  flex-wrap: wrap;
+  // Padding top
+  padding-top: 1.5rem;
+  // Bordure top
+  border-top: 1px solid var(--border);
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; ONGLETS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.tabs-container {
+  // Flexbox
+  display: flex;
+  // Espacement
+  gap: 1rem;
+  // Espacement bas
+  margin-bottom: 2rem;
+  // Padding bas
+  padding-bottom: 1rem;
+  // Bordure bas
+  border-bottom: 2px solid var(--border);
+  // Débordement
+  overflow-x: auto;
+}
+
+// Bouton onglet
+.tab-btn {
+  // Padding
+  padding: 0.75rem 1.5rem;
+  // Cursor
+  cursor: pointer;
+  // Pas de bordure
+  border: none;
+  // Fond
+  background: none;
+  // Couleur
+  color: var(--text-muted);
+  // Poids
+  font-weight: 600;
+  // Taille
+  font-size: 1rem;
+  // Bordure bas
+  border-bottom: 3px solid transparent;
+  // Transition
+  transition: all 0.3s;
+  // Flex shrink
+  flex-shrink: 0;
+
+  // Au survol
+  &amp;:hover {
+    // Couleur
+    color: var(--text);
+  }
+
+  // Actif
+  &amp;.active {
+    // Couleur primaire
+    color: var(--primary-light);
+    // Bordure de couleur
+    border-bottom-color: var(--primary);
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; CONTENU ONGLETS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.tabs-content {
+  // Fond
+  background: var(--card-bg);
+  // Bordure
+  border: 1px solid var(--border);
+  // Coins arrondis
+  border-radius: 1rem;
+  // Padding
+  padding: 2rem;
+  // Débordement
+  overflow: hidden;
+}
+
+// Pane d&#x27;onglet
+.tab-pane {
+  // Animation
+  animation: fadeIn 0.3s ease-out;
+}
+
+// Animation fade in
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; AFFICHAGE D&#x27;INFOS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.info-display {
+  // Largeur complète
+  width: 100%;
+}
+
+// Grille d&#x27;infos
+.info-grid {
+  // Grille CSS
+  display: grid;
+  // Colonnes auto-fit
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  // Espacement
+  gap: 1.5rem;
+}
+
+// Élément d&#x27;info
+.info-item {
+  // Flexbox colonne
+  display: flex;
+  flex-direction: column;
+  // Espacement
+  gap: 0.5rem;
+  // Padding
+  padding: 1rem;
+  // Fond
+  background: rgba(0, 0, 0, 0.2);
+  // Coins arrondis
+  border-radius: 0.5rem;
+
+  // Label
+  .label {
+    // Couleur
+    color: var(--text-muted);
+    // Taille
+    font-size: 0.9rem;
+  }
+
+  // Valeur
+  .value {
+    // Taille
+    font-size: 1.1rem;
+    // Poids
+    font-weight: 600;
+    // Couleur
+    color: var(--text);
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; ÉDITION D&#x27;INFOS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.info-edit {
+  // Flexbox colonne
+  display: flex;
+  flex-direction: column;
+  // Espacement
+  gap: 1.5rem;
+}
+
+// Grille formulaire
+.form-row {
+  // Grille
+  display: grid;
+  // 2 colonnes
+  grid-template-columns: repeat(2, 1fr);
+  // Espacement
+  gap: 1.5rem;
+}
+
+// Groupe formulaire
+.form-group {
+  // Flexbox colonne
+  display: flex;
+  flex-direction: column;
+  // Espacement
+  gap: 0.5rem;
+}
+
+// Label formulaire
+.form-label {
+  // Poids
+  font-weight: 600;
+  // Couleur
+  color: var(--text);
+  // Taille
+  font-size: 0.95rem;
+}
+
+// Input formulaire
+.form-input {
+  // Padding
+  padding: 0.875rem 1rem;
+  // Fond
+  background: #060918;
+  // Bordure
+  border: 1px solid var(--border);
+  // Coins arrondis
+  border-radius: 0.5rem;
+  // Couleur
+  color: var(--text);
+  // Taille
+  font-size: 0.95rem;
+  // Transition
+  transition: all 0.3s;
+  // Font family
+  font-family: inherit;
+
+  // Placeholder
+  &amp;::placeholder {
+    color: var(--text-muted);
+  }
+
+  // Focus
+  &amp;:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(var(--primary), 0.1);
+    outline: none;
+  }
+
+  // Erreur
+  &amp;.input-error {
+    border-color: var(--danger);
+    box-shadow: 0 0 0 3px rgba(var(--danger), 0.1);
+  }
+}
+
+// Actions formulaire
+.form-actions {
+  // Flexbox
+  display: flex;
+  // Espacement
+  gap: 1rem;
+  // Alignement
+  justify-content: flex-end;
+  // Padding top
+  padding-top: 1.5rem;
+  // Bordure top
+  border-top: 1px solid var(--border);
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; BOUTONS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.btn {
+  // Padding
+  padding: 0.875rem 1.75rem;
+  // Bordure
+  border: none;
+  // Coins arrondis
+  border-radius: 0.75rem;
+  // Poids
+  font-weight: 600;
+  // Cursor
+  cursor: pointer;
+  // Transition
+  transition: all 0.3s;
+  // Taille
+  font-size: 0.95rem;
+
+  // Survol
+  &amp;:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  // Désactivé
+  &amp;:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  // Primaire
+  &amp;.btn-primary {
+    background: var(--primary);
+    color: white;
+
+    &amp;:hover:not(:disabled) {
+      background: var(--primary-light);
+      box-shadow: 0 8px 20px rgba(var(--primary), 0.3);
+    }
+  }
+
+  // Secondaire
+  &amp;.btn-secondary {
+    background: #232947;
+    color: var(--text);
+    border: 1px solid var(--border);
+
+    &amp;:hover:not(:disabled) {
+      background: rgba(var(--text), 0.05);
+      border-color: var(--primary);
+    }
+  }
+
+  // Danger
+  &amp;.btn-danger {
+    background: rgba(var(--danger), 0.1);
+    color: var(--danger);
+    border: 1px solid rgba(var(--danger), 0.2);
+
+    &amp;:hover:not(:disabled) {
+      background: rgba(var(--danger), 0.2);
+    }
+  }
+
+  // Block
+  &amp;.btn-block {
+    width: 100%;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; GRILLE DE STATISTIQUES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.stats-grid {
+  // Grille CSS
+  display: grid;
+  // Colonnes auto-fill
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  // Espacement
+  gap: 1.5rem;
+}
+
+// Carte statistique
+.stat-card {
+  // Flexbox
+  display: flex;
+  // Direction
+  flex-direction: column;
+  // Espacement
+  gap: 1rem;
+  // Padding
+  padding: 1.5rem;
+  // Fond
+  background: rgba(0, 0, 0, 0.2);
+  // Bordure
+  border: 1px solid var(--border);
+  // Coins arrondis
+  border-radius: 0.75rem;
+  // Transition
+  transition: all 0.3s;
+
+  // Survol
+  &amp;:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+  }
+
+  // Icône
+  .stat-icon {
+    // Taille
+    font-size: 2.5rem;
+  }
+
+  // Contenu
+  .stat-content {
+    // Flexbox colonne
+    display: flex;
+    flex-direction: column;
+    // Espacement
+    gap: 0.25rem;
+  }
+
+  // Label
+  .label {
+    // Couleur
+    color: var(--text-muted);
+    // Taille
+    font-size: 0.9rem;
+  }
+
+  // Valeur
+  .value {
+    // Taille
+    font-size: 1.5rem;
+    // Poids
+    font-weight: 700;
+    // Couleur primaire
+    color: var(--primary);
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; LISTE D&#x27;ACTIVITÉS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.activities-list {
+  // Flexbox colonne
+  display: flex;
+  flex-direction: column;
+  // Espacement
+  gap: 1rem;
+}
+
+// Élément d&#x27;activité
+.activity-item {
+  // Flexbox
+  display: flex;
+  // Aligner
+  align-items: flex-start;
+  // Espacement
+  gap: 1rem;
+  // Padding
+  padding: 1rem;
+  // Fond
+  background: rgba(0, 0, 0, 0.2);
+  // Coins arrondis
+  border-radius: 0.75rem;
+  // Bordure gauche
+  border-left: 4px solid var(--primary);
+}
+
+// Badge d&#x27;activité
+.activity-badge {
+  // Taille
+  width: 50px;
+  height: 50px;
+  // Cercle
+  border-radius: 50%;
+  // Flexbox
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // Taille police
+  font-size: 1.5rem;
+  // Flex shrink
+  flex-shrink: 0;
+
+  // Login
+  &amp;.badge-login {
+    background: rgba(#3b82f6, 0.15);
+  }
+
+  // Update
+  &amp;.badge-update {
+    background: rgba(var(--warning), 0.15);
+  }
+
+  // Sale
+  &amp;.badge-sale {
+    background: rgba(var(--success), 0.15);
+  }
+
+// Stock
+  &amp;.badge-stock {
+    background: rgba(var(--warning), 0.15);
+  }
+
+  // System
+  &amp;.badge-system {
+    background: rgba(#8b5cf6, 0.15);
+  }
+
+  // Défaut
+  &amp;.badge-default {
+    background: rgba(var(--text-muted), 0.15);
+  }
+}
+
+// Contenu d&#x27;activité
+.activity-content {
+  // Flex grow
+  flex: 1;
+
+  // Titre h4
+  h4 {
+    // Taille
+    font-size: 1rem;
+    // Poids
+    font-weight: 600;
+    // Couleur
+    color: var(--text);
+    // Espacement
+    margin: 0 0 0.25rem 0;
+  }
+
+  // Paragraphe
+  p {
+    // Couleur
+    color: var(--text-muted);
+    // Taille
+    font-size: 0.9rem;
+    // Espacement
+    margin: 0;
+    // Hauteur ligne
+    line-height: 1.4;
+  }
+}
+
+// Timestamp d&#x27;activité
+.activity-time {
+  // Couleur
+  color: var(--text-muted);
+  // Taille
+  font-size: 0.8rem;
+  // Flex shrink
+  flex-shrink: 0;
+  // Texte aligné droite
+  text-align: right;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; SECTION SÉCURITÉ &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.security-section {
+  // Titre h3
+  h3 {
+    // Taille
+    font-size: 1.5rem;
+    // Poids
+    font-weight: 700;
+    // Couleur
+    color: var(--text);
+    // Espacement bas
+    margin-bottom: 1.5rem;
+    // Pas de marge haut
+    margin-top: 0;
+  }
+}
+
+// Affichage sécurité
+.security-display {
+  // Padding
+  padding: 1.5rem;
+  // Fond
+  background: rgba(0, 0, 0, 0.2);
+  // Coins arrondis
+  border-radius: 0.75rem;
+
+  // Paragraphe
+  p {
+    // Couleur
+    color: var(--text-muted);
+    // Espacement bas
+    margin-bottom: 1rem;
+  }
+
+  // Strong
+  strong {
+    // Couleur primaire
+    color: var(--text);
+  }
+}
+
+// Formulaire mot de passe
+.password-form {
+  // Flexbox colonne
+  display: flex;
+  flex-direction: column;
+  // Espacement
+  gap: 1.5rem;
+}
+
+// Conteneur input mot de passe
+.password-input-container {
+  // Position relative
+  position: relative;
+  // Flexbox
+  display: flex;
+  // Aligner
+  align-items: center;
+
+  // Input
+  .form-input {
+    // Flex grow
+    flex: 1;
+  }
+}
+
+// Bouton toggle mot de passe
+.btn-toggle-password {
+  // Position absolue
+  position: absolute;
+  // Right
+  right: 10px;
+  // Pas de fond
+  background: none;
+  // Pas de bordure
+  border: none;
+  // Couleur
+  color: var(--text-muted);
+  // Cursor
+  cursor: pointer;
+  // Taille
+  font-size: 1.2rem;
+  // Padding
+  padding: 0.5rem;
+  // Transition
+  transition: all 0.2s;
+
+  // Au survol
+  &amp;:hover {
+    color: var(--text);
+  }
+}
+
+// Indicateur de force
+.strength-indicator {
+  // Padding
+  padding: 0.5rem 0.75rem;
+  // Coins arrondis
+  border-radius: 0.5rem;
+  // Taille
+  font-size: 0.85rem;
+  // Margin top
+  margin-top: -0.25rem;
+
+  // Faible
+  &amp;.strength-weak {
+    background: rgba(var(--danger), 0.1);
+    color: var(--danger);
+  }
+
+  // Moyen
+  &amp;.strength-medium {
+    background: rgba(var(--warning), 0.1);
+    color: var(--warning);
+  }
+
+  // Fort
+  &amp;.strength-strong {
+    background: rgba(var(--success), 0.1);
+    color: var(--success);
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; RESPONSIVE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+@media (max-width: 1024px) {
+  // Info grid
+  .info-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  // Stats grid
+  .stats-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  // Container
+  .user-profile-container {
+    padding: 1rem;
+  }
+
+  // En-tête profil
+  .profile-header {
+    margin-bottom: 1.5rem;
+  }
+
+  // Couverture
+  .profile-cover {
+    height: 100px;
+  }
+
+  // Section infos
+  .profile-info-section {
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+
+  // Avatar
+  .avatar-xxl {
+    width: 100px;
+    height: 100px;
+    font-size: 3rem;
+    border-width: 3px;
+  }
+
+  // Infos basiques
+  .profile-basic {
+    h1 {
+      font-size: 1.8rem;
+    }
+
+    .role {
+      font-size: 1rem;
+    }
+  }
+
+  // Actions profil
+  .profile-actions {
+    flex-direction: column;
+
+    .btn {
+      width: 100%;
+    }
+  }
+
+  // Onglets
+  .tabs-container {
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tab-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  // Contenu onglets
+  .tabs-content {
+    padding: 1.5rem;
+  }
+
+  // Grille formulaire
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  // Actions formulaire
+  .form-actions {
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+
+    .btn {
+      width: 100%;
+    }
+  }
+
+  // Info grid
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  // Stats grid
+  .stats-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  // Container
+  .user-profile-container {
+    padding: 0.5rem;
+  }
+
+  // Section infos
+  .profile-info-section {
+    padding: 1rem;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  // Avatar
+  .avatar-xxl {
+    width: 80px;
+    height: 80px;
+    font-size: 2rem;
+  }
+
+  // Infos basiques
+  .profile-basic {
+    width: 100%;
+
+    h1 {
+      font-size: 1.4rem;
+    }
+
+    .role, .cave {
+      font-size: 0.9rem;
+    }
+  }
+
+  // Actions
+  .profile-actions {
+    width: 100%;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    .btn {
+      font-size: 0.85rem;
+      padding: 0.7rem 1.4rem;
+    }
+  }
+
+  // Onglets
+  .tabs-container {
+    gap: 0;
+    margin-bottom: 1rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tab-btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+
+  // Contenu onglets
+  .tabs-content {
+    padding: 1rem;
+  }
+
+  // Info grid
+  .info-grid {
+    gap: 0.75rem;
+  }
+
+  .info-item {
+    padding: 0.75rem;
+  }
+
+  // Stats grid
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card {
+    padding: 1rem;
+  }
+
+  .stat-card .stat-icon {
+    font-size: 2rem;
+  }
+
+  .stat-card .label {
+    font-size: 0.85rem;
+  }
+
+  .stat-card .value {
+    font-size: 1.3rem;
+  }
+
+  // Activities
+  .activity-item {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .activity-badge {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .activity-time {
+    text-align: left;
+  }
+
+  // Formulaires
+  .form-group {
+    gap: 0.4rem;
+  }
+
+  .form-label {
+    font-size: 0.9rem;
+  }
+
+  .form-input {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  // Mot de passe
+  .password-input-container {
+    gap: 0.5rem;
+  }
+
+  .btn-toggle-password {
+    right: 5px;
+    font-size: 1rem;
+    padding: 0.4rem;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; FORMAT MONÉTAIRE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+// Classe utility pour formatage
+.currency {
+  font-weight: 600;
+  color: var(--success);
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; ANIMATIONS SUPPLÉMENTAIRES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+// Animation erreur
+.form-input.input-error {
+  animation: shake 0.3s ease;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; SCROLLBAR PERSONNALISÉE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+// Pour Firefox
+.tabs-content {
+  scrollbar-color: var(--primary) var(--card-bg);
+  scrollbar-width: thin;
+}
+
+// Pour Chrome/Safari
+.tabs-content::-webkit-scrollbar {
+  height: 8px;
+}
+
+.tabs-content::-webkit-scrollbar-track {
+  background: var(--card-bg);
+}
+
+.tabs-content::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+
+  &amp;:hover {
+    background: color-color-mix(in srgb, in srgb, var(--primary) 90%, white);
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; IMPRESSION &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+@media print {
+  // Masquer les boutons
+  .btn,
+  .btn-edit-avatar,
+  .btn-toggle-password,
+  .tab-btn {
+    display: none;
+  }
+
+  // Fond blanc
+  .user-profile-container,
+  .profile-header,
+  .tabs-content {
+    background: white;
+    border: 1px solid #ccc;
+  }
+
+  // Texte noir
+  * {
+    color: black;
+  }
+
+  // Afficher tous les onglets
+  .tab-pane {
+    display: block !important;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; ACCESSIBILITÉ &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+// Focus visible
+.tab-btn:focus-visible,
+.btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+// Réduit motion
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- ===== FICHIER: user-profile.component.html ===== --><!-- Template pour l\'affichage et gestion du profil utilisateur --><div class="user-profile-container">  <!-- Message de feedback -->  <div *ngIf="message"       class="alert"       [ngClass]="\'alert-\' + messageType">    {{ message }}  </div>  <!-- En-tête du profil -->  <div class="profile-header" *ngIf="userProfile">    <!-- Couverture de profil -->    <div class="profile-cover"></div>    <!-- Section infos de profil -->    <div class="profile-info-section">      <!-- Avatar grand avec bouton édition -->      <div class="avatar-large-container">        <span class="avatar-xxl">{{ userProfile.avatar }}</span>        <button (click)="startEditingProfile()" class="btn-edit-avatar" title="Changer avatar">          ✏️        </button>      </div>      <!-- Infos basiques -->      <div class="profile-basic">        <h1>{{ userProfile.firstName }} {{ userProfile.lastName }}</h1>        <p class="role">👔 {{ userProfile.role }}</p>        <p class="cave">🏢 {{ userProfile.cave }}</p>        <!-- Badge statut -->        <span class="status-badge" [ngClass]="\'status-\' + userProfile.status">          {{ userProfile.status === \'active\' ? \'🟢 Actif\' :             userProfile.status === \'inactive\' ? \'🔴 Inactif\' :             \'🟡 En congé\' }}        </span>      </div>      <!-- Barre de complétude du profil -->      <div class="completion-bar">        <div class="bar-label">          <span>Profil complété:</span>          <span class="percentage">{{ getProfileCompletion() }}%</span>        </div>        <div class="bar-container">          <div class="bar-fill" [style.width.%]="getProfileCompletion()"></div>        </div>      </div>    </div>    <!-- Boutons d\'action -->    <div class="profile-actions">      <button (click)="startEditingProfile()" class="btn btn-primary" *ngIf="!isEditingProfile">        ✏️ Éditer le profil      </button>      <button (click)="downloadReport()" class="btn btn-secondary">        📥 Télécharger rapport      </button>      <button (click)="exportProfileData()" class="btn btn-secondary">        💾 Exporter données      </button>      <button (click)="logout()" class="btn btn-danger">        🚪 Déconnexion      </button>    </div>  </div>  <!-- Onglets de navigation -->  <div class="tabs-container">    <button class="tab-btn"            [class.active]="activeTab === \'info\'"            (click)="switchTab(\'info\')">      👤 Infos personnelles    </button>    <button class="tab-btn"            [class.active]="activeTab === \'stats\'"            (click)="switchTab(\'stats\')">      📊 Statistiques    </button>    <button class="tab-btn"            [class.active]="activeTab === \'activities\'"            (click)="switchTab(\'activities\')">      📋 Activités    </button>    <button class="tab-btn"            [class.active]="activeTab === \'security\'"            (click)="switchTab(\'security\')">      🔒 Sécurité    </button>  </div>  <!-- Contenu des onglets -->  <div class="tabs-content">    <!-- ONGLET 1: INFORMATIONS PERSONNELLES -->    <div *ngIf="activeTab === \'info\' && userProfile" class="tab-pane" >      <!-- Mode affichage -->      <div *ngIf="!isEditingProfile" class="info-display">        <div class="info-grid">          <!-- Ligne 1 -->          <div class="info-item">            <span class="label">📧 Email</span>            <span class="value">{{ userProfile.email }}</span>          </div>          <div class="info-item">            <span class="label">📱 Téléphone</span>            <span class="value">{{ userProfile.phone }}</span>          </div>          <!-- Ligne 2 -->          <div class="info-item">            <span class="label">📅 Date de naissance</span>            <span class="value">{{ formatDate(userProfile.birthDate) }}</span>          </div>          <div class="info-item">            <span class="label">📍 Adresse</span>            <span class="value">{{ userProfile.address }}</span>          </div>          <!-- Ligne 3 -->          <div class="info-item">            <span class="label">👥 Contact d\'urgence</span>            <span class="value">{{ userProfile.emergencyContact }}</span>          </div>          <div class="info-item">            <span class="label">📞 Téléphone urgence</span>            <span class="value">{{ userProfile.emergencyPhone }}</span>          </div>          <!-- Ligne 4 -->          <div class="info-item">            <span class="label">🏦 Compte bancaire</span>            <span class="value">{{ userProfile.bankAccount }}</span>          </div>          <div class="info-item">            <span class="label">🏪 Banque</span>            <span class="value">{{ userProfile.bankName }}</span>          </div>        </div>      </div>      <!-- Mode édition -->      <form *ngIf="isEditingProfile" [formGroup]="profileForm" class="info-edit">        <!-- Prénom & Nom -->        <div class="form-row">          <div class="form-group">            <label class="form-label">Prénom</label>            <input type="text" class="form-input" formControlName="firstName">          </div>          <div class="form-group">            <label class="form-label">Nom</label>            <input type="text" class="form-input" formControlName="lastName">          </div>        </div>        <!-- Email & Téléphone -->        <div class="form-row">          <div class="form-group">            <label class="form-label">Email</label>            <input type="email" class="form-input" formControlName="email">          </div>          <div class="form-group">            <label class="form-label">Téléphone</label>            <input type="tel" class="form-input" formControlName="phone">          </div>        </div>        <!-- Date naissance & Adresse -->        <div class="form-row">          <div class="form-group">            <label class="form-label">Date de naissance</label>            <input type="date" class="form-input" formControlName="birthDate">          </div>          <div class="form-group">            <label class="form-label">Adresse</label>            <input type="text" class="form-input" formControlName="address">          </div>        </div>        <!-- Contact urgence -->        <div class="form-row">          <div class="form-group">            <label class="form-label">Contact d\'urgence</label>            <input type="text" class="form-input" formControlName="emergencyContact">          </div>          <div class="form-group">            <label class="form-label">Téléphone urgence</label>            <input type="tel" class="form-input" formControlName="emergencyPhone">          </div>        </div>        <!-- Infos bancaires -->        <div class="form-row">          <div class="form-group">            <label class="form-label">Compte bancaire</label>            <input type="text" class="form-input" formControlName="bankAccount">          </div>          <div class="form-group">            <label class="form-label">Banque</label>            <input type="text" class="form-input" formControlName="bankName">          </div>        </div>        <!-- Boutons -->        <div class="form-actions">          <button type="button" (click)="cancelEditingProfile()" class="btn btn-secondary">            ✕ Annuler          </button>          <button type="button" (click)="saveProfile()"                  [disabled]="profileForm.invalid"                  class="btn btn-primary">            💾 Enregistrer          </button>        </div>      </form>    </div>    <!-- ONGLET 2: STATISTIQUES -->       <div *ngIf="activeTab === \'stats\' && userProfile" class="tab-pane" >      <div class="stats-grid">        <!-- Ventes totales -->        <div class="stat-card">          <div class="stat-icon">💰</div>          <div class="stat-content">            <span class="label">Ventes totales</span>            <span class="value">{{ formatCurrency(userProfile.statistics.totalSales) }}</span>          </div>        </div>        <!-- Heures travaillées -->        <div class="stat-card">          <div class="stat-icon">⏱️</div>          <div class="stat-content">            <span class="label">Heures travaillées</span>            <span class="value">{{ userProfile.statistics.totalHours }}h</span>          </div>        </div>        <!-- Moyenne par jour -->        <div class="stat-card">          <div class="stat-icon">📈</div>          <div class="stat-content">            <span class="label">Moyenne/jour</span>            <span class="value">{{ formatCurrency(userProfile.statistics.averageSalesPerDay) }}</span>          </div>        </div>        <!-- Bonus mensuel -->        <div class="stat-card">          <div class="stat-icon">🎁</div>          <div class="stat-content">            <span class="label">Bonus mensuel</span>            <span class="value">{{ formatCurrency(userProfile.statistics.monthlyBonus) }}</span>          </div>        </div>        <!-- Performance -->        <div class="stat-card">          <div class="stat-icon">⭐</div>          <div class="stat-content">            <span class="label">Note performance</span>            <span class="value">{{ userProfile.statistics.performanceRating }}/100</span>          </div>        </div>        <!-- Présence -->        <div class="stat-card">          <div class="stat-icon">✅</div>          <div class="stat-content">            <span class="label">Taux présence</span>            <span class="value">{{ userProfile.statistics.attendanceRate }}%</span>          </div>        </div>      </div>    </div>    <!-- ONGLET 3: ACTIVITÉS -->    <div *ngIf="activeTab === \'activities\'" class="tab-pane">      <div class="activities-list">        <!-- Boucle sur les activités affichées -->        <div *ngFor="let activity of getDisplayedActivities()" class="activity-item">          <!-- Icône avec badge du type -->          <div class="activity-badge" [ngClass]="getActivityBadgeClass(activity.type)">            {{ activity.icon }}          </div>          <!-- Contenu de l\'activité -->          <div class="activity-content">            <h4>{{ activity.title }}</h4>            <p>{{ activity.description }}</p>          </div>          <!-- Timestamp -->          <div class="activity-time">            {{ activity.timestamp }}          </div>        </div>        <!-- Bouton charger plus -->        <button *ngIf="activitiesDisplayCount < allActivities.length"                (click)="loadMoreActivities()"                class="btn btn-secondary btn-block">          ⬇️ Charger plus d\'activités        </button>      </div>    </div>    <!-- ONGLET 4: SÉCURITÉ -->    <div *ngIf="activeTab === \'security\'" class="tab-pane">      <div class="security-section">        <h3>🔒 Changer le mot de passe</h3>        <!--  affichage -->        <div *ngIf="!isChangingPassword" class="security-display">          <p>Votre mot de passe a été mis à jour le <strong>{{ userProfile?.lastUpdateDate }}</strong></p>          <button (click)="isChangingPassword = true" class="btn btn-primary">            🔑 Changer le mot de passe          </button>        </div>        <!-- Mode édition -->        <form *ngIf="isChangingPassword" [formGroup]="passwordForm" class="password-form">          <!-- Mot de passe actuel -->          <div class="form-group">            <label class="form-label">Mot de passe actuel *</label>            <div class="password-input-container">              <input [type]="showPasswords ? \'text\' : \'password\'"                     class="form-input"                     formControlName="currentPassword"                     placeholder="••••••••">              <button type="button"                      (click)="togglePasswordVisibility()"                      class="btn-toggle-password">                {{ showPasswords ? \'🙈\' : \'👁️\' }}              </button>            </div>          </div>          <!-- Nouveau mot de passe -->          <div class="form-group">            <label class="form-label">Nouveau mot de passe *</label>            <div class="password-input-container">              <input [type]="showPasswords ? \'text\' : \'password\'"                     class="form-input"                     formControlName="newPassword"                     placeholder="••••••••"                     (input)="evaluatePasswordStrength()">              <button type="button"                      (click)="togglePasswordVisibility()"                      class="btn-toggle-password">                {{ showPasswords ? \'🙈\' : \'👁️\' }}              </button>            </div>            <!-- Indicateur de force -->            <div class="strength-indicator" [ngClass]="\'strength-\' + passwordStrength">              <span>Force: <strong>{{ passwordStrength }}</strong></span>            </div>          </div>          <!-- Confirmation mot de passe -->          <div class="form-group">            <label class="form-label">Confirmer le mot de passe *</label>            <div class="password-input-container">              <input [type]="showPasswords ? \'text\' : \'password\'"                     class="form-input"                     formControlName="confirmPassword"                     placeholder="••••••••">            </div>          </div>          <!-- Boutons -->          <div class="form-actions">            <button type="button"                    (click)="isChangingPassword = false; passwordForm.reset()"                    class="btn btn-secondary">              ✕ Annuler            </button>            <button type="button"                    (click)="changePassword()"                    [disabled]="passwordForm.invalid"                    class="btn btn-primary">              🔐 Changer le mot de passe            </button>          </div>        </form>      </div>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AdminDashboardComponent', 'selector': 'app-admin-dashboard'},{'name': 'AlertsComponent', 'selector': 'app-alerts'},{'name': 'App', 'selector': 'app-root'},{'name': 'CaisseComponent', 'selector': 'app-caisse'},{'name': 'CaveCreateComponent', 'selector': 'app-cave-create'},{'name': 'CaveListComponent', 'selector': 'app-cave-lists'},{'name': 'ClientDashboardComponent', 'selector': 'app-client-dashboard'},{'name': 'ClientsComponent', 'selector': 'app-client'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DrinksComponent', 'selector': 'app-drinks'},{'name': 'EmployeesComponent', 'selector': 'app-employees'},{'name': 'EntriesComponent', 'selector': 'app-entries'},{'name': 'ExitsComponent', 'selector': 'app-exits'},{'name': 'ExpenseComponent', 'selector': 'app-depenses'},{'name': 'FaqComponent', 'selector': 'app-faq'},{'name': 'FournisseursComponent', 'selector': 'app-fournisseur'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'ImprovementsComponent', 'selector': 'app-improvements'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ManagerDashboardComponent', 'selector': 'app-manager-dashboard'},{'name': 'ManagersComponent', 'selector': 'app-managers'},{'name': 'MaterialComponent', 'selector': 'app-materiel'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'OrdersComponent', 'selector': 'app-orders'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfitComponent', 'selector': 'app-profit'},{'name': 'RecentActionsComponent', 'selector': 'app-recent-actions'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'SalesComponent', 'selector': 'app-sales'},{'name': 'ScanComponent', 'selector': 'app-scan'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'StockComponent', 'selector': 'app-stock'},{'name': 'StockComponent', 'selector': 'app-stock'},{'name': 'TeamComponent', 'selector': 'app-team'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'UserCreateComponent', 'selector': 'app-user-create'},{'name': 'UserListComponent', 'selector': 'app-user-list'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'WaitressDashboardComponent', 'selector': 'app-waitress-dashboard'},{'name': 'WinePairingComponent', 'selector': 'app-wine-pairing'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'UserProfileComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'UserProfileComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

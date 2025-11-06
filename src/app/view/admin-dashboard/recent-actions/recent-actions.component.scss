@@ -1,18 +1,6 @@
-// ===== Variables =====
-$primary-color: #4f46e5;
-$success-color: #10b981;
-$danger-color: #ef4444;
-$warning-color: #f59e0b;
-$info-color: #3b82f6;
-$bg-light: #f8fafc;
-$bg-white: #ffffff;
-$text-primary: #1e293b;
-$text-secondary: #64748b;
-$border-color: #e2e8f0;
-
 // ===== Conteneur principal =====
 .recent-actions-container {
-  background: $bg-white;
+  background: var(--card-bg);
   border-radius: 12px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -24,12 +12,12 @@ $border-color: #e2e8f0;
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem;
-  border-bottom: 1px solid $border-color;
+  border-bottom: 1px solid var(--border-color);
 
   .actions-title {
     font-size: 1.25rem;
     font-weight: 600;
-    color: $text-primary;
+    color: var(--text-primary);
     margin: 0;
     display: flex;
     align-items: center;
@@ -48,7 +36,7 @@ $border-color: #e2e8f0;
   height: 36px;
   border-radius: 6px;
   border: none;
-  background: $bg-light;
+  background: var(--dark-bg);
   cursor: pointer;
   font-size: 1rem;
   transition: all 0.2s ease;
@@ -63,7 +51,7 @@ $border-color: #e2e8f0;
 
   &.btn-danger:hover {
     background: rgba(239, 68, 68, 0.1);
-    color: $danger-color;
+    color: var(--danger);
   }
 }
 
@@ -78,15 +66,15 @@ $border-color: #e2e8f0;
   .spinner {
     width: 40px;
     height: 40px;
-    border: 4px solid $bg-light;
-    border-top-color: $primary-color;
+    border: 4px solid var(--dark-bg);
+    border-top-color: var(--primary-color);
     border-radius: 50%;
     animation: spin 1s linear infinite;
     margin-bottom: 1rem;
   }
 
   p {
-    color: $text-secondary;
+    color: var(--text-secondary);
     font-size: 0.9rem;
   }
 }
@@ -132,7 +120,7 @@ $border-color: #e2e8f0;
   position: relative;
 
   &.action-item-hoverable:hover {
-    background: $bg-light;
+    background: var(--dark-bg);
 
     .action-delete {
       opacity: 1;
@@ -154,27 +142,27 @@ $border-color: #e2e8f0;
 
   &.action-type-add {
     background: rgba(16, 185, 129, 0.1);
-    color: $success-color;
+    color: var(--success);
   }
 
   &.action-type-remove {
     background: rgba(239, 68, 68, 0.1);
-    color: $danger-color;
+    color: var(--danger);
   }
 
   &.action-type-update {
     background: rgba(59, 130, 246, 0.1);
-    color: $info-color;
+    color: var(--info);
   }
 
   &.action-type-alert {
     background: rgba(245, 158, 11, 0.1);
-    color: $warning-color;
+    color: var(--warning);
   }
 
   &.action-type-default {
     background: rgba(100, 116, 139, 0.1);
-    color: $text-secondary;
+    color: var(--text-secondary);
   }
 }
 
@@ -186,19 +174,19 @@ $border-color: #e2e8f0;
   .action-title {
     font-size: 0.9rem;
     font-weight: 600;
-    color: $text-primary;
+    color: var(--text-primary);
     margin-bottom: 0.25rem;
   }
 
   .action-details {
     font-size: 0.8rem;
-    color: $text-secondary;
+    color: var(--text-secondary);
     line-height: 1.4;
   }
 
   .action-user {
     font-size: 0.75rem;
-    color: $primary-color;
+    color: var(--primary-color);
     margin-top: 0.25rem;
     font-weight: 500;
   }
@@ -213,7 +201,7 @@ $border-color: #e2e8f0;
 
   .action-time {
     font-size: 0.75rem;
-    color: $text-secondary;
+    color: var(--text-secondary);
     white-space: nowrap;
   }
 
@@ -223,7 +211,7 @@ $border-color: #e2e8f0;
     border-radius: 50%;
     border: none;
     background: rgba(239, 68, 68, 0.1);
-    color: $danger-color;
+    color: var(--danger);
     font-size: 1.25rem;
     cursor: pointer;
     display: flex;
@@ -252,7 +240,7 @@ $border-color: #e2e8f0;
   }
 
   p {
-    color: $text-secondary;
+    color: var(--text-secondary);
     font-size: 1rem;
     margin: 0;
   }
@@ -261,7 +249,7 @@ $border-color: #e2e8f0;
 // ===== Pied avec bouton "Charger plus" =====
 .actions-footer {
   padding: 1rem;
-  border-top: 1px solid $border-color;
+  border-top: 1px solid var(--border-color);
 }
 
 // ===== Boutons standards =====
@@ -279,11 +267,11 @@ $border-color: #e2e8f0;
   gap: 0.5rem;
 
   &.btn-secondary {
-    background: $text-secondary;
+    background: var(--text-secondary);
     color: white;
 
     &:hover {
-      background: darken($text-secondary, 10%);
+      background: color-color-mix(in srgb, in srgb, var(--text-secondary) 90%, black);
       transform: translateY(-2px);
     }
   }
@@ -392,7 +380,7 @@ $border-color: #e2e8f0;
     left: 0;
     right: 0;
     height: 30px;
-    background: linear-gradient(to bottom, transparent, $bg-white);
+    background: linear-gradient(to bottom, transparent, var(--card-bg));
     pointer-events: none;
   }
 }
@@ -401,7 +389,7 @@ $border-color: #e2e8f0;
 .btn-icon,
 .action-delete {
   &:focus {
-    outline: 2px solid $primary-color;
+    outline: 2px solid var(--primary-color);
     outline-offset: 2px;
   }
 
@@ -413,7 +401,7 @@ $border-color: #e2e8f0;
 // ===== Badge pour les actions urgentes =====
 .action-item {
   &.urgent {
-    border-left: 3px solid $danger-color;
+    border-left: 3px solid var(--danger);
 
     .action-icon {
       animation: pulse 2s ease-in-out infinite;

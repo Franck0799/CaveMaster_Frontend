@@ -1,0 +1,1426 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cave-master-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cave-master-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ImprovementsComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/view/admin-dashboard/improvements/improvements.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-improvements</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>FormsModule</code>
+                            <code>ReactiveFormsModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./improvements.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./improvements.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#improvements" >improvements</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#getTypeIcon" >getTypeIcon</a>
+                            </li>
+                            <li>
+                                <a href="#getTypeLabel" >getTypeLabel</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTypeIcon"></a>
+                    <span class="name">
+                        <span ><b>getTypeIcon</b></span>
+                        <a href="#getTypeIcon"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getTypeIcon(type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="64"
+                                    class="link-to-prism">src/app/view/admin-dashboard/improvements/improvements.component.ts:64</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTypeLabel"></a>
+                    <span class="name">
+                        <span ><b>getTypeLabel</b></span>
+                        <a href="#getTypeLabel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getTypeLabel(type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="73"
+                                    class="link-to-prism">src/app/view/admin-dashboard/improvements/improvements.component.ts:73</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="62"
+                                    class="link-to-prism">src/app/view/admin-dashboard/improvements/improvements.component.ts:62</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="improvements"></a>
+                    <span class="name">
+                        <span ><b>improvements</b></span>
+                        <a href="#improvements"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Improvement.html" target="_self" >Improvement[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    {
+      id: &#x27;1&#x27;,
+      version: &#x27;v1.5.0&#x27;,
+      date: &#x27;2025-01-20&#x27;,
+      type: &#x27;feature&#x27;,
+      title: &#x27;Nouveau module d\&#x27;accords mets &amp; vins&#x27;,
+      description: &#x27;Ajout d\&#x27;une section complète pour gérer les accords entre plats et vins avec recommandations&#x27;
+    },
+    {
+      id: &#x27;2&#x27;,
+      version: &#x27;v1.4.2&#x27;,
+      date: &#x27;2025-01-15&#x27;,
+      type: &#x27;fix&#x27;,
+      title: &#x27;Correction du bug d\&#x27;export CSV&#x27;,
+      description: &#x27;Résolution du problème d\&#x27;encodage lors de l\&#x27;export des données en CSV&#x27;
+    },
+    {
+      id: &#x27;3&#x27;,
+      version: &#x27;v1.4.0&#x27;,
+      date: &#x27;2025-01-10&#x27;,
+      type: &#x27;enhancement&#x27;,
+      title: &#x27;Amélioration des performances&#x27;,
+      description: &#x27;Optimisation du chargement des pages et réduction du temps de réponse de 40%&#x27;
+    },
+    {
+      id: &#x27;4&#x27;,
+      version: &#x27;v1.3.5&#x27;,
+      date: &#x27;2025-01-05&#x27;,
+      type: &#x27;feature&#x27;,
+      title: &#x27;Scanner de code-barres&#x27;,
+      description: &#x27;Nouveau module de scan pour ajouter rapidement des produits au stock&#x27;
+    }
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/view/admin-dashboard/improvements/improvements.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+
+interface Improvement {
+  id: string;
+  version: string;
+  date: string;
+  type: &#x27;feature&#x27; | &#x27;fix&#x27; | &#x27;enhancement&#x27;;
+  title: string;
+  description: string;
+}
+
+@Component({
+  selector: &#x27;app-improvements&#x27;,
+  standalone: true,
+    // Import des modules nécessaires
+    imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  templateUrl: &#x27;./improvements.component.html&#x27;,
+  styleUrls: [&#x27;./improvements.component.scss&#x27;]
+})
+export class ImprovementsComponent implements OnInit {
+  improvements: Improvement[] &#x3D; [
+    {
+      id: &#x27;1&#x27;,
+      version: &#x27;v1.5.0&#x27;,
+      date: &#x27;2025-01-20&#x27;,
+      type: &#x27;feature&#x27;,
+      title: &#x27;Nouveau module d\&#x27;accords mets &amp; vins&#x27;,
+      description: &#x27;Ajout d\&#x27;une section complète pour gérer les accords entre plats et vins avec recommandations&#x27;
+    },
+    {
+      id: &#x27;2&#x27;,
+      version: &#x27;v1.4.2&#x27;,
+      date: &#x27;2025-01-15&#x27;,
+      type: &#x27;fix&#x27;,
+      title: &#x27;Correction du bug d\&#x27;export CSV&#x27;,
+      description: &#x27;Résolution du problème d\&#x27;encodage lors de l\&#x27;export des données en CSV&#x27;
+    },
+    {
+      id: &#x27;3&#x27;,
+      version: &#x27;v1.4.0&#x27;,
+      date: &#x27;2025-01-10&#x27;,
+      type: &#x27;enhancement&#x27;,
+      title: &#x27;Amélioration des performances&#x27;,
+      description: &#x27;Optimisation du chargement des pages et réduction du temps de réponse de 40%&#x27;
+    },
+    {
+      id: &#x27;4&#x27;,
+      version: &#x27;v1.3.5&#x27;,
+      date: &#x27;2025-01-05&#x27;,
+      type: &#x27;feature&#x27;,
+      title: &#x27;Scanner de code-barres&#x27;,
+      description: &#x27;Nouveau module de scan pour ajouter rapidement des produits au stock&#x27;
+    }
+  ];
+
+  ngOnInit(): void {}
+
+  getTypeIcon(type: string): string {
+    const icons: { [key: string]: string } &#x3D; {
+      &#x27;feature&#x27;: &#x27;✨&#x27;,
+      &#x27;fix&#x27;: &#x27;🐛&#x27;,
+      &#x27;enhancement&#x27;: &#x27;⚡&#x27;
+    };
+    return icons[type] || &#x27;📝&#x27;;
+  }
+
+  getTypeLabel(type: string): string {
+    const labels: { [key: string]: string } &#x3D; {
+      &#x27;feature&#x27;: &#x27;Nouvelle fonctionnalité&#x27;,
+      &#x27;fix&#x27;: &#x27;Correction de bug&#x27;,
+      &#x27;enhancement&#x27;: &#x27;Amélioration&#x27;
+    };
+    return labels[type] || &#x27;Mise à jour&#x27;;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- improvements.component.html --&gt;
+&lt;div class&#x3D;&quot;page-section&quot;&gt;
+  &lt;div class&#x3D;&quot;content-section&quot;&gt;
+    &lt;!-- Header --&gt;
+    &lt;div class&#x3D;&quot;section-header&quot;&gt;
+      &lt;h1 class&#x3D;&quot;section-title-main&quot;&gt;
+        &lt;i class&#x3D;&quot;fas fa-history&quot;&gt;&lt;/i&gt;
+        Améliorations &amp; Mises à Jour
+      &lt;/h1&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Intro --&gt;
+    &lt;div class&#x3D;&quot;improvements-intro&quot;&gt;
+      &lt;p&gt;
+        Découvrez les dernières améliorations et fonctionnalités ajoutées à CaveMaster.
+        Nous mettons régulièrement à jour notre plateforme pour vous offrir la meilleure expérience.
+      &lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Timeline --&gt;
+    &lt;div class&#x3D;&quot;improvements-timeline&quot;&gt;
+      &lt;div
+        *ngFor&#x3D;&quot;let improvement of improvements&quot;
+        class&#x3D;&quot;improvement-item&quot;
+      &gt;
+        &lt;!-- Marker --&gt;
+        &lt;div
+          class&#x3D;&quot;improvement-marker&quot;
+          [ngClass]&#x3D;&quot;{
+            &#x27;marker-feature&#x27;: improvement.type &#x3D;&#x3D;&#x3D; &#x27;feature&#x27;,
+            &#x27;marker-fix&#x27;: improvement.type &#x3D;&#x3D;&#x3D; &#x27;fix&#x27;,
+            &#x27;marker-enhancement&#x27;: improvement.type &#x3D;&#x3D;&#x3D; &#x27;enhancement&#x27;
+          }&quot;
+        &gt;
+          {{ getTypeIcon(improvement.type) }}
+        &lt;/div&gt;
+
+        &lt;!-- Content --&gt;
+        &lt;div class&#x3D;&quot;improvement-content&quot;&gt;
+          &lt;div class&#x3D;&quot;improvement-header&quot;&gt;
+            &lt;span class&#x3D;&quot;improvement-version&quot;&gt;{{ improvement.version }}&lt;/span&gt;
+            &lt;span class&#x3D;&quot;improvement-date&quot;&gt;
+              {{ improvement.date | date: &#x27;dd MMMM yyyy&#x27; }}
+            &lt;/span&gt;
+          &lt;/div&gt;
+
+          &lt;span
+            class&#x3D;&quot;improvement-type&quot;
+            [ngClass]&#x3D;&quot;{
+              &#x27;type-feature&#x27;: improvement.type &#x3D;&#x3D;&#x3D; &#x27;feature&#x27;,
+              &#x27;type-fix&#x27;: improvement.type &#x3D;&#x3D;&#x3D; &#x27;fix&#x27;,
+              &#x27;type-enhancement&#x27;: improvement.type &#x3D;&#x3D;&#x3D; &#x27;enhancement&#x27;
+            }&quot;
+          &gt;
+            {{ getTypeLabel(improvement.type) }}
+          &lt;/span&gt;
+
+          &lt;h4 class&#x3D;&quot;improvement-title&quot;&gt;{{ improvement.title }}&lt;/h4&gt;
+          &lt;p class&#x3D;&quot;improvement-description&quot;&gt;{{ improvement.description }}&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Suggestion Box --&gt;
+    &lt;div class&#x3D;&quot;suggestion-box&quot;&gt;
+      &lt;h3&gt;
+        &lt;i class&#x3D;&quot;fas fa-lightbulb&quot;&gt;&lt;/i&gt;
+        Suggérer une amélioration
+      &lt;/h3&gt;
+      &lt;p&gt;
+        Vous avez une idée pour améliorer CaveMaster ?
+        Nous sommes toujours à l&#x27;écoute de vos suggestions !
+      &lt;/p&gt;
+      &lt;button class&#x3D;&quot;btn btn-primary btn-large&quot;&gt;
+        &lt;i class&#x3D;&quot;fas fa-comment-dots&quot;&gt;&lt;/i&gt;
+        Envoyer une suggestion
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./improvements.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Styles communs &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.page-section {
+  padding: 2rem;
+  background: var(--dark-bg);
+  min-height: 100vh;
+}
+
+.content-section {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+
+  .section-title-main {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+
+    i {
+      margin-right: 0.75rem;
+      color: var(--primary-color);
+    }
+  }
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &amp;.btn-primary {
+    background:var(--primary-color);
+    color: white;
+
+    &amp;:hover:not(:disabled) {
+      background: color-mix(in srgb, var(--primary-color) 90%, white);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    }
+  }
+
+  &amp;.btn-secondary {
+    background: var(--border-color);
+    color: var(--text-primary);
+
+    &amp;:hover:not(:disabled) {
+      background: color-color-mix(in srgb, in srgb, var(--border-color) 90%, white);
+    }
+  }
+
+  &amp;.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  &amp;.btn-block {
+    width: 100%;
+    justify-content: center;
+  }
+
+  &amp;.btn-large {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+  }
+
+  &amp;:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; STATS STYLES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.stats-overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+
+  &amp;:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    border-color: color-color-mix(in srgb, in srgb, var(--border-color) 90%, white);
+  }
+
+  .stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+
+    &amp;.icon-primary { color: var(--primary-color); }
+    &amp;.icon-success { color: var(--success); }
+    &amp;.icon-warning { color: var(--warning); }
+    &amp;.icon-info { color: var(--info); }
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-description {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+  }
+}
+
+.charts-section {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-color);
+  margin-bottom: 2rem;
+
+  h3 {
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; RESPONSIVE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+@media (max-width: 1024px) {
+  .contact-container {
+    grid-template-columns: 1fr;
+  }
+
+  .caves-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .faq-filters {
+    flex-direction: column;
+
+    .filter-select {
+      width: 100%;
+    }
+  }
+
+  .caves-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-hero h1 {
+    font-size: 1.75rem;
+  }
+
+  .improvements-timeline {
+    padding-left: 2rem;
+
+    &amp;::before {
+      left: 0.5rem;
+    }
+  }
+
+  .improvement-item .improvement-marker {
+    left: -1.75rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-section {
+    padding: 1rem;
+  }
+
+  .cave-card .cave-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .team-grid,
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; ANIMATIONS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; UTILITY CLASSES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.text-center {
+  text-align: center;
+}
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+.p-1 { padding: 0.5rem; }
+.p-2 { padding: 1rem; }
+.p-3 { padding: 1.5rem; }
+.p-4 { padding: 2rem; }
+
+.d-flex {
+  display: flex;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.gap-1 { gap: 0.5rem; }
+.gap-2 { gap: 1rem; }
+.gap-3 { gap: 1.5rem; }
+
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-success {
+  color: var(--success);
+}
+
+.text-danger {
+  color: var(--danger);
+}
+
+.text-warning {
+  color: var(--warning);
+}
+
+.text-info {
+  color: var(--info);
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; LOADING STATES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.loading-spinner {
+  border: 3px solid var(--border-color);
+  border-top: 3px solid var(--primary-color);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 2rem auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--card-bg) 25%, color-color-mix(in srgb, in srgb, var(--card-bg) 95%, white) 50%, var(--card-bg) 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s ease-in-out infinite;
+  border-radius: 4px;
+}
+
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; ALERTS &amp; NOTIFICATIONS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.alert {
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  i {
+    font-size: 1.5rem;
+  }
+
+  &amp;.alert-success {
+    background: rgba(16, 185, 129, 0.15);
+    color: color-color-mix(in srgb, in srgb, var(--success) 90%, white);
+    border-left: 4px solid var(--success);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+  }
+
+  &amp;.alert-danger {
+    background: rgba(239, 68, 68, 0.15);
+    color: color-color-mix(in srgb, in srgb, var(--danger) 90%, white);
+    border-left: 4px solid var(--danger);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+  }
+
+  &amp;.alert-warning {
+    background: rgba(245, 158, 11, 0.15);
+    color: color-color-mix(in srgb, in srgb, var(--warning) 90%, white);
+    border-left: 4px solid var(--warning);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+  }
+
+  &amp;.alert-info {
+    background: rgba(59, 130, 246, 0.15);
+    color: color-color-mix(in srgb, in srgb, var(--info) 90%, white);
+    border-left: 4px solid var(--info);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MODAL STYLES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal-content {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  animation: slideUp 0.3s ease;
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+    h3 {
+      margin: 0;
+      color: var(--text-primary);
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: color 0.2s ease;
+
+      &amp;:hover {
+        color: var(--text-primary);
+      }
+    }
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; TOOLTIP &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.tooltip {
+  position: relative;
+
+  &amp;::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.5rem 1rem;
+    background: var(--dark-bg)er;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+  }
+
+  &amp;:hover::after {
+    opacity: 1;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; IMPROVEMENTS STYLES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.improvements-intro {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+
+  p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin: 0;
+  }
+}
+
+.improvements-timeline {
+  position: relative;
+  padding-left: 3rem;
+
+  &amp;::before {
+    content: &#x27;&#x27;;
+    position: absolute;
+    left: 1rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border-color);
+  }
+}
+
+.improvement-item {
+  position: relative;
+  margin-bottom: 2rem;
+
+  .improvement-marker {
+    position: absolute;
+    left: -2.5rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+
+    &amp;.marker-feature {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.4);
+    }
+
+    &amp;.marker-fix {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.4);
+    }
+
+    &amp;.marker-enhancement {
+      background: rgba(59, 130, 246, 0.15);
+      border-color: rgba(59, 130, 246, 0.4);
+    }
+  }
+
+  .improvement-content {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+
+    &amp;:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      border-color: color-color-mix(in srgb, in srgb, var(--border-color) 90%, white);
+    }
+
+    .improvement-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+
+      .improvement-version {
+        font-weight: 700;
+        color: var(--primary-color);
+      }
+
+      .improvement-date {
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+      }
+    }
+
+    .improvement-type {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+
+      &amp;.type-feature {
+        background: rgba(16, 185, 129, 0.2);
+        color: color-color-mix(in srgb, in srgb, var(--success) 85%, white);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+      }
+
+      &amp;.type-fix {
+        background: rgba(239, 68, 68, 0.2);
+        color: color-color-mix(in srgb, in srgb, var(--danger) 85%, white);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+      }
+
+      &amp;.type-enhancement {
+        background: rgba(59, 130, 246, 0.2);
+        color: color-color-mix(in srgb, in srgb, var(--info) 85%, white);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+      }
+    }
+
+    .improvement-title {
+      color: var(--text-primary);
+      font-size: 1.125rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .improvement-description {
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+  }
+}
+
+.suggestion-box {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  padding: 3rem 2rem;
+  border-radius: 12px;
+  text-align: center;
+  margin-top: 3rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+
+  h3 {
+    font-size: 1.75rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- improvements.component.html --><div class="page-section">  <div class="content-section">    <!-- Header -->    <div class="section-header">      <h1 class="section-title-main">        <i class="fas fa-history"></i>        Améliorations & Mises à Jour      </h1>    </div>    <!-- Intro -->    <div class="improvements-intro">      <p>        Découvrez les dernières améliorations et fonctionnalités ajoutées à CaveMaster.        Nous mettons régulièrement à jour notre plateforme pour vous offrir la meilleure expérience.      </p>    </div>    <!-- Timeline -->    <div class="improvements-timeline">      <div        *ngFor="let improvement of improvements"        class="improvement-item"      >        <!-- Marker -->        <div          class="improvement-marker"          [ngClass]="{            \'marker-feature\': improvement.type === \'feature\',            \'marker-fix\': improvement.type === \'fix\',            \'marker-enhancement\': improvement.type === \'enhancement\'          }"        >          {{ getTypeIcon(improvement.type) }}        </div>        <!-- Content -->        <div class="improvement-content">          <div class="improvement-header">            <span class="improvement-version">{{ improvement.version }}</span>            <span class="improvement-date">              {{ improvement.date | date: \'dd MMMM yyyy\' }}            </span>          </div>          <span            class="improvement-type"            [ngClass]="{              \'type-feature\': improvement.type === \'feature\',              \'type-fix\': improvement.type === \'fix\',              \'type-enhancement\': improvement.type === \'enhancement\'            }"          >            {{ getTypeLabel(improvement.type) }}          </span>          <h4 class="improvement-title">{{ improvement.title }}</h4>          <p class="improvement-description">{{ improvement.description }}</p>        </div>      </div>    </div>    <!-- Suggestion Box -->    <div class="suggestion-box">      <h3>        <i class="fas fa-lightbulb"></i>        Suggérer une amélioration      </h3>      <p>        Vous avez une idée pour améliorer CaveMaster ?        Nous sommes toujours à l\'écoute de vos suggestions !      </p>      <button class="btn btn-primary btn-large">        <i class="fas fa-comment-dots"></i>        Envoyer une suggestion      </button>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AdminDashboardComponent', 'selector': 'app-admin-dashboard'},{'name': 'AlertsComponent', 'selector': 'app-alerts'},{'name': 'App', 'selector': 'app-root'},{'name': 'CaisseComponent', 'selector': 'app-caisse'},{'name': 'CaveCreateComponent', 'selector': 'app-cave-create'},{'name': 'CaveListComponent', 'selector': 'app-cave-lists'},{'name': 'ClientDashboardComponent', 'selector': 'app-client-dashboard'},{'name': 'ClientsComponent', 'selector': 'app-client'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DrinksComponent', 'selector': 'app-drinks'},{'name': 'EmployeesComponent', 'selector': 'app-employees'},{'name': 'EntriesComponent', 'selector': 'app-entries'},{'name': 'ExitsComponent', 'selector': 'app-exits'},{'name': 'ExpenseComponent', 'selector': 'app-depenses'},{'name': 'FaqComponent', 'selector': 'app-faq'},{'name': 'FournisseursComponent', 'selector': 'app-fournisseur'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'ImprovementsComponent', 'selector': 'app-improvements'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ManagerDashboardComponent', 'selector': 'app-manager-dashboard'},{'name': 'ManagersComponent', 'selector': 'app-managers'},{'name': 'MaterialComponent', 'selector': 'app-materiel'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'OrdersComponent', 'selector': 'app-orders'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfitComponent', 'selector': 'app-profit'},{'name': 'RecentActionsComponent', 'selector': 'app-recent-actions'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'SalesComponent', 'selector': 'app-sales'},{'name': 'ScanComponent', 'selector': 'app-scan'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'StockComponent', 'selector': 'app-stock'},{'name': 'StockComponent', 'selector': 'app-stock'},{'name': 'TeamComponent', 'selector': 'app-team'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'UserCreateComponent', 'selector': 'app-user-create'},{'name': 'UserListComponent', 'selector': 'app-user-list'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'WaitressDashboardComponent', 'selector': 'app-waitress-dashboard'},{'name': 'WinePairingComponent', 'selector': 'app-wine-pairing'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'ImprovementsComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ImprovementsComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

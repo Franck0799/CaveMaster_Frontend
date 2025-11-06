@@ -1,0 +1,423 @@
+// ==========================================
+// FICHIER: src/app/view/admin-dashboard/home/home.component.scss
+// DESCRIPTION: Exemple de conversion pour utiliser les variables CSS dynamiques
+// ==========================================
+
+// ===== AVANT (avec variables SASS en dur) =====
+// var(--primary): #6366f1;
+// var(--dark-bg): #0a0e27;
+// var(--card-bg): #1a1f3a;
+// var(--text): #e2e8f0;
+// etc.
+
+// ===== APRÈS (avec variables CSS dynamiques) =====
+// On n'a plus besoin de déclarer les variables SASS !
+// On utilise directement les variables CSS avec var()
+
+// ===== STYLES COMMUNS =====
+.page-section {
+  padding: 2rem;
+  // AVANT: background: var(--dark-bg);
+  // APRÈS:
+  background: var(--dark-bg);
+  min-height: 100vh;
+  // AVANT: color: var(--text);
+  // APRÈS:
+  color: var(--text);
+}
+
+.content-section {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+
+  .section-title-main {
+    font-size: 1.75rem;
+    font-weight: 700;
+    // AVANT: color: var(--text);
+    // APRÈS:
+    color: var(--text);
+    margin: 0;
+
+    i {
+      margin-right: 0.75rem;
+      // AVANT: color: var(--primary);
+      // APRÈS:
+      color: var(--primary);
+    }
+  }
+}
+
+// ===== BOUTONS =====
+.btn {
+  padding: 0.875rem 1.75rem;
+  border-radius: 0.75rem;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  &.btn-primary {
+    // AVANT: background: var(--primary);
+    // APRÈS:
+    background: var(--primary);
+    color: white;
+
+    &:hover:not(:disabled) {
+      // AVANT: background: var(--primary-light);
+      // APRÈS:
+      background: var(--primary-light);
+      // AVANT: box-shadow: 0 8px 20px rgba(var(--primary), 0.3);
+      // APRÈS:
+      box-shadow: var(--shadow-md);
+    }
+  }
+
+  &.btn-secondary {
+    // AVANT: background: var(--card-bg);
+    // APRÈS:
+    background: var(--card-bg);
+    // AVANT: color: var(--text);
+    // APRÈS:
+    color: var(--text);
+    // AVANT: border: 1px solid var(--border);
+    // APRÈS:
+    border: 1px solid var(--border);
+
+    &:hover {
+      // AVANT: background: var(--card-hover);
+      // APRÈS:
+      background: var(--card-hover);
+    }
+  }
+}
+
+// ===== CAROUSEL SECTION =====
+.carousel-section {
+  // AVANT: background: var(--dark-bg);
+  // APRÈS:
+  background: var(--dark-bg);
+  padding: 3rem 2rem;
+  // AVANT: border-bottom: 1px solid var(--border);
+  // APRÈS:
+  border-bottom: 1px solid var(--border);
+  margin: -2rem -2rem 2rem -2rem;
+}
+
+.carousel-btn {
+  // AVANT: background: var(--card-bg);
+  // APRÈS:
+  background: var(--card-bg);
+  // AVANT: border: 2px solid var(--border);
+  // APRÈS:
+  border: 2px solid var(--border);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.5rem;
+  // AVANT: color: var(--text);
+  // APRÈS:
+  color: var(--text);
+  transition: all 0.3s ease;
+
+  &:hover {
+    // AVANT: background: var(--primary);
+    // APRÈS:
+    background: var(--primary);
+    // AVANT: border-color: var(--primary);
+    // APRÈS:
+    border-color: var(--primary);
+    transform: scale(1.1);
+  }
+}
+
+// ===== STATS CARDS =====
+.stats-overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  // AVANT: background: var(--card-bg);
+  // APRÈS:
+  background: var(--card-bg);
+  // AVANT: border: 2px solid var(--border);
+  // APRÈS:
+  border: 2px solid var(--border);
+  border-radius: 1.25rem;
+  padding: 1.75rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    transition: left 0.5s;
+  }
+
+  &:hover::before {
+    left: 100%;
+  }
+
+  &:hover {
+    transform: translateY(-8px) scale(1.02);
+    // AVANT: box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    // APRÈS:
+    box-shadow: var(--shadow-lg);
+  }
+
+  .stat-icon {
+    font-size: 3.5rem;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    flex-shrink: 0;
+    transition: all 0.4s ease;
+
+    // Utilisation de variables CSS pour les couleurs d'icônes
+    &.icon-primary {
+      // AVANT: background: rgba(var(--primary), 0.15);
+      // APRÈS: On peut créer une opacité avec rgba et var()
+      background: color-mix(in srgb, var(--primary) 15%, transparent);
+    }
+    &.icon-success {
+      background: color-mix(in srgb, var(--success) 15%, transparent);
+    }
+    &.icon-warning {
+      background: color-mix(in srgb, var(--warning) 15%, transparent);
+    }
+    &.icon-info {
+      background: color-mix(in srgb, var(--info) 15%, transparent);
+    }
+  }
+
+  &:hover .stat-icon {
+    transform: scale(1.15) rotate(5deg);
+  }
+
+  .stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    // AVANT: color: var(--text);
+    // APRÈS:
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+  }
+
+  &:hover .stat-number {
+    transform: scale(1.05);
+  }
+
+  .stat-description {
+    // AVANT: color: var(--text-muted);
+    // APRÈS:
+    color: var(--text-muted);
+    font-size: 0.875rem;
+  }
+}
+
+// ===== Variantes de couleur avec nth-child =====
+.stat-card {
+  &:nth-child(1) {
+    // AVANT: border-color: rgba(var(--primary), 0.3);
+    // APRÈS:
+    border-color: color-mix(in srgb, var(--primary) 30%, transparent);
+
+    &:hover {
+      // AVANT: border-color: var(--primary);
+      // APRÈS:
+      border-color: var(--primary);
+      // AVANT: background: linear-gradient(135deg, rgba(var(--primary), 0.1), var(--card-bg));
+      // APRÈS:
+      background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 10%, transparent), var(--card-bg));
+      // AVANT: box-shadow: 0 20px 50px rgba(var(--primary), 0.3);
+      // APRÈS:
+      box-shadow: var(--glow-primary);
+
+      .stat-icon {
+        // AVANT: background: rgba(var(--primary), 0.25);
+        // APRÈS:
+        background: color-mix(in srgb, var(--primary) 25%, transparent);
+        // AVANT: box-shadow: 0 10px 30px rgba(var(--primary), 0.4);
+        // APRÈS:
+        box-shadow: var(--glow-primary);
+      }
+
+      .stat-number {
+        // AVANT: color: var(--primary-light);
+        // APRÈS:
+        color: var(--primary-light);
+      }
+    }
+  }
+
+  &:nth-child(2) {
+    border-color: color-mix(in srgb, var(--success) 30%, transparent);
+
+    &:hover {
+      border-color: var(--success);
+      background: linear-gradient(135deg, color-mix(in srgb, var(--success) 10%, transparent), var(--card-bg));
+      box-shadow: var(--glow-success);
+
+      .stat-icon {
+        background: color-mix(in srgb, var(--success) 25%, transparent);
+        box-shadow: var(--glow-success);
+      }
+
+      .stat-number {
+        color: var(--success);
+      }
+    }
+  }
+
+  &:nth-child(3) {
+    border-color: color-mix(in srgb, var(--warning) 30%, transparent);
+
+    &:hover {
+      border-color: var(--warning);
+      background: linear-gradient(135deg, color-mix(in srgb, var(--warning) 10%, transparent), var(--card-bg));
+      box-shadow: 0 20px 50px color-mix(in srgb, var(--warning) 30%, transparent);
+
+      .stat-icon {
+        background: color-mix(in srgb, var(--warning) 25%, transparent);
+        box-shadow: 0 10px 30px color-mix(in srgb, var(--warning) 40%, transparent);
+      }
+
+      .stat-number {
+        color: var(--warning);
+      }
+    }
+  }
+}
+
+// ===== PRODUITS POPULAIRES =====
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.product-card {
+  // AVANT: background: var(--card-bg);
+  // APRÈS:
+  background: var(--card-bg);
+  // AVANT: border: 1px solid var(--border);
+  // APRÈS:
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-5px);
+    // AVANT: box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    // APRÈS:
+    box-shadow: var(--shadow-lg);
+    // AVANT: border-color: var(--primary);
+    // APRÈS:
+    border-color: var(--primary);
+  }
+}
+
+.product-image {
+  height: 200px;
+  // AVANT: background: linear-gradient(135deg, rgba(var(--primary), 0.1), rgba(var(--accent), 0.1));
+  // APRÈS:
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--primary) 10%, transparent),
+    color-mix(in srgb, var(--accent) 10%, transparent)
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5rem;
+  position: relative;
+  // AVANT: border-bottom: 1px solid var(--border);
+  // APRÈS:
+  border-bottom: 1px solid var(--border);
+}
+
+.product-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+
+  &.badge-hot {
+    // AVANT: background: rgba(var(--danger), 0.2);
+    // APRÈS:
+    background: color-mix(in srgb, var(--danger) 20%, transparent);
+    // AVANT: color: var(--danger);
+    // APRÈS:
+    color: var(--danger);
+  }
+
+  &.badge-new {
+    // AVANT: background: rgba(var(--success), 0.2);
+    // APRÈS:
+    background: color-mix(in srgb, var(--success) 20%, transparent);
+    // AVANT: color: var(--success);
+    // APRÈS:
+    color: var(--success);
+  }
+}
+
+// ===== NOTE IMPORTANTE =====
+// La fonction color-mix() est utilisée pour créer des couleurs avec opacité
+// Elle est supportée par tous les navigateurs modernes
+// Syntaxe : color-mix(in srgb, couleur pourcentage%, transparent)
+// Exemple : color-mix(in srgb, var(--primary) 20%, transparent) = rgba(primary, 0.2)
+
+// ===== RESPONSIVE =====
+@media (max-width: 768px) {
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+}

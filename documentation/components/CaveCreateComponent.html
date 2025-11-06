@@ -1,0 +1,2438 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cave-master-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cave-master-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  CaveCreateComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/view/admin-dashboard/cave-create/cave-create.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-cave-create</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>FormsModule</code>
+                            <code>ReactiveFormsModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./cave-create.component..scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./cave-create.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#caveForm" >caveForm</a>
+                            </li>
+                            <li>
+                                <a href="#caves" >caves</a>
+                            </li>
+                            <li>
+                                <a href="#isEditing" >isEditing</a>
+                            </li>
+                            <li>
+                                <a href="#message" >message</a>
+                            </li>
+                            <li>
+                                <a href="#messageType" >messageType</a>
+                            </li>
+                            <li>
+                                <a href="#regions" >regions</a>
+                            </li>
+                            <li>
+                                <a href="#selectedCave" >selectedCave</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#createCave" >createCave</a>
+                            </li>
+                            <li>
+                                <a href="#deleteCave" >deleteCave</a>
+                            </li>
+                            <li>
+                                <a href="#editCave" >editCave</a>
+                            </li>
+                            <li>
+                                <a href="#getOccupancyRate" >getOccupancyRate</a>
+                            </li>
+                            <li>
+                                <a href="#isFieldInvalid" >isFieldInvalid</a>
+                            </li>
+                            <li>
+                                <a href="#loadCaves" >loadCaves</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#resetForm" >resetForm</a>
+                            </li>
+                            <li>
+                                <a href="#showMessage" >showMessage</a>
+                            </li>
+                            <li>
+                                <a href="#submitForm" >submitForm</a>
+                            </li>
+                            <li>
+                                <a href="#updateCave" >updateCave</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(formBuilder: FormBuilder)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/app/view/admin-dashboard/cave-create/cave-create.component.ts:59</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>formBuilder</td>
+                                                  
+                                                        <td>
+                                                                    <code>FormBuilder</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createCave"></a>
+                    <span class="name">
+                        <span ><b>createCave</b></span>
+                        <a href="#createCave"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createCave()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="120"
+                                    class="link-to-prism">src/app/view/admin-dashboard/cave-create/cave-create.component.ts:120</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Crée une nouvelle cave avec les données du formulaire</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteCave"></a>
+                    <span class="name">
+                        <span ><b>deleteCave</b></span>
+                        <a href="#deleteCave"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteCave(caveId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="233"
+                                    class="link-to-prism">src/app/view/admin-dashboard/cave-create/cave-create.component.ts:233</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Supprime une cave après confirmation</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>caveId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>L&#39;ID de la cave à supprimer</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editCave"></a>
+                    <span class="name">
+                        <span ><b>editCave</b></span>
+                        <a href="#editCave"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>editCave(cave: <a href="../interfaces/Cave.html" target="_self">Cave</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="208"
+                                    class="link-to-prism">src/app/view/admin-dashboard/cave-create/cave-create.component.ts:208</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Édite une cave existante</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>cave</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Cave.html" target="_self" >Cave</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>La cave à éditer</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getOccupancyRate"></a>
+                    <span class="name">
+                        <span ><b>getOccupancyRate</b></span>
+                        <a href="#getOccupancyRate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getOccupancyRate(cave: <a href="../interfaces/Cave.html" target="_self">Cave</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="300"
+                                    class="link-to-prism">src/app/view/admin-dashboard/cave-create/cave-create.component.ts:300</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Calcule le pourcentage d&#39;occupation d&#39;une cave</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>cave</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Cave.html" target="_self" >Cave</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>La cave à calculer</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Le pourcentage d&#39;occupation</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isFieldInvalid"></a>
+                    <span class="name">
+                        <span ><b>isFieldInvalid</b></span>
+                        <a href="#isFieldInvalid"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isFieldInvalid(fieldName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="311"
+                                    class="link-to-prism">src/app/view/admin-dashboard/cave-create/cave-create.component.ts:311</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Vérifie si un champ du formulaire est invalide et a été touché</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>fieldName</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Le nom du champ</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>true si le champ est invalide et touché</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadCaves"></a>
+                    <span class="name">
+                        <span ><b>loadCaves</b></span>
+                        <a href="#loadCaves"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadCaves()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="90"
+                                    class="link-to-prism">src/app/view/admin-dashboard/cave-create/cave-create.component.ts:90</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Charge la liste de toutes les caves depuis les données mockées
+À remplacer par un appel API backend</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="80"
+                                    class="link-to-prism">src/app/view/admin-dashboard/cave-create/cave-create.component.ts:80</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetForm"></a>
+                    <span class="name">
+                        <span ><b>resetForm</b></span>
+                        <a href="#resetForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resetForm()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="264"
+                                    class="link-to-prism">src/app/view/admin-dashboard/cave-create/cave-create.component.ts:264</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Réinitialise le formulaire et les variables d&#39;état</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showMessage"></a>
+                    <span class="name">
+                        <span ><b>showMessage</b></span>
+                        <a href="#showMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>showMessage(msg: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, type: "success" | "error" | "info")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="281"
+                                    class="link-to-prism">src/app/view/admin-dashboard/cave-create/cave-create.component.ts:281</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Affiche un message temporaire (succès, erreur, info)</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>msg</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Le message à afficher</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                        <code>&quot;success&quot; | &quot;error&quot; | &quot;info&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Le type de message</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="submitForm"></a>
+                    <span class="name">
+                        <span ><b>submitForm</b></span>
+                        <a href="#submitForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>submitForm()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="249"
+                                    class="link-to-prism">src/app/view/admin-dashboard/cave-create/cave-create.component.ts:249</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Gère la soumission du formulaire
+Crée ou met à jour selon le mode</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateCave"></a>
+                    <span class="name">
+                        <span ><b>updateCave</b></span>
+                        <a href="#updateCave"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateCave()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="169"
+                                    class="link-to-prism">src/app/view/admin-dashboard/cave-create/cave-create.component.ts:169</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Met à jour une cave existante</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="caveForm"></a>
+                    <span class="name">
+                        <span ><b>caveForm</b></span>
+                        <a href="#caveForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/view/admin-dashboard/cave-create/cave-create.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="caves"></a>
+                    <span class="name">
+                        <span ><b>caves</b></span>
+                        <a href="#caves"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Cave[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/view/admin-dashboard/cave-create/cave-create.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isEditing"></a>
+                    <span class="name">
+                        <span ><b>isEditing</b></span>
+                        <a href="#isEditing"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/view/admin-dashboard/cave-create/cave-create.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="message"></a>
+                    <span class="name">
+                        <span ><b>message</b></span>
+                        <a href="#message"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/view/admin-dashboard/cave-create/cave-create.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="messageType"></a>
+                    <span class="name">
+                        <span ><b>messageType</b></span>
+                        <a href="#messageType"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;success&quot; | &quot;error&quot; | &quot;info&quot;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;info&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/view/admin-dashboard/cave-create/cave-create.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="regions"></a>
+                    <span class="name">
+                        <span ><b>regions</b></span>
+                        <a href="#regions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    &#x27;Lekki Phase 1, Lagos&#x27;,
+    &#x27;Victoria Island, Lagos&#x27;,
+    &#x27;Ikoyi, Lagos&#x27;,
+    &#x27;Ajah, Lagos&#x27;,
+    &#x27;Ikeja, Lagos&#x27;,
+    &#x27;Surulere, Lagos&#x27;,
+    &#x27;Bariga, Lagos&#x27;
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/view/admin-dashboard/cave-create/cave-create.component.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedCave"></a>
+                    <span class="name">
+                        <span ><b>selectedCave</b></span>
+                        <a href="#selectedCave"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Cave | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/view/admin-dashboard/cave-create/cave-create.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+
+// Interface pour représenter une cave
+interface Cave {
+  id: string;           // Identifiant unique de la cave
+  name: string;         // Nom de la cave
+  location: string;     // Localisation de la cave
+  capacity: number;     // Capacité de stockage en bouteilles
+  description: string;  // Description détaillée
+  createdDate: string;  // Date de création
+  managersCount: number; // Nombre de managers assignés
+  employeesCount: number; // Nombre d&#x27;employés assignés
+}
+
+@Component({
+  selector: &#x27;app-cave-create&#x27;,
+  standalone: true,
+  // Import des modules nécessaires
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  templateUrl: &#x27;./cave-create.component.html&#x27;,
+  styleUrls: [&#x27;./cave-create.component..scss&#x27;]
+})
+export class CaveCreateComponent implements OnInit {
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; PROPRIÉTÉS DU COMPOSANT &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  // Formulaire réactif pour la création/modification de cave
+  caveForm: FormGroup;
+
+  // Flag pour déterminer si c&#x27;est une modification ou création
+  isEditing: boolean &#x3D; false;
+
+  // Liste de toutes les caves
+  caves: Cave[] &#x3D; [];
+
+  // Cave actuellement en édition
+  selectedCave: Cave | null &#x3D; null;
+
+  // Message de succès/erreur
+  message: string &#x3D; &#x27;&#x27;;
+
+  // Type de message (success, error, info)
+  messageType: &#x27;success&#x27; | &#x27;error&#x27; | &#x27;info&#x27; &#x3D; &#x27;info&#x27;;
+
+  // Liste des régions disponibles pour la localisation
+  regions: string[] &#x3D; [
+    &#x27;Lekki Phase 1, Lagos&#x27;,
+    &#x27;Victoria Island, Lagos&#x27;,
+    &#x27;Ikoyi, Lagos&#x27;,
+    &#x27;Ajah, Lagos&#x27;,
+    &#x27;Ikeja, Lagos&#x27;,
+    &#x27;Surulere, Lagos&#x27;,
+    &#x27;Bariga, Lagos&#x27;
+  ];
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; CONSTRUCTEUR AVEC INJECTION DE DÉPENDANCES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  constructor(private formBuilder: FormBuilder) {
+    // Initialise le formulaire réactif avec FormBuilder
+    this.caveForm &#x3D; this.formBuilder.group({
+      // Champ nom : obligatoire, min 3 caractères
+      name: [&#x27;&#x27;, [Validators.required, Validators.minLength(3)]],
+
+      // Champ localisation : obligatoire
+      location: [&#x27;&#x27;, Validators.required],
+
+      // Champ capacité : obligatoire, doit être un nombre &gt; 0
+      capacity: [&#x27;&#x27;, [Validators.required, Validators.min(1)]],
+
+      // Champ description : optionnel
+      description: [&#x27;&#x27;]
+    });
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE D&#x27;INITIALISATION &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  ngOnInit(): void {
+    // Charge les données des caves au démarrage du composant
+    this.loadCaves();
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE CHARGEMENT DES CAVES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Charge la liste de toutes les caves depuis les données mockées
+   * À remplacer par un appel API backend
+   */
+  loadCaves(): void {
+    // Données mockées - à remplacer par un service API
+    this.caves &#x3D; [
+      {
+        id: &#x27;principale&#x27;,
+        name: &#x27;Cave Principale&#x27;,
+        location: &#x27;Lekki Phase 1, Lagos&#x27;,
+        capacity: 500,
+        description: &#x27;Cave principale avec température contrôlée&#x27;,
+        createdDate: &#x27;2023-01-15&#x27;,
+        managersCount: 3,
+        employeesCount: 12
+      },
+      {
+        id: &#x27;secondaire&#x27;,
+        name: &#x27;Cave Secondaire&#x27;,
+        location: &#x27;Victoria Island, Lagos&#x27;,
+        capacity: 350,
+        description: &#x27;Cave secondaire pour stocks additionnels&#x27;,
+        createdDate: &#x27;2023-03-20&#x27;,
+        managersCount: 2,
+        employeesCount: 8
+      }
+    ];
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE CRÉATION DE CAVE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Crée une nouvelle cave avec les données du formulaire
+   */
+  createCave(): void {
+    // Vérifie que le formulaire est valide avant de continuer
+    if (this.caveForm.invalid) {
+      // Affiche un message d&#x27;erreur
+      this.showMessage(&#x27;⚠️ Veuillez remplir tous les champs obligatoires correctement&#x27;, &#x27;error&#x27;);
+      return;
+    }
+
+    // Crée une nouvelle cave avec les valeurs du formulaire
+    const newCave: Cave &#x3D; {
+      // Génère un ID unique basé sur le timestamp
+      id: &#x27;cave_&#x27; + Date.now(),
+
+      // Récupère la valeur du champ nom du formulaire
+      name: this.caveForm.get(&#x27;name&#x27;)?.value,
+
+      // Récupère la valeur du champ localisation
+      location: this.caveForm.get(&#x27;location&#x27;)?.value,
+
+      // Récupère la capacité et la convertit en nombre
+      capacity: parseInt(this.caveForm.get(&#x27;capacity&#x27;)?.value),
+
+      // Récupère la description
+      description: this.caveForm.get(&#x27;description&#x27;)?.value || &#x27;&#x27;,
+
+      // Définit la date de création à aujourd&#x27;hui
+      createdDate: new Date().toISOString().split(&#x27;T&#x27;)[0],
+
+      // Initialise le nombre de managers à 0
+      managersCount: 0,
+
+      // Initialise le nombre d&#x27;employés à 0
+      employeesCount: 0
+    };
+
+    // Ajoute la nouvelle cave à la liste
+    this.caves.push(newCave);
+
+    // Affiche un message de succès
+    this.showMessage(&#x27;✓ Cave créée avec succès !&#x27;, &#x27;success&#x27;);
+
+    // Réinitialise le formulaire
+    this.resetForm();
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE MISE À JOUR DE CAVE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Met à jour une cave existante
+   */
+  updateCave(): void {
+    // Vérifie que le formulaire est valide
+    if (this.caveForm.invalid) {
+      // Affiche une erreur
+      this.showMessage(&#x27;⚠️ Veuillez remplir tous les champs obligatoires correctement&#x27;, &#x27;error&#x27;);
+      return;
+    }
+
+    // Vérifie qu&#x27;une cave est sélectionnée pour édition
+    if (!this.selectedCave) {
+      // Affiche une erreur si aucune cave n&#x27;est sélectionnée
+      this.showMessage(&#x27;⚠️ Aucune cave sélectionnée&#x27;, &#x27;error&#x27;);
+      return;
+    }
+
+    // Trouve l&#x27;index de la cave sélectionnée dans la liste
+    const index &#x3D; this.caves.findIndex(c &#x3D;&gt; c.id &#x3D;&#x3D;&#x3D; this.selectedCave?.id);
+
+    // Vérifie que la cave a été trouvée
+    if (index !&#x3D;&#x3D; -1) {
+      // Met à jour les propriétés de la cave avec les valeurs du formulaire
+      this.caves[index].name &#x3D; this.caveForm.get(&#x27;name&#x27;)?.value;
+      this.caves[index].location &#x3D; this.caveForm.get(&#x27;location&#x27;)?.value;
+      this.caves[index].capacity &#x3D; parseInt(this.caveForm.get(&#x27;capacity&#x27;)?.value);
+      this.caves[index].description &#x3D; this.caveForm.get(&#x27;description&#x27;)?.value;
+    }
+
+    // Affiche un message de succès
+    this.showMessage(&#x27;✓ Cave mise à jour avec succès !&#x27;, &#x27;success&#x27;);
+
+    // Réinitialise le formulaire et le mode édition
+    this.resetForm();
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE POUR ÉDITER UNE CAVE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Édite une cave existante
+   * @param cave La cave à éditer
+   */
+  editCave(cave: Cave): void {
+    // Active le mode édition
+    this.isEditing &#x3D; true;
+
+    // Stocke la cave sélectionnée
+    this.selectedCave &#x3D; cave;
+
+    // Remplir le formulaire avec les données de la cave
+    this.caveForm.patchValue({
+      // Remplit le champ nom
+      name: cave.name,
+      // Remplit le champ localisation
+      location: cave.location,
+      // Remplit le champ capacité
+      capacity: cave.capacity,
+      // Remplit le champ description
+      description: cave.description
+    });
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE POUR SUPPRIMER UNE CAVE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Supprime une cave après confirmation
+   * @param caveId L&#x27;ID de la cave à supprimer
+   */
+  deleteCave(caveId: string): void {
+    // Demande une confirmation avant la suppression
+    if (confirm(&#x27;⚠️ Êtes-vous sûr de vouloir supprimer cette cave ? Cette action est irréversible.&#x27;)) {
+      // Filtre la cave de la liste (suppression)
+      this.caves &#x3D; this.caves.filter(c &#x3D;&gt; c.id !&#x3D;&#x3D; caveId);
+
+      // Affiche un message de succès
+      this.showMessage(&#x27;✓ Cave supprimée avec succès !&#x27;, &#x27;success&#x27;);
+    }
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE SOUMISSION DU FORMULAIRE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Gère la soumission du formulaire
+   * Crée ou met à jour selon le mode
+   */
+  submitForm(): void {
+    // Vérifie si on est en mode édition
+    if (this.isEditing) {
+      // Si oui, met à jour la cave existante
+      this.updateCave();
+    } else {
+      // Sinon, crée une nouvelle cave
+      this.createCave();
+    }
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE RÉINITIALISATION &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Réinitialise le formulaire et les variables d&#x27;état
+   */
+  resetForm(): void {
+    // Réinitialise le formulaire aux valeurs par défaut
+    this.caveForm.reset();
+
+    // Désactive le mode édition
+    this.isEditing &#x3D; false;
+
+    // Efface la sélection de cave
+    this.selectedCave &#x3D; null;
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE D&#x27;AFFICHAGE DE MESSAGE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Affiche un message temporaire (succès, erreur, info)
+   * @param msg Le message à afficher
+   * @param type Le type de message
+   */
+  showMessage(msg: string, type: &#x27;success&#x27; | &#x27;error&#x27; | &#x27;info&#x27;): void {
+    // Stocke le message
+    this.message &#x3D; msg;
+
+    // Stocke le type de message
+    this.messageType &#x3D; type;
+
+    // Efface le message après 3 secondes
+    setTimeout(() &#x3D;&gt; {
+      this.message &#x3D; &#x27;&#x27;;
+    }, 3000);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE CALCUL DE TAUX D&#x27;OCCUPATION &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Calcule le pourcentage d&#x27;occupation d&#x27;une cave
+   * @param cave La cave à calculer
+   * @returns Le pourcentage d&#x27;occupation
+   */
+  getOccupancyRate(cave: Cave): number {
+    // Retourne un pourcentage entre 0 et 100 (simulation)
+    return Math.floor(Math.random() * 100);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE VÉRIFICATION DE FORMULARITÉ &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Vérifie si un champ du formulaire est invalide et a été touché
+   * @param fieldName Le nom du champ
+   * @returns true si le champ est invalide et touché
+   */
+  isFieldInvalid(fieldName: string): boolean {
+    // Récupère le champ du formulaire
+    const field &#x3D; this.caveForm.get(fieldName);
+
+    // Retourne true si le champ est invalide ET a été touché
+    return !!(field &amp;&amp; field.invalid &amp;&amp; field.touched);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; FICHIER: cave-create.component.html &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+&lt;!-- Template HTML pour la gestion des caves --&gt;
+
+// est actuellement utilisé dans cave-list.component.html
+//chercher à bien structuré et aménageé pour une gestion efficace des caves.
+
+&lt;div class&#x3D;&quot;cave-create-container&quot;&gt;
+
+  &lt;!-- Message de feedback (succès, erreur, info) --&gt;
+  &lt;div *ngIf&#x3D;&quot;message&quot;
+       class&#x3D;&quot;alert&quot;
+       [ngClass]&#x3D;&quot;&#x27;alert-&#x27; + messageType&quot;&gt;
+    {{ message }}
+  &lt;/div&gt;
+
+  &lt;!-- En-tête avec titre et bouton d&#x27;annulation --&gt;
+  &lt;div class&#x3D;&quot;section-header&quot;&gt;
+    &lt;h2&gt;🍷 Gestion des Caves&lt;/h2&gt;
+    &lt;!-- Bouton d&#x27;annulation visible en mode édition --&gt;
+    &lt;button *ngIf&#x3D;&quot;isEditing&quot;
+            (click)&#x3D;&quot;resetForm()&quot;
+            class&#x3D;&quot;btn btn-secondary&quot;&gt;
+      ↻ Annuler l&#x27;édition
+    &lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Conteneur du formulaire --&gt;
+  &lt;div class&#x3D;&quot;form-container&quot;&gt;
+    &lt;form [formGroup]&#x3D;&quot;caveForm&quot; (ngSubmit)&#x3D;&quot;submitForm()&quot;&gt;
+
+      &lt;!-- Champ Nom de la cave --&gt;
+      &lt;div class&#x3D;&quot;form-group&quot;&gt;
+        &lt;label class&#x3D;&quot;form-label&quot;&gt;Nom de la cave *&lt;/label&gt;
+        &lt;!-- Input avec validation en temps réel --&gt;
+        &lt;input
+          type&#x3D;&quot;text&quot;
+          class&#x3D;&quot;form-input&quot;
+          formControlName&#x3D;&quot;name&quot;
+          placeholder&#x3D;&quot;Ex: Cave Principale&quot;
+          [class.input-error]&#x3D;&quot;isFieldInvalid(&#x27;name&#x27;)&quot;&gt;
+        &lt;!-- Message d&#x27;erreur de validation --&gt;
+        &lt;small *ngIf&#x3D;&quot;isFieldInvalid(&#x27;name&#x27;)&quot; class&#x3D;&quot;error-text&quot;&gt;
+          ⚠️ Minimum 3 caractères requis
+        &lt;/small&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Champ Localisation --&gt;
+      &lt;div class&#x3D;&quot;form-group&quot;&gt;
+        &lt;label class&#x3D;&quot;form-label&quot;&gt;Localisation *&lt;/label&gt;
+        &lt;!-- Select dropdown avec liste de régions --&gt;
+        &lt;select
+          class&#x3D;&quot;form-input&quot;
+          formControlName&#x3D;&quot;location&quot;
+          [class.input-error]&#x3D;&quot;isFieldInvalid(&#x27;location&#x27;)&quot;&gt;
+          &lt;option value&#x3D;&quot;&quot;&gt;Sélectionner une région...&lt;/option&gt;
+          &lt;!-- Boucle sur les régions disponibles --&gt;
+          &lt;option *ngFor&#x3D;&quot;let region of regions&quot; [value]&#x3D;&quot;region&quot;&gt;
+            📍 {{ region }}
+          &lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Champ Capacité --&gt;
+      &lt;div class&#x3D;&quot;form-group&quot;&gt;
+        &lt;label class&#x3D;&quot;form-label&quot;&gt;Capacité (bouteilles) *&lt;/label&gt;
+        &lt;!-- Input numérique avec min --&gt;
+        &lt;input
+          type&#x3D;&quot;number&quot;
+          class&#x3D;&quot;form-input&quot;
+          formControlName&#x3D;&quot;capacity&quot;
+          placeholder&#x3D;&quot;Ex: 500&quot;
+          min&#x3D;&quot;1&quot;
+          [class.input-error]&#x3D;&quot;isFieldInvalid(&#x27;capacity&#x27;)&quot;&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Champ Description --&gt;
+      &lt;div class&#x3D;&quot;form-group&quot;&gt;
+        &lt;label class&#x3D;&quot;form-label&quot;&gt;Description&lt;/label&gt;
+        &lt;!-- Textarea pour description plus longue --&gt;
+        &lt;textarea
+          class&#x3D;&quot;form-textarea&quot;
+          formControlName&#x3D;&quot;description&quot;
+          placeholder&#x3D;&quot;Description détaillée de la cave...&quot;
+          rows&#x3D;&quot;4&quot;&gt;&lt;/textarea&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Boutons d&#x27;action du formulaire --&gt;
+      &lt;div class&#x3D;&quot;form-actions&quot;&gt;
+        &lt;!-- Bouton réinitialiser --&gt;
+        &lt;button type&#x3D;&quot;reset&quot; class&#x3D;&quot;btn btn-secondary&quot;&gt;
+          ↻ Réinitialiser
+        &lt;/button&gt;
+        &lt;!-- Bouton soumettre (texte différent selon le mode) --&gt;
+        &lt;button type&#x3D;&quot;submit&quot;
+                class&#x3D;&quot;btn btn-primary&quot;
+                [disabled]&#x3D;&quot;caveForm.invalid&quot;&gt;
+          {{ isEditing ? &#x27;💾 Mettre à jour&#x27; : &#x27;➕ Créer cave&#x27; }}
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Conteneur de la liste des caves --&gt;
+  &lt;div class&#x3D;&quot;caves-list-container&quot;&gt;
+    &lt;h3&gt;📋 Caves existantes ({{ caves.length }})&lt;/h3&gt;
+
+    &lt;!-- Grille de cartes des caves --&gt;
+    &lt;div class&#x3D;&quot;caves-grid&quot;&gt;
+      &lt;!-- Boucle sur chaque cave --&gt;
+      &lt;div *ngFor&#x3D;&quot;let cave of caves&quot; class&#x3D;&quot;cave-item&quot;&gt;
+
+        &lt;!-- En-tête de la carte avec nom et localisation --&gt;
+        &lt;div class&#x3D;&quot;cave-item-header&quot;&gt;
+          &lt;div&gt;
+            &lt;h4&gt;{{ cave.name }}&lt;/h4&gt;
+            &lt;p class&#x3D;&quot;cave-location&quot;&gt;📍 {{ cave.location }}&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;!-- Badge montrant le taux d&#x27;occupation --&gt;
+          &lt;div class&#x3D;&quot;occupancy-badge&quot;&gt;
+            {{ getOccupancyRate(cave) }}%
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Statistiques de la cave (grille) --&gt;
+        &lt;div class&#x3D;&quot;cave-stats&quot;&gt;
+          &lt;!-- Capacité --&gt;
+          &lt;div class&#x3D;&quot;stat&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;🍾 Capacité:&lt;/span&gt;
+            &lt;span class&#x3D;&quot;value&quot;&gt;{{ cave.capacity }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;!-- Nombre de managers --&gt;
+          &lt;div class&#x3D;&quot;stat&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;👥 Managers:&lt;/span&gt;
+            &lt;span class&#x3D;&quot;value&quot;&gt;{{ cave.managersCount }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;!-- Nombre d&#x27;employés --&gt;
+          &lt;div class&#x3D;&quot;stat&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;👨‍💼 Employés:&lt;/span&gt;
+            &lt;span class&#x3D;&quot;value&quot;&gt;{{ cave.employeesCount }}&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Description de la cave --&gt;
+        &lt;p class&#x3D;&quot;cave-description&quot;&gt;{{ cave.description }}&lt;/p&gt;
+
+        &lt;!-- Boutons d&#x27;action (éditer, supprimer) --&gt;
+        &lt;div class&#x3D;&quot;cave-item-actions&quot;&gt;
+          &lt;!-- Bouton éditer --&gt;
+          &lt;button (click)&#x3D;&quot;editCave(cave)&quot; class&#x3D;&quot;btn btn-secondary btn-sm&quot;&gt;
+            ✏️ Éditer
+          &lt;/button&gt;
+          &lt;!-- Bouton supprimer avec confirmation --&gt;
+          &lt;button (click)&#x3D;&quot;deleteCave(cave.id)&quot; class&#x3D;&quot;btn btn-danger btn-sm&quot;&gt;
+            🗑️ Supprimer
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Message affiché si aucune cave n&#x27;existe --&gt;
+      &lt;div *ngIf&#x3D;&quot;caves.length &#x3D;&#x3D;&#x3D; 0&quot; class&#x3D;&quot;empty-state&quot;&gt;
+        &lt;p&gt;📭 Aucune cave créée. Commencez par en créer une!&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./cave-create.component..scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; CONTENEUR PRINCIPAL &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.cave-create-container {
+  // Padding externe pour l&#x27;espacement
+  padding: 2rem;
+  // Limite la largeur maximale
+  max-width: 1400px;
+  // Centre le conteneur
+  margin: 0 auto;
+  // Fond de couleur
+  background: var(--dark-bg);
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MESSAGES D&#x27;ALERTE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.alert {
+  // Padding interne pour l&#x27;espacement du texte
+  padding: 1rem 1.5rem;
+  // Coins arrondis
+  border-radius: 0.75rem;
+  // Espacement bas pour séparer du reste du contenu
+  margin-bottom: 1.5rem;
+  // Poids de police
+  font-weight: 500;
+  // Animation d&#x27;entrée
+  animation: slideIn 0.3s ease-out;
+
+  // Style pour succès
+  &amp;.alert-success {
+    // Fond avec transparence
+    background: rgba(var(--success), 0.1);
+    // Bordure fine
+    border: 1px solid rgba(var(--success), 0.3);
+    // Couleur du texte
+    color: var(--success);
+  }
+
+  // Style pour erreur
+  &amp;.alert-error {
+    background: rgba(var(--danger), 0.1);
+    border: 1px solid rgba(var(--danger), 0.3);
+    color: var(--danger);
+  }
+
+  // Style pour info
+  &amp;.alert-info {
+    background: rgba(#3b82f6, 0.1);
+    border: 1px solid rgba(#3b82f6, 0.3);
+    color: #3b82f6;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; ANIMATION D&#x27;ALERTE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+@keyframes slideIn {
+  // Début : masqué et décalé
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  // Fin : visible et en place
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; EN-TÊTE DU SECTION &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.section-header {
+  // Flexbox pour alignement horizontal
+  display: flex;
+  // Espacement entre les éléments
+  justify-content: space-between;
+  // Centrer verticalement
+  align-items: center;
+  // Espacement bas
+  margin-bottom: 2rem;
+
+  // Style du titre h2
+  h2 {
+    // Taille de police
+    font-size: 1.75rem;
+    // Épaisseur de police
+    font-weight: 700;
+    // Couleur du texte
+    color: var(--text);
+    // Pas de marge par défaut
+    margin: 0;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; CONTENEUR DU FORMULAIRE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.form-container {
+  // Fond pour les cartes
+  background: var(--card-bg);
+  // Bordure fine
+  border: 1px solid var(--border);
+  // Coins arrondis
+  border-radius: 1rem;
+  // Padding interne
+  padding: 2rem;
+  // Espacement bas
+  margin-bottom: 2rem;
+  // Transition pour les interactions
+  transition: all 0.3s;
+
+  // Style au survol
+  &amp;:hover {
+    // Changement de bordure
+    border-color: var(--primary);
+    // Ombre pour le relief
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  // Style du formulaire
+  form {
+    // Flexbox colonne
+    display: flex;
+    // Direction verticale
+    flex-direction: column;
+    // Espacement entre les enfants
+    gap: 1.5rem;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; GROUPES DE FORMULAIRE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.form-group {
+  // Flexbox colonne
+  display: flex;
+  // Direction verticale
+  flex-direction: column;
+  // Espacement entre label et input
+  gap: 0.5rem;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; ÉTIQUETTES DE FORMULAIRE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.form-label {
+  // Poids de police
+  font-weight: 600;
+  // Couleur du texte
+  color: var(--text);
+  // Taille de police
+  font-size: 0.95rem;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; INPUTS DE FORMULAIRE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.form-input,
+.form-textarea {
+  // Padding interne
+  padding: 0.875rem 1rem;
+  // Fond de couleur
+  background: var(--darker-bg);
+  // Bordure fine
+  border: 1px solid var(--border);
+  // Coins arrondis
+  border-radius: 0.5rem;
+  // Couleur du texte
+  color: var(--text);
+  // Taille de police
+  font-size: 0.95rem;
+  // Transition pour les interactions
+  transition: all 0.3s;
+  // Family de police
+  font-family: inherit;
+
+  // Placeholder style
+  &amp;::placeholder {
+    color: var(--text-muted);
+  }
+
+  // Style au focus
+  &amp;:focus {
+    // Bordure de couleur primaire
+    border-color: var(--primary);
+    // Ombre au focus
+    box-shadow: 0 0 0 3px rgba(var(--primary), 0.1);
+    // Enlever le outline par défaut
+    outline: none;
+  }
+
+  // Style en cas d&#x27;erreur
+  &amp;.input-error {
+    // Bordure rouge
+    border-color: var(--danger);
+    // Ombre d&#x27;erreur
+    box-shadow: 0 0 0 3px rgba(var(--danger), 0.1);
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; TEXTAREA SPÉCIFIQUE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.form-textarea {
+  // Hauteur minimum
+  min-height: 100px;
+  // Redimensionnable verticalement
+  resize: vertical;
+  // Police monospace optionnelle
+  font-family: inherit;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; TEXTE D&#x27;ERREUR &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.error-text {
+  // Couleur rouge
+  color: var(--danger);
+  // Taille réduite
+  font-size: 0.85rem;
+  // Léger margin négatif
+  margin-top: -0.25rem;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; BOUTONS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.btn {
+  // Padding interne
+  padding: 0.875rem 1.75rem;
+  // Pas de bordure
+  border: none;
+  // Coins arrondis
+  border-radius: 0.75rem;
+  // Poids de police
+  font-weight: 600;
+  // Cursor pointer
+  cursor: pointer;
+  // Transition pour les interactions
+  transition: all 0.3s;
+  // Taille de police
+  font-size: 0.95rem;
+  // Affichage inline-flex pour aligner le contenu
+  display: inline-flex;
+  // Aligner les éléments au centre
+  align-items: center;
+  // Espacement entre les éléments
+  gap: 0.5rem;
+
+  // Style au survol (si pas désactivé)
+  &amp;:hover:not(:disabled) {
+    // Légère levée
+    transform: translateY(-2px);
+    // Ombre
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  // Style quand désactivé
+  &amp;:disabled {
+    // Transparence réduite
+    opacity: 0.5;
+    // Cursor non-cliquable
+    cursor: not-allowed;
+  }
+
+  // Bouton primaire
+  &amp;.btn-primary {
+    // Fond violet
+    background: var(--primary);
+    // Texte blanc
+    color: white;
+
+    // Au survol
+    &amp;:hover:not(:disabled) {
+      // Violet plus clair
+      background: var(--primary-light);
+      // Ombre spécifique
+      box-shadow: 0 8px 20px rgba(var(--primary), 0.3);
+    }
+  }
+
+  // Bouton secondaire
+  &amp;.btn-secondary {
+    // Fond gris
+    background: var(--card-bg);
+    // Texte clair
+    color: var(--text);
+    // Bordure fine
+    border: 1px solid var(--border);
+
+    // Au survol
+    &amp;:hover:not(:disabled) {
+      // Fond plus clair
+      background: rgba(var(--text), 0.05);
+      // Bordure de couleur primaire
+      border-color: var(--primary);
+    }
+  }
+
+  // Bouton danger
+  &amp;.btn-danger {
+    // Fond rouge transparent
+    background: rgba(var(--danger), 0.1);
+    // Texte rouge
+    color: var(--danger);
+    // Bordure rouge
+    border: 1px solid rgba(var(--danger), 0.2);
+
+    // Au survol
+    &amp;:hover:not(:disabled) {
+      // Fond rouge plus opaque
+      background: rgba(var(--danger), 0.2);
+      // Ombre rouge
+      box-shadow: 0 8px 15px rgba(var(--danger), 0.2);
+    }
+  }
+
+  // Bouton petit
+  &amp;.btn-sm {
+    // Padding réduit
+    padding: 0.5rem 1rem;
+    // Texte plus petit
+    font-size: 0.85rem;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; ACTIONS DU FORMULAIRE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.form-actions {
+  // Flexbox horizontal
+  display: flex;
+  // Espacement entre les boutons
+  gap: 1rem;
+  // Alignement à droite
+  justify-content: flex-end;
+  // Espacement haut
+  margin-top: 1.5rem;
+  // Padding haut
+  padding-top: 1.5rem;
+  // Bordure supérieure
+  border-top: 1px solid var(--border);
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; CONTENEUR DE LISTE DES CAVES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.caves-list-container {
+  // Titre h3
+  h3 {
+    // Taille de police
+    font-size: 1.5rem;
+    // Poids de police
+    font-weight: 700;
+    // Couleur du texte
+    color: var(--text);
+    // Espacement bas
+    margin-bottom: 1.5rem;
+    // Pas de marge haut
+    margin-top: 0;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; GRILLE DE CAVES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.caves-grid {
+  // Grille CSS auto-fill
+  display: grid;
+  // Colonnes minimales 320px
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  // Espacement entre les cartes
+  gap: 1.5rem;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; CARTES DE CAVES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.cave-item {
+  // Fond pour les cartes
+  background: var(--card-bg);
+  // Bordure fine
+  border: 1px solid var(--border);
+  // Coins arrondis
+  border-radius: 1rem;
+  // Padding interne
+  padding: 1.5rem;
+  // Transition pour les interactions
+  transition: all 0.3s;
+
+  // Style au survol
+  &amp;:hover {
+    // Levée légère
+    transform: translateY(-5px);
+    // Bordure de couleur primaire
+    border-color: var(--primary);
+    // Ombre
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; EN-TÊTE DE LA CARTE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.cave-item-header {
+  // Flexbox pour layout horizontal
+  display: flex;
+  // Espacement entre nom et badge
+  justify-content: space-between;
+  // Alignement en haut
+  align-items: flex-start;
+  // Espacement bas
+  margin-bottom: 1rem;
+
+  // Titre h4
+  h4 {
+    // Taille de police
+    font-size: 1.25rem;
+    // Poids de police
+    font-weight: 700;
+    // Espacement bas
+    margin-bottom: 0.25rem;
+    // Pas de marge haut
+    margin-top: 0;
+    // Couleur du texte
+    color: var(--text);
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; LOCALISATION &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.cave-location {
+  // Couleur texte secondaire
+  color: var(--text-muted);
+  // Taille réduite
+  font-size: 0.9rem;
+  // Pas de marge
+  margin: 0;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; BADGE D&#x27;OCCUPATION &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.occupancy-badge {
+  // Fond transparent primaire
+  background: rgba(var(--primary), 0.15);
+  // Texte de couleur primaire
+  color: var(--primary);
+  // Padding interne
+  padding: 0.5rem 1rem;
+  // Coins arrondis
+  border-radius: 0.5rem;
+  // Poids de police
+  font-weight: 600;
+  // Taille de police
+  font-size: 0.9rem;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; STATISTIQUES DE LA CAVE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.cave-stats {
+  // Grille CSS
+  display: grid;
+  // 3 colonnes égales
+  grid-template-columns: repeat(3, 1fr);
+  // Espacement entre colonnes
+  gap: 1rem;
+  // Margin externe
+  margin: 1rem 0;
+  // Padding interne
+  padding: 1rem;
+  // Fond semi-transparent
+  background: rgba(0, 0, 0, 0.2);
+  // Coins arrondis
+  border-radius: 0.5rem;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; ÉLÉMENT DE STATUT &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.stat {
+  // Flexbox colonne
+  display: flex;
+  // Direction verticale
+  flex-direction: column;
+  // Centrer le texte
+  text-align: center;
+
+  // Label du statut
+  .label {
+    // Affichage en bloc
+    display: block;
+    // Couleur texte muted
+    color: var(--text-muted);
+    // Taille réduite
+    font-size: 0.85rem;
+    // Espacement bas
+    margin-bottom: 0.25rem;
+  }
+
+  // Valeur du statut
+  .value {
+    // Affichage en bloc
+    display: block;
+    // Taille augmentée
+    font-size: 1.5rem;
+    // Poids de police
+    font-weight: 700;
+    // Couleur primaire
+    color: var(--primary);
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; DESCRIPTION DE LA CAVE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.cave-description {
+  // Couleur texte secondaire
+  color: var(--text-muted);
+  // Taille de police
+  font-size: 0.9rem;
+  // Hauteur de ligne
+  line-height: 1.5;
+  // Margin externe
+  margin: 1rem 0;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; ACTIONS DE LA CARTE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.cave-item-actions {
+  // Flexbox horizontal
+  display: flex;
+  // Espacement entre les boutons
+  gap: 0.5rem;
+  // Padding haut
+  padding-top: 1rem;
+  // Bordure supérieure
+  border-top: 1px solid var(--border);
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; ÉTAT VIDE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.empty-state {
+  // Couvre toutes les colonnes
+  grid-column: 1 / -1;
+  // Centrer le texte
+  text-align: center;
+  // Padding interne
+  padding: 3rem 2rem;
+  // Couleur texte secondaire
+  color: var(--text-muted);
+
+  // Paragraphe
+  p {
+    // Taille augmentée
+    font-size: 1.1rem;
+    // Pas de marge
+    margin: 0;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; RESPONSIVE DESIGN &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+@media (max-width: 1024px) {
+  // Grille sur 2 colonnes
+  .caves-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  // Container avec moins de padding
+  .cave-create-container {
+    padding: 1rem;
+  }
+
+  // En-tête en colonne
+  .section-header {
+    // Direction verticale
+    flex-direction: column;
+    // Alignement à gauche
+    align-items: flex-start;
+    // Espacement entre éléments
+    gap: 1rem;
+
+    // Titre plus petit
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
+
+  // Grille sur 1 colonne
+  .caves-grid {
+    grid-template-columns: 1fr;
+  }
+
+  // Stats sur 2 colonnes au lieu de 3
+  .cave-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  // Boutons en colonne
+  .form-actions {
+    // Direction verticale inversée
+    flex-direction: column-reverse;
+    // Alignement à droite supprimé
+    justify-content: flex-end;
+
+    // Boutons pleine largeur
+    .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  // Formulaire avec moins de padding
+  .form-container {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  // Container mobile
+  .cave-create-container {
+    padding: 0.5rem;
+  }
+
+  // En-tête plus petit
+  .section-header h2 {
+    font-size: 1.25rem;
+  }
+
+  // Stats sur 1 colonne
+  .cave-stats {
+    grid-template-columns: 1fr;
+  }
+
+  // Carte plus compacte
+  .cave-item {
+    padding: 1rem;
+  }
+
+  // Actions empilées
+  .cave-item-actions {
+    flex-direction: column;
+
+    // Boutons pleine largeur
+    .btn-sm {
+      width: 100%;
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- ===== FICHIER: cave-create.component.html ===== --><!-- Template HTML pour la gestion des caves -->// est actuellement utilisé dans cave-list.component.html//chercher à bien structuré et aménageé pour une gestion efficace des caves.<div class="cave-create-container">  <!-- Message de feedback (succès, erreur, info) -->  <div *ngIf="message"       class="alert"       [ngClass]="\'alert-\' + messageType">    {{ message }}  </div>  <!-- En-tête avec titre et bouton d\'annulation -->  <div class="section-header">    <h2>🍷 Gestion des Caves</h2>    <!-- Bouton d\'annulation visible en mode édition -->    <button *ngIf="isEditing"            (click)="resetForm()"            class="btn btn-secondary">      ↻ Annuler l\'édition    </button>  </div>  <!-- Conteneur du formulaire -->  <div class="form-container">    <form [formGroup]="caveForm" (ngSubmit)="submitForm()">      <!-- Champ Nom de la cave -->      <div class="form-group">        <label class="form-label">Nom de la cave *</label>        <!-- Input avec validation en temps réel -->        <input          type="text"          class="form-input"          formControlName="name"          placeholder="Ex: Cave Principale"          [class.input-error]="isFieldInvalid(\'name\')">        <!-- Message d\'erreur de validation -->        <small *ngIf="isFieldInvalid(\'name\')" class="error-text">          ⚠️ Minimum 3 caractères requis        </small>      </div>      <!-- Champ Localisation -->      <div class="form-group">        <label class="form-label">Localisation *</label>        <!-- Select dropdown avec liste de régions -->        <select          class="form-input"          formControlName="location"          [class.input-error]="isFieldInvalid(\'location\')">          <option value="">Sélectionner une région...</option>          <!-- Boucle sur les régions disponibles -->          <option *ngFor="let region of regions" [value]="region">            📍 {{ region }}          </option>        </select>      </div>      <!-- Champ Capacité -->      <div class="form-group">        <label class="form-label">Capacité (bouteilles) *</label>        <!-- Input numérique avec min -->        <input          type="number"          class="form-input"          formControlName="capacity"          placeholder="Ex: 500"          min="1"          [class.input-error]="isFieldInvalid(\'capacity\')">      </div>      <!-- Champ Description -->      <div class="form-group">        <label class="form-label">Description</label>        <!-- Textarea pour description plus longue -->        <textarea          class="form-textarea"          formControlName="description"          placeholder="Description détaillée de la cave..."          rows="4"></textarea>      </div>      <!-- Boutons d\'action du formulaire -->      <div class="form-actions">        <!-- Bouton réinitialiser -->        <button type="reset" class="btn btn-secondary">          ↻ Réinitialiser        </button>        <!-- Bouton soumettre (texte différent selon le mode) -->        <button type="submit"                class="btn btn-primary"                [disabled]="caveForm.invalid">          {{ isEditing ? \'💾 Mettre à jour\' : \'➕ Créer cave\' }}        </button>      </div>    </form>  </div>  <!-- Conteneur de la liste des caves -->  <div class="caves-list-container">    <h3>📋 Caves existantes ({{ caves.length }})</h3>    <!-- Grille de cartes des caves -->    <div class="caves-grid">      <!-- Boucle sur chaque cave -->      <div *ngFor="let cave of caves" class="cave-item">        <!-- En-tête de la carte avec nom et localisation -->        <div class="cave-item-header">          <div>            <h4>{{ cave.name }}</h4>            <p class="cave-location">📍 {{ cave.location }}</p>          </div>          <!-- Badge montrant le taux d\'occupation -->          <div class="occupancy-badge">            {{ getOccupancyRate(cave) }}%          </div>        </div>        <!-- Statistiques de la cave (grille) -->        <div class="cave-stats">          <!-- Capacité -->          <div class="stat">            <span class="label">🍾 Capacité:</span>            <span class="value">{{ cave.capacity }}</span>          </div>          <!-- Nombre de managers -->          <div class="stat">            <span class="label">👥 Managers:</span>            <span class="value">{{ cave.managersCount }}</span>          </div>          <!-- Nombre d\'employés -->          <div class="stat">            <span class="label">👨‍💼 Employés:</span>            <span class="value">{{ cave.employeesCount }}</span>          </div>        </div>        <!-- Description de la cave -->        <p class="cave-description">{{ cave.description }}</p>        <!-- Boutons d\'action (éditer, supprimer) -->        <div class="cave-item-actions">          <!-- Bouton éditer -->          <button (click)="editCave(cave)" class="btn btn-secondary btn-sm">            ✏️ Éditer          </button>          <!-- Bouton supprimer avec confirmation -->          <button (click)="deleteCave(cave.id)" class="btn btn-danger btn-sm">            🗑️ Supprimer          </button>        </div>      </div>      <!-- Message affiché si aucune cave n\'existe -->      <div *ngIf="caves.length === 0" class="empty-state">        <p>📭 Aucune cave créée. Commencez par en créer une!</p>      </div>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AdminDashboardComponent', 'selector': 'app-admin-dashboard'},{'name': 'AlertsComponent', 'selector': 'app-alerts'},{'name': 'App', 'selector': 'app-root'},{'name': 'CaisseComponent', 'selector': 'app-caisse'},{'name': 'CaveCreateComponent', 'selector': 'app-cave-create'},{'name': 'CaveListComponent', 'selector': 'app-cave-lists'},{'name': 'ClientDashboardComponent', 'selector': 'app-client-dashboard'},{'name': 'ClientsComponent', 'selector': 'app-client'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DrinksComponent', 'selector': 'app-drinks'},{'name': 'EmployeesComponent', 'selector': 'app-employees'},{'name': 'EntriesComponent', 'selector': 'app-entries'},{'name': 'ExitsComponent', 'selector': 'app-exits'},{'name': 'ExpenseComponent', 'selector': 'app-depenses'},{'name': 'FaqComponent', 'selector': 'app-faq'},{'name': 'FournisseursComponent', 'selector': 'app-fournisseur'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'ImprovementsComponent', 'selector': 'app-improvements'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ManagerDashboardComponent', 'selector': 'app-manager-dashboard'},{'name': 'ManagersComponent', 'selector': 'app-managers'},{'name': 'MaterialComponent', 'selector': 'app-materiel'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'OrdersComponent', 'selector': 'app-orders'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfitComponent', 'selector': 'app-profit'},{'name': 'RecentActionsComponent', 'selector': 'app-recent-actions'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'SalesComponent', 'selector': 'app-sales'},{'name': 'ScanComponent', 'selector': 'app-scan'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'StockComponent', 'selector': 'app-stock'},{'name': 'StockComponent', 'selector': 'app-stock'},{'name': 'TeamComponent', 'selector': 'app-team'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'UserCreateComponent', 'selector': 'app-user-create'},{'name': 'UserListComponent', 'selector': 'app-user-list'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'WaitressDashboardComponent', 'selector': 'app-waitress-dashboard'},{'name': 'WinePairingComponent', 'selector': 'app-wine-pairing'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'CaveCreateComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'CaveCreateComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

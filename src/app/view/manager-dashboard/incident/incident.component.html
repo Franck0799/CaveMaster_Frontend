@@ -1,0 +1,117 @@
+
+<div class="incidents-page">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">Gestion des Incidents</h1>
+      <p class="page-subtitle">Signaler et suivre les incidents</p>
+    </div>
+    <button class="btn-primary" (click)="reportIncident()">
+      ⚠️ Signaler un incident
+    </button>
+  </div>
+
+  <!-- Statistiques -->
+  <div class="stats-grid">
+    <div class="stat-card open">
+      <div class="stat-icon">🔴</div>
+      <div class="stat-content">
+        <div class="stat-label">Ouverts</div>
+        <div class="stat-value">{{ getCountByStatus('open') }}</div>
+      </div>
+    </div>
+
+    <div class="stat-card progress">
+      <div class="stat-icon">🟡</div>
+      <div class="stat-content">
+        <div class="stat-label">En cours</div>
+        <div class="stat-value">{{ getCountByStatus('in-progress') }}</div>
+      </div>
+    </div>
+
+    <div class="stat-card resolved">
+      <div class="stat-icon">🟢</div>
+      <div class="stat-content">
+        <div class="stat-label">Résolus</div>
+        <div class="stat-value">{{ getCountByStatus('resolved') }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filtres -->
+  <div class="filters">
+    <button class="filter-btn"
+            [class.active]="selectedStatus === 'all'"
+            (click)="filterByStatus('all')">
+      Tous
+    </button>
+    <button class="filter-btn"
+            [class.active]="selectedStatus === 'open'"
+            (click)="filterByStatus('open')">
+      Ouverts
+    </button>
+    <button class="filter-btn"
+            [class.active]="selectedStatus === 'in-progress'"
+            (click)="filterByStatus('in-progress')">
+      En cours
+    </button>
+    <button class="filter-btn"
+            [class.active]="selectedStatus === 'resolved'"
+            (click)="filterByStatus('resolved')">
+      Résolus
+    </button>
+  </div>
+
+  <!-- Liste des incidents -->
+  <div class="incidents-list">
+    <div class="incident-card"
+         *ngFor="let incident of filteredIncidents"
+         [class]="'severity-' + incident.severity">
+      <div class="incident-header">
+        <div class="incident-info">
+          <span class="type-badge" [class]="'type-' + incident.type">
+            {{ getTypeLabel(incident.type) }}
+          </span>
+          <h3 class="incident-title">{{ incident.title }}</h3>
+        </div>
+        <span class="status-badge" [class]="'status-' + incident.status">
+          {{ getStatusLabel(incident.status) }}
+        </span>
+      </div>
+
+      <div class="incident-body">
+        <p class="incident-description">{{ incident.description }}</p>
+
+        <div class="incident-meta">
+          <div class="meta-item">
+            <span class="meta-icon">👤</span>
+            <span class="meta-text">Signalé par {{ incident.reportedBy }}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-icon">📅</span>
+            <span class="meta-text">{{ incident.reportedAt | date:'dd/MM/yyyy HH:mm' }}</span>
+          </div>
+          <div class="meta-item" *ngIf="incident.assignedTo">
+            <span class="meta-icon">👨‍🔧</span>
+            <span class="meta-text">Assigné à {{ incident.assignedTo }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="incident-actions">
+        <button class="action-btn" (click)="viewIncident(incident)">
+          👁️ Détails
+        </button>
+        <button class="action-btn"
+                *ngIf="incident.status !== 'resolved'"
+                (click)="updateStatus(incident)">
+          🔄 Mettre à jour
+        </button>
+        <button class="action-btn success"
+                *ngIf="incident.status !== 'resolved'"
+                (click)="resolveIncident(incident)">
+          ✅ Résoudre
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

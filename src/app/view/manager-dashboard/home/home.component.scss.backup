@@ -1,0 +1,111 @@
+// ===== VARIABLES SASS =====
+// Les variables SASS commencent par $ (dollar) au lieu de --
+// Elles sont compilées AVANT que le CSS n'arrive au navigateur
+// C'est pour ça qu'elles fonctionnent toujours, même sur de vieux navigateurs
+
+var(--primary): #8b5cf6;           // Couleur principale (violet)
+var(--primary-light): #a78bfa;     // Version plus claire du violet
+var(--accent): #6366f1;            // Couleur d'accentuation (indigo)
+var(--success): #10b981;           // Vert pour les succès
+var(--warning): #f59e0b;           // Orange pour les avertissements
+var(--danger): #ef4444;            // Rouge pour les dangers
+var(--info): #3b82f6;              // Bleu pour les informations
+var(--dark-bg): #0a0d1f;           // Fond sombre principal
+var(--darker-bg): #060918;         // Fond encore plus sombre
+var(--card-bg): #1a1d35;           // Fond des cartes
+var(--card-hover): #232947;        // Fond des cartes au survol
+var(--text): #e2e8f0;              // Couleur du texte principal
+var(--text-muted): #94a3b8;        // Texte atténué (moins visible)
+var(--border): #1e293b;            // Couleur des bordures
+
+// ===== RÉINITIALISATION =====
+// Le * signifie "tous les éléments"
+// On réinitialise les marges et espacements par défaut du navigateur
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; // La largeur inclut padding et border
+}
+
+// ===== STYLES DE BASE =====
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  // linear-gradient crée un dégradé de couleurs pour le fond
+  background: linear-gradient(135deg, #000000 0%, #0a0f1e 50%, #111827 100%);
+  color: white;
+}
+
+.dashboard {
+  display: flex; // Place les enfants côte à côte (sidebar et contenu)
+  min-height: 100vh; // 100vh = 100% de la hauteur de l'écran
+}
+
+// ===== RESPONSIVE DESIGN =====
+// @media query permet d'appliquer des styles différents selon la taille de l'écran
+// max-width: 768px = pour les écrans de 768px ou moins (tablettes et mobiles)
+@media (max-width: 768px) {
+  // Sur mobile, on cache la sidebar en la déplaçant hors de l'écran
+  .sidebar {
+    transform: translateX(-200px); // Déplace de 200px vers la gauche (hors de vue)
+  }
+
+  .main-content {
+    margin-left: 0; // Supprime la marge puisque la sidebar est cachée
+  }
+
+  // Toutes les grilles passent en une seule colonne sur mobile
+  .stats-grid,
+  .alerts-grid,
+  .team-grid {
+    grid-template-columns: 1fr; // 1 colonne qui prend toute la largeur
+  }
+
+  // Responsive pour la section stock
+  .cave-tabs {
+    flex-direction: column; // Empile les onglets verticalement
+  }
+
+  .cave-tab {
+    min-width: 100%; // Chaque onglet prend toute la largeur
+  }
+
+  .stock-controls {
+    flex-direction: column; // Empile les contrôles verticalement
+    align-items: stretch; // Étire les éléments sur toute la largeur
+  }
+
+  .search-box {
+    width: 100%;
+  }
+
+  .stock-filters {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .filter-btn {
+    flex: 1;
+    min-width: auto;
+  }
+
+  .stock-grid {
+    grid-template-columns: 1fr;
+  }
+
+  // Responsive pour la section caisse
+  .caisse-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .transaction-header {
+    flex-wrap: wrap; // Permet aux éléments de passer à la ligne
+  }
+
+  .transaction-amount {
+    width: 100%;
+    text-align: right;
+    margin-top: 0.5rem;
+  }
+}
+// ===== FIN RESPONSIVE DESIGN =====
+

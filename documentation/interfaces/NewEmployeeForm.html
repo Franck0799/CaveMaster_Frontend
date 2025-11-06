@@ -1,0 +1,1021 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cave-master-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cave-master-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  NewEmployeeForm</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/view/admin-dashboard/employees/employees.component.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Interface pour le formulaire d&#39;ajout d&#39;employé</p>
+
+            </p>
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#caveId" 
+>
+                                            caveId
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#email" 
+>
+                                            email
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#firstName" 
+>
+                                            firstName
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#lastName" 
+>
+                                            lastName
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#managerId" 
+>
+                                            managerId
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#phone" 
+>
+                                            phone
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#position" 
+>
+                                            position
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="caveId"></a>
+                                        <span class="name "><b>caveId</b>
+                                            <a href="#caveId">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>caveId:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="email"></a>
+                                        <span class="name "><b>email</b>
+                                            <a href="#email">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>email:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="firstName"></a>
+                                        <span class="name "><b>firstName</b>
+                                            <a href="#firstName">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>firstName:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="lastName"></a>
+                                        <span class="name "><b>lastName</b>
+                                            <a href="#lastName">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>lastName:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="managerId"></a>
+                                        <span class="name "><b>managerId</b>
+                                            <a href="#managerId">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>managerId:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="phone"></a>
+                                        <span class="name "><b>phone</b>
+                                            <a href="#phone">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>phone:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="position"></a>
+                                        <span class="name "><b>position</b>
+                                            <a href="#position">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>position:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule, ReactiveFormsModule } from &#x27;@angular/forms&#x27;;
+
+/**
+ * Interface pour l&#x27;historique de disponibilité
+ */
+interface AvailabilityHistory {
+  date: string;
+  status: &#x27;présent&#x27; | &#x27;absent&#x27; | &#x27;congé&#x27;;
+  heureArrivee?: string;
+  heureDepart?: string;
+  duree?: string;
+}
+
+/**
+ * Interface pour la disponibilité actuelle
+ */
+interface Availability {
+  status: &#x27;présent&#x27; | &#x27;absent&#x27; | &#x27;congé&#x27;;
+  heureArrivee?: string;
+  heureDepart?: string;
+  lastUpdate: string;
+}
+
+/**
+ * Interface pour définir la structure d&#x27;un employé
+ */
+interface Employee {
+  id: string;
+  avatar: string;
+  name: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  position: string;
+  ventes: string;
+  heures: string;
+  managerId?: string;
+  caveId?: string;
+  availability: Availability;
+  availabilityHistory: AvailabilityHistory[];
+}
+
+/**
+ * Interface pour le formulaire d&#x27;ajout d&#x27;employé
+ */
+interface NewEmployeeForm {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  caveId: string;
+  managerId: string;
+  position: string;
+}
+
+@Component({
+  selector: &#x27;app-employees&#x27;,
+  standalone: true,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  templateUrl: &#x27;./employees.component.html&#x27;,
+  styleUrls: [&#x27;./employees.component.scss&#x27;]
+})
+export class EmployeesComponent implements OnInit {
+
+  // Liste de tous les employés avec disponibilité
+  employees: Employee[] &#x3D; [
+    {
+      id: &#x27;1&#x27;,
+      avatar: &#x27;👨&#x27;,
+      firstName: &#x27;Jean&#x27;,
+      lastName: &#x27;Kouassi&#x27;,
+      name: &#x27;Jean Kouassi&#x27;,
+      email: &#x27;jean.kouassi@caveviking.com&#x27;,
+      phone: &#x27;+234 801 234 5678&#x27;,
+      position: &#x27;Caissier&#x27;,
+      ventes: &#x27;250K&#x27;,
+      heures: &#x27;160h&#x27;,
+      availability: {
+        status: &#x27;présent&#x27;,
+        heureArrivee: &#x27;08:15&#x27;,
+        heureDepart: &#x27;17:30&#x27;,
+        lastUpdate: &#x27;2025-01-27T08:15:00&#x27;
+      },
+      availabilityHistory: [
+        { date: &#x27;2025-01-27&#x27;, status: &#x27;présent&#x27;, heureArrivee: &#x27;08:15&#x27;, heureDepart: &#x27;17:30&#x27;, duree: &#x27;9h15&#x27; },
+        { date: &#x27;2025-01-26&#x27;, status: &#x27;présent&#x27;, heureArrivee: &#x27;08:05&#x27;, heureDepart: &#x27;17:00&#x27;, duree: &#x27;8h55&#x27; },
+        { date: &#x27;2025-01-25&#x27;, status: &#x27;absent&#x27;, heureArrivee: &#x27;-&#x27;, heureDepart: &#x27;-&#x27;, duree: &#x27;-&#x27; },
+        { date: &#x27;2025-01-24&#x27;, status: &#x27;présent&#x27;, heureArrivee: &#x27;08:20&#x27;, heureDepart: &#x27;17:15&#x27;, duree: &#x27;8h55&#x27; }
+      ]
+    },
+    {
+      id: &#x27;2&#x27;,
+      avatar: &#x27;👩&#x27;,
+      firstName: &#x27;Marie&#x27;,
+      lastName: &#x27;Diallo&#x27;,
+      name: &#x27;Marie Diallo&#x27;,
+      email: &#x27;marie.diallo@caveviking.com&#x27;,
+      phone: &#x27;+234 802 345 6789&#x27;,
+      position: &#x27;Vendeuse&#x27;,
+      ventes: &#x27;320K&#x27;,
+      heures: &#x27;155h&#x27;,
+      availability: {
+        status: &#x27;congé&#x27;,
+        lastUpdate: &#x27;2025-01-25T00:00:00&#x27;
+      },
+      availabilityHistory: [
+        { date: &#x27;2025-01-27&#x27;, status: &#x27;congé&#x27;, heureArrivee: &#x27;-&#x27;, heureDepart: &#x27;-&#x27;, duree: &#x27;-&#x27; },
+        { date: &#x27;2025-01-26&#x27;, status: &#x27;congé&#x27;, heureArrivee: &#x27;-&#x27;, heureDepart: &#x27;-&#x27;, duree: &#x27;-&#x27; },
+        { date: &#x27;2025-01-25&#x27;, status: &#x27;présent&#x27;, heureArrivee: &#x27;08:00&#x27;, heureDepart: &#x27;17:00&#x27;, duree: &#x27;9h00&#x27; },
+        { date: &#x27;2025-01-24&#x27;, status: &#x27;présent&#x27;, heureArrivee: &#x27;08:10&#x27;, heureDepart: &#x27;17:20&#x27;, duree: &#x27;9h10&#x27; }
+      ]
+    },
+    {
+      id: &#x27;3&#x27;,
+      avatar: &#x27;👨&#x27;,
+      firstName: &#x27;Paul&#x27;,
+      lastName: &#x27;Mensah&#x27;,
+      name: &#x27;Paul Mensah&#x27;,
+      email: &#x27;paul.mensah@caveviking.com&#x27;,
+      phone: &#x27;+234 803 456 7890&#x27;,
+      position: &#x27;Magasinier&#x27;,
+      ventes: &#x27;180K&#x27;,
+      heures: &#x27;165h&#x27;,
+      availability: {
+        status: &#x27;absent&#x27;,
+        lastUpdate: &#x27;2025-01-27T08:00:00&#x27;
+      },
+      availabilityHistory: [
+        { date: &#x27;2025-01-27&#x27;, status: &#x27;absent&#x27;, heureArrivee: &#x27;-&#x27;, heureDepart: &#x27;-&#x27;, duree: &#x27;-&#x27; },
+        { date: &#x27;2025-01-26&#x27;, status: &#x27;présent&#x27;, heureArrivee: &#x27;07:55&#x27;, heureDepart: &#x27;17:10&#x27;, duree: &#x27;9h15&#x27; },
+        { date: &#x27;2025-01-25&#x27;, status: &#x27;présent&#x27;, heureArrivee: &#x27;08:00&#x27;, heureDepart: &#x27;17:00&#x27;, duree: &#x27;9h00&#x27; },
+        { date: &#x27;2025-01-24&#x27;, status: &#x27;présent&#x27;, heureArrivee: &#x27;08:05&#x27;, heureDepart: &#x27;17:05&#x27;, duree: &#x27;9h00&#x27; }
+      ]
+    }
+  ];
+
+  // Modals
+  isAddEmployeeModalOpen: boolean &#x3D; false;
+  isEditEmployeeModalOpen: boolean &#x3D; false;
+  isViewDetailsModalOpen: boolean &#x3D; false;
+  isViewHistoryModalOpen: boolean &#x3D; false;
+
+  // Employé sélectionné pour les modals
+  selectedEmployee: Employee | null &#x3D; null;
+
+  // Formulaire pour nouvel employé
+  newEmployeeForm: NewEmployeeForm &#x3D; {
+    firstName: &#x27;&#x27;,
+    lastName: &#x27;&#x27;,
+    email: &#x27;&#x27;,
+    phone: &#x27;&#x27;,
+    caveId: &#x27;&#x27;,
+    managerId: &#x27;&#x27;,
+    position: &#x27;&#x27;
+  };
+
+  // Formulaire d&#x27;édition
+  editEmployeeForm: Employee | null &#x3D; null;
+
+  // Liste des caves
+  caves: any[] &#x3D; [
+    { id: &#x27;cave1&#x27;, name: &#x27;Cave Abidjan Centre&#x27; },
+    { id: &#x27;cave2&#x27;, name: &#x27;Cave Cocody&#x27; },
+    { id: &#x27;cave3&#x27;, name: &#x27;Cave Yopougon&#x27; }
+  ];
+
+  constructor() {}
+
+  ngOnInit(): void {
+    this.loadEmployees();
+    this.loadCaves();
+  }
+
+  /**
+   * Charge la liste des employés depuis le backend
+   */
+  loadEmployees(): void {
+    console.log(&#x27;Chargement des employés...&#x27;);
+  }
+
+  /**
+   * Charge la liste des caves
+   */
+  loadCaves(): void {
+    console.log(&#x27;Chargement des caves...&#x27;);
+  }
+
+  /**
+   * Retourne tous les employés
+   */
+  getAllEmployees(): Employee[] {
+    return this.employees;
+  }
+
+  /**
+   * Calcule le nombre total d&#x27;employés
+   */
+  getTotalEmployeesCount(): number {
+    return this.employees.length;
+  }
+
+  /**
+   * Compte les employés présents
+   */
+  getPresentEmployeesCount(): number {
+    return this.employees.filter(e &#x3D;&gt; e.availability.status &#x3D;&#x3D;&#x3D; &#x27;présent&#x27;).length;
+  }
+
+  /**
+   * Compte les employés absents
+   */
+  getAbsentEmployeesCount(): number {
+    return this.employees.filter(e &#x3D;&gt; e.availability.status &#x3D;&#x3D;&#x3D; &#x27;absent&#x27;).length;
+  }
+
+  /**
+   * Compte les employés en congé
+   */
+  getOnLeaveEmployeesCount(): number {
+    return this.employees.filter(e &#x3D;&gt; e.availability.status &#x3D;&#x3D;&#x3D; &#x27;congé&#x27;).length;
+  }
+
+  /**
+   * Calcule la moyenne des ventes
+   */
+  getAverageSales(): string {
+    return &#x27;420K&#x27;;
+  }
+
+  /**
+   * Calcule la moyenne des heures travaillées
+   */
+  getAverageHours(): string {
+    return &#x27;158h&#x27;;
+  }
+
+  /**
+   * Ouvre le modal d&#x27;ajout d&#x27;employé
+   */
+  openAddEmployeeModal(): void {
+    this.isAddEmployeeModalOpen &#x3D; true;
+    this.resetEmployeeForm();
+  }
+
+  /**
+   * Ferme le modal d&#x27;ajout d&#x27;employé
+   */
+  closeAddEmployeeModal(): void {
+    this.isAddEmployeeModalOpen &#x3D; false;
+  }
+
+  /**
+   * Réinitialise le formulaire d&#x27;ajout d&#x27;employé
+   */
+  resetEmployeeForm(): void {
+    this.newEmployeeForm &#x3D; {
+      firstName: &#x27;&#x27;,
+      lastName: &#x27;&#x27;,
+      email: &#x27;&#x27;,
+      phone: &#x27;&#x27;,
+      caveId: &#x27;&#x27;,
+      managerId: &#x27;&#x27;,
+      position: &#x27;&#x27;
+    };
+  }
+
+  /**
+   * Ajoute un nouvel employé
+   */
+  addNewEmployee(): void {
+    if (!this.validateEmployeeForm()) {
+      alert(&#x27;Veuillez remplir tous les champs obligatoires&#x27;);
+      return;
+    }
+
+    const newEmployee: Employee &#x3D; {
+      id: this.generateId(),
+      avatar: this.getRandomAvatar(),
+      firstName: this.newEmployeeForm.firstName,
+      lastName: this.newEmployeeForm.lastName,
+      name: &#x60;${this.newEmployeeForm.firstName} ${this.newEmployeeForm.lastName}&#x60;,
+      email: this.newEmployeeForm.email,
+      phone: this.newEmployeeForm.phone,
+      position: this.newEmployeeForm.position,
+      ventes: &#x27;0K&#x27;,
+      heures: &#x27;0h&#x27;,
+      managerId: this.newEmployeeForm.managerId,
+      caveId: this.newEmployeeForm.caveId,
+      availability: {
+        status: &#x27;absent&#x27;,
+        lastUpdate: new Date().toISOString()
+      },
+      availabilityHistory: []
+    };
+
+    this.employees.push(newEmployee);
+    console.log(&#x27;Nouvel employé ajouté:&#x27;, newEmployee);
+    this.closeAddEmployeeModal();
+    alert(&#x27;Employé ajouté avec succès !&#x27;);
+  }
+
+  /**
+   * Valide le formulaire d&#x27;ajout d&#x27;employé
+   */
+  validateEmployeeForm(): boolean {
+    return !!(
+      this.newEmployeeForm.firstName &amp;&amp;
+      this.newEmployeeForm.lastName &amp;&amp;
+      this.newEmployeeForm.email &amp;&amp;
+      this.newEmployeeForm.caveId &amp;&amp;
+      this.newEmployeeForm.managerId &amp;&amp;
+      this.newEmployeeForm.position
+    );
+  }
+
+  /**
+   * Génère un ID unique pour un nouvel employé
+   */
+  generateId(): string {
+    return &#x60;emp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}&#x60;;
+  }
+
+  /**
+   * Retourne un avatar aléatoire
+   */
+  getRandomAvatar(): string {
+    const avatars &#x3D; [&#x27;👨&#x27;, &#x27;👩&#x27;, &#x27;👨‍💼&#x27;, &#x27;👩‍💼&#x27;, &#x27;👨‍🔧&#x27;, &#x27;👩‍🔧&#x27;];
+    return avatars[Math.floor(Math.random() * avatars.length)];
+  }
+
+  /**
+   * Récupère les managers d&#x27;une cave spécifique
+   */
+  getManagersByCave(caveId: string): any[] {
+    // TODO: Filtrer les managers par cave
+    return [
+      { name: &#x27;Jean Dupont&#x27;, role: &#x27;Manager Principal&#x27; },
+      { name: &#x27;Marie Martin&#x27;, role: &#x27;Manager&#x27; }
+    ];
+  }
+
+  /**
+   * Ouvre le modal d&#x27;édition avec les informations de l&#x27;employé
+   */
+  editEmployee(employee: Employee): void {
+    this.selectedEmployee &#x3D; employee;
+    this.editEmployeeForm &#x3D; { ...employee };
+    this.isEditEmployeeModalOpen &#x3D; true;
+  }
+
+  /**
+   * Ferme le modal d&#x27;édition
+   */
+  closeEditEmployeeModal(): void {
+    this.isEditEmployeeModalOpen &#x3D; false;
+    this.selectedEmployee &#x3D; null;
+    this.editEmployeeForm &#x3D; null;
+  }
+
+  /**
+   * Sauvegarde les modifications de l&#x27;employé
+   */
+  saveEmployeeChanges(): void {
+    if (!this.editEmployeeForm) return;
+
+    const index &#x3D; this.employees.findIndex(e &#x3D;&gt; e.id &#x3D;&#x3D;&#x3D; this.editEmployeeForm!.id);
+    if (index !&#x3D;&#x3D; -1) {
+      this.employees[index] &#x3D; { ...this.editEmployeeForm };
+      console.log(&#x27;Employé modifié:&#x27;, this.employees[index]);
+      alert(&#x27;Informations mises à jour avec succès !&#x27;);
+      this.closeEditEmployeeModal();
+    }
+  }
+
+  /**
+   * Supprime un employé
+   */
+  deleteEmployee(employee: Employee): void {
+    if (confirm(&#x60;Êtes-vous sûr de vouloir supprimer ${employee.name} ?&#x60;)) {
+      this.employees &#x3D; this.employees.filter(e &#x3D;&gt; e.id !&#x3D;&#x3D; employee.id);
+      console.log(&#x27;Employé supprimé:&#x27;, employee);
+      alert(&#x27;Employé supprimé avec succès&#x27;);
+    }
+  }
+
+  /**
+   * Affiche les détails complets d&#x27;un employé
+   */
+  viewEmployeeDetails(employee: Employee): void {
+    this.selectedEmployee &#x3D; employee;
+    this.isViewDetailsModalOpen &#x3D; true;
+  }
+
+  /**
+   * Ferme le modal de détails
+   */
+  closeDetailsModal(): void {
+    this.isViewDetailsModalOpen &#x3D; false;
+    this.selectedEmployee &#x3D; null;
+  }
+
+  /**
+   * Affiche l&#x27;historique de disponibilité
+   */
+  viewAvailabilityHistory(employee: Employee): void {
+    this.selectedEmployee &#x3D; employee;
+    this.isViewHistoryModalOpen &#x3D; true;
+  }
+
+  /**
+   * Ferme le modal d&#x27;historique
+   */
+  closeHistoryModal(): void {
+    this.isViewHistoryModalOpen &#x3D; false;
+    this.selectedEmployee &#x3D; null;
+  }
+
+  /**
+   * Retourne la classe CSS selon le statut
+   */
+  getStatusClass(status: string): string {
+    switch(status) {
+      case &#x27;présent&#x27;: return &#x27;status-present&#x27;;
+      case &#x27;absent&#x27;: return &#x27;status-absent&#x27;;
+      case &#x27;congé&#x27;: return &#x27;status-leave&#x27;;
+      default: return &#x27;&#x27;;
+    }
+  }
+
+  /**
+   * Retourne l&#x27;icône selon le statut
+   */
+  getStatusIcon(status: string): string {
+    switch(status) {
+      case &#x27;présent&#x27;: return &#x27;✅&#x27;;
+      case &#x27;absent&#x27;: return &#x27;❌&#x27;;
+      case &#x27;congé&#x27;: return &#x27;🏖️&#x27;;
+      default: return &#x27;❓&#x27;;
+    }
+  }
+
+  /**
+   * Met à jour le statut de disponibilité d&#x27;un employé
+   */
+  updateAvailabilityStatus(employee: Employee, newStatus: &#x27;présent&#x27; | &#x27;absent&#x27; | &#x27;congé&#x27;): void {
+    employee.availability.status &#x3D; newStatus;
+    employee.availability.lastUpdate &#x3D; new Date().toISOString();
+
+    if (newStatus &#x3D;&#x3D;&#x3D; &#x27;présent&#x27; &amp;&amp; !employee.availability.heureArrivee) {
+      employee.availability.heureArrivee &#x3D; new Date().toLocaleTimeString(&#x27;fr-FR&#x27;, {
+        hour: &#x27;2-digit&#x27;,
+        minute: &#x27;2-digit&#x27;
+      });
+    }
+
+    console.log(&#x27;Statut mis à jour:&#x27;, employee);
+    // TODO: Appel API pour sauvegarder
+  }
+
+  /**
+   * Compte les jours présents dans l&#x27;historique
+   */
+  getHistoryPresentDays(employee: Employee): number {
+    return employee.availabilityHistory.filter(h &#x3D;&gt; h.status &#x3D;&#x3D;&#x3D; &#x27;présent&#x27;).length;
+  }
+
+  /**
+   * Compte les jours absents dans l&#x27;historique
+   */
+  getHistoryAbsentDays(employee: Employee): number {
+    return employee.availabilityHistory.filter(h &#x3D;&gt; h.status &#x3D;&#x3D;&#x3D; &#x27;absent&#x27;).length;
+  }
+
+  /**
+   * Compte les jours de congé dans l&#x27;historique
+   */
+  getHistoryLeaveDays(employee: Employee): number {
+    return employee.availabilityHistory.filter(h &#x3D;&gt; h.status &#x3D;&#x3D;&#x3D; &#x27;congé&#x27;).length;
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'NewEmployeeForm.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,20 +1,7 @@
-// ===== FICHIER: waitress-dashboard.component.scss =====
-// Ce fichier contient tous les styles du dashboard en SASS
 
-// ===== VARIABLES SASS =====
-// Définition des couleurs et dimensions réutilisables
-$primary: #ec4899;           // Rose principal
-$secondary: #f472b6;         // Rose secondaire
-$success: #22c55e;           // Vert
-$warning: #f59e0b;           // Orange
-$danger: #ef4444;            // Rouge
-$info: #3b82f6;              // Bleu
 $dark: #0f172a;              // Fond sombre
 $card: #1e293b;              // Fond des cartes
 $sidebar: #1e293b;           // Fond sidebar
-$text: #f1f5f9;              // Texte principal
-$text-muted: #94a3b8;        // Texte secondaire
-$border: #334155;            // Bordures
 
 // Dimensions
 $sidebar-width: 280px;       // Largeur de la sidebar
@@ -30,13 +17,13 @@ $transition: all 0.3s;       // Transition par défaut
 
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba($primary, 0.2);
+    box-shadow: 0 10px 30px rgba(var(--primary), 0.2);
   }
 }
 
 // Mixin pour le dégradé rose
 @mixin gradient-text {
-  background: linear-gradient(135deg, $primary, $secondary);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -75,14 +62,14 @@ $transition: all 0.3s;       // Transition par défaut
   display: flex;
   min-height: 100vh;
   background: $dark;
-  color: $text;
+  color: var(--text);
 }
 
 // ===== SIDEBAR =====
 .sidebar {
   width: $sidebar-width;
   background: $sidebar;
-  border-right: 1px solid $border;
+  border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -92,14 +79,14 @@ $transition: all 0.3s;       // Transition par défaut
   // En-tête de la sidebar
   &-header {
     padding: 1.5rem;
-    border-bottom: 1px solid $border;
+    border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
     gap: 0.75rem;
 
     .logo-icon {
       font-size: 2.5rem;
-      filter: drop-shadow(0 0 10px rgba($primary, 0.5));
+      filter: drop-shadow(0 0 10px rgba(var(--primary), 0.5));
     }
 
     .logo-text {
@@ -125,11 +112,11 @@ $transition: all 0.3s;       // Transition par défaut
     }
 
     &::-webkit-scrollbar-thumb {
-      background: $border;
+      background: var(--border);
       border-radius: 3px;
 
       &:hover {
-        background: $primary;
+        background: var(--primary);
       }
     }
   }
@@ -137,7 +124,7 @@ $transition: all 0.3s;       // Transition par défaut
   // Pied de la sidebar
   &-footer {
     padding: 1rem;
-    border-top: 1px solid $border;
+    border-top: 1px solid var(--border);
   }
 }
 
@@ -147,21 +134,21 @@ $transition: all 0.3s;       // Transition par défaut
   align-items: center;
   gap: 1rem;
   padding: 1rem 1.5rem;
-  color: $text-muted;
+  color: var(--text-muted);
   cursor: pointer;
   transition: $transition;
   border-left: 3px solid transparent;
 
   &:hover {
-    background: rgba($primary, 0.1);
-    color: $text;
+    background: rgba(var(--primary), 0.1);
+    color: var(--text);
   }
 
   // État actif
   &.active {
-    background: rgba($primary, 0.15);
-    color: $primary;
-    border-left-color: $primary;
+    background: rgba(var(--primary), 0.15);
+    color: var(--primary);
+    border-left-color: var(--primary);
   }
 
   .nav-icon {
@@ -176,16 +163,16 @@ $transition: all 0.3s;       // Transition par défaut
   align-items: center;
   gap: 1rem;
   padding: 1rem;
-  background: rgba($danger, 0.1);
-  border: 1px solid rgba($danger, 0.2);
-  color: $danger;
+  background: rgba(var(--danger), 0.1);
+  border: 1px solid rgba(var(--danger), 0.2);
+  color: var(--danger);
   cursor: pointer;
   border-radius: 0.5rem;
   transition: $transition;
   font-size: 1rem;
 
   &:hover {
-    background: rgba($danger, 0.2);
+    background: rgba(var(--danger), 0.2);
     transform: scale(1.02);
   }
 }
@@ -199,7 +186,7 @@ $transition: all 0.3s;       // Transition par défaut
 // ===== EN-TÊTE DU HAUT =====
 .top-header {
   background: $card;
-  border-bottom: 1px solid $border;
+  border-bottom: 1px solid var(--border);
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
@@ -231,17 +218,17 @@ $transition: all 0.3s;       // Transition par défaut
   gap: 0.5rem;
   padding: 0.75rem 1.25rem;
   background: $card;
-  border: 2px solid $border;
+  border: 2px solid var(--border);
   border-radius: 0.75rem;
-  color: $text;
+  color: var(--text);
   cursor: pointer;
   transition: $transition;
   font-size: 0.95rem;
   font-weight: 600;
 
   &:hover {
-    border-color: $primary;
-    background: rgba($primary, 0.05);
+    border-color: var(--primary);
+    background: rgba(var(--primary), 0.05);
   }
 
   .availability-icon {
@@ -259,7 +246,7 @@ $transition: all 0.3s;       // Transition par défaut
   top: 110%;
   right: 0;
   background: $card;
-  border: 2px solid $border;
+  border: 2px solid var(--border);
   border-radius: 0.75rem;
   padding: 0.5rem;
   min-width: 220px;
@@ -268,10 +255,10 @@ $transition: all 0.3s;       // Transition par défaut
 
   &-header {
     padding: 0.75rem;
-    color: $text-muted;
+    color: var(--text-muted);
     font-size: 0.85rem;
     font-weight: 600;
-    border-bottom: 1px solid $border;
+    border-bottom: 1px solid var(--border);
     margin-bottom: 0.5rem;
   }
 }
@@ -287,7 +274,7 @@ $transition: all 0.3s;       // Transition par défaut
   margin-bottom: 0.25rem;
 
   &:hover {
-    background: rgba($primary, 0.1);
+    background: rgba(var(--primary), 0.1);
   }
 
   &:last-child {
@@ -309,7 +296,7 @@ $transition: all 0.3s;       // Transition par défaut
 
   .option-desc {
     font-size: 0.8rem;
-    color: $text-muted;
+    color: var(--text-muted);
   }
 }
 
@@ -322,7 +309,7 @@ $transition: all 0.3s;       // Transition par défaut
   transition: $transition;
 
   &:hover {
-    background: rgba($primary, 0.1);
+    background: rgba(var(--primary), 0.1);
   }
 
   .icon {
@@ -335,7 +322,7 @@ $transition: all 0.3s;       // Transition par défaut
   position: absolute;
   top: 0;
   right: 0;
-  background: $danger;
+  background: var(--danger);
   color: white;
   font-size: 0.7rem;
   padding: 0.15rem 0.4rem;
@@ -353,7 +340,7 @@ $transition: all 0.3s;       // Transition par défaut
     width: 45px;
     height: 45px;
     border-radius: 50%;
-    background: linear-gradient(135deg, $primary, $secondary);
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -367,9 +354,9 @@ $transition: all 0.3s;       // Transition par défaut
 
 // ===== INFORMATIONS DE SERVICE =====
 .shift-info {
-  background: linear-gradient(135deg, rgba($primary, 0.2), rgba($secondary, 0.2));
+  background: linear-gradient(135deg, rgba(var(--primary), 0.2), rgba(var(--secondary), 0.2));
   padding: 2rem;
-  border-bottom: 1px solid $border;
+  border-bottom: 1px solid var(--border);
 }
 
 .shift-content {
@@ -384,11 +371,11 @@ $transition: all 0.3s;       // Transition par défaut
   background: $card;
   padding: 1.5rem;
   border-radius: 1rem;
-  border: 1px solid $border;
+  border: 1px solid var(--border);
   text-align: center;
 
   .shift-label {
-    color: $text-muted;
+    color: var(--text-muted);
     font-size: 0.9rem;
     margin-bottom: 0.5rem;
   }
@@ -396,7 +383,7 @@ $transition: all 0.3s;       // Transition par défaut
   .shift-value {
     font-size: 1.75rem;
     font-weight: 700;
-    color: $primary;
+    color: var(--primary);
   }
 }
 
@@ -426,8 +413,8 @@ $transition: all 0.3s;       // Transition par défaut
 // ===== BOUTON RETOUR =====
 .back-btn {
   background: $card;
-  border: 1px solid $border;
-  color: $text;
+  border: 1px solid var(--border);
+  color: var(--text);
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
   cursor: pointer;
@@ -438,7 +425,7 @@ $transition: all 0.3s;       // Transition par défaut
   margin-bottom: 1rem;
 
   &:hover {
-    background: $border;
+    background: var(--border);
     transform: translateX(-5px);
   }
 }
@@ -452,7 +439,7 @@ $transition: all 0.3s;       // Transition par défaut
 
 .action-card {
   background: $card;
-  border: 1px solid $border;
+  border: 1px solid var(--border);
   border-radius: $border-radius;
   padding: 2rem;
   text-align: center;
@@ -460,7 +447,7 @@ $transition: all 0.3s;       // Transition par défaut
   @include card-hover;
 
   &:hover {
-    border-color: $primary;
+    border-color: var(--primary);
   }
 
   .action-icon {
@@ -475,7 +462,7 @@ $transition: all 0.3s;       // Transition par défaut
   }
 
   .action-desc {
-    color: $text-muted;
+    color: var(--text-muted);
     font-size: 0.9rem;
   }
 }
@@ -489,7 +476,7 @@ $transition: all 0.3s;       // Transition par défaut
 
 .order-card {
   background: $card;
-  border: 1px solid $border;
+  border: 1px solid var(--border);
   border-radius: $border-radius;
   padding: 1.5rem;
   transition: $transition;
@@ -505,13 +492,13 @@ $transition: all 0.3s;       // Transition par défaut
   align-items: center;
   margin-bottom: 1rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid $border;
+  border-bottom: 1px solid var(--border);
 }
 
 .order-number {
   font-size: 1.25rem;
   font-weight: 700;
-  color: $primary;
+  color: var(--primary);
 }
 
 // Statuts des commandes
@@ -522,23 +509,23 @@ $transition: all 0.3s;       // Transition par défaut
   font-weight: 600;
 
   &.status-new {
-    background: rgba($info, 0.1);
-    color: $info;
+    background: rgba(var(--info), 0.1);
+    color: var(--info);
   }
 
   &.status-preparing {
-    background: rgba($warning, 0.1);
-    color: $warning;
+    background: rgba(var(--warning), 0.1);
+    color: var(--warning);
   }
 
   &.status-ready {
-    background: rgba($success, 0.1);
-    color: $success;
+    background: rgba(var(--success), 0.1);
+    color: var(--success);
   }
 }
 
 .order-table {
-  color: $text-muted;
+  color: var(--text-muted);
   font-size: 0.9rem;
   margin-bottom: 1rem;
 }
@@ -551,7 +538,7 @@ $transition: all 0.3s;       // Transition par défaut
   display: flex;
   justify-content: space-between;
   padding: 0.5rem 0;
-  color: $text;
+  color: var(--text);
 }
 
 .order-total {
@@ -559,7 +546,7 @@ $transition: all 0.3s;       // Transition par défaut
   justify-content: space-between;
   padding-top: 1rem;
   margin-top: 1rem;
-  border-top: 1px solid $border;
+  border-top: 1px solid var(--border);
   font-weight: 700;
   font-size: 1.1rem;
 }
@@ -576,21 +563,21 @@ $transition: all 0.3s;       // Transition par défaut
   flex: 1;
 
   &-primary {
-    background: $primary;
+    background: var(--primary);
     color: white;
 
     &:hover {
-      background: darken($primary, 10%);
+      background: color-color-mix(in srgb, in srgb, var(--primary) 90%, black);
     }
   }
 
   &-secondary {
     background: $dark;
-    color: $text;
-    border: 1px solid $border;
+    color: var(--text);
+    border: 1px solid var(--border);
 
     &:hover {
-      background: $border;
+      background: var(--border);
     }
   }
 
@@ -610,7 +597,7 @@ $transition: all 0.3s;       // Transition par défaut
 .tips-summary,
 .history-stats {
   padding: 2rem;
-  background: rgba($primary, 0.05);
+  background: rgba(var(--primary), 0.05);
 }
 
 .stats-grid {
@@ -623,7 +610,7 @@ $transition: all 0.3s;       // Transition par défaut
 
 .stat-card {
   background: $card;
-  border: 1px solid $border;
+  border: 1px solid var(--border);
   border-radius: $border-radius;
   padding: 1.5rem;
   text-align: center;
@@ -636,12 +623,12 @@ $transition: all 0.3s;       // Transition par défaut
   .stat-value {
     font-size: 2rem;
     font-weight: 700;
-    color: $primary;
+    color: var(--primary);
     margin-bottom: 0.25rem;
   }
 
   .stat-label {
-    color: $text-muted;
+    color: var(--text-muted);
     font-size: 0.9rem;
   }
 }
@@ -649,7 +636,7 @@ $transition: all 0.3s;       // Transition par défaut
 // ===== FORMULAIRE NOUVELLE COMMANDE =====
 .new-order-form {
   background: $card;
-  border: 1px solid $border;
+  border: 1px solid var(--border);
   border-radius: $border-radius;
   padding: 2rem;
   max-width: 800px;
@@ -670,27 +657,27 @@ $transition: all 0.3s;       // Transition par défaut
   width: 100%;
   padding: 0.75rem;
   background: $dark;
-  border: 1px solid $border;
+  border: 1px solid var(--border);
   border-radius: 0.5rem;
-  color: $text;
+  color: var(--text);
   font-size: 1rem;
 
   &:focus {
     outline: none;
-    border-color: $primary;
+    border-color: var(--primary);
   }
 }
 
 .order-items-list {
   min-height: 100px;
   background: $dark;
-  border: 1px solid $border;
+  border: 1px solid var(--border);
   border-radius: 0.5rem;
   padding: 1rem;
   margin-bottom: 1.5rem;
 
   .empty-message {
-    color: $text-muted;
+    color: var(--text-muted);
     text-align: center;
   }
 }
@@ -710,16 +697,16 @@ $transition: all 0.3s;       // Transition par défaut
 }
 
 .btn-remove {
-  background: rgba($danger, 0.1);
-  border: 1px solid rgba($danger, 0.2);
-  color: $danger;
+  background: rgba(var(--danger), 0.1);
+  border: 1px solid rgba(var(--danger), 0.2);
+  color: var(--danger);
   padding: 0.25rem 0.75rem;
   border-radius: 0.25rem;
   cursor: pointer;
   transition: $transition;
 
   &:hover {
-    background: rgba($danger, 0.2);
+    background: rgba(var(--danger), 0.2);
   }
 }
 
@@ -728,7 +715,7 @@ $transition: all 0.3s;       // Transition par défaut
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background: rgba($primary, 0.1);
+  background: rgba(var(--primary), 0.1);
   border-radius: 0.5rem;
   margin-bottom: 1.5rem;
 
@@ -740,7 +727,7 @@ $transition: all 0.3s;       // Transition par défaut
   .total-amount {
     font-size: 1.5rem;
     font-weight: 700;
-    color: $primary;
+    color: var(--primary);
   }
 }
 
@@ -760,21 +747,21 @@ $transition: all 0.3s;       // Transition par défaut
 .category-btn {
   padding: 0.75rem 1.5rem;
   background: $card;
-  border: 1px solid $border;
-  color: $text-muted;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
   border-radius: 0.5rem;
   cursor: pointer;
   transition: $transition;
 
   &:hover {
-    background: rgba($primary, 0.1);
-    color: $text;
+    background: rgba(var(--primary), 0.1);
+    color: var(--text);
   }
 
   &.active {
-    background: $primary;
+    background: var(--primary);
     color: white;
-    border-color: $primary;
+    border-color: var(--primary);
   }
 }
 
@@ -786,14 +773,14 @@ $transition: all 0.3s;       // Transition par défaut
 
 .menu-item {
   background: $card;
-  border: 1px solid $border;
+  border: 1px solid var(--border);
   border-radius: $border-radius;
   padding: 1.5rem;
   cursor: pointer;
   @include card-hover;
 
   &:hover {
-    border-color: $primary;
+    border-color: var(--primary);
   }
 
   &-icon {
@@ -809,7 +796,7 @@ $transition: all 0.3s;       // Transition par défaut
   }
 
   &-desc {
-    color: $text-muted;
+    color: var(--text-muted);
     font-size: 0.9rem;
     margin-bottom: 1rem;
   }
@@ -823,12 +810,12 @@ $transition: all 0.3s;       // Transition par défaut
   &-price {
     font-size: 1.3rem;
     font-weight: 700;
-    color: $primary;
+    color: var(--primary);
   }
 }
 
 .add-btn {
-  background: $primary;
+  background: var(--primary);
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -838,7 +825,7 @@ $transition: all 0.3s;       // Transition par défaut
   font-weight: 600;
 
   &:hover {
-    background: darken($primary, 10%);
+    background: color-color-mix(in srgb, in srgb, var(--primary) 90%, black);
     transform: scale(1.05);
   }
 }
@@ -852,7 +839,7 @@ $transition: all 0.3s;       // Transition par défaut
 
 .tip-card {
   background: $card;
-  border: 1px solid $border;
+  border: 1px solid var(--border);
   border-radius: $border-radius;
   padding: 1.5rem;
 }
@@ -863,7 +850,7 @@ $transition: all 0.3s;       // Transition par défaut
   align-items: center;
   margin-bottom: 1rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid $border;
+  border-bottom: 1px solid var(--border);
 }
 
 .tip-table {
@@ -872,18 +859,18 @@ $transition: all 0.3s;       // Transition par défaut
 }
 
 .tip-date {
-  color: $text-muted;
+  color: var(--text-muted);
   font-size: 0.9rem;
 }
 
 .tip-amount {
   font-size: 1.5rem;
   font-weight: 700;
-  color: $success;
+  color: var(--success);
 }
 
 .tip-details {
-  color: $text-muted;
+  color: var(--text-muted);
   font-size: 0.9rem;
 }
 
@@ -919,7 +906,7 @@ $transition: all 0.3s;       // Transition par défaut
   }
 
   .table-guests {
-    color: $text-muted;
+    color: var(--text-muted);
   }
 }
 
@@ -933,14 +920,14 @@ $transition: all 0.3s;       // Transition par défaut
 
 .history-list-container {
   background: $card;
-  border: 1px solid $border;
+  border: 1px solid var(--border);
   border-radius: $border-radius;
   overflow: hidden;
 }
 
 .history-list-header {
   padding: 1.5rem;
-  border-bottom: 1px solid $border;
+  border-bottom: 1px solid var(--border);
 
   h4 {
     font-size: 1.2rem;
@@ -953,7 +940,7 @@ $transition: all 0.3s;       // Transition par défaut
 
 .history-item {
   padding: 1.5rem;
-  border-bottom: 1px solid $border;
+  border-bottom: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -965,7 +952,7 @@ $transition: all 0.3s;       // Transition par défaut
   }
 
   &:hover {
-    background: rgba($primary, 0.05);
+    background: rgba(var(--primary), 0.05);
     padding-left: 2rem;
   }
 }
@@ -977,7 +964,7 @@ $transition: all 0.3s;       // Transition par défaut
   }
 
   .history-details {
-    color: $text-muted;
+    color: var(--text-muted);
     font-size: 0.9rem;
   }
 }
@@ -985,7 +972,7 @@ $transition: all 0.3s;       // Transition par défaut
 .history-amount {
   font-size: 1.3rem;
   font-weight: 700;
-  color: $primary;
+  color: var(--primary);
 }
 
 // ===== RESPONSIVE =====

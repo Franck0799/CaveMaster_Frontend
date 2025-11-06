@@ -7,6 +7,7 @@
 // MIXINS DE THÈMES (modernes, sans @extend)
 // ========================================
 @mixin dark-theme-vars {
+  --primary-color: #4e50ba;
   --primary: #6366f1;
   --primary-light: #818cf8;
   --primary-dark: #4f46e5;
@@ -33,6 +34,7 @@
 }
 
 @mixin light-theme-vars {
+  --primary-color: #4e50ba;
   --primary: #4f46e5;
   --primary-light: #6366f1;
   --primary-dark: #4338ca;
@@ -83,6 +85,7 @@
 :root,
 body.theme-dark,
 [data-theme="dark"] {
+  --primary-color: #4e50ba;
   --primary: #6366f1;
   --primary-light: #818cf8;
   --primary-dark: #4f46e5;
@@ -91,13 +94,14 @@ body.theme-dark,
   --warning: #f59e0b;
   --danger: #ef4444;
   --info: #3b82f6;
+  --dark: #0f172a;
   --dark-bg: #0a0e27;
   --darker-bg: #060918;
   --card-bg: #1a1f3a;
   --card-hover: #232947;
   --text: #e2e8f0;
   --text-muted: #94a3b8;
-  --text-primary: #ffffff;
+  --text-primary: #f8fafc;
   --border: #1e293b;
   --border-light: #334155;
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
@@ -116,32 +120,34 @@ body.theme-dark,
 // ========================================
 body.theme-light,
 [data-theme="light"] {
-  --primary: #4f46e5;
-  --primary-light: #6366f1;
-  --primary-dark: #4338ca;
-  --accent: #7c3aed;
-  --success: #059669;
-  --warning: #d97706;
-  --danger: #dc2626;
-  --info: #2563eb;
-  --dark-bg: #f8fafc;
-  --darker-bg: #ffffff;
-  --card-bg: #ffffff;
-  --card-hover: #f1f5f9;
-  --text: #1e293b;
-  --text-muted: #64748b;
-  --text-primary: #0f172a;
-  --border: #e2e8f0;
-  --border-light: #cbd5e1;
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
-  --overlay: rgba(255, 255, 255, 0.9);
-  --icon-color: #64748b;
-  --input-bg: #ffffff;
-  --input-border: #e2e8f0;
-  --input-focus: #4f46e5;
+--primary-color: #4e50ba;
+--primary: #4f46e5;
+--primary-light: #6366f1;
+--primary-dark: #818cf8;
+--accent: #7c3aed;
+--success: #059669;
+--warning: #d97706;
+--danger: #dc2626;
+--info: #2563eb;
+--dark-bg: #f9fafb;
+--darker-bg: #111827;
+--card-bg: #f1f5f9;
+--card-hover: #e2e8f0;
+--text: #1e293b;
+--text-muted: #64748b;
+--text-primary: #000000;
+--border: #cbd5e1;
+--border-light: #e2e8f0;
+--shadow-sm: 0 1px 2px rgba(255, 255, 255, 0.4);
+--shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+--shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.15);
+--shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.2);
+--overlay: rgba(255, 255, 255, 0.7);
+--icon-color: #475569;
+--input-bg: #ffffff;
+--input-border: #cbd5e1;
+--input-focus: #4f46e5;
+
 }
 
 // ========================================

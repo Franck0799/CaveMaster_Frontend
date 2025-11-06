@@ -1,0 +1,885 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cave-master-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cave-master-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  Cave</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/view/admin-dashboard/cave-create/cave-create.component.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#capacity" 
+>
+                                            capacity
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#createdDate" 
+>
+                                            createdDate
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#description" 
+>
+                                            description
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#employeesCount" 
+>
+                                            employeesCount
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#id" 
+>
+                                            id
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#location" 
+>
+                                            location
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#managersCount" 
+>
+                                            managersCount
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#name" 
+>
+                                            name
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="capacity"></a>
+                                        <span class="name "><b>capacity</b>
+                                            <a href="#capacity">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>capacity:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="createdDate"></a>
+                                        <span class="name "><b>createdDate</b>
+                                            <a href="#createdDate">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>createdDate:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="description"></a>
+                                        <span class="name "><b>description</b>
+                                            <a href="#description">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>description:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="employeesCount"></a>
+                                        <span class="name "><b>employeesCount</b>
+                                            <a href="#employeesCount">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>employeesCount:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="id"></a>
+                                        <span class="name "><b>id</b>
+                                            <a href="#id">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>id:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="location"></a>
+                                        <span class="name "><b>location</b>
+                                            <a href="#location">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>location:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="managersCount"></a>
+                                        <span class="name "><b>managersCount</b>
+                                            <a href="#managersCount">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>managersCount:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="name"></a>
+                                        <span class="name "><b>name</b>
+                                            <a href="#name">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>name:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+
+// Interface pour représenter une cave
+interface Cave {
+  id: string;           // Identifiant unique de la cave
+  name: string;         // Nom de la cave
+  location: string;     // Localisation de la cave
+  capacity: number;     // Capacité de stockage en bouteilles
+  description: string;  // Description détaillée
+  createdDate: string;  // Date de création
+  managersCount: number; // Nombre de managers assignés
+  employeesCount: number; // Nombre d&#x27;employés assignés
+}
+
+@Component({
+  selector: &#x27;app-cave-create&#x27;,
+  standalone: true,
+  // Import des modules nécessaires
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  templateUrl: &#x27;./cave-create.component.html&#x27;,
+  styleUrls: [&#x27;./cave-create.component..scss&#x27;]
+})
+export class CaveCreateComponent implements OnInit {
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; PROPRIÉTÉS DU COMPOSANT &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  // Formulaire réactif pour la création/modification de cave
+  caveForm: FormGroup;
+
+  // Flag pour déterminer si c&#x27;est une modification ou création
+  isEditing: boolean &#x3D; false;
+
+  // Liste de toutes les caves
+  caves: Cave[] &#x3D; [];
+
+  // Cave actuellement en édition
+  selectedCave: Cave | null &#x3D; null;
+
+  // Message de succès/erreur
+  message: string &#x3D; &#x27;&#x27;;
+
+  // Type de message (success, error, info)
+  messageType: &#x27;success&#x27; | &#x27;error&#x27; | &#x27;info&#x27; &#x3D; &#x27;info&#x27;;
+
+  // Liste des régions disponibles pour la localisation
+  regions: string[] &#x3D; [
+    &#x27;Lekki Phase 1, Lagos&#x27;,
+    &#x27;Victoria Island, Lagos&#x27;,
+    &#x27;Ikoyi, Lagos&#x27;,
+    &#x27;Ajah, Lagos&#x27;,
+    &#x27;Ikeja, Lagos&#x27;,
+    &#x27;Surulere, Lagos&#x27;,
+    &#x27;Bariga, Lagos&#x27;
+  ];
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; CONSTRUCTEUR AVEC INJECTION DE DÉPENDANCES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  constructor(private formBuilder: FormBuilder) {
+    // Initialise le formulaire réactif avec FormBuilder
+    this.caveForm &#x3D; this.formBuilder.group({
+      // Champ nom : obligatoire, min 3 caractères
+      name: [&#x27;&#x27;, [Validators.required, Validators.minLength(3)]],
+
+      // Champ localisation : obligatoire
+      location: [&#x27;&#x27;, Validators.required],
+
+      // Champ capacité : obligatoire, doit être un nombre &gt; 0
+      capacity: [&#x27;&#x27;, [Validators.required, Validators.min(1)]],
+
+      // Champ description : optionnel
+      description: [&#x27;&#x27;]
+    });
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE D&#x27;INITIALISATION &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  ngOnInit(): void {
+    // Charge les données des caves au démarrage du composant
+    this.loadCaves();
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE CHARGEMENT DES CAVES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Charge la liste de toutes les caves depuis les données mockées
+   * À remplacer par un appel API backend
+   */
+  loadCaves(): void {
+    // Données mockées - à remplacer par un service API
+    this.caves &#x3D; [
+      {
+        id: &#x27;principale&#x27;,
+        name: &#x27;Cave Principale&#x27;,
+        location: &#x27;Lekki Phase 1, Lagos&#x27;,
+        capacity: 500,
+        description: &#x27;Cave principale avec température contrôlée&#x27;,
+        createdDate: &#x27;2023-01-15&#x27;,
+        managersCount: 3,
+        employeesCount: 12
+      },
+      {
+        id: &#x27;secondaire&#x27;,
+        name: &#x27;Cave Secondaire&#x27;,
+        location: &#x27;Victoria Island, Lagos&#x27;,
+        capacity: 350,
+        description: &#x27;Cave secondaire pour stocks additionnels&#x27;,
+        createdDate: &#x27;2023-03-20&#x27;,
+        managersCount: 2,
+        employeesCount: 8
+      }
+    ];
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE CRÉATION DE CAVE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Crée une nouvelle cave avec les données du formulaire
+   */
+  createCave(): void {
+    // Vérifie que le formulaire est valide avant de continuer
+    if (this.caveForm.invalid) {
+      // Affiche un message d&#x27;erreur
+      this.showMessage(&#x27;⚠️ Veuillez remplir tous les champs obligatoires correctement&#x27;, &#x27;error&#x27;);
+      return;
+    }
+
+    // Crée une nouvelle cave avec les valeurs du formulaire
+    const newCave: Cave &#x3D; {
+      // Génère un ID unique basé sur le timestamp
+      id: &#x27;cave_&#x27; + Date.now(),
+
+      // Récupère la valeur du champ nom du formulaire
+      name: this.caveForm.get(&#x27;name&#x27;)?.value,
+
+      // Récupère la valeur du champ localisation
+      location: this.caveForm.get(&#x27;location&#x27;)?.value,
+
+      // Récupère la capacité et la convertit en nombre
+      capacity: parseInt(this.caveForm.get(&#x27;capacity&#x27;)?.value),
+
+      // Récupère la description
+      description: this.caveForm.get(&#x27;description&#x27;)?.value || &#x27;&#x27;,
+
+      // Définit la date de création à aujourd&#x27;hui
+      createdDate: new Date().toISOString().split(&#x27;T&#x27;)[0],
+
+      // Initialise le nombre de managers à 0
+      managersCount: 0,
+
+      // Initialise le nombre d&#x27;employés à 0
+      employeesCount: 0
+    };
+
+    // Ajoute la nouvelle cave à la liste
+    this.caves.push(newCave);
+
+    // Affiche un message de succès
+    this.showMessage(&#x27;✓ Cave créée avec succès !&#x27;, &#x27;success&#x27;);
+
+    // Réinitialise le formulaire
+    this.resetForm();
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE MISE À JOUR DE CAVE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Met à jour une cave existante
+   */
+  updateCave(): void {
+    // Vérifie que le formulaire est valide
+    if (this.caveForm.invalid) {
+      // Affiche une erreur
+      this.showMessage(&#x27;⚠️ Veuillez remplir tous les champs obligatoires correctement&#x27;, &#x27;error&#x27;);
+      return;
+    }
+
+    // Vérifie qu&#x27;une cave est sélectionnée pour édition
+    if (!this.selectedCave) {
+      // Affiche une erreur si aucune cave n&#x27;est sélectionnée
+      this.showMessage(&#x27;⚠️ Aucune cave sélectionnée&#x27;, &#x27;error&#x27;);
+      return;
+    }
+
+    // Trouve l&#x27;index de la cave sélectionnée dans la liste
+    const index &#x3D; this.caves.findIndex(c &#x3D;&gt; c.id &#x3D;&#x3D;&#x3D; this.selectedCave?.id);
+
+    // Vérifie que la cave a été trouvée
+    if (index !&#x3D;&#x3D; -1) {
+      // Met à jour les propriétés de la cave avec les valeurs du formulaire
+      this.caves[index].name &#x3D; this.caveForm.get(&#x27;name&#x27;)?.value;
+      this.caves[index].location &#x3D; this.caveForm.get(&#x27;location&#x27;)?.value;
+      this.caves[index].capacity &#x3D; parseInt(this.caveForm.get(&#x27;capacity&#x27;)?.value);
+      this.caves[index].description &#x3D; this.caveForm.get(&#x27;description&#x27;)?.value;
+    }
+
+    // Affiche un message de succès
+    this.showMessage(&#x27;✓ Cave mise à jour avec succès !&#x27;, &#x27;success&#x27;);
+
+    // Réinitialise le formulaire et le mode édition
+    this.resetForm();
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE POUR ÉDITER UNE CAVE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Édite une cave existante
+   * @param cave La cave à éditer
+   */
+  editCave(cave: Cave): void {
+    // Active le mode édition
+    this.isEditing &#x3D; true;
+
+    // Stocke la cave sélectionnée
+    this.selectedCave &#x3D; cave;
+
+    // Remplir le formulaire avec les données de la cave
+    this.caveForm.patchValue({
+      // Remplit le champ nom
+      name: cave.name,
+      // Remplit le champ localisation
+      location: cave.location,
+      // Remplit le champ capacité
+      capacity: cave.capacity,
+      // Remplit le champ description
+      description: cave.description
+    });
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE POUR SUPPRIMER UNE CAVE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Supprime une cave après confirmation
+   * @param caveId L&#x27;ID de la cave à supprimer
+   */
+  deleteCave(caveId: string): void {
+    // Demande une confirmation avant la suppression
+    if (confirm(&#x27;⚠️ Êtes-vous sûr de vouloir supprimer cette cave ? Cette action est irréversible.&#x27;)) {
+      // Filtre la cave de la liste (suppression)
+      this.caves &#x3D; this.caves.filter(c &#x3D;&gt; c.id !&#x3D;&#x3D; caveId);
+
+      // Affiche un message de succès
+      this.showMessage(&#x27;✓ Cave supprimée avec succès !&#x27;, &#x27;success&#x27;);
+    }
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE SOUMISSION DU FORMULAIRE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Gère la soumission du formulaire
+   * Crée ou met à jour selon le mode
+   */
+  submitForm(): void {
+    // Vérifie si on est en mode édition
+    if (this.isEditing) {
+      // Si oui, met à jour la cave existante
+      this.updateCave();
+    } else {
+      // Sinon, crée une nouvelle cave
+      this.createCave();
+    }
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE RÉINITIALISATION &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Réinitialise le formulaire et les variables d&#x27;état
+   */
+  resetForm(): void {
+    // Réinitialise le formulaire aux valeurs par défaut
+    this.caveForm.reset();
+
+    // Désactive le mode édition
+    this.isEditing &#x3D; false;
+
+    // Efface la sélection de cave
+    this.selectedCave &#x3D; null;
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE D&#x27;AFFICHAGE DE MESSAGE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Affiche un message temporaire (succès, erreur, info)
+   * @param msg Le message à afficher
+   * @param type Le type de message
+   */
+  showMessage(msg: string, type: &#x27;success&#x27; | &#x27;error&#x27; | &#x27;info&#x27;): void {
+    // Stocke le message
+    this.message &#x3D; msg;
+
+    // Stocke le type de message
+    this.messageType &#x3D; type;
+
+    // Efface le message après 3 secondes
+    setTimeout(() &#x3D;&gt; {
+      this.message &#x3D; &#x27;&#x27;;
+    }, 3000);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE CALCUL DE TAUX D&#x27;OCCUPATION &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Calcule le pourcentage d&#x27;occupation d&#x27;une cave
+   * @param cave La cave à calculer
+   * @returns Le pourcentage d&#x27;occupation
+   */
+  getOccupancyRate(cave: Cave): number {
+    // Retourne un pourcentage entre 0 et 100 (simulation)
+    return Math.floor(Math.random() * 100);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE VÉRIFICATION DE FORMULARITÉ &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Vérifie si un champ du formulaire est invalide et a été touché
+   * @param fieldName Le nom du champ
+   * @returns true si le champ est invalide et touché
+   */
+  isFieldInvalid(fieldName: string): boolean {
+    // Récupère le champ du formulaire
+    const field &#x3D; this.caveForm.get(fieldName);
+
+    // Retourne true si le champ est invalide ET a été touché
+    return !!(field &amp;&amp; field.invalid &amp;&amp; field.touched);
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'Cave-2.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

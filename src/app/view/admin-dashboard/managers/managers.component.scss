@@ -1,915 +1,1296 @@
-// ===== Variables - Thème sombre =====
-$primary-color: #8b5cf6;
-$secondary-color: #a78bfa;
-$success-color: #10b981;
-$danger-color: #ef4444;
-$info-color: #3b82f6;
-$warning-color: #f59e0b;
-$orange-color: #fb923c;
-$bg-dark: #0f172a;
-$bg-card: #1e293b;
-$bg-darker: #0a0f1e;
-$text-dark: #e5e7eb;
-$text-secondary: #9ca3af;
-$text-light: #6b7280;
-$border-color: #334155;
-$shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+// ==========================================
+// FICHIER: managers.component.scss
+// DESCRIPTION: Styles pour la page de gestion des managers avec variables CSS dynamiques
+// ==========================================
 
-// ===== Page principale =====
+// ===== VARIABLES SASS LOCALES (constantes) =====
+// Ces variables ne changent pas avec le thème
+$transition-speed: 0.3s;
+$border-radius-base: 8px;
+$border-radius-large: 12px;
+
+// ===== PAGE PRINCIPALE =====
 .page-section {
+  // Ligne 1: Espacement interne
   padding: 2rem;
-  background: $bg-dark;
+  // Ligne 2: Couleur de fond depuis variable CSS (s'adapte au thème)
+  background: var(--dark-bg);
+  // Ligne 3: Hauteur minimale égale à la fenêtre
   min-height: 100vh;
-  color: $text-dark;
+  // Ligne 4: Couleur du texte depuis variable CSS
+  color: var(--text-primary);
 }
 
 .content-section {
+  // Ligne 1: Largeur maximale du contenu
   max-width: 1400px;
+  // Ligne 2: Centre horizontalement
   margin: 0 auto;
 }
 
-// ===== En-tête =====
+// ===== EN-TÊTE DE SECTION =====
 .section-header {
+  // Ligne 1-3: Disposition flexbox avec espace entre les éléments
   display: flex;
   justify-content: space-between;
   align-items: center;
+  // Ligne 4: Marge en bas
   margin-bottom: 2rem;
+  // Ligne 5: Padding en bas
   padding-bottom: 1.5rem;
-  border-bottom: 2px solid $border-color;
+  // Ligne 6: Bordure inférieure
+  border-bottom: 2px solid var(--border-color);
 
   .section-title-main {
+    // Ligne 1: Grande taille pour le titre
     font-size: 2rem;
+    // Ligne 2: Texte en gras
     font-weight: 700;
-    color: $text-dark;
+    // Ligne 3: Couleur du texte
+    color: var(--text-primary);
+    // Ligne 4: Supprime la marge par défaut
     margin: 0;
-    transition: all 0.3s ease;
+    // Ligne 5: Transition douce
+    transition: all $transition-speed ease;
 
     &:hover {
-      color: $primary-color;
-      text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+      // Ligne 1: Change la couleur au survol
+      color: var(--primary);
+      // Ligne 2: Ajoute un effet de lueur
+      text-shadow: 0 0 10px color-mix(in srgb, var(--primary) 50%, transparent);
     }
   }
 }
 
-// ===== Grille de statistiques =====
+// ===== GRILLE DE STATISTIQUES =====
 .managers-stats-grid {
+  // Ligne 1: Grille CSS
   display: grid;
+  // Ligne 2: Colonnes auto-adaptatives (min 250px, max égale)
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  // Ligne 3: Espace entre les cartes
   gap: 1.5rem;
+  // Ligne 4: Marge en bas
   margin-bottom: 2rem;
 }
 
-// ===== Cartes de statistiques =====
+// ===== CARTES DE STATISTIQUES =====
 .stat-card {
-  background: $bg-card;
-  border: 1px solid $border-color;
-  border-radius: 12px;
+  // Ligne 1: Fond de carte
+  background: var(--card-bg);
+  // Ligne 2: Bordure
+  border: 1px solid var(--border-color);
+  // Ligne 3: Coins arrondis
+  border-radius: $border-radius-large;
+  // Ligne 4: Espacement interne
   padding: 1.5rem;
+  // Ligne 5-6: Disposition flex horizontale
   display: flex;
   align-items: center;
+  // Ligne 7: Espace entre icône et contenu
   gap: 1rem;
-  box-shadow: $shadow;
+  // Ligne 8: Ombre portée
+  box-shadow: var(--shadow);
+  // Ligne 9: Transition avec courbe de Bézier personnalisée
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover {
+    // Ligne 1: Remonte et agrandit légèrement
     transform: translateY(-8px) scale(1.02);
+    // Ligne 2: Ombre plus prononcée
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
   }
 
   .stat-icon {
+    // Ligne 1: Grande icône
     font-size: 2.5rem;
+    // Ligne 2-3: Dimensions fixes
     width: 60px;
     height: 60px;
+    // Ligne 4-6: Centrage de l'icône
     display: flex;
     align-items: center;
     justify-content: center;
+    // Ligne 7: Forme circulaire
     border-radius: 50%;
+    // Ligne 8: Ne rétrécit pas
     flex-shrink: 0;
+    // Ligne 9: Transition fluide
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .stat-content {
+    // Ligne 1: Prend tout l'espace disponible
     flex: 1;
 
     .stat-label {
+      // Ligne 1: Petite taille
       font-size: 0.875rem;
-      color: $text-secondary;
+      // Ligne 2: Couleur secondaire
+      color: var(--text-secondary);
+      // Ligne 3: Marge en bas
       margin-bottom: 0.25rem;
+      // Ligne 4: Tout en majuscules
       text-transform: uppercase;
+      // Ligne 5: Espacement des lettres
       letter-spacing: 0.5px;
     }
 
     .stat-value {
+      // Ligne 1: Grand nombre
       font-size: 1.75rem;
+      // Ligne 2: Très gras
       font-weight: 700;
-      color: $text-dark;
+      // Ligne 3: Couleur principale
+      color: var(--text-primary);
+      // Ligne 4: Marge en bas
       margin-bottom: 0.25rem;
     }
 
     .stat-change {
+      // Ligne 1: Petite taille
       font-size: 0.75rem;
+      // Ligne 2: Semi-gras
       font-weight: 500;
 
+      // Variation positive (vert)
       &.positive {
-        color: lighten($success-color, 10%);
+        // color-mix mélange success à 90% avec white à 10%
+        color: color-mix(in srgb, var(--success) 90%, white);
       }
 
+      // Variation négative (rouge)
       &.negative {
-        color: lighten($danger-color, 10%);
+        color: color-mix(in srgb, var(--danger) 90%, white);
       }
 
+      // Variation neutre (gris)
       &.neutral {
-        color: $text-secondary;
+        color: var(--text-secondary);
       }
     }
   }
 
+  // Variante bleue
   &.stat-card-blue {
-    border-left: 4px solid $info-color;
+    // Ligne 1: Bordure gauche colorée
+    border-left: 4px solid var(--info);
+
     .stat-icon {
+      // Ligne 1: Fond semi-transparent
       background: rgba(59, 130, 246, 0.15);
+      // Ligne 2: Bordure colorée
       border: 2px solid rgba(59, 130, 246, 0.3);
     }
+
     &:hover {
-      border-color: $info-color;
+      // Ligne 1: Bordure complète colorée
+      border-color: var(--info);
+      // Ligne 2: Double ombre (noire + colorée)
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5), 0 0 20px rgba(59, 130, 246, 0.3);
     }
   }
 
+  // Variante verte
   &.stat-card-green {
-    border-left: 4px solid $success-color;
+    border-left: 4px solid var(--success);
+
     .stat-icon {
       background: rgba(16, 185, 129, 0.15);
       border: 2px solid rgba(16, 185, 129, 0.3);
     }
+
     &:hover {
-      border-color: $success-color;
+      border-color: var(--success);
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5), 0 0 20px rgba(16, 185, 129, 0.3);
     }
   }
 
+  // Variante rouge
   &.stat-card-red {
-    border-left: 4px solid $danger-color;
+    border-left: 4px solid var(--danger);
+
     .stat-icon {
       background: rgba(239, 68, 68, 0.15);
       border: 2px solid rgba(239, 68, 68, 0.3);
     }
+
     &:hover {
-      border-color: $danger-color;
+      border-color: var(--danger);
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5), 0 0 20px rgba(239, 68, 68, 0.3);
     }
   }
 
+  // Variante orange
   &.stat-card-orange {
-    border-left: 4px solid $orange-color;
+    border-left: 4px solid var(--stat-orange);
+
     .stat-icon {
       background: rgba(251, 146, 60, 0.15);
       border: 2px solid rgba(251, 146, 60, 0.3);
     }
+
     &:hover {
-      border-color: $orange-color;
+      border-color: var(--stat-orange);
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5), 0 0 20px rgba(251, 146, 60, 0.3);
     }
   }
 }
 
-// ===== Grille des managers =====
+// ===== GRILLE DES MANAGERS =====
 .managers-grid {
+  // Ligne 1: Grille CSS
   display: grid;
+  // Ligne 2: auto-fill crée autant de colonnes que possible (min 400px)
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  // Ligne 3: Espace entre les cartes
   gap: 1.5rem;
 }
 
-// ===== Carte manager complète =====
+// ===== CARTE MANAGER COMPLÈTE =====
 .manager-card-full {
-  background: $bg-card;
-  border: 1px solid $border-color;
-  border-radius: 12px;
+  // Ligne 1: Fond de carte
+  background: var(--card-bg);
+  // Ligne 2: Bordure
+  border: 1px solid var(--border-color);
+  // Ligne 3: Coins arrondis
+  border-radius: $border-radius-large;
+  // Ligne 4: Espacement interne
   padding: 1.5rem;
-  box-shadow: $shadow;
-  transition: all 0.3s ease;
+  // Ligne 5: Ombre portée
+  box-shadow: var(--shadow);
+  // Ligne 6: Transition douce
+  transition: all $transition-speed ease;
 
   &:hover {
+    // Ligne 1: Ombre plus prononcée au hover
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-    border-color: rgba(139, 92, 246, 0.5);
+    // Ligne 2: Bordure colorée
+    border-color: color-mix(in srgb, var(--primary) 50%, transparent);
   }
 
-  // En-tête de la carte
+  // ===== EN-TÊTE DE LA CARTE =====
   .manager-header {
+    // Ligne 1-3: Disposition flex
     display: flex;
     align-items: flex-start;
     gap: 1rem;
+    // Ligne 4: Marge en bas
     margin-bottom: 1.5rem;
+    // Ligne 5: Padding en bas
     padding-bottom: 1rem;
-    border-bottom: 1px solid $border-color;
+    // Ligne 6: Bordure inférieure
+    border-bottom: 1px solid var(--border-color);
 
     .manager-avatar-large {
+      // Ligne 1-2: Dimensions fixes
       width: 70px;
       height: 70px;
+      // Ligne 3: Forme circulaire
       border-radius: 50%;
+      // Ligne 4: Gradient de fond
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      // Ligne 5-7: Centrage du contenu
       display: flex;
       align-items: center;
       justify-content: center;
+      // Ligne 8: Grande icône/emoji
       font-size: 2.5rem;
+      // Ligne 9: Ne rétrécit pas
       flex-shrink: 0;
+      // Ligne 10: Bordure colorée
       border: 3px solid rgba(139, 92, 246, 0.3);
+      // Ligne 11: Ombre portée
       box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
+      // Ligne 12: Transition fluide
       transition: all 0.4s ease;
     }
 
     &:hover .manager-avatar-large {
+      // Ligne 1: Agrandit et tourne légèrement
       transform: scale(1.1) rotate(5deg);
+      // Ligne 2: Ombre plus prononcée
       box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
     }
 
     .manager-info-full {
+      // Ligne 1: Prend tout l'espace disponible
       flex: 1;
 
       .manager-name-large {
+        // Ligne 1: Taille de titre
         font-size: 1.25rem;
+        // Ligne 2: Semi-gras
         font-weight: 600;
-        color: $text-dark;
+        // Ligne 3: Couleur du texte
+        color: var(--text-primary);
+        // Ligne 4: Marge en bas
         margin-bottom: 0.25rem;
       }
 
       .manager-role-large {
+        // Ligne 1: Taille normale
         font-size: 0.9rem;
-        color: $text-secondary;
+        // Ligne 2: Couleur secondaire
+        color: var(--text-secondary);
+        // Ligne 3: Semi-gras
         font-weight: 500;
+        // Ligne 4: Marge en bas
         margin-bottom: 0.75rem;
+        // Ligne 5-7: Disposition flex avec icône
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
 
         &::before {
+          // Ligne 1: Emoji cravate avant le texte
           content: "👔";
+          // Ligne 2: Taille de l'emoji
           font-size: 1rem;
         }
       }
     }
   }
 
-  // Horaires du manager
+  // ===== HORAIRES DU MANAGER =====
   .manager-schedule {
+    // Ligne 1: Disposition flex
     display: flex;
+    // Ligne 2: Espace entre les éléments
     gap: 1rem;
+    // Ligne 3: Marge en bas
     margin-bottom: 1.5rem;
+    // Ligne 4: Padding interne
     padding: 1rem;
-    background: rgba(139, 92, 246, 0.05);
-    border-radius: 8px;
-    border: 1px solid rgba(139, 92, 246, 0.2);
+    // Ligne 5: Fond légèrement coloré
+    background: color-mix(in srgb, var(--primary) 5%, transparent);
+    // Ligne 6: Coins arrondis
+    border-radius: $border-radius-base;
+    // Ligne 7: Bordure colorée
+    border: 1px solid color-mix(in srgb, var(--primary) 20%, transparent);
 
     .schedule-item {
+      // Ligne 1: Prend l'espace équitablement
       flex: 1;
+      // Ligne 2: Disposition en colonne
       display: flex;
       flex-direction: column;
+      // Ligne 3: Espace entre label et valeur
       gap: 0.25rem;
 
       .schedule-label {
+        // Ligne 1: Petite taille
         font-size: 0.75rem;
-        color: $text-secondary;
+        // Ligne 2: Couleur secondaire
+        color: var(--text-secondary);
+        // Ligne 3: Tout en majuscules
         text-transform: uppercase;
+        // Ligne 4: Espacement des lettres
         letter-spacing: 0.5px;
+        // Ligne 5: Semi-gras
         font-weight: 600;
       }
 
       .schedule-time {
+        // Ligne 1: Taille normale
         font-size: 1rem;
-        color: $primary-color;
+        // Ligne 2: Couleur primaire
+        color: var(--primary);
+        // Ligne 3: Semi-gras
         font-weight: 600;
+        // Ligne 4: Police monospace pour l'heure
         font-family: 'Courier New', monospace;
       }
     }
   }
 
-  // Performance du manager
+  // ===== PERFORMANCE DU MANAGER =====
   .manager-performance-full {
+    // Ligne 1: Grille CSS
     display: grid;
+    // Ligne 2: 3 colonnes égales
     grid-template-columns: repeat(3, 1fr);
+    // Ligne 3: Espace entre les items
     gap: 1rem;
+    // Ligne 4: Marge en bas
     margin-bottom: 1.5rem;
 
     .performance-item {
+      // Ligne 1: Texte centré
       text-align: center;
+      // Ligne 2: Padding interne
       padding: 1rem;
-      background: rgba(139, 92, 246, 0.05);
-      border: 1px solid $border-color;
-      border-radius: 8px;
-      transition: all 0.3s ease;
+      // Ligne 3: Fond légèrement coloré
+      background: color-mix(in srgb, var(--primary) 5%, transparent);
+      // Ligne 4: Bordure
+      border: 1px solid var(--border-color);
+      // Ligne 5: Coins arrondis
+      border-radius: $border-radius-base;
+      // Ligne 6: Transition douce
+      transition: all $transition-speed ease;
 
       &:hover {
-        background: rgba(139, 92, 246, 0.1);
+        // Ligne 1: Fond plus coloré
+        background: color-mix(in srgb, var(--primary) 10%, transparent);
+        // Ligne 2: Remonte
         transform: translateY(-4px);
+        // Ligne 3: Ombre portée
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
       }
 
       .performance-icon {
+        // Ligne 1: Taille de l'icône
         font-size: 1.5rem;
+        // Ligne 2: Marge en bas
         margin-bottom: 0.5rem;
       }
 
       .performance-value {
+        // Ligne 1: Grande valeur
         font-size: 1.125rem;
+        // Ligne 2: Gras
         font-weight: 600;
-        color: $text-dark;
+        // Ligne 3: Couleur principale
+        color: var(--text-primary);
+        // Ligne 4: Marge en bas
         margin-bottom: 0.25rem;
       }
 
       .performance-label {
+        // Ligne 1: Petite taille
         font-size: 0.75rem;
-        color: $text-secondary;
+        // Ligne 2: Couleur secondaire
+        color: var(--text-secondary);
+        // Ligne 3: Tout en majuscules
         text-transform: uppercase;
+        // Ligne 4: Espacement des lettres
         letter-spacing: 0.5px;
       }
     }
   }
 
-  // Bouton toggle employés
+  // ===== BOUTON TOGGLE EMPLOYÉS =====
   .toggle-employees {
+    // Ligne 1: Pleine largeur
     width: 100%;
+    // Ligne 2: Padding interne
     padding: 0.75rem;
-    border: 1px solid $border-color;
+    // Ligne 3: Bordure
+    border: 1px solid var(--border-color);
+    // Ligne 4: Fond transparent
     background: transparent;
-    border-radius: 8px;
+    // Ligne 5: Coins arrondis
+    border-radius: $border-radius-base;
+    // Ligne 6: Curseur pointer
     cursor: pointer;
+    // Ligne 7: Taille de police
     font-size: 0.9rem;
+    // Ligne 8: Semi-gras
     font-weight: 500;
-    color: $text-dark;
+    // Ligne 9: Couleur du texte
+    color: var(--text-primary);
+    // Ligne 10-12: Disposition flex
     display: flex;
     justify-content: space-between;
     align-items: center;
+    // Ligne 13: Transition douce
     transition: all 0.2s ease;
+    // Ligne 14: Marge en bas
     margin-bottom: 1rem;
 
     &:hover {
-      background: rgba(139, 92, 246, 0.1);
-      border-color: $primary-color;
-      color: $primary-color;
+      // Ligne 1: Fond légèrement coloré
+      background: color-mix(in srgb, var(--primary) 10%, transparent);
+      // Ligne 2: Bordure colorée
+      border-color: var(--primary);
+      // Ligne 3: Texte coloré
+      color: var(--primary);
     }
 
     span {
+      // Ligne 1: Taille de la flèche
       font-size: 0.875rem;
-      transition: transform 0.3s ease;
+      // Ligne 2: Transition de rotation
+      transition: transform $transition-speed ease;
     }
   }
 
-  // Liste des employés
+  // ===== LISTE DES EMPLOYÉS =====
   .employees-list-full {
+    // Ligne 1: Hauteur maximale avec scroll
     max-height: 400px;
+    // Ligne 2: Scroll vertical
     overflow-y: auto;
+    // Ligne 3: Marge en bas
     margin-bottom: 1rem;
+    // Ligne 4: Padding interne
     padding: 0.5rem;
-    background: $bg-darker;
-    border-radius: 8px;
-    border: 1px solid $border-color;
+    // Ligne 5: Fond plus sombre
+    background: var(--dark-bg-darker);
+    // Ligne 6: Coins arrondis
+    border-radius: $border-radius-base;
+    // Ligne 7: Bordure
+    border: 1px solid var(--border-color);
 
+    // Stylisation de la scrollbar (Webkit)
     &::-webkit-scrollbar {
+      // Largeur de la scrollbar
       width: 8px;
     }
 
     &::-webkit-scrollbar-track {
-      background: $bg-dark;
+      // Fond de la piste
+      background: var(--dark-bg);
+      // Coins arrondis
       border-radius: 4px;
     }
 
     &::-webkit-scrollbar-thumb {
-      background: $border-color;
+      // Couleur du curseur
+      background: var(--border-color);
+      // Coins arrondis
       border-radius: 4px;
 
       &:hover {
-        background: $primary-color;
+        // Couleur au survol
+        background: var(--primary);
       }
     }
 
     .empty-employees {
+      // Ligne 1: Texte centré
       text-align: center;
+      // Ligne 2: Padding généreux
       padding: 2rem;
-      color: $text-secondary;
+      // Ligne 3: Couleur secondaire
+      color: var(--text-secondary);
+      // Ligne 4: Taille normale
       font-size: 0.9rem;
+      // Ligne 5: Style italique
       font-style: italic;
     }
   }
 
-  // Carte employé
+  // ===== CARTE EMPLOYÉ =====
   .employee-card-full {
+    // Ligne 1-3: Disposition flex
     display: flex;
     align-items: center;
     gap: 1rem;
+    // Ligne 4: Padding interne
     padding: 0.75rem;
-    background: $bg-card;
-    border: 1px solid $border-color;
+    // Ligne 5: Fond de carte
+    background: var(--card-bg);
+    // Ligne 6: Bordure
+    border: 1px solid var(--border-color);
+    // Ligne 7: Coins arrondis
     border-radius: 6px;
+    // Ligne 8: Marge en bas
     margin-bottom: 0.5rem;
+    // Ligne 9: Transition douce
     transition: all 0.2s ease;
 
     &:last-child {
+      // Pas de marge pour le dernier élément
       margin-bottom: 0;
     }
 
     &:hover {
+      // Ligne 1: Ombre portée
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-      border-color: rgba(139, 92, 246, 0.5);
+      // Ligne 2: Bordure colorée
+      border-color: color-mix(in srgb, var(--primary) 50%, transparent);
+      // Ligne 3: Déplacement vers la droite
       transform: translateX(4px);
     }
 
     .employee-avatar {
+      // Ligne 1-2: Dimensions fixes
       width: 40px;
       height: 40px;
+      // Ligne 3: Forme circulaire
       border-radius: 50%;
+      // Ligne 4: Gradient de fond
       background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      // Ligne 5-7: Centrage du contenu
       display: flex;
       align-items: center;
       justify-content: center;
+      // Ligne 8: Taille de l'emoji
       font-size: 1.25rem;
+      // Ligne 9: Ne rétrécit pas
       flex-shrink: 0;
+      // Ligne 10: Bordure colorée
       border: 2px solid rgba(245, 87, 108, 0.3);
     }
 
     .employee-info {
+      // Ligne 1: Prend tout l'espace disponible
       flex: 1;
 
       .employee-name {
+        // Ligne 1: Taille normale
         font-size: 0.9rem;
+        // Ligne 2: Semi-gras
         font-weight: 600;
-        color: $text-dark;
+        // Ligne 3: Couleur principale
+        color: var(--text-primary);
+        // Ligne 4: Petite marge en bas
         margin-bottom: 0.125rem;
       }
 
       .employee-position {
+        // Ligne 1: Petite taille
         font-size: 0.75rem;
-        color: $text-secondary;
+        // Ligne 2: Couleur secondaire
+        color: var(--text-secondary);
       }
     }
 
     .employee-stats {
+      // Ligne 1: Disposition flex
       display: flex;
+      // Ligne 2: Espace entre les stats
       gap: 0.75rem;
 
       .employee-stat {
+        // Ligne 1: Petite taille
         font-size: 0.75rem;
-        color: $text-secondary;
+        // Ligne 2: Couleur secondaire
+        color: var(--text-secondary);
+        // Ligne 3: Pas de retour à la ligne
         white-space: nowrap;
       }
     }
   }
 
-  // Actions sur le manager
+  // ===== ACTIONS SUR LE MANAGER =====
   .manager-actions {
+    // Ligne 1: Disposition flex
     display: flex;
+    // Ligne 2: Espace entre les boutons
     gap: 0.5rem;
+    // Ligne 3: Alignement à droite
     justify-content: flex-end;
+    // Ligne 4: Padding en haut
     padding-top: 1rem;
-    border-top: 1px solid $border-color;
+    // Ligne 5: Bordure supérieure
+    border-top: 1px solid var(--border-color);
+    // Ligne 6: Retour à la ligne si nécessaire
     flex-wrap: wrap;
   }
 }
 
-// ===== Badge de disponibilité =====
+// ===== BADGE DE DISPONIBILITÉ =====
 .availability-badge {
+  // Ligne 1-3: Disposition flex inline
   display: inline-flex-end;
   align-items: center;
   gap: 0.5rem;
+  // Ligne 4: Padding interne
   padding: 0.5rem 1rem;
+  // Ligne 5: Coins très arrondis (forme de pilule)
   border-radius: 20px;
+  // Ligne 6: Taille de police
   font-size: 0.875rem;
+  // Ligne 7: Semi-gras
   font-weight: 600;
+  // Ligne 8: Pas de retour à la ligne
   white-space: nowrap;
-  transition: all 0.3s ease;
+  // Ligne 9: Transition douce
+  transition: all $transition-speed ease;
 
   .status-icon {
+    // Taille de l'icône de statut
     font-size: 1rem;
   }
 
+  // Badge "Présent" (vert)
   &.status-present {
+    // Ligne 1: Fond vert semi-transparent
     background: rgba(16, 185, 129, 0.15);
-    color: lighten($success-color, 10%);
+    // Ligne 2: Texte vert plus clair
+    color: color-mix(in srgb, var(--success) 90%, white);
+    // Ligne 3: Bordure verte
     border: 1px solid rgba(16, 185, 129, 0.3);
 
     &:hover {
+      // Ombre verte au survol
       box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
     }
   }
 
+  // Badge "Absent" (rouge)
   &.status-absent {
     background: rgba(239, 68, 68, 0.15);
-    color: lighten($danger-color, 10%);
-    border: 1px solid rgba(239, 68, 68, 0.3);
-
-    &:hover {
-      box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
-    }
-  }
-
-  &.status-leave {
-    background: rgba(251, 146, 60, 0.15);
-    color: lighten($orange-color, 10%);
-    border: 1px solid rgba(251, 146, 60, 0.3);
-
-    &:hover {
-      box-shadow: 0 0 20px rgba(251, 146, 60, 0.3);
-    }
-  }
-}
-
-.availability-badge-large {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  border-radius: 25px;
-  font-size: 1rem;
-  font-weight: 600;
-  margin-top: 0.5rem;
-
-  &.status-present {
-    background: rgba(16, 185, 129, 0.15);
-    color: $success-color;
-    border: 2px solid rgba(16, 185, 129, 0.3);
-  }
-
-  &.status-absent {
-    background: rgba(239, 68, 68, 0.15);
-    color: $danger-color;
+    color: var(--danger);
     border: 2px solid rgba(239, 68, 68, 0.3);
   }
 
   &.status-leave {
     background: rgba(251, 146, 60, 0.15);
-    color: $orange-color;
+    color: var(--stat-orange);
     border: 2px solid rgba(251, 146, 60, 0.3);
   }
 }
 
-// ===== Boutons =====
+// ===== SYSTÈME DE BOUTONS =====
 .btn {
+  // Ligne 1: Padding interne
   padding: 0.75rem 1.5rem;
-  border-radius: 8px;
+  // Ligne 2: Coins arrondis
+  border-radius: $border-radius-base;
+  // Ligne 3: Pas de bordure par défaut
   border: none;
+  // Ligne 4: Taille de police
   font-size: 0.9rem;
+  // Ligne 5: Semi-gras
   font-weight: 600;
+  // Ligne 6: Curseur pointer
   cursor: pointer;
+  // Ligne 7: Transition douce
   transition: all 0.2s ease;
+  // Ligne 8-10: Disposition flex
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
 
   &:disabled {
+    // Ligne 1: Opacité réduite quand désactivé
     opacity: 0.5;
+    // Ligne 2: Curseur "interdit"
     cursor: not-allowed;
   }
 
+  // Bouton petit
   &.btn-sm {
+    // Ligne 1: Padding réduit
     padding: 0.5rem 1rem;
+    // Ligne 2: Police plus petite
     font-size: 0.8rem;
   }
 
+  // Bouton primaire (violet)
   &.btn-primary {
-    background: $primary-color;
+    // Ligne 1: Fond primaire
+    background: var(--primary);
+    // Ligne 2: Texte blanc
     color: white;
 
     &:hover:not(:disabled) {
-      background: darken($primary-color, 10%);
+      // Ligne 1: Couleur légèrement plus foncée
+      background: color-mix(in srgb, var(--primary) 90%, black);
+      // Ligne 2: Légère élévation
       transform: translateY(-2px);
+      // Ligne 3: Ombre colorée
       box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
     }
   }
 
+  // Bouton secondaire (gris)
   &.btn-secondary {
-    background: $text-secondary;
+    // Ligne 1: Fond gris
+    background: var(--text-secondary);
+    // Ligne 2: Texte blanc
     color: white;
 
     &:hover:not(:disabled) {
-      background: darken($text-secondary, 10%);
+      // Ligne 1: Couleur plus foncée
+      background: color-mix(in srgb, var(--text-secondary) 90%, black);
+      // Ligne 2: Légère élévation
       transform: translateY(-2px);
     }
   }
 
+  // Bouton info (bleu)
   &.btn-info {
-    background: $info-color;
+    // Ligne 1: Fond bleu
+    background: var(--info);
+    // Ligne 2: Texte blanc
     color: white;
 
     &:hover:not(:disabled) {
-      background: darken($info-color, 10%);
+      // Ligne 1: Couleur plus foncée
+      background: color-mix(in srgb, var(--info) 90%, black);
+      // Ligne 2: Légère élévation
       transform: translateY(-2px);
+      // Ligne 3: Ombre bleue
       box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
     }
   }
 
+  // Bouton edit (indigo)
   &.btn-edit {
+    // Ligne 1: Fond indigo
     background: #6366f1;
+    // Ligne 2: Texte blanc
     color: white;
 
     &:hover:not(:disabled) {
-      background: darken(#6366f1, 10%);
+      // Ligne 1: Couleur plus foncée
+      background: color-mix(in srgb, #6366f1 90%, black);
+      // Ligne 2: Légère élévation
       transform: translateY(-2px);
+      // Ligne 3: Ombre colorée
       box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
     }
   }
 
+  // Bouton danger (rouge)
   &.btn-danger {
-    background: $danger-color;
+    // Ligne 1: Fond rouge
+    background: var(--danger);
+    // Ligne 2: Texte blanc
     color: white;
 
     &:hover:not(:disabled) {
-      background: darken($danger-color, 10%);
+      // Ligne 1: Couleur plus foncée
+      background: color-mix(in srgb, var(--danger) 90%, black);
+      // Ligne 2: Légère élévation
       transform: translateY(-2px);
+      // Ligne 3: Ombre rouge
       box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
     }
   }
 
+  // Bouton cancel (transparent)
   &.btn-cancel {
+    // Ligne 1: Fond transparent
     background: transparent;
-    color: $text-secondary;
-    border: 1px solid $border-color;
+    // Ligne 2: Texte gris
+    color: var(--text-secondary);
+    // Ligne 3: Bordure grise
+    border: 1px solid var(--border-color);
 
     &:hover {
+      // Ligne 1: Fond légèrement visible
       background: rgba(255, 255, 255, 0.05);
-      border-color: $text-light;
+      // Ligne 2: Bordure plus visible
+      border-color: var(--text-muted);
     }
   }
 }
 
-// ===== État vide =====
+// ===== ÉTAT VIDE =====
 .empty-state {
+  // Ligne 1: Prend toutes les colonnes de la grille
   grid-column: 1 / -1;
+  // Ligne 2: Texte centré
   text-align: center;
+  // Ligne 3: Padding généreux
   padding: 4rem 2rem;
 
   .empty-icon {
+    // Ligne 1: Très grande icône
     font-size: 4rem;
+    // Ligne 2: Marge en bas
     margin-bottom: 1rem;
+    // Ligne 3: Semi-transparent
     opacity: 0.3;
+    // Ligne 4: Animation de flottement
     animation: float 3s ease-in-out infinite;
   }
 
   p {
-    color: $text-secondary;
+    // Ligne 1: Couleur secondaire
+    color: var(--text-secondary);
+    // Ligne 2: Taille augmentée
     font-size: 1.125rem;
+    // Ligne 3: Marge en bas
     margin-bottom: 1.5rem;
   }
 }
 
+// Animation de flottement pour l'icône vide
 @keyframes float {
+  // Au début et à la fin: position normale
   0%, 100% { transform: translateY(0); }
+  // Au milieu: remonte de 10px
   50% { transform: translateY(-10px); }
 }
 
-// ===== Modal =====
+// ===== MODAL =====
 .modal {
+  // Ligne 1-4: Position fixe plein écran
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  // Ligne 5: Fond noir semi-transparent
   background: rgba(0, 0, 0, 0.85);
+  // Ligne 6-8: Centrage du contenu
   display: flex;
   align-items: center;
   justify-content: center;
+  // Ligne 9: Au-dessus de tout
   z-index: 1000;
+  // Ligne 10: Padding pour éviter les bords
   padding: 1rem;
+  // Ligne 11: Effet de flou sur l'arrière-plan
   backdrop-filter: blur(4px);
+  // Ligne 12: Animation d'apparition
   animation: fadeIn 0.3s ease;
 
+  // Animation d'apparition en fondu
   @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
   }
 
   .modal-content {
-    background: $bg-card;
-    border: 1px solid $border-color;
+    // Ligne 1: Fond de carte
+    background: var(--card-bg);
+    // Ligne 2: Bordure
+    border: 1px solid var(--border-color);
+    // Ligne 3: Coins très arrondis
     border-radius: 16px;
+    // Ligne 4-5: Largeur par défaut
     max-width: 600px;
     width: 100%;
+    // Ligne 6: Hauteur maximale
     max-height: 90vh;
+    // Ligne 7: Scroll vertical si nécessaire
     overflow-y: auto;
+    // Ligne 8: Grande ombre portée
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    // Ligne 9: Animation de montée
     animation: slideUp 0.3s ease-out;
 
+    // Animation de montée depuis le bas
     @keyframes slideUp {
       from {
+        // Démarre décalé vers le bas
         transform: translateY(50px);
+        // Et invisible
         opacity: 0;
       }
       to {
+        // Arrive en position normale
         transform: translateY(0);
+        // Et visible
         opacity: 1;
       }
     }
 
+    // Variante large du modal
     &.modal-content-large {
       max-width: 800px;
     }
 
+    // Stylisation de la scrollbar
     &::-webkit-scrollbar {
       width: 8px;
     }
 
     &::-webkit-scrollbar-track {
-      background: $bg-dark;
+      background: var(--dark-bg);
       border-radius: 4px;
     }
 
     &::-webkit-scrollbar-thumb {
-      background: $border-color;
+      background: var(--border-color);
       border-radius: 4px;
 
       &:hover {
-        background: $primary-color;
+        background: var(--primary);
       }
     }
   }
 
   .modal-header {
+    // Ligne 1-3: Disposition flex
     display: flex;
     justify-content: space-between;
     align-items: center;
+    // Ligne 4: Padding généreux
     padding: 1.75rem 2rem;
-    border-bottom: 1px solid $border-color;
-    background: rgba(139, 92, 246, 0.05);
+    // Ligne 5: Bordure inférieure
+    border-bottom: 1px solid var(--border-color);
+    // Ligne 6: Fond légèrement coloré
+    background: color-mix(in srgb, var(--primary) 5%, transparent);
 
     .modal-title {
+      // Ligne 1: Supprime la marge
       margin: 0;
+      // Ligne 2: Grande taille
       font-size: 1.5rem;
+      // Ligne 3: Très gras
       font-weight: 700;
-      color: $text-dark;
+      // Ligne 4: Couleur principale
+      color: var(--text-primary);
     }
 
     .close-btn {
+      // Ligne 1-2: Dimensions fixes
       width: 36px;
       height: 36px;
-      border-radius: 8px;
+      // Ligne 3: Coins arrondis
+      border-radius: $border-radius-base;
+      // Ligne 4: Bordure transparente par défaut
       border: 1px solid transparent;
+      // Ligne 5: Fond rouge léger
       background: rgba(239, 68, 68, 0.1);
+      // Ligne 6: Curseur pointer
       cursor: pointer;
+      // Ligne 7-9: Centrage de l'icône X
       display: flex;
       align-items: center;
       justify-content: center;
+      // Ligne 10: Taille de l'icône
       font-size: 1.25rem;
-      color: $text-secondary;
-      transition: all 0.3s ease;
+      // Ligne 11: Couleur secondaire
+      color: var(--text-secondary);
+      // Ligne 12: Transition douce
+      transition: all $transition-speed ease;
 
       &:hover {
+        // Ligne 1: Fond rouge plus visible
         background: rgba(239, 68, 68, 0.2);
-        border-color: $danger-color;
-        color: $danger-color;
+        // Ligne 2: Bordure rouge
+        border-color: var(--danger);
+        // Ligne 3: Texte rouge
+        color: var(--danger);
+        // Ligne 4: Rotation de 90° pour effet
         transform: rotate(90deg);
       }
     }
   }
 
   .modal-body {
+    // Padding généreux pour le contenu
     padding: 2rem;
   }
 
   .modal-footer {
+    // Ligne 1: Disposition flex
     display: flex;
+    // Ligne 2: Boutons alignés à droite
     justify-content: flex-end;
+    // Ligne 3: Espace entre les boutons
     gap: 1rem;
+    // Ligne 4: Padding
     padding: 1.5rem 2rem;
-    border-top: 1px solid $border-color;
+    // Ligne 5: Bordure supérieure
+    border-top: 1px solid var(--border-color);
+    // Ligne 6: Fond sombre
     background: rgba(15, 23, 42, 0.5);
   }
 }
 
-// ===== Profil - Résumé =====
+// ===== PROFIL - RÉSUMÉ =====
 .profile-summary {
+  // Ligne 1-3: Disposition flex
   display: flex;
   align-items: center;
   gap: 2rem;
+  // Ligne 4: Padding généreux
   padding: 2rem;
-  background: $bg-darker;
-  border-radius: 12px;
+  // Ligne 5: Fond plus sombre
+  background: var(--dark-bg-darker);
+  // Ligne 6: Coins arrondis
+  border-radius: $border-radius-large;
+  // Ligne 7: Marge en bas
   margin-bottom: 2rem;
 
   .profile-avatar-large {
+    // Ligne 1-2: Grande dimensions
     width: 100px;
     height: 100px;
+    // Ligne 3: Forme circulaire
     border-radius: 50%;
+    // Ligne 4: Gradient de fond
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    // Ligne 5-7: Centrage du contenu
     display: flex;
     align-items: center;
     justify-content: center;
+    // Ligne 8: Très grande icône
     font-size: 3rem;
+    // Ligne 9: Ne rétrécit pas
     flex-shrink: 0;
+    // Ligne 10: Bordure colorée
     border: 3px solid rgba(102, 126, 234, 0.5);
+    // Ligne 11: Ombre portée
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
   }
 
   .profile-info {
+    // Ligne 1: Prend tout l'espace disponible
     flex: 1;
 
     h3 {
+      // Ligne 1: Marges personnalisées
       margin: 0 0 0.5rem 0;
+      // Ligne 2: Grande taille
       font-size: 1.75rem;
+      // Ligne 3: Très gras
       font-weight: 700;
-      color: $text-dark;
+      // Ligne 4: Couleur principale
+      color: var(--text-primary);
     }
 
     .profile-position {
+      // Ligne 1: Supprime la marge
       margin: 0;
+      // Ligne 2: Taille moyenne
       font-size: 1.125rem;
-      color: $text-secondary;
+      // Ligne 3: Couleur secondaire
+      color: var(--text-secondary);
     }
   }
 }
 
-// ===== Sections d'information =====
+// ===== SECTIONS D'INFORMATION =====
 .info-section {
+  // Ligne 1: Marge en bas
   margin-bottom: 2rem;
 
   .section-subtitle {
+    // Ligne 1: Taille de sous-titre
     font-size: 1.125rem;
+    // Ligne 2: Semi-gras
     font-weight: 600;
-    color: $text-dark;
+    // Ligne 3: Couleur principale
+    color: var(--text-primary);
+    // Ligne 4: Marges personnalisées
     margin: 0 0 1rem 0;
+    // Ligne 5: Padding en bas
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid $border-color;
+    // Ligne 6: Bordure inférieure
+    border-bottom: 2px solid var(--border-color);
   }
 }
 
 .info-grid {
+  // Ligne 1: Grille CSS
   display: grid;
+  // Ligne 2: Colonnes auto-adaptatives (min 250px)
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  // Ligne 3: Espace entre les items
   gap: 1rem;
 
   .info-item {
+    // Ligne 1: Padding interne
     padding: 1rem;
-    background: $bg-darker;
-    border-radius: 8px;
-    border: 1px solid $border-color;
+    // Ligne 2: Fond plus sombre
+    background: var(--dark-bg-darker);
+    // Ligne 3: Coins arrondis
+    border-radius: $border-radius-base;
+    // Ligne 4: Bordure
+    border: 1px solid var(--border-color);
 
     .info-label {
+      // Ligne 1: Affichage en bloc
       display: block;
+      // Ligne 2: Petite taille
       font-size: 0.875rem;
-      color: $text-secondary;
+      // Ligne 3: Couleur secondaire
+      color: var(--text-secondary);
+      // Ligne 4: Marge en bas
       margin-bottom: 0.5rem;
+      // Ligne 5: Semi-gras
       font-weight: 500;
     }
 
     .info-value {
+      // Ligne 1: Affichage en bloc
       display: block;
+      // Ligne 2: Taille normale
       font-size: 1rem;
-      color: $text-dark;
+      // Ligne 3: Couleur principale
+      color: var(--text-primary);
+      // Ligne 4: Semi-gras
       font-weight: 600;
     }
   }
 }
 
-// ===== Liste d'équipe =====
+// ===== LISTE D'ÉQUIPE =====
 .team-list {
+  // Ligne 1: Grille CSS
   display: grid;
+  // Ligne 2: Colonnes auto-fill (min 200px)
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  // Ligne 3: Espace entre les membres
   gap: 1rem;
 
   .team-member {
+    // Ligne 1-3: Disposition flex
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    // Ligne 4: Padding interne
     padding: 0.75rem;
-    background: $bg-darker;
-    border-radius: 8px;
-    border: 1px solid $border-color;
+    // Ligne 5: Fond plus sombre
+    background: var(--dark-bg-darker);
+    // Ligne 6: Coins arrondis
+    border-radius: $border-radius-base;
+    // Ligne 7: Bordure
+    border: 1px solid var(--border-color);
+    // Ligne 8: Transition douce
     transition: all 0.2s ease;
 
     &:hover {
-      background: lighten($bg-darker, 3%);
-      border-color: $primary-color;
+      // Ligne 1: Fond légèrement plus clair
+      background: color-mix(in srgb, var(--dark-bg-darker) 97%, white);
+      // Ligne 2: Bordure colorée
+      border-color: var(--primary);
+      // Ligne 3: Déplacement vers la droite
       transform: translateX(4px);
     }
 
     .member-avatar {
+      // Ligne 1-2: Dimensions fixes
       width: 35px;
       height: 35px;
+      // Ligne 3: Forme circulaire
       border-radius: 50%;
+      // Ligne 4: Gradient de fond
       background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      // Ligne 5-7: Centrage du contenu
       display: flex;
       align-items: center;
       justify-content: center;
+      // Ligne 8: Taille de l'emoji
       font-size: 1.125rem;
+      // Ligne 9: Ne rétrécit pas
       flex-shrink: 0;
     }
 
     .member-info {
+      // Ligne 1: Prend tout l'espace disponible
       flex: 1;
+      // Ligne 2: Largeur minimale de 0 pour le text-overflow
       min-width: 0;
 
       .member-name {
+        // Ligne 1: Affichage en bloc
         display: block;
+        // Ligne 2: Petite taille
         font-size: 0.875rem;
+        // Ligne 3: Semi-gras
         font-weight: 600;
-        color: $text-dark;
+        // Ligne 4: Couleur principale
+        color: var(--text-primary);
+        // Ligne 5: Petite marge en bas
         margin-bottom: 0.125rem;
+        // Ligne 6: Pas de retour à la ligne
         white-space: nowrap;
+        // Ligne 7: Cache le débordement
         overflow: hidden;
+        // Ligne 8: Ajoute "..." si texte trop long
         text-overflow: ellipsis;
       }
 
       .member-position {
+        // Ligne 1: Affichage en bloc
         display: block;
+        // Ligne 2: Très petite taille
         font-size: 0.75rem;
-        color: $text-secondary;
+        // Ligne 3: Couleur secondaire
+        color: var(--text-secondary);
+        // Ligne 4-6: Gestion du débordement
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -918,318 +1299,450 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   }
 }
 
-// ===== Formulaire =====
+// ===== FORMULAIRE =====
 .form-group {
+  // Ligne 1: Marge en bas
   margin-bottom: 1.5rem;
 
   .form-label {
+    // Ligne 1: Affichage en bloc
     display: block;
+    // Ligne 2: Marge en bas
     margin-bottom: 0.5rem;
+    // Ligne 3: Petite taille
     font-size: 0.875rem;
+    // Ligne 4: Semi-gras
     font-weight: 600;
-    color: $text-dark;
+    // Ligne 5: Couleur principale
+    color: var(--text-primary);
   }
 
   .form-input {
+    // Ligne 1: Pleine largeur
     width: 100%;
+    // Ligne 2: Padding interne
     padding: 0.875rem 1rem;
-    border: 1.5px solid $border-color;
-    border-radius: 8px;
+    // Ligne 3: Bordure épaisse
+    border: 1.5px solid var(--border-color);
+    // Ligne 4: Coins arrondis
+    border-radius: $border-radius-base;
+    // Ligne 5: Taille de police
     font-size: 0.9rem;
-    background: $bg-dark;
-    color: $text-dark;
+    // Ligne 6: Fond sombre
+    background: var(--dark-bg);
+    // Ligne 7: Couleur du texte
+    color: var(--text-primary);
+    // Ligne 8: Transition douce
     transition: all 0.2s ease;
 
     &:focus {
+      // Ligne 1: Supprime l'outline par défaut
       outline: none;
-      border-color: $primary-color;
+      // Ligne 2: Bordure colorée
+      border-color: var(--primary);
+      // Ligne 3: Ombre colorée (effet de focus)
       box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
     }
 
     &::placeholder {
-      color: $text-light;
+      // Couleur du placeholder
+      color: var(--text-muted);
     }
 
     &:hover {
-      border-color: lighten($border-color, 10%);
+      // Bordure légèrement plus visible au survol
+      border-color: color-mix(in srgb, var(--border-color) 90%, white);
     }
   }
 }
 
-// ===== Historique - Statistiques =====
+// ===== HISTORIQUE - STATISTIQUES =====
 .history-stats {
+  // Ligne 1: Grille CSS
   display: grid;
+  // Ligne 2: Colonnes auto-adaptatives (min 150px)
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  // Ligne 3: Espace entre les cartes
   gap: 1rem;
+  // Ligne 4: Marge en bas
   margin-bottom: 2rem;
 
   .history-stat-card {
-    background: $bg-darker;
-    border: 1px solid $border-color;
+    // Ligne 1: Fond plus sombre
+    background: var(--dark-bg-darker);
+    // Ligne 2: Bordure
+    border: 1px solid var(--border-color);
+    // Ligne 3: Coins arrondis
     border-radius: 10px;
+    // Ligne 4: Padding interne
     padding: 1.25rem;
+    // Ligne 5-6: Disposition flex
     display: flex;
     align-items: center;
     gap: 1rem;
-    transition: all 0.3s ease;
+    // Ligne 7: Transition douce
+    transition: all $transition-speed ease;
 
     &:hover {
+      // Ligne 1: Remonte légèrement
       transform: translateY(-4px);
+      // Ligne 2: Ombre portée
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
     }
 
     .stat-icon-small {
+      // Ligne 1: Taille de l'icône
       font-size: 2rem;
+      // Ligne 2-3: Dimensions fixes
       width: 45px;
       height: 45px;
+      // Ligne 4-6: Centrage de l'icône
       display: flex;
       align-items: center;
       justify-content: center;
+      // Ligne 7: Forme circulaire
       border-radius: 50%;
-      background: rgba(139, 92, 246, 0.1);
+      // Ligne 8: Fond légèrement coloré
+      background: color-mix(in srgb, var(--primary) 10%, transparent);
+      // Ligne 9: Ne rétrécit pas
       flex-shrink: 0;
     }
 
     .stat-content-small {
+      // Ligne 1: Prend tout l'espace disponible
       flex: 1;
 
       .stat-value-small {
+        // Ligne 1: Grande valeur
         font-size: 1.5rem;
+        // Ligne 2: Très gras
         font-weight: 700;
-        color: $text-dark;
+        // Ligne 3: Couleur principale
+        color: var(--text-primary);
+        // Ligne 4: Marge en bas
         margin-bottom: 0.25rem;
       }
 
       .stat-label-small {
+        // Ligne 1: Très petite taille
         font-size: 0.75rem;
-        color: $text-secondary;
+        // Ligne 2: Couleur secondaire
+        color: var(--text-secondary);
+        // Ligne 3: Tout en majuscules
         text-transform: uppercase;
+        // Ligne 4: Espacement des lettres
         letter-spacing: 0.5px;
       }
     }
   }
 }
 
-// ===== Tableau d'historique =====
+// ===== TABLEAU D'HISTORIQUE =====
 .history-table {
-  background: $bg-darker;
-  border: 1px solid $border-color;
+  // Ligne 1: Fond plus sombre
+  background: var(--dark-bg-darker);
+  // Ligne 2: Bordure
+  border: 1px solid var(--border-color);
+  // Ligne 3: Coins arrondis
   border-radius: 10px;
+  // Ligne 4: Cache le débordement
   overflow: hidden;
 
   .history-table-header {
+    // Ligne 1: Padding interne
     padding: 1rem 1.5rem;
-    background: rgba(139, 92, 246, 0.1);
-    border-bottom: 1px solid $border-color;
+    // Ligne 2: Fond légèrement coloré
+    background: color-mix(in srgb, var(--primary) 10%, transparent);
+    // Ligne 3: Bordure inférieure
+    border-bottom: 1px solid var(--border-color);
 
     h4 {
+      // Ligne 1: Supprime la marge
       margin: 0;
+      // Ligne 2: Taille normale
       font-size: 1rem;
+      // Ligne 3: Semi-gras
       font-weight: 600;
-      color: $text-dark;
+      // Ligne 4: Couleur principale
+      color: var(--text-primary);
     }
   }
 
   .history-table-content {
+    // Ligne 1: Hauteur maximale avec scroll
     max-height: 400px;
+    // Ligne 2: Scroll vertical
     overflow-y: auto;
 
+    // Stylisation de la scrollbar
     &::-webkit-scrollbar {
       width: 8px;
     }
 
     &::-webkit-scrollbar-track {
-      background: $bg-dark;
+      background: var(--dark-bg);
     }
 
     &::-webkit-scrollbar-thumb {
-      background: $border-color;
+      background: var(--border-color);
       border-radius: 4px;
 
       &:hover {
-        background: $primary-color;
+        background: var(--primary);
       }
     }
   }
 }
 
-// ===== Table de données =====
+// ===== TABLE DE DONNÉES =====
 .data-table {
+  // Ligne 1: Pleine largeur
   width: 100%;
+  // Ligne 2: Fusionne les bordures adjacentes
   border-collapse: collapse;
 
   thead {
-    background: rgba(139, 92, 246, 0.05);
+    // Ligne 1: Fond légèrement coloré
+    background: color-mix(in srgb, var(--primary) 5%, transparent);
+    // Ligne 2: Reste en haut lors du scroll
     position: sticky;
     top: 0;
+    // Ligne 3: Au-dessus du contenu
     z-index: 10;
 
     th {
+      // Ligne 1: Padding interne
       padding: 1rem;
+      // Ligne 2: Alignement à gauche
       text-align: left;
+      // Ligne 3: Petite taille
       font-size: 0.875rem;
+      // Ligne 4: Semi-gras
       font-weight: 600;
-      color: $text-dark;
+      // Ligne 5: Couleur principale
+      color: var(--text-primary);
+      // Ligne 6: Tout en majuscules
       text-transform: uppercase;
+      // Ligne 7: Espacement des lettres
       letter-spacing: 0.5px;
-      border-bottom: 2px solid $border-color;
+      // Ligne 8: Bordure inférieure épaisse
+      border-bottom: 2px solid var(--border-color);
     }
   }
 
   tbody {
     tr {
-      border-bottom: 1px solid $border-color;
+      // Ligne 1: Bordure inférieure
+      border-bottom: 1px solid var(--border-color);
+      // Ligne 2: Transition douce
       transition: all 0.2s ease;
 
       &:hover {
-        background: rgba(139, 92, 246, 0.05);
+        // Fond légèrement coloré au survol
+        background: color-mix(in srgb, var(--primary) 5%, transparent);
       }
 
+      // Ligne de statut "présent" (fond vert léger)
       &.row-présent {
         background: rgba(16, 185, 129, 0.03);
       }
 
+      // Ligne de statut "absent" (fond rouge léger)
       &.row-absent {
         background: rgba(239, 68, 68, 0.03);
       }
 
+      // Ligne de statut "congé" (fond orange léger)
       &.row-congé {
         background: rgba(251, 146, 60, 0.03);
       }
 
       td {
+        // Ligne 1: Padding interne
         padding: 1rem;
+        // Ligne 2: Taille de police
         font-size: 0.9rem;
-        color: $text-secondary;
+        // Ligne 3: Couleur secondaire par défaut
+        color: var(--text-secondary);
 
+        // Cellule de date (plus visible)
         &.date-cell {
+          // Ligne 1: Semi-gras
           font-weight: 600;
-          color: $text-dark;
+          // Ligne 2: Couleur principale
+          color: var(--text-primary);
         }
 
+        // Cellule d'heure (police monospace)
         &.time-cell {
+          // Ligne 1: Police à espacement fixe
           font-family: 'Courier New', monospace;
-          color: $text-dark;
+          // Ligne 2: Couleur principale
+          color: var(--text-primary);
         }
 
+        // Cellule de durée (colorée)
         &.duration-cell {
+          // Ligne 1: Semi-gras
           font-weight: 600;
-          color: $primary-color;
+          // Ligne 2: Couleur primaire
+          color: var(--primary);
         }
       }
     }
   }
 }
 
-// ===== Badge de statut petit =====
+// ===== BADGE DE STATUT PETIT =====
 .status-badge-small {
+  // Ligne 1-3: Disposition flex inline
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  // Ligne 4: Padding réduit
   padding: 0.35rem 0.75rem;
+  // Ligne 5: Forme de pilule
   border-radius: 15px;
+  // Ligne 6: Petite taille
   font-size: 0.8rem;
+  // Ligne 7: Semi-gras
   font-weight: 600;
+  // Ligne 8: Pas de retour à la ligne
   white-space: nowrap;
 
+  // Badge "Présent" (vert)
   &.status-present {
+    // Ligne 1: Fond vert semi-transparent
     background: rgba(16, 185, 129, 0.15);
-    color: $success-color;
+    // Ligne 2: Texte vert
+    color: var(--success);
+    // Ligne 3: Bordure verte
     border: 1px solid rgba(16, 185, 129, 0.3);
   }
 
+  // Badge "Absent" (rouge)
   &.status-absent {
     background: rgba(239, 68, 68, 0.15);
-    color: $danger-color;
+    color: var(--danger);
     border: 1px solid rgba(239, 68, 68, 0.3);
   }
 
+  // Badge "Congé" (orange)
   &.status-leave {
     background: rgba(251, 146, 60, 0.15);
-    color: $orange-color;
+    color: var(--stat-orange);
     border: 1px solid rgba(251, 146, 60, 0.3);
   }
 }
 
-// ===== État vide historique =====
+// ===== ÉTAT VIDE HISTORIQUE =====
 .empty-history {
+  // Ligne 1: Texte centré
   text-align: center;
+  // Ligne 2: Padding généreux
   padding: 3rem 2rem;
 
   p {
-    color: $text-secondary;
+    // Ligne 1: Couleur secondaire
+    color: var(--text-secondary);
+    // Ligne 2: Taille normale
     font-size: 1rem;
+    // Ligne 3: Style italique
     font-style: italic;
   }
 }
 
-// ===== Responsive =====
+// ===== RESPONSIVE DESIGN =====
+
+// Tablettes et petits écrans (768px et moins)
 @media (max-width: 768px) {
   .page-section {
+    // Réduit le padding sur mobile
     padding: 1rem;
   }
 
   .managers-grid {
+    // Une seule colonne sur mobile
     grid-template-columns: 1fr;
   }
 
   .managers-stats-grid {
+    // Une seule colonne sur mobile
     grid-template-columns: 1fr;
   }
 
   .section-header {
+    // Ligne 1: En colonne sur mobile
     flex-direction: column;
+    // Ligne 2: Alignement à gauche
     align-items: flex-start;
+    // Ligne 3: Espace entre les éléments
     gap: 1rem;
 
     .section-title-main {
+      // Réduit la taille du titre
       font-size: 1.5rem;
     }
   }
 
   .manager-header {
+    // Ligne 1: En colonne sur mobile
     flex-direction: column;
+    // Ligne 2: Texte centré
     text-align: center;
   }
 
   .manager-performance-full {
+    // Une seule colonne pour les performances
     grid-template-columns: 1fr;
   }
 
   .manager-schedule {
+    // En colonne pour les horaires
     flex-direction: column;
   }
 
   .manager-actions {
+    // Ligne 1: En colonne pour les boutons
     flex-direction: column;
 
     .btn {
+      // Ligne 1: Boutons pleine largeur
       width: 100%;
+      // Ligne 2: Contenu centré
       justify-content: center;
     }
   }
 
   .profile-summary {
+    // Ligne 1: En colonne sur mobile
     flex-direction: column;
+    // Ligne 2: Texte centré
     text-align: center;
   }
 
   .info-grid {
+    // Une seule colonne
     grid-template-columns: 1fr;
   }
 
   .team-list {
+    // Une seule colonne
     grid-template-columns: 1fr;
   }
 
   .history-stats {
+    // Une seule colonne
     grid-template-columns: 1fr;
   }
 
+  // Transformation du tableau en cards sur mobile
   .data-table {
+    // Ligne 1: Le tableau devient scrollable horizontalement
     display: block;
     overflow-x: auto;
 
+    // Tous les éléments du tableau deviennent des blocs
     thead,
     tbody,
     th,
@@ -1238,60 +1751,87 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
       display: block;
     }
 
+    // Cache l'en-tête du tableau (on utilisera data-label)
     thead tr {
+      // Ligne 1-2: Positionne hors de l'écran
       position: absolute;
       top: -9999px;
       left: -9999px;
     }
 
     tr {
-      border: 1px solid $border-color;
+      // Ligne 1: Bordure complète
+      border: 1px solid var(--border-color);
+      // Ligne 2: Marge entre les "cards"
       margin-bottom: 1rem;
-      border-radius: 8px;
+      // Ligne 3: Coins arrondis
+      border-radius: $border-radius-base;
+      // Ligne 4: Cache le débordement
       overflow: hidden;
     }
 
     td {
+      // Ligne 1: Pas de bordure
       border: none;
+      // Ligne 2: Position relative pour le pseudo-élément
       position: relative;
+      // Ligne 3: Padding à gauche (50% pour le label)
       padding-left: 50%;
 
+      // Pseudo-élément pour afficher le label de la colonne
       &::before {
+        // Ligne 1: Contenu depuis l'attribut data-label du HTML
         content: attr(data-label);
+        // Ligne 2: Position absolue à gauche
         position: absolute;
         left: 1rem;
+        // Ligne 3: Largeur de 45%
         width: 45%;
+        // Ligne 4: Padding à droite
         padding-right: 10px;
+        // Ligne 5: Pas de retour à la ligne
         white-space: nowrap;
+        // Ligne 6: Semi-gras pour le label
         font-weight: 600;
-        color: $text-dark;
+        // Ligne 7: Couleur principale
+        color: var(--text-primary);
       }
     }
   }
 
+  // Adaptation du modal sur mobile
   .modal-content {
+    // Ligne 1: Petite marge sur mobile
     margin: 0.5rem;
+    // Ligne 2: Hauteur maximale ajustée
     max-height: calc(100vh - 1rem);
   }
 
   .modal-header {
+    // Padding réduit
     padding: 1rem;
 
     .modal-title {
+      // Titre plus petit
       font-size: 1.25rem;
     }
   }
 
   .modal-body {
+    // Padding réduit
     padding: 1rem;
   }
 
   .modal-footer {
+    // Ligne 1: En colonne sur mobile
     flex-direction: column;
+    // Ligne 2: Padding réduit
     padding: 1rem;
 
     .btn {
+      // Ligne 1: Boutons pleine largeur
       width: 100%;
+      // Ligne 2: Contenu centré
       justify-content: center;
     }
   }

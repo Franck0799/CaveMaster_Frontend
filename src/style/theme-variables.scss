@@ -1,0 +1,182 @@
+// ==========================================
+// FICHIER: src/style/theme-variables.scss
+// DESCRIPTION: Variables CSS pour le système de thème dark/light
+// ==========================================
+
+// ===== THÈME CLAIR (Light Mode) =====
+// Ces variables sont appliquées par défaut et quand la classe .theme-light est active
+:root,
+.theme-light {
+  // Couleurs de base
+  --primary-color: #4e50ba;
+  --primary: #6366f1;
+  --primary-light: #818cf8;
+  --primary-dark: #4f46e5;
+  --secondary: #8b5cf6;
+  --accent: #a78bfa;
+
+  // Couleurs d'état
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #3b82f6;
+
+  // Backgrounds
+  --dark-bg: #f8fafc;
+  --darker-bg: #f1f5f9;
+  --card-bg: #ffffff;
+  --card-hover: #f8fafc;
+  --sidebar-bg: #ffffff;
+
+  // Texte
+  --text: #1e293b;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+
+  // Bordures et ombres
+  --border: #e2e8f0;
+  --border-color: #e2e8f0;
+  --border-light: #cbd5e1;
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+  // Effets spéciaux
+  --glow-primary: 0 0 20px rgba(99, 102, 241, 0.2);
+  --glow-success: 0 0 20px rgba(16, 185, 129, 0.2);
+  --glow-danger: 0 0 20px rgba(239, 68, 68, 0.2);
+
+  // Couleurs spécifiques
+  --wine-red: #dc2626;
+  --wine-white: #fef3c7;
+  --scan-line-color: #10b981;
+
+  // Couleurs pour les stats
+  --stat-blue: #3b82f6;
+  --stat-green: #10b981;
+  --stat-yellow: #fbbf24;
+  --stat-orange: #fb923c;
+  --stat-red: #ef4444;
+  --stat-purple: #8b5cf6;
+}
+
+// ===== THÈME SOMBRE (Dark Mode) =====
+// Ces variables sont appliquées quand la classe .theme-dark est active
+.theme-dark {
+  // Couleurs de base (restent identiques)
+  --primary-color: #4e50ba;
+  --primary: #6366f1;
+  --primary-light: #818cf8;
+  --primary-dark: #4f46e5;
+  --secondary: #8b5cf6;
+  --accent: #a78bfa;
+
+  // Couleurs d'état (restent identiques)
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #3b82f6;
+
+  // Backgrounds - Version sombre
+  --dark-bg: #0a0e27;
+  --darker-bg: #060918;
+  --card-bg: #1a1f3a;
+  --card-hover: #232947;
+  --sidebar-bg: #0f1729;
+
+  // Texte - Version sombre
+  --text: #e2e8f0;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
+  // Bordures et ombres - Version sombre
+  --border: #1e293b;
+  --border-color: #334155;
+  --border-light: #475569;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 20px 25px rgba(0, 0, 0, 0.6);
+
+  // Effets spéciaux - Version sombre
+  --glow-primary: 0 0 20px rgba(99, 102, 241, 0.3);
+  --glow-success: 0 0 20px rgba(16, 185, 129, 0.3);
+  --glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
+
+  // Couleurs spécifiques (restent identiques)
+  --wine-red: #dc2626;
+  --wine-white: #fef3c7;
+  --scan-line-color: #4ade80;
+
+  // Couleurs pour les stats (restent identiques)
+  --stat-blue: #3b82f6;
+  --stat-green: #10b981;
+  --stat-yellow: #fbbf24;
+  --stat-orange: #fb923c;
+  --stat-red: #ef4444;
+  --stat-purple: #8b5cf6;
+}
+
+// ===== MODE AUTO =====
+// Le mode auto suit les préférences système
+.theme-auto {
+  @media (prefers-color-scheme: light) {
+    // Utilise les variables du thème clair
+    --dark-bg: #f8fafc;
+    --darker-bg: #f1f5f9;
+    --card-bg: #ffffff;
+    --card-hover: #f8fafc;
+    --sidebar-bg: #ffffff;
+    --text: #1e293b;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
+    --border: #e2e8f0;
+    --border-color: #e2e8f0;
+    --border-light: #cbd5e1;
+    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --glow-primary: 0 0 20px rgba(99, 102, 241, 0.2);
+    --glow-success: 0 0 20px rgba(16, 185, 129, 0.2);
+    --glow-danger: 0 0 20px rgba(239, 68, 68, 0.2);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    // Utilise les variables du thème sombre
+    --dark-bg: #0a0e27;
+    --darker-bg: #060918;
+    --card-bg: #1a1f3a;
+    --card-hover: #232947;
+    --sidebar-bg: #0f1729;
+    --text: #e2e8f0;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --border: #1e293b;
+    --border-color: #334155;
+    --border-light: #475569;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 20px 25px rgba(0, 0, 0, 0.6);
+    --glow-primary: 0 0 20px rgba(99, 102, 241, 0.3);
+    --glow-success: 0 0 20px rgba(16, 185, 129, 0.3);
+    --glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
+  }
+}
+
+// ===== TRANSITIONS GLOBALES =====
+// Applique des transitions douces lors du changement de thème
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+// Exceptions pour les éléments qui ne doivent pas avoir de transition
+button,
+input,
+select,
+textarea,
+.no-transition {
+  transition: none;
+}

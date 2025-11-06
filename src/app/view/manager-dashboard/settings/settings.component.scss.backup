@@ -1,0 +1,505 @@
+// ===== Page principale =====
+.page-section {
+  padding: 2rem;
+  background: var(--dark-bg);
+  min-height: 100vh;
+}
+
+.content-section {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+// ===== En-tête =====
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+
+  .section-title-main {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: $primary-color;
+      text-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+    }
+  }
+
+  .unsaved-indicator {
+    background: rgba(245, 158, 11, 0.2);
+    color: #fbbf24;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    animation: pulse 2s ease-in-out infinite;
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(0.98);
+  }
+}
+
+// ===== Conteneur des paramètres =====
+.settings-container {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    border-color: color-color-mix(in srgb, in srgb, var(--border-color) 90%, white);
+  }
+}
+
+// ===== Onglets de navigation =====
+.settings-tabs {
+  display: flex;
+  border-bottom: 2px solid var(--border-color);
+  overflow-x: auto;
+  background: var(--dark-bg)er;
+
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(99, 102, 241, 0.3);
+    border-radius: 2px;
+  }
+}
+
+.settings-tab {
+  padding: 1rem 1.5rem;
+  border: none;
+  background: transparent;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-bottom: 3px solid transparent;
+  white-space: nowrap;
+  position: relative;
+
+  &:hover {
+    color: var(--text-primary);
+    background: rgba(99, 102, 241, 0.1);
+    transform: translateY(-2px);
+  }
+
+  &.active {
+    color: $primary-color;
+    border-bottom-color: $primary-color;
+    background: rgba(99, 102, 241, 0.15);
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: $primary-color;
+      box-shadow: var(--glow-primary);
+    }
+  }
+}
+
+// ===== Contenu des onglets =====
+.settings-content {
+  padding: 2rem;
+  min-height: 500px;
+}
+
+// ===== Panneau de paramètres =====
+.settings-panel {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.panel-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 1.5rem 0;
+}
+
+.subsection-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 2rem 0 1rem 0;
+}
+
+// ===== Item de paramètre =====
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(99, 102, 241, 0.05);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    border-radius: 8px;
+
+    .setting-label strong {
+      color: $primary-color;
+    }
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .setting-label {
+    flex: 1;
+    margin-right: 2rem;
+
+    strong {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+      transition: color 0.3s ease;
+    }
+
+    .setting-description {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+  }
+
+  .setting-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+
+// ===== Champs de saisie =====
+.setting-input {
+  min-width: 200px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  background: var(--dark-bg)er;
+  transition: all 0.3s ease;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2), var(--glow-primary);
+    transform: translateY(-2px);
+  }
+
+  &:hover {
+    border-color: color-color-mix(in srgb, in srgb, var(--border-color) 90%, white);
+  }
+
+  &::placeholder {
+    color: var(--text-secondary);
+  }
+}
+
+.setting-input-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .input-suffix {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+}
+
+// ===== Toggle Switch (Interrupteur) =====
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &:checked + .toggle-slider {
+      background-color: $primary-color;
+      box-shadow: var(--glow-primary);
+
+      &:before {
+        transform: translateX(24px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+      }
+    }
+
+    &:focus + .toggle-slider {
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2), var(--glow-primary);
+    }
+  }
+
+  .toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--border-color);
+    transition: all 0.3s ease;
+    border-radius: 26px;
+
+    &:hover {
+      background-color: color-color-mix(in srgb, in srgb, var(--border-color) 90%, white);
+    }
+
+    &:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 50%;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+
+// ===== Sélecteurs visuels =====
+.theme-selector,
+.font-size-selector {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.theme-option,
+.font-size-option {
+  padding: 0.75rem 1.25rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--dark-bg)er;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: $primary-color;
+    color: $primary-color;
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  }
+
+  &.active {
+    border-color: $primary-color;
+    background: $primary-color;
+    color: white;
+    box-shadow: var(--glow-primary);
+    transform: translateY(-2px);
+
+    &:hover {
+      background: color-mix(in srgb, $primary-color 90%, white);
+    }
+  }
+}
+
+// ===== Diviseur =====
+.divider {
+  height: 1px;
+  background: var(--border-color);
+  margin: 2rem 0;
+}
+
+// ===== Pied des paramètres =====
+.settings-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  border-top: 1px solid var(--border-color);
+  background: var(--dark-bg)er;
+
+  .footer-left,
+  .footer-right {
+    display: flex;
+    gap: 0.75rem;
+  }
+}
+
+// ===== Boutons =====
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  &.btn-primary {
+    background: $primary-color;
+    color: white;
+
+    &:hover:not(:disabled) {
+      background: color-mix(in srgb, $primary-color 90%, white);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4), var(--glow-primary);
+    }
+  }
+
+  &.btn-secondary {
+    background: var(--secondary);
+    color: white;
+
+    &:hover:not(:disabled) {
+      background: color-color-mix(in srgb, in srgb, var(--secondary) 90%, white);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(129, 140, 248, 0.4);
+    }
+  }
+
+  &.btn-outline {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+
+    &:hover:not(:disabled) {
+      background: var(--dark-bg)er;
+      border-color: color-color-mix(in srgb, in srgb, var(--border-color) 90%, white);
+      transform: translateY(-2px);
+    }
+  }
+
+  &.btn-cancel {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+
+    &:hover:not(:disabled) {
+      background: var(--dark-bg)er;
+      border-color: color-color-mix(in srgb, in srgb, var(--border-color) 90%, white);
+    }
+  }
+}
+
+// ===== Responsive (tablette) =====
+@media (max-width: 968px) {
+  .setting-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+
+    .setting-label {
+      margin-right: 0;
+    }
+
+    .setting-input {
+      width: 100%;
+    }
+  }
+
+  .theme-selector,
+  .font-size-selector {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .theme-option,
+  .font-size-option {
+    flex: 1;
+    min-width: 100px;
+  }
+}
+
+// ===== Responsive (mobile) =====
+@media (max-width: 640px) {
+  .page-section {
+    padding: 1rem;
+  }
+
+  .settings-content {
+    padding: 1rem;
+  }
+
+  .settings-footer {
+    flex-direction: column;
+    gap: 1rem;
+
+    .footer-left,
+    .footer-right {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  .settings-tabs {
+    padding: 0 0.5rem;
+  }
+
+  .settings-tab {
+    padding: 0.75rem 1rem;
+    font-size: 0.8rem;
+  }
+}

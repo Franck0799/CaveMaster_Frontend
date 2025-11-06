@@ -1,64 +1,250 @@
+<!-- ===== PAGE: MANAGER HOME - TABLEAU DE BORD ===== -->
+<div class="manager-home">
 
-    <!-- ===== PAGE DASHBOARD ===== -->
-    <div *ngIf="activeTab === 'dashboard'" class="page-section">
-      <section class="content-section">
-        <div class="section-header">
-          <h2 class="section-title-main">Tableau de Bord</h2>
-          <p class="section-subtitle">Vue d'ensemble de votre activité</p>
-        </div>
-
-        <div class="stats-grid">
-          <div class="stat-card" (click)="navigateTo('caisse')">
-            <div class="stat-card-content">
-              <div class="stat-icon-wrapper stat-icon-orange">
-                <span>💰</span>
-              </div>
-              <div class="stat-info">
-                <div class="stat-label">Ventes du Jour</div>
-                <div class="stat-value stat-value-orange">850K</div>
-                <div class="stat-change positive">+12% vs hier</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="stat-card" (click)="navigateTo('orders')">
-            <div class="stat-card-content">
-              <div class="stat-icon-wrapper stat-icon-green">
-                <span>🛒</span>
-              </div>
-              <div class="stat-info">
-                <div class="stat-label">Commandes</div>
-                <div class="stat-value stat-value-green">34</div>
-                <div class="stat-change positive">+8 nouvelles</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="stat-card" (click)="navigateTo('team')">
-            <div class="stat-card-content">
-              <div class="stat-icon-wrapper stat-icon-blue">
-                <span>👥</span>
-              </div>
-              <div class="stat-info">
-                <div class="stat-label">Équipe en Service</div>
-                <div class="stat-value stat-value-blue">8/12</div>
-                <div class="stat-change positive">4 en pause</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="stat-card" (click)="navigateTo('alerts')">
-            <div class="stat-card-content">
-              <div class="stat-icon-wrapper stat-icon-warning">
-                <span>⚠️</span>
-              </div>
-              <div class="stat-info">
-                <div class="stat-label">Alertes Actives</div>
-                <div class="stat-value stat-value-warning">12</div>
-                <div class="stat-change warning">3 urgentes</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+  <!-- En-tête de la page -->
+  <div class="page-header">
+    <div class="header-content">
+      <div>
+        <h1 class="page-title">Tableau de bord</h1>
+        <p class="page-subtitle">{{ caveAssigned }} - {{ currentDate | date:'EEEE d MMMM y':'':'fr' }}</p>
+      </div>
+      <button class="btn-refresh" (click)="refreshData()">
+        <span class="icon">🔄</span>
+        Actualiser
+      </button>
     </div>
+  </div>
+
+  <!-- ===== STATISTIQUES PRINCIPALES ===== -->
+  <div class="stats-grid">
+
+    <!-- Ventes du jour -->
+    <div class="stat-card primary">
+      <div class="stat-icon">💰</div>
+      <div class="stat-content">
+        <div class="stat-label">Ventes du jour</div>
+        <div class="stat-value">{{ stats.todaySales | number:'1.2-2' }} €</div>
+        <div class="stat-trend positive">
+          <span class="trend-icon">↗</span>
+          <span>+12% vs hier</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Commandes en cours -->
+    <div class="stat-card info">
+      <div class="stat-icon">🛒</div>
+      <div class="stat-content">
+        <div class="stat-label">Commandes en cours</div>
+        <div class="stat-value">{{ stats.ordersInProgress }}</div>
+        <div class="stat-info">En temps réel</div>
+      </div>
+    </div>
+
+    <!-- Équipe présente -->
+    <div class="stat-card success">
+      <div class="stat-icon">👥</div>
+      <div class="stat-content">
+        <div class="stat-label">Équipe présente</div>
+        <div class="stat-value">{{ stats.teamPresent }}/{{ stats.totalTeam }}</div>
+        <div class="stat-info">Serveurs actifs</div>
+      </div>
+    </div>
+
+    <!-- Alertes stock -->
+    <div class="stat-card warning">
+      <div class="stat-icon">⚠️</div>
+      <div class="stat-content">
+        <div class="stat-label">Alertes stock</div>
+        <div class="stat-value">{{ stats.stockAlerts }}</div>
+        <div class="stat-info">Produits critiques</div>
+      </div>
+    </div>
+
+    <!-- Ticket moyen -->
+    <div class="stat-card secondary">
+      <div class="stat-icon">🧾</div>
+      <div class="stat-content">
+        <div class="stat-label">Ticket moyen</div>
+        <div class="stat-value">{{ stats.averageTicket | number:'1.2-2' }} €</div>
+        <div class="stat-trend positive">
+          <span class="trend-icon">↗</span>
+          <span>+5%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Satisfaction client -->
+    <div class="stat-card accent">
+      <div class="stat-icon">⭐</div>
+      <div class="stat-content">
+        <div class="stat-label">Satisfaction</div>
+        <div class="stat-value">{{ stats.customerSatisfaction }}/5</div>
+        <div class="stat-info">Moyenne des avis</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== GRILLE PRINCIPALE ===== -->
+  <div class="content-grid">
+
+    <!-- COLONNE GAUCHE -->
+    <div class="left-column">
+
+      <!-- Commandes récentes -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <span class="title-icon">🛒</span>
+            Commandes récentes
+          </h3>
+          <button class="btn-link" (click)="viewAllOrders()">
+            Voir tout →
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="orders-list">
+            <div class="order-item" *ngFor="let order of recentOrders">
+              <div class="order-info">
+                <div class="order-header">
+                  <span class="order-id">{{ order.id }}</span>
+                  <span class="order-badge" [class]="'badge-' + getStatusColor(order.status)">
+                    {{ getStatusLabel(order.status) }}
+                  </span>
+                </div>
+                <div class="order-details">
+                  <span class="order-table">{{ order.tableNumber }}</span>
+                  <span class="separator">•</span>
+                  <span class="order-server">{{ order.server }}</span>
+                </div>
+              </div>
+              <div class="order-right">
+                <div class="order-amount">{{ order.amount | number:'1.2-2' }} €</div>
+                <div class="order-time">{{ order.time }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Graphique des ventes -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <span class="title-icon">📊</span>
+            Ventes de la semaine
+          </h3>
+        </div>
+        <div class="card-body">
+          <div class="simple-chart">
+            <div class="chart-bar" *ngFor="let value of salesChartData.values; let i = index">
+              <div class="bar-container">
+                <div class="bar" [style.height.%]="(value / 4500) * 100">
+                  <span class="bar-value">{{ value }}</span>
+                </div>
+              </div>
+              <div class="bar-label">{{ salesChartData.labels[i] }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COLONNE DROITE -->
+    <div class="right-column">
+
+      <!-- Équipe active -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <span class="title-icon">👥</span>
+            Équipe active
+          </h3>
+          <button class="btn-link" (click)="viewTeam()">
+            Détails →
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="team-list">
+            <div class="team-member" *ngFor="let member of teamMembers">
+              <div class="member-info">
+                <div class="member-avatar">{{ member.avatar }}</div>
+                <div class="member-details">
+                  <div class="member-name">{{ member.name }}</div>
+                  <div class="member-stats">
+                    <span class="stat-item">{{ member.ordersCompleted }} cmd</span>
+                    <span class="separator">•</span>
+                    <span class="stat-item">{{ member.todaySales | number:'1.0-0' }} €</span>
+                  </div>
+                </div>
+              </div>
+              <span class="status-badge" [class]="'status-' + member.status">
+                {{ getStatusLabel(member.status) }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alertes de stock -->
+      <div class="card alert-card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <span class="title-icon">⚠️</span>
+            Alertes de stock
+          </h3>
+          <button class="btn-link" (click)="viewAllStock()">
+            Gérer →
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="alerts-list">
+            <div class="alert-item" *ngFor="let alert of stockAlerts">
+              <div class="alert-icon">📦</div>
+              <div class="alert-content">
+                <div class="alert-product">{{ alert.productName }}</div>
+                <div class="alert-details">
+                  <span class="alert-category">{{ alert.category }}</span>
+                  <span class="separator">•</span>
+                  <span class="alert-stock" [class.critical]="alert.currentStock === 0">
+                    Stock: {{ alert.currentStock }}/{{ alert.minStock }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions rapides -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <span class="title-icon">⚡</span>
+            Actions rapides
+          </h3>
+        </div>
+        <div class="card-body">
+          <div class="quick-actions">
+            <button class="action-btn" [routerLink]="['/manager', 'stockrequest']">
+              <span class="action-icon">📦</span>
+              <span class="action-label">Commander du stock</span>
+            </button>
+            <button class="action-btn" [routerLink]="['/manager', 'dailyreport']">
+              <span class="action-icon">📝</span>
+              <span class="action-label">Rapport journalier</span>
+            </button>
+            <button class="action-btn" [routerLink]="['/manager', 'incidents']">
+              <span class="action-icon">⚠️</span>
+              <span class="action-label">Signaler un incident</span>
+            </button>
+            <button class="action-btn" [routerLink]="['/manager', 'cash-register']">
+              <span class="action-icon">💵</span>
+              <span class="action-label">Clôture de caisse</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

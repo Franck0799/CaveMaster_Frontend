@@ -1,0 +1,88 @@
+
+<div class="cash-register-page">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">Gestion de Caisse</h1>
+      <p class="page-subtitle">{{ currentDate | date:'EEEE d MMMM y':'':'fr' }}</p>
+    </div>
+    <button class="btn-primary" (click)="closeCashRegister()" [disabled]="!isOpen">
+      💾 Clôturer la caisse
+    </button>
+  </div>
+
+  <!-- Statut caisse -->
+  <div class="cash-status" [class.open]="isOpen" [class.closed]="!isOpen">
+    <div class="status-icon">{{ isOpen ? '🟢' : '🔴' }}</div>
+    <div class="status-info">
+      <div class="status-label">{{ isOpen ? 'Caisse ouverte' : 'Caisse fermée' }}</div>
+      <div class="status-time">{{ isOpen ? 'Depuis ' + openTime : 'Fermée à ' + closeTime }}</div>
+    </div>
+    <button class="btn-toggle" (click)="toggleCashRegister()" *ngIf="!isOpen">
+      ▶️ Ouvrir la caisse
+    </button>
+  </div>
+
+  <!-- Résumé financier -->
+  <div class="financial-summary">
+    <div class="summary-card">
+      <div class="summary-label">Ouverture</div>
+      <div class="summary-value">{{ openingAmount | number:'1.2-2' }} €</div>
+    </div>
+    <div class="summary-card highlight">
+      <div class="summary-label">Espèces actuelles</div>
+      <div class="summary-value">{{ getCurrentCash() | number:'1.2-2' }} €</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-label">Ventes (espèces)</div>
+      <div class="summary-value success">+{{ getTotalCashSales() | number:'1.2-2' }} €</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-label">Dépenses</div>
+      <div class="summary-value danger">-{{ getTotalExpenses() | number:'1.2-2' }} €</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-label">Différence</div>
+      <div class="summary-value" [class.success]="getDifference() >= 0" [class.danger]="getDifference() < 0">
+        {{ getDifference() | number:'1.2-2' }} €
+      </div>
+    </div>
+  </div>
+
+  <!-- Actions rapides -->
+  <div class="quick-actions" *ngIf="isOpen">
+    <button class="action-card" (click)="addExpense()">
+      <span class="action-icon">💳</span>
+      <span class="action-label">Ajouter une dépense</span>
+    </button>
+    <button class="action-card" (click)="cashCount()">
+      <span class="action-icon">💵</span>
+      <span class="action-label">Comptage espèces</span>
+    </button>
+    <button class="action-card" (click)="viewReport()">
+      <span class="action-icon">📊</span>
+      <span class="action-label">Rapport détaillé</span>
+    </button>
+  </div>
+
+  <!-- Transactions -->
+  <div class="transactions-section">
+    <h3 class="section-title">Historique des transactions</h3>
+
+    <div class="transactions-list">
+      <div class="transaction-item" *ngFor="let transaction of transactions" [class]="'type-' + transaction.type">
+        <div class="transaction-icon">
+          {{ getTransactionIcon(transaction.type) }}
+        </div>
+        <div class="transaction-content">
+          <div class="transaction-description">{{ transaction.description }}</div>
+          <div class="transaction-time">{{ transaction.timestamp | date:'HH:mm' }}</div>
+        </div>
+        <div class="transaction-amount"
+             [class.positive]="transaction.type === 'opening' || transaction.type === 'sale'"
+             [class.negative]="transaction.type === 'expense'">
+          {{ transaction.type === 'expense' ? '-' : '+' }}{{ transaction.amount | number:'1.2-2' }} €
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

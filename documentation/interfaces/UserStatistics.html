@@ -1,0 +1,1163 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cave-master-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cave-master-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  UserStatistics</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/view/admin-dashboard/user-profile/user-profile.component.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#attendanceRate" 
+>
+                                            attendanceRate
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#averageSalesPerDay" 
+>
+                                            averageSalesPerDay
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#monthlyBonus" 
+>
+                                            monthlyBonus
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#performanceRating" 
+>
+                                            performanceRating
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#totalHours" 
+>
+                                            totalHours
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#totalSales" 
+>
+                                            totalSales
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="attendanceRate"></a>
+                                        <span class="name "><b>attendanceRate</b>
+                                            <a href="#attendanceRate">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>attendanceRate:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="averageSalesPerDay"></a>
+                                        <span class="name "><b>averageSalesPerDay</b>
+                                            <a href="#averageSalesPerDay">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>averageSalesPerDay:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="monthlyBonus"></a>
+                                        <span class="name "><b>monthlyBonus</b>
+                                            <a href="#monthlyBonus">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>monthlyBonus:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="performanceRating"></a>
+                                        <span class="name "><b>performanceRating</b>
+                                            <a href="#performanceRating">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>performanceRating:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="totalHours"></a>
+                                        <span class="name "><b>totalHours</b>
+                                            <a href="#totalHours">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>totalHours:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="totalSales"></a>
+                                        <span class="name "><b>totalSales</b>
+                                            <a href="#totalSales">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>totalSales:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+
+// Interface pour l&#x27;activité récente
+interface Activity {
+  id: string;           // Identifiant unique
+  title: string;        // Titre de l&#x27;activité
+  description: string;  // Description détaillée
+  timestamp: string;    // Date et heure de l&#x27;activité
+  type: &#x27;login&#x27; | &#x27;update&#x27; | &#x27;sale&#x27; | &#x27;stock&#x27; | &#x27;system&#x27;; // Type d&#x27;activité
+  icon: string;         // Emoji d&#x27;icône
+}
+
+// Interface pour les statistiques utilisateur
+interface UserStatistics {
+  totalSales: number;         // Total des ventes
+  totalHours: number;         // Total des heures travaillées
+  averageSalesPerDay: number; // Moyenne de ventes par jour
+  monthlyBonus: number;       // Bonus mensuel
+  performanceRating: number;  // Note de performance (0-100)
+  attendanceRate: number;     // Taux de présence (0-100%)
+}
+
+// Interface pour le profil utilisateur
+interface UserProfile {
+  id: string;                  // Identifiant unique
+  firstName: string;           // Prénom
+  lastName: string;            // Nom de famille
+  email: string;               // Email
+  phone: string;               // Téléphone
+  role: string;                // Rôle/Poste
+  avatar: string;              // Emoji d&#x27;avatar
+  cave: string;                // Cave d&#x27;affectation
+  department: string;          // Département
+  manager: string;             // Manager de supervision
+  status: &#x27;active&#x27; | &#x27;inactive&#x27; | &#x27;on-leave&#x27;; // Statut
+  joinDate: string;            // Date d&#x27;embauche
+  birthDate: string;           // Date de naissance
+  address: string;             // Adresse personnelle
+  emergencyContact: string;    // Contact d&#x27;urgence
+  emergencyPhone: string;      // Téléphone d&#x27;urgence
+  bankAccount: string;         // Numéro de compte bancaire
+  bankName: string;            // Nom de la banque
+  socialSecurityNumber: string; // Numéro de sécurité sociale
+  lastUpdateDate: string;      // Date de dernière mise à jour
+  profileComplete: boolean;    // Profil complété à 100%
+  statistics: UserStatistics;  // Statistiques de l&#x27;utilisateur
+  activities: Activity[];      // Activités récentes
+}
+
+@Component({
+  selector: &#x27;app-user-profile&#x27;,
+  standalone: true,
+  // Imports des modules nécessaires
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  templateUrl: &#x27;./user-profile.component.html&#x27;,
+  styleUrls: [&#x27;./user-profile.component.scss&#x27;]
+})
+export class UserProfileComponent implements OnInit {
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; PROPRIÉTÉS DU COMPOSANT &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  // Profil utilisateur actuellement affichée
+  userProfile: UserProfile | null &#x3D; null;
+
+  // Formulaire réactif pour modifier le profil
+  profileForm: FormGroup;
+
+  // Formulaire pour changer le mot de passe
+  passwordForm: FormGroup;
+
+  // Flag indiquant si on est en mode édition du profil
+  isEditingProfile: boolean &#x3D; false;
+
+  // Flag indiquant si on modifie le mot de passe
+  isChangingPassword: boolean &#x3D; false;
+
+  // Message de succès/erreur
+  message: string &#x3D; &#x27;&#x27;;
+
+  // Type de message (success, error, info)
+  messageType: &#x27;success&#x27; | &#x27;error&#x27; | &#x27;info&#x27; &#x3D; &#x27;info&#x27;;
+
+  // Mot de passe actuel pour vérification
+  currentPasswordInput: string &#x3D; &#x27;&#x27;;
+
+  // Indicateur de résistance du mot de passe
+  passwordStrength: &#x27;weak&#x27; | &#x27;medium&#x27; | &#x27;strong&#x27; &#x3D; &#x27;weak&#x27;;
+
+  // Flag pour afficher/masquer les mots de passe
+  showPasswords: boolean &#x3D; false;
+
+  // Liste des activités récentes (complète)
+  allActivities: Activity[] &#x3D; [];
+
+  // Nombre d&#x27;activités à afficher par défaut
+  activitiesDisplayCount: number &#x3D; 5;
+
+  // Onglet actif dans le profil (infos, stats, activités)
+  activeTab: &#x27;info&#x27; | &#x27;stats&#x27; | &#x27;activities&#x27; | &#x27;security&#x27; &#x3D; &#x27;info&#x27;;
+
+  // Avatar sélectionné pour changement
+  selectedAvatar: string &#x3D; &#x27;&#x27;;
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; CONSTRUCTEUR AVEC INJECTION DE DÉPENDANCES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  constructor(private formBuilder: FormBuilder) {
+    // Initialise le formulaire de profil avec validation
+    this.profileForm &#x3D; this.formBuilder.group({
+      // Champ prénom : obligatoire
+      firstName: [&#x27;&#x27;, [Validators.required, Validators.minLength(2)]],
+
+      // Champ nom : obligatoire
+      lastName: [&#x27;&#x27;, [Validators.required, Validators.minLength(2)]],
+
+      // Champ email : obligatoire et doit être un email valide
+      email: [&#x27;&#x27;, [Validators.required, Validators.email]],
+
+      // Champ téléphone : optionnel mais avec pattern
+      phone: [&#x27;&#x27;, [Validators.pattern(/^\+?[0-9\s\-\(\)]+$/)]],
+
+      // Champ date de naissance : optionnel
+      birthDate: [&#x27;&#x27;],
+
+      // Champ adresse : optionnel
+      address: [&#x27;&#x27;],
+
+      // Champ contact d&#x27;urgence : optionnel
+      emergencyContact: [&#x27;&#x27;],
+
+      // Champ téléphone d&#x27;urgence : optionnel
+      emergencyPhone: [&#x27;&#x27;, [Validators.pattern(/^\+?[0-9\s\-\(\)]+$/)]],
+
+      // Champ numéro de compte bancaire : optionnel
+      bankAccount: [&#x27;&#x27;],
+
+      // Champ nom de la banque : optionnel
+      bankName: [&#x27;&#x27;],
+
+      // Champ numéro de sécurité sociale : optionnel
+      socialSecurityNumber: [&#x27;&#x27;]
+    });
+
+    // Initialise le formulaire de changement de mot de passe
+    this.passwordForm &#x3D; this.formBuilder.group({
+      // Mot de passe actuel : obligatoire
+      currentPassword: [&#x27;&#x27;, Validators.required],
+
+      // Nouveau mot de passe : obligatoire, min 8 caractères
+      newPassword: [&#x27;&#x27;, [Validators.required, Validators.minLength(8)]],
+
+      // Confirmation du nouveau mot de passe : obligatoire
+      confirmPassword: [&#x27;&#x27;, Validators.required]
+    });
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE D&#x27;INITIALISATION &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  ngOnInit(): void {
+    // Charge le profil utilisateur au démarrage
+    this.loadUserProfile();
+
+    // Charge les activités récentes
+    this.loadActivities();
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE CHARGEMENT DU PROFIL &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Charge les données du profil utilisateur
+   * À remplacer par un appel API backend
+   */
+  loadUserProfile(): void {
+    // Données mockées du profil utilisateur
+    this.userProfile &#x3D; {
+      id: &#x27;user_1&#x27;,
+      firstName: &#x27;Jean&#x27;,
+      lastName: &#x27;Kouassi&#x27;,
+      email: &#x27;jean.kouassi@caveviking.com&#x27;,
+      phone: &#x27;+234 801 234 5678&#x27;,
+      role: &#x27;Manager Principal&#x27;,
+      avatar: &#x27;👨‍💼&#x27;,
+      cave: &#x27;Cave Principale&#x27;,
+      department: &#x27;Management&#x27;,
+      manager: &#x27;Franck KONGO&#x27;,
+      status: &#x27;active&#x27;,
+      joinDate: &#x27;2023-01-15&#x27;,
+      birthDate: &#x27;1985-06-20&#x27;,
+      address: &#x27;123 Rue de Lekki, Lagos&#x27;,
+      emergencyContact: &#x27;Marie Kouassi&#x27;,
+      emergencyPhone: &#x27;+234 805 678 9012&#x27;,
+      bankAccount: &#x27;******* 4567&#x27;,
+      bankName: &#x27;GTBank&#x27;,
+      socialSecurityNumber: &#x27;****-****-****&#x27;,
+      lastUpdateDate: &#x27;2025-09-15&#x27;,
+      profileComplete: true,
+      statistics: {
+        totalSales: 2500000,
+        totalHours: 160,
+        averageSalesPerDay: 83333,
+        monthlyBonus: 50000,
+        performanceRating: 96,
+        attendanceRate: 98
+      },
+      activities: []
+    };
+
+    // Stocke l&#x27;avatar actuel
+    this.selectedAvatar &#x3D; this.userProfile.avatar;
+
+    // Remplit le formulaire avec les données du profil
+    this.profileForm.patchValue({
+      firstName: this.userProfile.firstName,
+      lastName: this.userProfile.lastName,
+      email: this.userProfile.email,
+      phone: this.userProfile.phone,
+      birthDate: this.userProfile.birthDate,
+      address: this.userProfile.address,
+      emergencyContact: this.userProfile.emergencyContact,
+      emergencyPhone: this.userProfile.emergencyPhone,
+      bankAccount: this.userProfile.bankAccount,
+      bankName: this.userProfile.bankName,
+      socialSecurityNumber: this.userProfile.socialSecurityNumber
+    });
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE CHARGEMENT DES ACTIVITÉS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Charge la liste des activités récentes
+   */
+  loadActivities(): void {
+    // Données mockées des activités récentes
+    this.allActivities &#x3D; [
+      {
+        id: &#x27;1&#x27;,
+        title: &#x27;Connexion au système&#x27;,
+        description: &#x27;Connexion à caveviking Pro&#x27;,
+        timestamp: &#x27;2025-10-18 08:30:00&#x27;,
+        type: &#x27;login&#x27;,
+        icon: &#x27;🔓&#x27;
+      },
+      {
+        id: &#x27;2&#x27;,
+        title: &#x27;Mise à jour de profil&#x27;,
+        description: &#x27;Modification du numéro de téléphone&#x27;,
+        timestamp: &#x27;2025-10-17 14:15:00&#x27;,
+        type: &#x27;update&#x27;,
+        icon: &#x27;✏️&#x27;
+      },
+      {
+        id: &#x27;3&#x27;,
+        title: &#x27;Vente enregistrée&#x27;,
+        description: &#x27;5 bouteilles de Château Margaux - 125 000 FCFA&#x27;,
+        timestamp: &#x27;2025-10-17 11:45:00&#x27;,
+        type: &#x27;sale&#x27;,
+        icon: &#x27;💰&#x27;
+      },
+      {
+        id: &#x27;4&#x27;,
+        title: &#x27;Mise à jour de stock&#x27;,
+        description: &#x27;50 bouteilles ajoutées - Cave Principale&#x27;,
+        timestamp: &#x27;2025-10-16 09:20:00&#x27;,
+        type: &#x27;stock&#x27;,
+        icon: &#x27;📥&#x27;
+      },
+      {
+        id: &#x27;5&#x27;,
+        title: &#x27;Rapport mensuel généré&#x27;,
+        description: &#x27;Rapport de performance de septembre 2025&#x27;,
+        timestamp: &#x27;2025-10-15 16:00:00&#x27;,
+        type: &#x27;system&#x27;,
+        icon: &#x27;📊&#x27;
+      },
+      {
+        id: &#x27;6&#x27;,
+        title: &#x27;Vente enregistrée&#x27;,
+        description: &#x27;2 bouteilles de Dom Pérignon - 90 000 FCFA&#x27;,
+        timestamp: &#x27;2025-10-15 13:30:00&#x27;,
+        type: &#x27;sale&#x27;,
+        icon: &#x27;💰&#x27;
+      },
+      {
+        id: &#x27;7&#x27;,
+        title: &#x27;Changement de mot de passe&#x27;,
+        description: &#x27;Mise à jour du mot de passe de sécurité&#x27;,
+        timestamp: &#x27;2025-10-14 10:00:00&#x27;,
+        type: &#x27;system&#x27;,
+        icon: &#x27;🔐&#x27;
+      },
+      {
+        id: &#x27;8&#x27;,
+        title: &#x27;Connexion au système&#x27;,
+        description: &#x27;Connexion à caveviking Pro&#x27;,
+        timestamp: &#x27;2025-10-14 08:00:00&#x27;,
+        type: &#x27;login&#x27;,
+        icon: &#x27;🔓&#x27;
+      }
+    ];
+
+    // Ajoute les activités au profil utilisateur
+    if (this.userProfile) {
+      this.userProfile.activities &#x3D; this.allActivities;
+    }
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE D&#x27;ACTIVATION DU MODE ÉDITION &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Active le mode édition du profil
+   */
+  startEditingProfile(): void {
+    // Active le flag de mode édition
+    this.isEditingProfile &#x3D; true;
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE D&#x27;ANNULATION DE L&#x27;ÉDITION &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Annule les modifications et quitte le mode édition
+   */
+  cancelEditingProfile(): void {
+    // Désactive le mode édition
+    this.isEditingProfile &#x3D; false;
+
+    // Récharge le profil depuis les données (annule les changements)
+    this.loadUserProfile();
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE SAUVEGARDE DU PROFIL &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Sauvegarde les modifications du profil
+   */
+  saveProfile(): void {
+    // Vérifie que le formulaire est valide
+    if (this.profileForm.invalid) {
+      // Affiche une erreur
+      this.showMessage(&#x27;⚠️ Veuillez remplir tous les champs obligatoires correctement&#x27;, &#x27;error&#x27;);
+      return;
+    }
+
+    // Vérifie que le profil utilisateur existe
+    if (!this.userProfile) {
+      this.showMessage(&#x27;⚠️ Erreur: profil utilisateur non trouvé&#x27;, &#x27;error&#x27;);
+      return;
+    }
+
+    // Met à jour le profil avec les valeurs du formulaire
+    this.userProfile.firstName &#x3D; this.profileForm.get(&#x27;firstName&#x27;)?.value;
+    this.userProfile.lastName &#x3D; this.profileForm.get(&#x27;lastName&#x27;)?.value;
+    this.userProfile.email &#x3D; this.profileForm.get(&#x27;email&#x27;)?.value;
+    this.userProfile.phone &#x3D; this.profileForm.get(&#x27;phone&#x27;)?.value;
+    this.userProfile.birthDate &#x3D; this.profileForm.get(&#x27;birthDate&#x27;)?.value;
+    this.userProfile.address &#x3D; this.profileForm.get(&#x27;address&#x27;)?.value;
+    this.userProfile.emergencyContact &#x3D; this.profileForm.get(&#x27;emergencyContact&#x27;)?.value;
+    this.userProfile.emergencyPhone &#x3D; this.profileForm.get(&#x27;emergencyPhone&#x27;)?.value;
+    this.userProfile.bankAccount &#x3D; this.profileForm.get(&#x27;bankAccount&#x27;)?.value;
+    this.userProfile.bankName &#x3D; this.profileForm.get(&#x27;bankName&#x27;)?.value;
+    this.userProfile.socialSecurityNumber &#x3D; this.profileForm.get(&#x27;socialSecurityNumber&#x27;)?.value;
+
+    // Met à jour la date de dernière modification
+    this.userProfile.lastUpdateDate &#x3D; new Date().toISOString().split(&#x27;T&#x27;)[0];
+
+    // Désactive le mode édition
+    this.isEditingProfile &#x3D; false;
+
+    // Affiche un message de succès
+    this.showMessage(&#x27;✓ Profil mis à jour avec succès !&#x27;, &#x27;success&#x27;);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE CHANGEMENT DE MOT DE PASSE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Change le mot de passe utilisateur
+   */
+  changePassword(): void {
+    // Vérifie que le formulaire de mot de passe est valide
+    if (this.passwordForm.invalid) {
+      // Affiche une erreur
+      this.showMessage(&#x27;⚠️ Veuillez remplir tous les champs correctement&#x27;, &#x27;error&#x27;);
+      return;
+    }
+
+    // Récupère le nouveau mot de passe
+    const newPassword &#x3D; this.passwordForm.get(&#x27;newPassword&#x27;)?.value;
+
+    // Récupère la confirmation du mot de passe
+    const confirmPassword &#x3D; this.passwordForm.get(&#x27;confirmPassword&#x27;)?.value;
+
+    // Vérifie que les deux mots de passe correspondent
+    if (newPassword !&#x3D;&#x3D; confirmPassword) {
+      // Affiche une erreur
+      this.showMessage(&#x27;⚠️ Les mots de passe ne correspondent pas&#x27;, &#x27;error&#x27;);
+      return;
+    }
+
+    // En production, on enverrait une requête au serveur
+    // Ici on simule juste la réussite
+    this.showMessage(&#x27;✓ Mot de passe changé avec succès !&#x27;, &#x27;success&#x27;);
+
+    // Réinitialise le formulaire de mot de passe
+    this.passwordForm.reset();
+
+    // Désactive le mode changement de mot de passe
+    this.isChangingPassword &#x3D; false;
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE D&#x27;ÉVALUATION DE LA RÉSISTANCE DU MOT DE PASSE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Évalue la résistance du mot de passe saisi
+   */
+  evaluatePasswordStrength(): void {
+    // Récupère le nouveau mot de passe
+    const password &#x3D; this.passwordForm.get(&#x27;newPassword&#x27;)?.value || &#x27;&#x27;;
+
+    // Initilialise le score à 0
+    let strength &#x3D; 0;
+
+    // Ajoute 1 point si le mot de passe contient au moins 8 caractères
+    if (password.length &gt;&#x3D; 8) strength++;
+
+    // Ajoute 1 point s&#x27;il contient des lettres majuscules
+    if (/[A-Z]/.test(password)) strength++;
+
+    // Ajoute 1 point s&#x27;il contient des lettres minuscules
+    if (/[a-z]/.test(password)) strength++;
+
+    // Ajoute 1 point s&#x27;il contient des chiffres
+    if (/\d/.test(password)) strength++;
+
+    // Ajoute 1 point s&#x27;il contient des caractères spéciaux
+    if (/[!@#$%^&amp;*]/.test(password)) strength++;
+
+    // Détermine le niveau de résistance basé sur le score
+    if (strength &lt;&#x3D; 2) {
+      this.passwordStrength &#x3D; &#x27;weak&#x27;;
+    } else if (strength &lt;&#x3D; 4) {
+      this.passwordStrength &#x3D; &#x27;medium&#x27;;
+    } else {
+      this.passwordStrength &#x3D; &#x27;strong&#x27;;
+    }
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE D&#x27;AFFICHAGE/MASQUAGE DES MOTS DE PASSE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Bascule l&#x27;affichage des mots de passe
+   */
+  togglePasswordVisibility(): void {
+    // Inverse le flag d&#x27;affichage
+    this.showPasswords &#x3D; !this.showPasswords;
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE CALCUL DE POURCENTAGE DE PROFIL COMPLET &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Calcule le pourcentage de complétude du profil
+   * @returns Le pourcentage entre 0 et 100
+   */
+  getProfileCompletion(): number {
+    // Vérifie que le profil existe
+    if (!this.userProfile) return 0;
+
+    // Initialise le compteur de champs
+    let completedFields &#x3D; 0;
+    const totalFields &#x3D; 10; // Nombre de champs à considérer
+
+    // Vérifie chaque champ obligatoire
+    if (this.userProfile.firstName) completedFields++;
+    if (this.userProfile.lastName) completedFields++;
+    if (this.userProfile.email) completedFields++;
+    if (this.userProfile.phone) completedFields++;
+    if (this.userProfile.birthDate) completedFields++;
+    if (this.userProfile.address) completedFields++;
+    if (this.userProfile.emergencyContact) completedFields++;
+    if (this.userProfile.emergencyPhone) completedFields++;
+    if (this.userProfile.bankAccount) completedFields++;
+    if (this.userProfile.bankName) completedFields++;
+
+    // Retourne le pourcentage
+    return Math.round((completedFields / totalFields) * 100);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE D&#x27;AFFICHAGE DE MESSAGE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Affiche un message temporaire (succès, erreur, info)
+   * @param msg Le message à afficher
+   * @param type Le type de message
+   */
+  showMessage(msg: string, type: &#x27;success&#x27; | &#x27;error&#x27; | &#x27;info&#x27;): void {
+    // Stocke le message
+    this.message &#x3D; msg;
+
+    // Stocke le type de message
+    this.messageType &#x3D; type;
+
+    // Efface le message après 3 secondes
+    setTimeout(() &#x3D;&gt; {
+      this.message &#x3D; &#x27;&#x27;;
+    }, 3000);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE CHANGEMENT D&#x27;AVATAR &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Change l&#x27;avatar sélectionné
+   * @param avatar Le nouvel avatar (emoji)
+   */
+  selectAvatar(avatar: string): void {
+    // Stocke le nouvel avatar
+    this.selectedAvatar &#x3D; avatar;
+
+    // Met à jour le profil avec le nouvel avatar
+    if (this.userProfile) {
+      this.userProfile.avatar &#x3D; avatar;
+    }
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE DÉTERMINATION DE LA CLASSE DE BADGE D&#x27;ACTIVITÉ &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Retourne la classe CSS pour le badge du type d&#x27;activité
+   * @param type Le type d&#x27;activité
+   * @returns La classe CSS correspondante
+   */
+  getActivityBadgeClass(type: string): string {
+    // Retourne une classe différente selon le type d&#x27;activité
+    switch (type) {
+      case &#x27;login&#x27;:
+        return &#x27;badge-login&#x27;;
+      case &#x27;update&#x27;:
+        return &#x27;badge-update&#x27;;
+      case &#x27;sale&#x27;:
+        return &#x27;badge-sale&#x27;;
+      case &#x27;stock&#x27;:
+        return &#x27;badge-stock&#x27;;
+      case &#x27;system&#x27;:
+        return &#x27;badge-system&#x27;;
+      default:
+        return &#x27;badge-default&#x27;;
+    }
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE FORMATAGE DE DATE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Formate une date en format lisible
+   * @param dateString La date en string
+   * @returns La date formatée
+   */
+  formatDate(dateString: string): string {
+    // Crée un objet Date à partir du string
+    const date &#x3D; new Date(dateString);
+
+    // Retourne la date formatée en français
+    return date.toLocaleDateString(&#x27;fr-FR&#x27;, {
+      year: &#x27;numeric&#x27;,
+      month: &#x27;long&#x27;,
+      day: &#x27;numeric&#x27;
+    });
+  }
+
+  formatCurrency(amount: number): string {
+  return amount.toLocaleString(&#x27;fr-FR&#x27;) + &#x27; FCFA&#x27;;
+}
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE D&#x27;OBTENTION DES ACTIVITÉS À AFFICHER &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Retourne les activités à afficher (avec limite)
+   * @returns Les activités filtrées
+   */
+  getDisplayedActivities(): Activity[] {
+    // Retourne les X premières activités (où X &#x3D; activitiesDisplayCount)
+    return this.allActivities.slice(0, this.activitiesDisplayCount);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE D&#x27;AFFICHAGE DE PLUS D&#x27;ACTIVITÉS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Charge et affiche plus d&#x27;activités
+   */
+  loadMoreActivities(): void {
+    // Augmente le nombre d&#x27;activités à afficher (par 5)
+    this.activitiesDisplayCount +&#x3D; 5;
+
+    // Limite à la taille maximum de la liste
+    if (this.activitiesDisplayCount &gt; this.allActivities.length) {
+      this.activitiesDisplayCount &#x3D; this.allActivities.length;
+    }
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE CHANGEMENT D&#x27;ONGLET &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Change l&#x27;onglet actif
+   * @param tab Le nom de l&#x27;onglet à afficher
+   */
+  switchTab(tab: &#x27;info&#x27; | &#x27;stats&#x27; | &#x27;activities&#x27; | &#x27;security&#x27;): void {
+    // Met à jour l&#x27;onglet actif
+    this.activeTab &#x3D; tab;
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE VÉRIFICATION DE VALIDITÉ DE CHAMP &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Vérifie si un champ du formulaire est invalide et a été touché
+   * @param fieldName Le nom du champ
+   * @returns true si le champ est invalide et touché
+   */
+  isFieldInvalid(fieldName: string): boolean {
+    // Récupère le champ du formulaire de profil
+    const field &#x3D; this.profileForm.get(fieldName);
+
+    // Retourne true si le champ est invalide ET a été touché
+    return !!(field &amp;&amp; field.invalid &amp;&amp; field.touched);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE TÉLÉCHARGEMENT DE RAPPORT &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Télécharge un rapport du profil utilisateur
+   */
+  downloadReport(): void {
+    // Affiche un message d&#x27;information
+    this.showMessage(&#x27;📥 Rapport en cours de téléchargement...&#x27;, &#x27;info&#x27;);
+
+    // Simule le téléchargement (en production, ce serait un appel API)
+    setTimeout(() &#x3D;&gt; {
+      // Affiche un message de succès
+      this.showMessage(&#x27;✓ Rapport téléchargé avec succès !&#x27;, &#x27;success&#x27;);
+    }, 2000);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE D&#x27;EXPORT DES DONNÉES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Exporte les données du profil en JSON
+   */
+  exportProfileData(): void {
+    // Vérifie que le profil existe
+    if (!this.userProfile) {
+      this.showMessage(&#x27;⚠️ Erreur: profil utilisateur non trouvé&#x27;, &#x27;error&#x27;);
+      return;
+    }
+
+    // Crée une chaîne JSON du profil
+    const dataString &#x3D; JSON.stringify(this.userProfile, null, 2);
+
+    // Crée un blob à partir de la chaîne
+    const blob &#x3D; new Blob([dataString], { type: &#x27;application/json&#x27; });
+
+    // Crée une URL pour le blob
+    const url &#x3D; URL.createObjectURL(blob);
+
+    // Crée un élément &lt;a&gt; pour télécharger
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    link.href &#x3D; url;
+    link.download &#x3D; &#x60;profil_${this.userProfile.firstName}_${this.userProfile.lastName}.json&#x60;;
+
+    // Déclenche le téléchargement
+    link.click();
+
+    // Libère l&#x27;URL
+    URL.revokeObjectURL(url);
+
+    // Affiche un message de succès
+    this.showMessage(&#x27;✓ Données exportées avec succès !&#x27;, &#x27;success&#x27;);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE DÉCONNEXION &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Déconnecte l&#x27;utilisateur
+   */
+  logout(): void {
+    // Demande une confirmation
+    if (confirm(&#x27;Êtes-vous sûr de vouloir vous déconnecter ?&#x27;)) {
+      // Affiche un message d&#x27;information
+      this.showMessage(&#x27;👋 Déconnexion en cours...&#x27;, &#x27;info&#x27;);
+
+      // Redirige vers la page de connexion après 1 seconde
+      setTimeout(() &#x3D;&gt; {
+        // En production: this.router.navigate([&#x27;/login&#x27;]);
+        console.log(&#x27;Redirection vers la page de connexion&#x27;);
+      }, 1000);
+    }
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'UserStatistics.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

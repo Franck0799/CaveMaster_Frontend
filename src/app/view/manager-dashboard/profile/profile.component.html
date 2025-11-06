@@ -1,0 +1,248 @@
+<!-- ===== PAGE PROFIL UTILISATEUR ===== -->
+<div class="page-section">
+
+  <section class="content-section">
+
+    <!-- En-tête de la page -->
+    <div class="section-header">
+      <h2 class="section-title-main">👤 Mon Profil</h2>
+
+      <!-- Bouton mode édition -->
+      <div class="header-actions">
+        <button class="btn btn-secondary"
+                *ngIf="!isEditMode"
+                (click)="enableEditMode()">
+          ✏️ Modifier le profil
+        </button>
+
+        <button class="btn btn-cancel"
+                *ngIf="isEditMode"
+                (click)="cancelEdit()">
+          ❌ Annuler
+        </button>
+      </div>
+    </div>
+
+    <!-- ===== Carte principale du profil ===== -->
+    <div class="profile-card">
+
+      <!-- En-tête avec avatar et informations de base -->
+      <div class="profile-header">
+
+        <!-- Avatar de l'utilisateur -->
+        <div class="profile-avatar-container">
+          <div class="profile-avatar-large">{{ userProfile.avatar }}</div>
+
+          <!-- Bouton pour changer l'avatar (visible en mode édition) -->
+          <button class="change-avatar-btn"
+                  *ngIf="isEditMode"
+                  (click)="changeAvatar()">
+            📷 Changer
+          </button>
+        </div>
+
+        <!-- Informations principales -->
+        <div class="profile-basic-info">
+          <h3>{{ userProfile.firstName }} {{ userProfile.lastName }}</h3>
+          <p class="profile-role-badge">{{ userProfile.role }}</p>
+          <p class="profile-join-date">
+            👋 Membre depuis le {{ userProfile.joinDate }}
+            <span class="days-badge">({{ getDaysSinceJoin() }} jours)</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- ===== Formulaire d'édition du profil ===== -->
+      <div class="profile-form-section">
+        <h4 class="section-subtitle">📋 Informations personnelles</h4>
+
+        <form class="profile-form">
+
+          <!-- Ligne avec 2 champs: Prénom et Nom -->
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Prénom *</label>
+              <input type="text"
+                     class="form-input"
+                     [(ngModel)]="userProfile.firstName"
+                     name="firstName"
+                     [disabled]="!isEditMode"
+                     [class.disabled]="!isEditMode"
+                     required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Nom *</label>
+              <input type="text"
+                     class="form-input"
+                     [(ngModel)]="userProfile.lastName"
+                     name="lastName"
+                     [disabled]="!isEditMode"
+                     [class.disabled]="!isEditMode"
+                     required>
+            </div>
+          </div>
+
+          <!-- Champ Email -->
+          <div class="form-group">
+            <label class="form-label">Email *</label>
+            <input type="email"
+                   class="form-input"
+                   [(ngModel)]="userProfile.email"
+                   name="email"
+                   [disabled]="!isEditMode"
+                   [class.disabled]="!isEditMode"
+                   required>
+          </div>
+
+          <!-- Champ Téléphone -->
+          <div class="form-group">
+            <label class="form-label">Téléphone</label>
+            <input type="tel"
+                   class="form-input"
+                   [(ngModel)]="userProfile.phone"
+                   name="phone"
+                   [disabled]="!isEditMode"
+                   [class.disabled]="!isEditMode">
+          </div>
+
+          <!-- Champ Rôle (non modifiable) -->
+          <div class="form-group">
+            <label class="form-label">Rôle</label>
+            <input type="text"
+                   class="form-input disabled"
+                   [value]="userProfile.role"
+                   disabled>
+            <small class="form-hint">⚠️ Le rôle ne peut pas être modifié</small>
+          </div>
+        </form>
+      </div>
+
+      <!-- ===== Section Changement de mot de passe ===== -->
+      <div class="password-section">
+
+        <!-- En-tête avec bouton toggle -->
+        <div class="password-header" (click)="togglePasswordSection()">
+          <h4 class="section-subtitle">🔒 Changer le mot de passe</h4>
+          <span class="toggle-icon">{{ isPasswordSectionOpen ? '▲' : '▼' }}</span>
+        </div>
+
+        <!-- Formulaire de mot de passe (affiché conditionnellement) -->
+        <div class="password-form" *ngIf="isPasswordSectionOpen">
+          <form>
+
+            <!-- Mot de passe actuel -->
+            <div class="form-group">
+              <label class="form-label">Mot de passe actuel *</label>
+              <input type="password"
+                     class="form-input"
+                     [(ngModel)]="passwordForm.currentPassword"
+                     name="currentPassword"
+                     placeholder="••••••••"
+                     required>
+            </div>
+
+            <!-- Nouveau mot de passe -->
+            <div class="form-group">
+              <label class="form-label">Nouveau mot de passe *</label>
+              <input type="password"
+                     class="form-input"
+                     [(ngModel)]="passwordForm.newPassword"
+                     name="newPassword"
+                     placeholder="••••••••"
+                     required>
+              <small class="form-hint">Minimum 8 caractères</small>
+            </div>
+
+            <!-- Confirmation du mot de passe -->
+            <div class="form-group">
+              <label class="form-label">Confirmer le mot de passe *</label>
+              <input type="password"
+                     class="form-input"
+                     [(ngModel)]="passwordForm.confirmPassword"
+                     name="confirmPassword"
+                     placeholder="••••••••"
+                     required>
+            </div>
+
+            <!-- Bouton de changement -->
+            <button type="button"
+                    class="btn btn-primary btn-block"
+                    (click)="changePassword()">
+              🔑 Changer le mot de passe
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- ===== Statistiques du profil ===== -->
+      <div class="profile-stats-section">
+        <h4 class="section-subtitle">📊 Mes Statistiques</h4>
+
+        <div class="profile-stats-grid">
+
+          <!-- Stat: Caves gérées -->
+          <div class="profile-stat-item">
+            <div class="profile-stat-icon">🍷</div>
+            <div class="profile-stat-value">{{ userProfile.stats.caves }}</div>
+            <div class="profile-stat-label">Caves gérées</div>
+          </div>
+
+          <!-- Stat: Managers -->
+          <div class="profile-stat-item">
+            <div class="profile-stat-icon">👥</div>
+            <div class="profile-stat-value">{{ userProfile.stats.managers }}</div>
+            <div class="profile-stat-label">Managers</div>
+          </div>
+
+          <!-- Stat: Employés -->
+          <div class="profile-stat-item">
+            <div class="profile-stat-icon">👨‍💼</div>
+            <div class="profile-stat-value">{{ userProfile.stats.employees }}</div>
+            <div class="profile-stat-label">Employés</div>
+          </div>
+
+          <!-- Stat: Ventes totales -->
+          <div class="profile-stat-item">
+            <div class="profile-stat-icon">💰</div>
+            <div class="profile-stat-value">{{ userProfile.stats.totalSales }}</div>
+            <div class="profile-stat-label">Ventes totales</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== Actions du compte ===== -->
+      <div class="account-actions-section">
+        <h4 class="section-subtitle">⚙️ Actions du compte</h4>
+
+        <div class="account-actions-grid">
+
+          <!-- Bouton: Exporter les données -->
+          <button class="action-btn action-btn-info" (click)="exportAccountData()">
+            <div class="action-icon">📥</div>
+            <div class="action-content">
+              <div class="action-title">Exporter mes données</div>
+              <div class="action-description">Télécharger toutes vos informations</div>
+            </div>
+          </button>
+
+          <!-- Bouton: Supprimer le compte -->
+          <button class="action-btn action-btn-danger" (click)="deleteAccount()">
+            <div class="action-icon">🗑️</div>
+            <div class="action-content">
+              <div class="action-title">Supprimer mon compte</div>
+              <div class="action-description">Action irréversible</div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- ===== Bouton de sauvegarde (visible en mode édition) ===== -->
+      <div class="profile-footer" *ngIf="isEditMode">
+        <button class="btn btn-primary btn-large" (click)="saveProfile()">
+          💾 Enregistrer les modifications
+        </button>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,3981 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cave-master-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cave-master-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  WinePairingComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Composant WinePairing - Gestion des accords mets &amp; vins
+Permet de créer, consulter et gérer les associations plats-vins</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-wine-pairing</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>FormsModule</code>
+                            <code>ReactiveFormsModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./wine-pairing.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./wine-pairing.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#categories" >categories</a>
+                            </li>
+                            <li>
+                                <a href="#dishIcons" >dishIcons</a>
+                            </li>
+                            <li>
+                                <a href="#filteredPairings" >filteredPairings</a>
+                            </li>
+                            <li>
+                                <a href="#isEditMode" >isEditMode</a>
+                            </li>
+                            <li>
+                                <a href="#isLoading" >isLoading</a>
+                            </li>
+                            <li>
+                                <a href="#isModalOpen" >isModalOpen</a>
+                            </li>
+                            <li>
+                                <a href="#pairingForm" >pairingForm</a>
+                            </li>
+                            <li>
+                                <a href="#searchQuery" >searchQuery</a>
+                            </li>
+                            <li>
+                                <a href="#selectedCategory" >selectedCategory</a>
+                            </li>
+                            <li>
+                                <a href="#selectedPairing" >selectedPairing</a>
+                            </li>
+                            <li>
+                                <a href="#selectedWineType" >selectedWineType</a>
+                            </li>
+                            <li>
+                                <a href="#wineIcons" >wineIcons</a>
+                            </li>
+                            <li>
+                                <a href="#winePairings" >winePairings</a>
+                            </li>
+                            <li>
+                                <a href="#wineTypes" >wineTypes</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#addPairing" >addPairing</a>
+                            </li>
+                            <li>
+                                <a href="#addTag" >addTag</a>
+                            </li>
+                            <li>
+                                <a href="#applyFilters" >applyFilters</a>
+                            </li>
+                            <li>
+                                <a href="#closeModal" >closeModal</a>
+                            </li>
+                            <li>
+                                <a href="#deletePairing" >deletePairing</a>
+                            </li>
+                            <li>
+                                <a href="#exportToPDF" >exportToPDF</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#generateId" >generateId</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#generateMockPairings" >generateMockPairings</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getEmptyForm" >getEmptyForm</a>
+                            </li>
+                            <li>
+                                <a href="#getStars" >getStars</a>
+                            </li>
+                            <li>
+                                <a href="#loadWinePairings" >loadWinePairings</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onCategoryChange" >onCategoryChange</a>
+                            </li>
+                            <li>
+                                <a href="#onSearchChange" >onSearchChange</a>
+                            </li>
+                            <li>
+                                <a href="#onWineTypeChange" >onWineTypeChange</a>
+                            </li>
+                            <li>
+                                <a href="#openAddModal" >openAddModal</a>
+                            </li>
+                            <li>
+                                <a href="#openEditModal" >openEditModal</a>
+                            </li>
+                            <li>
+                                <a href="#printPairings" >printPairings</a>
+                            </li>
+                            <li>
+                                <a href="#removeTag" >removeTag</a>
+                            </li>
+                            <li>
+                                <a href="#resetFilters" >resetFilters</a>
+                            </li>
+                            <li>
+                                <a href="#savePairing" >savePairing</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#updatePairing" >updatePairing</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#validateForm" >validateForm</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="112" class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:112</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addPairing"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>addPairing</b></span>
+                        <a href="#addPairing"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>addPairing()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="368"
+                                    class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:368</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Ajoute un nouvel accord</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addTag"></a>
+                    <span class="name">
+                        <span ><b>addTag</b></span>
+                        <a href="#addTag"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addTag(tag: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="492"
+                                    class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:492</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Ajoute un tag au formulaire</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>tag</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Tag à ajouter</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="applyFilters"></a>
+                    <span class="name">
+                        <span ><b>applyFilters</b></span>
+                        <a href="#applyFilters"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>applyFilters()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="244"
+                                    class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:244</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Recherche et filtre les accords</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeModal"></a>
+                    <span class="name">
+                        <span ><b>closeModal</b></span>
+                        <a href="#closeModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeModal()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="339"
+                                    class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:339</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Ferme le modal</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deletePairing"></a>
+                    <span class="name">
+                        <span ><b>deletePairing</b></span>
+                        <a href="#deletePairing"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deletePairing(pairing: <a href="../interfaces/WinePairing.html" target="_self">WinePairing</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="433"
+                                    class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:433</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Supprime un accord</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>pairing</td>
+                                            <td>
+                                                            <code><a href="../interfaces/WinePairing.html" target="_self" >WinePairing</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Accord à supprimer</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportToPDF"></a>
+                    <span class="name">
+                        <span ><b>exportToPDF</b></span>
+                        <a href="#exportToPDF"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportToPDF()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="518"
+                                    class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:518</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Exporte les accords en CSV</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generateId"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>generateId</b></span>
+                        <a href="#generateId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>generateId()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="484"
+                                    class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:484</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Génère un ID unique</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>ID généré</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generateMockPairings"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>generateMockPairings</b></span>
+                        <a href="#generateMockPairings"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>generateMockPairings()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="140"
+                                    class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:140</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Génère des accords de test pour la démo</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>WinePairing[]</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Liste d&#39;accords simulés</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getEmptyForm"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>getEmptyForm</b></span>
+                        <a href="#getEmptyForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getEmptyForm()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="464"
+                                    class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:464</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retourne un formulaire vide</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/WinePairingForm.html" target="_self" >WinePairingForm</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Formulaire initialisé</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getStars"></a>
+                    <span class="name">
+                        <span ><b>getStars</b></span>
+                        <a href="#getStars"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getStars(rating: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="511"
+                                    class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:511</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retourne les étoiles de notation</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>rating</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Note (1-5)</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>boolean[]</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Tableau d&#39;étoiles</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadWinePairings"></a>
+                    <span class="name">
+                        <span ><b>loadWinePairings</b></span>
+                        <a href="#loadWinePairings"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadWinePairings()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="124"
+                                    class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:124</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Charge les accords mets &amp; vins depuis le backend</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="116"
+                                    class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:116</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onCategoryChange"></a>
+                    <span class="name">
+                        <span ><b>onCategoryChange</b></span>
+                        <a href="#onCategoryChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onCategoryChange()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="282"
+                                    class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:282</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Gère le changement de catégorie</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSearchChange"></a>
+                    <span class="name">
+                        <span ><b>onSearchChange</b></span>
+                        <a href="#onSearchChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onSearchChange()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="275"
+                                    class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:275</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Gère le changement de recherche</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onWineTypeChange"></a>
+                    <span class="name">
+                        <span ><b>onWineTypeChange</b></span>
+                        <a href="#onWineTypeChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onWineTypeChange()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="289"
+                                    class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:289</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Gère le changement de type de vin</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openAddModal"></a>
+                    <span class="name">
+                        <span ><b>openAddModal</b></span>
+                        <a href="#openAddModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openAddModal()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="306"
+                                    class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:306</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Ouvre le modal d&#39;ajout d&#39;accord</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openEditModal"></a>
+                    <span class="name">
+                        <span ><b>openEditModal</b></span>
+                        <a href="#openEditModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openEditModal(pairing: <a href="../interfaces/WinePairing.html" target="_self">WinePairing</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="317"
+                                    class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:317</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Ouvre le modal d&#39;édition d&#39;accord</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>pairing</td>
+                                            <td>
+                                                            <code><a href="../interfaces/WinePairing.html" target="_self" >WinePairing</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Accord à éditer</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="printPairings"></a>
+                    <span class="name">
+                        <span ><b>printPairings</b></span>
+                        <a href="#printPairings"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>printPairings()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="527"
+                                    class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:527</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Imprime les accords</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeTag"></a>
+                    <span class="name">
+                        <span ><b>removeTag</b></span>
+                        <a href="#removeTag"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>removeTag(tag: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="502"
+                                    class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:502</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Supprime un tag du formulaire</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>tag</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Tag à supprimer</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetFilters"></a>
+                    <span class="name">
+                        <span ><b>resetFilters</b></span>
+                        <a href="#resetFilters"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resetFilters()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="296"
+                                    class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:296</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Réinitialise tous les filtres</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="savePairing"></a>
+                    <span class="name">
+                        <span ><b>savePairing</b></span>
+                        <a href="#savePairing"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>savePairing()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="349"
+                                    class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:349</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Sauvegarde l&#39;accord (ajout ou modification)</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updatePairing"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>updatePairing</b></span>
+                        <a href="#updatePairing"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updatePairing()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="399"
+                                    class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:399</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Met à jour un accord existant</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="validateForm"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>validateForm</b></span>
+                        <a href="#validateForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>validateForm()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="449"
+                                    class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:449</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Valide le formulaire</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>true si le formulaire est valide</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="categories"></a>
+                    <span class="name">
+                        <span ><b>categories</b></span>
+                        <a href="#categories"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    &#x27;Viandes rouges&#x27;,
+    &#x27;Viandes blanches&#x27;,
+    &#x27;Poissons&#x27;,
+    &#x27;Fruits de mer&#x27;,
+    &#x27;Fromages&#x27;,
+    &#x27;Desserts&#x27;,
+    &#x27;Apéritifs&#x27;,
+    &#x27;Plats végétariens&#x27;,
+    &#x27;Plats épicés&#x27;,
+    &#x27;Charcuterie&#x27;
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="76" class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:76</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dishIcons"></a>
+                    <span class="name">
+                        <span ><b>dishIcons</b></span>
+                        <a href="#dishIcons"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    &#x27;🥩&#x27;, &#x27;🍗&#x27;, &#x27;🐟&#x27;, &#x27;🦞&#x27;, &#x27;🧀&#x27;, &#x27;🍰&#x27;, &#x27;🥗&#x27;, &#x27;🍕&#x27;, &#x27;🍝&#x27;, &#x27;🌮&#x27;
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="102" class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:102</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filteredPairings"></a>
+                    <span class="name">
+                        <span ><b>filteredPairings</b></span>
+                        <a href="#filteredPairings"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>WinePairing[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isEditMode"></a>
+                    <span class="name">
+                        <span ><b>isEditMode</b></span>
+                        <a href="#isEditMode"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:64</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isLoading"></a>
+                    <span class="name">
+                        <span ><b>isLoading</b></span>
+                        <a href="#isLoading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="112" class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:112</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isModalOpen"></a>
+                    <span class="name">
+                        <span ><b>isModalOpen</b></span>
+                        <a href="#isModalOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:63</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="pairingForm"></a>
+                    <span class="name">
+                        <span ><b>pairingForm</b></span>
+                        <a href="#pairingForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/WinePairingForm.html" target="_self" >WinePairingForm</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.getEmptyForm()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:68</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchQuery"></a>
+                    <span class="name">
+                        <span ><b>searchQuery</b></span>
+                        <a href="#searchQuery"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:71</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedCategory"></a>
+                    <span class="name">
+                        <span ><b>selectedCategory</b></span>
+                        <a href="#selectedCategory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;all&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:72</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedPairing"></a>
+                    <span class="name">
+                        <span ><b>selectedPairing</b></span>
+                        <a href="#selectedPairing"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>WinePairing | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:65</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedWineType"></a>
+                    <span class="name">
+                        <span ><b>selectedWineType</b></span>
+                        <a href="#selectedWineType"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;all&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:73</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="wineIcons"></a>
+                    <span class="name">
+                        <span ><b>wineIcons</b></span>
+                        <a href="#wineIcons"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    &#x27;🍷&#x27;, &#x27;🥂&#x27;, &#x27;🍾&#x27;, &#x27;🍇&#x27;, &#x27;🍾&#x27;, &#x27;🥃&#x27;
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="107" class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:107</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="winePairings"></a>
+                    <span class="name">
+                        <span ><b>winePairings</b></span>
+                        <a href="#winePairings"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>WinePairing[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:57</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="wineTypes"></a>
+                    <span class="name">
+                        <span ><b>wineTypes</b></span>
+                        <a href="#wineTypes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    &#x27;Vin Rouge&#x27;,
+    &#x27;Vin Blanc&#x27;,
+    &#x27;Vin Rosé&#x27;,
+    &#x27;Champagne&#x27;,
+    &#x27;Vin Mousseux&#x27;,
+    &#x27;Vin Blanc Liquoreux&#x27;,
+    &#x27;Porto&#x27;,
+    &#x27;Vin de Glace&#x27;
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="90" class="link-to-prism">src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts:90</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+
+/**
+ * Interface pour définir un accord mets &amp; vins
+ */
+interface WinePairing {
+  id: string;
+  category: string; // Type de plat: Viandes, Poissons, Fromages, etc.
+  dish: string; // Nom du plat
+  dishIcon: string; // Emoji du plat
+  wine: string; // Nom du vin
+  wineIcon: string; // Emoji du vin
+  wineType: string; // Type: Rouge, Blanc, Rosé, etc.
+  description: string; // Description de l&#x27;accord
+  temperature: string; // Température de service
+  region?: string; // Région viticole
+  vintage?: string; // Millésime recommandé
+  tags?: string[]; // Tags pour recherche
+  rating?: number; // Note de l&#x27;accord (1-5)
+  createdAt: Date;
+}
+
+/**
+ * Interface pour le formulaire d&#x27;ajout d&#x27;accord
+ */
+interface WinePairingForm {
+  category: string;
+  dish: string;
+  dishIcon: string;
+  wine: string;
+  wineIcon: string;
+  wineType: string;
+  description: string;
+  temperature: string;
+  region: string;
+  vintage: string;
+  tags: string[];
+}
+
+/**
+ * Composant WinePairing - Gestion des accords mets &amp; vins
+ * Permet de créer, consulter et gérer les associations plats-vins
+ */
+@Component({
+  selector: &#x27;app-wine-pairing&#x27;,
+   standalone: true,
+  // Import des modules nécessaires
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  templateUrl: &#x27;./wine-pairing.component.html&#x27;,
+  styleUrls: [&#x27;./wine-pairing.component.scss&#x27;]
+})
+export class WinePairingComponent implements OnInit {
+
+  // Liste des accords mets &amp; vins
+  winePairings: WinePairing[] &#x3D; [];
+
+  // Accords filtrés (pour la recherche)
+  filteredPairings: WinePairing[] &#x3D; [];
+
+  // Modal d&#x27;ajout/édition
+  isModalOpen: boolean &#x3D; false;
+  isEditMode: boolean &#x3D; false;
+  selectedPairing: WinePairing | null &#x3D; null;
+
+  // Formulaire
+  pairingForm: WinePairingForm &#x3D; this.getEmptyForm();
+
+  // Filtres et recherche
+  searchQuery: string &#x3D; &#x27;&#x27;;
+  selectedCategory: string &#x3D; &#x27;all&#x27;;
+  selectedWineType: string &#x3D; &#x27;all&#x27;;
+
+  // Catégories de plats disponibles
+  categories: string[] &#x3D; [
+    &#x27;Viandes rouges&#x27;,
+    &#x27;Viandes blanches&#x27;,
+    &#x27;Poissons&#x27;,
+    &#x27;Fruits de mer&#x27;,
+    &#x27;Fromages&#x27;,
+    &#x27;Desserts&#x27;,
+    &#x27;Apéritifs&#x27;,
+    &#x27;Plats végétariens&#x27;,
+    &#x27;Plats épicés&#x27;,
+    &#x27;Charcuterie&#x27;
+  ];
+
+  // Types de vins
+  wineTypes: string[] &#x3D; [
+    &#x27;Vin Rouge&#x27;,
+    &#x27;Vin Blanc&#x27;,
+    &#x27;Vin Rosé&#x27;,
+    &#x27;Champagne&#x27;,
+    &#x27;Vin Mousseux&#x27;,
+    &#x27;Vin Blanc Liquoreux&#x27;,
+    &#x27;Porto&#x27;,
+    &#x27;Vin de Glace&#x27;
+  ];
+
+  // Icônes disponibles pour les plats
+  dishIcons: string[] &#x3D; [
+    &#x27;🥩&#x27;, &#x27;🍗&#x27;, &#x27;🐟&#x27;, &#x27;🦞&#x27;, &#x27;🧀&#x27;, &#x27;🍰&#x27;, &#x27;🥗&#x27;, &#x27;🍕&#x27;, &#x27;🍝&#x27;, &#x27;🌮&#x27;
+  ];
+
+  // Icônes disponibles pour les vins
+  wineIcons: string[] &#x3D; [
+    &#x27;🍷&#x27;, &#x27;🥂&#x27;, &#x27;🍾&#x27;, &#x27;🍇&#x27;, &#x27;🍾&#x27;, &#x27;🥃&#x27;
+  ];
+
+  // État de chargement
+  isLoading: boolean &#x3D; false;
+
+  constructor() {}
+
+  ngOnInit(): void {
+    // Chargement initial des accords
+    this.loadWinePairings();
+  }
+
+  /**
+   * Charge les accords mets &amp; vins depuis le backend
+   */
+  loadWinePairings(): void {
+    this.isLoading &#x3D; true;
+
+    // TODO: Appel API
+    // Simulation avec des données de test
+    this.winePairings &#x3D; this.generateMockPairings();
+    this.filteredPairings &#x3D; [...this.winePairings];
+
+    this.isLoading &#x3D; false;
+    console.log(&#x27;Accords chargés:&#x27;, this.winePairings.length);
+  }
+
+  /**
+   * Génère des accords de test pour la démo
+   * @returns Liste d&#x27;accords simulés
+   */
+  private generateMockPairings(): WinePairing[] {
+    return [
+      {
+        id: &#x27;1&#x27;,
+        category: &#x27;Viandes rouges&#x27;,
+        dish: &#x27;Steak grillé&#x27;,
+        dishIcon: &#x27;🥩&#x27;,
+        wine: &#x27;Bordeaux Rouge&#x27;,
+        wineIcon: &#x27;🍷&#x27;,
+        wineType: &#x27;Vin Rouge&#x27;,
+        description: &#x27;Un Bordeaux corsé sublime parfaitement un steak grillé. Les tanins structurés du vin s\&#x27;accordent avec la richesse de la viande.&#x27;,
+        temperature: &#x27;16-18°C&#x27;,
+        region: &#x27;Bordeaux&#x27;,
+        vintage: &#x27;2015-2018&#x27;,
+        tags: [&#x27;classique&#x27;, &#x27;élégant&#x27;, &#x27;tanins&#x27;],
+        rating: 5,
+        createdAt: new Date()
+      },
+      {
+        id: &#x27;2&#x27;,
+        category: &#x27;Poissons&#x27;,
+        dish: &#x27;Saumon grillé&#x27;,
+        dishIcon: &#x27;🐟&#x27;,
+        wine: &#x27;Chablis&#x27;,
+        wineIcon: &#x27;🍷&#x27;,
+        wineType: &#x27;Vin Blanc&#x27;,
+        description: &#x27;La fraîcheur minérale d\&#x27;un Chablis complète délicatement le goût délicat du saumon grillé.&#x27;,
+        temperature: &#x27;10-12°C&#x27;,
+        region: &#x27;Bourgogne&#x27;,
+        vintage: &#x27;2019-2021&#x27;,
+        tags: [&#x27;frais&#x27;, &#x27;minéral&#x27;, &#x27;délicat&#x27;],
+        rating: 4,
+        createdAt: new Date()
+      },
+      {
+        id: &#x27;3&#x27;,
+        category: &#x27;Fromages&#x27;,
+        dish: &#x27;Plateau de fromages affinés&#x27;,
+        dishIcon: &#x27;🧀&#x27;,
+        wine: &#x27;Porto Tawny&#x27;,
+        wineIcon: &#x27;🥃&#x27;,
+        wineType: &#x27;Porto&#x27;,
+        description: &#x27;Le Porto Tawny avec ses notes de fruits secs et de caramel s\&#x27;accorde merveilleusement avec les fromages affinés.&#x27;,
+        temperature: &#x27;14-16°C&#x27;,
+        region: &#x27;Porto&#x27;,
+        vintage: &#x27;10-20 ans&#x27;,
+        tags: [&#x27;intense&#x27;, &#x27;complexe&#x27;, &#x27;doux&#x27;],
+        rating: 5,
+        createdAt: new Date()
+      },
+      {
+        id: &#x27;4&#x27;,
+        category: &#x27;Fruits de mer&#x27;,
+        dish: &#x27;Huîtres fraîches&#x27;,
+        dishIcon: &#x27;🦞&#x27;,
+        wine: &#x27;Muscadet&#x27;,
+        wineIcon: &#x27;🍷&#x27;,
+        wineType: &#x27;Vin Blanc&#x27;,
+        description: &#x27;Un Muscadet sec et iodé est le compagnon idéal des huîtres fraîches.&#x27;,
+        temperature: &#x27;8-10°C&#x27;,
+        region: &#x27;Loire&#x27;,
+        vintage: &#x27;Millésime récent&#x27;,
+        tags: [&#x27;iodé&#x27;, &#x27;frais&#x27;, &#x27;maritime&#x27;],
+        rating: 5,
+        createdAt: new Date()
+      },
+      {
+        id: &#x27;5&#x27;,
+        category: &#x27;Desserts&#x27;,
+        dish: &#x27;Tarte tatin&#x27;,
+        dishIcon: &#x27;🍰&#x27;,
+        wine: &#x27;Sauternes&#x27;,
+        wineIcon: &#x27;🍷&#x27;,
+        wineType: &#x27;Vin Blanc Liquoreux&#x27;,
+        description: &#x27;Un Sauternes moelleux avec ses notes de miel et d\&#x27;abricot sublime une tarte tatin aux pommes caramélisées.&#x27;,
+        temperature: &#x27;8-10°C&#x27;,
+        region: &#x27;Bordeaux&#x27;,
+        vintage: &#x27;2015-2017&#x27;,
+        tags: [&#x27;sucré&#x27;, &#x27;onctueux&#x27;, &#x27;complexe&#x27;],
+        rating: 4,
+        createdAt: new Date()
+      },
+      {
+        id: &#x27;6&#x27;,
+        category: &#x27;Apéritifs&#x27;,
+        dish: &#x27;Olives et tapenade&#x27;,
+        dishIcon: &#x27;🫒&#x27;,
+        wine: &#x27;Champagne Brut&#x27;,
+        wineIcon: &#x27;🥂&#x27;,
+        wineType: &#x27;Champagne&#x27;,
+        description: &#x27;Les bulles fines d\&#x27;un Champagne Brut nettoient le palais entre chaque bouchée d\&#x27;olives.&#x27;,
+        temperature: &#x27;6-8°C&#x27;,
+        region: &#x27;Champagne&#x27;,
+        vintage: &#x27;Non millésimé&#x27;,
+        tags: [&#x27;festif&#x27;, &#x27;élégant&#x27;, &#x27;pétillant&#x27;],
+        rating: 4,
+        createdAt: new Date()
+      }
+    ];
+  }
+
+  /**
+   * Recherche et filtre les accords
+   */
+  applyFilters(): void {
+    let result &#x3D; [...this.winePairings];
+
+    // Filtre par recherche textuelle
+    if (this.searchQuery.trim()) {
+      const query &#x3D; this.searchQuery.toLowerCase();
+      result &#x3D; result.filter(pairing &#x3D;&gt;
+        pairing.dish.toLowerCase().includes(query) ||
+        pairing.wine.toLowerCase().includes(query) ||
+        pairing.description.toLowerCase().includes(query) ||
+        pairing.tags?.some(tag &#x3D;&gt; tag.toLowerCase().includes(query))
+      );
+    }
+
+    // Filtre par catégorie
+    if (this.selectedCategory !&#x3D;&#x3D; &#x27;all&#x27;) {
+      result &#x3D; result.filter(pairing &#x3D;&gt; pairing.category &#x3D;&#x3D;&#x3D; this.selectedCategory);
+    }
+
+    // Filtre par type de vin
+    if (this.selectedWineType !&#x3D;&#x3D; &#x27;all&#x27;) {
+      result &#x3D; result.filter(pairing &#x3D;&gt; pairing.wineType &#x3D;&#x3D;&#x3D; this.selectedWineType);
+    }
+
+    this.filteredPairings &#x3D; result;
+    console.log(&#x27;Filtres appliqués:&#x27;, result.length, &#x27;résultats&#x27;);
+  }
+
+  /**
+   * Gère le changement de recherche
+   */
+  onSearchChange(): void {
+    this.applyFilters();
+  }
+
+  /**
+   * Gère le changement de catégorie
+   */
+  onCategoryChange(): void {
+    this.applyFilters();
+  }
+
+  /**
+   * Gère le changement de type de vin
+   */
+  onWineTypeChange(): void {
+    this.applyFilters();
+  }
+
+  /**
+   * Réinitialise tous les filtres
+   */
+  resetFilters(): void {
+    this.searchQuery &#x3D; &#x27;&#x27;;
+    this.selectedCategory &#x3D; &#x27;all&#x27;;
+    this.selectedWineType &#x3D; &#x27;all&#x27;;
+    this.filteredPairings &#x3D; [...this.winePairings];
+  }
+
+  /**
+   * Ouvre le modal d&#x27;ajout d&#x27;accord
+   */
+  openAddModal(): void {
+    this.isEditMode &#x3D; false;
+    this.selectedPairing &#x3D; null;
+    this.pairingForm &#x3D; this.getEmptyForm();
+    this.isModalOpen &#x3D; true;
+  }
+
+  /**
+   * Ouvre le modal d&#x27;édition d&#x27;accord
+   * @param pairing - Accord à éditer
+   */
+  openEditModal(pairing: WinePairing): void {
+    this.isEditMode &#x3D; true;
+    this.selectedPairing &#x3D; pairing;
+    this.pairingForm &#x3D; {
+      category: pairing.category,
+      dish: pairing.dish,
+      dishIcon: pairing.dishIcon,
+      wine: pairing.wine,
+      wineIcon: pairing.wineIcon,
+      wineType: pairing.wineType,
+      description: pairing.description,
+      temperature: pairing.temperature,
+      region: pairing.region || &#x27;&#x27;,
+      vintage: pairing.vintage || &#x27;&#x27;,
+      tags: pairing.tags || []
+    };
+    this.isModalOpen &#x3D; true;
+  }
+
+  /**
+   * Ferme le modal
+   */
+  closeModal(): void {
+    this.isModalOpen &#x3D; false;
+    this.isEditMode &#x3D; false;
+    this.selectedPairing &#x3D; null;
+    this.pairingForm &#x3D; this.getEmptyForm();
+  }
+
+  /**
+   * Sauvegarde l&#x27;accord (ajout ou modification)
+   */
+  savePairing(): void {
+    // Validation
+    if (!this.validateForm()) {
+      alert(&#x27;Veuillez remplir tous les champs obligatoires&#x27;);
+      return;
+    }
+
+    if (this.isEditMode &amp;&amp; this.selectedPairing) {
+      // Mode édition
+      this.updatePairing();
+    } else {
+      // Mode ajout
+      this.addPairing();
+    }
+  }
+
+  /**
+   * Ajoute un nouvel accord
+   */
+  private addPairing(): void {
+    const newPairing: WinePairing &#x3D; {
+      id: this.generateId(),
+      category: this.pairingForm.category,
+      dish: this.pairingForm.dish,
+      dishIcon: this.pairingForm.dishIcon,
+      wine: this.pairingForm.wine,
+      wineIcon: this.pairingForm.wineIcon,
+      wineType: this.pairingForm.wineType,
+      description: this.pairingForm.description,
+      temperature: this.pairingForm.temperature,
+      region: this.pairingForm.region,
+      vintage: this.pairingForm.vintage,
+      tags: this.pairingForm.tags,
+      rating: 0,
+      createdAt: new Date()
+    };
+
+    this.winePairings.unshift(newPairing);
+    this.applyFilters();
+
+    // TODO: Appel API
+    console.log(&#x27;Accord ajouté:&#x27;, newPairing);
+
+    alert(&#x27;Accord mets &amp; vins ajouté avec succès !&#x27;);
+    this.closeModal();
+  }
+
+  /**
+   * Met à jour un accord existant
+   */
+  private updatePairing(): void {
+    if (!this.selectedPairing) return;
+
+    const index &#x3D; this.winePairings.findIndex(p &#x3D;&gt; p.id &#x3D;&#x3D;&#x3D; this.selectedPairing!.id);
+    if (index !&#x3D;&#x3D; -1) {
+      this.winePairings[index] &#x3D; {
+        ...this.selectedPairing,
+        category: this.pairingForm.category,
+        dish: this.pairingForm.dish,
+        dishIcon: this.pairingForm.dishIcon,
+        wine: this.pairingForm.wine,
+        wineIcon: this.pairingForm.wineIcon,
+        wineType: this.pairingForm.wineType,
+        description: this.pairingForm.description,
+        temperature: this.pairingForm.temperature,
+        region: this.pairingForm.region,
+        vintage: this.pairingForm.vintage,
+        tags: this.pairingForm.tags
+      };
+
+      this.applyFilters();
+
+      // TODO: Appel API
+      console.log(&#x27;Accord mis à jour:&#x27;, this.winePairings[index]);
+
+      alert(&#x27;Accord mis à jour avec succès !&#x27;);
+      this.closeModal();
+    }
+  }
+
+  /**
+   * Supprime un accord
+   * @param pairing - Accord à supprimer
+   */
+  deletePairing(pairing: WinePairing): void {
+    if (confirm(&#x60;Êtes-vous sûr de vouloir supprimer l&#x27;accord &quot;${pairing.dish} &amp; ${pairing.wine}&quot; ?&#x60;)) {
+      this.winePairings &#x3D; this.winePairings.filter(p &#x3D;&gt; p.id !&#x3D;&#x3D; pairing.id);
+      this.applyFilters();
+
+      // TODO: Appel API
+      console.log(&#x27;Accord supprimé:&#x27;, pairing.id);
+
+      alert(&#x27;Accord supprimé avec succès&#x27;);
+    }
+  }
+
+  /**
+   * Valide le formulaire
+   * @returns true si le formulaire est valide
+   */
+  private validateForm(): boolean {
+    return !!(
+      this.pairingForm.category &amp;&amp;
+      this.pairingForm.dish &amp;&amp;
+      this.pairingForm.wine &amp;&amp;
+      this.pairingForm.wineType &amp;&amp;
+      this.pairingForm.description &amp;&amp;
+      this.pairingForm.temperature
+    );
+  }
+
+  /**
+   * Retourne un formulaire vide
+   * @returns Formulaire initialisé
+   */
+  private getEmptyForm(): WinePairingForm {
+    return {
+      category: &#x27;&#x27;,
+      dish: &#x27;&#x27;,
+      dishIcon: &#x27;🍽️&#x27;,
+      wine: &#x27;&#x27;,
+      wineIcon: &#x27;🍷&#x27;,
+      wineType: &#x27;&#x27;,
+      description: &#x27;&#x27;,
+      temperature: &#x27;&#x27;,
+      region: &#x27;&#x27;,
+      vintage: &#x27;&#x27;,
+      tags: []
+    };
+  }
+
+  /**
+   * Génère un ID unique
+   * @returns ID généré
+   */
+  private generateId(): string {
+    return &#x60;pairing_${Date.now()}_${Math.random().toString(36).substr(2, 9)}&#x60;;
+  }
+
+  /**
+   * Ajoute un tag au formulaire
+   * @param tag - Tag à ajouter
+   */
+  addTag(tag: string): void {
+    if (tag &amp;&amp; !this.pairingForm.tags.includes(tag)) {
+      this.pairingForm.tags.push(tag);
+    }
+  }
+
+  /**
+   * Supprime un tag du formulaire
+   * @param tag - Tag à supprimer
+   */
+  removeTag(tag: string): void {
+    this.pairingForm.tags &#x3D; this.pairingForm.tags.filter(t &#x3D;&gt; t !&#x3D;&#x3D; tag);
+  }
+
+  /**
+   * Retourne les étoiles de notation
+   * @param rating - Note (1-5)
+   * @returns Tableau d&#x27;étoiles
+   */
+  getStars(rating: number): boolean[] {
+    return Array(5).fill(false).map((_, index) &#x3D;&gt; index &lt; rating);
+  }
+
+  /**
+   * Exporte les accords en CSV
+   */
+  exportToPDF(): void {
+    console.log(&#x27;Export des accords en PDF...&#x27;);
+    // TODO: Implémenter l&#x27;export CSV
+    alert(&#x27;Accords exportés avec succès !&#x27;);
+  }
+
+  /**
+   * Imprime les accords
+   */
+  printPairings(): void {
+    window.print();
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; PAGE ACCORDS METS &amp; VINS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+&lt;div class&#x3D;&quot;page-section&quot;&gt;
+
+  &lt;section class&#x3D;&quot;content-section&quot;&gt;
+
+    &lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; En-tête avec titre et actions &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+    &lt;div class&#x3D;&quot;section-header&quot;&gt;
+      &lt;div class&#x3D;&quot;header-left&quot;&gt;
+        &lt;h2 class&#x3D;&quot;section-title-main&quot;&gt;🍽️ Accords Mets &amp; Vins&lt;/h2&gt;
+        &lt;p class&#x3D;&quot;section-subtitle&quot;&gt;
+          {{ filteredPairings.length }} accord{{ filteredPairings.length &gt; 1 ? &#x27;s&#x27; : &#x27;&#x27; }} trouvé{{ filteredPairings.length &gt; 1 ? &#x27;s&#x27; : &#x27;&#x27; }}
+        &lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;header-actions&quot;&gt;
+        &lt;!-- Bouton exporter --&gt;
+        &lt;button class&#x3D;&quot;btn btn-secondary&quot; (click)&#x3D;&quot;exportToPDF()&quot;&gt;
+          &lt;i class&#x3D;&quot;fas fa-download&quot;&gt;&lt;/i&gt; Exporter
+        &lt;/button&gt;
+
+        &lt;!-- Bouton imprimer --&gt;
+        &lt;button class&#x3D;&quot;btn btn-secondary&quot; (click)&#x3D;&quot;printPairings()&quot;&gt;
+          &lt;i class&#x3D;&quot;fas fa-print&quot;&gt;&lt;/i&gt; Imprimer
+        &lt;/button&gt;
+
+        &lt;!-- Bouton ajouter --&gt;
+        &lt;button class&#x3D;&quot;btn btn-primary&quot; (click)&#x3D;&quot;openAddModal()&quot;&gt;
+          &lt;i class&#x3D;&quot;fas fa-plus&quot;&gt;&lt;/i&gt; Ajouter un accord
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Barre de recherche et filtres &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+    &lt;div class&#x3D;&quot;filters-container&quot;&gt;
+
+      &lt;!-- Recherche textuelle --&gt;
+      &lt;div class&#x3D;&quot;search-box&quot;&gt;
+        &lt;i class&#x3D;&quot;fas fa-search search-icon&quot;&gt;&lt;/i&gt;
+        &lt;input type&#x3D;&quot;text&quot;
+               class&#x3D;&quot;search-input&quot;
+               placeholder&#x3D;&quot;Rechercher un plat, un vin, une région...&quot;
+               [(ngModel)]&#x3D;&quot;searchQuery&quot;
+               (input)&#x3D;&quot;onSearchChange()&quot;&gt;
+        &lt;button class&#x3D;&quot;clear-btn&quot;
+                *ngIf&#x3D;&quot;searchQuery&quot;
+                (click)&#x3D;&quot;searchQuery &#x3D; &#x27;&#x27;; onSearchChange()&quot;&gt;
+          &lt;i class&#x3D;&quot;fas fa-times&quot;&gt;&lt;/i&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Filtres --&gt;
+      &lt;div class&#x3D;&quot;filters-row&quot;&gt;
+
+        &lt;!-- Filtre par catégorie de plat --&gt;
+        &lt;div class&#x3D;&quot;filter-group&quot;&gt;
+          &lt;label class&#x3D;&quot;filter-label&quot;&gt;
+            &lt;i class&#x3D;&quot;fas fa-utensils&quot;&gt;&lt;/i&gt; Catégorie
+          &lt;/label&gt;
+          &lt;select class&#x3D;&quot;filter-select&quot;
+                  [(ngModel)]&#x3D;&quot;selectedCategory&quot;
+                  (change)&#x3D;&quot;onCategoryChange()&quot;&gt;
+            &lt;option value&#x3D;&quot;all&quot;&gt;Toutes les catégories&lt;/option&gt;
+            &lt;option *ngFor&#x3D;&quot;let category of categories&quot; [value]&#x3D;&quot;category&quot;&gt;
+              {{ category }}
+            &lt;/option&gt;
+          &lt;/select&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Filtre par type de vin --&gt;
+        &lt;div class&#x3D;&quot;filter-group&quot;&gt;
+          &lt;label class&#x3D;&quot;filter-label&quot;&gt;
+            &lt;i class&#x3D;&quot;fas fa-wine-bottle&quot;&gt;&lt;/i&gt; Type de vin
+          &lt;/label&gt;
+          &lt;select class&#x3D;&quot;filter-select&quot;
+                  [(ngModel)]&#x3D;&quot;selectedWineType&quot;
+                  (change)&#x3D;&quot;onWineTypeChange()&quot;&gt;
+            &lt;option value&#x3D;&quot;all&quot;&gt;Tous les types&lt;/option&gt;
+            &lt;option *ngFor&#x3D;&quot;let type of wineTypes&quot; [value]&#x3D;&quot;type&quot;&gt;
+              {{ type }}
+            &lt;/option&gt;
+          &lt;/select&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Bouton réinitialiser --&gt;
+        &lt;button class&#x3D;&quot;btn btn-outline&quot;
+                (click)&#x3D;&quot;resetFilters()&quot;
+                [disabled]&#x3D;&quot;searchQuery &#x3D;&#x3D;&#x3D; &#x27;&#x27; &amp;&amp; selectedCategory &#x3D;&#x3D;&#x3D; &#x27;all&#x27; &amp;&amp; selectedWineType &#x3D;&#x3D;&#x3D; &#x27;all&#x27;&quot;&gt;
+          &lt;i class&#x3D;&quot;fas fa-redo&quot;&gt;&lt;/i&gt; Réinitialiser
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Indicateur de chargement &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+    &lt;div *ngIf&#x3D;&quot;isLoading&quot; class&#x3D;&quot;loading-state&quot;&gt;
+      &lt;div class&#x3D;&quot;spinner&quot;&gt;&lt;/div&gt;
+      &lt;p&gt;Chargement des accords...&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Grille des accords &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+    &lt;div *ngIf&#x3D;&quot;!isLoading&quot; class&#x3D;&quot;pairing-grid&quot;&gt;
+
+      &lt;!-- Boucle sur les accords filtrés --&gt;
+      &lt;div *ngFor&#x3D;&quot;let pairing of filteredPairings&quot; class&#x3D;&quot;pairing-card&quot;&gt;
+
+        &lt;!-- Badge catégorie --&gt;
+        &lt;div class&#x3D;&quot;pairing-header&quot;&gt;
+          &lt;span class&#x3D;&quot;pairing-category&quot;&gt;{{ pairing.category }}&lt;/span&gt;
+
+          &lt;!-- Notation --&gt;
+          &lt;div class&#x3D;&quot;pairing-rating&quot; *ngIf&#x3D;&quot;pairing.rating&quot;&gt;
+            &lt;span *ngFor&#x3D;&quot;let star of getStars(pairing.rating)&quot; class&#x3D;&quot;star&quot;&gt;
+              {{ star ? &#x27;⭐&#x27; : &#x27;☆&#x27; }}
+            &lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Contenu principal de l&#x27;accord --&gt;
+        &lt;div class&#x3D;&quot;pairing-content&quot;&gt;
+
+          &lt;!-- Plat --&gt;
+          &lt;div class&#x3D;&quot;pairing-item&quot;&gt;
+            &lt;div class&#x3D;&quot;pairing-icon dish-icon&quot;&gt;{{ pairing.dishIcon }}&lt;/div&gt;
+            &lt;div class&#x3D;&quot;pairing-details&quot;&gt;
+              &lt;div class&#x3D;&quot;pairing-label&quot;&gt;Plat&lt;/div&gt;
+              &lt;div class&#x3D;&quot;pairing-name&quot;&gt;{{ pairing.dish }}&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Flèche de liaison --&gt;
+          &lt;div class&#x3D;&quot;pairing-connector&quot;&gt;
+            &lt;i class&#x3D;&quot;fas fa-plus&quot;&gt;&lt;/i&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Vin --&gt;
+          &lt;div class&#x3D;&quot;pairing-item&quot;&gt;
+            &lt;div class&#x3D;&quot;pairing-icon wine-icon&quot;&gt;{{ pairing.wineIcon }}&lt;/div&gt;
+            &lt;div class&#x3D;&quot;pairing-details&quot;&gt;
+              &lt;div class&#x3D;&quot;pairing-label&quot;&gt;Vin&lt;/div&gt;
+              &lt;div class&#x3D;&quot;pairing-name&quot;&gt;{{ pairing.wine }}&lt;/div&gt;
+              &lt;div class&#x3D;&quot;pairing-type&quot;&gt;{{ pairing.wineType }}&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Description de l&#x27;accord --&gt;
+        &lt;div class&#x3D;&quot;pairing-description&quot;&gt;
+          &lt;p&gt;{{ pairing.description }}&lt;/p&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Informations complémentaires --&gt;
+        &lt;div class&#x3D;&quot;pairing-info&quot;&gt;
+          &lt;div class&#x3D;&quot;info-item&quot; *ngIf&#x3D;&quot;pairing.temperature&quot;&gt;
+            &lt;i class&#x3D;&quot;fas fa-thermometer-half&quot;&gt;&lt;/i&gt;
+            &lt;span&gt;{{ pairing.temperature }}&lt;/span&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;info-item&quot; *ngIf&#x3D;&quot;pairing.region&quot;&gt;
+            &lt;i class&#x3D;&quot;fas fa-map-marker-alt&quot;&gt;&lt;/i&gt;
+            &lt;span&gt;{{ pairing.region }}&lt;/span&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;info-item&quot; *ngIf&#x3D;&quot;pairing.vintage&quot;&gt;
+            &lt;i class&#x3D;&quot;fas fa-calendar-alt&quot;&gt;&lt;/i&gt;
+            &lt;span&gt;{{ pairing.vintage }}&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Tags --&gt;
+        &lt;div class&#x3D;&quot;pairing-tags&quot; *ngIf&#x3D;&quot;pairing.tags &amp;&amp; pairing.tags.length &gt; 0&quot;&gt;
+          &lt;span *ngFor&#x3D;&quot;let tag of pairing.tags&quot; class&#x3D;&quot;tag&quot;&gt;
+            {{ tag }}
+          &lt;/span&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Actions sur l&#x27;accord --&gt;
+        &lt;div class&#x3D;&quot;pairing-actions&quot;&gt;
+          &lt;button class&#x3D;&quot;btn-action btn-action-edit&quot;
+                  (click)&#x3D;&quot;openEditModal(pairing)&quot;
+                  title&#x3D;&quot;Modifier&quot;&gt;
+            &lt;i class&#x3D;&quot;fas fa-edit&quot;&gt;&lt;/i&gt;
+          &lt;/button&gt;
+
+          &lt;button class&#x3D;&quot;btn-action btn-action-delete&quot;
+                  (click)&#x3D;&quot;deletePairing(pairing)&quot;
+                  title&#x3D;&quot;Supprimer&quot;&gt;
+            &lt;i class&#x3D;&quot;fas fa-trash&quot;&gt;&lt;/i&gt;
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- État vide (aucun accord trouvé) --&gt;
+      &lt;div *ngIf&#x3D;&quot;filteredPairings.length &#x3D;&#x3D;&#x3D; 0&quot; class&#x3D;&quot;empty-state&quot;&gt;
+        &lt;div class&#x3D;&quot;empty-icon&quot;&gt;🍽️&lt;/div&gt;
+        &lt;h3&gt;Aucun accord trouvé&lt;/h3&gt;
+        &lt;p *ngIf&#x3D;&quot;searchQuery || selectedCategory !&#x3D;&#x3D; &#x27;all&#x27; || selectedWineType !&#x3D;&#x3D; &#x27;all&#x27;&quot;&gt;
+          Essayez de modifier vos critères de recherche
+        &lt;/p&gt;
+        &lt;p *ngIf&#x3D;&quot;!searchQuery &amp;&amp; selectedCategory &#x3D;&#x3D;&#x3D; &#x27;all&#x27; &amp;&amp; selectedWineType &#x3D;&#x3D;&#x3D; &#x27;all&#x27;&quot;&gt;
+          Commencez par créer votre premier accord mets &amp; vins
+        &lt;/p&gt;
+        &lt;button class&#x3D;&quot;btn btn-primary&quot; (click)&#x3D;&quot;openAddModal()&quot;&gt;
+          &lt;i class&#x3D;&quot;fas fa-plus&quot;&gt;&lt;/i&gt; Créer un accord
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+&lt;/div&gt;
+
+&lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MODAL AJOUTER/MODIFIER ACCORD &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+&lt;div *ngIf&#x3D;&quot;isModalOpen&quot; class&#x3D;&quot;modal&quot; (click)&#x3D;&quot;closeModal()&quot;&gt;
+
+  &lt;div class&#x3D;&quot;modal-content modal-large&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot;&gt;
+
+    &lt;!-- En-tête du modal --&gt;
+    &lt;div class&#x3D;&quot;modal-header&quot;&gt;
+      &lt;h2 class&#x3D;&quot;modal-title&quot;&gt;
+        &lt;i class&#x3D;&quot;fas fa-wine-glass-alt&quot;&gt;&lt;/i&gt;
+        {{ isEditMode ? &#x27;Modifier l\&#x27;accord&#x27; : &#x27;Nouvel accord mets &amp; vins&#x27; }}
+      &lt;/h2&gt;
+      &lt;button class&#x3D;&quot;close-btn&quot; (click)&#x3D;&quot;closeModal()&quot;&gt;
+        &lt;i class&#x3D;&quot;fas fa-times&quot;&gt;&lt;/i&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Corps du modal --&gt;
+    &lt;div class&#x3D;&quot;modal-body&quot;&gt;
+      &lt;form&gt;
+
+        &lt;!-- Section 1: Informations générales --&gt;
+        &lt;div class&#x3D;&quot;form-section&quot;&gt;
+          &lt;h3 class&#x3D;&quot;form-section-title&quot;&gt;
+            &lt;i class&#x3D;&quot;fas fa-info-circle&quot;&gt;&lt;/i&gt; Informations générales
+          &lt;/h3&gt;
+
+          &lt;!-- Catégorie de plat --&gt;
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label class&#x3D;&quot;form-label&quot;&gt;Catégorie de plat *&lt;/label&gt;
+            &lt;select class&#x3D;&quot;form-input&quot;
+                    [(ngModel)]&#x3D;&quot;pairingForm.category&quot;
+                    name&#x3D;&quot;category&quot;
+                    required&gt;
+              &lt;option value&#x3D;&quot;&quot;&gt;Sélectionner une catégorie...&lt;/option&gt;
+              &lt;option *ngFor&#x3D;&quot;let category of categories&quot; [value]&#x3D;&quot;category&quot;&gt;
+                {{ category }}
+              &lt;/option&gt;
+            &lt;/select&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Type de vin --&gt;
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label class&#x3D;&quot;form-label&quot;&gt;Type de vin *&lt;/label&gt;
+            &lt;select class&#x3D;&quot;form-input&quot;
+                    [(ngModel)]&#x3D;&quot;pairingForm.wineType&quot;
+                    name&#x3D;&quot;wineType&quot;
+                    required&gt;
+              &lt;option value&#x3D;&quot;&quot;&gt;Sélectionner un type...&lt;/option&gt;
+              &lt;option *ngFor&#x3D;&quot;let type of wineTypes&quot; [value]&#x3D;&quot;type&quot;&gt;
+                {{ type }}
+              &lt;/option&gt;
+            &lt;/select&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Section 2: Le plat --&gt;
+        &lt;div class&#x3D;&quot;form-section&quot;&gt;
+          &lt;h3 class&#x3D;&quot;form-section-title&quot;&gt;
+            &lt;i class&#x3D;&quot;fas fa-utensils&quot;&gt;&lt;/i&gt; Le plat
+          &lt;/h3&gt;
+
+          &lt;div class&#x3D;&quot;form-row&quot;&gt;
+            &lt;!-- Nom du plat --&gt;
+            &lt;div class&#x3D;&quot;form-group flex-grow&quot;&gt;
+              &lt;label class&#x3D;&quot;form-label&quot;&gt;Nom du plat *&lt;/label&gt;
+              &lt;input type&#x3D;&quot;text&quot;
+                     class&#x3D;&quot;form-input&quot;
+                     [(ngModel)]&#x3D;&quot;pairingForm.dish&quot;
+                     name&#x3D;&quot;dish&quot;
+                     placeholder&#x3D;&quot;Ex: Steak grillé&quot;
+                     required&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Icône du plat --&gt;
+            &lt;div class&#x3D;&quot;form-group&quot;&gt;
+              &lt;label class&#x3D;&quot;form-label&quot;&gt;Icône&lt;/label&gt;
+              &lt;select class&#x3D;&quot;form-input icon-select&quot;
+                      [(ngModel)]&#x3D;&quot;pairingForm.dishIcon&quot;
+                      name&#x3D;&quot;dishIcon&quot;&gt;
+                &lt;option *ngFor&#x3D;&quot;let icon of dishIcons&quot; [value]&#x3D;&quot;icon&quot;&gt;
+                  {{ icon }}
+                &lt;/option&gt;
+              &lt;/select&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Section 3: Le vin --&gt;
+        &lt;div class&#x3D;&quot;form-section&quot;&gt;
+          &lt;h3 class&#x3D;&quot;form-section-title&quot;&gt;
+            &lt;i class&#x3D;&quot;fas fa-wine-bottle&quot;&gt;&lt;/i&gt; Le vin
+          &lt;/h3&gt;
+
+          &lt;div class&#x3D;&quot;form-row&quot;&gt;
+            &lt;!-- Nom du vin --&gt;
+            &lt;div class&#x3D;&quot;form-group flex-grow&quot;&gt;
+              &lt;label class&#x3D;&quot;form-label&quot;&gt;Nom du vin *&lt;/label&gt;
+              &lt;input type&#x3D;&quot;text&quot;
+                     class&#x3D;&quot;form-input&quot;
+                     [(ngModel)]&#x3D;&quot;pairingForm.wine&quot;
+                     name&#x3D;&quot;wine&quot;
+                     placeholder&#x3D;&quot;Ex: Bordeaux Rouge&quot;
+                     required&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Icône du vin --&gt;
+            &lt;div class&#x3D;&quot;form-group&quot;&gt;
+              &lt;label class&#x3D;&quot;form-label&quot;&gt;Icône&lt;/label&gt;
+              &lt;select class&#x3D;&quot;form-input icon-select&quot;
+                      [(ngModel)]&#x3D;&quot;pairingForm.wineIcon&quot;
+                      name&#x3D;&quot;wineIcon&quot;&gt;
+                &lt;option *ngFor&#x3D;&quot;let icon of wineIcons&quot; [value]&#x3D;&quot;icon&quot;&gt;
+                  {{ icon }}
+                &lt;/option&gt;
+              &lt;/select&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;form-row&quot;&gt;
+            &lt;!-- Région --&gt;
+            &lt;div class&#x3D;&quot;form-group&quot;&gt;
+              &lt;label class&#x3D;&quot;form-label&quot;&gt;Région viticole&lt;/label&gt;
+              &lt;input type&#x3D;&quot;text&quot;
+                     class&#x3D;&quot;form-input&quot;
+                     [(ngModel)]&#x3D;&quot;pairingForm.region&quot;
+                     name&#x3D;&quot;region&quot;
+                     placeholder&#x3D;&quot;Ex: Bordeaux&quot;&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Millésime --&gt;
+            &lt;div class&#x3D;&quot;form-group&quot;&gt;
+              &lt;label class&#x3D;&quot;form-label&quot;&gt;Millésime recommandé&lt;/label&gt;
+              &lt;input type&#x3D;&quot;text&quot;
+                     class&#x3D;&quot;form-input&quot;
+                     [(ngModel)]&#x3D;&quot;pairingForm.vintage&quot;
+                     name&#x3D;&quot;vintage&quot;
+                     placeholder&#x3D;&quot;Ex: 2015-2018&quot;&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Température de service --&gt;
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label class&#x3D;&quot;form-label&quot;&gt;Température de service *&lt;/label&gt;
+            &lt;input type&#x3D;&quot;text&quot;
+                   class&#x3D;&quot;form-input&quot;
+                   [(ngModel)]&#x3D;&quot;pairingForm.temperature&quot;
+                   name&#x3D;&quot;temperature&quot;
+                   placeholder&#x3D;&quot;Ex: 16-18°C&quot;
+                   required&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Section 4: Description de l&#x27;accord --&gt;
+        &lt;div class&#x3D;&quot;form-section&quot;&gt;
+          &lt;h3 class&#x3D;&quot;form-section-title&quot;&gt;
+            &lt;i class&#x3D;&quot;fas fa-file-alt&quot;&gt;&lt;/i&gt; Description de l&#x27;accord
+          &lt;/h3&gt;
+
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label class&#x3D;&quot;form-label&quot;&gt;Description *&lt;/label&gt;
+            &lt;textarea class&#x3D;&quot;form-textarea&quot;
+                      [(ngModel)]&#x3D;&quot;pairingForm.description&quot;
+                      name&#x3D;&quot;description&quot;
+                      rows&#x3D;&quot;4&quot;
+                      placeholder&#x3D;&quot;Décrivez pourquoi cet accord fonctionne bien...&quot;
+                      required&gt;&lt;/textarea&gt;
+            &lt;small class&#x3D;&quot;form-hint&quot;&gt;
+              Expliquez les saveurs, les textures et pourquoi ce vin accompagne bien ce plat
+            &lt;/small&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Section 5: Tags --&gt;
+        &lt;div class&#x3D;&quot;form-section&quot;&gt;
+          &lt;h3 class&#x3D;&quot;form-section-title&quot;&gt;
+            &lt;i class&#x3D;&quot;fas fa-tags&quot;&gt;&lt;/i&gt; Tags (optionnel)
+          &lt;/h3&gt;
+
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label class&#x3D;&quot;form-label&quot;&gt;Ajouter des tags pour faciliter la recherche&lt;/label&gt;
+
+            &lt;!-- Tags existants --&gt;
+            &lt;div class&#x3D;&quot;tags-container&quot; *ngIf&#x3D;&quot;pairingForm.tags.length &gt; 0&quot;&gt;
+              &lt;span *ngFor&#x3D;&quot;let tag of pairingForm.tags&quot; class&#x3D;&quot;tag tag-removable&quot;&gt;
+                {{ tag }}
+                &lt;button type&#x3D;&quot;button&quot;
+                        class&#x3D;&quot;tag-remove&quot;
+                        (click)&#x3D;&quot;removeTag(tag)&quot;&gt;
+                  &lt;i class&#x3D;&quot;fas fa-times&quot;&gt;&lt;/i&gt;
+                &lt;/button&gt;
+              &lt;/span&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Input pour ajouter un tag --&gt;
+            &lt;div class&#x3D;&quot;tag-input-group&quot;&gt;
+              &lt;input type&#x3D;&quot;text&quot;
+                     class&#x3D;&quot;form-input&quot;
+                     #tagInput
+                     placeholder&#x3D;&quot;Ex: classique, élégant, tanins...&quot;
+                     (keyup.enter)&#x3D;&quot;addTag(tagInput.value); tagInput.value &#x3D; &#x27;&#x27;&quot;&gt;
+              &lt;button type&#x3D;&quot;button&quot;
+                      class&#x3D;&quot;btn btn-secondary btn-sm&quot;
+                      (click)&#x3D;&quot;addTag(tagInput.value); tagInput.value &#x3D; &#x27;&#x27;&quot;&gt;
+                &lt;i class&#x3D;&quot;fas fa-plus&quot;&gt;&lt;/i&gt; Ajouter
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+      &lt;/form&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Pied du modal --&gt;
+    &lt;div class&#x3D;&quot;modal-footer&quot;&gt;
+      &lt;button class&#x3D;&quot;btn btn-cancel&quot; (click)&#x3D;&quot;closeModal()&quot;&gt;
+        &lt;i class&#x3D;&quot;fas fa-times&quot;&gt;&lt;/i&gt; Annuler
+      &lt;/button&gt;
+      &lt;button class&#x3D;&quot;btn btn-primary&quot; (click)&#x3D;&quot;savePairing()&quot;&gt;
+        &lt;i class&#x3D;&quot;fas fa-save&quot;&gt;&lt;/i&gt;
+        {{ isEditMode ? &#x27;Enregistrer les modifications&#x27; : &#x27;Créer l\&#x27;accord&#x27; }}
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./wine-pairing.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Variables CSS personnalisées &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+// Ces variables sont définies dans le thème et changent selon dark/light mode
+// $primary-color reste en SCSS pour la compatibilité
+$primary-color: #8b5cf6;
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Page principale &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.page-section {
+  padding: 2rem;
+  background: var(--dark-bg);
+  min-height: 100vh;
+  color: var(--text-primary);
+}
+
+.content-section {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; En-tête &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+
+  .header-left {
+    .section-title-main {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0 0 0.5rem 0;
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 0.75rem;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Conteneur de filtres &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.filters-container {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow);
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Barre de recherche &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.search-box {
+  position: relative;
+  margin-bottom: 1.5rem;
+
+  .search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+    font-size: 1.125rem;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 0.875rem 3rem 0.875rem 3rem;
+    border: 1.5px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 1rem;
+    background: var(--dark-bg);
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+
+    &amp;:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+    }
+
+    &amp;::placeholder {
+      color: var(--text-muted);
+    }
+
+    &amp;.icon-select {
+      width: 80px;
+      text-align: center;
+      font-size: 2rem;
+      padding: 0.75rem;
+    }
+  }
+
+  .clear-btn {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: color 0.2s ease;
+
+    &amp;:hover {
+      color: var(--danger);
+    }
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Ligne de filtres &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.filters-row {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-end;
+
+  .filter-group {
+    flex: 1;
+
+    .filter-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-primary);
+
+      i {
+        margin-right: 0.5rem;
+        color: $primary-color;
+      }
+    }
+
+    .filter-select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      background: var(--dark-bg);
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &amp;:focus {
+        outline: none;
+        border-color: $primary-color;
+        box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+      }
+    }
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; État de chargement &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid var(--border-color);
+    border-top-color: $primary-color;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Grille des accords &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.pairing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 1.5rem;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Carte d&#x27;accord &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.pairing-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+  position: relative;
+
+  &amp;:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    border-color: rgba(139, 92, 246, 0.5);
+  }
+
+  .pairing-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+    .pairing-category {
+      display: inline-block;
+      padding: 0.375rem 0.875rem;
+      background: rgba(139, 92, 246, 0.15);
+      color: var(--secondary);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .pairing-rating {
+      display: flex;
+      gap: 0.125rem;
+
+      .star {
+        font-size: 0.875rem;
+        color: var(--warning);
+
+        &amp;.star-empty {
+          color: var(--border-color);
+        }
+      }
+    }
+  }
+
+  .pairing-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+
+    .pairing-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+
+      .pairing-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        margin-bottom: 0.75rem;
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+
+        &amp;.dish-icon {
+          background: rgba(245, 158, 11, 0.15);
+          border-color: rgba(245, 158, 11, 0.3);
+        }
+
+        &amp;.wine-icon {
+          background: rgba(220, 38, 38, 0.15);
+          border-color: rgba(220, 38, 38, 0.3);
+        }
+      }
+
+      &amp;:hover .pairing-icon {
+        transform: scale(1.1);
+        box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+      }
+
+      .pairing-details {
+        .pairing-label {
+          font-size: 0.75rem;
+          color: var(--text-secondary);
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          margin-bottom: 0.25rem;
+        }
+
+        .pairing-name {
+          font-size: 1rem;
+          font-weight: 600;
+          color: var(--text-primary);
+          margin-bottom: 0.125rem;
+        }
+
+        .pairing-type {
+          font-size: 0.8rem;
+          color: var(--wine-red);
+          font-weight: 500;
+        }
+      }
+    }
+
+    .pairing-connector {
+      font-size: 1.5rem;
+      color: $primary-color;
+      margin: 0 1rem;
+    }
+  }
+
+  .pairing-description {
+    margin-bottom: 1.5rem;
+
+    p {
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+  }
+
+  .pairing-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+
+      i {
+        color: $primary-color;
+      }
+    }
+  }
+
+  .pairing-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+
+    .tag {
+      display: inline-block;
+      padding: 0.25rem 0.625rem;
+      background: rgba(139, 92, 246, 0.1);
+      color: var(--text-secondary);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+  }
+
+  .pairing-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Boutons d&#x27;action &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.btn-action {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  color: var(--text-secondary);
+
+  i {
+    font-size: 0.875rem;
+  }
+
+  &amp;.btn-action-edit {
+    &amp;:hover {
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--info);
+      border-color: var(--info);
+      transform: scale(1.05);
+    }
+  }
+
+  &amp;.btn-action-delete {
+    &amp;:hover {
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--danger);
+      border-color: var(--danger);
+      transform: scale(1.05);
+    }
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; État vide &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 2rem;
+
+  .empty-icon {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+    opacity: 0.3;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Boutons standards &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &amp;:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &amp;.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  &amp;.btn-primary {
+    background: $primary-color;
+    color: white;
+
+    &amp;:hover:not(:disabled) {
+      background: color-mix(in srgb, $primary-color 90%, black);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+    }
+  }
+
+  &amp;.btn-secondary {
+    background: var(--text-secondary);
+    color: white;
+
+    &amp;:hover:not(:disabled) {
+      background: color-mix(in srgb, var(--text-secondary) 90%, black);
+    }
+  }
+
+  &amp;.btn-outline {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+
+    &amp;:hover:not(:disabled) {
+      background: rgba(139, 92, 246, 0.1);
+      border-color: $primary-color;
+    }
+  }
+
+  &amp;.btn-cancel {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+
+    &amp;:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Modal &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  overflow-y: auto;
+  backdrop-filter: blur(4px);
+
+  .modal-content {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    max-width: 800px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    animation: slideUp 0.3s ease-out;
+
+    &amp;::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &amp;::-webkit-scrollbar-track {
+      background: var(--dark-bg);
+      border-radius: 4px;
+    }
+
+    &amp;::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 4px;
+
+      &amp;:hover {
+        background: $primary-color;
+      }
+    }
+
+    &amp;.modal-large {
+      max-width: 900px;
+    }
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.75rem 2rem;
+    border-bottom: 1px solid var(--border-color);
+    background: rgba(139, 92, 246, 0.05);
+
+    .modal-title {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+
+      i {
+        color: $primary-color;
+      }
+    }
+
+    .close-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      background: rgba(239, 68, 68, 0.1);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+
+      i {
+        font-size: 1.25rem;
+        color: var(--text-secondary);
+      }
+
+      &amp;:hover {
+        background: rgba(239, 68, 68, 0.2);
+        border-color: var(--danger);
+        transform: rotate(90deg);
+
+        i {
+          color: var(--danger);
+        }
+      }
+    }
+  }
+
+  .modal-body {
+    padding: 2rem;
+  }
+
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding: 1.5rem 2rem;
+    border-top: 1px solid var(--border-color);
+    background: rgba(15, 23, 42, 0.5);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Formulaire &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.form-section {
+  margin-bottom: 2rem;
+
+  .form-section-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    i {
+      color: $primary-color;
+    }
+  }
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+
+  .flex-grow {
+    flex: 1;
+  }
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+
+  .form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1.5px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    background: var(--dark-bg);
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+
+    &amp;:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+    }
+
+    &amp;::placeholder {
+      color: var(--text-muted);
+    }
+  }
+
+  .form-select {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1.5px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    background: var(--dark-bg);
+    color: var(--text-primary);
+    cursor: pointer;
+    appearance: none;
+    background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns&#x3D;&#x27;http://www.w3.org/2000/svg&#x27; width&#x3D;&#x27;12&#x27; height&#x3D;&#x27;12&#x27; viewBox&#x3D;&#x27;0 0 12 12&#x27;%3E%3Cpath fill&#x3D;&#x27;%239ca3af&#x27; d&#x3D;&#x27;M6 9L1 4h10z&#x27;/%3E%3C/svg%3E&quot;);
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+    transition: all 0.2s ease;
+
+    &amp;:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+    }
+  }
+
+  .form-textarea {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1.5px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    background: var(--dark-bg);
+    color: var(--text-primary);
+    resize: vertical;
+    transition: all 0.2s ease;
+    min-height: 100px;
+    line-height: 1.5;
+
+    &amp;:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+    }
+
+    &amp;::placeholder {
+      color: var(--text-muted);
+    }
+  }
+
+  .form-hint {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-style: italic;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Tags dans formulaire &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+
+  .tag-removable {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0.75rem;
+    background: $primary-color;
+    color: white;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+
+    .tag-remove {
+      background: transparent;
+      border: none;
+      color: white;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      transition: transform 0.2s ease;
+
+      i {
+        font-size: 0.75rem;
+      }
+
+      &amp;:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+}
+
+.tag-input-group {
+  display: flex;
+  gap: 0.5rem;
+
+  .form-input {
+    flex: 1;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Responsive (tablette) &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+@media (max-width: 968px) {
+  .pairing-grid {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+
+    .header-actions {
+      width: 100%;
+      justify-content: flex-start;
+    }
+  }
+
+  .filters-row {
+    flex-direction: column;
+
+    .filter-group {
+      width: 100%;
+    }
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Responsive (mobile) &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+@media (max-width: 640px) {
+  .page-section {
+    padding: 1rem;
+  }
+
+  .pairing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pairing-card {
+    .pairing-content {
+      flex-direction: column;
+      gap: 1rem;
+
+      .pairing-connector {
+        transform: rotate(90deg);
+        margin: 0;
+      }
+    }
+  }
+
+  .header-actions {
+    flex-direction: column;
+    width: 100%;
+
+    .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  .modal-content {
+    max-height: 100vh;
+    border-radius: 0;
+    margin: 0;
+
+    &amp;.modal-large {
+      max-width: 100%;
+    }
+  }
+
+  .modal-header {
+    padding: 1.25rem;
+
+    .modal-title {
+      font-size: 1.25rem;
+    }
+  }
+
+  .modal-body {
+    padding: 1.25rem;
+  }
+
+  .modal-footer {
+    flex-direction: column;
+    padding: 1.25rem;
+
+    .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Impression &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+@media print {
+  .section-header,
+  .filters-container,
+  .pairing-actions,
+  .header-actions {
+    display: none;
+  }
+
+  .pairing-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pairing-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid var(--border-color);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- ===== PAGE ACCORDS METS & VINS ===== --><div class="page-section">  <section class="content-section">    <!-- ===== En-tête avec titre et actions ===== -->    <div class="section-header">      <div class="header-left">        <h2 class="section-title-main">🍽️ Accords Mets & Vins</h2>        <p class="section-subtitle">          {{ filteredPairings.length }} accord{{ filteredPairings.length > 1 ? \'s\' : \'\' }} trouvé{{ filteredPairings.length > 1 ? \'s\' : \'\' }}        </p>      </div>      <div class="header-actions">        <!-- Bouton exporter -->        <button class="btn btn-secondary" (click)="exportToPDF()">          <i class="fas fa-download"></i> Exporter        </button>        <!-- Bouton imprimer -->        <button class="btn btn-secondary" (click)="printPairings()">          <i class="fas fa-print"></i> Imprimer        </button>        <!-- Bouton ajouter -->        <button class="btn btn-primary" (click)="openAddModal()">          <i class="fas fa-plus"></i> Ajouter un accord        </button>      </div>    </div>    <!-- ===== Barre de recherche et filtres ===== -->    <div class="filters-container">      <!-- Recherche textuelle -->      <div class="search-box">        <i class="fas fa-search search-icon"></i>        <input type="text"               class="search-input"               placeholder="Rechercher un plat, un vin, une région..."               [(ngModel)]="searchQuery"               (input)="onSearchChange()">        <button class="clear-btn"                *ngIf="searchQuery"                (click)="searchQuery = \'\'; onSearchChange()">          <i class="fas fa-times"></i>        </button>      </div>      <!-- Filtres -->      <div class="filters-row">        <!-- Filtre par catégorie de plat -->        <div class="filter-group">          <label class="filter-label">            <i class="fas fa-utensils"></i> Catégorie          </label>          <select class="filter-select"                  [(ngModel)]="selectedCategory"                  (change)="onCategoryChange()">            <option value="all">Toutes les catégories</option>            <option *ngFor="let category of categories" [value]="category">              {{ category }}            </option>          </select>        </div>        <!-- Filtre par type de vin -->        <div class="filter-group">          <label class="filter-label">            <i class="fas fa-wine-bottle"></i> Type de vin          </label>          <select class="filter-select"                  [(ngModel)]="selectedWineType"                  (change)="onWineTypeChange()">            <option value="all">Tous les types</option>            <option *ngFor="let type of wineTypes" [value]="type">              {{ type }}            </option>          </select>        </div>        <!-- Bouton réinitialiser -->        <button class="btn btn-outline"                (click)="resetFilters()"                [disabled]="searchQuery === \'\' && selectedCategory === \'all\' && selectedWineType === \'all\'">          <i class="fas fa-redo"></i> Réinitialiser        </button>      </div>    </div>    <!-- ===== Indicateur de chargement ===== -->    <div *ngIf="isLoading" class="loading-state">      <div class="spinner"></div>      <p>Chargement des accords...</p>    </div>    <!-- ===== Grille des accords ===== -->    <div *ngIf="!isLoading" class="pairing-grid">      <!-- Boucle sur les accords filtrés -->      <div *ngFor="let pairing of filteredPairings" class="pairing-card">        <!-- Badge catégorie -->        <div class="pairing-header">          <span class="pairing-category">{{ pairing.category }}</span>          <!-- Notation -->          <div class="pairing-rating" *ngIf="pairing.rating">            <span *ngFor="let star of getStars(pairing.rating)" class="star">              {{ star ? \'⭐\' : \'☆\' }}            </span>          </div>        </div>        <!-- Contenu principal de l\'accord -->        <div class="pairing-content">          <!-- Plat -->          <div class="pairing-item">            <div class="pairing-icon dish-icon">{{ pairing.dishIcon }}</div>            <div class="pairing-details">              <div class="pairing-label">Plat</div>              <div class="pairing-name">{{ pairing.dish }}</div>            </div>          </div>          <!-- Flèche de liaison -->          <div class="pairing-connector">            <i class="fas fa-plus"></i>          </div>          <!-- Vin -->          <div class="pairing-item">            <div class="pairing-icon wine-icon">{{ pairing.wineIcon }}</div>            <div class="pairing-details">              <div class="pairing-label">Vin</div>              <div class="pairing-name">{{ pairing.wine }}</div>              <div class="pairing-type">{{ pairing.wineType }}</div>            </div>          </div>        </div>        <!-- Description de l\'accord -->        <div class="pairing-description">          <p>{{ pairing.description }}</p>        </div>        <!-- Informations complémentaires -->        <div class="pairing-info">          <div class="info-item" *ngIf="pairing.temperature">            <i class="fas fa-thermometer-half"></i>            <span>{{ pairing.temperature }}</span>          </div>          <div class="info-item" *ngIf="pairing.region">            <i class="fas fa-map-marker-alt"></i>            <span>{{ pairing.region }}</span>          </div>          <div class="info-item" *ngIf="pairing.vintage">            <i class="fas fa-calendar-alt"></i>            <span>{{ pairing.vintage }}</span>          </div>        </div>        <!-- Tags -->        <div class="pairing-tags" *ngIf="pairing.tags && pairing.tags.length > 0">          <span *ngFor="let tag of pairing.tags" class="tag">            {{ tag }}          </span>        </div>        <!-- Actions sur l\'accord -->        <div class="pairing-actions">          <button class="btn-action btn-action-edit"                  (click)="openEditModal(pairing)"                  title="Modifier">            <i class="fas fa-edit"></i>          </button>          <button class="btn-action btn-action-delete"                  (click)="deletePairing(pairing)"                  title="Supprimer">            <i class="fas fa-trash"></i>          </button>        </div>      </div>      <!-- État vide (aucun accord trouvé) -->      <div *ngIf="filteredPairings.length === 0" class="empty-state">        <div class="empty-icon">🍽️</div>        <h3>Aucun accord trouvé</h3>        <p *ngIf="searchQuery || selectedCategory !== \'all\' || selectedWineType !== \'all\'">          Essayez de modifier vos critères de recherche        </p>        <p *ngIf="!searchQuery && selectedCategory === \'all\' && selectedWineType === \'all\'">          Commencez par créer votre premier accord mets & vins        </p>        <button class="btn btn-primary" (click)="openAddModal()">          <i class="fas fa-plus"></i> Créer un accord        </button>      </div>    </div>  </section></div><!-- ===== MODAL AJOUTER/MODIFIER ACCORD ===== --><div *ngIf="isModalOpen" class="modal" (click)="closeModal()">  <div class="modal-content modal-large" (click)="$event.stopPropagation()">    <!-- En-tête du modal -->    <div class="modal-header">      <h2 class="modal-title">        <i class="fas fa-wine-glass-alt"></i>        {{ isEditMode ? \'Modifier l\\'accord\' : \'Nouvel accord mets & vins\' }}      </h2>      <button class="close-btn" (click)="closeModal()">        <i class="fas fa-times"></i>      </button>    </div>    <!-- Corps du modal -->    <div class="modal-body">      <form>        <!-- Section 1: Informations générales -->        <div class="form-section">          <h3 class="form-section-title">            <i class="fas fa-info-circle"></i> Informations générales          </h3>          <!-- Catégorie de plat -->          <div class="form-group">            <label class="form-label">Catégorie de plat *</label>            <select class="form-input"                    [(ngModel)]="pairingForm.category"                    name="category"                    required>              <option value="">Sélectionner une catégorie...</option>              <option *ngFor="let category of categories" [value]="category">                {{ category }}              </option>            </select>          </div>          <!-- Type de vin -->          <div class="form-group">            <label class="form-label">Type de vin *</label>            <select class="form-input"                    [(ngModel)]="pairingForm.wineType"                    name="wineType"                    required>              <option value="">Sélectionner un type...</option>              <option *ngFor="let type of wineTypes" [value]="type">                {{ type }}              </option>            </select>          </div>        </div>        <!-- Section 2: Le plat -->        <div class="form-section">          <h3 class="form-section-title">            <i class="fas fa-utensils"></i> Le plat          </h3>          <div class="form-row">            <!-- Nom du plat -->            <div class="form-group flex-grow">              <label class="form-label">Nom du plat *</label>              <input type="text"                     class="form-input"                     [(ngModel)]="pairingForm.dish"                     name="dish"                     placeholder="Ex: Steak grillé"                     required>            </div>            <!-- Icône du plat -->            <div class="form-group">              <label class="form-label">Icône</label>              <select class="form-input icon-select"                      [(ngModel)]="pairingForm.dishIcon"                      name="dishIcon">                <option *ngFor="let icon of dishIcons" [value]="icon">                  {{ icon }}                </option>              </select>            </div>          </div>        </div>        <!-- Section 3: Le vin -->        <div class="form-section">          <h3 class="form-section-title">            <i class="fas fa-wine-bottle"></i> Le vin          </h3>          <div class="form-row">            <!-- Nom du vin -->            <div class="form-group flex-grow">              <label class="form-label">Nom du vin *</label>              <input type="text"                     class="form-input"                     [(ngModel)]="pairingForm.wine"                     name="wine"                     placeholder="Ex: Bordeaux Rouge"                     required>            </div>            <!-- Icône du vin -->            <div class="form-group">              <label class="form-label">Icône</label>              <select class="form-input icon-select"                      [(ngModel)]="pairingForm.wineIcon"                      name="wineIcon">                <option *ngFor="let icon of wineIcons" [value]="icon">                  {{ icon }}                </option>              </select>            </div>          </div>          <div class="form-row">            <!-- Région -->            <div class="form-group">              <label class="form-label">Région viticole</label>              <input type="text"                     class="form-input"                     [(ngModel)]="pairingForm.region"                     name="region"                     placeholder="Ex: Bordeaux">            </div>            <!-- Millésime -->            <div class="form-group">              <label class="form-label">Millésime recommandé</label>              <input type="text"                     class="form-input"                     [(ngModel)]="pairingForm.vintage"                     name="vintage"                     placeholder="Ex: 2015-2018">            </div>          </div>          <!-- Température de service -->          <div class="form-group">            <label class="form-label">Température de service *</label>            <input type="text"                   class="form-input"                   [(ngModel)]="pairingForm.temperature"                   name="temperature"                   placeholder="Ex: 16-18°C"                   required>          </div>        </div>        <!-- Section 4: Description de l\'accord -->        <div class="form-section">          <h3 class="form-section-title">            <i class="fas fa-file-alt"></i> Description de l\'accord          </h3>          <div class="form-group">            <label class="form-label">Description *</label>            <textarea class="form-textarea"                      [(ngModel)]="pairingForm.description"                      name="description"                      rows="4"                      placeholder="Décrivez pourquoi cet accord fonctionne bien..."                      required></textarea>            <small class="form-hint">              Expliquez les saveurs, les textures et pourquoi ce vin accompagne bien ce plat            </small>          </div>        </div>        <!-- Section 5: Tags -->        <div class="form-section">          <h3 class="form-section-title">            <i class="fas fa-tags"></i> Tags (optionnel)          </h3>          <div class="form-group">            <label class="form-label">Ajouter des tags pour faciliter la recherche</label>            <!-- Tags existants -->            <div class="tags-container" *ngIf="pairingForm.tags.length > 0">              <span *ngFor="let tag of pairingForm.tags" class="tag tag-removable">                {{ tag }}                <button type="button"                        class="tag-remove"                        (click)="removeTag(tag)">                  <i class="fas fa-times"></i>                </button>              </span>            </div>            <!-- Input pour ajouter un tag -->            <div class="tag-input-group">              <input type="text"                     class="form-input"                     #tagInput                     placeholder="Ex: classique, élégant, tanins..."                     (keyup.enter)="addTag(tagInput.value); tagInput.value = \'\'">              <button type="button"                      class="btn btn-secondary btn-sm"                      (click)="addTag(tagInput.value); tagInput.value = \'\'">                <i class="fas fa-plus"></i> Ajouter              </button>            </div>          </div>        </div>      </form>    </div>    <!-- Pied du modal -->    <div class="modal-footer">      <button class="btn btn-cancel" (click)="closeModal()">        <i class="fas fa-times"></i> Annuler      </button>      <button class="btn btn-primary" (click)="savePairing()">        <i class="fas fa-save"></i>        {{ isEditMode ? \'Enregistrer les modifications\' : \'Créer l\\'accord\' }}      </button>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AdminDashboardComponent', 'selector': 'app-admin-dashboard'},{'name': 'AlertsComponent', 'selector': 'app-alerts'},{'name': 'App', 'selector': 'app-root'},{'name': 'CaisseComponent', 'selector': 'app-caisse'},{'name': 'CaveCreateComponent', 'selector': 'app-cave-create'},{'name': 'CaveListComponent', 'selector': 'app-cave-lists'},{'name': 'ClientDashboardComponent', 'selector': 'app-client-dashboard'},{'name': 'ClientsComponent', 'selector': 'app-client'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DrinksComponent', 'selector': 'app-drinks'},{'name': 'EmployeesComponent', 'selector': 'app-employees'},{'name': 'EntriesComponent', 'selector': 'app-entries'},{'name': 'ExitsComponent', 'selector': 'app-exits'},{'name': 'ExpenseComponent', 'selector': 'app-depenses'},{'name': 'FaqComponent', 'selector': 'app-faq'},{'name': 'FournisseursComponent', 'selector': 'app-fournisseur'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'ImprovementsComponent', 'selector': 'app-improvements'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ManagerDashboardComponent', 'selector': 'app-manager-dashboard'},{'name': 'ManagersComponent', 'selector': 'app-managers'},{'name': 'MaterialComponent', 'selector': 'app-materiel'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'OrdersComponent', 'selector': 'app-orders'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfitComponent', 'selector': 'app-profit'},{'name': 'RecentActionsComponent', 'selector': 'app-recent-actions'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'SalesComponent', 'selector': 'app-sales'},{'name': 'ScanComponent', 'selector': 'app-scan'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'StockComponent', 'selector': 'app-stock'},{'name': 'StockComponent', 'selector': 'app-stock'},{'name': 'TeamComponent', 'selector': 'app-team'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'UserCreateComponent', 'selector': 'app-user-create'},{'name': 'UserListComponent', 'selector': 'app-user-list'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'WaitressDashboardComponent', 'selector': 'app-waitress-dashboard'},{'name': 'WinePairingComponent', 'selector': 'app-wine-pairing'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'WinePairingComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'WinePairingComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,3675 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cave-master-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cave-master-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ScanComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/view/admin-dashboard/scan/scan.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Composant Scan - Scanner de code-barres
+Permet de scanner des produits et d&#39;obtenir leurs informations</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>OnDestroy</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-scan</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>FormsModule</code>
+                            <code>ReactiveFormsModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./scan.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./scan.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#categories" >categories</a>
+                            </li>
+                            <li>
+                                <a href="#editForm" >editForm</a>
+                            </li>
+                            <li>
+                                <a href="#isScanActive" >isScanActive</a>
+                            </li>
+                            <li>
+                                <a href="#scanHistory" >scanHistory</a>
+                            </li>
+                            <li>
+                                <a href="#scanResult" >scanResult</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#scanTimer" >scanTimer</a>
+                            </li>
+                            <li>
+                                <a href="#showEditModal" >showEditModal</a>
+                            </li>
+                            <li>
+                                <a href="#showHistoryModal" >showHistoryModal</a>
+                            </li>
+                            <li>
+                                <a href="#showStockModal" >showStockModal</a>
+                            </li>
+                            <li>
+                                <a href="#stockForm" >stockForm</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#addToHistory" >addToHistory</a>
+                            </li>
+                            <li>
+                                <a href="#addToStock" >addToStock</a>
+                            </li>
+                            <li>
+                                <a href="#clearHistory" >clearHistory</a>
+                            </li>
+                            <li>
+                                <a href="#closeEditModal" >closeEditModal</a>
+                            </li>
+                            <li>
+                                <a href="#closeHistoryModal" >closeHistoryModal</a>
+                            </li>
+                            <li>
+                                <a href="#closeStockModal" >closeStockModal</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#completeScan" >completeScan</a>
+                            </li>
+                            <li>
+                                <a href="#confirmAddToStock" >confirmAddToStock</a>
+                            </li>
+                            <li>
+                                <a href="#editProductInfo" >editProductInfo</a>
+                            </li>
+                            <li>
+                                <a href="#formatDate" >formatDate</a>
+                            </li>
+                            <li>
+                                <a href="#formatPrice" >formatPrice</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#generateMockScanResult" >generateMockScanResult</a>
+                            </li>
+                            <li>
+                                <a href="#getActionIcon" >getActionIcon</a>
+                            </li>
+                            <li>
+                                <a href="#getActionLabel" >getActionLabel</a>
+                            </li>
+                            <li>
+                                <a href="#getCurrentProductHistory" >getCurrentProductHistory</a>
+                            </li>
+                            <li>
+                                <a href="#getFormattedScanResult" >getFormattedScanResult</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#initForms" >initForms</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#loadScanHistory" >loadScanHistory</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#playBeepSound" >playBeepSound</a>
+                            </li>
+                            <li>
+                                <a href="#resetScan" >resetScan</a>
+                            </li>
+                            <li>
+                                <a href="#saveProductEdits" >saveProductEdits</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#saveScanHistory" >saveScanHistory</a>
+                            </li>
+                            <li>
+                                <a href="#startScan" >startScan</a>
+                            </li>
+                            <li>
+                                <a href="#stopScan" >stopScan</a>
+                            </li>
+                            <li>
+                                <a href="#viewProductHistory" >viewProductHistory</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(fb: FormBuilder)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="79" class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:79</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>fb</td>
+                                                  
+                                                        <td>
+                                                                    <code>FormBuilder</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addToHistory"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>addToHistory</b></span>
+                        <a href="#addToHistory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>addToHistory(action: "added" | "modified" | "viewed")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="141"
+                                    class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:141</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Ajoute une entrée à l&#39;historique</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>action</td>
+                                            <td>
+                                                        <code>&quot;added&quot; | &quot;modified&quot; | &quot;viewed&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addToStock"></a>
+                    <span class="name">
+                        <span ><b>addToStock</b></span>
+                        <a href="#addToStock"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addToStock()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="356"
+                                    class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:356</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Ouvre le modal d&#39;ajout au stock</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clearHistory"></a>
+                    <span class="name">
+                        <span ><b>clearHistory</b></span>
+                        <a href="#clearHistory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>clearHistory()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="445"
+                                    class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:445</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Efface l&#39;historique</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeEditModal"></a>
+                    <span class="name">
+                        <span ><b>closeEditModal</b></span>
+                        <a href="#closeEditModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeEditModal()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="316"
+                                    class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:316</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Ferme le modal de modification</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeHistoryModal"></a>
+                    <span class="name">
+                        <span ><b>closeHistoryModal</b></span>
+                        <a href="#closeHistoryModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeHistoryModal()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="414"
+                                    class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:414</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Ferme le modal d&#39;historique</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeStockModal"></a>
+                    <span class="name">
+                        <span ><b>closeStockModal</b></span>
+                        <a href="#closeStockModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeStockModal()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="370"
+                                    class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:370</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Ferme le modal d&#39;ajout au stock</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="completeScan"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>completeScan</b></span>
+                        <a href="#completeScan"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>completeScan()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="191"
+                                    class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:191</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Complète le scan et génère un résultat</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="confirmAddToStock"></a>
+                    <span class="name">
+                        <span ><b>confirmAddToStock</b></span>
+                        <a href="#confirmAddToStock"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>confirmAddToStock()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="378"
+                                    class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:378</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Confirme l&#39;ajout au stock</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editProductInfo"></a>
+                    <span class="name">
+                        <span ><b>editProductInfo</b></span>
+                        <a href="#editProductInfo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>editProductInfo()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="298"
+                                    class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:298</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Ouvre le modal de modification</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatDate"></a>
+                    <span class="name">
+                        <span ><b>formatDate</b></span>
+                        <a href="#formatDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatDate(date: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank">Date</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="276"
+                                    class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:276</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Formate une date en format lisible</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>date</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatPrice"></a>
+                    <span class="name">
+                        <span ><b>formatPrice</b></span>
+                        <a href="#formatPrice"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatPrice(price: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="269"
+                                    class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:269</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Formate un prix en ajoutant des séparateurs de milliers</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>price</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generateMockScanResult"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>generateMockScanResult</b></span>
+                        <a href="#generateMockScanResult"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>generateMockScanResult()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="201"
+                                    class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:201</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Génère un résultat de scan simulé pour la démo</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/ScanResult.html" target="_self" >ScanResult</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getActionIcon"></a>
+                    <span class="name">
+                        <span ><b>getActionIcon</b></span>
+                        <a href="#getActionIcon"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getActionIcon(action: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="421"
+                                    class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:421</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retourne l&#39;icône selon le type d&#39;action</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>action</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getActionLabel"></a>
+                    <span class="name">
+                        <span ><b>getActionLabel</b></span>
+                        <a href="#getActionLabel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getActionLabel(action: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="433"
+                                    class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:433</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retourne le libellé de l&#39;action</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>action</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getCurrentProductHistory"></a>
+                    <span class="name">
+                        <span ><b>getCurrentProductHistory</b></span>
+                        <a href="#getCurrentProductHistory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getCurrentProductHistory()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="456"
+                                    class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:456</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Filtre l&#39;historique par produit actuel</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/ScanHistory.html" target="_self" >ScanHistory[]</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getFormattedScanResult"></a>
+                    <span class="name">
+                        <span ><b>getFormattedScanResult</b></span>
+                        <a href="#getFormattedScanResult"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getFormattedScanResult()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="253"
+                                    class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:253</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Formate le résultat du scan en JSON lisible</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initForms"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>initForms</b></span>
+                        <a href="#initForms"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>initForms()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="97"
+                                    class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:97</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Initialise les formulaires</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadScanHistory"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>loadScanHistory</b></span>
+                        <a href="#loadScanHistory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadScanHistory()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="117"
+                                    class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:117</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Charge l&#39;historique depuis localStorage</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="90"
+                                    class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:90</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="85"
+                                    class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:85</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="playBeepSound"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>playBeepSound</b></span>
+                        <a href="#playBeepSound"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>playBeepSound()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="289"
+                                    class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:289</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Joue un son de confirmation (bip)</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetScan"></a>
+                    <span class="name">
+                        <span ><b>resetScan</b></span>
+                        <a href="#resetScan"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resetScan()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="244"
+                                    class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:244</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Réinitialise le scan pour un nouveau scan</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveProductEdits"></a>
+                    <span class="name">
+                        <span ><b>saveProductEdits</b></span>
+                        <a href="#saveProductEdits"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>saveProductEdits()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="324"
+                                    class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:324</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Sauvegarde les modifications</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveScanHistory"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>saveScanHistory</b></span>
+                        <a href="#saveScanHistory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>saveScanHistory()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="134"
+                                    class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:134</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Sauvegarde l&#39;historique dans localStorage</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="startScan"></a>
+                    <span class="name">
+                        <span ><b>startScan</b></span>
+                        <a href="#startScan"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>startScan()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="164"
+                                    class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:164</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Démarre le processus de scan</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="stopScan"></a>
+                    <span class="name">
+                        <span ><b>stopScan</b></span>
+                        <a href="#stopScan"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>stopScan()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="177"
+                                    class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:177</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Arrête le processus de scan</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="viewProductHistory"></a>
+                    <span class="name">
+                        <span ><b>viewProductHistory</b></span>
+                        <a href="#viewProductHistory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>viewProductHistory()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="407"
+                                    class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:407</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Ouvre le modal d&#39;historique</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="categories"></a>
+                    <span class="name">
+                        <span ><b>categories</b></span>
+                        <a href="#categories"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    &#x27;Vin Rouge&#x27;,
+    &#x27;Vin Blanc&#x27;,
+    &#x27;Vin Rosé&#x27;,
+    &#x27;Champagne&#x27;,
+    &#x27;Bière&#x27;,
+    &#x27;Liqueur&#x27;,
+    &#x27;Whisky&#x27;,
+    &#x27;Vodka&#x27;,
+    &#x27;Rhum&#x27;,
+    &#x27;Cognac&#x27;,
+    &#x27;Gin&#x27;,
+    &#x27;Tequila&#x27;,
+    &#x27;Cocktails&#x27;,
+    &#x27;Soft Drinks&#x27;,
+    &#x27;Eau&#x27;,
+    &#x27;Jus&#x27;
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:62</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editForm"></a>
+                    <span class="name">
+                        <span ><b>editForm</b></span>
+                        <a href="#editForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isScanActive"></a>
+                    <span class="name">
+                        <span ><b>isScanActive</b></span>
+                        <a href="#isScanActive"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="scanHistory"></a>
+                    <span class="name">
+                        <span ><b>scanHistory</b></span>
+                        <a href="#scanHistory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/ScanHistory.html" target="_self" >ScanHistory[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:59</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="scanResult"></a>
+                    <span class="name">
+                        <span ><b>scanResult</b></span>
+                        <a href="#scanResult"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/ScanResult.html" target="_self" >ScanResult | null</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="scanTimer"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>scanTimer</b></span>
+                        <a href="#scanTimer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showEditModal"></a>
+                    <span class="name">
+                        <span ><b>showEditModal</b></span>
+                        <a href="#showEditModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showHistoryModal"></a>
+                    <span class="name">
+                        <span ><b>showHistoryModal</b></span>
+                        <a href="#showHistoryModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:58</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showStockModal"></a>
+                    <span class="name">
+                        <span ><b>showStockModal</b></span>
+                        <a href="#showStockModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:54</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="stockForm"></a>
+                    <span class="name">
+                        <span ><b>stockForm</b></span>
+                        <a href="#stockForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/view/admin-dashboard/scan/scan.component.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, OnDestroy } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+
+/**
+ * Interface pour le résultat du scan
+ */
+interface ScanResult {
+  barcode: string;
+  productName: string;
+  category: string;
+  price: number;
+  stock: number;
+  timestamp: Date;
+}
+
+/**
+ * Interface pour l&#x27;historique des scans
+ */
+interface ScanHistory {
+  id: string;
+  scanResult: ScanResult;
+  action: &#x27;added&#x27; | &#x27;modified&#x27; | &#x27;viewed&#x27;;
+  actionDate: Date;
+}
+
+/**
+ * Composant Scan - Scanner de code-barres
+ * Permet de scanner des produits et d&#x27;obtenir leurs informations
+ */
+@Component({
+  selector: &#x27;app-scan&#x27;,
+  standalone: true,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  templateUrl: &#x27;./scan.component.html&#x27;,
+  styleUrls: [&#x27;./scan.component.scss&#x27;]
+})
+export class ScanComponent implements OnInit, OnDestroy {
+
+  // État du scan
+  isScanActive: boolean &#x3D; false;
+
+  // Résultat du scan
+  scanResult: ScanResult | null &#x3D; null;
+
+  // Timer pour simulation du scan
+  private scanTimer: any &#x3D; null;
+
+  // Gestion du modal de modification
+  showEditModal: boolean &#x3D; false;
+  editForm!: FormGroup;
+
+  // Gestion du modal d&#x27;ajout au stock
+  showStockModal: boolean &#x3D; false;
+  stockForm!: FormGroup;
+
+  // Gestion du modal d&#x27;historique
+  showHistoryModal: boolean &#x3D; false;
+  scanHistory: ScanHistory[] &#x3D; [];
+
+  // Liste des catégories disponibles
+  categories: string[] &#x3D; [
+    &#x27;Vin Rouge&#x27;,
+    &#x27;Vin Blanc&#x27;,
+    &#x27;Vin Rosé&#x27;,
+    &#x27;Champagne&#x27;,
+    &#x27;Bière&#x27;,
+    &#x27;Liqueur&#x27;,
+    &#x27;Whisky&#x27;,
+    &#x27;Vodka&#x27;,
+    &#x27;Rhum&#x27;,
+    &#x27;Cognac&#x27;,
+    &#x27;Gin&#x27;,
+    &#x27;Tequila&#x27;,
+    &#x27;Cocktails&#x27;,
+    &#x27;Soft Drinks&#x27;,
+    &#x27;Eau&#x27;,
+    &#x27;Jus&#x27;
+  ];
+
+  constructor(private fb: FormBuilder) {
+    this.initForms();
+  }
+
+  ngOnInit(): void {
+    console.log(&#x27;Composant Scan initialisé&#x27;);
+    this.loadScanHistory();
+  }
+
+  ngOnDestroy(): void {
+    this.stopScan();
+  }
+
+  /**
+   * Initialise les formulaires
+   */
+  private initForms(): void {
+    // Formulaire de modification
+    this.editForm &#x3D; this.fb.group({
+      productName: [&#x27;&#x27;, [Validators.required, Validators.minLength(3)]],
+      category: [&#x27;&#x27;, Validators.required],
+      price: [0, [Validators.required, Validators.min(0)]],
+      stock: [0, [Validators.required, Validators.min(0)]],
+      barcode: [&#x27;&#x27;, Validators.required]
+    });
+
+    // Formulaire d&#x27;ajout au stock
+    this.stockForm &#x3D; this.fb.group({
+      quantity: [1, [Validators.required, Validators.min(1)]],
+      notes: [&#x27;&#x27;]
+    });
+  }
+
+  /**
+   * Charge l&#x27;historique depuis localStorage
+   */
+  private loadScanHistory(): void {
+    const stored &#x3D; localStorage.getItem(&#x27;scanHistory&#x27;);
+    if (stored) {
+      this.scanHistory &#x3D; JSON.parse(stored).map((item: any) &#x3D;&gt; ({
+        ...item,
+        scanResult: {
+          ...item.scanResult,
+          timestamp: new Date(item.scanResult.timestamp)
+        },
+        actionDate: new Date(item.actionDate)
+      }));
+    }
+  }
+
+  /**
+   * Sauvegarde l&#x27;historique dans localStorage
+   */
+  private saveScanHistory(): void {
+    localStorage.setItem(&#x27;scanHistory&#x27;, JSON.stringify(this.scanHistory));
+  }
+
+  /**
+   * Ajoute une entrée à l&#x27;historique
+   */
+  private addToHistory(action: &#x27;added&#x27; | &#x27;modified&#x27; | &#x27;viewed&#x27;): void {
+    if (!this.scanResult) return;
+
+    const historyItem: ScanHistory &#x3D; {
+      id: &#x60;scan_${Date.now()}_${Math.random().toString(36).substr(2, 9)}&#x60;,
+      scanResult: { ...this.scanResult },
+      action,
+      actionDate: new Date()
+    };
+
+    this.scanHistory.unshift(historyItem);
+
+    // Limite l&#x27;historique à 50 entrées
+    if (this.scanHistory.length &gt; 50) {
+      this.scanHistory &#x3D; this.scanHistory.slice(0, 50);
+    }
+
+    this.saveScanHistory();
+  }
+
+  /**
+   * Démarre le processus de scan
+   */
+  startScan(): void {
+    this.isScanActive &#x3D; true;
+    this.scanResult &#x3D; null;
+    console.log(&#x27;Scan démarré...&#x27;);
+
+    this.scanTimer &#x3D; setTimeout(() &#x3D;&gt; {
+      this.completeScan();
+    }, 3000);
+  }
+
+  /**
+   * Arrête le processus de scan
+   */
+  stopScan(): void {
+    this.isScanActive &#x3D; false;
+
+    if (this.scanTimer) {
+      clearTimeout(this.scanTimer);
+      this.scanTimer &#x3D; null;
+    }
+
+    console.log(&#x27;Scan arrêté&#x27;);
+  }
+
+  /**
+   * Complète le scan et génère un résultat
+   */
+  private completeScan(): void {
+    this.isScanActive &#x3D; false;
+    this.scanResult &#x3D; this.generateMockScanResult();
+    console.log(&#x27;Scan terminé:&#x27;, this.scanResult);
+    this.playBeepSound();
+  }
+
+  /**
+   * Génère un résultat de scan simulé pour la démo
+   */
+  private generateMockScanResult(): ScanResult {
+    const mockProducts &#x3D; [
+      {
+        barcode: &#x27;3256220025508&#x27;,
+        productName: &#x27;Château Margaux 2015&#x27;,
+        category: &#x27;Vin Rouge&#x27;,
+        price: 450000,
+        stock: 12
+      },
+      {
+        barcode: &#x27;3161780254897&#x27;,
+        productName: &#x27;Champagne Moët &amp; Chandon&#x27;,
+        category: &#x27;Champagne&#x27;,
+        price: 85000,
+        stock: 25
+      },
+      {
+        barcode: &#x27;5449000000996&#x27;,
+        productName: &#x27;Heineken 33cl&#x27;,
+        category: &#x27;Bière&#x27;,
+        price: 1500,
+        stock: 150
+      },
+      {
+        barcode: &#x27;8712000043094&#x27;,
+        productName: &#x27;Martini Rosso&#x27;,
+        category: &#x27;Liqueur&#x27;,
+        price: 8500,
+        stock: 30
+      }
+    ];
+
+    const randomProduct &#x3D; mockProducts[Math.floor(Math.random() * mockProducts.length)];
+
+    return {
+      ...randomProduct,
+      timestamp: new Date()
+    };
+  }
+
+  /**
+   * Réinitialise le scan pour un nouveau scan
+   */
+  resetScan(): void {
+    this.scanResult &#x3D; null;
+    this.isScanActive &#x3D; false;
+    console.log(&#x27;Scan réinitialisé&#x27;);
+  }
+
+  /**
+   * Formate le résultat du scan en JSON lisible
+   */
+  getFormattedScanResult(): string {
+    if (!this.scanResult) return &#x27;&#x27;;
+
+    return JSON.stringify({
+      &#x27;Code-barres&#x27;: this.scanResult.barcode,
+      &#x27;Nom du produit&#x27;: this.scanResult.productName,
+      &#x27;Catégorie&#x27;: this.scanResult.category,
+      &#x27;Prix&#x27;: &#x60;${this.formatPrice(this.scanResult.price)} FCFA&#x60;,
+      &#x27;Stock disponible&#x27;: &#x60;${this.scanResult.stock} unités&#x60;,
+      &#x27;Date du scan&#x27;: this.formatDate(this.scanResult.timestamp)
+    }, null, 2);
+  }
+
+  /**
+   * Formate un prix en ajoutant des séparateurs de milliers
+   */
+  formatPrice(price: number): string {
+    return price.toString().replace(/\B(?&#x3D;(\d{3})+(?!\d))/g, &#x27; &#x27;);
+  }
+
+  /**
+   * Formate une date en format lisible
+   */
+  formatDate(date: Date): string {
+    return date.toLocaleString(&#x27;fr-FR&#x27;, {
+      day: &#x27;2-digit&#x27;,
+      month: &#x27;2-digit&#x27;,
+      year: &#x27;numeric&#x27;,
+      hour: &#x27;2-digit&#x27;,
+      minute: &#x27;2-digit&#x27;
+    });
+  }
+
+  /**
+   * Joue un son de confirmation (bip)
+   */
+  private playBeepSound(): void {
+    console.log(&#x27;🔊 Bip!&#x27;);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MODAL DE MODIFICATION &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  /**
+   * Ouvre le modal de modification
+   */
+  editProductInfo(): void {
+    if (!this.scanResult) return;
+
+    // Pré-remplit le formulaire avec les données actuelles
+    this.editForm.patchValue({
+      productName: this.scanResult.productName,
+      category: this.scanResult.category,
+      price: this.scanResult.price,
+      stock: this.scanResult.stock,
+      barcode: this.scanResult.barcode
+    });
+
+    this.showEditModal &#x3D; true;
+  }
+
+  /**
+   * Ferme le modal de modification
+   */
+  closeEditModal(): void {
+    this.showEditModal &#x3D; false;
+    this.editForm.reset();
+  }
+
+  /**
+   * Sauvegarde les modifications
+   */
+  saveProductEdits(): void {
+    if (this.editForm.invalid || !this.scanResult) return;
+
+    const formValue &#x3D; this.editForm.value;
+
+    // Met à jour le résultat du scan
+    this.scanResult &#x3D; {
+      ...this.scanResult,
+      productName: formValue.productName,
+      category: formValue.category,
+      price: formValue.price,
+      stock: formValue.stock,
+      barcode: formValue.barcode
+    };
+
+    // Ajoute à l&#x27;historique
+    this.addToHistory(&#x27;modified&#x27;);
+
+    console.log(&#x27;Produit modifié:&#x27;, this.scanResult);
+
+    // Ferme le modal
+    this.closeEditModal();
+
+    // TODO: Appel API pour sauvegarder en base de données
+    alert(&#x27;Modifications enregistrées avec succès !&#x27;);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MODAL D&#x27;AJOUT AU STOCK &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  /**
+   * Ouvre le modal d&#x27;ajout au stock
+   */
+  addToStock(): void {
+    if (!this.scanResult) return;
+
+    this.stockForm.patchValue({
+      quantity: 1,
+      notes: &#x27;&#x27;
+    });
+
+    this.showStockModal &#x3D; true;
+  }
+
+  /**
+   * Ferme le modal d&#x27;ajout au stock
+   */
+  closeStockModal(): void {
+    this.showStockModal &#x3D; false;
+    this.stockForm.reset();
+  }
+
+  /**
+   * Confirme l&#x27;ajout au stock
+   */
+  confirmAddToStock(): void {
+    if (this.stockForm.invalid || !this.scanResult) return;
+
+    const quantity &#x3D; this.stockForm.value.quantity;
+    const notes &#x3D; this.stockForm.value.notes;
+
+    // Met à jour le stock
+    this.scanResult.stock +&#x3D; quantity;
+
+    // Ajoute à l&#x27;historique
+    this.addToHistory(&#x27;added&#x27;);
+
+    console.log(&#x60;Ajout de ${quantity} unité(s) au stock. Notes:&#x60;, notes);
+
+    // Ferme le modal
+    this.closeStockModal();
+
+    // TODO: Appel API pour mettre à jour le stock en base de données
+    alert(&#x60;${quantity} unité(s) de &quot;${this.scanResult.productName}&quot; ajoutée(s) au stock avec succès !&#x60;);
+
+    // Réinitialise pour un nouveau scan
+    this.resetScan();
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MODAL D&#x27;HISTORIQUE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  /**
+   * Ouvre le modal d&#x27;historique
+   */
+  viewProductHistory(): void {
+    this.showHistoryModal &#x3D; true;
+  }
+
+  /**
+   * Ferme le modal d&#x27;historique
+   */
+  closeHistoryModal(): void {
+    this.showHistoryModal &#x3D; false;
+  }
+
+  /**
+   * Retourne l&#x27;icône selon le type d&#x27;action
+   */
+  getActionIcon(action: string): string {
+    switch (action) {
+      case &#x27;added&#x27;: return &#x27;➕&#x27;;
+      case &#x27;modified&#x27;: return &#x27;📝&#x27;;
+      case &#x27;viewed&#x27;: return &#x27;👁️&#x27;;
+      default: return &#x27;📊&#x27;;
+    }
+  }
+
+  /**
+   * Retourne le libellé de l&#x27;action
+   */
+  getActionLabel(action: string): string {
+    switch (action) {
+      case &#x27;added&#x27;: return &#x27;Ajouté au stock&#x27;;
+      case &#x27;modified&#x27;: return &#x27;Modifié&#x27;;
+      case &#x27;viewed&#x27;: return &#x27;Consulté&#x27;;
+      default: return &#x27;Action inconnue&#x27;;
+    }
+  }
+
+  /**
+   * Efface l&#x27;historique
+   */
+  clearHistory(): void {
+    if (confirm(&#x27;Êtes-vous sûr de vouloir effacer tout l\&#x27;historique ?&#x27;)) {
+      this.scanHistory &#x3D; [];
+      this.saveScanHistory();
+      alert(&#x27;Historique effacé avec succès !&#x27;);
+    }
+  }
+
+  /**
+   * Filtre l&#x27;historique par produit actuel
+   */
+  getCurrentProductHistory(): ScanHistory[] {
+    if (!this.scanResult) return this.scanHistory;
+
+    return this.scanHistory.filter(
+      item &#x3D;&gt; item.scanResult.barcode &#x3D;&#x3D;&#x3D; this.scanResult!.barcode
+    );
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; PAGE SCAN &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+&lt;div class&#x3D;&quot;page-section&quot;&gt;
+
+  &lt;section class&#x3D;&quot;content-section&quot;&gt;
+
+    &lt;!-- En-tête de la page --&gt;
+    &lt;div class&#x3D;&quot;section-header&quot;&gt;
+      &lt;h2 class&#x3D;&quot;section-title-main&quot;&gt;📷 Scanner un Produit&lt;/h2&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Conteneur principal du scan --&gt;
+    &lt;div class&#x3D;&quot;scan-container&quot;&gt;
+
+      &lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Zone de scan &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+      &lt;div class&#x3D;&quot;scan-area&quot;&gt;
+
+        &lt;!-- Cadre de scan avec animation --&gt;
+        &lt;div class&#x3D;&quot;scan-frame&quot; [class.scanning]&#x3D;&quot;isScanActive&quot;&gt;
+
+          &lt;!-- Icône de caméra --&gt;
+          &lt;div class&#x3D;&quot;scan-icon&quot;&gt;📷&lt;/div&gt;
+
+          &lt;!-- Texte d&#x27;instruction dynamique --&gt;
+          &lt;div class&#x3D;&quot;scan-text&quot;&gt;
+            &lt;!-- Message initial: avant le scan --&gt;
+            &lt;ng-container *ngIf&#x3D;&quot;!isScanActive &amp;&amp; !scanResult&quot;&gt;
+              Placez le code-barre devant la caméra
+            &lt;/ng-container&gt;
+
+            &lt;!-- Message pendant le scan --&gt;
+            &lt;ng-container *ngIf&#x3D;&quot;isScanActive&quot;&gt;
+              Scan en cours...
+            &lt;/ng-container&gt;
+
+            &lt;!-- Message après le scan --&gt;
+            &lt;ng-container *ngIf&#x3D;&quot;scanResult &amp;&amp; !isScanActive&quot;&gt;
+              ✓ Scan terminé
+            &lt;/ng-container&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Ligne de scan animée (affichée pendant le scan) --&gt;
+          &lt;div *ngIf&#x3D;&quot;isScanActive&quot; class&#x3D;&quot;scan-line&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Boutons de contrôle &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+        &lt;div class&#x3D;&quot;scan-controls&quot;&gt;
+
+          &lt;!-- Bouton pour démarrer le scan --&gt;
+          &lt;button class&#x3D;&quot;btn btn-primary&quot;
+                  *ngIf&#x3D;&quot;!isScanActive &amp;&amp; !scanResult&quot;
+                  (click)&#x3D;&quot;startScan()&quot;&gt;
+            🎬 Démarrer le scan
+          &lt;/button&gt;
+
+          &lt;!-- Bouton pour arrêter le scan en cours --&gt;
+          &lt;button class&#x3D;&quot;btn btn-danger&quot;
+                  *ngIf&#x3D;&quot;isScanActive&quot;
+                  (click)&#x3D;&quot;stopScan()&quot;&gt;
+            ⏹️ Arrêter le scan
+          &lt;/button&gt;
+
+          &lt;!-- Bouton pour faire un nouveau scan --&gt;
+          &lt;button class&#x3D;&quot;btn btn-secondary&quot;
+                  *ngIf&#x3D;&quot;scanResult&quot;
+                  (click)&#x3D;&quot;resetScan()&quot;&gt;
+            🔄 Nouveau scan
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Résultat du scan &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+      &lt;div *ngIf&#x3D;&quot;scanResult&quot; class&#x3D;&quot;scan-result&quot;&gt;
+
+        &lt;!-- En-tête du résultat --&gt;
+        &lt;div class&#x3D;&quot;result-header&quot;&gt;
+          &lt;h3&gt;✓ Produit détecté&lt;/h3&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Contenu du résultat (informations formatées en JSON) --&gt;
+        &lt;div class&#x3D;&quot;result-content&quot;&gt;
+          &lt;pre&gt;{{ getFormattedScanResult() }}&lt;/pre&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Actions disponibles sur le produit scanné --&gt;
+        &lt;div class&#x3D;&quot;result-actions&quot;&gt;
+
+          &lt;!-- Bouton: Ajouter au stock --&gt;
+          &lt;button class&#x3D;&quot;btn btn-primary&quot; (click)&#x3D;&quot;addToStock()&quot;&gt;
+            ➕ Ajouter au stock
+          &lt;/button&gt;
+
+          &lt;!-- Bouton: Modifier les infos --&gt;
+          &lt;button class&#x3D;&quot;btn btn-secondary&quot; (click)&#x3D;&quot;editProductInfo()&quot;&gt;
+            📝 Modifier les infos
+          &lt;/button&gt;
+
+          &lt;!-- Bouton: Voir l&#x27;historique --&gt;
+          &lt;button class&#x3D;&quot;btn btn-info&quot; (click)&#x3D;&quot;viewProductHistory()&quot;&gt;
+            📊 Voir l&#x27;historique
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Instructions d&#x27;utilisation &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+    &lt;div class&#x3D;&quot;scan-instructions&quot;&gt;
+      &lt;h3&gt;💡 Instructions&lt;/h3&gt;
+
+      &lt;ul&gt;
+        &lt;!-- Liste des bonnes pratiques pour scanner --&gt;
+        &lt;li&gt;Assurez-vous que le code-barre est bien éclairé&lt;/li&gt;
+        &lt;li&gt;Maintenez le code-barre stable et à plat&lt;/li&gt;
+        &lt;li&gt;Positionnez-le à environ 15-20 cm de la caméra&lt;/li&gt;
+        &lt;li&gt;Attendez le bip de confirmation&lt;/li&gt;
+      &lt;/ul&gt;
+
+      &lt;!-- Note technique --&gt;
+      &lt;div class&#x3D;&quot;scan-note&quot;&gt;
+        &lt;strong&gt;Note:&lt;/strong&gt; Ceci est une simulation du scan d&#x27;un code-barres,
+        avec des données statiques. A la finalisation une caméra serait utilisée pour scanner
+        de véritables codes-barres.
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+&lt;/div&gt;
+
+&lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MODAL DE MODIFICATION &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+&lt;div class&#x3D;&quot;modal-overlay&quot; *ngIf&#x3D;&quot;showEditModal&quot; (click)&#x3D;&quot;closeEditModal()&quot;&gt;
+  &lt;div class&#x3D;&quot;modal-content&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot;&gt;
+
+    &lt;!-- En-tête du modal --&gt;
+    &lt;div class&#x3D;&quot;modal-header&quot;&gt;
+      &lt;h2&gt;📝 Modifier les informations&lt;/h2&gt;
+      &lt;button class&#x3D;&quot;modal-close&quot; (click)&#x3D;&quot;closeEditModal()&quot;&gt;✕&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Corps du modal --&gt;
+    &lt;div class&#x3D;&quot;modal-body&quot;&gt;
+      &lt;form [formGroup]&#x3D;&quot;editForm&quot;&gt;
+
+        &lt;!-- Nom du produit --&gt;
+        &lt;div class&#x3D;&quot;form-group&quot;&gt;
+          &lt;label for&#x3D;&quot;productName&quot;&gt;Nom du produit *&lt;/label&gt;
+          &lt;input
+            type&#x3D;&quot;text&quot;
+            id&#x3D;&quot;productName&quot;
+            formControlName&#x3D;&quot;productName&quot;
+            class&#x3D;&quot;form-control&quot;
+            placeholder&#x3D;&quot;Ex: Château Margaux 2015&quot;&gt;
+          &lt;div class&#x3D;&quot;form-error&quot; *ngIf&#x3D;&quot;editForm.get(&#x27;productName&#x27;)?.invalid &amp;&amp; editForm.get(&#x27;productName&#x27;)?.touched&quot;&gt;
+            Le nom du produit est requis (min. 3 caractères)
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Code-barres --&gt;
+        &lt;div class&#x3D;&quot;form-group&quot;&gt;
+          &lt;label for&#x3D;&quot;barcode&quot;&gt;Code-barres *&lt;/label&gt;
+          &lt;input
+            type&#x3D;&quot;text&quot;
+            id&#x3D;&quot;barcode&quot;
+            formControlName&#x3D;&quot;barcode&quot;
+            class&#x3D;&quot;form-control&quot;
+            placeholder&#x3D;&quot;Ex: 3256220025508&quot;&gt;
+          &lt;div class&#x3D;&quot;form-error&quot; *ngIf&#x3D;&quot;editForm.get(&#x27;barcode&#x27;)?.invalid &amp;&amp; editForm.get(&#x27;barcode&#x27;)?.touched&quot;&gt;
+            Le code-barres est requis
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Catégorie --&gt;
+        &lt;div class&#x3D;&quot;form-group&quot;&gt;
+          &lt;label for&#x3D;&quot;category&quot;&gt;Catégorie *&lt;/label&gt;
+          &lt;select
+            id&#x3D;&quot;category&quot;
+            formControlName&#x3D;&quot;category&quot;
+            class&#x3D;&quot;form-control&quot;&gt;
+            &lt;option value&#x3D;&quot;&quot;&gt;-- Sélectionnez une catégorie --&lt;/option&gt;
+            &lt;option *ngFor&#x3D;&quot;let cat of categories&quot; [value]&#x3D;&quot;cat&quot;&gt;{{ cat }}&lt;/option&gt;
+          &lt;/select&gt;
+          &lt;div class&#x3D;&quot;form-error&quot; *ngIf&#x3D;&quot;editForm.get(&#x27;category&#x27;)?.invalid &amp;&amp; editForm.get(&#x27;category&#x27;)?.touched&quot;&gt;
+            La catégorie est requise
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Prix --&gt;
+        &lt;div class&#x3D;&quot;form-group&quot;&gt;
+          &lt;label for&#x3D;&quot;price&quot;&gt;Prix (FCFA) *&lt;/label&gt;
+          &lt;input
+            type&#x3D;&quot;number&quot;
+            id&#x3D;&quot;price&quot;
+            formControlName&#x3D;&quot;price&quot;
+            class&#x3D;&quot;form-control&quot;
+            placeholder&#x3D;&quot;Ex: 450000&quot;&gt;
+          &lt;div class&#x3D;&quot;form-error&quot; *ngIf&#x3D;&quot;editForm.get(&#x27;price&#x27;)?.invalid &amp;&amp; editForm.get(&#x27;price&#x27;)?.touched&quot;&gt;
+            Le prix est requis et doit être positif
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Stock --&gt;
+        &lt;div class&#x3D;&quot;form-group&quot;&gt;
+          &lt;label for&#x3D;&quot;stock&quot;&gt;Stock disponible *&lt;/label&gt;
+          &lt;input
+            type&#x3D;&quot;number&quot;
+            id&#x3D;&quot;stock&quot;
+            formControlName&#x3D;&quot;stock&quot;
+            class&#x3D;&quot;form-control&quot;
+            placeholder&#x3D;&quot;Ex: 12&quot;&gt;
+          &lt;div class&#x3D;&quot;form-error&quot; *ngIf&#x3D;&quot;editForm.get(&#x27;stock&#x27;)?.invalid &amp;&amp; editForm.get(&#x27;stock&#x27;)?.touched&quot;&gt;
+            Le stock est requis et doit être positif
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+      &lt;/form&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Pied du modal --&gt;
+    &lt;div class&#x3D;&quot;modal-footer&quot;&gt;
+      &lt;button class&#x3D;&quot;btn btn-secondary&quot; (click)&#x3D;&quot;closeEditModal()&quot;&gt;
+        Annuler
+      &lt;/button&gt;
+      &lt;button
+        class&#x3D;&quot;btn btn-primary&quot;
+        [disabled]&#x3D;&quot;editForm.invalid&quot;
+        (click)&#x3D;&quot;saveProductEdits()&quot;&gt;
+        💾 Enregistrer
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MODAL D&#x27;AJOUT AU STOCK &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+&lt;div class&#x3D;&quot;modal-overlay&quot; *ngIf&#x3D;&quot;showStockModal&quot; (click)&#x3D;&quot;closeStockModal()&quot;&gt;
+  &lt;div class&#x3D;&quot;modal-content modal-small&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot;&gt;
+
+    &lt;!-- En-tête du modal --&gt;
+    &lt;div class&#x3D;&quot;modal-header&quot;&gt;
+      &lt;h2&gt;➕ Ajouter au stock&lt;/h2&gt;
+      &lt;button class&#x3D;&quot;modal-close&quot; (click)&#x3D;&quot;closeStockModal()&quot;&gt;✕&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Corps du modal --&gt;
+    &lt;div class&#x3D;&quot;modal-body&quot;&gt;
+
+      &lt;!-- Infos du produit --&gt;
+      &lt;div class&#x3D;&quot;product-info-box&quot; *ngIf&#x3D;&quot;scanResult&quot;&gt;
+        &lt;strong&gt;{{ scanResult.productName }}&lt;/strong&gt;
+        &lt;p&gt;Stock actuel: {{ scanResult.stock }} unités&lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;form [formGroup]&#x3D;&quot;stockForm&quot;&gt;
+
+        &lt;!-- Quantité à ajouter --&gt;
+        &lt;div class&#x3D;&quot;form-group&quot;&gt;
+          &lt;label for&#x3D;&quot;quantity&quot;&gt;Quantité à ajouter *&lt;/label&gt;
+          &lt;input
+            type&#x3D;&quot;number&quot;
+            id&#x3D;&quot;quantity&quot;
+            formControlName&#x3D;&quot;quantity&quot;
+            class&#x3D;&quot;form-control&quot;
+            placeholder&#x3D;&quot;Ex: 10&quot;
+            min&#x3D;&quot;1&quot;&gt;
+          &lt;div class&#x3D;&quot;form-error&quot; *ngIf&#x3D;&quot;stockForm.get(&#x27;quantity&#x27;)?.invalid &amp;&amp; stockForm.get(&#x27;quantity&#x27;)?.touched&quot;&gt;
+            La quantité doit être au moins 1
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Notes (optionnel) --&gt;
+        &lt;div class&#x3D;&quot;form-group&quot;&gt;
+          &lt;label for&#x3D;&quot;notes&quot;&gt;Notes (optionnel)&lt;/label&gt;
+          &lt;textarea
+            id&#x3D;&quot;notes&quot;
+            formControlName&#x3D;&quot;notes&quot;
+            class&#x3D;&quot;form-control&quot;
+            rows&#x3D;&quot;3&quot;
+            placeholder&#x3D;&quot;Ex: Livraison du 29/10/2025&quot;&gt;&lt;/textarea&gt;
+        &lt;/div&gt;
+
+      &lt;/form&gt;
+
+      &lt;!-- Aperçu du nouveau stock --&gt;
+      &lt;div class&#x3D;&quot;stock-preview&quot; *ngIf&#x3D;&quot;scanResult &amp;&amp; stockForm.get(&#x27;quantity&#x27;)?.value&quot;&gt;
+        &lt;strong&gt;Nouveau stock:&lt;/strong&gt;
+        {{ scanResult.stock + stockForm.get(&#x27;quantity&#x27;)?.value }} unités
+        &lt;span class&#x3D;&quot;stock-increase&quot;&gt;
+          (+{{ stockForm.get(&#x27;quantity&#x27;)?.value }})
+        &lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Pied du modal --&gt;
+    &lt;div class&#x3D;&quot;modal-footer&quot;&gt;
+      &lt;button class&#x3D;&quot;btn btn-secondary&quot; (click)&#x3D;&quot;closeStockModal()&quot;&gt;
+        Annuler
+      &lt;/button&gt;
+      &lt;button
+        class&#x3D;&quot;btn btn-primary&quot;
+        [disabled]&#x3D;&quot;stockForm.invalid&quot;
+        (click)&#x3D;&quot;confirmAddToStock()&quot;&gt;
+        ✓ Confirmer
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MODAL D&#x27;HISTORIQUE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+&lt;div class&#x3D;&quot;modal-overlay&quot; *ngIf&#x3D;&quot;showHistoryModal&quot; (click)&#x3D;&quot;closeHistoryModal()&quot;&gt;
+  &lt;div class&#x3D;&quot;modal-content modal-large&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot;&gt;
+
+    &lt;!-- En-tête du modal --&gt;
+    &lt;div class&#x3D;&quot;modal-header&quot;&gt;
+      &lt;h2&gt;📊 Historique des scans&lt;/h2&gt;
+      &lt;button class&#x3D;&quot;modal-close&quot; (click)&#x3D;&quot;closeHistoryModal()&quot;&gt;✕&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Corps du modal --&gt;
+    &lt;div class&#x3D;&quot;modal-body&quot;&gt;
+
+      &lt;!-- Aucun historique --&gt;
+      &lt;div *ngIf&#x3D;&quot;scanHistory.length &#x3D;&#x3D;&#x3D; 0&quot; class&#x3D;&quot;empty-state&quot;&gt;
+        &lt;div class&#x3D;&quot;empty-icon&quot;&gt;📭&lt;/div&gt;
+        &lt;p&gt;Aucun scan dans l&#x27;historique&lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Liste de l&#x27;historique --&gt;
+      &lt;div *ngIf&#x3D;&quot;scanHistory.length &gt; 0&quot; class&#x3D;&quot;history-list&quot;&gt;
+
+        &lt;!-- Bouton pour effacer l&#x27;historique --&gt;
+        &lt;div class&#x3D;&quot;history-actions&quot;&gt;
+          &lt;button class&#x3D;&quot;btn btn-danger btn-sm&quot; (click)&#x3D;&quot;clearHistory()&quot;&gt;
+            🗑️ Effacer l&#x27;historique
+          &lt;/button&gt;
+          &lt;span class&#x3D;&quot;history-count&quot;&gt;{{ scanHistory.length }} scan(s)&lt;/span&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Items d&#x27;historique --&gt;
+        &lt;div *ngFor&#x3D;&quot;let item of scanHistory&quot; class&#x3D;&quot;history-item&quot;&gt;
+
+          &lt;!-- Icône et action --&gt;
+          &lt;div class&#x3D;&quot;history-icon&quot;&gt;
+            {{ getActionIcon(item.action) }}
+          &lt;/div&gt;
+
+          &lt;!-- Détails --&gt;
+          &lt;div class&#x3D;&quot;history-details&quot;&gt;
+            &lt;h4&gt;{{ item.scanResult.productName }}&lt;/h4&gt;
+            &lt;p class&#x3D;&quot;history-meta&quot;&gt;
+              &lt;span class&#x3D;&quot;history-category&quot;&gt;{{ item.scanResult.category }}&lt;/span&gt;
+              &lt;span class&#x3D;&quot;history-barcode&quot;&gt;{{ item.scanResult.barcode }}&lt;/span&gt;
+            &lt;/p&gt;
+            &lt;p class&#x3D;&quot;history-info&quot;&gt;
+              &lt;span&gt;{{ formatPrice(item.scanResult.price) }} FCFA&lt;/span&gt;
+              &lt;span&gt;•&lt;/span&gt;
+              &lt;span&gt;Stock: {{ item.scanResult.stock }} unités&lt;/span&gt;
+            &lt;/p&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Action et date --&gt;
+          &lt;div class&#x3D;&quot;history-action&quot;&gt;
+            &lt;span class&#x3D;&quot;action-badge&quot; [class]&#x3D;&quot;&#x27;action-&#x27; + item.action&quot;&gt;
+              {{ getActionLabel(item.action) }}
+            &lt;/span&gt;
+            &lt;span class&#x3D;&quot;history-date&quot;&gt;
+              {{ formatDate(item.actionDate) }}
+            &lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Pied du modal --&gt;
+    &lt;div class&#x3D;&quot;modal-footer&quot;&gt;
+      &lt;button class&#x3D;&quot;btn btn-primary&quot; (click)&#x3D;&quot;closeHistoryModal()&quot;&gt;
+        Fermer
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./scan.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Variables CSS personnalisées &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+// Ces variables sont définies dans le thème et changent selon dark/light mode
+// $primary-color reste en SCSS pour la compatibilité
+$primary-color: #6366f1;
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Page principale &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.page-section {
+  padding: 2rem;
+  background: var(--dark-bg);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.content-section {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; En-tête &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.section-header {
+  margin-bottom: 2rem;
+  text-align: center;
+
+  .section-title-main {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Conteneur principal du scan &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.scan-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Zone de scan &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.scan-area {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Cadre de scan &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.scan-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/3;
+  border: 3px dashed var(--border-color);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--dark-bg);
+  transition: all 0.3s ease;
+  overflow: hidden;
+
+  .scan-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+  }
+
+  .scan-text {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    text-align: center;
+    font-weight: 500;
+  }
+
+  &amp;.scanning {
+    border-color: var(--scan-line-color);
+    border-style: solid;
+    background: linear-gradient(135deg, rgba(74, 222, 128, 0.08) 0%, rgba(16, 185, 129, 0.08) 100%);
+    box-shadow: 0 0 20px rgba(74, 222, 128, 0.2);
+
+    .scan-icon {
+      opacity: 0.8;
+      color: var(--scan-line-color);
+      animation: pulse 2s ease-in-out infinite;
+    }
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Ligne de scan animée &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0%, var(--scan-line-color) 50%, transparent 100%);
+  box-shadow: 0 0 15px var(--scan-line-color), 0 0 30px rgba(74, 222, 128, 0.5);
+  animation: scanAnimation 2s linear infinite;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Animation de balayage &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+@keyframes scanAnimation {
+  0% { top: 0; }
+  100% { top: 100%; }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Animation de pulsation &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Contrôles du scan &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.scan-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Résultat du scan &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.scan-result {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  animation: slideIn 0.3s ease-out;
+
+  .result-header {
+    margin-bottom: 1.5rem;
+
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--success);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  }
+
+  .result-content {
+    background: var(--dark-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+
+    pre {
+      margin: 0;
+      font-family: &#x27;Courier New&#x27;, monospace;
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+  }
+
+  .result-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Animation de slide in &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Instructions &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.scan-instructions {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+
+    li {
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      background: var(--dark-bg);
+      border-radius: 8px;
+      border-left: 3px solid $primary-color;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+
+      &amp;::before {
+        content: &#x27;✓ &#x27;;
+        color: var(--success);
+        font-weight: bold;
+        margin-right: 0.5rem;
+      }
+    }
+  }
+
+  .scan-note {
+    padding: 1rem;
+    background: rgba(99, 102, 241, 0.1);
+    border-radius: 8px;
+    border-left: 3px solid $primary-color;
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+
+    strong {
+      color: $primary-color;
+      font-weight: 600;
+    }
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Boutons &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+
+  &amp;.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    width: auto;
+  }
+
+  &amp;.btn-primary {
+    background: $primary-color;
+    color: white;
+
+    &amp;:hover:not(:disabled) {
+      background: color-mix(in srgb, $primary-color 90%, white);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    }
+  }
+
+  &amp;.btn-secondary {
+    background: var(--secondary);
+    color: white;
+
+    &amp;:hover:not(:disabled) {
+      background: color-mix(in srgb, var(--secondary) 90%, white);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(129, 140, 248, 0.4);
+    }
+  }
+
+  &amp;.btn-danger {
+    background: var(--danger);
+    color: white;
+
+    &amp;:hover:not(:disabled) {
+      background: color-mix(in srgb, var(--danger) 90%, white);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+    }
+  }
+
+  &amp;.btn-info {
+    background: var(--info);
+    color: white;
+
+    &amp;:hover:not(:disabled) {
+      background: color-mix(in srgb, var(--info) 90%, white);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    }
+  }
+
+  &amp;:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+
+    &amp;:hover {
+      transform: none;
+      box-shadow: none;
+    }
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MODALS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.3s ease-out;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+
+  &amp;.modal-small {
+    max-width: 450px;
+  }
+
+  &amp;.modal-large {
+    max-width: 800px;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .modal-close {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0.5rem;
+    line-height: 1;
+    transition: color 0.2s ease;
+
+    &amp;:hover {
+      color: var(--danger);
+    }
+  }
+}
+
+.modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modal-footer {
+  padding: 1.5rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+
+  .btn {
+    width: auto;
+    min-width: 120px;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Formulaires &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+.form-group {
+  margin-bottom: 1.5rem;
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--dark-bg);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+
+    &amp;:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+
+    &amp;::placeholder {
+      color: var(--text-secondary);
+      opacity: 0.6;
+    }
+  }
+
+  textarea.form-control {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  select.form-control {
+    cursor: pointer;
+  }
+
+  .form-error {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--danger);
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Infos produit dans modal &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+.product-info-box {
+  padding: 1rem;
+  background: var(--dark-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+
+  strong {
+    display: block;
+    color: var(--text-primary);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Aperçu du stock &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+.stock-preview {
+  padding: 1rem;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 8px;
+  margin-top: 1rem;
+  text-align: center;
+
+  strong {
+    color: var(--text-primary);
+    font-size: 1rem;
+  }
+
+  .stock-increase {
+    color: var(--success);
+    font-weight: 600;
+    margin-left: 0.5rem;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Historique &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+.history-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+
+  .history-count {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.history-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--dark-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+
+  &amp;:hover {
+    border-color: $primary-color;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.2);
+  }
+
+  .history-icon {
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .history-details {
+    h4 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .history-meta {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.8rem;
+
+      .history-category {
+        color: var(--secondary);
+        font-weight: 500;
+      }
+
+      .history-barcode {
+        color: var(--text-secondary);
+        font-family: &#x27;Courier New&#x27;, monospace;
+      }
+    }
+
+    .history-info {
+      display: flex;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+
+      span {
+        &amp;:not(:last-child) {
+          margin-right: 0.5rem;
+        }
+      }
+    }
+  }
+
+  .history-action {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+    justify-content: center;
+
+    .action-badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+
+      &amp;.action-added {
+        background: rgba(16, 185, 129, 0.2);
+        color: var(--success);
+      }
+
+      &amp;.action-modified {
+        background: rgba(129, 140, 248, 0.2);
+        color: var(--secondary);
+      }
+
+      &amp;.action-viewed {
+        background: rgba(59, 130, 246, 0.2);
+        color: var(--info);
+      }
+    }
+
+    .history-date {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+
+  .empty-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+  }
+
+  p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin: 0;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Responsive (mobile) &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+@media (max-width: 968px) {
+  .scan-container {
+    grid-template-columns: 1fr;
+    max-width: 600px;
+  }
+
+  .scan-frame {
+    aspect-ratio: 3/2;
+  }
+
+  .modal-content {
+    &amp;.modal-large {
+      max-width: 100%;
+    }
+  }
+
+  .history-item {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+
+    .history-icon {
+      font-size: 1.5rem;
+    }
+
+    .history-action {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .page-section {
+    padding: 1rem;
+  }
+
+  .scan-controls {
+    flex-direction: column;
+  }
+
+  .result-actions {
+    .btn {
+      font-size: 0.8rem;
+      padding: 0.6rem 1rem;
+    }
+  }
+
+  .scan-instructions {
+    padding: 1.5rem;
+  }
+
+  .modal-header {
+    h2 {
+      font-size: 1.25rem;
+    }
+  }
+
+  .modal-footer {
+    flex-direction: column;
+
+    .btn {
+      width: 100%;
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- ===== PAGE SCAN ===== --><div class="page-section">  <section class="content-section">    <!-- En-tête de la page -->    <div class="section-header">      <h2 class="section-title-main">📷 Scanner un Produit</h2>    </div>    <!-- Conteneur principal du scan -->    <div class="scan-container">      <!-- ===== Zone de scan ===== -->      <div class="scan-area">        <!-- Cadre de scan avec animation -->        <div class="scan-frame" [class.scanning]="isScanActive">          <!-- Icône de caméra -->          <div class="scan-icon">📷</div>          <!-- Texte d\'instruction dynamique -->          <div class="scan-text">            <!-- Message initial: avant le scan -->            <ng-container *ngIf="!isScanActive && !scanResult">              Placez le code-barre devant la caméra            </ng-container>            <!-- Message pendant le scan -->            <ng-container *ngIf="isScanActive">              Scan en cours...            </ng-container>            <!-- Message après le scan -->            <ng-container *ngIf="scanResult && !isScanActive">              ✓ Scan terminé            </ng-container>          </div>          <!-- Ligne de scan animée (affichée pendant le scan) -->          <div *ngIf="isScanActive" class="scan-line"></div>        </div>        <!-- ===== Boutons de contrôle ===== -->        <div class="scan-controls">          <!-- Bouton pour démarrer le scan -->          <button class="btn btn-primary"                  *ngIf="!isScanActive && !scanResult"                  (click)="startScan()">            🎬 Démarrer le scan          </button>          <!-- Bouton pour arrêter le scan en cours -->          <button class="btn btn-danger"                  *ngIf="isScanActive"                  (click)="stopScan()">            ⏹️ Arrêter le scan          </button>          <!-- Bouton pour faire un nouveau scan -->          <button class="btn btn-secondary"                  *ngIf="scanResult"                  (click)="resetScan()">            🔄 Nouveau scan          </button>        </div>      </div>      <!-- ===== Résultat du scan ===== -->      <div *ngIf="scanResult" class="scan-result">        <!-- En-tête du résultat -->        <div class="result-header">          <h3>✓ Produit détecté</h3>        </div>        <!-- Contenu du résultat (informations formatées en JSON) -->        <div class="result-content">          <pre>{{ getFormattedScanResult() }}</pre>        </div>        <!-- Actions disponibles sur le produit scanné -->        <div class="result-actions">          <!-- Bouton: Ajouter au stock -->          <button class="btn btn-primary" (click)="addToStock()">            ➕ Ajouter au stock          </button>          <!-- Bouton: Modifier les infos -->          <button class="btn btn-secondary" (click)="editProductInfo()">            📝 Modifier les infos          </button>          <!-- Bouton: Voir l\'historique -->          <button class="btn btn-info" (click)="viewProductHistory()">            📊 Voir l\'historique          </button>        </div>      </div>    </div>    <!-- ===== Instructions d\'utilisation ===== -->    <div class="scan-instructions">      <h3>💡 Instructions</h3>      <ul>        <!-- Liste des bonnes pratiques pour scanner -->        <li>Assurez-vous que le code-barre est bien éclairé</li>        <li>Maintenez le code-barre stable et à plat</li>        <li>Positionnez-le à environ 15-20 cm de la caméra</li>        <li>Attendez le bip de confirmation</li>      </ul>      <!-- Note technique -->      <div class="scan-note">        <strong>Note:</strong> Ceci est une simulation du scan d\'un code-barres,        avec des données statiques. A la finalisation une caméra serait utilisée pour scanner        de véritables codes-barres.      </div>    </div>  </section></div><!-- ===== MODAL DE MODIFICATION ===== --><div class="modal-overlay" *ngIf="showEditModal" (click)="closeEditModal()">  <div class="modal-content" (click)="$event.stopPropagation()">    <!-- En-tête du modal -->    <div class="modal-header">      <h2>📝 Modifier les informations</h2>      <button class="modal-close" (click)="closeEditModal()">✕</button>    </div>    <!-- Corps du modal -->    <div class="modal-body">      <form [formGroup]="editForm">        <!-- Nom du produit -->        <div class="form-group">          <label for="productName">Nom du produit *</label>          <input            type="text"            id="productName"            formControlName="productName"            class="form-control"            placeholder="Ex: Château Margaux 2015">          <div class="form-error" *ngIf="editForm.get(\'productName\')?.invalid && editForm.get(\'productName\')?.touched">            Le nom du produit est requis (min. 3 caractères)          </div>        </div>        <!-- Code-barres -->        <div class="form-group">          <label for="barcode">Code-barres *</label>          <input            type="text"            id="barcode"            formControlName="barcode"            class="form-control"            placeholder="Ex: 3256220025508">          <div class="form-error" *ngIf="editForm.get(\'barcode\')?.invalid && editForm.get(\'barcode\')?.touched">            Le code-barres est requis          </div>        </div>        <!-- Catégorie -->        <div class="form-group">          <label for="category">Catégorie *</label>          <select            id="category"            formControlName="category"            class="form-control">            <option value="">-- Sélectionnez une catégorie --</option>            <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>          </select>          <div class="form-error" *ngIf="editForm.get(\'category\')?.invalid && editForm.get(\'category\')?.touched">            La catégorie est requise          </div>        </div>        <!-- Prix -->        <div class="form-group">          <label for="price">Prix (FCFA) *</label>          <input            type="number"            id="price"            formControlName="price"            class="form-control"            placeholder="Ex: 450000">          <div class="form-error" *ngIf="editForm.get(\'price\')?.invalid && editForm.get(\'price\')?.touched">            Le prix est requis et doit être positif          </div>        </div>        <!-- Stock -->        <div class="form-group">          <label for="stock">Stock disponible *</label>          <input            type="number"            id="stock"            formControlName="stock"            class="form-control"            placeholder="Ex: 12">          <div class="form-error" *ngIf="editForm.get(\'stock\')?.invalid && editForm.get(\'stock\')?.touched">            Le stock est requis et doit être positif          </div>        </div>      </form>    </div>    <!-- Pied du modal -->    <div class="modal-footer">      <button class="btn btn-secondary" (click)="closeEditModal()">        Annuler      </button>      <button        class="btn btn-primary"        [disabled]="editForm.invalid"        (click)="saveProductEdits()">        💾 Enregistrer      </button>    </div>  </div></div><!-- ===== MODAL D\'AJOUT AU STOCK ===== --><div class="modal-overlay" *ngIf="showStockModal" (click)="closeStockModal()">  <div class="modal-content modal-small" (click)="$event.stopPropagation()">    <!-- En-tête du modal -->    <div class="modal-header">      <h2>➕ Ajouter au stock</h2>      <button class="modal-close" (click)="closeStockModal()">✕</button>    </div>    <!-- Corps du modal -->    <div class="modal-body">      <!-- Infos du produit -->      <div class="product-info-box" *ngIf="scanResult">        <strong>{{ scanResult.productName }}</strong>        <p>Stock actuel: {{ scanResult.stock }} unités</p>      </div>      <form [formGroup]="stockForm">        <!-- Quantité à ajouter -->        <div class="form-group">          <label for="quantity">Quantité à ajouter *</label>          <input            type="number"            id="quantity"            formControlName="quantity"            class="form-control"            placeholder="Ex: 10"            min="1">          <div class="form-error" *ngIf="stockForm.get(\'quantity\')?.invalid && stockForm.get(\'quantity\')?.touched">            La quantité doit être au moins 1          </div>        </div>        <!-- Notes (optionnel) -->        <div class="form-group">          <label for="notes">Notes (optionnel)</label>          <textarea            id="notes"            formControlName="notes"            class="form-control"            rows="3"            placeholder="Ex: Livraison du 29/10/2025"></textarea>        </div>      </form>      <!-- Aperçu du nouveau stock -->      <div class="stock-preview" *ngIf="scanResult && stockForm.get(\'quantity\')?.value">        <strong>Nouveau stock:</strong>        {{ scanResult.stock + stockForm.get(\'quantity\')?.value }} unités        <span class="stock-increase">          (+{{ stockForm.get(\'quantity\')?.value }})        </span>      </div>    </div>    <!-- Pied du modal -->    <div class="modal-footer">      <button class="btn btn-secondary" (click)="closeStockModal()">        Annuler      </button>      <button        class="btn btn-primary"        [disabled]="stockForm.invalid"        (click)="confirmAddToStock()">        ✓ Confirmer      </button>    </div>  </div></div><!-- ===== MODAL D\'HISTORIQUE ===== --><div class="modal-overlay" *ngIf="showHistoryModal" (click)="closeHistoryModal()">  <div class="modal-content modal-large" (click)="$event.stopPropagation()">    <!-- En-tête du modal -->    <div class="modal-header">      <h2>📊 Historique des scans</h2>      <button class="modal-close" (click)="closeHistoryModal()">✕</button>    </div>    <!-- Corps du modal -->    <div class="modal-body">      <!-- Aucun historique -->      <div *ngIf="scanHistory.length === 0" class="empty-state">        <div class="empty-icon">📭</div>        <p>Aucun scan dans l\'historique</p>      </div>      <!-- Liste de l\'historique -->      <div *ngIf="scanHistory.length > 0" class="history-list">        <!-- Bouton pour effacer l\'historique -->        <div class="history-actions">          <button class="btn btn-danger btn-sm" (click)="clearHistory()">            🗑️ Effacer l\'historique          </button>          <span class="history-count">{{ scanHistory.length }} scan(s)</span>        </div>        <!-- Items d\'historique -->        <div *ngFor="let item of scanHistory" class="history-item">          <!-- Icône et action -->          <div class="history-icon">            {{ getActionIcon(item.action) }}          </div>          <!-- Détails -->          <div class="history-details">            <h4>{{ item.scanResult.productName }}</h4>            <p class="history-meta">              <span class="history-category">{{ item.scanResult.category }}</span>              <span class="history-barcode">{{ item.scanResult.barcode }}</span>            </p>            <p class="history-info">              <span>{{ formatPrice(item.scanResult.price) }} FCFA</span>              <span>•</span>              <span>Stock: {{ item.scanResult.stock }} unités</span>            </p>          </div>          <!-- Action et date -->          <div class="history-action">            <span class="action-badge" [class]="\'action-\' + item.action">              {{ getActionLabel(item.action) }}            </span>            <span class="history-date">              {{ formatDate(item.actionDate) }}            </span>          </div>        </div>      </div>    </div>    <!-- Pied du modal -->    <div class="modal-footer">      <button class="btn btn-primary" (click)="closeHistoryModal()">        Fermer      </button>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AdminDashboardComponent', 'selector': 'app-admin-dashboard'},{'name': 'AlertsComponent', 'selector': 'app-alerts'},{'name': 'App', 'selector': 'app-root'},{'name': 'CaisseComponent', 'selector': 'app-caisse'},{'name': 'CaveCreateComponent', 'selector': 'app-cave-create'},{'name': 'CaveListComponent', 'selector': 'app-cave-lists'},{'name': 'ClientDashboardComponent', 'selector': 'app-client-dashboard'},{'name': 'ClientsComponent', 'selector': 'app-client'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DrinksComponent', 'selector': 'app-drinks'},{'name': 'EmployeesComponent', 'selector': 'app-employees'},{'name': 'EntriesComponent', 'selector': 'app-entries'},{'name': 'ExitsComponent', 'selector': 'app-exits'},{'name': 'ExpenseComponent', 'selector': 'app-depenses'},{'name': 'FaqComponent', 'selector': 'app-faq'},{'name': 'FournisseursComponent', 'selector': 'app-fournisseur'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'ImprovementsComponent', 'selector': 'app-improvements'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ManagerDashboardComponent', 'selector': 'app-manager-dashboard'},{'name': 'ManagersComponent', 'selector': 'app-managers'},{'name': 'MaterialComponent', 'selector': 'app-materiel'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'OrdersComponent', 'selector': 'app-orders'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfitComponent', 'selector': 'app-profit'},{'name': 'RecentActionsComponent', 'selector': 'app-recent-actions'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'SalesComponent', 'selector': 'app-sales'},{'name': 'ScanComponent', 'selector': 'app-scan'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'StockComponent', 'selector': 'app-stock'},{'name': 'StockComponent', 'selector': 'app-stock'},{'name': 'TeamComponent', 'selector': 'app-team'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'UserCreateComponent', 'selector': 'app-user-create'},{'name': 'UserListComponent', 'selector': 'app-user-list'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'WaitressDashboardComponent', 'selector': 'app-waitress-dashboard'},{'name': 'WinePairingComponent', 'selector': 'app-wine-pairing'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'ScanComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ScanComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,900 +1,1122 @@
-// ==================== CONTENEUR PRINCIPAL ====================
-.fournisseurs-container {
-  padding: 30px;
-  max-width: 1600px;
-  margin: 0 auto;
-  background: #f8f9fa;
-  min-height: 100vh;
+// ==========================================
+// FICHIER: fournisseurs.component.scss
+// DESCRIPTION: Styles pour la gestion des fournisseurs avec support du double thème
+// ==========================================
+
+// ===== VARIABLES CSS POUR LES THÈMES =====
+// Ces variables changent automatiquement selon le thème actif
+
+// Variables par défaut (thème clair)
+:root {
+  // Couleurs de fond
+  --bg-primary: #f8f9fa;           // Fond principal de la page
+  --bg-secondary: #ffffff;         // Fond des cartes et sections
+  --bg-tertiary: #ecf0f1;         // Fond pour éléments secondaires
+  --bg-hover: #e9ecef;            // Fond au survol
+
+  // Couleurs de texte
+  --text-primary: #2c3e50;        // Texte principal
+  --text-secondary: #7f8c8d;      // Texte secondaire
+  --text-muted: #95a5a6;          // Texte atténué
+  --text-link: #3498db;           // Liens
+
+  // Couleurs de bordure
+  --border-color: #e0e0e0;        // Bordures principales
+  --border-light: #ecf0f1;        // Bordures légères
+
+  // Ombres
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.1);     // Petite ombre
+  --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.12);    // Ombre moyenne
+  --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.15);    // Grande ombre
+  --shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.05);  // Ombre au survol
+
+  // Couleurs pour les badges de catégorie
+  --badge-orange-bg: #ffe5d9;
+  --badge-orange-text: #e67e22;
+  --badge-purple-bg: #f3e5f5;
+  --badge-purple-text: #9c27b0;
+  --badge-green-bg: #e8f5e9;
+  --badge-green-text: #4caf50;
+  --badge-blue-bg: #e3f2fd;
+  --badge-blue-text: #2196f3;
+
+  // Couleurs pour les badges de statut
+  --statut-actif-bg: #d4edda;
+  --statut-actif-text: #155724;
+  --statut-actif-border: #c3e6cb;
+
+  --statut-inactif-bg: #f8d7da;
+  --statut-inactif-text: #721c24;
+  --statut-inactif-border: #f5c6cb;
+
+  --statut-suspendu-bg: #fff3cd;
+  --statut-suspendu-text: #856404;
+  --statut-suspendu-border: #ffeaa7;
 }
 
-// ==================== EN-TÊTE ====================
+// Variables pour le thème sombre
+// Appliquées quand la classe 'dark-theme' est sur le body
+body.dark-theme {
+  // Couleurs de fond inversées
+  --bg-primary: #1a1d2e;          // Fond principal sombre
+  --bg-secondary: #252a3d;        // Fond des cartes plus clair
+  --bg-tertiary: #2d3348;         // Fond pour éléments secondaires
+  --bg-hover: #353b52;            // Fond au survol
+
+  // Couleurs de texte inversées
+  --text-primary: #e8eaf0;        // Texte principal clair
+  --text-secondary: #a8adb7;      // Texte secondaire
+  --text-muted: #6c727f;          // Texte atténué
+  --text-link: #5dade2;           // Liens plus clairs
+
+  // Couleurs de bordure adaptées
+  --border-color: #3a3f52;        // Bordures principales
+  --border-light: #2d3348;        // Bordures légères
+
+  // Ombres adaptées pour le sombre
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.5);
+  --shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.2);
+
+  // Couleurs pour les badges de catégorie (adaptées)
+  --badge-orange-bg: rgba(230, 126, 34, 0.2);
+  --badge-orange-text: #f39c12;
+  --badge-purple-bg: rgba(156, 39, 176, 0.2);
+  --badge-purple-text: #ba68c8;
+  --badge-green-bg: rgba(76, 175, 80, 0.2);
+  --badge-green-text: #81c784;
+  --badge-blue-bg: rgba(33, 150, 243, 0.2);
+  --badge-blue-text: #64b5f6;
+
+  // Couleurs pour les badges de statut (adaptées)
+  --statut-actif-bg: rgba(39, 174, 96, 0.2);
+  --statut-actif-text: #2ecc71;
+  --statut-actif-border: rgba(39, 174, 96, 0.3);
+
+  --statut-inactif-bg: rgba(231, 76, 60, 0.2);
+  --statut-inactif-text: #e74c3c;
+  --statut-inactif-border: rgba(231, 76, 60, 0.3);
+
+  --statut-suspendu-bg: rgba(243, 156, 18, 0.2);
+  --statut-suspendu-text: #f39c12;
+  --statut-suspendu-border: rgba(243, 156, 18, 0.3);
+}
+
+// ===== 1. CONTENEUR PRINCIPAL =====
+.fournisseurs-container {
+  // Utilise les variables CSS qui changent selon le thème
+  padding: 30px;                      // Espacement intérieur de 30px
+  max-width: 1600px;                  // Largeur maximale de 1600px
+  margin: 0 auto;                     // Centre horizontalement
+  background: var(--bg-primary);      // Fond qui s'adapte au thème
+  min-height: 100vh;                  // Hauteur minimale = hauteur complète de l'écran
+  transition: background-color 0.3s ease; // Animation douce lors du changement de thème
+}
+
+// ===== 2. EN-TÊTE =====
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-  padding: 20px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;                      // Active flexbox pour aligner les éléments
+  justify-content: space-between;     // Espace entre le titre et le bouton
+  align-items: center;                // Centre verticalement
+  margin-bottom: 30px;                // Espacement en bas de 30px
+  padding: 20px;                      // Espacement intérieur de 20px
+  background: var(--bg-secondary);    // Fond qui s'adapte au thème
+  border-radius: 10px;                // Coins arrondis de 10px
+  box-shadow: var(--shadow-sm);       // Ombre qui s'adapte au thème
+  transition: all 0.3s ease;          // Animation douce sur tous les changements
 
   h1 {
-    margin: 0;
-    color: #2c3e50;
-    font-size: 28px;
-    font-weight: 600;
+    margin: 0;                        // Supprime la marge par défaut
+    color: var(--text-primary);       // Couleur du texte qui s'adapte
+    font-size: 28px;                  // Taille de la police de 28px
+    font-weight: 600;                 // Épaisseur semi-grasse
+    transition: color 0.3s ease;      // Animation sur le changement de couleur
 
     i {
-      margin-right: 10px;
-      color: #e67e22;
+      margin-right: 10px;             // Espacement à droite de l'icône
+      color: #e67e22;                 // Couleur orange pour l'icône (reste constante)
     }
   }
 }
 
-// ==================== STATISTIQUES ====================
+// ===== 3. STATISTIQUES =====
 .stats-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  margin-bottom: 30px;
+  display: grid;                                          // Active CSS Grid
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); // Colonnes auto-ajustées, min 250px
+  gap: 20px;                                              // Espacement de 20px entre les cartes
+  margin-bottom: 30px;                                    // Espacement en bas de 30px
 }
 
 .stat-card {
-  background: white;
-  border-radius: 12px;
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
+  background: var(--bg-secondary);    // Fond qui s'adapte au thème
+  border-radius: 12px;                // Coins très arrondis de 12px
+  padding: 20px;                      // Espacement intérieur de 20px
+  display: flex;                      // Active flexbox pour aligner icône et info
+  align-items: center;                // Centre verticalement
+  gap: 20px;                          // Espace de 20px entre icône et info
+  box-shadow: var(--shadow-sm);       // Ombre qui s'adapte au thème
+  transition: all 0.3s ease;          // Animation douce sur tous les changements
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    transform: translateY(-5px);      // Soulève la carte de 5px au survol
+    box-shadow: var(--shadow-lg);     // Ombre plus prononcée au survol
   }
 
   .stat-icon {
-    width: 60px;
-    height: 60px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
+    width: 60px;                      // Largeur fixe de 60px
+    height: 60px;                     // Hauteur fixe de 60px (carré)
+    border-radius: 12px;              // Coins arrondis de 12px
+    display: flex;                    // Pour centrer l'icône
+    align-items: center;              // Centre verticalement
+    justify-content: center;          // Centre horizontalement
+    font-size: 24px;                  // Taille de l'icône de 24px
 
+    // Les gradients des icônes restent identiques dans les deux thèmes
     &.orange {
-      background: linear-gradient(135deg, #ff6b35 0%, #f7931a 100%);
-      color: white;
-      box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+      background: linear-gradient(135deg, #ff6b35 0%, #f7931a 100%); // Dégradé orange
+      color: white;                   // Icône blanche
+      box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3); // Ombre orangée
     }
 
     &.purple {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); // Dégradé violet
       color: white;
-      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3); // Ombre violette
     }
 
     &.green {
-      background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+      background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%); // Dégradé vert
       color: white;
-      box-shadow: 0 4px 15px rgba(86, 171, 47, 0.3);
+      box-shadow: 0 4px 15px rgba(86, 171, 47, 0.3); // Ombre verte
     }
 
     &.blue {
-      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); // Dégradé bleu
       color: white;
-      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3); // Ombre bleue
     }
   }
 
   .stat-info {
     h3 {
-      margin: 0 0 5px 0;
-      font-size: 32px;
-      font-weight: 700;
-      color: #2c3e50;
+      margin: 0 0 5px 0;              // Marge uniquement en bas de 5px
+      font-size: 32px;                // Grande taille de 32px pour le nombre
+      font-weight: 700;               // Épaisseur très grasse
+      color: var(--text-primary);     // Couleur qui s'adapte au thème
+      transition: color 0.3s ease;    // Animation sur le changement de couleur
     }
 
     p {
-      margin: 0;
-      color: #7f8c8d;
-      font-size: 14px;
+      margin: 0;                      // Supprime la marge
+      color: var(--text-secondary);   // Couleur secondaire qui s'adapte
+      font-size: 14px;                // Taille de 14px
+      transition: color 0.3s ease;    // Animation sur le changement de couleur
     }
   }
 }
 
-// ==================== SECTION DE RECHERCHE ====================
+// ===== 4. SECTION DE RECHERCHE =====
 .search-section {
-  margin-bottom: 25px;
-  padding: 20px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 25px;                // Espacement en bas de 25px
+  padding: 20px;                      // Espacement intérieur de 20px
+  background: var(--bg-secondary);    // Fond qui s'adapte au thème
+  border-radius: 10px;                // Coins arrondis de 10px
+  box-shadow: var(--shadow-sm);       // Ombre qui s'adapte au thème
+  transition: all 0.3s ease;          // Animation douce
 
   .search-box {
-    position: relative;
-    margin-bottom: 20px;
+    position: relative;               // Pour positionner l'icône absolument
+    margin-bottom: 20px;              // Espacement en bas de 20px
 
     i {
-      position: absolute;
-      left: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #95a5a6;
-      font-size: 18px;
+      position: absolute;             // Positionné par rapport au parent
+      left: 15px;                     // À 15px du bord gauche
+      top: 50%;                       // Au milieu verticalement
+      transform: translateY(-50%);    // Centre parfaitement
+      color: var(--text-muted);       // Couleur qui s'adapte
+      font-size: 18px;                // Taille de l'icône de 18px
+      transition: color 0.3s ease;    // Animation sur le changement de couleur
     }
 
     input {
-      width: 100%;
-      padding: 12px 15px 12px 45px;
-      border: 2px solid #e0e0e0;
-      border-radius: 8px;
-      font-size: 16px;
-      transition: all 0.3s ease;
+      width: 100%;                    // Prend toute la largeur
+      padding: 12px 15px 12px 45px;   // Espacement intérieur (gauche 45px pour l'icône)
+      border: 2px solid var(--border-color); // Bordure qui s'adapte
+      border-radius: 8px;             // Coins arrondis de 8px
+      font-size: 16px;                // Taille de la police de 16px
+      background: var(--bg-secondary);// Fond qui s'adapte
+      color: var(--text-primary);     // Texte qui s'adapte
+      transition: all 0.3s ease;      // Animation douce
 
       &::placeholder {
-        color: #bdc3c7;
+        color: var(--text-muted);     // Couleur du placeholder qui s'adapte
       }
 
       &:focus {
-        outline: none;
-        border-color: #e67e22;
-        box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.1);
+        outline: none;                // Supprime le contour par défaut
+        border-color: #e67e22;        // Bordure orange au focus
+        box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.1); // Ombre orange subtile
       }
     }
   }
 
   .filters {
-    margin-bottom: 15px;
+    margin-bottom: 15px;              // Espacement en bas de 15px
 
     label {
-      display: block;
-      color: #2c3e50;
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 10px;
+      display: block;                 // Sur sa propre ligne
+      color: var(--text-primary);     // Couleur qui s'adapte
+      font-size: 14px;                // Taille de 14px
+      font-weight: 600;               // Épaisseur semi-grasse
+      margin-bottom: 10px;            // Espacement en bas de 10px
+      transition: color 0.3s ease;    // Animation sur le changement de couleur
     }
   }
 
   .filter-buttons {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
+    display: flex;                    // Aligne les boutons horizontalement
+    gap: 10px;                        // Espacement de 10px entre les boutons
+    flex-wrap: wrap;                  // Permet le retour à la ligne
   }
 
   .filter-btn {
-    padding: 8px 16px;
-    border: 2px solid #e0e0e0;
-    background: white;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    color: #7f8c8d;
+    padding: 8px 16px;                // Espacement intérieur (vertical horizontal)
+    border: 2px solid var(--border-color); // Bordure qui s'adapte
+    background: var(--bg-secondary);  // Fond qui s'adapte
+    border-radius: 20px;              // Coins très arrondis (pilule)
+    font-size: 13px;                  // Petite taille de 13px
+    font-weight: 600;                 // Épaisseur semi-grasse
+    cursor: pointer;                  // Curseur en forme de main
+    transition: all 0.3s ease;        // Animation douce
+    display: flex;                    // Pour aligner icône et texte
+    align-items: center;              // Centre verticalement
+    gap: 6px;                         // Espace de 6px entre icône et texte
+    color: var(--text-secondary);     // Couleur qui s'adapte
 
     i {
-      font-size: 12px;
+      font-size: 12px;                // Taille de l'icône de 12px
     }
 
     &.active {
-      background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
-      color: white;
-      border-color: transparent;
-      box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3);
+      background: linear-gradient(135deg, #e67e22 0%, #d35400 100%); // Dégradé orange
+      color: white;                   // Texte blanc
+      border-color: transparent;      // Bordure invisible
+      box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3); // Ombre orangée
     }
 
     &:hover:not(.active) {
-      border-color: #bdc3c7;
-      background: #f8f9fa;
+      border-color: var(--text-muted);// Bordure plus visible au survol
+      background: var(--bg-tertiary); // Fond légèrement différent au survol
     }
   }
 
   .results-count {
-    color: #7f8c8d;
-    font-size: 14px;
+    color: var(--text-secondary);     // Couleur qui s'adapte
+    font-size: 14px;                  // Taille de 14px
+    transition: color 0.3s ease;      // Animation sur le changement de couleur
 
     strong {
-      color: #2c3e50;
-      font-size: 16px;
+      color: var(--text-primary);     // Couleur qui s'adapte
+      font-size: 16px;                // Taille légèrement plus grande
     }
   }
 }
 
-// ==================== TABLEAU ====================
+// ===== 5. TABLEAU =====
 .table-container {
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  background: var(--bg-secondary);    // Fond qui s'adapte au thème
+  border-radius: 10px;                // Coins arrondis de 10px
+  box-shadow: var(--shadow-sm);       // Ombre qui s'adapte au thème
+  overflow: hidden;                   // Cache le dépassement pour les coins arrondis
+  transition: all 0.3s ease;          // Animation douce
 }
 
 .fournisseurs-table {
-  width: 100%;
-  border-collapse: collapse;
+  width: 100%;                        // Prend toute la largeur
+  border-collapse: collapse;          // Fusionne les bordures des cellules
 
   thead {
+    // Le gradient de l'en-tête reste orange
     background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
 
     tr th {
-      padding: 15px 10px;
-      text-align: left;
-      color: white;
-      font-weight: 600;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      padding: 15px 10px;             // Espacement intérieur (vertical horizontal)
+      text-align: left;               // Aligne le texte à gauche
+      color: white;                   // Texte blanc (ne change pas)
+      font-weight: 600;               // Épaisseur semi-grasse
+      font-size: 13px;                // Taille de 13px
+      text-transform: uppercase;      // Texte en majuscules
+      letter-spacing: 0.5px;          // Espacement entre les lettres
     }
   }
 
   tbody {
     tr {
-      border-bottom: 1px solid #ecf0f1;
-      transition: all 0.3s ease;
+      border-bottom: 1px solid var(--border-light); // Bordure qui s'adapte
+      transition: all 0.3s ease;      // Animation douce
 
       &:hover {
-        background-color: #f8f9fa;
-        transform: scale(1.005);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        background-color: var(--bg-hover); // Fond au survol qui s'adapte
+        transform: scale(1.005);      // Légère augmentation de taille
+        box-shadow: var(--shadow-hover); // Ombre au survol qui s'adapte
       }
 
       td {
-        padding: 15px 10px;
-        color: #2c3e50;
-        font-size: 13px;
+        padding: 15px 10px;           // Espacement intérieur
+        color: var(--text-primary);   // Couleur qui s'adapte
+        font-size: 13px;              // Taille de 13px
+        transition: color 0.3s ease;  // Animation sur le changement de couleur
 
         a {
-          color: #3498db;
-          text-decoration: none;
+          color: var(--text-link);    // Couleur des liens qui s'adapte
+          text-decoration: none;      // Pas de soulignement par défaut
+          transition: color 0.3s ease;// Animation sur le changement de couleur
 
           &:hover {
-            text-decoration: underline;
+            text-decoration: underline; // Soulignement au survol
           }
         }
       }
 
       .entreprise-name {
-        display: flex;
-        align-items: center;
-        gap: 8px;
+        display: flex;                // Aligne horizontalement
+        align-items: center;          // Centre verticalement
+        gap: 8px;                     // Espace de 8px entre les éléments
 
         strong {
-          color: #2c3e50;
-          font-size: 14px;
+          color: var(--text-primary); // Couleur qui s'adapte
+          font-size: 14px;            // Taille de 14px
+          transition: color 0.3s ease;// Animation
         }
 
         .web-link {
-          color: #3498db;
-          font-size: 12px;
-          opacity: 0;
-          transition: opacity 0.3s ease;
+          color: var(--text-link);    // Couleur qui s'adapte
+          font-size: 12px;            // Taille de 12px
+          opacity: 0;                 // Invisible par défaut
+          transition: opacity 0.3s ease; // Animation de l'opacité
         }
       }
 
       &:hover .entreprise-name .web-link {
-        opacity: 1;
+        opacity: 1;                   // Devient visible au survol de la ligne
       }
 
       .type-badge {
-        display: inline-block;
-        padding: 4px 10px;
-        background: #ecf0f1;
-        color: #2c3e50;
-        border-radius: 12px;
-        font-size: 11px;
-        font-weight: 600;
-        text-transform: uppercase;
+        display: inline-block;        // Inline mais avec dimensions
+        padding: 4px 10px;            // Espacement intérieur
+        background: var(--bg-tertiary); // Fond qui s'adapte
+        color: var(--text-primary);   // Texte qui s'adapte
+        border-radius: 12px;          // Coins arrondis
+        font-size: 11px;              // Petite taille
+        font-weight: 600;             // Épaisseur semi-grasse
+        text-transform: uppercase;    // Texte en majuscules
+        transition: all 0.3s ease;    // Animation douce
       }
 
       .note-container {
-        display: flex;
-        align-items: center;
-        gap: 8px;
+        display: flex;                // Aligne horizontalement
+        align-items: center;          // Centre verticalement
+        gap: 8px;                     // Espace de 8px
 
         i {
-          color: #e0e0e0;
-          font-size: 14px;
+          color: #e0e0e0;             // Couleur grise par défaut (étoile vide)
+          font-size: 14px;            // Taille de 14px
 
           &.filled {
-            color: #f39c12;
+            color: #f39c12;           // Couleur orange pour étoile pleine
           }
         }
 
         .note-value {
-          font-size: 11px;
-          color: #7f8c8d;
-          font-weight: 600;
+          font-size: 11px;            // Petite taille
+          color: var(--text-secondary); // Couleur qui s'adapte
+          font-weight: 600;           // Épaisseur semi-grasse
+          transition: color 0.3s ease;// Animation
         }
       }
     }
   }
 }
 
-// ==================== BADGES DE STATUT ====================
-.statut-badge {
-  display: inline-block;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+// ===== 6. BADGES DE CATÉGORIE =====
+.category-badge {
+  display: inline-flex;               // Inline mais avec flexbox
+  align-items: center;                // Centre verticalement
+  gap: 6px;                           // Espace de 6px entre icône et texte
+  padding: 6px 12px;                  // Espacement intérieur
+  border-radius: 20px;                // Coins très arrondis (pilule)
+  font-size: 11px;                    // Petite taille
+  font-weight: 600;                   // Épaisseur semi-grasse
+  text-transform: uppercase;          // Texte en majuscules
+  letter-spacing: 0.5px;              // Espacement entre les lettres
+  transition: all 0.3s ease;          // Animation douce
+
+  i {
+    font-size: 12px;                  // Taille de l'icône
+  }
 }
 
+// Classes pour les différentes catégories (utilisent les variables adaptatives)
+.category-vins {
+  background: var(--badge-purple-bg); // Fond qui s'adapte
+  color: var(--badge-purple-text);    // Texte qui s'adapte
+}
+
+.category-mets {
+  background: var(--badge-green-bg);  // Fond qui s'adapte
+  color: var(--badge-green-text);     // Texte qui s'adapte
+}
+
+.category-materiel {
+  background: var(--badge-blue-bg);   // Fond qui s'adapte
+  color: var(--badge-blue-text);      // Texte qui s'adapte
+}
+
+// ===== 7. BADGES DE STATUT =====
+.statut-badge {
+  display: inline-block;              // Inline mais avec dimensions
+  padding: 6px 12px;                  // Espacement intérieur
+  border-radius: 20px;                // Coins très arrondis (pilule)
+  font-size: 11px;                    // Petite taille
+  font-weight: 600;                   // Épaisseur semi-grasse
+  text-transform: uppercase;          // Texte en majuscules
+  letter-spacing: 0.5px;              // Espacement entre les lettres
+  transition: all 0.3s ease;          // Animation douce
+}
+
+// Classes pour les différents statuts (utilisent les variables adaptatives)
 .statut-actif {
-  background: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
+  background: var(--statut-actif-bg);     // Fond qui s'adapte
+  color: var(--statut-actif-text);        // Texte qui s'adapte
+  border: 1px solid var(--statut-actif-border); // Bordure qui s'adapte
 }
 
 .statut-inactif {
-  background: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
+  background: var(--statut-inactif-bg);   // Fond qui s'adapte
+  color: var(--statut-inactif-text);      // Texte qui s'adapte
+  border: 1px solid var(--statut-inactif-border); // Bordure qui s'adapte
 }
 
 .statut-suspendu {
-  background: #fff3cd;
-  color: #856404;
-  border: 1px solid #ffeaa7;
+  background: var(--statut-suspendu-bg);  // Fond qui s'adapte
+  color: var(--statut-suspendu-text);     // Texte qui s'adapte
+  border: 1px solid var(--statut-suspendu-border); // Bordure qui s'adapte
 }
 
-// ==================== ACTIONS ====================
+// ===== 8. ACTIONS =====
 .actions {
-  display: flex;
-  gap: 6px;
+  display: flex;                      // Aligne les boutons horizontalement
+  gap: 6px;                           // Espace de 6px entre les boutons
 }
 
-// ==================== BOUTONS ====================
+// ===== 9. BOUTONS =====
 .btn-primary {
+  // Le gradient orange reste identique dans les deux thèmes
   background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3);
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  color: white;                       // Texte blanc
+  border: none;                       // Pas de bordure
+  padding: 12px 24px;                 // Espacement intérieur
+  border-radius: 8px;                 // Coins arrondis
+  font-size: 14px;                    // Taille de 14px
+  font-weight: 600;                   // Épaisseur semi-grasse
+  cursor: pointer;                    // Curseur en forme de main
+  transition: all 0.3s ease;          // Animation douce
+  box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3); // Ombre orangée
+  display: flex;                      // Pour aligner icône et texte
+  align-items: center;                // Centre verticalement
+  gap: 8px;                           // Espace de 8px entre icône et texte
 
   i {
-    font-size: 14px;
+    font-size: 14px;                  // Taille de l'icône
   }
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(230, 126, 34, 0.4);
+    transform: translateY(-2px);      // Soulève de 2px au survol
+    box-shadow: 0 6px 20px rgba(230, 126, 34, 0.4); // Ombre plus forte
   }
 
   &:active {
-    transform: translateY(0);
+    transform: translateY(0);         // Revient à la position normale au clic
   }
 
   &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none !important;
+    opacity: 0.5;                     // Semi-transparent quand désactivé
+    cursor: not-allowed;              // Curseur interdit
+    transform: none !important;       // Pas d'animation
   }
 }
 
 .btn-secondary {
-  background: #95a5a6;
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  background: #95a5a6;                // Fond gris (reste identique)
+  color: white;                       // Texte blanc
+  border: none;                       // Pas de bordure
+  padding: 12px 24px;                 // Espacement intérieur
+  border-radius: 8px;                 // Coins arrondis
+  font-size: 14px;                    // Taille de 14px
+  font-weight: 600;                   // Épaisseur semi-grasse
+  cursor: pointer;                    // Curseur en forme de main
+  transition: all 0.3s ease;          // Animation douce
+  display: flex;                      // Pour aligner icône et texte
+  align-items: center;                // Centre verticalement
+  gap: 8px;                           // Espace de 8px
 
   &:hover {
-    background: #7f8c8d;
-    transform: translateY(-2px);
+    background: #7f8c8d;              // Fond plus foncé au survol
+    transform: translateY(-2px);      // Soulève de 2px
   }
 }
 
 .btn-icon {
-  width: 35px;
-  height: 35px;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
+  width: 35px;                        // Largeur fixe
+  height: 35px;                       // Hauteur fixe (carré)
+  border: none;                       // Pas de bordure
+  border-radius: 50%;                 // Forme circulaire
+  cursor: pointer;                    // Curseur en forme de main
+  transition: all 0.3s ease;          // Animation douce
+  display: flex;                      // Pour centrer l'icône
+  align-items: center;                // Centre verticalement
+  justify-content: center;            // Centre horizontalement
+  font-size: 14px;                    // Taille de l'icône
 
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.1);            // Agrandit de 10% au survol
   }
 }
 
+// Couleurs des boutons d'action (restent identiques)
 .btn-info {
-  background: #3498db;
+  background: #3498db;                // Bleu
   color: white;
 
   &:hover {
-    background: #2980b9;
+    background: #2980b9;              // Bleu plus foncé
     box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
   }
 }
 
 .btn-edit {
-  background: #f39c12;
+  background: #f39c12;                // Orange
   color: white;
 
   &:hover {
-    background: #e67e22;
+    background: #e67e22;              // Orange plus foncé
     box-shadow: 0 4px 12px rgba(243, 156, 18, 0.3);
   }
 }
 
 .btn-delete {
-  background: #e74c3c;
+  background: #e74c3c;                // Rouge
   color: white;
 
   &:hover {
-    background: #c0392b;
+    background: #c0392b;              // Rouge plus foncé
     box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
   }
 }
 
-// ==================== MESSAGE AUCUN RÉSULTAT ====================
+// ===== 10. MESSAGE AUCUN RÉSULTAT =====
 .no-results {
-  text-align: center;
-  padding: 60px 20px;
-  color: #95a5a6;
+  text-align: center;                 // Centre le texte
+  padding: 60px 20px;                 // Grand espacement intérieur
+  color: var(--text-muted);           // Couleur qui s'adapte au thème
+  transition: color 0.3s ease;        // Animation sur le changement de couleur
 
   i {
-    font-size: 60px;
-    margin-bottom: 20px;
-    display: block;
+    font-size: 60px;                  // Grande icône de 60px
+    margin-bottom: 20px;              // Espacement en bas
+    display: block;                   // Sur sa propre ligne
   }
 
   p {
-    font-size: 18px;
-    margin: 0;
+    font-size: 18px;                  // Taille de 18px
+    margin: 0;                        // Pas de marge
   }
 }
 
-// ==================== MODALS ====================
+// ===== 11. MODALS =====
 .modal {
-  position: fixed;
+  position: fixed;                    // Fixé par rapport à la fenêtre
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  animation: fadeIn 0.3s ease;
+  height: 100%;                       // Couvre tout l'écran
+  background: rgba(0, 0, 0, 0.5);     // Fond noir semi-transparent
+  display: flex;                      // Pour centrer le contenu
+  align-items: center;                // Centre verticalement
+  justify-content: center;            // Centre horizontalement
+  z-index: 1000;                      // Au-dessus de tout
+  animation: fadeIn 0.3s ease;        // Animation d'apparition
+
+  // En mode sombre, le fond noir est plus opaque
+  body.dark-theme & {
+    background: rgba(0, 0, 0, 0.7);
+  }
 }
 
+// Animation d'apparition du modal
 @keyframes fadeIn {
   from {
-    opacity: 0;
+    opacity: 0;                       // Invisible au début
   }
   to {
-    opacity: 1;
+    opacity: 1;                       // Visible à la fin
   }
 }
 
 .modal-content {
-  background: white;
-  border-radius: 10px;
-  width: 90%;
-  max-width: 700px;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-  animation: slideUp 0.3s ease;
+  background: var(--bg-secondary);    // Fond qui s'adapte au thème
+  border-radius: 10px;                // Coins arrondis
+  width: 90%;                         // 90% de la largeur
+  max-width: 700px;                   // Largeur maximale de 700px
+  max-height: 90vh;                   // Hauteur maximale = 90% de l'écran
+  overflow-y: auto;                   // Scroll vertical si nécessaire
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); // Grande ombre
+  animation: slideUp 0.3s ease;       // Animation de montée
+  transition: background-color 0.3s ease; // Animation du fond
 
   &.modal-content-large {
-    max-width: 900px;
+    max-width: 900px;                 // Plus large pour les détails
   }
 }
 
+// Animation de montée du modal
 @keyframes slideUp {
   from {
-    transform: translateY(50px);
-    opacity: 0;
+    transform: translateY(50px);      // Démarre 50px plus bas
+    opacity: 0;                       // Invisible au début
   }
   to {
-    transform: translateY(0);
-    opacity: 1;
+    transform: translateY(0);         // Position finale
+    opacity: 1;                       // Visible à la fin
   }
 }
 
 .modal-header {
-  padding: 20px 30px;
-  border-bottom: 2px solid #ecf0f1;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  padding: 20px 30px;                 // Espacement intérieur
+  border-bottom: 2px solid var(--border-light); // Bordure qui s'adapte
+  display: flex;                      // Aligne titre et bouton
+  justify-content: space-between;     // Espace entre titre et bouton
+  align-items: center;                // Centre verticalement
+  transition: border-color 0.3s ease; // Animation de la bordure
 
   .modal-title {
-    margin: 0;
-    color: #2c3e50;
-    font-size: 24px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    margin: 0;                        // Pas de marge
+    color: var(--text-primary);       // Couleur qui s'adapte
+    font-size: 24px;                  // Taille de 24px
+    font-weight: 600;                 // Épaisseur semi-grasse
+    display: flex;                    // Pour aligner icône et texte
+    align-items: center;              // Centre verticalement
+    gap: 10px;                        // Espace de 10px
+    transition: color 0.3s ease;      // Animation de la couleur
 
     i {
-      color: #e67e22;
+      color: #e67e22;                 // Icône orange (reste identique)
     }
   }
 
   .close-btn {
-    background: none;
-    border: none;
-    font-size: 32px;
-    color: #95a5a6;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
+    background: none;                 // Pas de fond
+    border: none;                     // Pas de bordure
+    font-size: 32px;                  // Grande taille de 32px
+    color: var(--text-muted);         // Couleur qui s'adapte
+    cursor: pointer;                  // Curseur en forme de main
+    transition: all 0.3s ease;        // Animation douce
+    width: 40px;                      // Largeur fixe
+    height: 40px;                     // Hauteur fixe (carré)
+    display: flex;                    // Pour centrer le symbole
+    align-items: center;              // Centre verticalement
+    justify-content: center;          // Centre horizontalement
+    border-radius: 50%;               // Forme circulaire
 
     &:hover {
-      background: #ecf0f1;
-      color: #2c3e50;
+      background: var(--bg-tertiary); // Fond au survol qui s'adapte
+      color: var(--text-primary);     // Couleur au survol qui s'adapte
     }
   }
 }
 
 .modal-body {
-  padding: 30px;
+  padding: 30px;                      // Espacement intérieur de 30px
 }
 
 .modal-footer {
-  padding: 20px 30px;
-  border-top: 2px solid #ecf0f1;
-  display: flex;
-  justify-content: flex-end;
-  gap: 15px;
+  padding: 20px 30px;                 // Espacement intérieur
+  border-top: 2px solid var(--border-light); // Bordure qui s'adapte
+  display: flex;                      // Aligne les boutons
+  justify-content: flex-end;          // Aligne à droite
+  gap: 15px;                          // Espace de 15px entre les boutons
+  transition: border-color 0.3s ease; // Animation de la bordure
 }
 
-// ==================== FORMULAIRES ====================
+// ===== 12. FORMULAIRES =====
 .form-section {
-  margin-bottom: 30px;
+  margin-bottom: 30px;                // Espacement en bas
 
   &:last-child {
-    margin-bottom: 0;
+    margin-bottom: 0;                 // Pas d'espacement pour la dernière section
   }
 }
 
 .section-title {
-  color: #2c3e50;
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #e0e0e0;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  color: var(--text-primary);         // Couleur qui s'adapte
+  font-size: 18px;                    // Taille de 18px
+  font-weight: 600;                   // Épaisseur semi-grasse
+  margin-bottom: 20px;                // Espacement en bas
+  padding-bottom: 10px;               // Espacement interne en bas
+  border-bottom: 2px solid var(--border-color); // Bordure qui s'adapte
+  display: flex;                      // Pour aligner icône et texte
+  align-items: center;                // Centre verticalement
+  gap: 10px;                          // Espace de 10px
+  transition: all 0.3s ease;          // Animation douce
 
   i {
-    color: #e67e22;
+    color: #e67e22;                   // Icône orange (reste identique)
   }
 }
 
 .form-row {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  margin-bottom: 20px;
+  display: grid;                      // Active CSS Grid
+  grid-template-columns: repeat(2, 1fr); // 2 colonnes égales
+  gap: 20px;                          // Espace de 20px entre les colonnes
+  margin-bottom: 20px;                // Espacement en bas
 
   &:last-child {
-    margin-bottom: 0;
+    margin-bottom: 0;                 // Pas d'espacement pour la dernière ligne
   }
 
   @media (max-width: 768px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr;       // 1 seule colonne sur mobile
   }
 }
 
 .form-group {
-  display: flex;
-  flex-direction: column;
+  display: flex;                      // Active flexbox
+  flex-direction: column;             // Empile verticalement label et input
 
   label {
-    color: #2c3e50;
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 8px;
+    color: var(--text-primary);       // Couleur qui s'adapte
+    font-size: 14px;                  // Taille de 14px
+    font-weight: 600;                 // Épaisseur semi-grasse
+    margin-bottom: 8px;               // Espacement en bas
+    transition: color 0.3s ease;      // Animation de la couleur
 
     .required {
-      color: #e74c3c;
-      margin-left: 4px;
+      color: #e74c3c;                 // Rouge pour indiquer obligatoire
+      margin-left: 4px;               // Petit espace à gauche
     }
 
     .optional {
-      color: #95a5a6;
-      font-weight: 400;
-      font-size: 12px;
-      font-style: italic;
+      color: var(--text-muted);       // Couleur atténuée
+      font-weight: 400;               // Épaisseur normale
+      font-size: 12px;                // Plus petit
+      font-style: italic;             // En italique
     }
   }
 
   input,
   select {
-    width: 100%;
-    padding: 12px 15px;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 14px;
-    color: #2c3e50;
-    transition: all 0.3s ease;
-    background: white;
+    width: 100%;                      // Prend toute la largeur
+    padding: 12px 15px;               // Espacement intérieur
+    border: 2px solid var(--border-color); // Bordure qui s'adapte
+    border-radius: 8px;               // Coins arrondis
+    font-size: 14px;                  // Taille de 14px
+    color: var(--text-primary);       // Texte qui s'adapte
+    background: var(--bg-secondary);  // Fond qui s'adapte
+    transition: all 0.3s ease;        // Animation douce
 
     &::placeholder {
-      color: #bdc3c7;
+      color: var(--text-muted);       // Placeholder qui s'adapte
     }
 
     &:focus {
-      outline: none;
-      border-color: #e67e22;
-      box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.1);
+      outline: none;                  // Supprime le contour par défaut
+      border-color: #e67e22;          // Bordure orange au focus
+      box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.1); // Ombre orange subtile
     }
 
     &.is-invalid {
-      border-color: #e74c3c;
-      background-color: #fff5f5;
+      border-color: #e74c3c;          // Bordure rouge si invalide
+      background-color: rgba(231, 76, 60, 0.05); // Fond rouge très léger
 
       &:focus {
-        box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+        box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1); // Ombre rouge au focus
       }
     }
   }
 
   select {
-    cursor: pointer;
-    appearance: none;
+    cursor: pointer;                  // Curseur en forme de main
+    appearance: none;                 // Supprime le style par défaut du navigateur
+    // Ajoute une flèche personnalisée
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%232c3e50' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 15px center;
-    background-size: 12px;
-    padding-right: 40px;
+    background-repeat: no-repeat;     // Pas de répétition
+    background-position: right 15px center; // Position à droite
+    background-size: 12px;            // Taille de 12px
+    padding-right: 40px;              // Espace pour la flèche
+
+    // En mode sombre, change la couleur de la flèche
+    body.dark-theme & {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23e8eaf0' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    }
+
+    // Style des options
+    option {
+      background: var(--bg-secondary); // Fond qui s'adapte
+      color: var(--text-primary);     // Texte qui s'adapte
+    }
   }
 }
 
 .error-message {
-  margin-top: 8px;
+  margin-top: 8px;                    // Espacement en haut
 
   small {
-    color: #e74c3c;
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    margin-top: 5px;
+    color: #e74c3c;                   // Rouge pour l'erreur
+    font-size: 12px;                  // Petite taille
+    display: flex;                    // Pour aligner icône et texte
+    align-items: center;              // Centre verticalement
+    gap: 5px;                         // Espace de 5px
+    margin-top: 5px;                  // Espacement entre les messages
 
     i {
-      font-size: 10px;
+      font-size: 10px;                // Petite icône
     }
 
     &:first-child {
-      margin-top: 0;
+      margin-top: 0;                  // Pas d'espacement pour le premier
     }
   }
 }
 
-// ==================== SECTION D'INFORMATIONS (LECTURE SEULE) ====================
+// ===== 13. SECTION D'INFORMATIONS (LECTURE SEULE) =====
 .info-section {
-  background: #fff3e0;
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 25px;
-  border-left: 4px solid #e67e22;
+  background: var(--bg-tertiary);     // Fond qui s'adapte
+  padding: 20px;                      // Espacement intérieur
+  border-radius: 10px;                // Coins arrondis
+  margin-bottom: 25px;                // Espacement en bas
+  border-left: 4px solid #e67e22;     // Bordure gauche orange (reste identique)
+  transition: background-color 0.3s ease; // Animation du fond
 
   h3, h4 {
-    margin: 0 0 15px 0;
-    color: #2c3e50;
-    font-size: 18px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    margin: 0 0 15px 0;               // Marge uniquement en bas
+    color: var(--text-primary);       // Couleur qui s'adapte
+    font-size: 18px;                  // Taille de 18px
+    font-weight: 600;                 // Épaisseur semi-grasse
+    display: flex;                    // Pour aligner icône et texte
+    align-items: center;              // Centre verticalement
+    gap: 10px;                        // Espace de 10px
+    transition: color 0.3s ease;      // Animation de la couleur
 
     i {
-      color: #e67e22;
+      color: #e67e22;                 // Icône orange (reste identique)
     }
   }
 
   .section-subtitle {
-    font-size: 16px;
+    font-size: 16px;                  // Légèrement plus petit
   }
 }
 
 .info-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
+  display: grid;                      // Active CSS Grid
+  grid-template-columns: repeat(2, 1fr); // 2 colonnes égales
+  gap: 15px;                          // Espace de 15px
 
   @media (max-width: 768px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr;       // 1 seule colonne sur mobile
   }
 }
 
 .info-item {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+  display: flex;                      // Active flexbox
+  flex-direction: column;             // Empile label et valeur verticalement
+  gap: 5px;                           // Espace de 5px
 
   &.full-width {
-    grid-column: 1 / -1;
+    grid-column: 1 / -1;              // Prend toutes les colonnes
   }
 
   label {
-    color: #7f8c8d;
-    font-size: 13px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    color: var(--text-secondary);     // Couleur qui s'adapte
+    font-size: 13px;                  // Taille de 13px
+    font-weight: 600;                 // Épaisseur semi-grasse
+    text-transform: uppercase;        // Texte en majuscules
+    letter-spacing: 0.5px;            // Espacement entre les lettres
+    display: flex;                    // Pour aligner icône et texte
+    align-items: center;              // Centre verticalement
+    gap: 6px;                         // Espace de 6px
+    transition: color 0.3s ease;      // Animation de la couleur
 
     i {
-      font-size: 12px;
+      font-size: 12px;                // Petite icône
     }
   }
 
   span, a {
     &.value {
-      color: #2c3e50;
-      font-size: 15px;
-      font-weight: 500;
+      color: var(--text-primary);     // Couleur qui s'adapte
+      font-size: 15px;                // Taille de 15px
+      font-weight: 500;               // Épaisseur moyenne
+      transition: color 0.3s ease;    // Animation de la couleur
 
       &.highlight {
-        font-size: 18px;
-        font-weight: 600;
+        font-size: 18px;              // Plus grand pour mise en valeur
+        font-weight: 600;             // Plus gras
       }
 
       &.link {
-        color: #3498db;
-        text-decoration: none;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        gap: 6px;
+        color: var(--text-link);      // Couleur des liens qui s'adapte
+        text-decoration: none;        // Pas de soulignement par défaut
+        transition: all 0.3s ease;    // Animation douce
+        display: flex;                // Pour aligner icône et texte
+        align-items: center;          // Centre verticalement
+        gap: 6px;                     // Espace de 6px
 
         &:hover {
-          color: #2980b9;
-          text-decoration: underline;
+          color: #e67e22;             // Orange au survol
+          text-decoration: underline; // Soulignement au survol
         }
 
         i {
-          font-size: 12px;
+          font-size: 12px;            // Petite icône
         }
       }
     }
   }
 
   .note-container {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    display: flex;                    // Aligne horizontalement
+    align-items: center;              // Centre verticalement
+    gap: 8px;                         // Espace de 8px
 
     i {
-      color: #e0e0e0;
-      font-size: 16px;
+      color: #e0e0e0;                 // Étoile vide grise
+      font-size: 16px;                // Taille de 16px
 
       &.filled {
-        color: #f39c12;
+        color: #f39c12;               // Étoile pleine orange
       }
     }
 
     .note-value {
-      font-size: 13px;
-      color: #7f8c8d;
-      font-weight: 600;
-      margin-left: 5px;
+      font-size: 13px;                // Taille de 13px
+      color: var(--text-secondary);   // Couleur qui s'adapte
+      font-weight: 600;               // Épaisseur semi-grasse
+      margin-left: 5px;               // Petit espace à gauche
+      transition: color 0.3s ease;    // Animation de la couleur
     }
   }
 }
 
-// ==================== BANDEAU DE STATUT ====================
+// ===== 14. BANDEAU DE STATUT =====
 .status-banner {
-  padding: 15px 30px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 25px;
-  border-radius: 8px;
+  padding: 15px 30px;                 // Espacement intérieur
+  display: flex;                      // Aligne icône et texte
+  align-items: center;                // Centre verticalement
+  gap: 10px;                          // Espace de 10px
+  font-size: 16px;                    // Taille de 16px
+  font-weight: 600;                   // Épaisseur semi-grasse
+  margin-bottom: 25px;                // Espacement en bas
+  border-radius: 8px;                 // Coins arrondis
+  transition: all 0.3s ease;          // Animation douce
 
   i {
-    font-size: 20px;
+    font-size: 20px;                  // Icône de 20px
   }
 
+  // Les gradients restent identiques pour la visibilité
   &.statut-actif {
-    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-    color: white;
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); // Dégradé vert
+    color: white;                     // Texte blanc
   }
 
   &.statut-inactif {
-    background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
-    color: white;
+    background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%); // Dégradé rouge
+    color: white;                     // Texte blanc
   }
 
   &.statut-suspendu {
-    background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
-    color: white;
+    background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%); // Dégradé orange
+    color: white;                     // Texte blanc
   }
 }
 
-// ==================== RESPONSIVE ====================
+// ===== 15. RESPONSIVE =====
 @media (max-width: 1400px) {
   .fournisseurs-table {
-    font-size: 12px;
+    font-size: 12px;                  // Texte plus petit
 
     thead tr th,
     tbody tr td {
-      padding: 10px 8px;
+      padding: 10px 8px;              // Espacement réduit
     }
   }
 }
 
 @media (max-width: 768px) {
   .fournisseurs-container {
-    padding: 15px;
+    padding: 15px;                    // Espacement réduit
   }
 
   .header {
-    flex-direction: column;
-    gap: 15px;
+    flex-direction: column;           // Empile verticalement
+    gap: 15px;                        // Espace de 15px
 
     h1 {
-      font-size: 22px;
+      font-size: 22px;                // Titre plus petit
     }
   }
 
   .table-container {
-    overflow-x: auto;
+    overflow-x: auto;                 // Permet le scroll horizontal
   }
 
   .fournisseurs-table {
-    min-width: 1200px;
+    min-width: 1200px;                // Largeur minimale pour ne pas écraser les colonnes
   }
 
   .modal-content {
-    width: 95%;
-    max-height: 95vh;
+    width: 95%;                       // Utilise 95% de la largeur sur mobile
+    max-height: 95vh;                 // Utilise 95% de la hauteur
   }
 
   .modal-body {
-    padding: 20px;
+    padding: 20px;                    // Espacement réduit
   }
 
   .filter-buttons {
-    flex-direction: column;
+    flex-direction: column;           // Empile les boutons verticalement
 
     .filter-btn {
-      width: 100%;
-      justify-content: center;
+      width: 100%;                    // Prend toute la largeur
+      justify-content: center;        // Centre le contenu
+    }
+  }
+}
+
+// ===== 16. AMÉLIORATION DU CONTRASTE EN MODE SOMBRE =====
+// Ajustements spécifiques pour améliorer la lisibilité en mode sombre
+body.dark-theme {
+  .fournisseurs-table {
+    tbody tr:hover {
+      background-color: rgba(255, 255, 255, 0.05); // Survol plus subtil
+    }
+  }
+
+  .btn-secondary {
+    background: var(--bg-tertiary);   // Utilise la variable adaptative
+    color: var(--text-primary);       // Texte adaptatif
+
+    &:hover {
+      background: var(--border-color); // Fond au survol adaptatif
+    }
+  }
+
+  // Améliore la visibilité des inputs en mode sombre
+  input, select {
+    &:focus {
+      background: var(--bg-secondary); // Garde le fond cohérent
     }
   }
 }

@@ -1,0 +1,974 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cave-master-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cave-master-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  FilterOptions</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/view/admin-dashboard/user-list/user-list.component.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#cave" 
+>
+                                            cave
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#role" 
+>
+                                            role
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#searchTerm" 
+>
+                                            searchTerm
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#status" 
+>
+                                            status
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="cave"></a>
+                                        <span class="name "><b>cave</b>
+                                            <a href="#cave">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>cave:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="role"></a>
+                                        <span class="name "><b>role</b>
+                                            <a href="#role">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>role:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="searchTerm"></a>
+                                        <span class="name "><b>searchTerm</b>
+                                            <a href="#searchTerm">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>searchTerm:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="status"></a>
+                                        <span class="name "><b>status</b>
+                                            <a href="#status">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>status:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+
+// Interface pour représenter un utilisateur (employé ou manager)
+interface User {
+  id: string;           // Identifiant unique de l&#x27;utilisateur
+  firstName: string;    // Prénom de l&#x27;utilisateur
+  lastName: string;     // Nom de famille
+  email: string;        // Adresse email
+  phone: string;        // Numéro de téléphone
+  role: string;         // Rôle (Manager, Vendeur, Caissier, etc.)
+  avatar: string;       // Emoji d&#x27;avatar
+  cave: string;         // Cave d&#x27;affectation
+  status: &#x27;active&#x27; | &#x27;inactive&#x27; | &#x27;on-leave&#x27;; // Statut du collaborateur
+  joinDate: string;     // Date d&#x27;embauche
+  performance: {
+    sales: number;      // Montant total des ventes
+    hours: number;      // Heures travaillées
+    satisfaction: string; // Note de satisfaction
+  };
+}
+
+// Interface pour les filtres de recherche
+interface FilterOptions {
+  searchTerm: string;   // Terme de recherche général
+  role: string;         // Filtre par rôle
+  cave: string;         // Filtre par cave
+  status: string;       // Filtre par statut
+}
+
+@Component({
+  selector: &#x27;app-user-list&#x27;,
+  standalone: true,
+  // Import des modules nécessaires
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  templateUrl: &#x27;./user-list.component.html&#x27;,
+  styleUrls: [&#x27;./user-list.component.scss&#x27;]
+})
+export class UserListComponent implements OnInit {
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; PROPRIÉTÉS DU COMPOSANT &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  // Liste complète des utilisateurs
+  users: User[] &#x3D; [];
+
+  // Liste filtrée des utilisateurs à afficher
+  filteredUsers: User[] &#x3D; [];
+
+  // Utilisateur sélectionné pour voir les détails
+  selectedUser: User | null &#x3D; null;
+
+  // Flag pour afficher le détail d&#x27;un utilisateur
+  isDetailModalOpen: boolean &#x3D; false;
+
+  // Options de filtre actuelles
+  filters: FilterOptions &#x3D; {
+    searchTerm: &#x27;&#x27;,
+    role: &#x27;&#x27;,
+    cave: &#x27;&#x27;,
+    status: &#x27;&#x27;
+  };
+
+  // Liste des rôles disponibles pour le filtrage
+  roles: string[] &#x3D; [
+    &#x27;Manager Principal&#x27;,
+    &#x27;Manager Adjoint&#x27;,
+    &#x27;Manager Nuit&#x27;,
+    &#x27;Caissier(ère)&#x27;,
+    &#x27;Vendeur(se)&#x27;,
+    &#x27;Magasinier&#x27;,
+    &#x27;Livreur&#x27;,
+    &#x27;Assistant(e)&#x27;,
+    &#x27;Sommelier&#x27;,
+    &#x27;Conseiller(ère)&#x27;
+  ];
+
+  // Liste des caves disponibles
+  caves: string[] &#x3D; [
+    &#x27;Cave Principale&#x27;,
+    &#x27;Cave Secondaire&#x27;,
+    &#x27;Cave Premium&#x27;
+  ];
+
+  // Statuts disponibles pour le filtrage
+  statuses: string[] &#x3D; [&#x27;active&#x27;, &#x27;inactive&#x27;, &#x27;on-leave&#x27;];
+
+  // Tri actuel (nom du champ et direction)
+  sortField: string &#x3D; &#x27;lastName&#x27;;  // Champ sur lequel trier
+  sortDirection: &#x27;asc&#x27; | &#x27;desc&#x27; &#x3D; &#x27;asc&#x27;; // Direction du tri
+
+  // Pagination
+  currentPage: number &#x3D; 1;      // Page actuelle
+  itemsPerPage: number &#x3D; 10;    // Nombre d&#x27;items par page
+  totalPages: number &#x3D; 1;       // Nombre total de pages
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; CONSTRUCTEUR &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  constructor() {}
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE D&#x27;INITIALISATION &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  ngOnInit(): void {
+    // Charge les données des utilisateurs au démarrage
+    this.loadUsers();
+
+    // Applique les filtres et affiche les utilisateurs
+    this.applyFilters();
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE CHARGEMENT DES UTILISATEURS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Charge la liste de tous les utilisateurs
+   * À remplacer par un appel API backend
+   */
+  loadUsers(): void {
+    // Données mockées des utilisateurs
+    this.users &#x3D; [
+      {
+        id: &#x27;user_1&#x27;,
+        firstName: &#x27;Jean&#x27;,
+        lastName: &#x27;Kouassi&#x27;,
+        email: &#x27;jean.kouassi@caveviking.com&#x27;,
+        phone: &#x27;+234 801 234 5678&#x27;,
+        role: &#x27;Manager Principal&#x27;,
+        avatar: &#x27;👨‍💼&#x27;,
+        cave: &#x27;Cave Principale&#x27;,
+        status: &#x27;active&#x27;,
+        joinDate: &#x27;2023-01-15&#x27;,
+        performance: { sales: 2500000, hours: 160, satisfaction: &#x27;96%&#x27; }
+      },
+      {
+        id: &#x27;user_2&#x27;,
+        firstName: &#x27;Marie&#x27;,
+        lastName: &#x27;Diabate&#x27;,
+        email: &#x27;marie.diabate@caveviking.com&#x27;,
+        phone: &#x27;+234 802 345 6789&#x27;,
+        role: &#x27;Manager Adjoint&#x27;,
+        avatar: &#x27;👩‍💼&#x27;,
+        cave: &#x27;Cave Principale&#x27;,
+        status: &#x27;active&#x27;,
+        joinDate: &#x27;2023-03-20&#x27;,
+        performance: { sales: 1800000, hours: 158, satisfaction: &#x27;94%&#x27; }
+      },
+      {
+        id: &#x27;user_3&#x27;,
+        firstName: &#x27;Alice&#x27;,
+        lastName: &#x27;Martin&#x27;,
+        email: &#x27;alice.martin@caveviking.com&#x27;,
+        phone: &#x27;+234 803 456 7890&#x27;,
+        role: &#x27;Caissière&#x27;,
+        avatar: &#x27;👩&#x27;,
+        cave: &#x27;Cave Principale&#x27;,
+        status: &#x27;active&#x27;,
+        joinDate: &#x27;2023-02-10&#x27;,
+        performance: { sales: 450000, hours: 160, satisfaction: &#x27;92%&#x27; }
+      },
+      {
+        id: &#x27;user_4&#x27;,
+        firstName: &#x27;Bob&#x27;,
+        lastName: &#x27;Traore&#x27;,
+        email: &#x27;bob.traore@caveviking.com&#x27;,
+        phone: &#x27;+234 804 567 8901&#x27;,
+        role: &#x27;Magasinier&#x27;,
+        avatar: &#x27;👨&#x27;,
+        cave: &#x27;Cave Principale&#x27;,
+        status: &#x27;active&#x27;,
+        joinDate: &#x27;2023-04-05&#x27;,
+        performance: { sales: 380000, hours: 158, satisfaction: &#x27;88%&#x27; }
+      },
+      {
+        id: &#x27;user_5&#x27;,
+        firstName: &#x27;Sophie&#x27;,
+        lastName: &#x27;Bakayoko&#x27;,
+        email: &#x27;sophie.bakayoko@caveviking.com&#x27;,
+        phone: &#x27;+234 805 678 9012&#x27;,
+        role: &#x27;Manager Principal&#x27;,
+        avatar: &#x27;👩‍💼&#x27;,
+        cave: &#x27;Cave Secondaire&#x27;,
+        status: &#x27;active&#x27;,
+        joinDate: &#x27;2023-05-18&#x27;,
+        performance: { sales: 1900000, hours: 160, satisfaction: &#x27;93%&#x27; }
+      },
+      {
+        id: &#x27;user_6&#x27;,
+        firstName: &#x27;Thomas&#x27;,
+        lastName: &#x27;Diarra&#x27;,
+        email: &#x27;thomas.diarra@caveviking.com&#x27;,
+        phone: &#x27;+234 806 789 0123&#x27;,
+        role: &#x27;Manager Adjoint&#x27;,
+        avatar: &#x27;👨‍💼&#x27;,
+        cave: &#x27;Cave Secondaire&#x27;,
+        status: &#x27;inactive&#x27;,
+        joinDate: &#x27;2023-06-22&#x27;,
+        performance: { sales: 1500000, hours: 155, satisfaction: &#x27;90%&#x27; }
+      },
+      {
+        id: &#x27;user_7&#x27;,
+        firstName: &#x27;Claire&#x27;,
+        lastName: &#x27;Diop&#x27;,
+        email: &#x27;claire.diop@caveviking.com&#x27;,
+        phone: &#x27;+234 807 890 1234&#x27;,
+        role: &#x27;Vendeuse&#x27;,
+        avatar: &#x27;👩&#x27;,
+        cave: &#x27;Cave Principale&#x27;,
+        status: &#x27;on-leave&#x27;,
+        joinDate: &#x27;2023-07-14&#x27;,
+        performance: { sales: 520000, hours: 140, satisfaction: &#x27;95%&#x27; }
+      },
+      {
+        id: &#x27;user_8&#x27;,
+        firstName: &#x27;David&#x27;,
+        lastName: &#x27;Kone&#x27;,
+        email: &#x27;david.kone@caveviking.com&#x27;,
+        phone: &#x27;+234 808 901 2345&#x27;,
+        role: &#x27;Livreur&#x27;,
+        avatar: &#x27;👨&#x27;,
+        cave: &#x27;Cave Principale&#x27;,
+        status: &#x27;active&#x27;,
+        joinDate: &#x27;2023-08-25&#x27;,
+        performance: { sales: 290000, hours: 155, satisfaction: &#x27;87%&#x27; }
+      }
+    ];
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE D&#x27;APPLICATION DES FILTRES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Applique tous les filtres et le tri sur la liste des utilisateurs
+   */
+  applyFilters(): void {
+    // Commence avec la liste complète des utilisateurs
+    let result &#x3D; [...this.users];
+
+    // Filtre par terme de recherche (prénom, nom, email)
+    if (this.filters.searchTerm.trim()) {
+      // Convertit le terme de recherche en minuscules pour comparaison insensible à la casse
+      const searchTerm &#x3D; this.filters.searchTerm.toLowerCase();
+
+      // Filtre les utilisateurs dont le prénom, nom ou email contient le terme
+      result &#x3D; result.filter(user &#x3D;&gt;
+        user.firstName.toLowerCase().includes(searchTerm) ||
+        user.lastName.toLowerCase().includes(searchTerm) ||
+        user.email.toLowerCase().includes(searchTerm)
+      );
+    }
+
+    // Filtre par rôle si un rôle est sélectionné
+    if (this.filters.role) {
+      // Garde seulement les utilisateurs avec le rôle sélectionné
+      result &#x3D; result.filter(user &#x3D;&gt; user.role &#x3D;&#x3D;&#x3D; this.filters.role);
+    }
+
+    // Filtre par cave si une cave est sélectionnée
+    if (this.filters.cave) {
+      // Garde seulement les utilisateurs affectés à la cave sélectionnée
+      result &#x3D; result.filter(user &#x3D;&gt; user.cave &#x3D;&#x3D;&#x3D; this.filters.cave);
+    }
+
+    // Filtre par statut si un statut est sélectionné
+    if (this.filters.status) {
+      // Garde seulement les utilisateurs avec le statut sélectionné
+      result &#x3D; result.filter(user &#x3D;&gt; user.status &#x3D;&#x3D;&#x3D; this.filters.status);
+    }
+
+    // Applique le tri sur les résultats filtrés
+    this.sortUsers(result);
+
+    // Applique la pagination sur les résultats triés
+    this.applyPagination(result);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE TRI &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Trie les utilisateurs selon le champ et la direction définis
+   * @param users La liste des utilisateurs à trier
+   */
+  private sortUsers(users: User[]): void {
+    // Trie le tableau en place en fonction du champ de tri
+    users.sort((a, b) &#x3D;&gt; {
+      // Récupère les valeurs du champ pour chaque utilisateur
+      // Utilise &#x60;any&#x60; pour accéder aux propriétés dynamiquement
+      const valueA &#x3D; (a as any)[this.sortField];
+      const valueB &#x3D; (b as any)[this.sortField];
+
+      // Compare les valeurs (pour les strings et numbers)
+      if (typeof valueA &#x3D;&#x3D;&#x3D; &#x27;string&#x27;) {
+        // Pour les strings, compare en ignorant la casse
+        return this.sortDirection &#x3D;&#x3D;&#x3D; &#x27;asc&#x27;
+          ? valueA.localeCompare(valueB)
+          : valueB.localeCompare(valueA);
+      } else {
+        // Pour les nombres, soustrait les valeurs
+        return this.sortDirection &#x3D;&#x3D;&#x3D; &#x27;asc&#x27;
+          ? valueA - valueB
+          : valueB - valueA;
+      }
+    });
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE PAGINATION &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Applique la pagination sur la liste filtrée et triée
+   * @param users La liste complète des utilisateurs filtrés
+   */
+  private applyPagination(users: User[]): void {
+    // Calcule le nombre total de pages
+    this.totalPages &#x3D; Math.ceil(users.length / this.itemsPerPage);
+
+    // Garantit que la page actuelle est valide
+    if (this.currentPage &gt; this.totalPages &amp;&amp; this.totalPages &gt; 0) {
+      this.currentPage &#x3D; this.totalPages;
+    }
+
+    // Calcule l&#x27;index de départ pour la page actuelle
+    // Par exemple, page 1 (0-based) : 0 * 10 &#x3D; 0
+    // Page 2 : 1 * 10 &#x3D; 10
+    const startIndex &#x3D; (this.currentPage - 1) * this.itemsPerPage;
+
+    // Calcule l&#x27;index de fin
+    // Par exemple, page 1 : 0 + 10 &#x3D; 10
+    const endIndex &#x3D; startIndex + this.itemsPerPage;
+
+    // Récupère les utilisateurs pour la page actuelle
+    this.filteredUsers &#x3D; users.slice(startIndex, endIndex);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE CHANGEMENT DE TRI &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Change le champ de tri et applique les filtres
+   * @param field Le nom du champ sur lequel trier
+   */
+  changeSortField(field: string): void {
+    // Vérifie si le champ de tri est déjà celui cliqué
+    if (this.sortField &#x3D;&#x3D;&#x3D; field) {
+      // Si oui, inverse la direction du tri
+      this.sortDirection &#x3D; this.sortDirection &#x3D;&#x3D;&#x3D; &#x27;asc&#x27; ? &#x27;desc&#x27; : &#x27;asc&#x27;;
+    } else {
+      // Sinon, définit le nouveau champ de tri
+      this.sortField &#x3D; field;
+      // Réinitialise la direction à ascendant
+      this.sortDirection &#x3D; &#x27;asc&#x27;;
+    }
+
+    // Réinitialise à la première page avec le nouveau tri
+    this.currentPage &#x3D; 1;
+
+    // Réapplique les filtres avec le nouveau tri
+    this.applyFilters();
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE RECHERCHE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Met à jour le terme de recherche et réapplique les filtres
+   * @param term Le terme de recherche
+   */
+  onSearch(term: string): void {
+    // Stocke le terme de recherche dans les filtres
+    this.filters.searchTerm &#x3D; term;
+
+    // Réinitialise à la première page (nouvelle recherche)
+    this.currentPage &#x3D; 1;
+
+    // Réapplique tous les filtres avec le nouveau terme
+    this.applyFilters();
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE CHANGEMENT DE FILTRE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Change les filtres et réapplique
+   * @param filterName Le nom du filtre (role, cave, status)
+   * @param value La nouvelle valeur du filtre
+   */
+  onFilterChange(filterName: string, value: string): void {
+    // Met à jour le filtre spécifié (dynamiquement)
+    (this.filters as any)[filterName] &#x3D; value;
+
+    // Réinitialise à la première page (nouveaux filtres)
+    this.currentPage &#x3D; 1;
+
+    // Réapplique tous les filtres
+    this.applyFilters();
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE D&#x27;AFFICHAGE DES DÉTAILS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Affiche les détails d&#x27;un utilisateur sélectionné
+   * @param user L&#x27;utilisateur dont afficher les détails
+   */
+  viewUserDetails(user: User): void {
+    // Stocke l&#x27;utilisateur sélectionné
+    this.selectedUser &#x3D; user;
+
+    // Ouvre le modal des détails
+    this.isDetailModalOpen &#x3D; true;
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE FERMETURE DU MODAL &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Ferme le modal des détails utilisateur
+   */
+  closeDetailModal(): void {
+    // Ferme le modal
+    this.isDetailModalOpen &#x3D; false;
+
+    // Efface la sélection d&#x27;utilisateur
+    this.selectedUser &#x3D; null;
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE CHANGEMENT DE PAGE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Change la page active en pagination
+   * @param page Le numéro de la page à afficher
+   */
+  goToPage(page: number): void {
+    // Vérifie que la page demandée est valide (entre 1 et totalPages)
+    if (page &gt;&#x3D; 1 &amp;&amp; page &lt;&#x3D; this.totalPages) {
+      // Définit la nouvelle page actuelle
+      this.currentPage &#x3D; page;
+
+      // Réapplique les filtres pour mettre à jour l&#x27;affichage
+      this.applyFilters();
+    }
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE PAGE SUIVANTE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Passe à la page suivante
+   */
+  nextPage(): void {
+    // Vérifie qu&#x27;il y a une page suivante
+    if (this.currentPage &lt; this.totalPages) {
+      // Passe à la page suivante
+      this.goToPage(this.currentPage + 1);
+    }
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE PAGE PRÉCÉDENTE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Revient à la page précédente
+   */
+  previousPage(): void {
+    // Vérifie qu&#x27;il y a une page précédente
+    if (this.currentPage &gt; 1) {
+      // Revient à la page précédente
+      this.goToPage(this.currentPage - 1);
+    }
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE RÉINITIALISATION DES FILTRES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Réinitialise tous les filtres
+   */
+  resetFilters(): void {
+    // Réinitialise l&#x27;objet filtres avec des valeurs vides
+    this.filters &#x3D; {
+      searchTerm: &#x27;&#x27;,
+      role: &#x27;&#x27;,
+      cave: &#x27;&#x27;,
+      status: &#x27;&#x27;
+    };
+
+    // Réinitialise la pagination à la première page
+    this.currentPage &#x3D; 1;
+
+    // Réapplique les filtres (avec des filtres vides)
+    this.applyFilters();
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE CALCUL DE STATISTIQUES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Calcule les statistiques globales des utilisateurs filtrés
+   * @returns L&#x27;objet contenant les statistiques
+   */
+  getStatistics(): { totalSales: number; totalHours: number; averageSatisfaction: string } {
+    // Initialise les accumulateurs
+    let totalSales &#x3D; 0;
+    let totalHours &#x3D; 0;
+    let satisfactionValues: number[] &#x3D; [];
+
+    // Parcourt chaque utilisateur filtré
+    this.filteredUsers.forEach(user &#x3D;&gt; {
+      // Ajoute les ventes de cet utilisateur au total
+      totalSales +&#x3D; user.performance.sales;
+      // Ajoute les heures de cet utilisateur au total
+      totalHours +&#x3D; user.performance.hours;
+      // Extrait le nombre de satisfaction (enlève le %)
+      const satisfaction &#x3D; parseInt(user.performance.satisfaction);
+      // Ajoute la valeur à la liste des satisfactions
+      satisfactionValues.push(satisfaction);
+    });
+
+    // Calcule la moyenne des satisfactions
+    const averageSatisfaction &#x3D; satisfactionValues.length &gt; 0
+      ? (satisfactionValues.reduce((a, b) &#x3D;&gt; a + b, 0) / satisfactionValues.length).toFixed(0)
+      : &#x27;0&#x27;;
+
+    // Retourne les statistiques calculées
+    return {
+      totalSales,
+      totalHours,
+      averageSatisfaction: averageSatisfaction + &#x27;%&#x27;
+    };
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE FORMATAGE DE NOMBRE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Formate un nombre en format monétaire
+   * @param value La valeur à formater
+   * @returns La valeur formatée
+   */
+  formatCurrency(value: number): string {
+    // Convertit le nombre en string avec séparateur de milliers
+    return value.toLocaleString(&#x27;fr-FR&#x27;, {
+      style: &#x27;currency&#x27;,
+      currency: &#x27;XOF&#x27; // Franc CFA d&#x27;Afrique de l&#x27;Ouest
+    });
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE DÉTERMINATION DE BADGE DE STATUT &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Retourne le CSS class pour le badge de statut
+   * @param status Le statut de l&#x27;utilisateur
+   * @returns La classe CSS correspondante
+   */
+  getStatusBadgeClass(status: string): string {
+    // Retourne une classe CSS différente selon le statut
+    switch (status) {
+      case &#x27;active&#x27;:
+        // Utilisateur actif (vert)
+        return &#x27;badge-active&#x27;;
+      case &#x27;inactive&#x27;:
+        // Utilisateur inactif (gris)
+        return &#x27;badge-inactive&#x27;;
+      case &#x27;on-leave&#x27;:
+        // Utilisateur en congé (orange)
+        return &#x27;badge-on-leave&#x27;;
+      default:
+        // Cas par défaut (ne devrait pas se produire)
+        return &#x27;badge-inactive&#x27;;
+    }
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE TRADUCTION DE STATUT &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Traduit le statut en français
+   * @param status Le statut en anglais
+   * @returns Le statut traduit
+   */
+  getStatusLabel(status: string): string {
+    // Retourne la traduction du statut
+    switch (status) {
+      case &#x27;active&#x27;:
+        return &#x27;Actif&#x27;;
+      case &#x27;inactive&#x27;:
+        return &#x27;Inactif&#x27;;
+      case &#x27;on-leave&#x27;:
+        return &#x27;En congé&#x27;;
+      default:
+        return status;
+    }
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'FilterOptions-1.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

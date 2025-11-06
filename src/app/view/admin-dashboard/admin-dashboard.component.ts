@@ -111,13 +111,32 @@ interface DashboardStats {
 export class AdminDashboardComponent implements OnInit, OnDestroy {
 
   // ===== ÉTAT DE NAVIGATION =====
+  // Propriété qui stocke la page actuellement active dans le dashboard
   activePage: string = 'home';
+
+  // Contrôle l'affichage du menu dropdown de l'utilisateur (profil)
   isUserDropdownOpen: boolean = false;
+
+  // Contrôle l'affichage du sous-menu "Mes boissons" (système au clic)
   isDrinksSubmenuOpen: boolean = false;
+
+  // Contrôle l'affichage du sidebar sur mobile
   isMobileSidebarOpen: boolean = false;
+
+  // Subscription pour écouter les changements de route
   private routerSubscription?: Subscription;
 
+  // ===== NOUVELLES PROPRIÉTÉS POUR LES SOUS-MENUS AU SURVOL =====
+  // Stocke le nom de la section actuellement survolée (team, partnership, cave, store, finance, info)
+  // Si null, aucun sous-menu n'est affiché
+  hoveredSection: string | null = null;
+
+  // Timer pour gérer le délai avant l'ouverture/fermeture du sous-menu
+  // Cela améliore l'expérience utilisateur en évitant les ouvertures/fermetures accidentelles
+  hoverTimeout: any = null;
+
   // ===== CAROUSEL =====
+  // Liste des boissons vedettes affichées dans le carousel de la page d'accueil
   featuredDrinks: FeaturedDrink[] = [
     {
       icon: '🍷',
@@ -156,9 +175,14 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     }
   ];
 
+  // Index de la boisson actuellement affichée dans le carousel
   currentDrinkIndex: number = 0;
+
+  // Subscription pour l'intervalle automatique du carousel
   private carouselSubscription?: Subscription;
-  private carouselInterval: number = 5000; // 5 secondes
+
+  // Durée d'affichage de chaque slide (5 secondes)
+  private carouselInterval: number = 5000;
 
   // ===== DONNÉES PRODUITS =====
   products: Product[] = [
@@ -496,28 +520,120 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     console.log('✓ Dashboard Admin initialisé avec succès !');
 
+    // Initialise l'écoute des changements de route
     this.initializeRouterSubscription();
+
+    // Met à jour la page active en fonction de l'URL actuelle
     this.updateActivePageFromRoute();
+
+    // Démarre le carousel automatique
     this.startCarouselInterval();
+
+    // Vérifie si on est sur mobile pour adapter l'affichage
     this.checkMobileView();
   }
 
   ngOnDestroy(): void {
+    // Nettoie les subscriptions et timers pour éviter les fuites mémoire
     this.cleanupSubscriptions();
+
+    // Nettoie spécifiquement le timer des sous-menus au survol
+    if (this.hoverTimeout) {
+      clearTimeout(this.hoverTimeout);
+    }
   }
 
   // ===== GESTION DES ÉVÉNEMENTS =====
+
+  // @HostListener écoute les événements du navigateur
+  // Ici, on écoute le redimensionnement de la fenêtre pour adapter l'affichage mobile
   @HostListener('window:resize')
   onResize(): void {
     this.checkMobileView();
   }
 
+  // Écoute les clics sur le document pour fermer les dropdowns ouverts
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
     this.handleOutsideClick(event);
   }
 
+  // ===== MÉTHODES POUR LES SOUS-MENUS AU SURVOL =====
+
+  /**
+   * Appelée quand la souris entre dans une zone de titre de section
+   * @param sectionName - Nom de la section ('team', 'partnership', 'cave', 'store', 'finance', 'info')
+   */
+  onSectionMouseEnter(sectionName: string): void {
+    // Si un timer est déjà en cours, on l'annule
+    // Cela gère le cas où l'utilisateur passe rapidement d'une section à l'autre
+    if (this.hoverTimeout) {
+      clearTimeout(this.hoverTimeout);
+    }
+
+    // On attend 200ms avant d'afficher le sous-menu
+    // Ce délai évite l'ouverture accidentelle si l'utilisateur ne fait que passer la souris
+    this.hoverTimeout = setTimeout(() => {
+      this.hoveredSection = sectionName;
+      console.log('📂 Sous-menu ouvert:', sectionName);
+    }, 200);
+  }
+
+  /**
+   * Appelée quand la souris quitte une zone de titre de section ou de sous-menu
+   */
+  onSectionMouseLeave(): void {
+    // Annule le timer d'ouverture si la souris quitte avant les 200ms
+    if (this.hoverTimeout) {
+      clearTimeout(this.hoverTimeout);
+    }
+
+    // Délai de 300ms avant de fermer le sous-menu
+    // Ce délai permet à l'utilisateur de déplacer sa souris vers le sous-menu
+    // sans que celui-ci ne se ferme immédiatement
+    this.hoverTimeout = setTimeout(() => {
+      this.hoveredSection = null;
+      console.log('📂 Sous-menu fermé');
+    }, 300);
+  }
+
+  /**
+   * Appelée quand la souris entre dans la zone du sous-menu lui-même
+   * Annule la fermeture pour garder le menu ouvert
+   */
+  onSubmenuMouseEnter(): void {
+    // Si un timer de fermeture est en cours, on l'annule
+    // Cela permet au sous-menu de rester ouvert tant qu'on est dedans
+    if (this.hoverTimeout) {
+      clearTimeout(this.hoverTimeout);
+    }
+  }
+
+  /**
+   * Appelée quand la souris quitte la zone du sous-menu
+   * Ferme immédiatement le sous-menu
+   */
+  onSubmenuMouseLeave(): void {
+    // Fermeture immédiate quand on quitte le sous-menu
+    this.hoveredSection = null;
+    console.log('📂 Sous-menu fermé (sortie du submenu)');
+  }
+
+  /**
+   * Vérifie si un sous-menu spécifique doit être affiché
+   * @param sectionName - Nom de la section à vérifier
+   * @returns true si le sous-menu de cette section est actuellement ouvert
+   */
+  isSubmenuOpen(sectionName: string): boolean {
+    return this.hoveredSection === sectionName;
+  }
+
   // ===== INITIALISATION =====
+
+  /**
+   * Configure l'écoute des changements de route
+   * Met à jour la page active et ferme le sidebar mobile à chaque changement
+   */
   private initializeRouterSubscription(): void {
     this.routerSubscription = this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
@@ -527,12 +643,20 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+   * Vérifie la taille de l'écran et ferme le sidebar si on est sur mobile
+   */
   private checkMobileView(): void {
     if (window.innerWidth < 768) {
       this.isMobileSidebarOpen = false;
+      // Sur mobile, on ferme aussi automatiquement les sous-menus au survol
+      this.hoveredSection = null;
     }
   }
 
+  /**
+   * Nettoie toutes les subscriptions pour éviter les fuites mémoire
+   */
   private cleanupSubscriptions(): void {
     if (this.carouselSubscription) {
       this.carouselSubscription.unsubscribe();
@@ -543,6 +667,10 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   // ===== NAVIGATION =====
+
+  /**
+   * Met à jour la propriété activePage en fonction de l'URL actuelle
+   */
   private updateActivePageFromRoute(): void {
     const url = this.router.url;
     console.log('🔍 URL actuelle:', url);
@@ -596,6 +724,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   // ===== GESTION DU SIDEBAR MOBILE =====
+
   toggleMobileSidebar(): void {
     this.isMobileSidebarOpen = !this.isMobileSidebarOpen;
   }
@@ -604,9 +733,12 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     if (window.innerWidth < 768) {
       this.isMobileSidebarOpen = false;
     }
+    // Ferme aussi tous les sous-menus au survol quand on ferme le sidebar
+    this.hoveredSection = null;
   }
 
   // ===== GESTION DES DROPDOWNS =====
+
   toggleDrinksSubmenu(event?: Event): void {
     if (event) {
       event.preventDefault();
@@ -638,6 +770,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   // ===== CAROUSEL =====
+
   private startCarouselInterval(): void {
     this.carouselSubscription = interval(this.carouselInterval).subscribe(() => {
       this.nextDrink();
@@ -666,6 +799,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   // ===== GESTION DES CAVES =====
+
   openCaveModal(cave: Cave, event?: Event): void {
     if (event) {
       event.preventDefault();
@@ -739,6 +873,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   // ===== GESTION DES MANAGERS =====
+
   getAllManagers(): Manager[] {
     const allManagers: Manager[] = [];
     this.caves.forEach(cave => {
@@ -807,6 +942,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   // ===== GESTION DES EMPLOYÉS =====
+
   getAllEmployees(): Employee[] {
     const allEmployees: Employee[] = [];
     this.caves.forEach(cave => {
@@ -879,6 +1015,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   // ===== GESTION DU SCAN =====
+
   startScan(event?: Event): void {
     if (event) {
       event.preventDefault();
@@ -908,6 +1045,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   // ===== GESTION DU PROFIL =====
+
   openProfileModal(event?: Event): void {
     if (event) {
       event.preventDefault();
@@ -934,6 +1072,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   // ===== DÉCONNEXION =====
+
   logout(event?: Event): void {
     if (event) {
       event.preventDefault();
@@ -947,6 +1086,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   // ===== UTILITAIRES =====
+
   formatNumber(value: number): string {
     return value.toLocaleString('fr-FR');
   }
@@ -986,6 +1126,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   // ===== RECHERCHE =====
+
   onSearch(): void {
     if (!this.searchTerm.trim()) {
       console.log('🔍 Recherche vide');
@@ -993,7 +1134,6 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     }
 
     console.log('🔍 Recherche:', this.searchTerm);
-    // Implémentation de la recherche
     alert(`Recherche de: ${this.searchTerm}`);
   }
 
@@ -1002,6 +1142,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   // ===== STATISTIQUES =====
+
   getTotalRevenue(): number {
     return this.caves.reduce((total, cave) => {
       return total + cave.managers.reduce((managerTotal, manager) => {
@@ -1030,6 +1171,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   // ===== GESTION DES ACCORDS METS & VINS =====
+
   getWinePairingsByCategory(category: string): WinePairing[] {
     return this.winePairings.filter(pairing => pairing.category === category);
   }
@@ -1056,6 +1198,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   // ===== GESTION DES PRODUITS =====
+
   getTopProducts(limit: number = 5): Product[] {
     return [...this.products]
       .sort((a, b) => b.sales - a.sales)
@@ -1073,6 +1216,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   // ===== EXPORT DE DONNÉES =====
+
   exportCaveData(cave: Cave): void {
     const data = {
       cave: {
@@ -1131,15 +1275,17 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   // ===== NOTIFICATIONS =====
+
   getUnreadNotificationsCount(): number {
-    return 5; // À implémenter avec un vrai service
+    return 5;
   }
 
   getUnreadMessagesCount(): number {
-    return 3; // À implémenter avec un vrai service
+    return 3;
   }
 
   // ===== VALIDATION =====
+
   isValidEmail(email: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
@@ -1215,6 +1361,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   // ===== DEBUG =====
+
   debugNavigation(): void {
     console.log('=== DEBUG NAVIGATION ===');
     console.log('URL actuelle:', this.router.url);
@@ -1223,6 +1370,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     console.log('Sidebar mobile:', this.isMobileSidebarOpen);
     console.log('User dropdown:', this.isUserDropdownOpen);
     console.log('Drinks submenu:', this.isDrinksSubmenuOpen);
+    console.log('Hovered section:', this.hoveredSection);
     console.log('=======================');
   }
 
@@ -1245,6 +1393,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   // ===== HELPERS POUR LE TEMPLATE =====
+
   trackByCaveId(index: number, cave: Cave): string {
     return cave.id;
   }

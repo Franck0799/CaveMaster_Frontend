@@ -1,0 +1,86 @@
+<!-- faq.component.html -->
+<div class="page-section">
+  <div class="content-section">
+    <!-- Header -->
+    <div class="section-header">
+      <h1 class="section-title-main">
+        <i class="fas fa-question-circle"></i>
+        Foire Aux Questions
+      </h1>
+    </div>
+
+    <!-- Filters -->
+    <div class="faq-filters">
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input
+          type="text"
+          placeholder="Rechercher une question..."
+          [(ngModel)]="searchQuery"
+          (input)="filterFAQ()"
+        />
+      </div>
+
+      <select
+        class="filter-select"
+        [(ngModel)]="selectedCategory"
+        (change)="filterFAQ()"
+      >
+        <option value="all">Toutes les catégories</option>
+        <option *ngFor="let cat of categories" [value]="cat">
+          {{ cat }}
+        </option>
+      </select>
+    </div>
+
+    <!-- FAQ List -->
+    <div class="faq-list">
+      <div
+        *ngFor="let item of filteredItems"
+        class="faq-item"
+      >
+        <div
+          class="faq-question"
+          (click)="toggleItem(item)"
+        >
+          <span class="category-badge">{{ item.category }}</span>
+          <h3>{{ item.question }}</h3>
+          <i
+            class="fas"
+            [ngClass]="item.isOpen ? 'fa-chevron-up' : 'fa-chevron-down'"
+          ></i>
+        </div>
+
+        <div
+          class="faq-answer"
+          [ngClass]="{ 'open': item.isOpen }"
+        >
+          <p>{{ item.answer }}</p>
+        </div>
+      </div>
+
+      <!-- No results -->
+      <div
+        *ngIf="filteredItems.length === 0"
+        class="text-center p-4"
+      >
+        <i class="fas fa-search fa-3x text-secondary mb-3"></i>
+        <p class="text-secondary">
+          Aucune question ne correspond à votre recherche.
+        </p>
+      </div>
+    </div>
+
+    <!-- Help Section -->
+    <div class="help-section">
+      <h3>Vous ne trouvez pas votre réponse ?</h3>
+      <p>
+        Notre équipe support est disponible pour vous aider 24h/7j
+      </p>
+      <button class="btn btn-primary btn-large">
+        <i class="fas fa-envelope"></i>
+        Contacter le Support
+      </button>
+    </div>
+  </div>
+</div>

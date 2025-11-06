@@ -1,0 +1,126 @@
+
+<div class="performance-page">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">Performance de l'équipe</h1>
+      <p class="page-subtitle">Analyse des performances individuelles</p>
+    </div>
+    <div class="header-actions">
+      <select class="period-select" [(ngModel)]="selectedPeriod" (change)="loadPerformance()">
+        <option value="today">Aujourd'hui</option>
+        <option value="week">Cette semaine</option>
+        <option value="month">Ce mois</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Top performers -->
+  <div class="top-performers">
+    <h3 class="section-title">🏆 Top Performers</h3>
+    <div class="performers-grid">
+      <div class="performer-card podium-1" *ngIf="topPerformers[0]">
+        <div class="rank-badge gold">🥇</div>
+        <div class="performer-avatar">{{ topPerformers[0].avatar }}</div>
+        <div class="performer-name">{{ topPerformers[0].name }}</div>
+        <div class="performer-sales">{{ topPerformers[0].totalSales | number:'1.0-0' }} €</div>
+      </div>
+
+      <div class="performer-card podium-2" *ngIf="topPerformers[1]">
+        <div class="rank-badge silver">🥈</div>
+        <div class="performer-avatar">{{ topPerformers[1].avatar }}</div>
+        <div class="performer-name">{{ topPerformers[1].name }}</div>
+        <div class="performer-sales">{{ topPerformers[1].totalSales | number:'1.0-0' }} €</div>
+      </div>
+
+      <div class="performer-card podium-3" *ngIf="topPerformers[2]">
+        <div class="rank-badge bronze">🥉</div>
+        <div class="performer-avatar">{{ topPerformers[2].avatar }}</div>
+        <div class="performer-name">{{ topPerformers[2].name }}</div>
+        <div class="performer-sales">{{ topPerformers[2].totalSales | number:'1.0-0' }} €</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Performances détaillées -->
+  <div class="performance-cards">
+    <div class="perf-card" *ngFor="let employee of employees">
+      <div class="perf-header">
+        <div class="employee-info">
+          <div class="employee-avatar-large">{{ employee.avatar }}</div>
+          <div class="employee-details">
+            <h4 class="employee-name">{{ employee.name }}</h4>
+            <div class="employee-rating">
+              {{ getRatingStars(employee.rating) }}
+              <span class="rating-value">{{ employee.rating }}/5</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="perf-body">
+        <div class="metrics-grid">
+          <div class="metric">
+            <div class="metric-icon">💰</div>
+            <div class="metric-content">
+              <div class="metric-label">Ventes</div>
+              <div class="metric-value">{{ employee.totalSales | number:'1.0-0' }} €</div>
+            </div>
+          </div>
+
+          <div class="metric">
+            <div class="metric-icon">🛒</div>
+            <div class="metric-content">
+              <div class="metric-label">Commandes</div>
+              <div class="metric-value">{{ employee.ordersCompleted }}</div>
+            </div>
+          </div>
+
+          <div class="metric">
+            <div class="metric-icon">🧾</div>
+            <div class="metric-content">
+              <div class="metric-label">Ticket moyen</div>
+              <div class="metric-value">{{ employee.averageTicket | number:'1.2-2' }} €</div>
+            </div>
+          </div>
+
+          <div class="metric">
+            <div class="metric-icon">⭐</div>
+            <div class="metric-content">
+              <div class="metric-label">Avis clients</div>
+              <div class="metric-value">{{ employee.customerReviews }}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Indicateurs de performance -->
+        <div class="performance-bars">
+          <div class="bar-item">
+            <div class="bar-label">
+              <span>Ponctualité</span>
+              <span class="bar-percentage">{{ employee.punctuality }}%</span>
+            </div>
+            <div class="bar-container">
+              <div class="bar-fill" [style.width.%]="employee.punctuality"></div>
+            </div>
+          </div>
+
+          <div class="bar-item">
+            <div class="bar-label">
+              <span>Productivité</span>
+              <span class="bar-percentage">{{ employee.productivity }}%</span>
+            </div>
+            <div class="bar-container">
+              <div class="bar-fill" [style.width.%]="employee.productivity"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="perf-footer">
+        <button class="btn-view" (click)="viewDetails(employee)">
+          📊 Voir détails
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

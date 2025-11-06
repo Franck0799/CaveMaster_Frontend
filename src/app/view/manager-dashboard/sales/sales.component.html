@@ -1,243 +1,120 @@
 
-// ===== sales.component.html =====
-
-<section class="content-section">
-  <div class="section-header">
+<div class="sales-page">
+  <div class="page-header">
     <div>
-      <h2 class="section-title-main">Analyse des Ventes</h2>
-      <p class="section-subtitle">Suivez vos performances commerciales</p>
+      <h1 class="page-title">Historique des Ventes</h1>
+      <p class="page-subtitle">{{ selectedPeriod }}</p>
     </div>
-
-    <div class="header-controls">
-      <select [(ngModel)]="selectedPeriode" class="period-select">
-        <option value="jour">Aujourd'hui</option>
-        <option value="semaine">Cette semaine</option>
-        <option value="mois">Ce mois</option>
-        <option value="annee">Cette année</option>
+    <div class="header-actions">
+      <select class="period-select" [(ngModel)]="selectedPeriod" (change)="loadSales()">
+        <option value="today">Aujourd'hui</option>
+        <option value="week">Cette semaine</option>
+        <option value="month">Ce mois</option>
       </select>
-
-      <select [(ngModel)]="selectedCave" class="cave-select">
-        <option value="all">Toutes les caves</option>
-        <option value="cave-1">Cave Principale</option>
-        <option value="cave-2">Cave Victoria Island</option>
-        <option value="cave-3">Cave Ikoyi</option>
-      </select>
+      <button class="btn-export" (click)="exportSales()">
+        📥 Exporter
+      </button>
     </div>
   </div>
 
-  <!-- KPIs principaux -->
-  <div class="kpi-grid">
-    <div class="kpi-card">
-      <div class="kpi-icon">💰</div>
-      <div class="kpi-content">
-        <div class="kpi-label">Chiffre d'Affaires</div>
-        <div class="kpi-value">{{formatMontant(ventesStats.caJour)}}</div>
-        <div class="kpi-progress">
-          <div class="kpi-progress-bar" [style.width.%]="getProgressPercent()"></div>
-        </div>
-        <div class="kpi-target">Objectif: {{formatMontant(ventesStats.caObjectif)}}</div>
+  <!-- Statistiques principales -->
+  <div class="stats-grid">
+    <div class="stat-card primary">
+      <div class="stat-icon">💰</div>
+      <div class="stat-content">
+        <div class="stat-label">Ventes totales</div>
+        <div class="stat-value">{{ stats.totalSales | number:'1.2-2' }} €</div>
+        <div class="stat-info">{{ stats.totalOrders }} commandes</div>
       </div>
     </div>
 
-    <div class="kpi-card">
-      <div class="kpi-icon">🛒</div>
-      <div class="kpi-content">
-        <div class="kpi-label">Nombre de Ventes</div>
-        <div class="kpi-value">{{ventesStats.nombreVentes}}</div>
-        <div class="kpi-change positive">+12% vs hier</div>
+    <div class="stat-card success">
+      <div class="stat-icon">🧾</div>
+      <div class="stat-content">
+        <div class="stat-label">Ticket moyen</div>
+        <div class="stat-value">{{ stats.averageTicket | number:'1.2-2' }} €</div>
+        <div class="stat-info">Par commande</div>
       </div>
     </div>
 
-    <div class="kpi-card">
-      <div class="kpi-icon">💳</div>
-      <div class="kpi-content">
-        <div class="kpi-label">Panier Moyen</div>
-        <div class="kpi-value">{{formatMontant(ventesStats.panierMoyen)}}</div>
-        <div class="kpi-change positive">+8% vs hier</div>
+    <div class="stat-card info">
+      <div class="stat-icon">💵</div>
+      <div class="stat-content">
+        <div class="stat-label">Espèces</div>
+        <div class="stat-value">{{ stats.cashSales | number:'1.2-2' }} €</div>
+        <div class="stat-info">{{ getCashPercentage() }}%</div>
       </div>
     </div>
 
-    <div class="kpi-card">
-      <div class="kpi-icon">📊</div>
-      <div class="kpi-content">
-        <div class="kpi-label">Taux de Conversion</div>
-        <div class="kpi-value">{{ventesStats.tauxConversion}}%</div>
-        <div class="kpi-change negative">-2% vs hier</div>
+    <div class="stat-card accent">
+      <div class="stat-icon">💳</div>
+      <div class="stat-content">
+        <div class="stat-label">Carte bancaire</div>
+        <div class="stat-value">{{ stats.cardSales | number:'1.2-2' }} €</div>
+        <div class="stat-info">{{ getCardPercentage() }}%</div>
       </div>
     </div>
   </div>
 
-  <!-- Graphique des ventes -->
-  <div class="chart-section">
-    <div class="chart-card">
-      <div class="chart-header">
-        <h3>📈 Évolution des Ventes</h3>
-        <div class="chart-legend">
-          <span class="legend-item">
-            <span class="legend-dot primary"></span>
-            Ventes
-          </span>
+  <!-- Graphique des ventes par serveur -->
+  <div class="chart-card">
+    <h3 class="chart-title">Ventes par serveur</h3>
+    <div class="sales-by-server">
+      <div class="server-bar" *ngFor="let server of getSalesByServer()">
+        <div class="server-info">
+          <span class="server-name">{{ server.name }}</span>
+          <span class="server-amount">{{ server.amount | number:'1.0-0' }} €</span>
         </div>
-      </div>
-      <div class="chart-body">
-        <div class="bar-chart">
-          <div class="bar-chart-wrapper">
-            <div *ngFor="let vente of ventesParJour" class="bar-item">
-              <div class="bar-tooltip">{{formatMontant(vente.montant)}}</div>
-              <div class="bar" [style.height.%]="getBarHeight(vente.montant)"></div>
-              <div class="bar-label">{{vente.jour}}</div>
-            </div>
-          </div>
+        <div class="bar-container">
+          <div class="bar-fill" [style.width.%]="(server.amount / stats.totalSales) * 100"></div>
         </div>
+        <span class="server-percentage">{{ ((server.amount / stats.totalSales) * 100).toFixed(1) }}%</span>
       </div>
     </div>
   </div>
 
-  <!-- Top produits et catégories -->
-  <div class="products-section">
-    <div class="products-card">
-      <div class="products-header">
-        <h3>🏆 Top 5 Produits</h3>
-        <button class="btn-export">📥 Exporter</button>
-      </div>
-      <div class="products-body">
-        <div class="products-table">
-          <div class="table-header">
-            <div class="table-cell">Produit</div>
-            <div class="table-cell">Quantité</div>
-            <div class="table-cell">CA</div>
-            <div class="table-cell">Évolution</div>
-          </div>
-          <div *ngFor="let produit of topProduits; let i = index" class="table-row">
-            <div class="table-cell">
-              <div class="product-rank">{{i + 1}}</div>
-              <div class="product-name">{{produit.nom}}</div>
-            </div>
-            <div class="table-cell">{{produit.quantite}}</div>
-            <div class="table-cell">{{formatMontant(produit.ca)}}</div>
-            <div class="table-cell">
-              <span class="evolution-badge" [class.positive]="produit.evolution > 0" [class.negative]="produit.evolution < 0">
-                {{produit.evolution > 0 ? '+' : ''}}{{produit.evolution}}%
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
+  <!-- Tableau des ventes -->
+  <div class="sales-table">
+    <div class="table-header">
+      <div class="col-id">ID</div>
+      <div class="col-date">Date</div>
+      <div class="col-server">Serveur</div>
+      <div class="col-table">Table</div>
+      <div class="col-items">Articles</div>
+      <div class="col-amount">Montant</div>
+      <div class="col-payment">Paiement</div>
+      <div class="col-actions">Actions</div>
     </div>
 
-    <!-- Répartition par catégorie -->
-    <div class="category-card">
-      <div class="category-header">
-        <h3>📊 Répartition par Catégorie</h3>
+    <div class="table-row" *ngFor="let sale of sales">
+      <div class="col-id">
+        <span class="sale-id">{{ sale.id }}</span>
       </div>
-      <div class="category-body">
-        <div class="category-item">
-          <div class="category-info">
-            <span class="category-icon">🍾</span>
-            <span class="category-name">Champagne</span>
-          </div>
-          <div class="category-stats">
-            <div class="category-amount">2 420 000 FCFA</div>
-            <div class="category-progress">
-              <div class="category-bar" style="width: 65%"></div>
-            </div>
-            <div class="category-percent">35%</div>
-          </div>
-        </div>
-
-        <div class="category-item">
-          <div class="category-info">
-            <span class="category-icon">🥃</span>
-            <span class="category-name">Spiritueux</span>
-          </div>
-          <div class="category-stats">
-            <div class="category-amount">1 260 000 FCFA</div>
-            <div class="category-progress">
-              <div class="category-bar" style="width: 45%"></div>
-            </div>
-            <div class="category-percent">28%</div>
-          </div>
-        </div>
-
-        <div class="category-item">
-          <div class="category-info">
-            <span class="category-icon">🍷</span>
-            <span class="category-name">Vin</span>
-          </div>
-          <div class="category-stats">
-            <div class="category-amount">980 000 FCFA</div>
-            <div class="category-progress">
-              <div class="category-bar" style="width: 35%"></div>
-            </div>
-            <div class="category-percent">22%</div>
-          </div>
-        </div>
-
-        <div class="category-item">
-          <div class="category-info">
-            <span class="category-icon">🍺</span>
-            <span class="category-name">Bière</span>
-          </div>
-          <div class="category-stats">
-            <div class="category-amount">420 000 FCFA</div>
-            <div class="category-progress">
-              <div class="category-bar" style="width: 25%"></div>
-            </div>
-            <div class="category-percent">12%</div>
-          </div>
-        </div>
-
-        <div class="category-item">
-          <div class="category-info">
-            <span class="category-icon">🥤</span>
-            <span class="category-name">Soft Drinks</span>
-          </div>
-          <div class="category-stats">
-            <div class="category-amount">120 000 FCFA</div>
-            <div class="category-progress">
-              <div class="category-bar" style="width: 15%"></div>
-            </div>
-            <div class="category-percent">3%</div>
-          </div>
-        </div>
+      <div class="col-date">
+        <span class="date-text">{{ sale.date | date:'dd/MM/yyyy HH:mm' }}</span>
+      </div>
+      <div class="col-server">
+        <span class="server-name">{{ sale.server }}</span>
+      </div>
+      <div class="col-table">
+        <span class="table-badge">{{ sale.tableNumber }}</span>
+      </div>
+      <div class="col-items">
+        <span class="items-count">{{ sale.items }}</span>
+      </div>
+      <div class="col-amount">
+        <span class="amount-value">{{ sale.amount | number:'1.2-2' }} €</span>
+        <span class="tip-value" *ngIf="sale.tip">+{{ sale.tip }}€ 💰</span>
+      </div>
+      <div class="col-payment">
+        <span class="payment-badge" [class]="'payment-' + sale.paymentMethod">
+          {{ getPaymentLabel(sale.paymentMethod) }}
+        </span>
+      </div>
+      <div class="col-actions">
+        <button class="icon-btn" (click)="viewSale(sale)" title="Détails">👁️</button>
+        <button class="icon-btn" (click)="printReceipt(sale)" title="Imprimer">🖨️</button>
       </div>
     </div>
   </div>
-
-  <!-- Statistiques complémentaires -->
-  <div class="additional-stats">
-    <div class="stat-card-small">
-      <div class="stat-small-icon">⏰</div>
-      <div class="stat-small-content">
-        <div class="stat-small-label">Heure de Pointe</div>
-        <div class="stat-small-value">14h - 18h</div>
-      </div>
-    </div>
-
-    <div class="stat-card-small">
-      <div class="stat-small-icon">👥</div>
-      <div class="stat-small-content">
-        <div class="stat-small-label">Clients Uniques</div>
-        <div class="stat-small-value">28</div>
-      </div>
-    </div>
-
-    <div class="stat-card-small">
-      <div class="stat-small-icon">🔄</div>
-      <div class="stat-small-content">
-        <div class="stat-small-label">Clients Récurrents</div>
-        <div class="stat-small-value">18 (64%)</div>
-      </div>
-    </div>
-
-    <div class="stat-card-small">
-      <div class="stat-small-icon">⭐</div>
-      <div class="stat-small-content">
-        <div class="stat-small-label">Ventes VIP</div>
-        <div class="stat-small-value">6 (18%)</div>
-      </div>
-    </div>
-  </div>
-</section>
-*/
-
+</div>

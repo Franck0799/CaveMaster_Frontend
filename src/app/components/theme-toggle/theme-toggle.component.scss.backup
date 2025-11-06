@@ -1,0 +1,30 @@
+.theme-toggle-btn {
+  position: relative;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: var(--card-bg);
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  .icon {
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &:hover {
+    background: var(--card-hover);
+    transform: scale(1.1);
+    box-shadow: var(--shadow-md);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}

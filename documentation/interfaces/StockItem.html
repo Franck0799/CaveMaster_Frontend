@@ -1,0 +1,2474 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cave-master-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cave-master-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  StockItem</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/view/admin-dashboard/stock/stock.component.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#bulkQuantity" 
+>
+                                            bulkQuantity
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#bulkUnit" 
+>
+                                            bulkUnit
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#categorie" 
+>
+                                            categorie
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#cave" 
+>
+                                            cave
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#commercialContact" 
+>
+                                            commercialContact
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#commercialName" 
+>
+                                            commercialName
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#dateAcquisition" 
+>
+                                            dateAcquisition
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#dateDerniereEntree" 
+>
+                                            dateDerniereEntree
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#dateDerniereSortie" 
+>
+                                            dateDerniereSortie
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#depot" 
+>
+                                            depot
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#emplacement" 
+>
+                                            emplacement
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#etat" 
+>
+                                            etat
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#format" 
+>
+                                            format
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#icon" 
+>
+                                            icon
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#id" 
+>
+                                            id
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#nom" 
+>
+                                            nom
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#notes" 
+>
+                                            notes
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#packagingType" 
+>
+                                            packagingType
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#pairingWith" 
+>
+                                            pairingWith
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#prixAchat" 
+>
+                                            prixAchat
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#prixVente" 
+>
+                                            prixVente
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#region" 
+>
+                                            region
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#stockActuel" 
+>
+                                            stockActuel
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#stockInitial" 
+>
+                                            stockInitial
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#stockMaximum" 
+>
+                                            stockMaximum
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#stockMinimum" 
+>
+                                            stockMinimum
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#supplier" 
+>
+                                            supplier
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#temperature" 
+>
+                                            temperature
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#totalBottles" 
+>
+                                            totalBottles
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#type" 
+>
+                                            type
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#unitesMesure" 
+>
+                                            unitesMesure
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#unitsPerBulk" 
+>
+                                            unitsPerBulk
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#vintage" 
+>
+                                            vintage
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#wineType" 
+>
+                                            wineType
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="bulkQuantity"></a>
+                                        <span class="name "><b>bulkQuantity</b>
+                                            <a href="#bulkQuantity">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>bulkQuantity:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="bulkUnit"></a>
+                                        <span class="name "><b>bulkUnit</b>
+                                            <a href="#bulkUnit">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>bulkUnit:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="categorie"></a>
+                                        <span class="name "><b>categorie</b>
+                                            <a href="#categorie">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>categorie:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="cave"></a>
+                                        <span class="name "><b>cave</b>
+                                            <a href="#cave">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>cave:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="commercialContact"></a>
+                                        <span class="name "><b>commercialContact</b>
+                                            <a href="#commercialContact">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>commercialContact:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="commercialName"></a>
+                                        <span class="name "><b>commercialName</b>
+                                            <a href="#commercialName">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>commercialName:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="dateAcquisition"></a>
+                                        <span class="name "><b>dateAcquisition</b>
+                                            <a href="#dateAcquisition">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>dateAcquisition:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="dateDerniereEntree"></a>
+                                        <span class="name "><b>dateDerniereEntree</b>
+                                            <a href="#dateDerniereEntree">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>dateDerniereEntree:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="dateDerniereSortie"></a>
+                                        <span class="name "><b>dateDerniereSortie</b>
+                                            <a href="#dateDerniereSortie">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>dateDerniereSortie:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="depot"></a>
+                                        <span class="name "><b>depot</b>
+                                            <a href="#depot">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>depot:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="emplacement"></a>
+                                        <span class="name "><b>emplacement</b>
+                                            <a href="#emplacement">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>emplacement:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="etat"></a>
+                                        <span class="name "><b>etat</b>
+                                            <a href="#etat">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>etat:     <code>&quot;Neuf&quot; | &quot;Bon&quot; | &quot;Usé&quot; | &quot;À remplacer&quot;</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>&quot;Neuf&quot; | &quot;Bon&quot; | &quot;Usé&quot; | &quot;À remplacer&quot;</code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="format"></a>
+                                        <span class="name "><b>format</b>
+                                            <a href="#format">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>format:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="icon"></a>
+                                        <span class="name "><b>icon</b>
+                                            <a href="#icon">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>icon:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="id"></a>
+                                        <span class="name "><b>id</b>
+                                            <a href="#id">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>id:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="nom"></a>
+                                        <span class="name "><b>nom</b>
+                                            <a href="#nom">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>nom:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="notes"></a>
+                                        <span class="name "><b>notes</b>
+                                            <a href="#notes">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>notes:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="packagingType"></a>
+                                        <span class="name "><b>packagingType</b>
+                                            <a href="#packagingType">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>packagingType:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="pairingWith"></a>
+                                        <span class="name "><b>pairingWith</b>
+                                            <a href="#pairingWith">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>pairingWith:     <code>string[]</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>string[]</code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="prixAchat"></a>
+                                        <span class="name "><b>prixAchat</b>
+                                            <a href="#prixAchat">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>prixAchat:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="prixVente"></a>
+                                        <span class="name "><b>prixVente</b>
+                                            <a href="#prixVente">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>prixVente:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="region"></a>
+                                        <span class="name "><b>region</b>
+                                            <a href="#region">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>region:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="stockActuel"></a>
+                                        <span class="name "><b>stockActuel</b>
+                                            <a href="#stockActuel">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>stockActuel:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="stockInitial"></a>
+                                        <span class="name "><b>stockInitial</b>
+                                            <a href="#stockInitial">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>stockInitial:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="stockMaximum"></a>
+                                        <span class="name "><b>stockMaximum</b>
+                                            <a href="#stockMaximum">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>stockMaximum:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="stockMinimum"></a>
+                                        <span class="name "><b>stockMinimum</b>
+                                            <a href="#stockMinimum">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>stockMinimum:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="supplier"></a>
+                                        <span class="name "><b>supplier</b>
+                                            <a href="#supplier">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>supplier:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="temperature"></a>
+                                        <span class="name "><b>temperature</b>
+                                            <a href="#temperature">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>temperature:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="totalBottles"></a>
+                                        <span class="name "><b>totalBottles</b>
+                                            <a href="#totalBottles">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>totalBottles:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="type"></a>
+                                        <span class="name "><b>type</b>
+                                            <a href="#type">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>type:     <code>&quot;boisson&quot; | &quot;materiel&quot; | &quot;vin&quot;</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>&quot;boisson&quot; | &quot;materiel&quot; | &quot;vin&quot;</code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="unitesMesure"></a>
+                                        <span class="name "><b>unitesMesure</b>
+                                            <a href="#unitesMesure">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>unitesMesure:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="unitsPerBulk"></a>
+                                        <span class="name "><b>unitsPerBulk</b>
+                                            <a href="#unitsPerBulk">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>unitsPerBulk:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="vintage"></a>
+                                        <span class="name "><b>vintage</b>
+                                            <a href="#vintage">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>vintage:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="wineType"></a>
+                                        <span class="name "><b>wineType</b>
+                                            <a href="#wineType">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>wineType:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { FormControl } from &#x27;@angular/forms&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule, ReactiveFormsModule } from &#x27;@angular/forms&#x27;;
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; INTERFACES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+interface StockItem {
+  id: string;
+  nom: string;
+  categorie: string;
+  type: &#x27;boisson&#x27; | &#x27;materiel&#x27; | &#x27;vin&#x27;;
+  stockInitial: number;
+  stockActuel: number;
+  stockMinimum: number;
+  stockMaximum: number;
+  unitesMesure: string;
+
+  // Pour boissons (drinks)
+  format?: string;
+  supplier?: string;
+  cave?: string;
+  depot?: string;
+  commercialName?: string;
+  commercialContact?: string;
+  packagingType?: string;
+  bulkUnit?: string;
+  bulkQuantity?: number;
+  unitsPerBulk?: number;
+  totalBottles?: number;
+
+  // Pour vins (wine-pairing)
+  wineType?: string;
+  region?: string;
+  vintage?: string;
+  temperature?: string;
+  pairingWith?: string[];
+
+  // Pour matériel
+  emplacement?: string;
+  etat?: &#x27;Neuf&#x27; | &#x27;Bon&#x27; | &#x27;Usé&#x27; | &#x27;À remplacer&#x27;;
+
+  // Communs
+  prixAchat: number;
+  prixVente?: number;
+  dateAcquisition: Date;
+  dateDerniereEntree?: Date;
+  dateDerniereSortie?: Date;
+  icon: string;
+  notes?: string;
+}
+
+interface StockMovement {
+  id: string;
+  stockItemId: string;
+  type: &#x27;entree&#x27; | &#x27;sortie&#x27;;
+  quantite: number;
+  date: Date;
+  motif: string;
+  responsable: string;
+  reference?: string;
+}
+
+interface Cave {
+  id: string;
+  nom: string;
+}
+
+interface StockAlert {
+  id: string;
+  itemNom: string;
+  type: &#x27;critique&#x27; | &#x27;faible&#x27; | &#x27;excedent&#x27;;
+  message: string;
+  stockActuel: number;
+  stockMinimum: number;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; COMPOSANT &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+@Component({
+  selector: &#x27;app-stock&#x27;,
+  standalone: true,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  templateUrl: &#x27;./stock.component.html&#x27;,
+  styleUrls: [&#x27;./stock.component.scss&#x27;]
+})
+export class StockComponent implements OnInit {
+
+  // Contrôles de formulaire
+  caveControl &#x3D; new FormControl(&#x27;toutes&#x27;);
+  typeControl &#x3D; new FormControl(&#x27;tous&#x27;);
+  categorieControl &#x3D; new FormControl(&#x27;toutes&#x27;);
+  searchControl &#x3D; new FormControl(&#x27;&#x27;);
+  etatControl &#x3D; new FormControl(&#x27;tous&#x27;);
+
+  // Données
+  stockItems: StockItem[] &#x3D; [];
+  filteredStockItems: StockItem[] &#x3D; [];
+  stockMovements: StockMovement[] &#x3D; [];
+  stockAlerts: StockAlert[] &#x3D; [];
+
+  // Configuration
+  caves: Cave[] &#x3D; [
+    { id: &#x27;cave1&#x27;, nom: &#x27;Cave Principale&#x27; },
+    { id: &#x27;cave2&#x27;, nom: &#x27;Cave Secondaire&#x27; },
+    { id: &#x27;cave3&#x27;, nom: &#x27;Cave Restaurant&#x27; }
+  ];
+
+  types &#x3D; [
+    { value: &#x27;boisson&#x27;, label: &#x27;Boissons&#x27;, icon: &#x27;🍷&#x27; },
+    { value: &#x27;vin&#x27;, label: &#x27;Vins &amp; Accords&#x27;, icon: &#x27;🍾&#x27; },
+    { value: &#x27;materiel&#x27;, label: &#x27;Matériel&#x27;, icon: &#x27;🍴&#x27; }
+  ];
+
+  categories &#x3D; {
+    boisson: [&#x27;Bières&#x27;, &#x27;Sucreries&#x27;, &#x27;Champagnes&#x27;, &#x27;Vins Rouges&#x27;, &#x27;Vins Blancs&#x27;, &#x27;Vins Rosés&#x27;, &#x27;Vins Mousseux&#x27;, &#x27;Liqueurs&#x27;, &#x27;Boissons Énergisantes&#x27;, &#x27;Boissons Locales&#x27;],
+    vin: [&#x27;Bordeaux&#x27;, &#x27;Bourgogne&#x27;, &#x27;Champagne&#x27;, &#x27;Loire&#x27;, &#x27;Rhône&#x27;, &#x27;Languedoc&#x27;, &#x27;Alsace&#x27;, &#x27;Porto&#x27;],
+    materiel: [&#x27;Couverts&#x27;, &#x27;Vaisselle&#x27;, &#x27;Verrerie&#x27;, &#x27;Mobilier&#x27;, &#x27;Équipement cuisine&#x27;, &#x27;Matériel de nettoyage&#x27;, &#x27;Décoration&#x27;]
+  };
+
+  etats &#x3D; [&#x27;Neuf&#x27;, &#x27;Bon&#x27;, &#x27;Usé&#x27;, &#x27;À remplacer&#x27;];
+
+  // États UI
+  isLoading &#x3D; false;
+  isModalOpen &#x3D; false;
+  isMovementModalOpen &#x3D; false;
+  isDetailsModalOpen &#x3D; false;
+  selectedItem: StockItem | null &#x3D; null;
+  showAlerts &#x3D; true;
+
+  // Statistiques
+  totalArticles &#x3D; 0;
+  valeurTotaleStock &#x3D; 0;
+  articlesEnRupture &#x3D; 0;
+  articlesAlerteFaible &#x3D; 0;
+
+  // Tri
+  currentSort: &#x27;nom&#x27; | &#x27;stock&#x27; | &#x27;valeur&#x27; | &#x27;date&#x27; &#x3D; &#x27;nom&#x27;;
+  sortDirection: &#x27;asc&#x27; | &#x27;desc&#x27; &#x3D; &#x27;asc&#x27;;
+
+  // Vue
+  viewMode: &#x27;grid&#x27; | &#x27;list&#x27; &#x3D; &#x27;grid&#x27;;
+
+  ngOnInit(): void {
+    this.loadStockData();
+    this.setupFilters();
+    this.calculateStats();
+    this.generateAlerts();
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; CHARGEMENT DES DONNÉES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  loadStockData(): void {
+    this.isLoading &#x3D; true;
+
+    this.stockItems &#x3D; [
+      // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; BOISSONS (Drinks) &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+      {
+        id: &#x27;drink_1&#x27;,
+        nom: &#x27;Heineken 33cl&#x27;,
+        categorie: &#x27;Bières&#x27;,
+        type: &#x27;boisson&#x27;,
+        format: &#x27;33cl&#x27;,
+        supplier: &#x27;Solibra&#x27;,
+        cave: &#x27;Cave Principale&#x27;,
+        depot: &#x27;Dépôt Abidjan Zone 4&#x27;,
+        commercialName: &#x27;Kouadio Jean&#x27;,
+        commercialContact: &#x27;+225 07 00 00 00 01&#x27;,
+        packagingType: &#x27;Bouteille&#x27;,
+        bulkUnit: &#x27;Carton&#x27;,
+        bulkQuantity: 3,
+        unitsPerBulk: 12,
+        totalBottles: 36,
+        stockInitial: 500,
+        stockActuel: 320,
+        stockMinimum: 100,
+        stockMaximum: 600,
+        unitesMesure: &#x27;bouteilles&#x27;,
+        prixAchat: 650,
+        prixVente: 800,
+        dateAcquisition: new Date(&#x27;2024-10-15&#x27;),
+        dateDerniereEntree: new Date(&#x27;2024-10-28&#x27;),
+        icon: &#x27;🍺&#x27;,
+        notes: &#x27;Bière blonde populaire&#x27;
+      },
+      {
+        id: &#x27;drink_2&#x27;,
+        nom: &#x27;Guinness 33cl&#x27;,
+        categorie: &#x27;Bières&#x27;,
+        type: &#x27;boisson&#x27;,
+        format: &#x27;33cl&#x27;,
+        supplier: &#x27;Brassivoire&#x27;,
+        cave: &#x27;Cave Secondaire&#x27;,
+        depot: &#x27;Dépôt Yopougon&#x27;,
+        commercialName: &#x27;Koné Moussa&#x27;,
+        commercialContact: &#x27;+225 05 00 00 00 02&#x27;,
+        packagingType: &#x27;Canette&#x27;,
+        bulkUnit: &#x27;Pack&#x27;,
+        bulkQuantity: 2,
+        unitsPerBulk: 24,
+        totalBottles: 48,
+        stockInitial: 200,
+        stockActuel: 100,
+        stockMinimum: 100,
+        stockMaximum: 300,
+        unitesMesure: &#x27;bouteilles&#x27;,
+        prixAchat: 850,
+        prixVente: 1000,
+        dateAcquisition: new Date(&#x27;2024-10-20&#x27;),
+        icon: &#x27;🍺&#x27;,
+        notes: &#x27;Bière brune irlandaise&#x27;
+      },
+      {
+        id: &#x27;drink_3&#x27;,
+        nom: &#x27;Moët &amp; Chandon&#x27;,
+        categorie: &#x27;Champagnes&#x27;,
+        type: &#x27;boisson&#x27;,
+        format: &#x27;75cl&#x27;,
+        supplier: &#x27;Importateur Premium&#x27;,
+        cave: &#x27;Cave Principale&#x27;,
+        packagingType: &#x27;Bouteille&#x27;,
+        bulkUnit: &#x27;Caisse&#x27;,
+        bulkQuantity: 2,
+        unitsPerBulk: 6,
+        totalBottles: 12,
+        stockInitial: 100,
+        stockActuel: 45,
+        stockMinimum: 20,
+        stockMaximum: 150,
+        unitesMesure: &#x27;bouteilles&#x27;,
+        prixAchat: 35000,
+        prixVente: 60000,
+        dateAcquisition: new Date(&#x27;2024-09-20&#x27;),
+        icon: &#x27;🍾&#x27;,
+        notes: &#x27;Champagne prestige&#x27;
+      },
+      {
+        id: &#x27;drink_4&#x27;,
+        nom: &#x27;Coca-Cola&#x27;,
+        categorie: &#x27;Sucreries&#x27;,
+        type: &#x27;boisson&#x27;,
+        format: &#x27;50cl&#x27;,
+        supplier: &#x27;SICOBRA&#x27;,
+        cave: &#x27;Cave Restaurant&#x27;,
+        depot: &#x27;Dépôt Central&#x27;,
+        packagingType: &#x27;Bouteille&#x27;,
+        bulkUnit: &#x27;Casier&#x27;,
+        bulkQuantity: 5,
+        unitsPerBulk: 12,
+        totalBottles: 60,
+        stockInitial: 400,
+        stockActuel: 280,
+        stockMinimum: 150,
+        stockMaximum: 500,
+        unitesMesure: &#x27;bouteilles&#x27;,
+        prixAchat: 400,
+        prixVente: 600,
+        dateAcquisition: new Date(&#x27;2024-10-25&#x27;),
+        icon: &#x27;🥤&#x27;,
+        notes: &#x27;Boisson gazeuse classique&#x27;
+      },
+
+      // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; VINS &amp; ACCORDS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+      {
+        id: &#x27;wine_1&#x27;,
+        nom: &#x27;Bordeaux Supérieur&#x27;,
+        categorie: &#x27;Bordeaux&#x27;,
+        type: &#x27;vin&#x27;,
+        wineType: &#x27;Vin Rouge&#x27;,
+        region: &#x27;Bordeaux&#x27;,
+        vintage: &#x27;2018&#x27;,
+        temperature: &#x27;16-18°C&#x27;,
+        pairingWith: [&#x27;Steak grillé&#x27;, &#x27;Gigot d\&#x27;agneau&#x27;, &#x27;Fromages affinés&#x27;],
+        cave: &#x27;Cave Restaurant&#x27;,
+        stockInitial: 200,
+        stockActuel: 145,
+        stockMinimum: 50,
+        stockMaximum: 250,
+        unitesMesure: &#x27;bouteilles&#x27;,
+        prixAchat: 8500,
+        prixVente: 15000,
+        dateAcquisition: new Date(&#x27;2024-10-01&#x27;),
+        icon: &#x27;🍷&#x27;,
+        notes: &#x27;Excellent avec viandes rouges&#x27;
+      },
+      {
+        id: &#x27;wine_2&#x27;,
+        nom: &#x27;Chablis Premier Cru&#x27;,
+        categorie: &#x27;Bourgogne&#x27;,
+        type: &#x27;vin&#x27;,
+        wineType: &#x27;Vin Blanc&#x27;,
+        region: &#x27;Bourgogne&#x27;,
+        vintage: &#x27;2020&#x27;,
+        temperature: &#x27;10-12°C&#x27;,
+        pairingWith: [&#x27;Saumon grillé&#x27;, &#x27;Fruits de mer&#x27;, &#x27;Huîtres&#x27;],
+        cave: &#x27;Cave Principale&#x27;,
+        stockInitial: 80,
+        stockActuel: 52,
+        stockMinimum: 20,
+        stockMaximum: 100,
+        unitesMesure: &#x27;bouteilles&#x27;,
+        prixAchat: 12000,
+        prixVente: 22000,
+        dateAcquisition: new Date(&#x27;2024-09-15&#x27;),
+        icon: &#x27;🍷&#x27;,
+        notes: &#x27;Fraîcheur minérale exceptionnelle&#x27;
+      },
+      {
+        id: &#x27;wine_3&#x27;,
+        nom: &#x27;Château Margaux 2015&#x27;,
+        categorie: &#x27;Bordeaux&#x27;,
+        type: &#x27;vin&#x27;,
+        wineType: &#x27;Vin Rouge&#x27;,
+        region: &#x27;Bordeaux&#x27;,
+        vintage: &#x27;2015&#x27;,
+        temperature: &#x27;16-18°C&#x27;,
+        pairingWith: [&#x27;Filet de bœuf&#x27;, &#x27;Gibier&#x27;, &#x27;Fromages à pâte dure&#x27;],
+        cave: &#x27;Cave Secondaire&#x27;,
+        stockInitial: 50,
+        stockActuel: 8,
+        stockMinimum: 10,
+        stockMaximum: 60,
+        unitesMesure: &#x27;bouteilles&#x27;,
+        prixAchat: 45000,
+        prixVente: 85000,
+        dateAcquisition: new Date(&#x27;2024-08-10&#x27;),
+        icon: &#x27;🍷&#x27;,
+        notes: &#x27;Grand cru classé - millésime exceptionnel&#x27;
+      },
+      {
+        id: &#x27;wine_4&#x27;,
+        nom: &#x27;Porto Tawny 10 ans&#x27;,
+        categorie: &#x27;Porto&#x27;,
+        type: &#x27;vin&#x27;,
+        wineType: &#x27;Porto&#x27;,
+        region: &#x27;Porto&#x27;,
+        vintage: &#x27;10 ans&#x27;,
+        temperature: &#x27;14-16°C&#x27;,
+        pairingWith: [&#x27;Fromages affinés&#x27;, &#x27;Desserts au chocolat&#x27;, &#x27;Foie gras&#x27;],
+        cave: &#x27;Cave Principale&#x27;,
+        stockInitial: 60,
+        stockActuel: 38,
+        stockMinimum: 15,
+        stockMaximum: 80,
+        unitesMesure: &#x27;bouteilles&#x27;,
+        prixAchat: 18000,
+        prixVente: 32000,
+        dateAcquisition: new Date(&#x27;2024-09-05&#x27;),
+        icon: &#x27;🥃&#x27;,
+        notes: &#x27;Notes de fruits secs et caramel&#x27;
+      },
+
+      // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MATÉRIEL &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+      {
+        id: &#x27;mat_1&#x27;,
+        nom: &#x27;Verres à vin rouge&#x27;,
+        categorie: &#x27;Verrerie&#x27;,
+        type: &#x27;materiel&#x27;,
+        emplacement: &#x27;Salle principale&#x27;,
+        etat: &#x27;Bon&#x27;,
+        stockInitial: 200,
+        stockActuel: 165,
+        stockMinimum: 100,
+        stockMaximum: 250,
+        unitesMesure: &#x27;unités&#x27;,
+        prixAchat: 2500,
+        dateAcquisition: new Date(&#x27;2024-07-01&#x27;),
+        icon: &#x27;🍷&#x27;,
+        notes: &#x27;Cristallin haute qualité&#x27;
+      },
+      {
+        id: &#x27;mat_2&#x27;,
+        nom: &#x27;Assiettes plates 28cm&#x27;,
+        categorie: &#x27;Vaisselle&#x27;,
+        type: &#x27;materiel&#x27;,
+        emplacement: &#x27;Réserve cuisine&#x27;,
+        etat: &#x27;Bon&#x27;,
+        stockInitial: 150,
+        stockActuel: 138,
+        stockMinimum: 100,
+        stockMaximum: 200,
+        unitesMesure: &#x27;unités&#x27;,
+        prixAchat: 1800,
+        dateAcquisition: new Date(&#x27;2024-06-15&#x27;),
+        icon: &#x27;🍽️&#x27;,
+        notes: &#x27;Porcelaine blanche&#x27;
+      },
+      {
+        id: &#x27;mat_3&#x27;,
+        nom: &#x27;Couverts inox (set)&#x27;,
+        categorie: &#x27;Couverts&#x27;,
+        type: &#x27;materiel&#x27;,
+        emplacement: &#x27;Cuisine&#x27;,
+        etat: &#x27;Usé&#x27;,
+        stockInitial: 100,
+        stockActuel: 5,
+        stockMinimum: 50,
+        stockMaximum: 150,
+        unitesMesure: &#x27;sets&#x27;,
+        prixAchat: 4500,
+        dateAcquisition: new Date(&#x27;2024-05-20&#x27;),
+        icon: &#x27;🍴&#x27;,
+        notes: &#x27;Nécessite réapprovisionnement urgent&#x27;
+      },
+      {
+        id: &#x27;mat_4&#x27;,
+        nom: &#x27;Chaises restaurant&#x27;,
+        categorie: &#x27;Mobilier&#x27;,
+        type: &#x27;materiel&#x27;,
+        emplacement: &#x27;Salle&#x27;,
+        etat: &#x27;Bon&#x27;,
+        stockInitial: 50,
+        stockActuel: 48,
+        stockMinimum: 40,
+        stockMaximum: 60,
+        unitesMesure: &#x27;unités&#x27;,
+        prixAchat: 25000,
+        dateAcquisition: new Date(&#x27;2024-03-10&#x27;),
+        icon: &#x27;🪑&#x27;,
+        notes: &#x27;Design moderne et confortable&#x27;
+      },
+      {
+        id: &#x27;mat_5&#x27;,
+        nom: &#x27;Tire-bouchons professionnels&#x27;,
+        categorie: &#x27;Équipement cuisine&#x27;,
+        type: &#x27;materiel&#x27;,
+        emplacement: &#x27;Bar&#x27;,
+        etat: &#x27;Neuf&#x27;,
+        stockInitial: 20,
+        stockActuel: 15,
+        stockMinimum: 10,
+        stockMaximum: 25,
+        unitesMesure: &#x27;unités&#x27;,
+        prixAchat: 8500,
+        dateAcquisition: new Date(&#x27;2024-08-05&#x27;),
+        icon: &#x27;🍾&#x27;,
+        notes: &#x27;Modèle sommelier professionnel&#x27;
+      }
+    ];
+
+    this.filteredStockItems &#x3D; [...this.stockItems];
+    this.isLoading &#x3D; false;
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; FILTRAGE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  setupFilters(): void {
+    this.caveControl.valueChanges.subscribe(() &#x3D;&gt; this.applyFilters());
+    this.typeControl.valueChanges.subscribe(() &#x3D;&gt; this.applyFilters());
+    this.categorieControl.valueChanges.subscribe(() &#x3D;&gt; this.applyFilters());
+    this.searchControl.valueChanges.subscribe(() &#x3D;&gt; this.applyFilters());
+    this.etatControl.valueChanges.subscribe(() &#x3D;&gt; this.applyFilters());
+  }
+
+  applyFilters(): void {
+    let result &#x3D; [...this.stockItems];
+
+    if (this.caveControl.value !&#x3D;&#x3D; &#x27;toutes&#x27;) {
+      const caveSelectionnee &#x3D; this.caves.find(c &#x3D;&gt; c.id &#x3D;&#x3D;&#x3D; this.caveControl.value);
+      if (caveSelectionnee) {
+        result &#x3D; result.filter(item &#x3D;&gt; item.cave &#x3D;&#x3D;&#x3D; caveSelectionnee.nom);
+      }
+    }
+
+    if (this.typeControl.value !&#x3D;&#x3D; &#x27;tous&#x27;) {
+      result &#x3D; result.filter(item &#x3D;&gt; item.type &#x3D;&#x3D;&#x3D; this.typeControl.value);
+    }
+
+    if (this.categorieControl.value !&#x3D;&#x3D; &#x27;toutes&#x27;) {
+      result &#x3D; result.filter(item &#x3D;&gt; item.categorie &#x3D;&#x3D;&#x3D; this.categorieControl.value);
+    }
+
+    if (this.etatControl.value !&#x3D;&#x3D; &#x27;tous&#x27;) {
+      result &#x3D; result.filter(item &#x3D;&gt; item.etat &#x3D;&#x3D;&#x3D; this.etatControl.value);
+    }
+
+    if (this.searchControl.value) {
+      const search &#x3D; this.searchControl.value.toLowerCase();
+      result &#x3D; result.filter(item &#x3D;&gt;
+        item.nom.toLowerCase().includes(search) ||
+        item.categorie.toLowerCase().includes(search) ||
+        item.supplier?.toLowerCase().includes(search) ||
+        item.region?.toLowerCase().includes(search) ||
+        item.notes?.toLowerCase().includes(search)
+      );
+    }
+
+    this.sortItems(result);
+    this.filteredStockItems &#x3D; result;
+    this.calculateStats();
+  }
+
+  resetFilters(): void {
+    this.caveControl.setValue(&#x27;toutes&#x27;);
+    this.typeControl.setValue(&#x27;tous&#x27;);
+    this.categorieControl.setValue(&#x27;toutes&#x27;);
+    this.searchControl.setValue(&#x27;&#x27;);
+    this.etatControl.setValue(&#x27;tous&#x27;);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; TRI &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  sortItems(items: StockItem[]): void {
+    items.sort((a, b) &#x3D;&gt; {
+      let comparison &#x3D; 0;
+
+      switch (this.currentSort) {
+        case &#x27;nom&#x27;:
+          comparison &#x3D; a.nom.localeCompare(b.nom);
+          break;
+        case &#x27;stock&#x27;:
+          comparison &#x3D; a.stockActuel - b.stockActuel;
+          break;
+        case &#x27;valeur&#x27;:
+          comparison &#x3D; (a.stockActuel * a.prixAchat) - (b.stockActuel * b.prixAchat);
+          break;
+        case &#x27;date&#x27;:
+          comparison &#x3D; a.dateAcquisition.getTime() - b.dateAcquisition.getTime();
+          break;
+      }
+
+      return this.sortDirection &#x3D;&#x3D;&#x3D; &#x27;asc&#x27; ? comparison : -comparison;
+    });
+  }
+
+  changeSortCriteria(criteria: &#x27;nom&#x27; | &#x27;stock&#x27; | &#x27;valeur&#x27; | &#x27;date&#x27;): void {
+    if (this.currentSort &#x3D;&#x3D;&#x3D; criteria) {
+      this.sortDirection &#x3D; this.sortDirection &#x3D;&#x3D;&#x3D; &#x27;asc&#x27; ? &#x27;desc&#x27; : &#x27;asc&#x27;;
+    } else {
+      this.currentSort &#x3D; criteria;
+      this.sortDirection &#x3D; &#x27;asc&#x27;;
+    }
+    this.applyFilters();
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; STATISTIQUES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  calculateStats(): void {
+    this.totalArticles &#x3D; this.filteredStockItems.reduce((sum, item) &#x3D;&gt; sum + item.stockActuel, 0);
+    this.valeurTotaleStock &#x3D; this.filteredStockItems.reduce((sum, item) &#x3D;&gt;
+      sum + (item.stockActuel * item.prixAchat), 0
+    );
+    this.articlesEnRupture &#x3D; this.filteredStockItems.filter(item &#x3D;&gt;
+      item.stockActuel &#x3D;&#x3D;&#x3D; 0
+    ).length;
+    this.articlesAlerteFaible &#x3D; this.filteredStockItems.filter(item &#x3D;&gt;
+      item.stockActuel &gt; 0 &amp;&amp; item.stockActuel &lt;&#x3D; item.stockMinimum
+    ).length;
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; ALERTES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  generateAlerts(): void {
+    this.stockAlerts &#x3D; [];
+
+    this.stockItems.forEach(item &#x3D;&gt; {
+      if (item.stockActuel &#x3D;&#x3D;&#x3D; 0) {
+        this.stockAlerts.push({
+          id: &#x60;alert-${item.id}&#x60;,
+          itemNom: item.nom,
+          type: &#x27;critique&#x27;,
+          message: &#x27;Rupture de stock&#x27;,
+          stockActuel: item.stockActuel,
+          stockMinimum: item.stockMinimum
+        });
+      } else if (item.stockActuel &lt;&#x3D; item.stockMinimum) {
+        this.stockAlerts.push({
+          id: &#x60;alert-${item.id}&#x60;,
+          itemNom: item.nom,
+          type: &#x27;faible&#x27;,
+          message: &#x27;Stock faible - Réapprovisionnement recommandé&#x27;,
+          stockActuel: item.stockActuel,
+          stockMinimum: item.stockMinimum
+        });
+      } else if (item.stockActuel &gt;&#x3D; item.stockMaximum) {
+        this.stockAlerts.push({
+          id: &#x60;alert-${item.id}&#x60;,
+          itemNom: item.nom,
+          type: &#x27;excedent&#x27;,
+          message: &#x27;Stock excédentaire&#x27;,
+          stockActuel: item.stockActuel,
+          stockMinimum: item.stockMinimum
+        });
+      }
+    });
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; GESTION DES MOUVEMENTS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  openMovementModal(item: StockItem): void {
+    this.selectedItem &#x3D; item;
+    this.isMovementModalOpen &#x3D; true;
+  }
+
+  closeMovementModal(): void {
+    this.isMovementModalOpen &#x3D; false;
+    this.selectedItem &#x3D; null;
+  }
+
+  openDetailsModal(item: StockItem): void {
+    this.selectedItem &#x3D; item;
+    this.isDetailsModalOpen &#x3D; true;
+  }
+
+  closeDetailsModal(): void {
+    this.isDetailsModalOpen &#x3D; false;
+    this.selectedItem &#x3D; null;
+  }
+
+  addStockEntry(item: StockItem, quantite: number, motif: string): void {
+    if (!quantite || quantite &lt;&#x3D; 0) {
+      alert(&#x27;⚠️ Veuillez saisir une quantité valide&#x27;);
+      return;
+    }
+
+    item.stockActuel +&#x3D; quantite;
+    item.dateDerniereEntree &#x3D; new Date();
+
+    const movement: StockMovement &#x3D; {
+      id: this.generateId(),
+      stockItemId: item.id,
+      type: &#x27;entree&#x27;,
+      quantite,
+      date: new Date(),
+      motif: motif || &#x27;Réapprovisionnement&#x27;,
+      responsable: &#x27;Admin&#x27;
+    };
+
+    this.stockMovements.push(movement);
+    this.applyFilters();
+    this.generateAlerts();
+    alert(&#x27;✅ Entrée de stock enregistrée&#x27;);
+    console.log(&#x27;✅ Entrée de stock:&#x27;, movement);
+  }
+
+  addStockExit(item: StockItem, quantite: number, motif: string): void {
+    if (!quantite || quantite &lt;&#x3D; 0) {
+      alert(&#x27;⚠️ Veuillez saisir une quantité valide&#x27;);
+      return;
+    }
+
+    if (quantite &gt; item.stockActuel) {
+      alert(&#x27;⚠️ Quantité insuffisante en stock&#x27;);
+      return;
+    }
+
+    item.stockActuel -&#x3D; quantite;
+    item.dateDerniereSortie &#x3D; new Date();
+
+    const movement: StockMovement &#x3D; {
+      id: this.generateId(),
+      stockItemId: item.id,
+      type: &#x27;sortie&#x27;,
+      quantite,
+      date: new Date(),
+      motif: motif || &#x27;Vente&#x27;,
+      responsable: &#x27;Admin&#x27;
+    };
+
+    this.stockMovements.push(movement);
+    this.applyFilters();
+    this.generateAlerts();
+    alert(&#x27;✅ Sortie de stock enregistrée&#x27;);
+    console.log(&#x27;✅ Sortie de stock:&#x27;, movement);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; EXPORT &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  exportStock(): void {
+    const csv &#x3D; this.generateCSV();
+    this.downloadFile(csv, &#x60;stock-${Date.now()}.csv&#x60;);
+  }
+
+  private generateCSV(): string {
+    const headers &#x3D; [
+      &#x27;ID&#x27;, &#x27;Nom&#x27;, &#x27;Type&#x27;, &#x27;Catégorie&#x27;, &#x27;Stock Actuel&#x27;, &#x27;Stock Min&#x27;, &#x27;Stock Max&#x27;,
+      &#x27;Unité&#x27;, &#x27;Cave/Emplacement&#x27;, &#x27;Prix Achat&#x27;, &#x27;Prix Vente&#x27;, &#x27;Valeur Stock&#x27;, &#x27;État/Notes&#x27;
+    ];
+
+    const rows &#x3D; this.filteredStockItems.map(item &#x3D;&gt; [
+      item.id,
+      item.nom,
+      item.type,
+      item.categorie,
+      item.stockActuel,
+      item.stockMinimum,
+      item.stockMaximum,
+      item.unitesMesure,
+      item.cave || item.emplacement || &#x27;-&#x27;,
+      item.prixAchat,
+      item.prixVente || &#x27;-&#x27;,
+      (item.stockActuel * item.prixAchat).toFixed(0),
+      item.etat || item.notes || &#x27;-&#x27;
+    ]);
+
+    return [
+      headers.join(&#x27;,&#x27;),
+      ...rows.map(r &#x3D;&gt; r.join(&#x27;,&#x27;))
+    ].join(&#x27;\n&#x27;);
+  }
+
+  private downloadFile(content: string, filename: string): void {
+    const blob &#x3D; new Blob([content], { type: &#x27;text/csv;charset&#x3D;utf-8;&#x27; });
+    const url &#x3D; window.URL.createObjectURL(blob);
+    const a &#x3D; document.createElement(&#x27;a&#x27;);
+    a.href &#x3D; url;
+    a.download &#x3D; filename;
+    a.click();
+    window.URL.revokeObjectURL(url);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; UTILITAIRES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  getStockStatus(item: StockItem): { class: string; label: string } {
+    if (item.stockActuel &#x3D;&#x3D;&#x3D; 0) {
+      return { class: &#x27;status-rupture&#x27;, label: &#x27;Rupture&#x27; };
+    } else if (item.stockActuel &lt;&#x3D; item.stockMinimum) {
+      return { class: &#x27;status-faible&#x27;, label: &#x27;Faible&#x27; };
+    } else if (item.stockActuel &gt;&#x3D; item.stockMaximum) {
+      return { class: &#x27;status-excedent&#x27;, label: &#x27;Excédent&#x27; };
+    } else {
+      return { class: &#x27;status-normal&#x27;, label: &#x27;Normal&#x27; };
+    }
+  }
+
+  getStockPercentage(item: StockItem): number {
+    return Math.min((item.stockActuel / item.stockMaximum) * 100, 100);
+  }
+
+  getTypeIcon(type: string): string {
+    const icons: { [key: string]: string } &#x3D; {
+      &#x27;boisson&#x27;: &#x27;🍷&#x27;,
+      &#x27;vin&#x27;: &#x27;🍾&#x27;,
+      &#x27;materiel&#x27;: &#x27;🍴&#x27;
+    };
+    return icons[type] || &#x27;📦&#x27;;
+  }
+
+  getCategoriesForType(): string[] {
+    const type &#x3D; this.typeControl.value;
+    if (type &#x3D;&#x3D;&#x3D; &#x27;tous&#x27;) {
+      return Object.values(this.categories).flat();
+    }
+    return this.categories[type as keyof typeof this.categories] || [];
+  }
+
+  formatNumber(num: number): string {
+    return num.toString().replace(/\B(?&#x3D;(\d{3})+(?!\d))/g, &#x27; &#x27;);
+  }
+
+  generateId(): string {
+    return &#x60;${Date.now()}_${Math.random().toString(36).substr(2, 9)}&#x60;;
+  }
+
+  toggleViewMode(): void {
+    this.viewMode &#x3D; this.viewMode &#x3D;&#x3D;&#x3D; &#x27;grid&#x27; ? &#x27;list&#x27; : &#x27;grid&#x27;;
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'StockItem.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

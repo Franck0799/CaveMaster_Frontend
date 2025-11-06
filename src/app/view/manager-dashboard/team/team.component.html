@@ -1,61 +1,134 @@
-// ===== team.component.html =====
+<div class="team-page">
 
-<section class="content-section">
-  <div class="section-header">
-    <h2 class="section-title-main">Mon Équipe</h2>
-    <p class="section-subtitle">Gestion en temps réel de votre personnel</p>
-  </div>
-
-  <!-- Statistiques équipe -->
-  <div class="team-stats">
-    <div class="team-stat-card">
-      <span class="stat-icon">👥</span>
-      <div class="stat-content">
-        <div class="stat-label">Total Personnel</div>
-        <div class="stat-value">{{getTotalMembers()}}</div>
-      </div>
+  <!-- En-tête -->
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">Mon Équipe</h1>
+      <p class="page-subtitle">{{ teamMembers.length }} membres actifs</p>
     </div>
-    <div class="team-stat-card active">
-      <span class="stat-icon">✅</span>
-      <div class="stat-content">
-        <div class="stat-label">En Service</div>
-        <div class="stat-value">{{getMembersEnService()}}</div>
-      </div>
+    <div class="header-actions">
+      <button class="btn-secondary" [routerLink]="['/manager', 'schedule']">
+        📅 Planning
+      </button>
+      <button class="btn-secondary" [routerLink]="['/manager', 'presence']">
+        📋 Présences
+      </button>
+      <button class="btn-primary" (click)="addMember()">
+        ➕ Ajouter
+      </button>
     </div>
   </div>
 
-  <!-- Grille des membres -->
-  <div class="team-grid">
-    <div class="team-card" *ngFor="let member of teamData">
-      <div class="team-member-header">
-        <div class="team-avatar">
-          {{member.avatar}}
-          <div class="status-indicator" [class]="'status-' + member.status"></div>
+  <!-- Vue sélection -->
+  <div class="view-selector">
+    <button class="view-btn"
+            [class.active]="viewMode === 'grid'"
+            (click)="viewMode = 'grid'">
+      <span class="icon">▦</span>
+      Grille
+    </button>
+    <button class="view-btn"
+            [class.active]="viewMode === 'list'"
+            (click)="viewMode = 'list'">
+      <span class="icon">☰</span>
+      Liste
+    </button>
+  </div>
+
+  <!-- Vue Grille -->
+  <div class="team-grid" *ngIf="viewMode === 'grid'">
+    <div class="member-card" *ngFor="let member of teamMembers">
+      <div class="card-header">
+        <div class="member-avatar-large">{{ member.avatar }}</div>
+        <div class="status-indicator" [class]="'status-' + member.status"></div>
+      </div>
+
+      <div class="card-body">
+        <h3 class="member-name">{{ member.name }}</h3>
+        <p class="member-role">{{ member.role }}</p>
+
+        <div class="member-stats-grid">
+          <div class="stat-item">
+            <span class="stat-label">Ventes</span>
+            <span class="stat-value">{{ member.todaySales }}€</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Commandes</span>
+            <span class="stat-value">{{ member.ordersCompleted }}</span>
+          </div>
         </div>
-        <div class="team-info">
-          <div class="team-name">{{member.name}}</div>
-          <div class="team-position">{{member.position}}</div>
+
+        <div class="member-rating">
+          <span class="rating-stars">{{ getRatingStars(member.rating) }}</span>
+          <span class="rating-value">{{ member.rating }}/5</span>
+        </div>
+
+        <div class="member-contact">
+          <div class="contact-item">
+            <span class="icon">📞</span>
+            <span class="text">{{ member.phone }}</span>
+          </div>
+          <div class="contact-item">
+            <span class="icon">📧</span>
+            <span class="text">{{ member.email }}</span>
+          </div>
         </div>
       </div>
-      <div class="team-details">
-        <div class="detail-row">
-          <span class="detail-label">Statut</span>
-          <span class="status-badge" [class]="'badge-' + member.status">{{member.statusText}}</span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">Heure de début</span>
-          <span class="detail-value">{{member.heureDebut}}</span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">Temps de travail</span>
-          <span class="detail-value">{{member.tempsTravail}}</span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">Pause restante</span>
-          <span class="detail-value">{{member.pauseRestante}}</span>
-        </div>
+
+      <div class="card-footer">
+        <button class="action-btn" (click)="viewMember(member)">
+          👁️ Voir
+        </button>
+        <button class="action-btn" (click)="contactMember(member)">
+          💬 Contacter
+        </button>
       </div>
     </div>
   </div>
-</section>
 
+  <!-- Vue Liste -->
+  <div class="team-list" *ngIf="viewMode === 'list'">
+    <div class="list-header">
+      <div class="col-member">Membre</div>
+      <div class="col-status">Statut</div>
+      <div class="col-sales">Ventes</div>
+      <div class="col-orders">Commandes</div>
+      <div class="col-rating">Note</div>
+      <div class="col-actions">Actions</div>
+    </div>
+
+    <div class="list-item" *ngFor="let member of teamMembers">
+      <div class="col-member">
+        <div class="member-avatar-small">{{ member.avatar }}</div>
+        <div class="member-info">
+          <div class="name">{{ member.name }}</div>
+          <div class="role">{{ member.role }}</div>
+        </div>
+      </div>
+
+      <div class="col-status">
+        <span class="status-badge" [class]="'status-' + member.status">
+          {{ getStatusLabel(member.status) }}
+        </span>
+      </div>
+
+      <div class="col-sales">
+        <span class="value">{{ member.todaySales | number:'1.0-0' }} €</span>
+      </div>
+
+      <div class="col-orders">
+        <span class="value">{{ member.ordersCompleted }}</span>
+      </div>
+
+      <div class="col-rating">
+        <span class="rating">{{ member.rating }} ⭐</span>
+      </div>
+
+      <div class="col-actions">
+        <button class="icon-btn" (click)="viewMember(member)" title="Voir">👁️</button>
+        <button class="icon-btn" (click)="editMember(member)" title="Modifier">✏️</button>
+        <button class="icon-btn" (click)="contactMember(member)" title="Contacter">💬</button>
+      </div>
+    </div>
+  </div>
+</div>

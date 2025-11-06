@@ -1,770 +1,387 @@
-<div class="dashboard">
-  <!-- ===== SIDEBAR ===== -->
-  <aside class="sidebar">
+<!-- ===== FICHIER: manager-dashboard.component.html ===== -->
+<div class="dashboard" [class.sidebar-open]="isMobileSidebarOpen">
+
+  <!-- ===== OVERLAY MOBILE ===== -->
+  <div class="mobile-overlay"
+       *ngIf="isMobileSidebarOpen"
+       (click)="closeMobileSidebar()"></div>
+
+  <!-- ===== SIDEBAR MANAGER (VERSION SIMPLIFIÉE) ===== -->
+  <aside class="sidebar" [class.mobile-open]="isMobileSidebarOpen">
+
+    <!-- Logo et statut de présence -->
     <div class="sidebar-header">
       <div class="logo">
         <span class="logo-icon">🍾</span>
-        <span class="logo-text">DrinkStore</span>
+        <span class="logo-text">Manager Pro</span>
       </div>
     </div>
 
+    <!-- ===== BOUTON DE PRÉSENCE ===== -->
+    <div class="presence-section">
+      <button class="presence-btn"
+              [class.active]="userProfile.isPresent"
+              (click)="togglePresence()">
+        <span class="presence-icon">{{ userProfile.isPresent ? '✅' : '⭕' }}</span>
+        <div class="presence-info">
+          <span class="presence-label">{{ userProfile.isPresent ? 'Je suis présent' : 'Je suis absent' }}</span>
+          <span class="presence-cave">{{ userProfile.caveAssigned }}</span>
+        </div>
+      </button>
+
+      <!-- Mini stats équipe -->
+      <div class="team-quick-stats">
+        <div class="stat-item present">
+          <span class="stat-icon">✅</span>
+          <span class="stat-count">{{ getPresenceCount('present') }}</span>
+        </div>
+        <div class="stat-item absent">
+          <span class="stat-icon">⭕</span>
+          <span class="stat-count">{{ getPresenceCount('absent') }}</span>
+        </div>
+        <div class="stat-item leave">
+          <span class="stat-icon">🏖️</span>
+          <span class="stat-count">{{ getPresenceCount('leave') }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ===== NAVIGATION PRINCIPALE ===== -->
     <nav class="sidebar-section">
       <div class="nav-item"
-           [class.active]="activeTab === 'dashboard'"
-           (click)="navigateTo('dashboard')">
+           [routerLink]="['/manager', 'home']"
+           routerLinkActive="active"
+           (click)="closeMobileSidebar()">
         <span class="nav-icon">🏠</span>
-        <span class="nav-text">Accueil</span>
+        <span class="nav-text">Tableau de bord</span>
       </div>
 
       <div class="nav-item"
-           [class.active]="activeTab === 'alerts'"
-           (click)="navigateTo('alerts')">
-        <span class="nav-icon">🔔</span>
-        <span class="nav-text">Alertes</span>
-        <span class="notification-badge">12</span>
-      </div>
-
-      <div class="nav-item"
-           [class.active]="activeTab === 'team'"
-           (click)="navigateTo('team')">
-        <span class="nav-icon">👥</span>
-        <span class="nav-text">Mon Équipe</span>
-      </div>
-
-      <div class="nav-item"
-           [class.active]="activeTab === 'orders'"
-           (click)="navigateTo('orders')">
-        <span class="nav-icon">🛒</span>
-        <span class="nav-text">Commandes</span>
-        <span class="notification-badge">8</span>
+           [routerLink]="['/manager', 'mycave']"
+           routerLinkActive="active"
+           (click)="closeMobileSidebar()">
+        <span class="nav-icon">🍷</span>
+        <span class="nav-text">Ma cave</span>
       </div>
     </nav>
 
     <div class="divider"></div>
 
+    <!-- ===== SECTION ÉQUIPE AVEC SOUS-MENU ===== -->
     <nav class="sidebar-section">
-      <div class="section-title">GESTION</div>
+      <div class="section-title-hover"
+           (mouseenter)="onSectionMouseEnter('team')"
+           (mouseleave)="onSectionMouseLeave()">
+        <div class="section-title">MON ÉQUIPE</div>
+      </div>
 
-      <!-- NOUVEAU: Menu Stock avec activation -->
+      <div class="hover-submenu"
+           [class.show]="isSubmenuOpen('team')"
+           (mouseenter)="onSubmenuMouseEnter()"
+           (mouseleave)="onSubmenuMouseLeave()">
+
+        <div class="nav-item submenu-item"
+             [routerLink]="['/manager', 'team']"
+             routerLinkActive="active"
+             (click)="closeMobileSidebar()">
+          <span class="nav-icon">👥</span>
+          <span class="nav-text">Vue d'ensemble</span>
+        </div>
+
+        <div class="nav-item submenu-item"
+             [routerLink]="['/manager', 'presence']"
+             routerLinkActive="active"
+             (click)="closeMobileSidebar()">
+          <span class="nav-icon">📋</span>
+          <span class="nav-text">Présences</span>
+        </div>
+
+        <div class="nav-item submenu-item"
+             [routerLink]="['/manager', 'schedule']"
+             routerLinkActive="active"
+             (click)="closeMobileSidebar()">
+          <span class="nav-icon">📅</span>
+          <span class="nav-text">Planning</span>
+        </div>
+
+        <div class="nav-item submenu-item"
+             [routerLink]="['/manager', 'performance']"
+             routerLinkActive="active"
+             (click)="closeMobileSidebar()">
+          <span class="nav-icon">📊</span>
+          <span class="nav-text">Performance</span>
+        </div>
+      </div>
+    </nav>
+
+    <div class="divider"></div>
+
+    <!-- ===== SECTION OPÉRATIONS ===== -->
+    <nav class="sidebar-section">
+      <div class="section-title-hover"
+           (mouseenter)="onSectionMouseEnter('operations')"
+           (mouseleave)="onSectionMouseLeave()">
+        <div class="section-title">OPÉRATIONS</div>
+      </div>
+
+      <div class="hover-submenu"
+           [class.show]="isSubmenuOpen('operations')"
+           (mouseenter)="onSubmenuMouseEnter()"
+           (mouseleave)="onSubmenuMouseLeave()">
+
+        <div class="nav-item submenu-item"
+             [routerLink]="['/manager', 'orders']"
+             routerLinkActive="active"
+             (click)="closeMobileSidebar()">
+          <span class="nav-icon">🛒</span>
+          <span class="nav-text">Commandes</span>
+        </div>
+
+        <div class="nav-item submenu-item"
+             [routerLink]="['/manager', 'sales']"
+             routerLinkActive="active"
+             (click)="closeMobileSidebar()">
+          <span class="nav-icon">💰</span>
+          <span class="nav-text">Ventes</span>
+        </div>
+
+        <div class="nav-item submenu-item"
+             [routerLink]="['/manager', 'stockrequest']"
+             routerLinkActive="active"
+             (click)="closeMobileSidebar()">
+          <span class="nav-icon">📦</span>
+          <span class="nav-text">Demandes de stock</span>
+        </div>
+
+        <div class="nav-item submenu-item"
+             [routerLink]="['/manager', 'inventory']"
+             routerLinkActive="active"
+             (click)="closeMobileSidebar()">
+          <span class="nav-icon">📋</span>
+          <span class="nav-text">Inventaire</span>
+        </div>
+      </div>
+    </nav>
+
+    <div class="divider"></div>
+
+    <!-- ===== SECTION RAPPORTS ===== -->
+    <nav class="sidebar-section">
+      <div class="section-title-hover"
+           (mouseenter)="onSectionMouseEnter('reports')"
+           (mouseleave)="onSectionMouseLeave()">
+        <div class="section-title">RAPPORTS</div>
+      </div>
+
+      <div class="hover-submenu"
+           [class.show]="isSubmenuOpen('reports')"
+           (mouseenter)="onSubmenuMouseEnter()"
+           (mouseleave)="onSubmenuMouseLeave()">
+
+        <div class="nav-item submenu-item"
+             [routerLink]="['/manager', 'dailyreport']"
+             routerLinkActive="active"
+             (click)="closeMobileSidebar()">
+          <span class="nav-icon">📝</span>
+          <span class="nav-text">Rapport journalier</span>
+        </div>
+
+        <div class="nav-item submenu-item"
+             [routerLink]="['/manager', 'cashregister']"
+             routerLinkActive="active"
+             (click)="closeMobileSidebar()">
+          <span class="nav-icon">💵</span>
+          <span class="nav-text">Caisse</span>
+        </div>
+
+        <div class="nav-item submenu-item"
+             [routerLink]="['/manager', 'incident']"
+             routerLinkActive="active"
+             (click)="closeMobileSidebar()">
+          <span class="nav-icon">⚠️</span>
+          <span class="nav-text">Incidents</span>
+        </div>
+      </div>
+    </nav>
+
+    <div class="divider"></div>
+
+    <!-- ===== SECTION CLIENT ===== -->
+    <nav class="sidebar-section">
       <div class="nav-item"
-           [class.active]="activeTab === 'stock'"
-           (click)="navigateTo('stock')">
-        <span class="nav-icon">📦</span>
-        <span class="nav-text">Stock</span>
-      </div>
-
-      <!-- NOUVEAU: Menu Caisse avec activation -->
-      <div class="nav-item"
-           [class.active]="activeTab === 'caisse'"
-           (click)="navigateTo('caisse')">
-        <span class="nav-icon">💰</span>
-        <span class="nav-text">Caisse</span>
-      </div>
-
-      <div class="nav-item">
-        <span class="nav-icon">📊</span>
-        <span class="nav-text">Ventes</span>
-      </div>
-      <div class="nav-item">
-        <span class="nav-icon">👤</span>
+           [routerLink]="['/manager', 'customers']"
+           routerLinkActive="active"
+           (click)="closeMobileSidebar()">
+        <span class="nav-icon">🧑‍💼</span>
         <span class="nav-text">Clients</span>
       </div>
     </nav>
 
     <div class="divider"></div>
 
+    <!-- ===== SECTION AIDE ===== -->
     <nav class="sidebar-section">
-      <div class="section-title">INFOS</div>
-      <div class="nav-item">
-        <span class="nav-icon">📋</span>
-        <span class="nav-text">Rapports</span>
+      <div class="section-title-hover"
+           (mouseenter)="onSectionMouseEnter('help')"
+           (mouseleave)="onSectionMouseLeave()">
+        <div class="section-title">AIDE</div>
       </div>
-      <div class="nav-item">
-        <span class="nav-icon">⚙️</span>
-        <span class="nav-text">Paramètres</span>
-      </div>
-      <div class="nav-item">
-        <span class="nav-icon">❓</span>
-        <span class="nav-text">Aide</span>
+
+      <div class="hover-submenu"
+           [class.show]="isSubmenuOpen('help')"
+           (mouseenter)="onSubmenuMouseEnter()"
+           (mouseleave)="onSubmenuMouseLeave()">
+
+        <div class="nav-item submenu-item"
+             [routerLink]="['/manager', 'faq']"
+             routerLinkActive="active"
+             (click)="closeMobileSidebar()">
+          <span class="nav-icon">❓</span>
+          <span class="nav-text">FAQ</span>
+        </div>
+
+        <div class="nav-item submenu-item"
+             [routerLink]="['/manager', 'contact']"
+             routerLinkActive="active"
+             (click)="closeMobileSidebar()">
+          <span class="nav-icon">📧</span>
+          <span class="nav-text">Support</span>
+        </div>
       </div>
     </nav>
+
+    <div class="divider"></div>
+
+    <!-- Mon compte -->
+    <nav class="sidebar-section">
+      <div class="nav-item"
+           [routerLink]="['/manager', 'profile']"
+           routerLinkActive="active"
+           (click)="closeMobileSidebar()">
+        <span class="nav-icon">👤</span>
+        <span class="nav-text">Mon compte</span>
+      </div>
+    </nav>
+
+    <!-- Footer -->
+    <div class="sidebar-footer">
+      <p class="version-text">Manager v1.0</p>
+      <p class="copyright-text">© 2025 CaveViking Pro</p>
+    </div>
   </aside>
 
-  <!-- ===== MAIN CONTENT ===== -->
+  <!-- ===== CONTENU PRINCIPAL ===== -->
   <main class="main-content">
+
+    <!-- En-tête -->
     <header class="top-header">
+      <!-- Bouton menu mobile -->
+      <button class="mobile-menu-btn" (click)="toggleMobileSidebar()" aria-label="Menu">
+        ☰
+      </button>
+
+      <!-- Barre de recherche -->
       <div class="header-left">
-        <h1>👋 Bonjour, Manager!</h1>
-        <p class="header-subtitle">Cave Principale • Lekki Phase 1, Lagos</p>
+        <div class="search-bar">
+          <input
+            type="text"
+            placeholder="Rechercher un vin, commande, membre..."
+            [(ngModel)]="searchTerm"
+            (keyup.enter)="onSearch()"
+            aria-label="Recherche">
+          <button class="search-btn" (click)="onSearch()" aria-label="Rechercher">
+            🔍
+          </button>
+        </div>
       </div>
 
+      <!-- Éléments à droite -->
       <div class="header-right">
-        <div class="header-icon" (click)="navigateTo('alerts')">
-          <span class="icon">🔔</span>
-          <span class="badge">5</span>
-        </div>
+        <!-- Composant de changement de thème -->
+        <app-theme-toggle></app-theme-toggle>
 
-        <div class="header-icon">
+        <!-- Messages -->
+        <div class="header-icon"
+             [routerLink]="['/manager', 'messages']"
+             role="button"
+             tabindex="0"
+             aria-label="Messages">
           <span class="icon">💬</span>
-          <span class="badge">3</span>
+          <span class="badge" *ngIf="getUnreadMessagesCount() > 0">
+            {{ getUnreadMessagesCount() }}
+          </span>
         </div>
 
-        <div class="user-profile" (click)="toggleUserDropdown()">
-          <div class="avatar">👨‍💼</div>
-          <div>
-            <div class="user-name">Jean Kouassi</div>
-            <div class="user-role">Manager Principal</div>
-          </div>
+        <!-- Notifications -->
+        <div class="header-icon"
+             [routerLink]="['/manager', 'notifications']"
+             role="button"
+             tabindex="0"
+             aria-label="Notifications">
+          <span class="icon">🔔</span>
+          <span class="badge" *ngIf="getUnreadNotificationsCount() > 0">
+            {{ getUnreadNotificationsCount() }}
+          </span>
+        </div>
 
-          <div class="user-dropdown" *ngIf="showUserDropdown">
-            <div class="dropdown-item">👤 Mon profil</div>
-            <div class="dropdown-item">📊 Mes performances</div>
-            <div class="dropdown-item">⚙️ Paramètres</div>
+        <!-- Profil utilisateur -->
+        <div class="user-profile"
+             (click)="toggleUserDropdown($event)"
+             role="button"
+             tabindex="0"
+             aria-label="Profil utilisateur">
+          <div class="avatar">{{ userProfile.avatar }}</div>
+          <div class="user-info">
+            <div class="user-name">{{ userProfile.firstName }} {{ userProfile.lastName }}</div>
+            <div class="user-role">{{ userProfile.role }} - {{ userProfile.caveAssigned }}</div>
+          </div>
+          <span class="dropdown-arrow" [class.rotated]="isUserDropdownOpen">▼</span>
+
+          <!-- Menu dropdown -->
+          <div class="user-dropdown"
+               [class.show]="isUserDropdownOpen"
+               (click)="$event.stopPropagation()">
+            <div class="dropdown-item"
+                 [routerLink]="['/manager', 'profile']"
+                 (click)="isUserDropdownOpen = false">
+              <span class="dropdown-icon">👤</span>
+              <span>Mon profil</span>
+            </div>
+            <div class="dropdown-item"
+                 [routerLink]="['/manager', 'settings']"
+                 (click)="isUserDropdownOpen = false">
+              <span class="dropdown-icon">⚙️</span>
+              <span>Paramètres</span>
+            </div>
             <div class="dropdown-divider"></div>
-            <div class="dropdown-item">🔄 Changer de cave</div>
-            <div class="dropdown-item">📱 Mode sombre/clair</div>
-            <div class="dropdown-divider"></div>
-            <div class="dropdown-item">💬 Assistance</div>
-            <div class="dropdown-item danger" (click)="logout()">🚪 Déconnexion</div>
+            <div class="dropdown-item logout-item" (click)="logout($event)">
+              <span class="dropdown-icon">🚪</span>
+              <span>Déconnexion</span>
+            </div>
           </div>
         </div>
       </div>
     </header>
 
-    <!-- ===== PAGE DASHBOARD ===== -->
-    <div *ngIf="activeTab === 'dashboard'" class="page-section">
-      <section class="content-section">
-        <div class="section-header">
-          <h2 class="section-title-main">Tableau de Bord</h2>
-          <p class="section-subtitle">Vue d'ensemble de votre activité</p>
-        </div>
-
-        <div class="stats-grid">
-          <div class="stat-card" (click)="navigateTo('caisse')">
-            <div class="stat-card-content">
-              <div class="stat-icon-wrapper stat-icon-orange">
-                <span>💰</span>
-              </div>
-              <div class="stat-info">
-                <div class="stat-label">Ventes du Jour</div>
-                <div class="stat-value stat-value-orange">850K</div>
-                <div class="stat-change positive">+12% vs hier</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="stat-card" (click)="navigateTo('orders')">
-            <div class="stat-card-content">
-              <div class="stat-icon-wrapper stat-icon-green">
-                <span>🛒</span>
-              </div>
-              <div class="stat-info">
-                <div class="stat-label">Commandes</div>
-                <div class="stat-value stat-value-green">34</div>
-                <div class="stat-change positive">+8 nouvelles</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="stat-card" (click)="navigateTo('team')">
-            <div class="stat-card-content">
-              <div class="stat-icon-wrapper stat-icon-blue">
-                <span>👥</span>
-              </div>
-              <div class="stat-info">
-                <div class="stat-label">Équipe en Service</div>
-                <div class="stat-value stat-value-blue">8/12</div>
-                <div class="stat-change positive">4 en pause</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="stat-card" (click)="navigateTo('alerts')">
-            <div class="stat-card-content">
-              <div class="stat-icon-wrapper stat-icon-warning">
-                <span>⚠️</span>
-              </div>
-              <div class="stat-info">
-                <div class="stat-label">Alertes Actives</div>
-                <div class="stat-value stat-value-warning">12</div>
-                <div class="stat-change warning">3 urgentes</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+    <!-- ===== ROUTER OUTLET ===== -->
+    <div class="content-wrapper">
+      <router-outlet></router-outlet>
     </div>
 
-    <!-- ===== PAGE ALERTES ===== -->
-    <div *ngIf="activeTab === 'alerts'" class="page-section">
-      <section class="content-section">
-        <div class="section-header">
-          <h2 class="section-title-main">Alertes & Notifications</h2>
-          <p class="section-subtitle">Gérez vos alertes en temps réel</p>
+    <!-- Footer -->
+    <footer class="main-footer">
+      <div class="footer-content">
+        <p class="footer-text">
+          © 2025 CaveViking Pro Manager - Tous droits réservés
+        </p>
+        <div class="footer-links">
+          <a [routerLink]="['/manager', 'help']" class="footer-link">Aide</a>
+          <span class="separator">•</span>
+          <a [routerLink]="['/manager', 'contact']" class="footer-link">Contact</a>
         </div>
-
-        <div class="alerts-grid">
-          <div class="alert-card">
-            <div class="alert-header">
-              <div class="alert-title">📦 Alertes Stock</div>
-              <span class="alert-count">5</span>
-            </div>
-            <div class="alert-body">
-              <div class="alert-item">
-                <div class="alert-item-header">
-                  <span class="alert-icon">🚨</span>
-                  <div class="alert-content">
-                    <div class="alert-item-title">Stock critique</div>
-                    <div class="alert-item-desc">Hennessy VSOP - Seulement 3 bouteilles restantes</div>
-                    <div class="alert-time">Il y a 15 min</div>
-                    <span class="alert-priority priority-high">URGENT</span>
-                  </div>
-                </div>
-              </div>
-              <div class="alert-item">
-                <div class="alert-item-header">
-                  <span class="alert-icon">⚠️</span>
-                  <div class="alert-content">
-                    <div class="alert-item-title">Stock faible</div>
-                    <div class="alert-item-desc">Dom Pérignon - 8 bouteilles restantes</div>
-                    <div class="alert-time">Il y a 1h</div>
-                    <span class="alert-priority priority-medium">MOYEN</span>
-                  </div>
-                </div>
-              </div>
-              <div class="alert-item">
-                <div class="alert-item-header">
-                  <span class="alert-icon">⚠️</span>
-                  <div class="alert-content">
-                    <div class="alert-item-title">Stock faible</div>
-                    <div class="alert-item-desc">Château Margaux - 12 bouteilles</div>
-                    <div class="alert-time">Il y a 2h</div>
-                    <span class="alert-priority priority-medium">MOYEN</span>
-                  </div>
-                </div>
-              </div>
-              <div class="alert-item">
-                <div class="alert-item-header">
-                  <span class="alert-icon">📊</span>
-                  <div class="alert-content">
-                    <div class="alert-item-title">Inventaire recommandé</div>
-                    <div class="alert-item-desc">Réapprovisionnement suggéré: Heineken</div>
-                    <div class="alert-time">Il y a 3h</div>
-                    <span class="alert-priority priority-low">INFO</span>
-                  </div>
-                </div>
-              </div>
-              <div class="alert-item">
-                <div class="alert-item-header">
-                  <span class="alert-icon">✅</span>
-                  <div class="alert-content">
-                    <div class="alert-item-title">Livraison reçue</div>
-                    <div class="alert-item-desc">50 bouteilles de vin rouge ajoutées</div>
-                    <div class="alert-time">Il y a 4h</div>
-                    <span class="alert-priority priority-low">INFO</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="alert-card">
-            <div class="alert-header">
-              <div class="alert-title">⭐ Réservations VIP</div>
-              <span class="alert-count">4</span>
-            </div>
-            <div class="alert-body">
-              <div class="alert-item">
-                <div class="alert-item-header">
-                  <span class="alert-icon">👑</span>
-                  <div class="alert-content">
-                    <div class="alert-item-title">Nouvelle réservation VIP</div>
-                    <div class="alert-item-desc">Client Premium - 20 bouteilles Dom Pérignon</div>
-                    <div class="alert-time">Il y a 10 min</div>
-                    <span class="alert-priority priority-high">URGENT</span>
-                  </div>
-                </div>
-              </div>
-              <div class="alert-item">
-                <div class="alert-item-header">
-                  <span class="alert-icon">⭐</span>
-                  <div class="alert-content">
-                    <div class="alert-item-title">Réservation confirmée</div>
-                    <div class="alert-item-desc">Événement corporate - 50 bouteilles mixtes</div>
-                    <div class="alert-time">Il y a 30 min</div>
-                    <span class="alert-priority priority-medium">MOYEN</span>
-                  </div>
-                </div>
-              </div>
-              <div class="alert-item">
-                <div class="alert-item-header">
-                  <span class="alert-icon">🎉</span>
-                  <div class="alert-content">
-                    <div class="alert-item-title">Réservation anniversaire</div>
-                    <div class="alert-item-desc">Commande spéciale - 15 bouteilles Champagne</div>
-                    <div class="alert-time">Il y a 1h</div>
-                    <span class="alert-priority priority-low">INFO</span>
-                  </div>
-                </div>
-              </div>
-              <div class="alert-item">
-                <div class="alert-item-header">
-                  <span class="alert-icon">📅</span>
-                  <div class="alert-content">
-                    <div class="alert-item-title">Réservation à venir</div>
-                    <div class="alert-item-desc">Demain 18h - Client VIP régulier</div>
-                    <div class="alert-time">Il y a 2h</div>
-                    <span class="alert-priority priority-low">INFO</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="alert-card">
-            <div class="alert-header">
-              <div class="alert-title">🛒 Réservations Standard</div>
-              <span class="alert-count">3</span>
-            </div>
-            <div class="alert-body">
-              <div class="alert-item">
-                <div class="alert-item-header">
-                  <span class="alert-icon">🛍️</span>
-                  <div class="alert-content">
-                    <div class="alert-item-title">Nouvelle commande</div>
-                    <div class="alert-item-desc">Client régulier - 5 bouteilles vin rouge</div>
-                    <div class="alert-time">Il y a 20 min</div>
-                    <span class="alert-priority priority-medium">MOYEN</span>
-                  </div>
-                </div>
-              </div>
-              <div class="alert-item">
-                <div class="alert-item-header">
-                  <span class="alert-icon">📦</span>
-                  <div class="alert-content">
-                    <div class="alert-item-title">Commande prête</div>
-                    <div class="alert-item-desc">À retirer - 3 bouteilles Hennessy</div>
-                    <div class="alert-time">Il y a 45 min</div>
-                    <span class="alert-priority priority-medium">MOYEN</span>
-                  </div>
-                </div>
-              </div>
-              <div class="alert-item">
-                <div class="alert-item-header">
-                  <span class="alert-icon">✅</span>
-                  <div class="alert-content">
-                    <div class="alert-item-title">Commande livrée</div>
-                    <div class="alert-item-desc">10 bouteilles bières - Victoria Island</div>
-                    <div class="alert-time">Il y a 1h</div>
-                    <span class="alert-priority priority-low">INFO</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- ===== PAGE ÉQUIPE ===== -->
-    <div *ngIf="activeTab === 'team'" class="page-section">
-      <section class="content-section">
-        <div class="section-header">
-          <h2 class="section-title-main">Mon Équipe</h2>
-          <p class="section-subtitle">Gestion en temps réel de votre personnel</p>
-        </div>
-
-        <div class="team-grid">
-          <div class="team-card" *ngFor="let member of teamData">
-            <div class="team-member-header">
-              <div class="team-avatar">
-                {{member.avatar}}
-                <div class="status-indicator" [class]="'status-' + member.status"></div>
-              </div>
-              <div class="team-info">
-                <div class="team-name">{{member.name}}</div>
-                <div class="team-position">{{member.position}}</div>
-              </div>
-            </div>
-            <div class="team-details">
-              <div class="detail-row">
-                <span class="detail-label">Statut</span>
-                <span class="status-badge" [class]="'badge-' + member.status">{{member.statusText}}</span>
-              </div>
-              <div class="detail-row">
-                <span class="detail-label">Heure de début</span>
-                <span class="detail-value">{{member.heureDebut}}</span>
-              </div>
-              <div class="detail-row">
-                <span class="detail-label">Temps de travail</span>
-                <span class="detail-value">{{member.tempsTravail}}</span>
-              </div>
-              <div class="detail-row">
-                <span class="detail-label">Pause restante</span>
-                <span class="detail-value">{{member.pauseRestante}}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- ===== PAGE COMMANDES ===== -->
-    <div *ngIf="activeTab === 'orders'" class="page-section">
-      <section class="content-section">
-        <div class="section-header">
-          <h2 class="section-title-main">Commandes Récentes</h2>
-          <p class="section-subtitle">Suivez l'état de toutes vos commandes</p>
-        </div>
-
-        <div class="orders-container">
-          <div class="orders-header">
-            <h3 style="font-size: 1.2rem; font-weight: 600;">Filtrer par statut</h3>
-            <div class="orders-tabs">
-              <button class="order-tab"
-                      [class.active]="currentOrderFilter === 'all'"
-                      (click)="filterOrders('all')">
-                Toutes ({{getOrderCount('all')}})
-              </button>
-              <button class="order-tab"
-                      [class.active]="currentOrderFilter === 'paye'"
-                      (click)="filterOrders('paye')">
-                Payé ({{getOrderCount('paye')}})
-              </button>
-              <button class="order-tab"
-                      [class.active]="currentOrderFilter === 'en-cours'"
-                      (click)="filterOrders('en-cours')">
-                En cours ({{getOrderCount('en-cours')}})
-              </button>
-              <button class="order-tab"
-                      [class.active]="currentOrderFilter === 'termine'"
-                      (click)="filterOrders('termine')">
-                Terminé ({{getOrderCount('termine')}})
-              </button>
-            </div>
-          </div>
-
-          <div class="orders-list">
-            <div *ngIf="filteredOrders.length === 0" class="empty-state">
-              <div class="empty-state-icon">📦</div>
-              <p>Aucune commande dans cette catégorie</p>
-            </div>
-
-            <div class="order-item" *ngFor="let order of filteredOrders">
-              <div class="order-header-row">
-                <div class="order-id">{{order.id}}</div>
-                <div class="order-status" [class]="'status-' + order.status">{{order.statusText}}</div>
-              </div>
-              <div class="order-details">
-                <div class="order-detail-item"><span>👤</span><span>{{order.client}}</span></div>
-                <div class="order-detail-item"><span>🕐</span><span>{{order.date}}</span></div>
-              </div>
-              <div class="order-products">📦 {{order.produits}}</div>
-              <div class="order-total">
-                <span class="total-label">Total:</span>
-                <span class="total-amount">{{order.total}}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- ===== NOUVELLE PAGE STOCK ===== -->
-    <div *ngIf="activeTab === 'stock'" class="page-section">
-      <section class="content-section">
-        <div class="section-header">
-          <h2 class="section-title-main">Gestion du Stock</h2>
-          <p class="section-subtitle">Suivez et gérez votre inventaire par cave</p>
-        </div>
-
-        <!-- Sélecteur de cave -->
-        <div class="cave-selector">
-          <div class="cave-tabs">
-            <button *ngFor="let cave of cavesData"
-                    class="cave-tab"
-                    [class.active]="selectedCaveId === cave.id"
-                    (click)="selectCave(cave.id)">
-              <div class="cave-tab-icon">🏢</div>
-              <div class="cave-tab-content">
-                <div class="cave-tab-name">{{cave.nom}}</div>
-                <div class="cave-tab-info">{{cave.stockActuel}}/{{cave.capacite}} bouteilles</div>
-              </div>
-            </button>
-          </div>
-        </div>
-
-        <!-- Informations de la cave sélectionnée -->
-        <div class="cave-info-card" *ngIf="selectedCave">
-          <div class="cave-info-header">
-            <h3>📍 {{selectedCave.nom}}</h3>
-          </div>
-          <div class="cave-info-grid">
-            <div class="cave-info-item">
-              <span class="info-label">Adresse</span>
-              <span class="info-value">{{selectedCave.adresse}}</span>
-            </div>
-            <div class="cave-info-item">
-              <span class="info-label">Responsable</span>
-              <span class="info-value">{{selectedCave.responsable}}</span>
-            </div>
-            <div class="cave-info-item">
-              <span class="info-label">Capacité</span>
-              <span class="info-value">{{selectedCave.capacite}} bouteilles</span>
-            </div>
-            <div class="cave-info-item">
-              <span class="info-label">Taux de remplissage</span>
-              <span class="info-value">{{(selectedCave.stockActuel / selectedCave.capacite * 100).toFixed(1)}}%</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Barre de recherche et filtres -->
-        <div class="stock-controls">
-          <div class="search-box">
-            <span class="search-icon">🔍</span>
-            <input type="text"
-                   placeholder="Rechercher une boisson..."
-                   [(ngModel)]="searchStock"
-                   class="search-input">
-          </div>
-          <div class="stock-filters">
-            <button class="filter-btn"
-                    [class.active]="currentStockFilter === 'all'"
-                    (click)="filterStock('all')">
-              Toutes ({{getStockCount('all')}})
-            </button>
-            <button class="filter-btn filter-btn-alert"
-                    [class.active]="currentStockFilter === 'alerte'"
-                    (click)="filterStock('alerte')">
-              ⚠️ En alerte ({{getStockCount('alerte')}})
-            </button>
-            <button class="filter-btn filter-btn-ok"
-                    [class.active]="currentStockFilter === 'ok'"
-                    (click)="filterStock('ok')">
-              ✅ Stock OK ({{getStockCount('ok')}})
-            </button>
-          </div>
-        </div>
-
-        <!-- Liste des boissons -->
-        <div class="stock-grid">
-          <div *ngIf="filteredBoissons.length === 0" class="empty-state">
-            <div class="empty-state-icon">🍾</div>
-            <p>Aucune boisson trouvée</p>
-          </div>
-
-          <div class="stock-card" *ngFor="let boisson of filteredBoissons">
-            <div class="stock-card-header">
-              <div class="stock-product-info">
-                <h4 class="stock-product-name">{{boisson.nom}}</h4>
-                <span class="stock-category">{{boisson.categorie}}</span>
-              </div>
-              <div class="stock-alert-indicator" *ngIf="isStockAlerte(boisson)">
-                <span class="alert-icon-small">⚠️</span>
-              </div>
-            </div>
-
-            <div class="stock-card-body">
-              <div class="stock-quantity-section">
-                <div class="stock-quantity-main">
-                  <span class="quantity-label">Stock actuel</span>
-                  <span class="quantity-value"
-                        [class.quantity-alert]="isStockAlerte(boisson)">
-                    {{boisson.stocks[selectedCaveId]}}
-                  </span>
-                </div>
-                <div class="stock-threshold">
-                  <span class="threshold-label">Seuil d'alerte:</span>
-                  <span class="threshold-value">{{boisson.seuilAlerte}}</span>
-                </div>
-              </div>
-
-              <div class="stock-price">
-                <span class="price-label">Prix unitaire:</span>
-                <span class="price-value">{{formatMontant(boisson.prixUnitaire)}}</span>
-              </div>
-
-              <div class="stock-status-bar">
-                <div class="status-bar-fill"
-                     [style.width.%]="(boisson.stocks[selectedCaveId] / boisson.seuilAlerte * 100)"
-                     [class.status-bar-alert]="isStockAlerte(boisson)"
-                     [class.status-bar-ok]="!isStockAlerte(boisson)">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Historique des mouvements -->
-        <div class="mouvements-section">
-          <h3 class="mouvements-title">📋 Derniers Mouvements de Stock</h3>
-          <div class="mouvements-list">
-            <div *ngIf="mouvementsForSelectedCave.length === 0" class="empty-state">
-              <p>Aucun mouvement enregistré pour cette cave</p>
-            </div>
-
-            <div class="mouvement-item" *ngFor="let mv of mouvementsForSelectedCave">
-              <div class="mouvement-icon" [class]="'mouvement-' + mv.type">
-                <span *ngIf="mv.type === 'entree'">📥</span>
-                <span *ngIf="mv.type === 'sortie'">📤</span>
-                <span *ngIf="mv.type === 'transfert'">🔄</span>
-                <span *ngIf="mv.type === 'perte'">❌</span>
-              </div>
-              <div class="mouvement-content">
-                <div class="mouvement-header-row">
-                  <span class="mouvement-type-badge" [class]="'badge-' + mv.type">
-                    {{mv.typeText}}
-                  </span>
-                  <span class="mouvement-date">{{mv.date}} à {{mv.heure}}</span>
-                </div>
-                <div class="mouvement-product">{{mv.boissonNom}}</div>
-                <div class="mouvement-details">
-                  <span class="mouvement-quantity">Quantité: {{mv.quantite}}</span>
-                  <span class="mouvement-separator">•</span>
-                  <span class="mouvement-motif">{{mv.motif}}</span>
-                </div>
-                <div class="mouvement-operator">Par: {{mv.operateur}}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- ===== NOUVELLE PAGE CAISSE ===== -->
-    <div *ngIf="activeTab === 'caisse'" class="page-section">
-      <section class="content-section">
-        <div class="section-header">
-          <h2 class="section-title-main">Gestion de Caisse</h2>
-          <p class="section-subtitle">Suivez toutes vos transactions et encaissements</p>
-        </div>
-
-        <!-- Sélecteur de date -->
-        <div class="caisse-date-selector">
-          <label for="dateSelect" class="date-label">📅 Date:</label>
-          <input type="date"
-                 id="dateSelect"
-                 [(ngModel)]="selectedDate"
-                 class="date-input">
-        </div>
-
-        <!-- Résumé de la caisse -->
-        <div class="caisse-summary-grid">
-          <div class="summary-card summary-card-total">
-            <div class="summary-icon">💰</div>
-            <div class="summary-content">
-              <div class="summary-label">Total du Jour</div>
-              <div class="summary-value">{{formatMontant(totalCaisse)}}</div>
-            </div>
-          </div>
-
-          <div class="summary-card summary-card-especes">
-            <div class="summary-icon">💵</div>
-            <div class="summary-content">
-              <div class="summary-label">Espèces</div>
-              <div class="summary-value">{{formatMontant(getTotalByPaymentMethod('especes'))}}</div>
-            </div>
-          </div>
-
-          <div class="summary-card summary-card-carte">
-            <div class="summary-icon">💳</div>
-            <div class="summary-content">
-              <div class="summary-label">Carte Bancaire</div>
-              <div class="summary-value">{{formatMontant(getTotalByPaymentMethod('carte'))}}</div>
-            </div>
-          </div>
-
-          <div class="summary-card summary-card-mobile">
-            <div class="summary-icon">📱</div>
-            <div class="summary-content">
-              <div class="summary-label">Paiement Mobile</div>
-              <div class="summary-value">{{formatMontant(getTotalByPaymentMethod('mobile'))}}</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Filtres des transactions -->
-        <div class="caisse-filters">
-          <h3 style="font-size: 1.1rem; font-weight: 600;">Filtrer par type</h3>
-          <div class="caisse-tabs">
-            <button class="caisse-tab"[class.active]="currentCaisseFilter === 'all'"
-                    (click)="filterCaisse('all')">
-              Toutes ({{getCaisseCount('all')}})
-            </button>
-            <button class="caisse-tab"
-                    [class.active]="currentCaisseFilter === 'vente'"
-                    (click)="filterCaisse('vente')">
-              Ventes ({{getCaisseCount('vente')}})
-            </button>
-            <button class="caisse-tab"
-                    [class.active]="currentCaisseFilter === 'remboursement'"
-                    (click)="filterCaisse('remboursement')">
-              Remboursements ({{getCaisseCount('remboursement')}})
-            </button>
-            <button class="caisse-tab"
-                    [class.active]="currentCaisseFilter === 'ouverture'"
-                    (click)="filterCaisse('ouverture')">
-              Ouverture/Fermeture ({{getCaisseCount('ouverture') + getCaisseCount('fermeture')}})
-            </button>
-          </div>
-        </div>
-
-        <!-- Liste des transactions -->
-        <div class="transactions-container">
-          <div *ngIf="filteredTransactions.length === 0" class="empty-state">
-            <div class="empty-state-icon">💰</div>
-            <p>Aucune transaction pour cette période</p>
-          </div>
-
-          <div class="transaction-item" *ngFor="let transaction of filteredTransactions">
-            <div class="transaction-header">
-              <div class="transaction-icon" [class]="'transaction-' + transaction.type">
-                <span *ngIf="transaction.type === 'vente'">🛒</span>
-                <span *ngIf="transaction.type === 'remboursement'">↩️</span>
-                <span *ngIf="transaction.type === 'ouverture'">🔓</span>
-                <span *ngIf="transaction.type === 'fermeture'">🔒</span>
-              </div>
-              <div class="transaction-info">
-                <div class="transaction-type-row">
-                  <span class="transaction-type-badge" [class]="'type-badge-' + transaction.type">
-                    {{transaction.typeText}}
-                  </span>
-                  <span class="transaction-id">{{transaction.id}}</span>
-                </div>
-                <div class="transaction-datetime">{{transaction.date}} à {{transaction.heure}}</div>
-              </div>
-              <div class="transaction-amount"
-                   [class.amount-positive]="transaction.montant > 0"
-                   [class.amount-negative]="transaction.montant < 0">
-                {{transaction.montant > 0 ? '+' : ''}}{{formatMontant(transaction.montant)}}
-              </div>
-            </div>
-
-            <div class="transaction-body">
-              <div class="transaction-detail-row" *ngIf="transaction.client">
-                <span class="detail-icon">👤</span>
-                <span class="detail-text">Client: {{transaction.client}}</span>
-              </div>
-              <div class="transaction-detail-row">
-                <span class="detail-icon">💳</span>
-                <span class="detail-text">{{transaction.moyenPaiementText}}</span>
-              </div>
-              <div class="transaction-detail-row" *ngIf="transaction.reference">
-                <span class="detail-icon">📝</span>
-                <span class="detail-text">Réf: {{transaction.reference}}</span>
-              </div>
-              <div class="transaction-detail-row">
-                <span class="detail-icon">👨‍💼</span>
-                <span class="detail-text">Caissier: {{transaction.caissier}}</span>
-              </div>
-              <div class="transaction-details-text">
-                {{transaction.details}}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
+      </div>
+    </footer>
   </main>
 </div>

@@ -1,0 +1,419 @@
+// ===== Conteneur principal =====
+.recent-actions-container {
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+// ===== En-tête des actions =====
+.actions-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+
+  .actions-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .actions-controls {
+    display: flex;
+    gap: 0.5rem;
+  }
+}
+
+// ===== Boutons icônes =====
+.btn-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  border: none;
+  background: var(--dark-bg);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: #e2e8f0;
+    transform: scale(1.1);
+  }
+
+  &.btn-danger:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+  }
+}
+
+// ===== Indicateur de chargement =====
+.loading-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--dark-bg);
+    border-top-color: $primary-color;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// ===== Liste des actions =====
+.actions-list {
+  max-height: 600px;
+  overflow-y: auto;
+  padding: 0.5rem;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+
+// ===== Item d'action =====
+.action-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  position: relative;
+
+  &.action-item-hoverable:hover {
+    background: var(--dark-bg);
+
+    .action-delete {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+}
+
+// ===== Icône de l'action =====
+.action-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+
+  &.action-type-add {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success);
+  }
+
+  &.action-type-remove {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+  }
+
+  &.action-type-update {
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--info);
+  }
+
+  &.action-type-alert {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--warning);
+  }
+
+  &.action-type-default {
+    background: rgba(100, 116, 139, 0.1);
+    color: var(--text-secondary);
+  }
+}
+
+// ===== Contenu de l'action =====
+.action-content {
+  flex: 1;
+  min-width: 0;
+
+  .action-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+  }
+
+  .action-details {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+
+  .action-user {
+    font-size: 0.75rem;
+    color: $primary-color;
+    margin-top: 0.25rem;
+    font-weight: 500;
+  }
+}
+
+// ===== Métadonnées de l'action =====
+.action-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+
+  .action-time {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+
+  .action-delete {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+    font-size: 1.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: rgba(239, 68, 68, 0.2);
+      transform: scale(1.1);
+    }
+  }
+}
+
+// ===== État vide =====
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+
+  .empty-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+  }
+
+  p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin: 0;
+  }
+}
+
+// ===== Pied avec bouton "Charger plus" =====
+.actions-footer {
+  padding: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+// ===== Boutons standards =====
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  &.btn-secondary {
+    background: var(--text-secondary);
+    color: white;
+
+    &:hover {
+      background: color-color-mix(in srgb, in srgb, var(--text-secondary) 90%, black);
+      transform: translateY(-2px);
+    }
+  }
+
+  &.btn-block {
+    width: 100%;
+  }
+}
+
+// ===== Responsive (mobile) =====
+@media (max-width: 768px) {
+  .actions-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+
+    .actions-controls {
+      width: 100%;
+      justify-content: flex-end;
+    }
+  }
+
+  .action-item {
+    flex-wrap: wrap;
+
+    .action-meta {
+      width: 100%;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-top: 0.5rem;
+
+      .action-delete {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+  }
+
+  .actions-list {
+    max-height: 500px;
+  }
+}
+
+// ===== Responsive (très petit écran) =====
+@media (max-width: 480px) {
+  .actions-header {
+    padding: 1rem;
+
+    .actions-title {
+      font-size: 1.1rem;
+    }
+  }
+
+  .action-item {
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+
+  .action-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.25rem;
+  }
+
+  .action-content {
+    .action-title {
+      font-size: 0.85rem;
+    }
+
+    .action-details {
+      font-size: 0.75rem;
+    }
+  }
+
+  .btn-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+  }
+}
+
+// ===== Animation d'entrée pour les nouvelles actions =====
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.action-item {
+  animation: slideInRight 0.3s ease-out;
+}
+
+// ===== États de transition =====
+.actions-list {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background: linear-gradient(to bottom, transparent, var(--card-bg));
+    pointer-events: none;
+  }
+}
+
+// ===== Amélioration de l'accessibilité =====
+.btn-icon,
+.action-delete {
+  &:focus {
+    outline: 2px solid $primary-color;
+    outline-offset: 2px;
+  }
+
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+// ===== Badge pour les actions urgentes =====
+.action-item {
+  &.urgent {
+    border-left: 3px solid var(--danger);
+
+    .action-icon {
+      animation: pulse 2s ease-in-out infinite;
+    }
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}

@@ -1,23 +1,7 @@
-// ===== Variables de couleurs - Dark Mode =====
-$primary-color: #6366f1;
-$success-color: #10b981;
-$danger-color: #ef4444;
-$warning-color: #f59e0b;
-$orange-color: #fb923c;
-$bg-dark: #0f172a;
-$bg-darker: #020617;
-$bg-card: #1e293b;
-$text-primary: #f1f5f9;
-$text-secondary: #94a3b8;
-$border-color: #334155;
-$glow-primary: 0 0 20px rgba(99, 102, 241, 0.3);
-$glow-success: 0 0 20px rgba(16, 185, 129, 0.3);
-$glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
-
 // ===== Section principale =====
 .page-section {
   padding: 2rem;
-  background: $bg-dark;
+  background: var(--dark-bg);
   min-height: 100vh;
 }
 
@@ -37,12 +21,12 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
   .section-title-main {
     font-size: 2rem;
     font-weight: 700;
-    color: $text-primary;
+    color: var(--text-primary);
     margin: 0;
     transition: all 0.3s ease;
 
     &:hover {
-      color: $primary-color;
+      color: var(--primary-color);
       text-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
     }
   }
@@ -58,8 +42,8 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
 
 // ===== Carte de statistique =====
 .stat-card {
-  background: $bg-card;
-  border: 1px solid $border-color;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 1.5rem;
   display: flex;
@@ -70,8 +54,8 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
 
   &:hover {
     transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5), $glow-primary;
-    border-color: $primary-color;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5), var(--glow-primary);
+    border-color: var(--primary-color);
 
     .stat-icon {
       transform: scale(1.15) rotate(10deg);
@@ -97,7 +81,7 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
 
     .stat-label {
       font-size: 0.875rem;
-      color: $text-secondary;
+      color: var(--text-secondary);
       margin-bottom: 0.25rem;
       transition: color 0.3s ease;
     }
@@ -105,7 +89,7 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
     .stat-value {
       font-size: 1.75rem;
       font-weight: 700;
-      color: $text-primary;
+      color: var(--text-primary);
       margin-bottom: 0.25rem;
       transition: all 0.3s ease;
     }
@@ -116,23 +100,23 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
       transition: all 0.3s ease;
 
       &.positive {
-        color: lighten($success-color, 10%);
+        color: color-color-mix(in srgb, in srgb, var(--success) 90%, white);
 
         &:hover {
-          color: $success-color;
+          color: var(--success);
         }
       }
 
       &.negative {
-        color: lighten($danger-color, 10%);
+        color: color-color-mix(in srgb, in srgb, var(--danger) 90%, white);
 
         &:hover {
-          color: $danger-color;
+          color: var(--danger);
         }
       }
 
       &.neutral {
-        color: $text-secondary;
+        color: var(--text-secondary);
       }
     }
   }
@@ -146,7 +130,7 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
   &.stat-card-green .stat-icon {
     background: rgba(16, 185, 129, 0.15);
     border-color: rgba(16, 185, 129, 0.3);
-    box-shadow: $glow-success;
+    box-shadow: var(--glow-success);
   }
 
   &.stat-card-purple .stat-icon {
@@ -158,22 +142,22 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
 
 // ===== Tableau des employés =====
 .employees-table {
-  background: $bg-card;
-  border: 1px solid $border-color;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 
   .table-header {
     padding: 1.5rem;
-    border-bottom: 1px solid $border-color;
-    background: $bg-darker;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--dark-bg)er;
 
     h3 {
       margin: 0;
       font-size: 1.25rem;
       font-weight: 600;
-      color: $text-primary;
+      color: var(--text-primary);
     }
   }
 
@@ -184,10 +168,10 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
     gap: 1rem;
     padding: 1rem 1.5rem;
     background: rgba(15, 23, 42, 0.5);
-    border-bottom: 1px solid $border-color;
+    border-bottom: 1px solid var(--border-color);
     font-size: 0.875rem;
     font-weight: 600;
-    color: $text-secondary;
+    color: var(--text-secondary);
     align-items: center;
 
     > div {
@@ -215,7 +199,7 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
   transition: all 0.3s ease;
 
   &:hover {
-    background: $bg-darker;
+    background: var(--dark-bg)er;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 
     .employee-avatar-sm {
@@ -257,18 +241,18 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
         width: 14px;
         height: 14px;
         border-radius: 50%;
-        border: 2px solid $bg-card;
+        border: 2px solid var(--card-bg);
 
         &.present {
-          background: $success-color;
+          background: var(--success);
         }
 
         &.absent {
-          background: $danger-color;
+          background: var(--danger);
         }
 
         &.leave {
-          background: $orange-color;
+          background: var(--stat-orange);
         }
       }
     }
@@ -280,7 +264,7 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
       .employee-name-bold {
         font-size: 1rem;
         font-weight: 600;
-        color: $text-primary;
+        color: var(--text-primary);
         margin-bottom: 0.25rem;
         white-space: nowrap;
         overflow: hidden;
@@ -289,7 +273,7 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
 
       .employee-position-sm {
         font-size: 0.875rem;
-        color: $text-secondary;
+        color: var(--text-secondary);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -317,27 +301,27 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
 
     &.status-present {
       background: rgba(16, 185, 129, 0.15);
-      color: lighten($success-color, 10%);
+      color: color-color-mix(in srgb, in srgb, var(--success) 90%, white);
       border: 1px solid rgba(16, 185, 129, 0.3);
 
       &:hover {
-        box-shadow: $glow-success;
+        box-shadow: var(--glow-success);
       }
     }
 
     &.status-absent {
       background: rgba(239, 68, 68, 0.15);
-      color: lighten($danger-color, 10%);
+      color: color-color-mix(in srgb, in srgb, var(--danger) 90%, white);
       border: 1px solid rgba(239, 68, 68, 0.3);
 
       &:hover {
-        box-shadow: $glow-danger;
+        box-shadow: var(--glow-danger);
       }
     }
 
     &.status-leave {
       background: rgba(251, 146, 60, 0.15);
-      color: lighten($orange-color, 10%);
+      color: color-color-mix(in srgb, in srgb, var(--stat-orange) 90%, white);
       border: 1px solid rgba(251, 146, 60, 0.3);
 
       &:hover {
@@ -371,7 +355,7 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
       }
 
       &.empty {
-        color: $text-secondary;
+        color: var(--text-secondary);
         background: rgba(51, 65, 85, 0.3);
         border-color: rgba(51, 65, 85, 0.2);
       }
@@ -452,9 +436,9 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
   width: 36px;
   height: 36px;
   border-radius: 6px;
-  border: 1px solid $border-color;
-  background: $bg-darker;
-  color: $text-primary;
+  border: 1px solid var(--border-color);
+  background: var(--dark-bg)er;
+  color: var(--text-primary);
   cursor: pointer;
   font-size: 1rem;
   transition: all 0.3s ease;
@@ -463,18 +447,18 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
   justify-content: center;
 
   &:hover {
-    background: lighten($bg-card, 5%);
+    background: color-color-mix(in srgb, in srgb, var(--card-bg) 95%, white);
     transform: scale(1.15) translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-    border-color: lighten($border-color, 10%);
+    border-color: color-color-mix(in srgb, in srgb, var(--border-color) 90%, white);
   }
 
   &.btn-danger {
     &:hover {
       background: rgba(239, 68, 68, 0.1);
-      color: lighten($danger-color, 10%);
-      border-color: $danger-color;
-      box-shadow: $glow-danger;
+      color: color-color-mix(in srgb, in srgb, var(--danger) 90%, white);
+      border-color: var(--danger);
+      box-shadow: var(--glow-danger);
     }
   }
 
@@ -492,7 +476,7 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
       background: rgba(16, 185, 129, 0.1);
       color: #4ade80;
       border-color: #10b981;
-      box-shadow: $glow-success;
+      box-shadow: var(--glow-success);
     }
   }
 }
@@ -505,12 +489,12 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
   .empty-icon {
     font-size: 4rem;
     margin-bottom: 1rem;
-    color: $text-secondary;
+    color: var(--text-secondary);
     animation: float 3s ease-in-out infinite;
   }
 
   p {
-    color: $text-secondary;
+    color: var(--text-secondary);
     font-size: 1.125rem;
     margin-bottom: 1.5rem;
   }
@@ -539,24 +523,24 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
   gap: 0.5rem;
 
   &.btn-primary {
-    background: $primary-color;
+    background: var(--primary-color);
     color: white;
 
     &:hover {
-      background: lighten($primary-color, 10%);
+      background: color-mix(in srgb, var(--primary-color) 90%, white);
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4), $glow-primary;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4), var(--glow-primary);
     }
   }
 
   &.btn-cancel {
     background: transparent;
-    color: $text-secondary;
-    border: 1px solid $border-color;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
 
     &:hover {
-      background: $bg-darker;
-      border-color: lighten($border-color, 10%);
+      background: var(--dark-bg)er;
+      border-color: color-color-mix(in srgb, in srgb, var(--border-color) 90%, white);
     }
   }
 }
@@ -587,14 +571,14 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
   }
 
   .modal-content {
-    background: $bg-card;
-    border: 1px solid $border-color;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
     border-radius: 16px;
     max-width: 600px;
     width: 100%;
     max-height: 90vh;
     overflow-y: auto;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), $glow-primary;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), var(--glow-primary);
     animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
     @keyframes slideUp {
@@ -618,14 +602,14 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
     justify-content: space-between;
     align-items: center;
     padding: 1.5rem 2rem;
-    border-bottom: 1px solid $border-color;
-    background: linear-gradient(135deg, $bg-darker 0%, darken($bg-card, 2%) 100%);
+    border-bottom: 1px solid var(--border-color);
+    background: linear-gradient(135deg, var(--dark-bg)er 0%, color-color-mix(in srgb, in srgb, var(--card-bg) 98%, black) 100%);
 
     .modal-title {
       margin: 0;
       font-size: 1.5rem;
       font-weight: 700;
-      color: $text-primary;
+      color: var(--text-primary);
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -635,9 +619,9 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      border: 1px solid $border-color;
-      background: $bg-card;
-      color: $text-secondary;
+      border: 1px solid var(--border-color);
+      background: var(--card-bg);
+      color: var(--text-secondary);
       font-size: 1.5rem;
       cursor: pointer;
       transition: all 0.3s ease;
@@ -646,11 +630,11 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
       justify-content: center;
 
       &:hover {
-        background: $bg-darker;
-        color: $danger-color;
+        background: var(--dark-bg)er;
+        color: var(--danger);
         transform: rotate(90deg) scale(1.1);
-        box-shadow: $glow-danger;
-        border-color: $danger-color;
+        box-shadow: var(--glow-danger);
+        border-color: var(--danger);
       }
     }
   }
@@ -664,8 +648,8 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
     justify-content: flex-end;
     gap: 1rem;
     padding: 1.5rem 2rem;
-    border-top: 1px solid $border-color;
-    background: linear-gradient(135deg, darken($bg-card, 2%) 0%, $bg-darker 100%);
+    border-top: 1px solid var(--border-color);
+    background: linear-gradient(135deg, color-color-mix(in srgb, in srgb, var(--card-bg) 98%, black) 0%, var(--dark-bg)er 100%);
   }
 }
 
@@ -735,14 +719,14 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
     h3 {
       font-size: 1.75rem;
       font-weight: 700;
-      color: $text-primary;
+      color: var(--text-primary);
       margin: 0 0 0.5rem 0;
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
 
     .profile-position {
       font-size: 1.125rem;
-      color: $text-secondary;
+      color: var(--text-secondary);
       margin: 0 0 1rem 0;
       font-weight: 500;
     }
@@ -762,31 +746,31 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
 
     &.status-present {
       background: rgba(16, 185, 129, 0.2);
-      color: lighten($success-color, 15%);
+      color: color-color-mix(in srgb, in srgb, var(--success) 85%, white);
       border: 2px solid rgba(16, 185, 129, 0.4);
       box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
 
       &:hover {
-        box-shadow: $glow-success, 0 6px 16px rgba(16, 185, 129, 0.3);
+        box-shadow: var(--glow-success), 0 6px 16px rgba(16, 185, 129, 0.3);
         transform: translateY(-2px);
       }
     }
 
     &.status-absent {
       background: rgba(239, 68, 68, 0.2);
-      color: lighten($danger-color, 15%);
+      color: color-color-mix(in srgb, in srgb, var(--danger) 85%, white);
       border: 2px solid rgba(239, 68, 68, 0.4);
       box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
 
       &:hover {
-        box-shadow: $glow-danger, 0 6px 16px rgba(239, 68, 68, 0.3);
+        box-shadow: var(--glow-danger), 0 6px 16px rgba(239, 68, 68, 0.3);
         transform: translateY(-2px);
       }
     }
 
     &.status-leave {
       background: rgba(251, 146, 60, 0.2);
-      color: lighten($orange-color, 15%);
+      color: color-color-mix(in srgb, in srgb, var(--stat-orange) 85%, white);
       border: 2px solid rgba(251, 146, 60, 0.4);
       box-shadow: 0 4px 12px rgba(251, 146, 60, 0.2);
 
@@ -803,19 +787,19 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
   padding: 1.5rem;
   background: rgba(15, 23, 42, 0.4);
   border-radius: 12px;
-  border: 1px solid $border-color;
+  border: 1px solid var(--border-color);
   transition: all 0.3s ease;
 
   &:hover {
     background: rgba(15, 23, 42, 0.6);
-    border-color: lighten($border-color, 10%);
+    border-color: color-color-mix(in srgb, in srgb, var(--border-color) 90%, white);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   }
 
   .section-subtitle {
     font-size: 1.125rem;
     font-weight: 700;
-    color: $text-primary;
+    color: var(--text-primary);
     margin: 0 0 1.5rem 0;
     display: flex;
     align-items: center;
@@ -849,7 +833,7 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
 
     .info-label {
       font-size: 0.875rem;
-      color: $text-secondary;
+      color: var(--text-secondary);
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -857,19 +841,19 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
 
     .info-value {
       font-size: 1rem;
-      color: $text-primary;
+      color: var(--text-primary);
       font-weight: 500;
 
       &.status-present {
-        color: lighten($success-color, 10%);
+        color: color-color-mix(in srgb, in srgb, var(--success) 90%, white);
       }
 
       &.status-absent {
-        color: lighten($danger-color, 10%);
+        color: color-color-mix(in srgb, in srgb, var(--danger) 90%, white);
       }
 
       &.status-leave {
-        color: lighten($orange-color, 10%);
+        color: color-color-mix(in srgb, in srgb, var(--stat-orange) 90%, white);
       }
     }
   }
@@ -890,13 +874,13 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
   padding: 1.5rem;
   background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.6) 100%);
   border-radius: 12px;
-  border: 1px solid $border-color;
+  border: 1px solid var(--border-color);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover {
     transform: translateY(-5px) scale(1.02);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-    border-color: lighten($border-color, 15%);
+    border-color: color-color-mix(in srgb, in srgb, var(--border-color) 85%, white);
   }
 
   .stat-icon-small {
@@ -923,13 +907,13 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
     .stat-value-small {
       font-size: 1.75rem;
       font-weight: 700;
-      color: $text-primary;
+      color: var(--text-primary);
       margin-bottom: 0.25rem;
     }
 
     .stat-label-small {
       font-size: 0.875rem;
-      color: $text-secondary;
+      color: var(--text-secondary);
       font-weight: 500;
     }
   }
@@ -938,19 +922,19 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
 .history-table {
   background: rgba(15, 23, 42, 0.4);
   border-radius: 12px;
-  border: 1px solid $border-color;
+  border: 1px solid var(--border-color);
   overflow: hidden;
 
   .history-table-header {
     padding: 1.5rem;
-    background: linear-gradient(135deg, $bg-darker 0%, darken($bg-card, 2%) 100%);
+    background: linear-gradient(135deg, var(--dark-bg)er 0%, color-color-mix(in srgb, in srgb, var(--card-bg) 98%, black) 100%);
     border-bottom: 2px solid rgba(99, 102, 241, 0.3);
 
     h4 {
       margin: 0;
       font-size: 1.125rem;
       font-weight: 700;
-      color: $text-primary;
+      color: var(--text-primary);
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -973,10 +957,10 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
         text-align: left;
         font-size: 0.875rem;
         font-weight: 700;
-        color: $text-secondary;
+        color: var(--text-secondary);
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        border-bottom: 1px solid $border-color;
+        border-bottom: 1px solid var(--border-color);
       }
     }
 
@@ -990,25 +974,25 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
         }
 
         &.row-présent {
-          border-left: 3px solid $success-color;
+          border-left: 3px solid var(--success);
         }
 
         &.row-absent {
-          border-left: 3px solid $danger-color;
+          border-left: 3px solid var(--danger);
         }
 
         &.row-congé {
-          border-left: 3px solid $orange-color;
+          border-left: 3px solid var(--stat-orange);
         }
 
         td {
           padding: 1rem 1.5rem;
-          color: $text-primary;
+          color: var(--text-primary);
           font-size: 0.9rem;
 
           &.date-cell {
             font-weight: 600;
-            color: lighten($text-secondary, 20%);
+            color: color-color-mix(in srgb, in srgb, var(--text-secondary) 80%, white);
           }
 
           &.time-cell {
@@ -1018,7 +1002,7 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
 
           &.duration-cell {
             font-weight: 600;
-            color: lighten($primary-color, 20%);
+            color: color-mix(in srgb, var(--primary-color) 80%, white);
           }
         }
       }
@@ -1036,19 +1020,19 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
 
     &.status-present {
       background: rgba(16, 185, 129, 0.15);
-      color: lighten($success-color, 10%);
+      color: color-color-mix(in srgb, in srgb, var(--success) 90%, white);
       border: 1px solid rgba(16, 185, 129, 0.3);
     }
 
     &.status-absent {
       background: rgba(239, 68, 68, 0.15);
-      color: lighten($danger-color, 10%);
+      color: color-color-mix(in srgb, in srgb, var(--danger) 90%, white);
       border: 1px solid rgba(239, 68, 68, 0.3);
     }
 
     &.status-leave {
       background: rgba(251, 146, 60, 0.15);
-      color: lighten($orange-color, 10%);
+      color: color-color-mix(in srgb, in srgb, var(--stat-orange) 90%, white);
       border: 1px solid rgba(251, 146, 60, 0.3);
     }
   }
@@ -1058,7 +1042,7 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
     text-align: center;
 
     p {
-      color: $text-secondary;
+      color: var(--text-secondary);
       font-size: 1rem;
       margin: 0;
     }
@@ -1074,32 +1058,32 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
     margin-bottom: 0.5rem;
     font-size: 0.875rem;
     font-weight: 600;
-    color: $text-primary;
+    color: var(--text-primary);
   }
 
   .form-input {
     width: 100%;
     padding: 0.75rem;
-    border: 1px solid $border-color;
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     font-size: 0.9rem;
-    background: $bg-darker;
-    color: $text-primary;
+    background: var(--dark-bg)er;
+    color: var(--text-primary);
     transition: all 0.3s ease;
 
     &:focus {
       outline: none;
-      border-color: $primary-color;
-      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2), $glow-primary;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2), var(--glow-primary);
       transform: translateY(-2px);
     }
 
     &::placeholder {
-      color: $text-secondary;
+      color: var(--text-secondary);
     }
 
     &:hover {
-      border-color: lighten($border-color, 10%);
+      border-color: color-color-mix(in srgb, in srgb, var(--border-color) 90%, white);
     }
   }
 }
@@ -1118,36 +1102,36 @@ $glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
   gap: 0.5rem;
 
   &.btn-primary {
-    background: $primary-color;
+    background: var(--primary-color);
     color: white;
 
     &:hover {
-      background: lighten($primary-color, 10%);
+      background: color-mix(in srgb, var(--primary-color) 90%, white);
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4), $glow-primary;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4), var(--glow-primary);
     }
   }
 
   &.btn-secondary {
     background: rgba(51, 65, 85, 0.5);
-    color: $text-primary;
-    border: 1px solid $border-color;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
 
     &:hover {
       background: rgba(51, 65, 85, 0.7);
-      border-color: lighten($border-color, 10%);
+      border-color: color-color-mix(in srgb, in srgb, var(--border-color) 90%, white);
       transform: translateY(-2px);
     }
   }
 
   &.btn-cancel {
     background: transparent;
-    color: $text-secondary;
-    border: 1px solid $border-color;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
 
     &:hover {
-      background: $bg-darker;
-      border-color: lighten($border-color, 10%);
+      background: var(--dark-bg)er;
+      border-color: color-color-mix(in srgb, in srgb, var(--border-color) 90%, white);
     }
   }
 }

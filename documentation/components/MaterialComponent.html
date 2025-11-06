@@ -1,0 +1,3171 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cave-master-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cave-master-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  MaterialComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/view/admin-dashboard/materiel/materiel.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-materiel</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>FormsModule</code>
+                            <code>ReactiveFormsModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./materiel.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./materiel.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#activeTab" >activeTab</a>
+                            </li>
+                            <li>
+                                <a href="#categories" >categories</a>
+                            </li>
+                            <li>
+                                <a href="#editingInvoiceId" >editingInvoiceId</a>
+                            </li>
+                            <li>
+                                <a href="#editingMaterialId" >editingMaterialId</a>
+                            </li>
+                            <li>
+                                <a href="#etats" >etats</a>
+                            </li>
+                            <li>
+                                <a href="#invoiceForm" >invoiceForm</a>
+                            </li>
+                            <li>
+                                <a href="#invoices" >invoices</a>
+                            </li>
+                            <li>
+                                <a href="#materialForm" >materialForm</a>
+                            </li>
+                            <li>
+                                <a href="#materials" >materials</a>
+                            </li>
+                            <li>
+                                <a href="#searchTerm" >searchTerm</a>
+                            </li>
+                            <li>
+                                <a href="#selectedCategory" >selectedCategory</a>
+                            </li>
+                            <li>
+                                <a href="#selectedEtat" >selectedEtat</a>
+                            </li>
+                            <li>
+                                <a href="#showInvoiceForm" >showInvoiceForm</a>
+                            </li>
+                            <li>
+                                <a href="#showMaterialForm" >showMaterialForm</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addInvoice" >addInvoice</a>
+                            </li>
+                            <li>
+                                <a href="#addMaterial" >addMaterial</a>
+                            </li>
+                            <li>
+                                <a href="#deleteInvoice" >deleteInvoice</a>
+                            </li>
+                            <li>
+                                <a href="#deleteMaterial" >deleteMaterial</a>
+                            </li>
+                            <li>
+                                <a href="#editInvoice" >editInvoice</a>
+                            </li>
+                            <li>
+                                <a href="#editMaterial" >editMaterial</a>
+                            </li>
+                            <li>
+                                <a href="#exportData" >exportData</a>
+                            </li>
+                            <li>
+                                <a href="#generateId" >generateId</a>
+                            </li>
+                            <li>
+                                <a href="#getEmptyInvoiceForm" >getEmptyInvoiceForm</a>
+                            </li>
+                            <li>
+                                <a href="#getEmptyMaterialForm" >getEmptyMaterialForm</a>
+                            </li>
+                            <li>
+                                <a href="#getFilteredMaterials" >getFilteredMaterials</a>
+                            </li>
+                            <li>
+                                <a href="#getInvoiceByMaterial" >getInvoiceByMaterial</a>
+                            </li>
+                            <li>
+                                <a href="#getMaterialsByCategory" >getMaterialsByCategory</a>
+                            </li>
+                            <li>
+                                <a href="#getTotalValue" >getTotalValue</a>
+                            </li>
+                            <li>
+                                <a href="#loadData" >loadData</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onFileSelect" >onFileSelect</a>
+                            </li>
+                            <li>
+                                <a href="#resetInvoiceForm" >resetInvoiceForm</a>
+                            </li>
+                            <li>
+                                <a href="#resetMaterialForm" >resetMaterialForm</a>
+                            </li>
+                            <li>
+                                <a href="#saveData" >saveData</a>
+                            </li>
+                            <li>
+                                <a href="#updateInvoice" >updateInvoice</a>
+                            </li>
+                            <li>
+                                <a href="#updateMaterial" >updateMaterial</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addInvoice"></a>
+                    <span class="name">
+                        <span ><b>addInvoice</b></span>
+                        <a href="#addInvoice"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addInvoice()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="147"
+                                    class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:147</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addMaterial"></a>
+                    <span class="name">
+                        <span ><b>addMaterial</b></span>
+                        <a href="#addMaterial"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addMaterial()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="102"
+                                    class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:102</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteInvoice"></a>
+                    <span class="name">
+                        <span ><b>deleteInvoice</b></span>
+                        <a href="#deleteInvoice"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteInvoice(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="180"
+                                    class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:180</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteMaterial"></a>
+                    <span class="name">
+                        <span ><b>deleteMaterial</b></span>
+                        <a href="#deleteMaterial"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteMaterial(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="139"
+                                    class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:139</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editInvoice"></a>
+                    <span class="name">
+                        <span ><b>editInvoice</b></span>
+                        <a href="#editInvoice"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>editInvoice(invoice: <a href="../interfaces/Invoice.html" target="_self">Invoice</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="174"
+                                    class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:174</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>invoice</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Invoice.html" target="_self" >Invoice</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editMaterial"></a>
+                    <span class="name">
+                        <span ><b>editMaterial</b></span>
+                        <a href="#editMaterial"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>editMaterial(material: <a href="../interfaces/Material.html" target="_self">Material</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="133"
+                                    class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:133</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>material</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Material.html" target="_self" >Material</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportData"></a>
+                    <span class="name">
+                        <span ><b>exportData</b></span>
+                        <a href="#exportData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportData()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="262"
+                                    class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:262</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generateId"></a>
+                    <span class="name">
+                        <span ><b>generateId</b></span>
+                        <a href="#generateId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>generateId()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="250"
+                                    class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:250</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getEmptyInvoiceForm"></a>
+                    <span class="name">
+                        <span ><b>getEmptyInvoiceForm</b></span>
+                        <a href="#getEmptyInvoiceForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getEmptyInvoiceForm()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="240"
+                                    class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:240</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/Invoice.html" target="_self" >Partial&lt;Invoice&gt;</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getEmptyMaterialForm"></a>
+                    <span class="name">
+                        <span ><b>getEmptyMaterialForm</b></span>
+                        <a href="#getEmptyMaterialForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getEmptyMaterialForm()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="227"
+                                    class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:227</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/Material.html" target="_self" >Partial&lt;Material&gt;</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getFilteredMaterials"></a>
+                    <span class="name">
+                        <span ><b>getFilteredMaterials</b></span>
+                        <a href="#getFilteredMaterials"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getFilteredMaterials()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="188"
+                                    class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:188</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/Material.html" target="_self" >Material[]</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getInvoiceByMaterial"></a>
+                    <span class="name">
+                        <span ><b>getInvoiceByMaterial</b></span>
+                        <a href="#getInvoiceByMaterial"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getInvoiceByMaterial(factureId?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="200"
+                                    class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:200</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>factureId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/Invoice.html" target="_self" >Invoice | undefined</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getMaterialsByCategory"></a>
+                    <span class="name">
+                        <span ><b>getMaterialsByCategory</b></span>
+                        <a href="#getMaterialsByCategory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getMaterialsByCategory()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="208"
+                                    class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:208</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>literal type</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTotalValue"></a>
+                    <span class="name">
+                        <span ><b>getTotalValue</b></span>
+                        <a href="#getTotalValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getTotalValue()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="204"
+                                    class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:204</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadData"></a>
+                    <span class="name">
+                        <span ><b>loadData</b></span>
+                        <a href="#loadData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadData()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="77"
+                                    class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:77</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="72"
+                                    class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:72</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onFileSelect"></a>
+                    <span class="name">
+                        <span ><b>onFileSelect</b></span>
+                        <a href="#onFileSelect"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onFileSelect(event: Event)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="254"
+                                    class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:254</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>Event</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetInvoiceForm"></a>
+                    <span class="name">
+                        <span ><b>resetInvoiceForm</b></span>
+                        <a href="#resetInvoiceForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resetInvoiceForm()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="221"
+                                    class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:221</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetMaterialForm"></a>
+                    <span class="name">
+                        <span ><b>resetMaterialForm</b></span>
+                        <a href="#resetMaterialForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resetMaterialForm()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="215"
+                                    class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:215</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveData"></a>
+                    <span class="name">
+                        <span ><b>saveData</b></span>
+                        <a href="#saveData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>saveData()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="96"
+                                    class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:96</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateInvoice"></a>
+                    <span class="name">
+                        <span ><b>updateInvoice</b></span>
+                        <a href="#updateInvoice"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateInvoice()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="162"
+                                    class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:162</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateMaterial"></a>
+                    <span class="name">
+                        <span ><b>updateMaterial</b></span>
+                        <a href="#updateMaterial"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateMaterial()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="121"
+                                    class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:121</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="activeTab"></a>
+                    <span class="name">
+                        <span ><b>activeTab</b></span>
+                        <a href="#activeTab"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;materials&quot; | &quot;invoices&quot;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;materials&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="categories"></a>
+                    <span class="name">
+                        <span ><b>categories</b></span>
+                        <a href="#categories"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    &#x27;Couverts&#x27;,
+    &#x27;Vaisselle&#x27;,
+    &#x27;Verrerie&#x27;,
+    &#x27;Mobilier&#x27;,
+    &#x27;Équipement cuisine&#x27;,
+    &#x27;Matériel de nettoyage&#x27;,
+    &#x27;Décoration&#x27;,
+    &#x27;Électroménager&#x27;,
+    &#x27;Autre&#x27;
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:58</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editingInvoiceId"></a>
+                    <span class="name">
+                        <span ><b>editingInvoiceId</b></span>
+                        <a href="#editingInvoiceId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editingMaterialId"></a>
+                    <span class="name">
+                        <span ><b>editingMaterialId</b></span>
+                        <a href="#editingMaterialId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:54</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="etats"></a>
+                    <span class="name">
+                        <span ><b>etats</b></span>
+                        <a href="#etats"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[&#x27;Neuf&#x27;, &#x27;Bon&#x27;, &#x27;Usé&#x27;, &#x27;À remplacer&#x27;]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:70</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="invoiceForm"></a>
+                    <span class="name">
+                        <span ><b>invoiceForm</b></span>
+                        <a href="#invoiceForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Invoice.html" target="_self" >Partial&lt;Invoice&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.getEmptyInvoiceForm()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:52</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="invoices"></a>
+                    <span class="name">
+                        <span ><b>invoices</b></span>
+                        <a href="#invoices"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Invoice.html" target="_self" >Invoice[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="materialForm"></a>
+                    <span class="name">
+                        <span ><b>materialForm</b></span>
+                        <a href="#materialForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Material.html" target="_self" >Partial&lt;Material&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.getEmptyMaterialForm()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="materials"></a>
+                    <span class="name">
+                        <span ><b>materials</b></span>
+                        <a href="#materials"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Material.html" target="_self" >Material[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchTerm"></a>
+                    <span class="name">
+                        <span ><b>searchTerm</b></span>
+                        <a href="#searchTerm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedCategory"></a>
+                    <span class="name">
+                        <span ><b>selectedCategory</b></span>
+                        <a href="#selectedCategory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedEtat"></a>
+                    <span class="name">
+                        <span ><b>selectedEtat</b></span>
+                        <a href="#selectedEtat"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showInvoiceForm"></a>
+                    <span class="name">
+                        <span ><b>showInvoiceForm</b></span>
+                        <a href="#showInvoiceForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showMaterialForm"></a>
+                    <span class="name">
+                        <span ><b>showMaterialForm</b></span>
+                        <a href="#showMaterialForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/view/admin-dashboard/materiel/materiel.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { FormControl } from &#x27;@angular/forms&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+
+interface Invoice {
+  id: string;
+  numero: string;
+  fournisseur: string;
+  dateAchat: Date;
+  montantTotal: number;
+  fichier?: string;
+}
+
+interface Material {
+  id: string;
+  nom: string;
+  categorie: string;
+  quantite: number;
+  etat: &#x27;Neuf&#x27; | &#x27;Bon&#x27; | &#x27;Usé&#x27; | &#x27;À remplacer&#x27;;
+  dateAcquisition: Date;
+  prixUnitaire: number;
+  factureId?: string;
+  emplacement: string;
+  description?: string;
+}
+
+@Component({
+  selector: &#x27;app-materiel&#x27;,
+  standalone: true,
+  // Import des modules nécessaires
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  templateUrl: &#x27;./materiel.component.html&#x27;,
+  styleUrls: [&#x27;./materiel.component.scss&#x27;]
+})
+export class MaterialComponent implements OnInit {
+  materials: Material[] &#x3D; [];
+  invoices: Invoice[] &#x3D; [];
+
+  // États d&#x27;affichage
+  showMaterialForm &#x3D; false;
+  showInvoiceForm &#x3D; false;
+  activeTab: &#x27;materials&#x27; | &#x27;invoices&#x27; &#x3D; &#x27;materials&#x27;;
+
+  // Filtres et recherche
+  searchTerm &#x3D; &#x27;&#x27;;
+  selectedCategory &#x3D; &#x27;&#x27;;
+  selectedEtat &#x3D; &#x27;&#x27;;
+
+  // Formulaires
+  materialForm: Partial&lt;Material&gt; &#x3D; this.getEmptyMaterialForm();
+  invoiceForm: Partial&lt;Invoice&gt; &#x3D; this.getEmptyInvoiceForm();
+
+  editingMaterialId: string | null &#x3D; null;
+  editingInvoiceId: string | null &#x3D; null;
+
+  // Catégories disponibles
+  categories &#x3D; [
+    &#x27;Couverts&#x27;,
+    &#x27;Vaisselle&#x27;,
+    &#x27;Verrerie&#x27;,
+    &#x27;Mobilier&#x27;,
+    &#x27;Équipement cuisine&#x27;,
+    &#x27;Matériel de nettoyage&#x27;,
+    &#x27;Décoration&#x27;,
+    &#x27;Électroménager&#x27;,
+    &#x27;Autre&#x27;
+  ];
+
+  etats &#x3D; [&#x27;Neuf&#x27;, &#x27;Bon&#x27;, &#x27;Usé&#x27;, &#x27;À remplacer&#x27;];
+
+  ngOnInit(): void {
+    this.loadData();
+  }
+
+  // Gestion des données
+  loadData(): void {
+    const savedMaterials &#x3D; localStorage.getItem(&#x27;materials&#x27;);
+    const savedInvoices &#x3D; localStorage.getItem(&#x27;invoices&#x27;);
+
+    if (savedMaterials) {
+      this.materials &#x3D; JSON.parse(savedMaterials).map((m: Material) &#x3D;&gt; ({
+        ...m,
+        dateAcquisition: new Date(m.dateAcquisition)
+      }));
+    }
+
+    if (savedInvoices) {
+      this.invoices &#x3D; JSON.parse(savedInvoices).map((i: Invoice) &#x3D;&gt; ({
+        ...i,
+        dateAchat: new Date(i.dateAchat)
+      }));
+    }
+  }
+
+  saveData(): void {
+    localStorage.setItem(&#x27;materials&#x27;, JSON.stringify(this.materials));
+    localStorage.setItem(&#x27;invoices&#x27;, JSON.stringify(this.invoices));
+  }
+
+  // Gestion du matériel
+  addMaterial(): void {
+    const material: Material &#x3D; {
+      id: this.generateId(),
+      nom: this.materialForm.nom!,
+      categorie: this.materialForm.categorie!,
+      quantite: this.materialForm.quantite!,
+      etat: this.materialForm.etat as Material[&#x27;etat&#x27;],
+      dateAcquisition: this.materialForm.dateAcquisition!,
+      prixUnitaire: this.materialForm.prixUnitaire!,
+      factureId: this.materialForm.factureId,
+      emplacement: this.materialForm.emplacement!,
+      description: this.materialForm.description
+    };
+
+    this.materials.push(material);
+    this.saveData();
+    this.resetMaterialForm();
+  }
+
+  updateMaterial(): void {
+    const index &#x3D; this.materials.findIndex(m &#x3D;&gt; m.id &#x3D;&#x3D;&#x3D; this.editingMaterialId);
+    if (index !&#x3D;&#x3D; -1) {
+      this.materials[index] &#x3D; {
+        ...this.materials[index],
+        ...this.materialForm as Material
+      };
+      this.saveData();
+      this.resetMaterialForm();
+    }
+  }
+
+  editMaterial(material: Material): void {
+    this.materialForm &#x3D; { ...material };
+    this.editingMaterialId &#x3D; material.id;
+    this.showMaterialForm &#x3D; true;
+  }
+
+  deleteMaterial(id: string): void {
+    if (confirm(&#x27;Êtes-vous sûr de vouloir supprimer ce matériel ?&#x27;)) {
+      this.materials &#x3D; this.materials.filter(m &#x3D;&gt; m.id !&#x3D;&#x3D; id);
+      this.saveData();
+    }
+  }
+
+  // Gestion des factures
+  addInvoice(): void {
+    const invoice: Invoice &#x3D; {
+      id: this.generateId(),
+      numero: this.invoiceForm.numero!,
+      fournisseur: this.invoiceForm.fournisseur!,
+      dateAchat: this.invoiceForm.dateAchat!,
+      montantTotal: this.invoiceForm.montantTotal!,
+      fichier: this.invoiceForm.fichier
+    };
+
+    this.invoices.push(invoice);
+    this.saveData();
+    this.resetInvoiceForm();
+  }
+
+  updateInvoice(): void {
+    const index &#x3D; this.invoices.findIndex(i &#x3D;&gt; i.id &#x3D;&#x3D;&#x3D; this.editingInvoiceId);
+    if (index !&#x3D;&#x3D; -1) {
+      this.invoices[index] &#x3D; {
+        ...this.invoices[index],
+        ...this.invoiceForm as Invoice
+      };
+      this.saveData();
+      this.resetInvoiceForm();
+    }
+  }
+
+  editInvoice(invoice: Invoice): void {
+    this.invoiceForm &#x3D; { ...invoice };
+    this.editingInvoiceId &#x3D; invoice.id;
+    this.showInvoiceForm &#x3D; true;
+  }
+
+  deleteInvoice(id: string): void {
+    if (confirm(&#x27;Êtes-vous sûr de vouloir supprimer cette facture ?&#x27;)) {
+      this.invoices &#x3D; this.invoices.filter(i &#x3D;&gt; i.id !&#x3D;&#x3D; id);
+      this.saveData();
+    }
+  }
+
+  // Fonctions utilitaires
+  getFilteredMaterials(): Material[] {
+    return this.materials.filter(m &#x3D;&gt; {
+      const matchesSearch &#x3D; !this.searchTerm ||
+        m.nom.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        m.description?.toLowerCase().includes(this.searchTerm.toLowerCase());
+      const matchesCategory &#x3D; !this.selectedCategory || m.categorie &#x3D;&#x3D;&#x3D; this.selectedCategory;
+      const matchesEtat &#x3D; !this.selectedEtat || m.etat &#x3D;&#x3D;&#x3D; this.selectedEtat;
+
+      return matchesSearch &amp;&amp; matchesCategory &amp;&amp; matchesEtat;
+    });
+  }
+
+  getInvoiceByMaterial(factureId?: string): Invoice | undefined {
+    return this.invoices.find(i &#x3D;&gt; i.id &#x3D;&#x3D;&#x3D; factureId);
+  }
+
+  getTotalValue(): number {
+    return this.materials.reduce((sum, m) &#x3D;&gt; sum + (m.prixUnitaire * m.quantite), 0);
+  }
+
+  getMaterialsByCategory(): { [key: string]: number } {
+    return this.materials.reduce((acc, m) &#x3D;&gt; {
+      acc[m.categorie] &#x3D; (acc[m.categorie] || 0) + m.quantite;
+      return acc;
+    }, {} as { [key: string]: number });
+  }
+
+  resetMaterialForm(): void {
+    this.materialForm &#x3D; this.getEmptyMaterialForm();
+    this.editingMaterialId &#x3D; null;
+    this.showMaterialForm &#x3D; false;
+  }
+
+  resetInvoiceForm(): void {
+    this.invoiceForm &#x3D; this.getEmptyInvoiceForm();
+    this.editingInvoiceId &#x3D; null;
+    this.showInvoiceForm &#x3D; false;
+  }
+
+  getEmptyMaterialForm(): Partial&lt;Material&gt; {
+    return {
+      nom: &#x27;&#x27;,
+      categorie: &#x27;&#x27;,
+      quantite: 1,
+      etat: &#x27;Neuf&#x27;,
+      dateAcquisition: new Date(),
+      prixUnitaire: 0,
+      emplacement: &#x27;&#x27;,
+      description: &#x27;&#x27;
+    };
+  }
+
+  getEmptyInvoiceForm(): Partial&lt;Invoice&gt; {
+    return {
+      numero: &#x27;&#x27;,
+      fournisseur: &#x27;&#x27;,
+      dateAchat: new Date(),
+      montantTotal: 0,
+      fichier: &#x27;&#x27;
+    };
+  }
+
+  generateId(): string {
+    return Date.now().toString(36) + Math.random().toString(36).substr(2);
+  }
+
+  onFileSelect(event: Event): void {
+    const target &#x3D; event.target as HTMLInputElement;
+    if (target.files &amp;&amp; target.files[0]) {
+      const file &#x3D; target.files[0];
+      this.invoiceForm.fichier &#x3D; file.name;
+    }
+  }
+
+  exportData(): void {
+    const data &#x3D; {
+      materials: this.materials,
+      invoices: this.invoices,
+      exportDate: new Date()
+    };
+
+    const blob &#x3D; new Blob([JSON.stringify(data, null, 2)], { type: &#x27;application/json&#x27; });
+    const url &#x3D; window.URL.createObjectURL(blob);
+    const a &#x3D; document.createElement(&#x27;a&#x27;);
+    a.href &#x3D; url;
+    a.download &#x3D; &#x60;gestion-materiel-${Date.now()}.json&#x60;;
+    a.click();
+    window.URL.revokeObjectURL(url);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;material-management&quot;&gt;
+  &lt;header class&#x3D;&quot;header&quot;&gt;
+    &lt;h1&gt;
+      &lt;i class&#x3D;&quot;icon-warehouse&quot;&gt;&lt;/i&gt;
+      Gestion du Matériel
+    &lt;/h1&gt;
+    &lt;div class&#x3D;&quot;header-actions&quot;&gt;
+      &lt;button class&#x3D;&quot;btn btn-export&quot; (click)&#x3D;&quot;exportData()&quot;&gt;
+        &lt;i class&#x3D;&quot;icon-download&quot;&gt;&lt;/i&gt; Exporter
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/header&gt;
+
+  &lt;!-- Statistiques rapides --&gt;
+  &lt;div class&#x3D;&quot;stats-grid&quot;&gt;
+    &lt;div class&#x3D;&quot;stat-card&quot;&gt;
+      &lt;div class&#x3D;&quot;stat-icon&quot;&gt;📦&lt;/div&gt;
+      &lt;div class&#x3D;&quot;stat-content&quot;&gt;
+        &lt;div class&#x3D;&quot;stat-value&quot;&gt;{{ materials.length }}&lt;/div&gt;
+        &lt;div class&#x3D;&quot;stat-label&quot;&gt;Articles&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;stat-card&quot;&gt;
+      &lt;div class&#x3D;&quot;stat-icon&quot;&gt;💰&lt;/div&gt;
+      &lt;div class&#x3D;&quot;stat-content&quot;&gt;
+        &lt;div class&#x3D;&quot;stat-value&quot;&gt;{{ getTotalValue() | number:&#x27;1.0-0&#x27; }} FCFA&lt;/div&gt;
+        &lt;div class&#x3D;&quot;stat-label&quot;&gt;Valeur totale&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;stat-card&quot;&gt;
+      &lt;div class&#x3D;&quot;stat-icon&quot;&gt;📄&lt;/div&gt;
+      &lt;div class&#x3D;&quot;stat-content&quot;&gt;
+        &lt;div class&#x3D;&quot;stat-value&quot;&gt;{{ invoices.length }}&lt;/div&gt;
+        &lt;div class&#x3D;&quot;stat-label&quot;&gt;Factures&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;stat-card&quot;&gt;
+      &lt;div class&#x3D;&quot;stat-icon&quot;&gt;📊&lt;/div&gt;
+      &lt;div class&#x3D;&quot;stat-content&quot;&gt;
+        &lt;div class&#x3D;&quot;stat-value&quot;&gt;{{ categories.length }}&lt;/div&gt;
+        &lt;div class&#x3D;&quot;stat-label&quot;&gt;Catégories&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Navigation par onglets --&gt;
+  &lt;div class&#x3D;&quot;tabs&quot;&gt;
+    &lt;button
+      class&#x3D;&quot;tab&quot;
+      [class.active]&#x3D;&quot;activeTab &#x3D;&#x3D;&#x3D; &#x27;materials&#x27;&quot;
+      (click)&#x3D;&quot;activeTab &#x3D; &#x27;materials&#x27;&quot;&gt;
+      &lt;i class&#x3D;&quot;icon-box&quot;&gt;&lt;/i&gt; Matériel
+    &lt;/button&gt;
+    &lt;button
+      class&#x3D;&quot;tab&quot;
+      [class.active]&#x3D;&quot;activeTab &#x3D;&#x3D;&#x3D; &#x27;invoices&#x27;&quot;
+      (click)&#x3D;&quot;activeTab &#x3D; &#x27;invoices&#x27;&quot;&gt;
+      &lt;i class&#x3D;&quot;icon-receipt&quot;&gt;&lt;/i&gt; Factures
+    &lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Section Matériel --&gt;
+  &lt;div class&#x3D;&quot;tab-content&quot; *ngIf&#x3D;&quot;activeTab &#x3D;&#x3D;&#x3D; &#x27;materials&#x27;&quot;&gt;
+    &lt;div class&#x3D;&quot;content-header&quot;&gt;
+      &lt;div class&#x3D;&quot;filters&quot;&gt;
+        &lt;input
+          type&#x3D;&quot;text&quot;
+          class&#x3D;&quot;search-input&quot;
+          placeholder&#x3D;&quot;🔍 Rechercher un article...&quot;
+          [(ngModel)]&#x3D;&quot;searchTerm&quot;&gt;
+
+        &lt;select class&#x3D;&quot;filter-select&quot; [(ngModel)]&#x3D;&quot;selectedCategory&quot;&gt;
+          &lt;option value&#x3D;&quot;&quot;&gt;Toutes les catégories&lt;/option&gt;
+          &lt;option *ngFor&#x3D;&quot;let cat of categories&quot; [value]&#x3D;&quot;cat&quot;&gt;{{ cat }}&lt;/option&gt;
+        &lt;/select&gt;
+
+        &lt;select class&#x3D;&quot;filter-select&quot; [(ngModel)]&#x3D;&quot;selectedEtat&quot;&gt;
+          &lt;option value&#x3D;&quot;&quot;&gt;Tous les états&lt;/option&gt;
+          &lt;option *ngFor&#x3D;&quot;let etat of etats&quot; [value]&#x3D;&quot;etat&quot;&gt;{{ etat }}&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/div&gt;
+
+      &lt;button class&#x3D;&quot;btn btn-primary&quot; (click)&#x3D;&quot;showMaterialForm &#x3D; !showMaterialForm&quot;&gt;
+        &lt;i class&#x3D;&quot;icon-plus&quot;&gt;&lt;/i&gt; Ajouter du matériel
+      &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Formulaire d&#x27;ajout/édition de matériel --&gt;
+    &lt;div class&#x3D;&quot;form-card&quot; *ngIf&#x3D;&quot;showMaterialForm&quot;&gt;
+      &lt;h3&gt;{{ editingMaterialId ? &#x27;Modifier&#x27; : &#x27;Ajouter&#x27; }} un article&lt;/h3&gt;
+      &lt;form (ngSubmit)&#x3D;&quot;editingMaterialId ? updateMaterial() : addMaterial()&quot;&gt;
+        &lt;div class&#x3D;&quot;form-grid&quot;&gt;
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label&gt;Nom de l&#x27;article *&lt;/label&gt;
+            &lt;input type&#x3D;&quot;text&quot; [(ngModel)]&#x3D;&quot;materialForm.nom&quot; name&#x3D;&quot;nom&quot; required&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label&gt;Catégorie *&lt;/label&gt;
+            &lt;select [(ngModel)]&#x3D;&quot;materialForm.categorie&quot; name&#x3D;&quot;categorie&quot; required&gt;
+              &lt;option value&#x3D;&quot;&quot;&gt;Sélectionner...&lt;/option&gt;
+              &lt;option *ngFor&#x3D;&quot;let cat of categories&quot; [value]&#x3D;&quot;cat&quot;&gt;{{ cat }}&lt;/option&gt;
+            &lt;/select&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label&gt;Quantité *&lt;/label&gt;
+            &lt;input type&#x3D;&quot;number&quot; [(ngModel)]&#x3D;&quot;materialForm.quantite&quot; name&#x3D;&quot;quantite&quot; min&#x3D;&quot;1&quot; required&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label&gt;État *&lt;/label&gt;
+            &lt;select [(ngModel)]&#x3D;&quot;materialForm.etat&quot; name&#x3D;&quot;etat&quot; required&gt;
+              &lt;option *ngFor&#x3D;&quot;let etat of etats&quot; [value]&#x3D;&quot;etat&quot;&gt;{{ etat }}&lt;/option&gt;
+            &lt;/select&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label&gt;Prix unitaire (FCFA) *&lt;/label&gt;
+            &lt;input type&#x3D;&quot;number&quot; [(ngModel)]&#x3D;&quot;materialForm.prixUnitaire&quot; name&#x3D;&quot;prixUnitaire&quot; min&#x3D;&quot;0&quot; required&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label&gt;Date d&#x27;acquisition *&lt;/label&gt;
+            &lt;input type&#x3D;&quot;date&quot; [(ngModel)]&#x3D;&quot;materialForm.dateAcquisition&quot; name&#x3D;&quot;dateAcquisition&quot; required&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label&gt;Emplacement *&lt;/label&gt;
+            &lt;input type&#x3D;&quot;text&quot; [(ngModel)]&#x3D;&quot;materialForm.emplacement&quot; name&#x3D;&quot;emplacement&quot;
+                   placeholder&#x3D;&quot;Ex: Salle principale, Cuisine, Entrepôt...&quot; required&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label&gt;Facture associée&lt;/label&gt;
+            &lt;select [(ngModel)]&#x3D;&quot;materialForm.factureId&quot; name&#x3D;&quot;factureId&quot;&gt;
+              &lt;option value&#x3D;&quot;&quot;&gt;Aucune&lt;/option&gt;
+              &lt;option *ngFor&#x3D;&quot;let invoice of invoices&quot; [value]&#x3D;&quot;invoice.id&quot;&gt;
+                {{ invoice.numero }} - {{ invoice.fournisseur }}
+              &lt;/option&gt;
+            &lt;/select&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;form-group full-width&quot;&gt;
+          &lt;label&gt;Description&lt;/label&gt;
+          &lt;textarea [(ngModel)]&#x3D;&quot;materialForm.description&quot; name&#x3D;&quot;description&quot;
+                    rows&#x3D;&quot;3&quot; placeholder&#x3D;&quot;Détails supplémentaires...&quot;&gt;&lt;/textarea&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;form-actions&quot;&gt;
+          &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-secondary&quot; (click)&#x3D;&quot;resetMaterialForm()&quot;&gt;
+            Annuler
+          &lt;/button&gt;
+          &lt;button type&#x3D;&quot;submit&quot; class&#x3D;&quot;btn btn-primary&quot;&gt;
+            {{ editingMaterialId ? &#x27;Mettre à jour&#x27; : &#x27;Ajouter&#x27; }}
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Liste du matériel --&gt;
+    &lt;div class&#x3D;&quot;materials-grid&quot;&gt;
+      &lt;div class&#x3D;&quot;material-card&quot; *ngFor&#x3D;&quot;let material of getFilteredMaterials()&quot;&gt;
+        &lt;div class&#x3D;&quot;material-header&quot;&gt;
+          &lt;h4&gt;{{ material.nom }}&lt;/h4&gt;
+          &lt;span class&#x3D;&quot;badge&quot; [class]&#x3D;&quot;&#x27;badge-&#x27; + material.etat.toLowerCase().replace(&#x27; &#x27;, &#x27;-&#x27;)&quot;&gt;
+            {{ material.etat }}
+          &lt;/span&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;material-details&quot;&gt;
+          &lt;div class&#x3D;&quot;detail-row&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;Catégorie:&lt;/span&gt;
+            &lt;span class&#x3D;&quot;value&quot;&gt;{{ material.categorie }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;detail-row&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;Quantité:&lt;/span&gt;
+            &lt;span class&#x3D;&quot;value&quot;&gt;{{ material.quantite }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;detail-row&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;Prix unitaire:&lt;/span&gt;
+            &lt;span class&#x3D;&quot;value&quot;&gt;{{ material.prixUnitaire | number:&#x27;1.0-0&#x27; }} FCFA&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;detail-row&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;Valeur totale:&lt;/span&gt;
+            &lt;span class&#x3D;&quot;value bold&quot;&gt;{{ (material.prixUnitaire * material.quantite) | number:&#x27;1.0-0&#x27; }} FCFA&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;detail-row&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;Emplacement:&lt;/span&gt;
+            &lt;span class&#x3D;&quot;value&quot;&gt;{{ material.emplacement }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;detail-row&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;Date d&#x27;achat:&lt;/span&gt;
+            &lt;span class&#x3D;&quot;value&quot;&gt;{{ material.dateAcquisition | date:&#x27;dd/MM/yyyy&#x27; }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;detail-row&quot; *ngIf&#x3D;&quot;material.factureId&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;Facture:&lt;/span&gt;
+            &lt;span class&#x3D;&quot;value&quot;&gt;{{ getInvoiceByMaterial(material.factureId)?.numero }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;detail-row full-width&quot; *ngIf&#x3D;&quot;material.description&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;Description:&lt;/span&gt;
+            &lt;span class&#x3D;&quot;value&quot;&gt;{{ material.description }}&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;material-actions&quot;&gt;
+          &lt;button class&#x3D;&quot;btn-icon btn-edit&quot; (click)&#x3D;&quot;editMaterial(material)&quot;&gt;
+            &lt;i class&#x3D;&quot;icon-edit&quot;&gt;&lt;/i&gt; Modifier
+          &lt;/button&gt;
+          &lt;button class&#x3D;&quot;btn-icon btn-delete&quot; (click)&#x3D;&quot;deleteMaterial(material.id)&quot;&gt;
+            &lt;i class&#x3D;&quot;icon-trash&quot;&gt;&lt;/i&gt; Supprimer
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;empty-state&quot; *ngIf&#x3D;&quot;getFilteredMaterials().length &#x3D;&#x3D;&#x3D; 0&quot;&gt;
+        &lt;div class&#x3D;&quot;empty-icon&quot;&gt;📦&lt;/div&gt;
+        &lt;p&gt;Aucun matériel trouvé&lt;/p&gt;
+        &lt;button class&#x3D;&quot;btn btn-primary&quot; (click)&#x3D;&quot;showMaterialForm &#x3D; true&quot;&gt;
+          Ajouter du matériel
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Section Factures --&gt;
+  &lt;div class&#x3D;&quot;tab-content&quot; *ngIf&#x3D;&quot;activeTab &#x3D;&#x3D;&#x3D; &#x27;invoices&#x27;&quot;&gt;
+    &lt;div class&#x3D;&quot;content-header&quot;&gt;
+      &lt;h2&gt;Gestion des Factures d&#x27;Achat&lt;/h2&gt;
+      &lt;button class&#x3D;&quot;btn btn-primary&quot; (click)&#x3D;&quot;showInvoiceForm &#x3D; !showInvoiceForm&quot;&gt;
+        &lt;i class&#x3D;&quot;icon-plus&quot;&gt;&lt;/i&gt; Nouvelle facture
+      &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Formulaire d&#x27;ajout/édition de facture --&gt;
+    &lt;div class&#x3D;&quot;form-card&quot; *ngIf&#x3D;&quot;showInvoiceForm&quot;&gt;
+      &lt;h3&gt;{{ editingInvoiceId ? &#x27;Modifier&#x27; : &#x27;Nouvelle&#x27; }} facture&lt;/h3&gt;
+      &lt;form (ngSubmit)&#x3D;&quot;editingInvoiceId ? updateInvoice() : addInvoice()&quot;&gt;
+        &lt;div class&#x3D;&quot;form-grid&quot;&gt;
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label&gt;Numéro de facture *&lt;/label&gt;
+            &lt;input type&#x3D;&quot;text&quot; [(ngModel)]&#x3D;&quot;invoiceForm.numero&quot; name&#x3D;&quot;numero&quot;
+                   placeholder&#x3D;&quot;Ex: FAC-2025-001&quot; required&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label&gt;Fournisseur *&lt;/label&gt;
+            &lt;input type&#x3D;&quot;text&quot; [(ngModel)]&#x3D;&quot;invoiceForm.fournisseur&quot; name&#x3D;&quot;fournisseur&quot;
+                   placeholder&#x3D;&quot;Nom du fournisseur&quot; required&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label&gt;Date d&#x27;achat *&lt;/label&gt;
+            &lt;input type&#x3D;&quot;date&quot; [(ngModel)]&#x3D;&quot;invoiceForm.dateAchat&quot; name&#x3D;&quot;dateAchat&quot; required&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label&gt;Montant total (FCFA) *&lt;/label&gt;
+            &lt;input type&#x3D;&quot;number&quot; [(ngModel)]&#x3D;&quot;invoiceForm.montantTotal&quot; name&#x3D;&quot;montantTotal&quot;
+                   min&#x3D;&quot;0&quot; required&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;form-group full-width&quot;&gt;
+            &lt;label&gt;Fichier (optionnel)&lt;/label&gt;
+            &lt;input type&#x3D;&quot;file&quot; (change)&#x3D;&quot;onFileSelect($event)&quot;
+                   accept&#x3D;&quot;.pdf,.jpg,.jpeg,.png&quot;&gt;
+            &lt;small&gt;Formats acceptés: PDF, JPG, PNG&lt;/small&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;form-actions&quot;&gt;
+          &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-secondary&quot; (click)&#x3D;&quot;resetInvoiceForm()&quot;&gt;
+            Annuler
+          &lt;/button&gt;
+          &lt;button type&#x3D;&quot;submit&quot; class&#x3D;&quot;btn btn-primary&quot;&gt;
+            {{ editingInvoiceId ? &#x27;Mettre à jour&#x27; : &#x27;Enregistrer&#x27; }}
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Liste des factures --&gt;
+    &lt;div class&#x3D;&quot;invoices-list&quot;&gt;
+      &lt;div class&#x3D;&quot;invoice-card&quot; *ngFor&#x3D;&quot;let invoice of invoices&quot;&gt;
+        &lt;div class&#x3D;&quot;invoice-header&quot;&gt;
+          &lt;div&gt;
+            &lt;h4&gt;{{ invoice.numero }}&lt;/h4&gt;
+            &lt;p class&#x3D;&quot;invoice-supplier&quot;&gt;{{ invoice.fournisseur }}&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;invoice-amount&quot;&gt;{{ invoice.montantTotal | number:&#x27;1.0-0&#x27; }} FCFA&lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;invoice-details&quot;&gt;
+          &lt;div class&#x3D;&quot;detail-item&quot;&gt;
+            &lt;i class&#x3D;&quot;icon-calendar&quot;&gt;&lt;/i&gt;
+            {{ invoice.dateAchat | date:&#x27;dd/MM/yyyy&#x27; }}
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;detail-item&quot; *ngIf&#x3D;&quot;invoice.fichier&quot;&gt;
+            &lt;i class&#x3D;&quot;icon-file&quot;&gt;&lt;/i&gt;
+            {{ invoice.fichier }}
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;invoice-actions&quot;&gt;
+          &lt;button class&#x3D;&quot;btn-icon btn-edit&quot; (click)&#x3D;&quot;editInvoice(invoice)&quot;&gt;
+            &lt;i class&#x3D;&quot;icon-edit&quot;&gt;&lt;/i&gt; Modifier
+          &lt;/button&gt;
+          &lt;button class&#x3D;&quot;btn-icon btn-delete&quot; (click)&#x3D;&quot;deleteInvoice(invoice.id)&quot;&gt;
+            &lt;i class&#x3D;&quot;icon-trash&quot;&gt;&lt;/i&gt; Supprimer
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;empty-state&quot; *ngIf&#x3D;&quot;invoices.length &#x3D;&#x3D;&#x3D; 0&quot;&gt;
+        &lt;div class&#x3D;&quot;empty-icon&quot;&gt;📄&lt;/div&gt;
+        &lt;p&gt;Aucune facture enregistrée&lt;/p&gt;
+        &lt;button class&#x3D;&quot;btn btn-primary&quot; (click)&#x3D;&quot;showInvoiceForm &#x3D; true&quot;&gt;
+          Ajouter une facture
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./materiel.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">// Mixins
+@mixin card {
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.material-management {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: -apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, Roboto, Oxygen, Ubuntu, sans-serif;
+  color: var(--text-primary);
+  background: var(--dark-bg);
+  min-height: 100vh;
+
+  // En-tête
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+
+      .icon-warehouse::before {
+        content: &quot;🏭&quot;;
+        font-size: 2rem;
+      }
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 1rem;
+    }
+  }
+
+  // Grille de statistiques
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+
+    .stat-card {
+      @include card;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: var(--transition);
+
+      &amp;:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .stat-icon {
+        font-size: 2.5rem;
+        flex-shrink: 0;
+      }
+
+      .stat-content {
+        flex: 1;
+
+        .stat-value {
+          font-size: 1.75rem;
+          font-weight: 700;
+          color: var(--primary-color);
+          line-height: 1.2;
+        }
+
+        .stat-label {
+          font-size: 0.875rem;
+          color: var(--text-secondary);
+          margin-top: 0.25rem;
+        }
+      }
+    }
+  }
+
+  // Onglets
+  .tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    background: white;
+    padding: 0.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+
+    .tab {
+      flex: 1;
+      padding: 0.875rem 1.5rem;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      border-radius: calc(var(--border-radius) - 2px);
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+
+      &amp;:hover {
+        background: var(--dark-bg);
+        color: var(--primary-color);
+      }
+
+      &amp;.active {
+        background: var(--primary-color);
+        color: white;
+        box-shadow: var(--shadow);
+      }
+
+      .icon-box::before {
+        content: &quot;📦&quot;;
+      }
+
+      .icon-receipt::before {
+        content: &quot;📄&quot;;
+      }
+    }
+  }
+
+  // Contenu des onglets
+  .tab-content {
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  // En-tête de contenu
+  .content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .filters {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      flex: 1;
+      max-width: 800px;
+
+      .search-input,
+      .filter-select {
+        padding: 0.625rem 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        font-size: 0.875rem;
+        transition: var(--transition);
+
+        &amp;:focus {
+          outline: none;
+          border-color: var(--primary-color);
+          box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-color) 10%, transparent);
+        }
+      }
+
+      .search-input {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .filter-select {
+        min-width: 150px;
+        background: white;
+        cursor: pointer;
+      }
+    }
+  }
+
+  // Boutons
+  .btn {
+    padding: 0.625rem 1.25rem;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+
+    &amp;.btn-primary {
+      background: var(--primary-color);
+      color: white;
+
+      &amp;:hover {
+        background: color-mix(in srgb, var(--primary-color) 90%, black);
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
+      }
+    }
+
+    &amp;.btn-secondary {
+      background: var(--secondary);
+      color: white;
+
+      &amp;:hover {
+        background: color-color-mix(in srgb, in srgb, var(--secondary) 90%, black);
+      }
+    }
+
+    &amp;.btn-export {
+      background: var(--success);
+      color: white;
+
+      &amp;:hover {
+        background: color-color-mix(in srgb, in srgb, var(--success) 90%, black);
+      }
+    }
+
+    .icon-plus::before,
+    .icon-download::before {
+      content: &quot;+&quot;;
+      font-weight: bold;
+    }
+
+    .icon-download::before {
+      content: &quot;⬇&quot;;
+    }
+  }
+
+  .btn-icon {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border-color);
+    background: white;
+    border-radius: var(--border-radius);
+    font-size: 0.8125rem;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+
+    &amp;.btn-edit {
+      color:var(--primary-color);
+      border-color: var(--primary-color);
+
+      &amp;:hover {
+        background: var(--primary-color);
+        color: white;
+      }
+
+      .icon-edit::before {
+        content: &quot;✏️&quot;;
+      }
+    }
+
+    &amp;.btn-delete {
+      color: var(--danger);
+      border-color: var(--danger);
+
+      &amp;:hover {
+        background: var(--danger);
+        color: white;
+      }
+
+      .icon-trash::before {
+        content: &quot;🗑️&quot;;
+      }
+    }
+  }
+
+  // Formulaires
+  .form-card {
+    @include card;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    animation: slideDown 0.3s ease;
+
+    h3 {
+      margin: 0 0 1.5rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+
+      &amp;.full-width {
+        grid-column: 1 / -1;
+      }
+
+      label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+      }
+
+      input,
+      select,
+      textarea {
+        padding: 0.625rem 0.875rem;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        font-size: 0.875rem;
+        transition: var(--transition);
+        font-family: inherit;
+
+        &amp;:focus {
+          outline: none;
+          border-color: var(--primary-color);
+          box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-color) 10%, transparent);
+        }
+      }
+
+      textarea {
+        resize: vertical;
+      }
+
+      small {
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        margin-top: 0.375rem;
+      }
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-end;
+      margin-top: 1.5rem;
+    }
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  // Grille de matériel
+  .materials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+
+    .material-card {
+      @include card;
+      padding: 1.5rem;
+      transition: var(--transition);
+
+      &amp;:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .material-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--border-color);
+
+        h4 {
+          margin: 0;
+          font-size: 1.125rem;
+          font-weight: 600;
+          color: var(--text-primary);
+          flex: 1;
+        }
+
+        .badge {
+          padding: 0.25rem 0.75rem;
+          border-radius: 9999px;
+          font-size: 0.75rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.025em;
+
+          &amp;.badge-neuf {
+            background: #dcfce7;
+            color: #166534;
+          }
+
+          &amp;.badge-bon {
+            background: #dbeafe;
+            color: #1e40af;
+          }
+
+          &amp;.badge-usé {
+            background: #fef3c7;
+            color: #92400e;
+          }
+
+          &amp;.badge-à-remplacer {
+            background: #fee2e2;
+            color: #991b1b;
+          }
+        }
+      }
+
+      .material-details {
+        margin-bottom: 1rem;
+
+        .detail-row {
+          display: flex;
+          justify-content: space-between;
+          padding: 0.5rem 0;
+          font-size: 0.875rem;
+
+          &amp;.full-width {
+            flex-direction: column;
+            gap: 0.25rem;
+          }
+
+          .label {
+            color: var(--text-secondary);
+            font-weight: 500;
+          }
+
+          .value {
+            color: var(--text-primary);
+            text-align: right;
+
+            &amp;.bold {
+              font-weight: 600;
+              color: var(--primary-color);
+            }
+          }
+        }
+      }
+
+      .material-actions {
+        display: flex;
+        gap: 0.75rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border-color);
+      }
+    }
+  }
+
+  // Liste des factures
+  .invoices-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .invoice-card {
+      @include card;
+      padding: 1.5rem;
+      transition: var(--transition);
+
+      &amp;:hover {
+        box-shadow: var(--shadow-md);
+      }
+
+      .invoice-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        margin-bottom: 1rem;
+
+        h4 {
+          margin: 0 0 0.25rem;
+          font-size: 1.125rem;
+          font-weight: 600;
+          color: var(--text-primary);
+        }
+
+        .invoice-supplier {
+          margin: 0;
+          font-size: 0.875rem;
+          color: var(--text-secondary);
+        }
+
+        .invoice-amount {
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: var(--success);
+        }
+      }
+
+      .invoice-details {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        background: var(--dark-bg);
+        border-radius: calc(var(--border-radius) - 2px);
+
+        .detail-item {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          font-size: 0.875rem;
+          color: var(--text-secondary);
+
+          .icon-calendar::before {
+            content: &quot;📅&quot;;
+          }
+
+          .icon-file::before {
+            content: &quot;📎&quot;;
+          }
+        }
+      }
+
+      .invoice-actions {
+        display: flex;
+        gap: 0.75rem;
+        justify-content: flex-end;
+      }
+    }
+  }
+
+  // État vide
+  .empty-state {
+    @include flex-center;
+    flex-direction: column;
+    padding: 4rem 2rem;
+    text-align: center;
+    grid-column: 1 / -1;
+
+    .empty-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+    p {
+      color: var(--text-secondary);
+      font-size: 1.125rem;
+      margin: 0 0 1.5rem;
+    }
+  }
+
+  // Responsive
+  @media (max-width: 768px) {
+    padding: 1rem;
+
+    .header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .content-header {
+      flex-direction: column;
+      align-items: stretch;
+
+      .filters {
+        flex-direction: column;
+        max-width: 100%;
+      }
+    }
+
+    .materials-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .form-card .form-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .invoice-card .invoice-details {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="material-management">  <header class="header">    <h1>      <i class="icon-warehouse"></i>      Gestion du Matériel    </h1>    <div class="header-actions">      <button class="btn btn-export" (click)="exportData()">        <i class="icon-download"></i> Exporter      </button>    </div>  </header>  <!-- Statistiques rapides -->  <div class="stats-grid">    <div class="stat-card">      <div class="stat-icon">📦</div>      <div class="stat-content">        <div class="stat-value">{{ materials.length }}</div>        <div class="stat-label">Articles</div>      </div>    </div>    <div class="stat-card">      <div class="stat-icon">💰</div>      <div class="stat-content">        <div class="stat-value">{{ getTotalValue() | number:\'1.0-0\' }} FCFA</div>        <div class="stat-label">Valeur totale</div>      </div>    </div>    <div class="stat-card">      <div class="stat-icon">📄</div>      <div class="stat-content">        <div class="stat-value">{{ invoices.length }}</div>        <div class="stat-label">Factures</div>      </div>    </div>    <div class="stat-card">      <div class="stat-icon">📊</div>      <div class="stat-content">        <div class="stat-value">{{ categories.length }}</div>        <div class="stat-label">Catégories</div>      </div>    </div>  </div>  <!-- Navigation par onglets -->  <div class="tabs">    <button      class="tab"      [class.active]="activeTab === \'materials\'"      (click)="activeTab = \'materials\'">      <i class="icon-box"></i> Matériel    </button>    <button      class="tab"      [class.active]="activeTab === \'invoices\'"      (click)="activeTab = \'invoices\'">      <i class="icon-receipt"></i> Factures    </button>  </div>  <!-- Section Matériel -->  <div class="tab-content" *ngIf="activeTab === \'materials\'">    <div class="content-header">      <div class="filters">        <input          type="text"          class="search-input"          placeholder="🔍 Rechercher un article..."          [(ngModel)]="searchTerm">        <select class="filter-select" [(ngModel)]="selectedCategory">          <option value="">Toutes les catégories</option>          <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>        </select>        <select class="filter-select" [(ngModel)]="selectedEtat">          <option value="">Tous les états</option>          <option *ngFor="let etat of etats" [value]="etat">{{ etat }}</option>        </select>      </div>      <button class="btn btn-primary" (click)="showMaterialForm = !showMaterialForm">        <i class="icon-plus"></i> Ajouter du matériel      </button>    </div>    <!-- Formulaire d\'ajout/édition de matériel -->    <div class="form-card" *ngIf="showMaterialForm">      <h3>{{ editingMaterialId ? \'Modifier\' : \'Ajouter\' }} un article</h3>      <form (ngSubmit)="editingMaterialId ? updateMaterial() : addMaterial()">        <div class="form-grid">          <div class="form-group">            <label>Nom de l\'article *</label>            <input type="text" [(ngModel)]="materialForm.nom" name="nom" required>          </div>          <div class="form-group">            <label>Catégorie *</label>            <select [(ngModel)]="materialForm.categorie" name="categorie" required>              <option value="">Sélectionner...</option>              <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>            </select>          </div>          <div class="form-group">            <label>Quantité *</label>            <input type="number" [(ngModel)]="materialForm.quantite" name="quantite" min="1" required>          </div>          <div class="form-group">            <label>État *</label>            <select [(ngModel)]="materialForm.etat" name="etat" required>              <option *ngFor="let etat of etats" [value]="etat">{{ etat }}</option>            </select>          </div>          <div class="form-group">            <label>Prix unitaire (FCFA) *</label>            <input type="number" [(ngModel)]="materialForm.prixUnitaire" name="prixUnitaire" min="0" required>          </div>          <div class="form-group">            <label>Date d\'acquisition *</label>            <input type="date" [(ngModel)]="materialForm.dateAcquisition" name="dateAcquisition" required>          </div>          <div class="form-group">            <label>Emplacement *</label>            <input type="text" [(ngModel)]="materialForm.emplacement" name="emplacement"                   placeholder="Ex: Salle principale, Cuisine, Entrepôt..." required>          </div>          <div class="form-group">            <label>Facture associée</label>            <select [(ngModel)]="materialForm.factureId" name="factureId">              <option value="">Aucune</option>              <option *ngFor="let invoice of invoices" [value]="invoice.id">                {{ invoice.numero }} - {{ invoice.fournisseur }}              </option>            </select>          </div>        </div>        <div class="form-group full-width">          <label>Description</label>          <textarea [(ngModel)]="materialForm.description" name="description"                    rows="3" placeholder="Détails supplémentaires..."></textarea>        </div>        <div class="form-actions">          <button type="button" class="btn btn-secondary" (click)="resetMaterialForm()">            Annuler          </button>          <button type="submit" class="btn btn-primary">            {{ editingMaterialId ? \'Mettre à jour\' : \'Ajouter\' }}          </button>        </div>      </form>    </div>    <!-- Liste du matériel -->    <div class="materials-grid">      <div class="material-card" *ngFor="let material of getFilteredMaterials()">        <div class="material-header">          <h4>{{ material.nom }}</h4>          <span class="badge" [class]="\'badge-\' + material.etat.toLowerCase().replace(\' \', \'-\')">            {{ material.etat }}          </span>        </div>        <div class="material-details">          <div class="detail-row">            <span class="label">Catégorie:</span>            <span class="value">{{ material.categorie }}</span>          </div>          <div class="detail-row">            <span class="label">Quantité:</span>            <span class="value">{{ material.quantite }}</span>          </div>          <div class="detail-row">            <span class="label">Prix unitaire:</span>            <span class="value">{{ material.prixUnitaire | number:\'1.0-0\' }} FCFA</span>          </div>          <div class="detail-row">            <span class="label">Valeur totale:</span>            <span class="value bold">{{ (material.prixUnitaire * material.quantite) | number:\'1.0-0\' }} FCFA</span>          </div>          <div class="detail-row">            <span class="label">Emplacement:</span>            <span class="value">{{ material.emplacement }}</span>          </div>          <div class="detail-row">            <span class="label">Date d\'achat:</span>            <span class="value">{{ material.dateAcquisition | date:\'dd/MM/yyyy\' }}</span>          </div>          <div class="detail-row" *ngIf="material.factureId">            <span class="label">Facture:</span>            <span class="value">{{ getInvoiceByMaterial(material.factureId)?.numero }}</span>          </div>          <div class="detail-row full-width" *ngIf="material.description">            <span class="label">Description:</span>            <span class="value">{{ material.description }}</span>          </div>        </div>        <div class="material-actions">          <button class="btn-icon btn-edit" (click)="editMaterial(material)">            <i class="icon-edit"></i> Modifier          </button>          <button class="btn-icon btn-delete" (click)="deleteMaterial(material.id)">            <i class="icon-trash"></i> Supprimer          </button>        </div>      </div>      <div class="empty-state" *ngIf="getFilteredMaterials().length === 0">        <div class="empty-icon">📦</div>        <p>Aucun matériel trouvé</p>        <button class="btn btn-primary" (click)="showMaterialForm = true">          Ajouter du matériel        </button>      </div>    </div>  </div>  <!-- Section Factures -->  <div class="tab-content" *ngIf="activeTab === \'invoices\'">    <div class="content-header">      <h2>Gestion des Factures d\'Achat</h2>      <button class="btn btn-primary" (click)="showInvoiceForm = !showInvoiceForm">        <i class="icon-plus"></i> Nouvelle facture      </button>    </div>    <!-- Formulaire d\'ajout/édition de facture -->    <div class="form-card" *ngIf="showInvoiceForm">      <h3>{{ editingInvoiceId ? \'Modifier\' : \'Nouvelle\' }} facture</h3>      <form (ngSubmit)="editingInvoiceId ? updateInvoice() : addInvoice()">        <div class="form-grid">          <div class="form-group">            <label>Numéro de facture *</label>            <input type="text" [(ngModel)]="invoiceForm.numero" name="numero"                   placeholder="Ex: FAC-2025-001" required>          </div>          <div class="form-group">            <label>Fournisseur *</label>            <input type="text" [(ngModel)]="invoiceForm.fournisseur" name="fournisseur"                   placeholder="Nom du fournisseur" required>          </div>          <div class="form-group">            <label>Date d\'achat *</label>            <input type="date" [(ngModel)]="invoiceForm.dateAchat" name="dateAchat" required>          </div>          <div class="form-group">            <label>Montant total (FCFA) *</label>            <input type="number" [(ngModel)]="invoiceForm.montantTotal" name="montantTotal"                   min="0" required>          </div>          <div class="form-group full-width">            <label>Fichier (optionnel)</label>            <input type="file" (change)="onFileSelect($event)"                   accept=".pdf,.jpg,.jpeg,.png">            <small>Formats acceptés: PDF, JPG, PNG</small>          </div>        </div>        <div class="form-actions">          <button type="button" class="btn btn-secondary" (click)="resetInvoiceForm()">            Annuler          </button>          <button type="submit" class="btn btn-primary">            {{ editingInvoiceId ? \'Mettre à jour\' : \'Enregistrer\' }}          </button>        </div>      </form>    </div>    <!-- Liste des factures -->    <div class="invoices-list">      <div class="invoice-card" *ngFor="let invoice of invoices">        <div class="invoice-header">          <div>            <h4>{{ invoice.numero }}</h4>            <p class="invoice-supplier">{{ invoice.fournisseur }}</p>          </div>          <div class="invoice-amount">{{ invoice.montantTotal | number:\'1.0-0\' }} FCFA</div>        </div>        <div class="invoice-details">          <div class="detail-item">            <i class="icon-calendar"></i>            {{ invoice.dateAchat | date:\'dd/MM/yyyy\' }}          </div>          <div class="detail-item" *ngIf="invoice.fichier">            <i class="icon-file"></i>            {{ invoice.fichier }}          </div>        </div>        <div class="invoice-actions">          <button class="btn-icon btn-edit" (click)="editInvoice(invoice)">            <i class="icon-edit"></i> Modifier          </button>          <button class="btn-icon btn-delete" (click)="deleteInvoice(invoice.id)">            <i class="icon-trash"></i> Supprimer          </button>        </div>      </div>      <div class="empty-state" *ngIf="invoices.length === 0">        <div class="empty-icon">📄</div>        <p>Aucune facture enregistrée</p>        <button class="btn btn-primary" (click)="showInvoiceForm = true">          Ajouter une facture        </button>      </div>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AdminDashboardComponent', 'selector': 'app-admin-dashboard'},{'name': 'AlertsComponent', 'selector': 'app-alerts'},{'name': 'App', 'selector': 'app-root'},{'name': 'CaisseComponent', 'selector': 'app-caisse'},{'name': 'CaveCreateComponent', 'selector': 'app-cave-create'},{'name': 'CaveListComponent', 'selector': 'app-cave-lists'},{'name': 'ClientDashboardComponent', 'selector': 'app-client-dashboard'},{'name': 'ClientsComponent', 'selector': 'app-client'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DrinksComponent', 'selector': 'app-drinks'},{'name': 'EmployeesComponent', 'selector': 'app-employees'},{'name': 'EntriesComponent', 'selector': 'app-entries'},{'name': 'ExitsComponent', 'selector': 'app-exits'},{'name': 'ExpenseComponent', 'selector': 'app-depenses'},{'name': 'FaqComponent', 'selector': 'app-faq'},{'name': 'FournisseursComponent', 'selector': 'app-fournisseur'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'ImprovementsComponent', 'selector': 'app-improvements'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ManagerDashboardComponent', 'selector': 'app-manager-dashboard'},{'name': 'ManagersComponent', 'selector': 'app-managers'},{'name': 'MaterialComponent', 'selector': 'app-materiel'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'OrdersComponent', 'selector': 'app-orders'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfitComponent', 'selector': 'app-profit'},{'name': 'RecentActionsComponent', 'selector': 'app-recent-actions'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'SalesComponent', 'selector': 'app-sales'},{'name': 'ScanComponent', 'selector': 'app-scan'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'StockComponent', 'selector': 'app-stock'},{'name': 'StockComponent', 'selector': 'app-stock'},{'name': 'TeamComponent', 'selector': 'app-team'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'UserCreateComponent', 'selector': 'app-user-create'},{'name': 'UserListComponent', 'selector': 'app-user-list'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'WaitressDashboardComponent', 'selector': 'app-waitress-dashboard'},{'name': 'WinePairingComponent', 'selector': 'app-wine-pairing'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'MaterialComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'MaterialComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

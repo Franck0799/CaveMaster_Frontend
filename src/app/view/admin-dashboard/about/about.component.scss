@@ -1,628 +1,870 @@
-// ===== Variables communes - Dark Mode =====
-$primary-color: #6366f1;
-$success-color: #10b981;
-$danger-color: #ef4444;
-$warning-color: #f59e0b;
-$info-color: #3b82f6;
-$bg-dark: #0f172a;
-$bg-darker: #020617;
-$bg-card: #1e293b;
-$text-primary: #f1f5f9;
-$text-secondary: #94a3b8;
-$border-color: #334155;
+// ==========================================
+// FICHIER: common.scss (ou styles communs)
+// DESCRIPTION: Styles réutilisables avec variables CSS dynamiques
+// ==========================================
 
-// ===== Styles communs =====
+// ===== STYLES DE BASE =====
 .page-section {
+  // Ligne 1: Espacement interne
   padding: 2rem;
-  background: $bg-dark;
+  // Ligne 2: Couleur de fond depuis variable CSS
+  background: var(--dark-bg);
+  // Ligne 3: Hauteur minimale égale à la fenêtre
   min-height: 100vh;
 }
 
 .content-section {
+  // Ligne 1: Largeur maximale du contenu
   max-width: 1400px;
+  // Ligne 2: Centre horizontalement
   margin: 0 auto;
 }
 
+// ===== EN-TÊTE DE SECTION =====
 .section-header {
+  // Ligne 1-3: Disposition flexbox
   display: flex;
   justify-content: space-between;
   align-items: center;
+  // Ligne 4: Marge en bas
   margin-bottom: 2rem;
 
   .section-title-main {
+    // Ligne 1: Grande taille
     font-size: 2rem;
+    // Ligne 2: Texte très gras
     font-weight: 700;
-    color: $text-primary;
+    // Ligne 3: Couleur du texte
+    color: var(--text-primary);
+    // Ligne 4: Supprime la marge
     margin: 0;
 
     i {
+      // Ligne 1: Espace à droite de l'icône
       margin-right: 0.75rem;
-      color: $primary-color;
+      // Ligne 2: Couleur primaire pour l'icône
+      color: var(--primary);
     }
   }
 }
 
+// ===== SYSTÈME DE BOUTONS =====
 .btn {
+  // Ligne 1: Padding interne
   padding: 0.75rem 1.5rem;
+  // Ligne 2: Coins arrondis
   border-radius: 8px;
+  // Ligne 3: Pas de bordure
   border: none;
+  // Ligne 4: Taille de police
   font-size: 0.9rem;
+  // Ligne 5: Semi-gras
   font-weight: 600;
+  // Ligne 6: Curseur pointer
   cursor: pointer;
+  // Ligne 7: Transition douce
   transition: all 0.2s ease;
+  // Ligne 8-10: Disposition flex
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
 
+  // Bouton primaire
   &.btn-primary {
-    background: $primary-color;
+    // Ligne 1: Fond primaire
+    background: var(--primary);
+    // Ligne 2: Texte blanc
     color: white;
 
     &:hover:not(:disabled) {
-      background: lighten($primary-color, 10%);
+      // Ligne 1: Couleur légèrement plus claire (mélange avec blanc)
+      background: color-mix(in srgb, var(--primary) 90%, white);
+      // Ligne 2: Légère élévation
       transform: translateY(-2px);
+      // Ligne 3: Ombre colorée
       box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
     }
   }
 
+  // Bouton secondaire
   &.btn-secondary {
-    background: $border-color;
-    color: $text-primary;
+    // Ligne 1: Fond avec couleur de bordure
+    background: var(--border-color);
+    // Ligne 2: Texte principal
+    color: var(--text-primary);
 
     &:hover:not(:disabled) {
-      background: lighten($border-color, 10%);
+      // Couleur légèrement plus claire au survol
+      background: color-mix(in srgb, var(--border-color) 90%, white);
     }
   }
 
+  // Bouton petit
   &.btn-sm {
+    // Ligne 1: Padding réduit
     padding: 0.5rem 1rem;
+    // Ligne 2: Police plus petite
     font-size: 0.8rem;
   }
 
+  // Bouton pleine largeur
   &.btn-block {
+    // Ligne 1: Prend toute la largeur
     width: 100%;
+    // Ligne 2: Centre le contenu
     justify-content: center;
   }
 
+  // Bouton large
   &.btn-large {
+    // Ligne 1: Padding augmenté
     padding: 1rem 2rem;
+    // Ligne 2: Police plus grande
     font-size: 1.1rem;
   }
 
+  // État désactivé
   &:disabled {
+    // Ligne 1: Opacité réduite
     opacity: 0.5;
+    // Ligne 2: Curseur "interdit"
     cursor: not-allowed;
   }
 }
 
-// ===== STATS STYLES =====
+// ===== STATISTIQUES =====
 .stats-overview {
+  // Ligne 1: Grille CSS
   display: grid;
+  // Ligne 2: Colonnes auto-adaptatives (min 250px)
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  // Ligne 3: Espace entre les cartes
   gap: 1.5rem;
+  // Ligne 4: Marge en bas
   margin-bottom: 2rem;
 }
 
 .stat-card {
-  background: $bg-card;
+  // Ligne 1: Fond de carte
+  background: var(--card-bg);
+  // Ligne 2: Padding généreux
   padding: 2rem;
+  // Ligne 3: Coins arrondis
   border-radius: 12px;
+  // Ligne 4: Ombre portée
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  border: 1px solid $border-color;
+  // Ligne 5: Bordure
+  border: 1px solid var(--border-color);
+  // Ligne 6: Transition douce
   transition: all 0.3s ease;
 
   &:hover {
+    // Ligne 1: Remonte légèrement
     transform: translateY(-4px);
+    // Ligne 2: Ombre plus prononcée
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-    border-color: lighten($border-color, 10%);
+    // Ligne 3: Bordure légèrement plus claire
+    border-color: color-mix(in srgb, var(--border-color) 90%, white);
   }
 
   .stat-icon {
+    // Ligne 1: Grande icône
     font-size: 2.5rem;
+    // Ligne 2: Marge en bas
     margin-bottom: 1rem;
 
-    &.icon-primary { color: $primary-color; }
-    &.icon-success { color: $success-color; }
-    &.icon-warning { color: $warning-color; }
-    &.icon-info { color: $info-color; }
+    // Variantes de couleur
+    &.icon-primary { color: var(--primary); }
+    &.icon-success { color: var(--success); }
+    &.icon-warning { color: var(--warning); }
+    &.icon-info { color: var(--info); }
   }
 
   .stat-number {
+    // Ligne 1: Très grand nombre
     font-size: 2.5rem;
+    // Ligne 2: Très gras
     font-weight: 700;
-    color: $text-primary;
+    // Ligne 3: Couleur principale
+    color: var(--text-primary);
+    // Ligne 4: Marge en bas
     margin-bottom: 0.5rem;
   }
 
   .stat-description {
-    color: $text-secondary;
+    // Ligne 1: Couleur secondaire
+    color: var(--text-secondary);
+    // Ligne 2: Petite taille
     font-size: 0.875rem;
   }
 }
 
+// ===== SECTION GRAPHIQUES =====
 .charts-section {
-  background: $bg-card;
+  // Ligne 1: Fond de carte
+  background: var(--card-bg);
+  // Ligne 2: Padding généreux
   padding: 2rem;
+  // Ligne 3: Coins arrondis
   border-radius: 12px;
+  // Ligne 4: Ombre portée
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  border: 1px solid $border-color;
+  // Ligne 5: Bordure
+  border: 1px solid var(--border-color);
+  // Ligne 6: Marge en bas
   margin-bottom: 2rem;
 
   h3 {
-    color: $text-primary;
+    // Ligne 1: Couleur du texte
+    color: var(--text-primary);
+    // Ligne 2: Marge en bas
     margin-bottom: 1.5rem;
+    // Ligne 3: Taille de titre
     font-size: 1.5rem;
   }
 }
 
-// ===== RESPONSIVE =====
-@media (max-width: 1024px) {
-  .contact-container {
-    grid-template-columns: 1fr;
-  }
-
-  .caves-grid {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  }
-}
-
-@media (max-width: 768px) {
-  .section-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
-  .faq-filters {
-    flex-direction: column;
-
-    .filter-select {
-      width: 100%;
-    }
-  }
-
-  .caves-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .about-hero h1 {
-    font-size: 1.75rem;
-  }
-
-  .improvements-timeline {
-    padding-left: 2rem;
-
-    &::before {
-      left: 0.5rem;
-    }
-  }
-
-  .improvement-item .improvement-marker {
-    left: -1.75rem;
-    width: 2.5rem;
-    height: 2.5rem;
-    font-size: 1.25rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .page-section {
-    padding: 1rem;
-  }
-
-  .cave-card .cave-stats {
-    grid-template-columns: 1fr;
-  }
-
-  .team-grid,
-  .features-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 // ===== ANIMATIONS =====
+
+// Animation d'apparition en fondu
 @keyframes fadeIn {
   from {
+    // Au début: invisible et décalé vers le bas
     opacity: 0;
     transform: translateY(20px);
   }
   to {
+    // À la fin: visible et en position normale
     opacity: 1;
     transform: translateY(0);
   }
 }
 
+// Classe pour appliquer l'animation
 .fade-in {
   animation: fadeIn 0.5s ease;
 }
 
+// Animation de pulsation
 @keyframes pulse {
   0%, 100% {
+    // Opacité normale au début et à la fin
     opacity: 1;
   }
   50% {
+    // Semi-transparent au milieu
     opacity: 0.5;
   }
 }
 
+// Classe pour appliquer la pulsation
 .pulse {
   animation: pulse 2s ease-in-out infinite;
 }
 
-// ===== UTILITY CLASSES =====
-.text-center {
-  text-align: center;
-}
-
-.mt-1 { margin-top: 0.5rem; }
-.mt-2 { margin-top: 1rem; }
-.mt-3 { margin-top: 1.5rem; }
-.mt-4 { margin-top: 2rem; }
-
-.mb-1 { margin-bottom: 0.5rem; }
-.mb-2 { margin-bottom: 1rem; }
-.mb-3 { margin-bottom: 1.5rem; }
-.mb-4 { margin-bottom: 2rem; }
-
-.p-1 { padding: 0.5rem; }
-.p-2 { padding: 1rem; }
-.p-3 { padding: 1.5rem; }
-.p-4 { padding: 2rem; }
-
-.d-flex {
-  display: flex;
-}
-
-.align-center {
-  align-items: center;
-}
-
-.justify-between {
-  justify-content: space-between;
-}
-
-.gap-1 { gap: 0.5rem; }
-.gap-2 { gap: 1rem; }
-.gap-3 { gap: 1.5rem; }
-
-.text-primary {
-  color: $text-primary;
-}
-
-.text-secondary {
-  color: $text-secondary;
-}
-
-.text-success {
-  color: $success-color;
-}
-
-.text-danger {
-  color: $danger-color;
-}
-
-.text-warning {
-  color: $warning-color;
-}
-
-.text-info {
-  color: $info-color;
-}
-
-// ===== LOADING STATES =====
-.loading-spinner {
-  border: 3px solid $border-color;
-  border-top: 3px solid $primary-color;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
-  margin: 2rem auto;
-}
-
+// Animation de rotation
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
 
-.skeleton {
-  background: linear-gradient(90deg, $bg-card 25%, lighten($bg-card, 5%) 50%, $bg-card 75%);
-  background-size: 200% 100%;
-  animation: loading 1.5s ease-in-out infinite;
-  border-radius: 4px;
-}
-
+// Animation de chargement (gradient qui se déplace)
 @keyframes loading {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }
 
-// ===== ALERTS & NOTIFICATIONS =====
-.alert {
-  padding: 1rem 1.5rem;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-
-  i {
-    font-size: 1.5rem;
-  }
-
-  &.alert-success {
-    background: rgba(16, 185, 129, 0.15);
-    color: lighten($success-color, 10%);
-    border-left: 4px solid $success-color;
-    border: 1px solid rgba(16, 185, 129, 0.3);
-  }
-
-  &.alert-danger {
-    background: rgba(239, 68, 68, 0.15);
-    color: lighten($danger-color, 10%);
-    border-left: 4px solid $danger-color;
-    border: 1px solid rgba(239, 68, 68, 0.3);
-  }
-
-  &.alert-warning {
-    background: rgba(245, 158, 11, 0.15);
-    color: lighten($warning-color, 10%);
-    border-left: 4px solid $warning-color;
-    border: 1px solid rgba(245, 158, 11, 0.3);
-  }
-
-  &.alert-info {
-    background: rgba(59, 130, 246, 0.15);
-    color: lighten($info-color, 10%);
-    border-left: 4px solid $info-color;
-    border: 1px solid rgba(59, 130, 246, 0.3);
-  }
-}
-
-// ===== MODAL STYLES =====
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.75);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  animation: fadeIn 0.2s ease;
-}
-
-.modal-content {
-  background: $bg-card;
-  border: 1px solid $border-color;
-  border-radius: 12px;
-  padding: 2rem;
-  max-width: 600px;
-  width: 90%;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-  animation: slideUp 0.3s ease;
-
-  .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-
-    h3 {
-      margin: 0;
-      color: $text-primary;
-    }
-
-    .close-btn {
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      color: $text-secondary;
-      cursor: pointer;
-      transition: color 0.2s ease;
-
-      &:hover {
-        color: $text-primary;
-      }
-    }
-  }
-}
-
+// Animation de montée depuis le bas
 @keyframes slideUp {
   from {
+    // Démarre décalé vers le bas et invisible
     transform: translateY(50px);
     opacity: 0;
   }
   to {
+    // Arrive en position normale et visible
     transform: translateY(0);
     opacity: 1;
   }
 }
 
+// ===== ÉTATS DE CHARGEMENT =====
+
+// Spinner de chargement
+.loading-spinner {
+  // Ligne 1: Bordure grise
+  border: 3px solid var(--border-color);
+  // Ligne 2: Bordure supérieure colorée (crée l'effet de rotation)
+  border-top: 3px solid var(--primary);
+  // Ligne 3: Forme circulaire
+  border-radius: 50%;
+  // Ligne 4-5: Dimensions
+  width: 40px;
+  height: 40px;
+  // Ligne 6: Animation de rotation infinie
+  animation: spin 1s linear infinite;
+  // Ligne 7: Centre avec marge verticale
+  margin: 2rem auto;
+}
+
+// Effet squelette pour le chargement
+.skeleton {
+  // Ligne 1: Gradient animé qui simule un chargement
+  background: linear-gradient(
+    90deg,
+    var(--card-bg) 25%,
+    color-mix(in srgb, var(--card-bg) 95%, white) 50%,
+    var(--card-bg) 75%
+  );
+  // Ligne 2: Taille du gradient (double pour l'animation)
+  background-size: 200% 100%;
+  // Ligne 3: Animation de défilement
+  animation: loading 1.5s ease-in-out infinite;
+  // Ligne 4: Coins légèrement arrondis
+  border-radius: 4px;
+}
+
+// ===== ALERTES ET NOTIFICATIONS =====
+.alert {
+  // Ligne 1: Padding interne
+  padding: 1rem 1.5rem;
+  // Ligne 2: Coins arrondis
+  border-radius: 8px;
+  // Ligne 3: Marge en bas
+  margin-bottom: 1rem;
+  // Ligne 4-6: Disposition flex
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  i {
+    // Taille de l'icône dans l'alerte
+    font-size: 1.5rem;
+  }
+
+  // Alerte de succès (vert)
+  &.alert-success {
+    // Ligne 1: Fond vert semi-transparent
+    background: rgba(16, 185, 129, 0.15);
+    // Ligne 2: Texte vert clair
+    color: color-mix(in srgb, var(--success) 90%, white);
+    // Ligne 3: Bordure gauche épaisse verte
+    border-left: 4px solid var(--success);
+    // Ligne 4: Bordure complète verte semi-transparente
+    border: 1px solid rgba(16, 185, 129, 0.3);
+  }
+
+  // Alerte de danger (rouge)
+  &.alert-danger {
+    background: rgba(239, 68, 68, 0.15);
+    color: color-mix(in srgb, var(--danger) 90%, white);
+    border-left: 4px solid var(--danger);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+  }
+
+  // Alerte d'avertissement (orange)
+  &.alert-warning {
+    background: rgba(245, 158, 11, 0.15);
+    color: color-mix(in srgb, var(--warning) 90%, white);
+    border-left: 4px solid var(--warning);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+  }
+
+  // Alerte d'information (bleu)
+  &.alert-info {
+    background: rgba(59, 130, 246, 0.15);
+    color: color-mix(in srgb, var(--info) 90%, white);
+    border-left: 4px solid var(--info);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+  }
+}
+
+// ===== MODAL =====
+.modal-overlay {
+  // Ligne 1-4: Position fixe plein écran
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  // Ligne 5: Fond noir semi-transparent
+  background: rgba(0, 0, 0, 0.75);
+  // Ligne 6-8: Centrage du contenu
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // Ligne 9: Au-dessus de tout
+  z-index: 1000;
+  // Ligne 10: Animation d'apparition
+  animation: fadeIn 0.2s ease;
+}
+
+.modal-content {
+  // Ligne 1: Fond de carte
+  background: var(--card-bg);
+  // Ligne 2: Bordure
+  border: 1px solid var(--border-color);
+  // Ligne 3: Coins arrondis
+  border-radius: 12px;
+  // Ligne 4: Padding interne
+  padding: 2rem;
+  // Ligne 5-6: Dimensions
+  max-width: 600px;
+  width: 90%;
+  // Ligne 7: Hauteur maximale
+  max-height: 90vh;
+  // Ligne 8: Scroll vertical si nécessaire
+  overflow-y: auto;
+  // Ligne 9: Grande ombre portée
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  // Ligne 10: Animation de montée
+  animation: slideUp 0.3s ease;
+
+  .modal-header {
+    // Ligne 1-3: Disposition flex
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // Ligne 4: Marge en bas
+    margin-bottom: 1.5rem;
+
+    h3 {
+      // Ligne 1: Supprime la marge
+      margin: 0;
+      // Ligne 2: Couleur du texte
+      color: var(--text-primary);
+    }
+
+    .close-btn {
+      // Ligne 1-2: Pas de style par défaut
+      background: none;
+      border: none;
+      // Ligne 3: Taille de l'icône X
+      font-size: 1.5rem;
+      // Ligne 4: Couleur secondaire
+      color: var(--text-secondary);
+      // Ligne 5: Curseur pointer
+      cursor: pointer;
+      // Ligne 6: Transition de couleur
+      transition: color 0.2s ease;
+
+      &:hover {
+        // Couleur principale au survol
+        color: var(--text-primary);
+      }
+    }
+  }
+}
+
 // ===== TOOLTIP =====
 .tooltip {
+  // Ligne 1: Position relative pour le pseudo-élément
   position: relative;
 
   &::after {
+    // Ligne 1: Contenu depuis l'attribut data-tooltip du HTML
     content: attr(data-tooltip);
+    // Ligne 2-4: Position au-dessus de l'élément
     position: absolute;
     bottom: 100%;
     left: 50%;
+    // Ligne 5: Centre horizontalement
     transform: translateX(-50%);
+    // Ligne 6: Padding interne
     padding: 0.5rem 1rem;
-    background: $bg-darker;
-    color: $text-primary;
-    border: 1px solid $border-color;
+    // Ligne 7: Fond plus sombre
+    background: var(--dark-bg-darker);
+    // Ligne 8: Couleur du texte
+    color: var(--text-primary);
+    // Ligne 9: Bordure
+    border: 1px solid var(--border-color);
+    // Ligne 10: Coins arrondis
     border-radius: 6px;
+    // Ligne 11: Petite taille
     font-size: 0.875rem;
+    // Ligne 12: Pas de retour à la ligne
     white-space: nowrap;
+    // Ligne 13: Invisible par défaut
     opacity: 0;
+    // Ligne 14: N'empêche pas les clics
     pointer-events: none;
+    // Ligne 15: Transition de l'opacité
     transition: opacity 0.2s ease;
+    // Ligne 16: Espace en bas
     margin-bottom: 0.5rem;
+    // Ligne 17: Ombre portée
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
   }
 
   &:hover::after {
+    // Visible au survol
     opacity: 1;
   }
 }
 
-// ===== ABOUT STYLES =====
+// ===== STYLES ABOUT (À PROPOS) =====
 .about-hero {
+  // Ligne 1: Texte centré
   text-align: center;
+  // Ligne 2: Padding généreux
   padding: 4rem 2rem;
-  background: linear-gradient(135deg, #4338ca, $primary-color);
+  // Ligne 3: Gradient de fond violet
+  background: linear-gradient(135deg, #4338ca, var(--primary));
+  // Ligne 4: Texte blanc
   color: white;
+  // Ligne 5: Coins arrondis
   border-radius: 12px;
+  // Ligne 6: Marge en bas
   margin-bottom: 3rem;
+  // Ligne 7: Ombre portée
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  // Ligne 8: Bordure colorée semi-transparente
   border: 1px solid rgba(99, 102, 241, 0.3);
 
   h1 {
+    // Ligne 1: Très grande taille
     font-size: 2.5rem;
+    // Ligne 2: Marge en bas
     margin-bottom: 1rem;
+    // Ligne 3: Ombre portée sur le texte
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
 
   .hero-subtitle {
+    // Ligne 1: Taille moyenne
     font-size: 1.25rem;
+    // Ligne 2: Légèrement transparent
     opacity: 0.95;
   }
 }
 
 .about-section {
+  // Ligne 1: Grande marge en bas
   margin-bottom: 4rem;
 
   h2 {
+    // Ligne 1: Grande taille
     font-size: 2rem;
-    color: $text-primary;
+    // Ligne 2: Couleur du texte
+    color: var(--text-primary);
+    // Ligne 3: Marge en bas
     margin-bottom: 1.5rem;
+    // Ligne 4: Texte centré
     text-align: center;
   }
 
   > p {
+    // Ligne 1: Texte centré
     text-align: center;
+    // Ligne 2: Largeur maximale
     max-width: 800px;
+    // Ligne 3: Centre horizontalement avec marge en bas
     margin: 0 auto 2rem;
-    color: $text-secondary;
+    // Ligne 4: Couleur secondaire
+    color: var(--text-secondary);
+    // Ligne 5: Hauteur de ligne pour la lisibilité
     line-height: 1.8;
+    // Ligne 6: Taille augmentée
     font-size: 1.1rem;
   }
 }
 
+// ===== GRILLES DE FEATURES ET TEAM =====
 .features-grid {
+  // Ligne 1: Grille CSS
   display: grid;
+  // Ligne 2: Colonnes auto-adaptatives (min 250px)
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  // Ligne 3: Grand espace entre les cartes
   gap: 2rem;
 }
 
 .feature-card {
-  background: $bg-card;
-  border: 1px solid $border-color;
+  // Ligne 1: Fond de carte
+  background: var(--card-bg);
+  // Ligne 2: Bordure
+  border: 1px solid var(--border-color);
+  // Ligne 3: Padding généreux
   padding: 2rem;
+  // Ligne 4: Coins arrondis
   border-radius: 12px;
+  // Ligne 5: Texte centré
   text-align: center;
+  // Ligne 6: Ombre portée
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  // Ligne 7: Transition douce
   transition: all 0.3s ease;
 
   &:hover {
+    // Ligne 1: Remonte légèrement
     transform: translateY(-4px);
+    // Ligne 2: Ombre plus prononcée
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-    border-color: lighten($border-color, 10%);
+    // Ligne 3: Bordure légèrement plus claire
+    border-color: color-mix(in srgb, var(--border-color) 90%, white);
   }
 
   .feature-icon {
+    // Ligne 1: Très grande icône
     font-size: 3rem;
+    // Ligne 2: Marge en bas
     margin-bottom: 1rem;
   }
 
   h3 {
-    color: $text-primary;
+    // Ligne 1: Couleur du texte
+    color: var(--text-primary);
+    // Ligne 2: Marge en bas
     margin-bottom: 0.5rem;
+    // Ligne 3: Semi-gras
     font-weight: 600;
   }
 
   p {
-    color: $text-secondary;
+    // Ligne 1: Couleur secondaire
+    color: var(--text-secondary);
+    // Ligne 2: Hauteur de ligne
     line-height: 1.6;
   }
 }
 
 .team-grid {
+  // Ligne 1: Grille CSS
   display: grid;
+  // Ligne 2: Colonnes auto-adaptatives (min 280px)
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  // Ligne 3: Grand espace entre les cartes
   gap: 2rem;
 }
 
 .team-card {
-  background: $bg-card;
-  border: 1px solid $border-color;
+  // Ligne 1: Fond de carte
+  background: var(--card-bg);
+  // Ligne 2: Bordure
+  border: 1px solid var(--border-color);
+  // Ligne 3: Padding généreux
   padding: 2rem;
+  // Ligne 4: Coins arrondis
   border-radius: 12px;
+  // Ligne 5: Texte centré
   text-align: center;
+  // Ligne 6: Ombre portée
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  // Ligne 7: Transition douce
   transition: all 0.3s ease;
 
   &:hover {
+    // Ligne 1: Remonte légèrement
     transform: translateY(-4px);
+    // Ligne 2: Ombre plus prononcée
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-    border-color: lighten($border-color, 10%);
+    // Ligne 3: Bordure légèrement plus claire
+    border-color: color-mix(in srgb, var(--border-color) 90%, white);
   }
 
   .team-avatar {
+    // Ligne 1-2: Dimensions fixes
     width: 100px;
     height: 100px;
+    // Ligne 3: Marge centrée en bas
     margin: 0 auto 1rem;
+    // Ligne 4: Forme circulaire
     border-radius: 50%;
-    background: linear-gradient(135deg, #4338ca, $primary-color);
+    // Ligne 5: Gradient de fond
+    background: linear-gradient(135deg, #4338ca, var(--primary));
+    // Ligne 6-8: Centrage du contenu
     display: flex;
     align-items: center;
     justify-content: center;
+    // Ligne 9: Très grande icône
     font-size: 3rem;
+    // Ligne 10: Ombre portée
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    // Ligne 11: Bordure colorée
     border: 3px solid rgba(99, 102, 241, 0.2);
   }
 
   h3 {
-    color: $text-primary;
+    // Ligne 1: Couleur du texte
+    color: var(--text-primary);
+    // Ligne 2: Marge en bas
     margin-bottom: 0.5rem;
+    // Ligne 3: Semi-gras
     font-weight: 600;
   }
 
   .team-role {
-    color: $primary-color;
+    // Ligne 1: Couleur primaire
+    color: var(--primary);
+    // Ligne 2: Semi-gras
     font-weight: 600;
+    // Ligne 3: Marge en bas
     margin-bottom: 1rem;
   }
 
   .team-bio {
-    color: $text-secondary;
+    // Ligne 1: Couleur secondaire
+    color: var(--text-secondary);
+    // Ligne 2: Hauteur de ligne
     line-height: 1.6;
   }
 }
 
 .about-cta {
-  background: $bg-card;
-  border: 1px solid $border-color;
+  // Ligne 1: Fond de carte
+  background: var(--card-bg);
+  // Ligne 2: Bordure
+  border: 1px solid var(--border-color);
+  // Ligne 3: Padding généreux
   padding: 4rem 2rem;
+  // Ligne 4: Coins arrondis
   border-radius: 12px;
+  // Ligne 5: Texte centré
   text-align: center;
+  // Ligne 6: Ombre portée
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 
   h2 {
+    // Ligne 1: Grande taille
     font-size: 2rem;
-    color: $text-primary;
+    // Ligne 2: Couleur du texte
+    color: var(--text-primary);
+    // Ligne 3: Marge en bas
     margin-bottom: 1rem;
   }
 
   p {
-    color: $text-secondary;
+    // Ligne 1: Couleur secondaire
+    color: var(--text-secondary);
+    // Ligne 2: Taille augmentée
     font-size: 1.1rem;
+    // Ligne 3: Marge en bas
     margin-bottom: 2rem;
   }
 }
+
+// ===== CLASSES UTILITAIRES =====
+.text-center { text-align: center; }
+
+// Marges supérieures
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+// Marges inférieures
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+// Paddings
+.p-1 { padding: 0.5rem; }
+.p-2 { padding: 1rem; }
+.p-3 { padding: 1.5rem; }
+.p-4 { padding: 2rem; }
+
+// Flexbox
+.d-flex { display: flex; }
+.align-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+
+// Gaps
+.gap-1 { gap: 0.5rem; }
+.gap-2 { gap: 1rem; }
+.gap-3 { gap: 1.5rem; }
+
+// Couleurs de texte
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-success { color: var(--success); }
+.text-danger { color: var(--danger); }
+.text-warning { color: var(--warning); }
+.text-info { color: var(--info); }
+
+// ===== RESPONSIVE DESIGN =====
+
+// Tablettes (1024px et moins)
+@media (max-width: 1024px) {
+  .contact-container {
+    // Une seule colonne
+    grid-template-columns: 1fr;
+  }
+
+  .caves-grid {
+    // Colonnes légèrement plus petites
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+// Mobiles en paysage (768px et moins)
+@media (max-width: 768px) {
+  .section-header {
+    // Ligne 1: En colonne sur mobile
+    flex-direction: column;
+    // Ligne 2: Alignement à gauche
+    align-items: flex-start;
+    // Ligne 3: Espace entre les éléments
+    gap: 1rem;
+  }
+
+  .faq-filters {
+    // Ligne 1: En colonne pour les filtres
+    flex-direction: column;
+
+    .filter-select {
+      // Pleine largeur sur mobile
+      width: 100%;
+    }
+  }
+
+  .caves-grid {
+    // Une seule colonne
+    grid-template-columns: 1fr;
+  }
+
+  .about-hero h1 {
+    // Réduit la taille du titre
+    font-size: 1.75rem;
+  }
+
+  .improvements-timeline {
+    // Ligne 1: Réduit le padding gauche
+    padding-left: 2rem;
+
+    &::before {
+      // Ajuste la position de la ligne de temps
+      left: 0.5rem;
+    }
+  }
+
+  .improvement-item .improvement-marker {
+    // Ligne 1: Ajuste la position
+    left: -1.75rem;
+    // Ligne 2-3: Réduit les dimensions
+    width: 2.5rem;
+    height: 2.5rem;
+    // Ligne 4: Réduit la taille de l'icône
+    font-size: 1.25rem;
+  }
+}
+
+// Mobiles en portrait (480px et moins)
+@media (max-width: 480px) {
+  .page-section {
+    // Réduit encore plus le padding
+    padding: 1rem;
+  }
+
+  .cave-card .cave-stats {
+    // Une seule colonne pour les stats
+    grid-template-columns: 1fr;
+  }
+
+  .team-grid,
+  .features-grid {
+    // Une seule colonne
+    grid-template-columns: 1fr;
+  }
+}
+

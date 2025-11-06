@@ -1,0 +1,139 @@
+
+<div class="customers-page">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">Base Clients</h1>
+      <p class="page-subtitle">{{ customers.length }} clients enregistrés</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-secondary" (click)="exportCustomers()">
+        📥 Exporter
+      </button>
+      <button class="btn-primary" (click)="addCustomer()">
+        ➕ Ajouter un client
+      </button>
+    </div>
+  </div>
+
+  <!-- Statistiques -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">👥</div>
+      <div class="stat-content">
+        <div class="stat-label">Total clients</div>
+        <div class="stat-value">{{ customers.length }}</div>
+      </div>
+    </div>
+
+    <div class="stat-card vip">
+      <div class="stat-icon">⭐</div>
+      <div class="stat-content">
+        <div class="stat-label">Clients VIP</div>
+        <div class="stat-value">{{ getVipCount() }}</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">💰</div>
+      <div class="stat-content">
+        <div class="stat-label">CA total clients</div>
+        <div class="stat-value">{{ getTotalRevenue() | number:'1.0-0' }} €</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">📊</div>
+      <div class="stat-content">
+        <div class="stat-label">Panier moyen</div>
+        <div class="stat-value">{{ getAverageSpent() | number:'1.2-2' }} €</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filtres et recherche -->
+  <div class="filters-bar">
+    <div class="filter-group">
+      <button class="filter-btn"
+              [class.active]="filterType === 'all'"
+              (click)="filterCustomers('all')">
+        Tous
+      </button>
+      <button class="filter-btn"
+              [class.active]="filterType === 'vip'"
+              (click)="filterCustomers('vip')">
+        VIP
+      </button>
+      <button class="filter-btn"
+              [class.active]="filterType === 'regular'"
+              (click)="filterCustomers('regular')">
+        Réguliers
+      </button>
+    </div>
+
+    <input type="text"
+           class="search-input"
+           placeholder="Rechercher un client..."
+           [(ngModel)]="searchTerm"
+           (input)="applyFilters()">
+  </div>
+
+  <!-- Liste des clients -->
+  <div class="customers-grid">
+    <div class="customer-card" *ngFor="let customer of filteredCustomers" [class.vip]="customer.vipStatus">
+      <div class="customer-header">
+        <div class="customer-avatar">
+          {{ getInitials(customer.name) }}
+        </div>
+        <div class="customer-info">
+          <h3 class="customer-name">
+            {{ customer.name }}
+            <span class="vip-badge" *ngIf="customer.vipStatus">⭐ VIP</span>
+          </h3>
+          <div class="customer-contact">
+            <span class="contact-item">📧 {{ customer.email }}</span>
+            <span class="contact-item">📞 {{ customer.phone }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="customer-body">
+        <div class="stats-row">
+          <div class="stat-item">
+            <div class="stat-label">Visites</div>
+            <div class="stat-value">{{ customer.totalVisits }}</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Dépenses</div>
+            <div class="stat-value">{{ customer.totalSpent | number:'1.0-0' }} €</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Dernière visite</div>
+            <div class="stat-value">{{ customer.lastVisit | date:'dd/MM/yy' }}</div>
+          </div>
+        </div>
+
+        <div class="customer-details" *ngIf="customer.favoriteWine">
+          <span class="detail-icon">🍷</span>
+          <span class="detail-text">Vin préféré: {{ customer.favoriteWine }}</span>
+        </div>
+
+        <div class="customer-notes" *ngIf="customer.notes">
+          <span class="notes-icon">💬</span>
+          <span class="notes-text">{{ customer.notes }}</span>
+        </div>
+      </div>
+
+      <div class="customer-actions">
+        <button class="action-btn" (click)="viewCustomer(customer)">
+          👁️ Voir
+        </button>
+        <button class="action-btn" (click)="editCustomer(customer)">
+          ✏️ Modifier
+        </button>
+        <button class="action-btn" (click)="contactCustomer(customer)">
+          💬 Contacter
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

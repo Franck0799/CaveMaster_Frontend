@@ -1,249 +1,377 @@
-// ===== VARIABLES SASS - DARK THEME =====
-$primary: #6366f1;           // Violet principal
-$primary-light: #818cf8;     // Violet clair
-$accent: #8b5cf6;            // Violet accent
-$success: #10b981;           // Vert
-$warning: #f59e0b;           // Orange
-$yellow:#add21d;            // Jaune
-$danger: #ef4444;            // Rouge
-$info: #3b82f6;              // Bleu
-$dark-bg: #0a0e27;           // Fond sombre principal
-$darker-bg: #060918;         // Fond encore plus sombre
-$card-bg: #1a1f3a;           // Fond des cartes
-$card-hover: #232947;        // Fond des cartes au hover
-$text: #e2e8f0;              // Texte principal
-$text-muted: #94a3b8;        // Texte secondaire
-$border: #1e293b;            // Bordures
+// ==========================================
+// FICHIER: src/app/view/admin-dashboard/home/home.component.scss
+// DESCRIPTION: Version complète avec variables CSS dynamiques
+// ==========================================
 
-// Dimensions
+// ===== IMPORTANT =====
+// Les variables CSS sont définies dans le fichier global de thème
+// On les utilise ici avec var(--nom-variable)
+// Elles changent automatiquement selon le thème actif (dark/light)
+
+// ===== DIMENSIONS ET TRANSITIONS (constantes) =====
 $border-radius: 1rem;
 $transition: all 0.3s;
 
-// ===== MIXINS SASS =====
+// ===== MIXINS SASS RÉUTILISABLES =====
+
+// Mixin pour effet hover des cartes
 @mixin card-hover {
+  // Ligne 1: Transition douce pour toutes les propriétés
   transition: $transition;
 
+  // Ligne 2-5: État hover avec transformation et ombre
   &:hover {
+    // Déplace la carte vers le haut de 5px
     transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    // Ajoute une ombre portée pour effet de profondeur
+    box-shadow: var(--shadow-lg);
   }
 }
 
+// Mixin pour style de base des boutons
 @mixin button-base {
+  // Ligne 1: Espacement interne vertical et horizontal
   padding: 0.875rem 1.75rem;
+  // Ligne 2: Coins arrondis
   border-radius: 0.75rem;
+  // Ligne 3: Supprime la bordure par défaut
   border: none;
+  // Ligne 4: Texte en gras
   font-weight: 600;
+  // Ligne 5: Curseur pointer au survol
   cursor: pointer;
+  // Ligne 6: Transition douce
   transition: $transition;
+  // Ligne 7: Flexbox pour alignement du contenu
   display: inline-flex;
+  // Ligne 8: Centre verticalement le contenu
   align-items: center;
+  // Ligne 9: Espace entre icône et texte
   gap: 0.5rem;
+  // Ligne 10: Taille de police
   font-size: 0.95rem;
 
+  // Ligne 11-13: Légère élévation au survol
   &:hover {
     transform: translateY(-2px);
   }
 }
 
-// ===== STYLES COMMUNS =====
+// ===== STYLES DE BASE DE LA PAGE =====
+
 .page-section {
+  // Ligne 1: Espacement interne de 2rem (32px)
   padding: 2rem;
-  background: $dark-bg;
+  // Ligne 2: Couleur de fond depuis variable CSS (change avec le thème)
+  background: var(--dark-bg);
+  // Ligne 3: Hauteur minimale égale à la hauteur de la fenêtre
   min-height: 100vh;
-  color: $text;
+  // Ligne 4: Couleur du texte depuis variable CSS
+  color: var(--text);
 }
 
 .content-section {
+  // Ligne 1: Largeur maximale pour le contenu
   max-width: 1400px;
+  // Ligne 2: Centre horizontalement
   margin: 0 auto;
 }
 
+// ===== EN-TÊTE DE SECTION =====
+
 .section-header {
+  // Ligne 1: Disposition flexbox
   display: flex;
+  // Ligne 2: Espace entre les éléments
   justify-content: space-between;
+  // Ligne 3: Alignement vertical centré
   align-items: center;
+  // Ligne 4: Marge en bas
   margin-bottom: 2rem;
 
   .section-title-main {
+    // Ligne 1: Taille de police grande
     font-size: 1.75rem;
+    // Ligne 2: Texte en gras
     font-weight: 700;
-    color: $text;
+    // Ligne 3: Couleur du texte
+    color: var(--text);
+    // Ligne 4: Supprime la marge par défaut
     margin: 0;
 
     i {
+      // Ligne 1: Espace à droite de l'icône
       margin-right: 0.75rem;
-      color: $primary;
+      // Ligne 2: Couleur primaire pour l'icône
+      color: var(--primary);
     }
   }
 }
 
+// ===== SYSTÈME DE BOUTONS =====
+
 .btn {
+  // Ligne 1: Applique les styles de base du mixin
   @include button-base;
 
+  // Bouton primaire (principal)
   &.btn-primary {
-    background: $primary;
+    // Ligne 1: Fond avec couleur primaire
+    background: var(--primary);
+    // Ligne 2: Texte en blanc
     color: white;
 
+    // Ligne 3-6: Hover sauf si désactivé
     &:hover:not(:disabled) {
-      background: $primary-light;
-      box-shadow: 0 8px 20px rgba($primary, 0.3);
+      // Change légèrement la couleur au survol
+      background: var(--primary-light);
+      // Ajoute une ombre colorée
+      box-shadow: var(--shadow-md);
     }
   }
 
+  // Bouton secondaire
   &.btn-secondary {
-    background: $card-bg;
-    color: $text;
-    border: 1px solid $border;
+    // Ligne 1: Fond carte
+    background: var(--card-bg);
+    // Ligne 2: Couleur texte normale
+    color: var(--text);
+    // Ligne 3: Bordure subtile
+    border: 1px solid var(--border);
 
+    // Ligne 4-6: Fond légèrement plus clair au hover
     &:hover {
-      background: $card-hover;
+      background: var(--card-hover);
     }
   }
 
+  // Bouton petit
   &.btn-sm {
+    // Ligne 1: Padding réduit
     padding: 0.75rem 1rem;
+    // Ligne 2: Police plus petite
     font-size: 0.9rem;
   }
 
+  // Bouton pleine largeur
   &.btn-block {
+    // Ligne 1: Prend toute la largeur
     width: 100%;
+    // Ligne 2: Centre le contenu
     justify-content: center;
   }
 
+  // Bouton large
   &.btn-large {
+    // Ligne 1: Padding augmenté
     padding: 1rem 2rem;
+    // Ligne 2: Police plus grande
     font-size: 1.1rem;
   }
 
+  // État désactivé
   &:disabled {
+    // Ligne 1: Réduit l'opacité
     opacity: 0.5;
+    // Ligne 2: Curseur "interdit"
     cursor: not-allowed;
   }
 }
 
-// ===== CAROUSEL SECTION =====
+// ===== SECTION CAROUSEL =====
+
 .carousel-section {
-  background: $dark-bg;
+  // Ligne 1: Même couleur de fond que la page
+  background: var(--dark-bg);
+  // Ligne 2: Padding important pour mise en valeur
   padding: 3rem 2rem;
-  border-bottom: 1px solid $border;
+  // Ligne 3: Bordure en bas pour séparation visuelle
+  border-bottom: 1px solid var(--border);
+  // Ligne 4: Marges négatives pour sortir du padding parent
   margin: -2rem -2rem 2rem -2rem;
 }
 
 .carousel-container {
+  // Ligne 1: Largeur maximale
   max-width: 1200px;
+  // Ligne 2: Centrage horizontal
   margin: 0 auto;
+  // Ligne 3: Disposition flex
   display: flex;
+  // Ligne 4: Alignement vertical centré
   align-items: center;
+  // Ligne 5: Espace entre les éléments
   gap: 2rem;
 }
 
 .carousel-btn {
-  background: $card-bg;
-  border: 2px solid $border;
+  // Ligne 1: Fond de carte
+  background: var(--card-bg);
+  // Ligne 2: Bordure épaisse
+  border: 2px solid var(--border);
+  // Ligne 3-4: Taille fixe pour bouton circulaire
   width: 50px;
   height: 50px;
+  // Ligne 5: Forme circulaire
   border-radius: 50%;
+  // Ligne 6-9: Centrage de l'icône
   display: flex;
   align-items: center;
   justify-content: center;
+  // Ligne 10: Curseur pointer
   cursor: pointer;
+  // Ligne 11: Taille de l'icône
   font-size: 1.5rem;
-  color: $text;
+  // Ligne 12: Couleur du texte
+  color: var(--text);
+  // Ligne 13: Transition douce
   transition: $transition;
 
   &:hover {
-    background: $primary;
-    border-color: $primary;
+    // Ligne 1: Change en couleur primaire au hover
+    background: var(--primary);
+    // Ligne 2: Bordure assortie
+    border-color: var(--primary);
+    // Ligne 3: Légère augmentation de taille
     transform: scale(1.1);
   }
 }
 
 .carousel-content {
+  // Ligne 1: Prend tout l'espace disponible
   flex: 1;
 }
 
 .featured-drink {
+  // Ligne 1: Disposition flex
   display: flex;
+  // Ligne 2-3: Centrage vertical et horizontal
   align-items: center;
   justify-content: center;
+  // Ligne 4: Grand espace entre image et texte
   gap: 4rem;
-  background: $card-bg;
+  // Ligne 5: Fond de carte
+  background: var(--card-bg);
+  // Ligne 6: Padding généreux
   padding: 3rem;
+  // Ligne 7: Coins très arrondis
   border-radius: 1.5rem;
-  border: 1px solid $border;
+  // Ligne 8: Bordure subtile
+  border: 1px solid var(--border);
 }
 
 .drink-image {
+  // Ligne 1: Très grande icône/emoji
   font-size: 10rem;
+  // Ligne 2: Animation de flottement
   animation: float 3s ease-in-out infinite;
 }
 
+// Animation de flottement pour l'image
 @keyframes float {
+  // Au début et à la fin: position normale
   0%, 100% { transform: translateY(0); }
+  // Au milieu: remonte de 20px
   50% { transform: translateY(-20px); }
 }
 
 .drink-info {
+  // Ligne 1: Texte aligné à gauche
   text-align: left;
 
   h2 {
+    // Ligne 1: Grande taille pour le titre
     font-size: 2.5rem;
+    // Ligne 2: Marge en bas
     margin-bottom: 0.5rem;
-    background: linear-gradient(135deg, $primary-light, $accent);
+    // Ligne 3: Gradient de couleur
+    background: linear-gradient(135deg, var(--primary-light), var(--accent));
+    // Ligne 4: Le gradient s'applique au texte
     -webkit-background-clip: text;
+    // Ligne 5: Le texte devient transparent pour voir le gradient
     -webkit-text-fill-color: transparent;
   }
 }
 
 .drink-category {
-  color: $text-muted;
+  // Ligne 1: Couleur atténuée
+  color: var(--text-muted);
+  // Ligne 2: Marge en bas
   margin-bottom: 1rem;
+  // Ligne 3: Tout en majuscules
   text-transform: uppercase;
+  // Ligne 4: Espacement des lettres pour effet titre
   letter-spacing: 2px;
+  // Ligne 5-6: Taille et poids
   font-size: 0.9rem;
   font-weight: 600;
 }
 
 .drink-price {
+  // Ligne 1: Très grand pour mettre en valeur
   font-size: 2.5rem;
+  // Ligne 2: Gras
   font-weight: 700;
-  color: $success;
+  // Ligne 3: Couleur verte (succès)
+  color: var(--success);
+  // Ligne 4: Marge en bas
   margin-bottom: 0.5rem;
 }
 
 .drink-stock {
-  color: $text-muted;
+  // Ligne 1: Couleur atténuée
+  color: var(--text-muted);
+  // Ligne 2: Marge en bas
   margin-bottom: 1.5rem;
+  // Ligne 3: Taille normale
   font-size: 1rem;
 }
 
 .view-btn {
-  background: $primary;
+  // Ligne 1: Fond primaire
+  background: var(--primary);
+  // Ligne 2: Texte blanc
   color: white;
+  // Ligne 3: Pas de bordure
   border: none;
+  // Ligne 4: Padding généreux
   padding: 1rem 2.5rem;
+  // Ligne 5: Coins arrondis
   border-radius: 0.75rem;
+  // Ligne 6: Texte gras
   font-weight: 600;
+  // Ligne 7: Curseur pointer
   cursor: pointer;
+  // Ligne 8: Transition douce
   transition: $transition;
+  // Ligne 9: Taille de police
   font-size: 1rem;
 
   &:hover {
-    background: $primary-light;
+    // Ligne 1: Couleur plus claire au hover
+    background: var(--primary-light);
+    // Ligne 2: Légère élévation
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba($primary, 0.3);
+    // Ligne 3: Ombre colorée
+    box-shadow: var(--glow-primary);
   }
 }
 
-// ===== STATS CARDS =====
+// ===== CARTES DE STATISTIQUES =====
+
 .stats-cards-grid {
+  // Ligne 1: Grille responsive
   display: grid;
+  // Ligne 2: Colonnes auto-adaptatives (min 280px, max 1fr)
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  // Ligne 3: Espace entre les cartes
   gap: 1.5rem;
+  // Ligne 4: Marge en bas
   margin-bottom: 2rem;
 }
+
 .stats-overview {
+  // Même style que stats-cards-grid (pour compatibilité)
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
@@ -251,508 +379,626 @@ $transition: all 0.3s;
 }
 
 .stat-card {
-  background: $card-bg;
-  border: 2px solid $border;
+  // Ligne 1: Fond de carte
+  background: var(--card-bg);
+  // Ligne 2: Bordure épaisse
+  border: 2px solid var(--border);
+  // Ligne 3: Coins arrondis
   border-radius: 1.25rem;
+  // Ligne 4: Padding interne
   padding: 1.75rem;
+  // Ligne 5-6: Disposition flex horizontale
   display: flex;
   align-items: center;
+  // Ligne 7: Espace entre icône et contenu
   gap: 1.5rem;
+  // Ligne 8: Curseur pointer
   cursor: pointer;
+  // Ligne 9: Transition avec courbe de Bézier personnalisée
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  // Ligne 10: Position relative pour l'effet de brillance
   position: relative;
+  // Ligne 11: Cache le débordement de l'effet
   overflow: hidden;
 
-  // Effet de brillance
+  // Effet de brillance qui traverse la carte
   &::before {
+    // Ligne 1: Pseudo-élément
     content: '';
+    // Ligne 2: Position absolue
     position: absolute;
+    // Ligne 3: En haut de la carte
     top: 0;
+    // Ligne 4: Commence à gauche en dehors
     left: -100%;
+    // Ligne 5-6: Couvre toute la carte
     width: 100%;
     height: 100%;
+    // Ligne 7: Gradient de transparence avec blanc semi-transparent
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    // Ligne 8: Transition de la position
     transition: left 0.5s;
   }
 
+  // Au hover, la brillance traverse de gauche à droite
   &:hover::before {
     left: 100%;
   }
 
   &:hover {
+    // Ligne 1: Remonte et agrandit légèrement
     transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    // Ligne 2: Grande ombre portée
+    box-shadow: var(--shadow-lg);
   }
 
   .stat-icon {
+    // Ligne 1: Grande taille d'icône
     font-size: 3.5rem;
+    // Ligne 2-3: Dimensions fixes
     width: 80px;
     height: 80px;
+    // Ligne 4-6: Centrage de l'icône
     display: flex;
     align-items: center;
     justify-content: center;
+    // Ligne 7: Coins arrondis
     border-radius: 1rem;
+    // Ligne 8: Ne rétrécit pas si manque d'espace
     flex-shrink: 0;
+    // Ligne 9: Transition fluide
     transition: all 0.4s ease;
 
+    // Variantes de couleur avec color-mix pour transparence
     &.icon-primary {
-      background: rgba($primary, 0.15);
+      // color-mix mélange la couleur primaire à 15% avec transparent
+      background: color-mix(in srgb, var(--primary) 15%, transparent);
     }
     &.icon-success {
-      background: rgba($success, 0.15);
+      background: color-mix(in srgb, var(--success) 15%, transparent);
     }
     &.icon-warning {
-      background: rgba($warning, 0.15);
+      background: color-mix(in srgb, var(--warning) 15%, transparent);
     }
     &.icon-info {
-      background: rgba($info, 0.15);
+      background: color-mix(in srgb, var(--info) 15%, transparent);
     }
     &.icon-blue {
-      background: rgba($info, 0.15);
-    }
-    &.icon-info {
-      background: rgba($info, 0.15);
-    }
-    &.icon-blue {
-      background: rgba($info, 0.15);
+      background: color-mix(in srgb, var(--info) 15%, transparent);
     }
     &.icon-yellow {
-      background: rgba($info, 0.15);
+      background: color-mix(in srgb, var(--yellow) 15%, transparent);
     }
-
   }
 
+  // L'icône grossit et tourne légèrement au hover
   &:hover .stat-icon {
     transform: scale(1.15) rotate(5deg);
   }
 
   .stat-number {
+    // Ligne 1: Grand nombre
     font-size: 2rem;
+    // Ligne 2: Très gras
     font-weight: 700;
-    color: $text;
+    // Ligne 3: Couleur du texte
+    color: var(--text);
+    // Ligne 4: Marge en bas
     margin-bottom: 0.5rem;
+    // Ligne 5: Transition
     transition: all 0.3s ease;
   }
 
+  // Le nombre grossit au hover
   &:hover .stat-number {
     transform: scale(1.05);
   }
 
   .stat-description {
-    color: $text-muted;
+    // Ligne 1: Couleur atténuée
+    color: var(--text-muted);
+    // Ligne 2: Petite taille
     font-size: 0.875rem;
   }
 }
 
-// Variantes de couleur
+// ===== VARIANTES DE COULEUR PAR POSITION =====
+
 .stat-card {
+  // Première carte: thème violet
   &:nth-child(1) {
-    border-color: rgba($primary, 0.3);
+    // Bordure semi-transparente
+    border-color: color-mix(in srgb, var(--primary) 30%, transparent);
 
     &:hover {
-      border-color: $primary;
-      background: linear-gradient(135deg, rgba($primary, 0.1), $card-bg);
-      box-shadow: 0 20px 50px rgba($primary, 0.3);
+      // Ligne 1: Bordure opaque
+      border-color: var(--primary);
+      // Ligne 2: Fond avec gradient
+      background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 10%, transparent), var(--card-bg));
+      // Ligne 3: Ombre colorée
+      box-shadow: var(--glow-primary);
 
       .stat-icon {
-        background: rgba($primary, 0.25);
-        box-shadow: 0 10px 30px rgba($primary, 0.4);
+        // Fond plus opaque
+        background: color-mix(in srgb, var(--primary) 25%, transparent);
+        // Ombre lumineuse
+        box-shadow: var(--glow-primary);
       }
 
       .stat-number {
-        color: $primary-light;
+        // Couleur plus claire
+        color: var(--primary-light);
       }
     }
   }
 
+  // Deuxième carte: thème vert
   &:nth-child(2) {
-    border-color: rgba($success, 0.3);
+    border-color: color-mix(in srgb, var(--success) 30%, transparent);
 
     &:hover {
-      border-color: $success;
-      background: linear-gradient(135deg, rgba($success, 0.1), $card-bg);
-      box-shadow: 0 20px 50px rgba($success, 0.3);
+      border-color: var(--success);
+      background: linear-gradient(135deg, color-mix(in srgb, var(--success) 10%, transparent), var(--card-bg));
+      box-shadow: var(--glow-success);
 
       .stat-icon {
-        background: rgba($success, 0.25);
-        box-shadow: 0 10px 30px rgba($success, 0.4);
+        background: color-mix(in srgb, var(--success) 25%, transparent);
+        box-shadow: var(--glow-success);
       }
 
       .stat-number {
-        color: $success;
+        color: var(--success);
       }
     }
   }
 
+  // Troisième carte: thème orange
   &:nth-child(3) {
-    border-color: rgba($warning, 0.3);
+    border-color: color-mix(in srgb, var(--warning) 30%, transparent);
 
     &:hover {
-      border-color: $warning;
-      background: linear-gradient(135deg, rgba($warning, 0.1), $card-bg);
-      box-shadow: 0 20px 50px rgba($warning, 0.3);
+      border-color: var(--warning);
+      background: linear-gradient(135deg, color-mix(in srgb, var(--warning) 10%, transparent), var(--card-bg));
+      box-shadow: 0 20px 50px color-mix(in srgb, var(--warning) 30%, transparent);
 
       .stat-icon {
-        background: rgba($warning, 0.25);
-        box-shadow: 0 10px 30px rgba($warning, 0.4);
+        background: color-mix(in srgb, var(--warning) 25%, transparent);
+        box-shadow: 0 10px 30px color-mix(in srgb, var(--warning) 40%, transparent);
       }
 
       .stat-number {
-        color: $warning;
+        color: var(--warning);
       }
     }
   }
 
+  // Quatrième carte: thème bleu
   &:nth-child(4) {
-    border-color: rgba($info, 0.3);
+    border-color: color-mix(in srgb, var(--info) 30%, transparent);
 
     &:hover {
-      border-color: $info;
-      background: linear-gradient(135deg, rgba($info, 0.1), $card-bg);
-      box-shadow: 0 20px 50px rgba($info, 0.3);
+      border-color: var(--info);
+      background: linear-gradient(135deg, color-mix(in srgb, var(--info) 10%, transparent), var(--card-bg));
+      box-shadow: 0 20px 50px color-mix(in srgb, var(--info) 30%, transparent);
 
       .stat-icon {
-        background: rgba($info, 0.25);
-        box-shadow: 0 10px 30px rgba($info, 0.4);
+        background: color-mix(in srgb, var(--info) 25%, transparent);
+        box-shadow: 0 10px 30px color-mix(in srgb, var(--info) 40%, transparent);
       }
 
       .stat-number {
-        color: $info;
+        color: var(--info);
       }
     }
   }
+
+  // Cinquième carte: thème accent (violet foncé)
   &:nth-child(5) {
-    border-color: rgba($info, 0.3);
+    border-color: color-mix(in srgb, var(--accent) 30%, transparent);
 
     &:hover {
-      border-color: $accent;
-      background: linear-gradient(135deg, rgba($accent, 0.1), $card-bg);
-      box-shadow: 0 20px 50px rgba($accent, 0.3);
+      border-color: var(--accent);
+      background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 10%, transparent), var(--card-bg));
+      box-shadow: 0 20px 50px color-mix(in srgb, var(--accent) 30%, transparent);
 
       .stat-icon {
-        background: rgba($accent, 0.25);
-        box-shadow: 0 10px 30px rgba($accent, 0.4);
+        background: color-mix(in srgb, var(--accent) 25%, transparent);
+        box-shadow: 0 10px 30px color-mix(in srgb, var(--accent) 40%, transparent);
       }
 
       .stat-number {
-        color: $accent;
+        color: var(--accent);
       }
     }
   }
+
+  // Sixième carte: thème jaune
   &:nth-child(6) {
-    border-color: rgba($yellow, 0.3);
+    border-color: color-mix(in srgb, var(--yellow) 30%, transparent);
 
     &:hover {
-      border-color: $yellow;
-      background: linear-gradient(135deg, rgba($yellow, 0.1), $card-bg);
-      box-shadow: 0 20px 50px rgba($yellow, 0.3);
+      border-color: var(--yellow);
+      background: linear-gradient(135deg, color-mix(in srgb, var(--yellow) 10%, transparent), var(--card-bg));
+      box-shadow: 0 20px 50px color-mix(in srgb, var(--yellow) 30%, transparent);
 
       .stat-icon {
-        background: rgba($yellow, 0.25);
-        box-shadow: 0 10px 30px rgba($yellow, 0.4);
+        background: color-mix(in srgb, var(--yellow) 25%, transparent);
+        box-shadow: 0 10px 30px color-mix(in srgb, var(--yellow) 40%, transparent);
       }
 
       .stat-number {
-        color: $yellow;
+        color: var(--yellow);
       }
     }
   }
 }
 
-// ===== PRODUITS POPULAIRES =====
+// ===== GRILLE DE PRODUITS =====
+
 .products-grid {
+  // Ligne 1: Grille CSS
   display: grid;
+  // Ligne 2: Colonnes auto-fill: crée autant de colonnes que possible
+  // minmax(320px, 1fr): minimum 320px, maximum 1 fraction de l'espace
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  // Ligne 3: Espace entre les cartes
   gap: 1.5rem;
+  // Ligne 4: Marge en bas
   margin-bottom: 2rem;
 }
 
 .product-card {
-  background: $card-bg;
-  border: 1px solid $border;
+  // Ligne 1: Fond de carte
+  background: var(--card-bg);
+  // Ligne 2: Bordure fine
+  border: 1px solid var(--border);
+  // Ligne 3: Coins arrondis
   border-radius: 1rem;
+  // Ligne 4: Cache le débordement (pour l'image)
   overflow: hidden;
+  // Ligne 5: Applique le mixin d'effet hover
   @include card-hover;
+  // Ligne 6: Curseur pointer
   cursor: pointer;
 
   &:hover {
-    border-color: $primary;
+    // Change la bordure en primaire au hover
+    border-color: var(--primary);
   }
 }
 
 .product-image {
+  // Ligne 1: Hauteur fixe
   height: 200px;
-  background: linear-gradient(135deg, rgba($primary, 0.1), rgba($accent, 0.1));
+  // Ligne 2: Fond avec gradient de deux couleurs
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--primary) 10%, transparent),
+    color-mix(in srgb, var(--accent) 10%, transparent)
+  );
+  // Ligne 3-6: Centre l'emoji/icône
   display: flex;
   align-items: center;
   justify-content: center;
+  // Ligne 7: Très grande icône
   font-size: 5rem;
+  // Ligne 8: Position relative pour le badge
   position: relative;
-  border-bottom: 1px solid $border;
+  // Ligne 9: Bordure en bas
+  border-bottom: 1px solid var(--border);
 }
 
 .product-badge {
+  // Ligne 1-2: Position absolue en haut à droite
   position: absolute;
   top: 1rem;
   right: 1rem;
+  // Ligne 3: Padding du badge
   padding: 0.5rem 1rem;
+  // Ligne 4: Coins arrondis
   border-radius: 0.5rem;
+  // Ligne 5-7: Style du texte
   font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
 
+  // Badge "HOT" (rouge)
   &.badge-hot {
-    background: rgba($danger, 0.2);
-    color: $danger;
+    background: color-mix(in srgb, var(--danger) 20%, transparent);
+    color: var(--danger);
   }
 
+  // Badge "NEW" (vert)
   &.badge-new {
-    background: rgba($success, 0.2);
-    color: $success;
+    background: color-mix(in srgb, var(--success) 20%, transparent);
+    color: var(--success);
   }
 }
 
 .product-info {
+  // Padding interne de la zone d'info
   padding: 1.5rem;
 }
 
 .product-name {
+  // Ligne 1: Taille de titre
   font-size: 1.2rem;
+  // Ligne 2: Semi-gras
   font-weight: 600;
+  // Ligne 3: Marge en bas
   margin-bottom: 0.5rem;
-  color: $text;
+  // Ligne 4: Couleur du texte
+  color: var(--text);
 }
 
 .product-category {
-  color: $text-muted;
+  // Ligne 1: Couleur atténuée
+  color: var(--text-muted);
+  // Ligne 2: Marge en bas
   margin-bottom: 1rem;
+  // Ligne 3: Taille réduite
   font-size: 0.9rem;
 }
 
 .product-stats {
+  // Ligne 1: Disposition flex
   display: flex;
+  // Ligne 2: Espace entre les éléments (ventes à gauche, prix à droite)
   justify-content: space-between;
+  // Ligne 3: Alignement vertical
   align-items: center;
 }
 
 .product-sales {
+  // Ligne 1: Taille réduite
   font-size: 0.9rem;
-  color: $text-muted;
+  // Ligne 2: Couleur atténuée
+  color: var(--text-muted);
 }
 
 .product-price {
+  // Ligne 1: Grande taille
   font-size: 1.5rem;
+  // Ligne 2: Gras
   font-weight: 700;
-  color: $success;
+  // Ligne 3: Couleur verte (succès)
+  color: var(--success);
 }
 
-// ===== ACTIONS RÉCENTES =====
+// ===== LISTE DES ACTIONS RÉCENTES =====
+
 .actions-list {
-  background: $card-bg;
-  border: 1px solid $border;
+  // Ligne 1: Fond de carte
+  background: var(--card-bg);
+  // Ligne 2: Bordure
+  border: 1px solid var(--border);
+  // Ligne 3: Coins arrondis
   border-radius: 1rem;
+  // Ligne 4: Cache le débordement
   overflow: hidden;
 }
 
 .action-item {
+  // Ligne 1: Disposition flex horizontale
   display: flex;
+  // Ligne 2: Alignement vertical centré
   align-items: center;
+  // Ligne 3: Espace entre icône et texte
   gap: 1rem;
+  // Ligne 4: Padding interne
   padding: 1.5rem;
-  border-bottom: 1px solid $border;
+  // Ligne 5: Bordure entre les items
+  border-bottom: 1px solid var(--border);
+  // Ligne 6: Transition du fond
   transition: background 0.3s;
 
   &:hover {
-    background: $card-hover;
+    // Fond légèrement plus clair au hover
+    background: var(--card-hover);
   }
 
   &:last-child {
+    // Pas de bordure pour le dernier élément
     border-bottom: none;
   }
 }
 
 .action-icon {
+  // Ligne 1-2: Dimensions fixes
   width: 50px;
   height: 50px;
+  // Ligne 3: Forme circulaire
   border-radius: 50%;
+  // Ligne 4-6: Centre l'icône
   display: flex;
   align-items: center;
   justify-content: center;
+  // Ligne 7: Taille de l'icône
   font-size: 1.5rem;
+  // Ligne 8: Ne rétrécit pas
   flex-shrink: 0;
 
+  // Variantes de couleur
   &.success {
-    background: rgba($success, 0.15);
-    color: $success;
+    background: color-mix(in srgb, var(--success) 15%, transparent);
+    color: var(--success);
   }
 
   &.warning {
-    background: rgba($warning, 0.15);
-    color: $warning;
+    background: color-mix(in srgb, var(--warning) 15%, transparent);
+    color: var(--warning);
   }
 
   &.info {
-    background: rgba($info, 0.15);
-    color: $info;
+    background: color-mix(in srgb, var(--info) 15%, transparent);
+    color: var(--info);
   }
 }
 
 .action-content {
+  // Prend tout l'espace disponible
   flex: 1;
 }
 
 .action-title {
+  // Ligne 1: Texte gras
   font-weight: 600;
+  // Ligne 2: Petite marge en bas
   margin-bottom: 0.25rem;
-  color: $text;
+  // Ligne 3: Couleur du texte
+  color: var(--text);
 }
 
 .action-details {
+  // Ligne 1: Taille réduite
   font-size: 0.9rem;
-  color: $text-muted;
+  // Ligne 2: Couleur atténuée
+  color: var(--text-muted);
 }
 
 .action-time {
+  // Ligne 1: Encore plus petit
   font-size: 0.85rem;
-  color: $text-muted;
+  // Ligne 2: Couleur atténuée
+  color: var(--text-muted);
 }
 
-// ===== GRAPHIQUES =====
+// ===== SECTION GRAPHIQUES =====
+
 .charts-section {
-  background: $card-bg;
+  // Ligne 1: Fond de carte
+  background: var(--card-bg);
+  // Ligne 2: Padding généreux
   padding: 2rem;
+  // Ligne 3: Coins arrondis
   border-radius: 1rem;
-  border: 1px solid $border;
+  // Ligne 4: Bordure
+  border: 1px solid var(--border);
+  // Ligne 5: Marge en bas
   margin-bottom: 2rem;
 
   h3 {
-    color: $text;
+    // Ligne 1: Couleur du texte
+    color: var(--text);
+    // Ligne 2: Marge en bas
     margin-bottom: 1.5rem;
+    // Ligne 3: Taille de titre
     font-size: 1.5rem;
   }
 }
 
-// ===== RESPONSIVE =====
-@media (max-width: 1024px) {
-  .contact-container {
-    grid-template-columns: 1fr;
-  }
-
-  .products-grid {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  }
-}
-
-@media (max-width: 768px) {
-  .section-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
-  .featured-drink {
-    flex-direction: column;
-    text-align: center;
-    gap: 2rem;
-  }
-
-  .products-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .carousel-section {
-    padding: 2rem 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .page-section {
-    padding: 1rem;
-  }
-
-  .stat-card {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-
 // ===== ANIMATIONS =====
+
+// Animation d'apparition en fondu
 @keyframes fadeIn {
   from {
+    // Au début: invisible et décalé vers le bas
     opacity: 0;
     transform: translateY(20px);
   }
   to {
+    // À la fin: visible et en position normale
     opacity: 1;
     transform: translateY(0);
   }
 }
 
+// Classe pour appliquer l'animation de fondu
 .fade-in {
   animation: fadeIn 0.5s ease;
 }
 
+// Animation de pulsation
 @keyframes pulse {
+  // Au début et à la fin: opacité normale
   0%, 100% {
     opacity: 1;
   }
+  // Au milieu: semi-transparent
   50% {
     opacity: 0.5;
   }
 }
 
+// Classe pour appliquer la pulsation
 .pulse {
+  // Répète infiniment toutes les 2 secondes
   animation: pulse 2s ease-in-out infinite;
 }
 
-// ===== LOADING STATES =====
+// ===== ÉTATS DE CHARGEMENT =====
+
 .loading-spinner {
-  border: 3px solid $border;
-  border-top: 3px solid $primary;
+  // Ligne 1: Bordure grise
+  border: 3px solid var(--border);
+  // Ligne 2: Bordure supérieure colorée (crée l'effet de rotation)
+  border-top: 3px solid var(--primary);
+  // Ligne 3: Forme circulaire
   border-radius: 50%;
+  // Ligne 4-5: Dimensions
   width: 40px;
   height: 40px;
+  // Ligne 6: Animation de rotation infinie
   animation: spin 1s linear infinite;
+  // Ligne 7: Centre horizontalement avec marge verticale
   margin: 2rem auto;
 }
 
+// Animation de rotation
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
 
+// Effet squelette pour le chargement du contenu
 .skeleton {
-  background: linear-gradient(90deg, $card-bg 25%, lighten($card-bg, 5%) 50%, $card-bg 75%);
+  // Gradient animé qui simule un chargement
+  background: linear-gradient(
+    90deg,
+    var(--card-bg) 25%,
+    color-mix(in srgb, var(--card-bg) 95%, white) 50%,
+    var(--card-bg) 75%
+  );
+  // Ligne 2: Taille du gradient (double pour l'animation)
   background-size: 200% 100%;
+  // Ligne 3: Animation de défilement
   animation: loading 1.5s ease-in-out infinite;
+  // Ligne 4: Coins légèrement arrondis
   border-radius: 4px;
 }
 
+// Animation de chargement (gradient qui se déplace)
 @keyframes loading {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }
 
-// ===== UTILITY CLASSES =====
+// ===== CLASSES UTILITAIRES =====
+
+// Alignement
 .text-center {
   text-align: center;
 }
 
+// Marges supérieures
 .mt-1 { margin-top: 0.5rem; }
 .mt-2 { margin-top: 1rem; }
 .mt-3 { margin-top: 1.5rem; }
 .mt-4 { margin-top: 2rem; }
 
+// Marges inférieures
 .mb-1 { margin-bottom: 0.5rem; }
 .mb-2 { margin-bottom: 1rem; }
 .mb-3 { margin-bottom: 1.5rem; }
 .mb-4 { margin-bottom: 2rem; }
 
+// Paddings
 .p-1 { padding: 0.5rem; }
 .p-2 { padding: 1rem; }
 .p-3 { padding: 1.5rem; }
 .p-4 { padding: 2rem; }
 
+// Flexbox
 .d-flex {
   display: flex;
 }
@@ -765,30 +1011,95 @@ $transition: all 0.3s;
   justify-content: space-between;
 }
 
+// Gaps
 .gap-1 { gap: 0.5rem; }
 .gap-2 { gap: 1rem; }
 .gap-3 { gap: 1.5rem; }
 
+// Couleurs de texte
 .text-primary {
-  color: $primary;
+  color: var(--primary);
 }
 
 .text-secondary {
-  color: $text-muted;
+  color: var(--text-muted);
 }
 
 .text-success {
-  color: $success;
+  color: var(--success);
 }
 
 .text-danger {
-  color: $danger;
+  color: var(--danger);
 }
 
 .text-warning {
-  color: $warning;
+  color: var(--warning);
 }
 
 .text-info {
-  color: $info;
+  color: var(--info);
 }
+
+// ===== RESPONSIVE DESIGN =====
+
+// Écrans moyens (tablettes)
+@media (max-width: 1024px) {
+  .contact-container {
+    // Une seule colonne sur tablette
+    grid-template-columns: 1fr;
+  }
+
+  .products-grid {
+    // Colonnes légèrement plus petites
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+// Petits écrans (mobiles en paysage)
+@media (max-width: 768px) {
+  .section-header {
+    // Ligne 1: En colonne sur mobile
+    flex-direction: column;
+    // Ligne 2: Alignement à gauche
+    align-items: flex-start;
+    // Ligne 3: Espace entre titre et boutons
+    gap: 1rem;
+  }
+
+  .featured-drink {
+    // Ligne 1: En colonne sur mobile
+    flex-direction: column;
+    // Ligne 2: Texte centré
+    text-align: center;
+    // Ligne 3: Réduit l'espace
+    gap: 2rem;
+  }
+
+  .products-grid {
+    // Une seule colonne sur mobile
+    grid-template-columns: 1fr;
+  }
+
+  .carousel-section {
+    // Réduit le padding sur mobile
+    padding: 2rem 1rem;
+  }
+}
+
+// Très petits écrans (mobiles en portrait)
+@media (max-width: 480px) {
+  .page-section {
+    // Réduit encore plus le padding
+    padding: 1rem;
+  }
+
+  .stat-card {
+    // Ligne 1: En colonne pour les très petits écrans
+    flex-direction: column;
+    // Ligne 2: Centre le contenu
+    text-align: center;
+  }
+}
+
+// ===== FIN DU FICHIER =====

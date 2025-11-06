@@ -1,0 +1,132 @@
+<!-- contact.component.html -->
+<div class="page-section">
+  <div class="content-section">
+    <!-- Header -->
+    <div class="section-header">
+      <h1 class="section-title-main">
+        <i class="fas fa-envelope"></i>
+        Contactez-Nous
+      </h1>
+    </div>
+
+    <!-- Contact Container -->
+    <div class="contact-container">
+      <!-- Contact Info -->
+      <div class="contact-info">
+        <h3>Informations de Contact</h3>
+
+        <div class="info-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <div>
+            <strong>Adresse</strong>
+            <p>51 Avenue Kongo<br>Abidjan, ivory coast</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <i class="fas fa-phone"></i>
+          <div>
+            <strong>Téléphone</strong>
+            <p>+225 0799025494</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <i class="fas fa-envelope"></i>
+          <div>
+            <strong>Email</strong>
+            <p>contact@cavemaster.com<br>support@cavemaster.</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <i class="fas fa-clock"></i>
+          <div>
+            <strong>Horaires</strong>
+            <p>Lundi - Vendredi: 8h - 17h<br>Samedi: 9h - 14h<br>Dimanche: Fermé</p>
+          </div>
+        </div>
+
+        <!-- Social Links -->
+        <div class="social-links">
+          <a href="#" class="social-link">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="#" class="social-link">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" class="social-link">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="#" class="social-link">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="contact-form-container">
+        <h3>Envoyez-nous un message</h3>
+
+        <form (ngSubmit)="submitForm()">
+          <div class="form-group">
+            <label for="name">Nom complet *</label>
+            <input
+              type="text"
+              id="name"
+              [(ngModel)]="contactForm.name"
+              name="name"
+              placeholder="Votre nom"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input
+              type="email"
+              id="email"
+              [(ngModel)]="contactForm.email"
+              name="email"
+              placeholder="votre.email@exemple.com"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="subject">Objet *</label>
+            <input
+              type="text"
+              id="subject"
+              [(ngModel)]="contactForm.subject"
+              name="subject"
+              placeholder="Sujet de votre message"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message *</label>
+            <textarea
+              id="message"
+              [(ngModel)]="contactForm.message"
+              name="message"
+              rows="6"
+              placeholder="Décrivez votre demande..."
+              required
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary btn-block btn-large"
+            [disabled]="isSubmitting"
+          >
+            <i class="fas" [ngClass]="isSubmitting ? 'fa-spinner fa-spin' : 'fa-paper-plane'"></i>
+            {{ isSubmitting ? 'Envoi en cours...' : 'Envoyer' }}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

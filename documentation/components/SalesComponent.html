@@ -1,0 +1,1751 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cave-master-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cave-master-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  SalesComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/view/manager-dashboard/sales/sales.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-sales</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>FormsModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./sales.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./sales.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#selectedCave" >selectedCave</a>
+                            </li>
+                            <li>
+                                <a href="#selectedPeriode" >selectedPeriode</a>
+                            </li>
+                            <li>
+                                <a href="#topProduits" >topProduits</a>
+                            </li>
+                            <li>
+                                <a href="#ventesParJour" >ventesParJour</a>
+                            </li>
+                            <li>
+                                <a href="#ventesStats" >ventesStats</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#formatMontant" >formatMontant</a>
+                            </li>
+                            <li>
+                                <a href="#getBarHeight" >getBarHeight</a>
+                            </li>
+                            <li>
+                                <a href="#getMaxVente" >getMaxVente</a>
+                            </li>
+                            <li>
+                                <a href="#getProgressPercent" >getProgressPercent</a>
+                            </li>
+                            <li>
+                                <a href="#loadSalesData" >loadSalesData</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatMontant"></a>
+                    <span class="name">
+                        <span ><b>formatMontant</b></span>
+                        <a href="#formatMontant"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatMontant(montant: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="64"
+                                    class="link-to-prism">src/app/view/manager-dashboard/sales/sales.component.ts:64</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>montant</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getBarHeight"></a>
+                    <span class="name">
+                        <span ><b>getBarHeight</b></span>
+                        <a href="#getBarHeight"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getBarHeight(montant: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="76"
+                                    class="link-to-prism">src/app/view/manager-dashboard/sales/sales.component.ts:76</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>montant</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getMaxVente"></a>
+                    <span class="name">
+                        <span ><b>getMaxVente</b></span>
+                        <a href="#getMaxVente"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getMaxVente()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="72"
+                                    class="link-to-prism">src/app/view/manager-dashboard/sales/sales.component.ts:72</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getProgressPercent"></a>
+                    <span class="name">
+                        <span ><b>getProgressPercent</b></span>
+                        <a href="#getProgressPercent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getProgressPercent()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="68"
+                                    class="link-to-prism">src/app/view/manager-dashboard/sales/sales.component.ts:68</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadSalesData"></a>
+                    <span class="name">
+                        <span ><b>loadSalesData</b></span>
+                        <a href="#loadSalesData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadSalesData()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="60"
+                                    class="link-to-prism">src/app/view/manager-dashboard/sales/sales.component.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="56"
+                                    class="link-to-prism">src/app/view/manager-dashboard/sales/sales.component.ts:56</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedCave"></a>
+                    <span class="name">
+                        <span ><b>selectedCave</b></span>
+                        <a href="#selectedCave"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;all&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/view/manager-dashboard/sales/sales.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedPeriode"></a>
+                    <span class="name">
+                        <span ><b>selectedPeriode</b></span>
+                        <a href="#selectedPeriode"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;jour&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/view/manager-dashboard/sales/sales.component.ts:26</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="topProduits"></a>
+                    <span class="name">
+                        <span ><b>topProduits</b></span>
+                        <a href="#topProduits"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/VenteProduit.html" target="_self" >VenteProduit[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    { nom: &#x27;Hennessy VSOP&#x27;, quantite: 45, ca: 1260000, evolution: 15 },
+    { nom: &#x27;Dom Pérignon&#x27;, quantite: 32, ca: 1440000, evolution: 8 },
+    { nom: &#x27;Moët &amp; Chandon&#x27;, quantite: 28, ca: 980000, evolution: -5 },
+    { nom: &#x27;Heineken&#x27;, quantite: 250, ca: 200000, evolution: 22 },
+    { nom: &#x27;Château Margaux&#x27;, quantite: 18, ca: 324000, evolution: 3 }
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/view/manager-dashboard/sales/sales.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ventesParJour"></a>
+                    <span class="name">
+                        <span ><b>ventesParJour</b></span>
+                        <a href="#ventesParJour"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/VenteParPeriode.html" target="_self" >VenteParPeriode[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    { jour: &#x27;Lun&#x27;, montant: 720000 },
+    { jour: &#x27;Mar&#x27;, montant: 850000 },
+    { jour: &#x27;Mer&#x27;, montant: 680000 },
+    { jour: &#x27;Jeu&#x27;, montant: 920000 },
+    { jour: &#x27;Ven&#x27;, montant: 1150000 },
+    { jour: &#x27;Sam&#x27;, montant: 1380000 },
+    { jour: &#x27;Dim&#x27;, montant: 950000 }
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/view/manager-dashboard/sales/sales.component.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ventesStats"></a>
+                    <span class="name">
+                        <span ><b>ventesStats</b></span>
+                        <a href="#ventesStats"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    caJour: 850000,
+    caObjectif: 1000000,
+    nombreVentes: 34,
+    panierMoyen: 25000,
+    tauxConversion: 78,
+    evolutionCA: 12
+  }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/view/manager-dashboard/sales/sales.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+
+interface VenteProduit {
+  nom: string;
+  quantite: number;
+  ca: number;
+  evolution: number;
+}
+
+interface VenteParPeriode {
+  jour: string;
+  montant: number;
+}
+
+@Component({
+  selector: &#x27;app-sales&#x27;,
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  templateUrl: &#x27;./sales.component.html&#x27;,
+  styleUrls: [&#x27;./sales.component.scss&#x27;]
+})
+export class SalesComponent implements OnInit {
+  selectedPeriode: string &#x3D; &#x27;jour&#x27;;
+  selectedCave: string &#x3D; &#x27;all&#x27;;
+
+  ventesStats &#x3D; {
+    caJour: 850000,
+    caObjectif: 1000000,
+    nombreVentes: 34,
+    panierMoyen: 25000,
+    tauxConversion: 78,
+    evolutionCA: 12
+  };
+
+  topProduits: VenteProduit[] &#x3D; [
+    { nom: &#x27;Hennessy VSOP&#x27;, quantite: 45, ca: 1260000, evolution: 15 },
+    { nom: &#x27;Dom Pérignon&#x27;, quantite: 32, ca: 1440000, evolution: 8 },
+    { nom: &#x27;Moët &amp; Chandon&#x27;, quantite: 28, ca: 980000, evolution: -5 },
+    { nom: &#x27;Heineken&#x27;, quantite: 250, ca: 200000, evolution: 22 },
+    { nom: &#x27;Château Margaux&#x27;, quantite: 18, ca: 324000, evolution: 3 }
+  ];
+
+  ventesParJour: VenteParPeriode[] &#x3D; [
+    { jour: &#x27;Lun&#x27;, montant: 720000 },
+    { jour: &#x27;Mar&#x27;, montant: 850000 },
+    { jour: &#x27;Mer&#x27;, montant: 680000 },
+    { jour: &#x27;Jeu&#x27;, montant: 920000 },
+    { jour: &#x27;Ven&#x27;, montant: 1150000 },
+    { jour: &#x27;Sam&#x27;, montant: 1380000 },
+    { jour: &#x27;Dim&#x27;, montant: 950000 }
+  ];
+
+  ngOnInit(): void {
+    this.loadSalesData();
+  }
+
+  loadSalesData(): void {
+    console.log(&#x27;Loading sales data...&#x27;);
+  }
+
+  formatMontant(montant: number): string {
+    return new Intl.NumberFormat(&#x27;fr-FR&#x27;).format(montant) + &#x27; FCFA&#x27;;
+  }
+
+  getProgressPercent(): number {
+    return (this.ventesStats.caJour / this.ventesStats.caObjectif) * 100;
+  }
+
+  getMaxVente(): number {
+    return Math.max(...this.ventesParJour.map(v &#x3D;&gt; v.montant));
+  }
+
+  getBarHeight(montant: number): number {
+    return (montant / this.getMaxVente()) * 100;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; sales.component.html &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+&lt;section class&#x3D;&quot;content-section&quot;&gt;
+  &lt;div class&#x3D;&quot;section-header&quot;&gt;
+    &lt;div&gt;
+      &lt;h2 class&#x3D;&quot;section-title-main&quot;&gt;Analyse des Ventes&lt;/h2&gt;
+      &lt;p class&#x3D;&quot;section-subtitle&quot;&gt;Suivez vos performances commerciales&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;header-controls&quot;&gt;
+      &lt;select [(ngModel)]&#x3D;&quot;selectedPeriode&quot; class&#x3D;&quot;period-select&quot;&gt;
+        &lt;option value&#x3D;&quot;jour&quot;&gt;Aujourd&#x27;hui&lt;/option&gt;
+        &lt;option value&#x3D;&quot;semaine&quot;&gt;Cette semaine&lt;/option&gt;
+        &lt;option value&#x3D;&quot;mois&quot;&gt;Ce mois&lt;/option&gt;
+        &lt;option value&#x3D;&quot;annee&quot;&gt;Cette année&lt;/option&gt;
+      &lt;/select&gt;
+
+      &lt;select [(ngModel)]&#x3D;&quot;selectedCave&quot; class&#x3D;&quot;cave-select&quot;&gt;
+        &lt;option value&#x3D;&quot;all&quot;&gt;Toutes les caves&lt;/option&gt;
+        &lt;option value&#x3D;&quot;cave-1&quot;&gt;Cave Principale&lt;/option&gt;
+        &lt;option value&#x3D;&quot;cave-2&quot;&gt;Cave Victoria Island&lt;/option&gt;
+        &lt;option value&#x3D;&quot;cave-3&quot;&gt;Cave Ikoyi&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- KPIs principaux --&gt;
+  &lt;div class&#x3D;&quot;kpi-grid&quot;&gt;
+    &lt;div class&#x3D;&quot;kpi-card&quot;&gt;
+      &lt;div class&#x3D;&quot;kpi-icon&quot;&gt;💰&lt;/div&gt;
+      &lt;div class&#x3D;&quot;kpi-content&quot;&gt;
+        &lt;div class&#x3D;&quot;kpi-label&quot;&gt;Chiffre d&#x27;Affaires&lt;/div&gt;
+        &lt;div class&#x3D;&quot;kpi-value&quot;&gt;{{formatMontant(ventesStats.caJour)}}&lt;/div&gt;
+        &lt;div class&#x3D;&quot;kpi-progress&quot;&gt;
+          &lt;div class&#x3D;&quot;kpi-progress-bar&quot; [style.width.%]&#x3D;&quot;getProgressPercent()&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;kpi-target&quot;&gt;Objectif: {{formatMontant(ventesStats.caObjectif)}}&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;kpi-card&quot;&gt;
+      &lt;div class&#x3D;&quot;kpi-icon&quot;&gt;🛒&lt;/div&gt;
+      &lt;div class&#x3D;&quot;kpi-content&quot;&gt;
+        &lt;div class&#x3D;&quot;kpi-label&quot;&gt;Nombre de Ventes&lt;/div&gt;
+        &lt;div class&#x3D;&quot;kpi-value&quot;&gt;{{ventesStats.nombreVentes}}&lt;/div&gt;
+        &lt;div class&#x3D;&quot;kpi-change positive&quot;&gt;+12% vs hier&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;kpi-card&quot;&gt;
+      &lt;div class&#x3D;&quot;kpi-icon&quot;&gt;💳&lt;/div&gt;
+      &lt;div class&#x3D;&quot;kpi-content&quot;&gt;
+        &lt;div class&#x3D;&quot;kpi-label&quot;&gt;Panier Moyen&lt;/div&gt;
+        &lt;div class&#x3D;&quot;kpi-value&quot;&gt;{{formatMontant(ventesStats.panierMoyen)}}&lt;/div&gt;
+        &lt;div class&#x3D;&quot;kpi-change positive&quot;&gt;+8% vs hier&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;kpi-card&quot;&gt;
+      &lt;div class&#x3D;&quot;kpi-icon&quot;&gt;📊&lt;/div&gt;
+      &lt;div class&#x3D;&quot;kpi-content&quot;&gt;
+        &lt;div class&#x3D;&quot;kpi-label&quot;&gt;Taux de Conversion&lt;/div&gt;
+        &lt;div class&#x3D;&quot;kpi-value&quot;&gt;{{ventesStats.tauxConversion}}%&lt;/div&gt;
+        &lt;div class&#x3D;&quot;kpi-change negative&quot;&gt;-2% vs hier&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Graphique des ventes --&gt;
+  &lt;div class&#x3D;&quot;chart-section&quot;&gt;
+    &lt;div class&#x3D;&quot;chart-card&quot;&gt;
+      &lt;div class&#x3D;&quot;chart-header&quot;&gt;
+        &lt;h3&gt;📈 Évolution des Ventes&lt;/h3&gt;
+        &lt;div class&#x3D;&quot;chart-legend&quot;&gt;
+          &lt;span class&#x3D;&quot;legend-item&quot;&gt;
+            &lt;span class&#x3D;&quot;legend-dot primary&quot;&gt;&lt;/span&gt;
+            Ventes
+          &lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;chart-body&quot;&gt;
+        &lt;div class&#x3D;&quot;bar-chart&quot;&gt;
+          &lt;div class&#x3D;&quot;bar-chart-wrapper&quot;&gt;
+            &lt;div *ngFor&#x3D;&quot;let vente of ventesParJour&quot; class&#x3D;&quot;bar-item&quot;&gt;
+              &lt;div class&#x3D;&quot;bar-tooltip&quot;&gt;{{formatMontant(vente.montant)}}&lt;/div&gt;
+              &lt;div class&#x3D;&quot;bar&quot; [style.height.%]&#x3D;&quot;getBarHeight(vente.montant)&quot;&gt;&lt;/div&gt;
+              &lt;div class&#x3D;&quot;bar-label&quot;&gt;{{vente.jour}}&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Top produits et catégories --&gt;
+  &lt;div class&#x3D;&quot;products-section&quot;&gt;
+    &lt;div class&#x3D;&quot;products-card&quot;&gt;
+      &lt;div class&#x3D;&quot;products-header&quot;&gt;
+        &lt;h3&gt;🏆 Top 5 Produits&lt;/h3&gt;
+        &lt;button class&#x3D;&quot;btn-export&quot;&gt;📥 Exporter&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;products-body&quot;&gt;
+        &lt;div class&#x3D;&quot;products-table&quot;&gt;
+          &lt;div class&#x3D;&quot;table-header&quot;&gt;
+            &lt;div class&#x3D;&quot;table-cell&quot;&gt;Produit&lt;/div&gt;
+            &lt;div class&#x3D;&quot;table-cell&quot;&gt;Quantité&lt;/div&gt;
+            &lt;div class&#x3D;&quot;table-cell&quot;&gt;CA&lt;/div&gt;
+            &lt;div class&#x3D;&quot;table-cell&quot;&gt;Évolution&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div *ngFor&#x3D;&quot;let produit of topProduits; let i &#x3D; index&quot; class&#x3D;&quot;table-row&quot;&gt;
+            &lt;div class&#x3D;&quot;table-cell&quot;&gt;
+              &lt;div class&#x3D;&quot;product-rank&quot;&gt;{{i + 1}}&lt;/div&gt;
+              &lt;div class&#x3D;&quot;product-name&quot;&gt;{{produit.nom}}&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;table-cell&quot;&gt;{{produit.quantite}}&lt;/div&gt;
+            &lt;div class&#x3D;&quot;table-cell&quot;&gt;{{formatMontant(produit.ca)}}&lt;/div&gt;
+            &lt;div class&#x3D;&quot;table-cell&quot;&gt;
+              &lt;span class&#x3D;&quot;evolution-badge&quot; [class.positive]&#x3D;&quot;produit.evolution &gt; 0&quot; [class.negative]&#x3D;&quot;produit.evolution &lt; 0&quot;&gt;
+                {{produit.evolution &gt; 0 ? &#x27;+&#x27; : &#x27;&#x27;}}{{produit.evolution}}%
+              &lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Répartition par catégorie --&gt;
+    &lt;div class&#x3D;&quot;category-card&quot;&gt;
+      &lt;div class&#x3D;&quot;category-header&quot;&gt;
+        &lt;h3&gt;📊 Répartition par Catégorie&lt;/h3&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;category-body&quot;&gt;
+        &lt;div class&#x3D;&quot;category-item&quot;&gt;
+          &lt;div class&#x3D;&quot;category-info&quot;&gt;
+            &lt;span class&#x3D;&quot;category-icon&quot;&gt;🍾&lt;/span&gt;
+            &lt;span class&#x3D;&quot;category-name&quot;&gt;Champagne&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;category-stats&quot;&gt;
+            &lt;div class&#x3D;&quot;category-amount&quot;&gt;2 420 000 FCFA&lt;/div&gt;
+            &lt;div class&#x3D;&quot;category-progress&quot;&gt;
+              &lt;div class&#x3D;&quot;category-bar&quot; style&#x3D;&quot;width: 65%&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;category-percent&quot;&gt;35%&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;category-item&quot;&gt;
+          &lt;div class&#x3D;&quot;category-info&quot;&gt;
+            &lt;span class&#x3D;&quot;category-icon&quot;&gt;🥃&lt;/span&gt;
+            &lt;span class&#x3D;&quot;category-name&quot;&gt;Spiritueux&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;category-stats&quot;&gt;
+            &lt;div class&#x3D;&quot;category-amount&quot;&gt;1 260 000 FCFA&lt;/div&gt;
+            &lt;div class&#x3D;&quot;category-progress&quot;&gt;
+              &lt;div class&#x3D;&quot;category-bar&quot; style&#x3D;&quot;width: 45%&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;category-percent&quot;&gt;28%&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;category-item&quot;&gt;
+          &lt;div class&#x3D;&quot;category-info&quot;&gt;
+            &lt;span class&#x3D;&quot;category-icon&quot;&gt;🍷&lt;/span&gt;
+            &lt;span class&#x3D;&quot;category-name&quot;&gt;Vin&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;category-stats&quot;&gt;
+            &lt;div class&#x3D;&quot;category-amount&quot;&gt;980 000 FCFA&lt;/div&gt;
+            &lt;div class&#x3D;&quot;category-progress&quot;&gt;
+              &lt;div class&#x3D;&quot;category-bar&quot; style&#x3D;&quot;width: 35%&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;category-percent&quot;&gt;22%&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;category-item&quot;&gt;
+          &lt;div class&#x3D;&quot;category-info&quot;&gt;
+            &lt;span class&#x3D;&quot;category-icon&quot;&gt;🍺&lt;/span&gt;
+            &lt;span class&#x3D;&quot;category-name&quot;&gt;Bière&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;category-stats&quot;&gt;
+            &lt;div class&#x3D;&quot;category-amount&quot;&gt;420 000 FCFA&lt;/div&gt;
+            &lt;div class&#x3D;&quot;category-progress&quot;&gt;
+              &lt;div class&#x3D;&quot;category-bar&quot; style&#x3D;&quot;width: 25%&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;category-percent&quot;&gt;12%&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;category-item&quot;&gt;
+          &lt;div class&#x3D;&quot;category-info&quot;&gt;
+            &lt;span class&#x3D;&quot;category-icon&quot;&gt;🥤&lt;/span&gt;
+            &lt;span class&#x3D;&quot;category-name&quot;&gt;Soft Drinks&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;category-stats&quot;&gt;
+            &lt;div class&#x3D;&quot;category-amount&quot;&gt;120 000 FCFA&lt;/div&gt;
+            &lt;div class&#x3D;&quot;category-progress&quot;&gt;
+              &lt;div class&#x3D;&quot;category-bar&quot; style&#x3D;&quot;width: 15%&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;category-percent&quot;&gt;3%&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Statistiques complémentaires --&gt;
+  &lt;div class&#x3D;&quot;additional-stats&quot;&gt;
+    &lt;div class&#x3D;&quot;stat-card-small&quot;&gt;
+      &lt;div class&#x3D;&quot;stat-small-icon&quot;&gt;⏰&lt;/div&gt;
+      &lt;div class&#x3D;&quot;stat-small-content&quot;&gt;
+        &lt;div class&#x3D;&quot;stat-small-label&quot;&gt;Heure de Pointe&lt;/div&gt;
+        &lt;div class&#x3D;&quot;stat-small-value&quot;&gt;14h - 18h&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;stat-card-small&quot;&gt;
+      &lt;div class&#x3D;&quot;stat-small-icon&quot;&gt;👥&lt;/div&gt;
+      &lt;div class&#x3D;&quot;stat-small-content&quot;&gt;
+        &lt;div class&#x3D;&quot;stat-small-label&quot;&gt;Clients Uniques&lt;/div&gt;
+        &lt;div class&#x3D;&quot;stat-small-value&quot;&gt;28&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;stat-card-small&quot;&gt;
+      &lt;div class&#x3D;&quot;stat-small-icon&quot;&gt;🔄&lt;/div&gt;
+      &lt;div class&#x3D;&quot;stat-small-content&quot;&gt;
+        &lt;div class&#x3D;&quot;stat-small-label&quot;&gt;Clients Récurrents&lt;/div&gt;
+        &lt;div class&#x3D;&quot;stat-small-value&quot;&gt;18 (64%)&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;stat-card-small&quot;&gt;
+      &lt;div class&#x3D;&quot;stat-small-icon&quot;&gt;⭐&lt;/div&gt;
+      &lt;div class&#x3D;&quot;stat-small-content&quot;&gt;
+        &lt;div class&#x3D;&quot;stat-small-label&quot;&gt;Ventes VIP&lt;/div&gt;
+        &lt;div class&#x3D;&quot;stat-small-value&quot;&gt;6 (18%)&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+*/
+
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./sales.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; RÉINITIALISATION &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+// Le * signifie &quot;tous les éléments&quot;
+// On réinitialise les marges et espacements par défaut du navigateur
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; // La largeur inclut padding et border
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; STYLES DE BASE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+body {
+  font-family: -apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, sans-serif;
+  // linear-gradient crée un dégradé de couleurs pour le fond
+  background: linear-gradient(135deg, #000000 0%, #0a0f1e 50%, #111827 100%);
+  color: white;
+}
+
+.content-section {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  color: var(--text);
+}
+
+.section-header {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.section-title-main {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.header-controls {
+  display: flex;
+  gap: 1rem;
+}
+
+.period-select,
+.cave-select {
+  padding: 0.75rem 1rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  color: var(--text);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &amp;:hover {
+    border-color: var(--primary);
+  }
+
+  &amp;:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+  }
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.kpi-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  transition: all 0.3s;
+
+  &amp;:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    border-color: var(--primary);
+  }
+}
+
+.kpi-icon {
+  font-size: 2.5rem;
+  width: 70px;
+  height: 70px;
+  background: rgba(139, 92, 246, 0.15);
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.kpi-content {
+  flex: 1;
+}
+
+.kpi-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.kpi-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.kpi-progress {
+  width: 100%;
+  height: 6px;
+  background: var(--darker-bg);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.kpi-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--success), #14f195);
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+.kpi-target {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.kpi-change {
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.5rem;
+  display: inline-block;
+
+  &amp;.positive {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--success);
+  }
+
+  &amp;.negative {
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--danger);
+  }
+}
+
+.chart-section {
+  margin-bottom: 2rem;
+}
+
+.chart-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.chart-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+}
+
+.chart-legend {
+  display: flex;
+  gap: 1rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+
+  &amp;.primary {
+    background: var(--primary);
+  }
+}
+
+.chart-body {
+  padding: 2rem 1.5rem;
+}
+
+.bar-chart {
+  width: 100%;
+  height: 300px;
+}
+
+.bar-chart-wrapper {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  height: 100%;
+  gap: 1rem;
+}
+
+.bar-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.bar-tooltip {
+  position: absolute;
+  top: -30px;
+  background: var(--card-hover);
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.bar-item:hover .bar-tooltip {
+  opacity: 1;
+}
+
+.bar {
+  width: 100%;
+  background: linear-gradient(180deg, var(--primary), var(--primary-light));
+  border-radius: 0.5rem 0.5rem 0 0;
+  transition: all 0.3s;
+  min-height: 20px;
+}
+
+.bar-item:hover .bar {
+  background: linear-gradient(180deg, var(--primary-light), var(--primary));
+  transform: scaleY(1.05);
+}
+
+.bar-label {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.products-section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.products-card,
+.category-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.products-header,
+.category-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+}
+
+.btn-export {
+  padding: 0.5rem 1rem;
+  background: rgba(139, 92, 246, 0.15);
+  border: 1px solid var(--primary);
+  border-radius: 0.5rem;
+  color: var(--primary-light);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.3s;
+
+  &amp;:hover {
+    background: var(--primary);
+    color: white;
+  }
+}
+
+.products-body,
+.category-body {
+  padding: 1.5rem;
+}
+
+.products-table {
+  width: 100%;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr 1fr;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--darker-bg);
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.table-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border);
+  transition: all 0.3s;
+
+  &amp;:hover {
+    background: var(--card-hover);
+    border-radius: 0.5rem;
+  }
+
+  &amp;:last-child {
+    border-bottom: none;
+  }
+}
+
+.table-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.product-rank {
+  width: 30px;
+  height: 30px;
+  background: rgba(139, 92, 246, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--primary-light);
+  flex-shrink: 0;
+}
+
+.product-name {
+  font-weight: 600;
+}
+
+.evolution-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  &amp;.positive {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--success);
+  }
+
+  &amp;.negative {
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--danger);
+  }
+}
+
+.category-item {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+
+  &amp;:last-child {
+    border-bottom: none;
+  }
+}
+
+.category-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.category-icon {
+  font-size: 1.5rem;
+}
+
+.category-name {
+  font-weight: 600;
+}
+
+.category-stats {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.category-amount {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  min-width: 150px;
+}
+
+.category-progress {
+  flex: 1;
+  height: 6px;
+  background: var(--darker-bg);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.category-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--primary-light));
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+.category-percent {
+  font-weight: 700;
+  color: var(--primary-light);
+  min-width: 40px;
+  text-align: right;
+}
+
+.additional-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.stat-card-small {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.3s;
+
+  &amp;:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    border-color: var(--primary);
+  }
+}
+
+.stat-small-icon {
+  font-size: 2rem;
+  width: 50px;
+  height: 50px;
+  background: rgba(139, 92, 246, 0.15);
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stat-small-content {
+  flex: 1;
+}
+
+.stat-small-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.stat-small-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+@media (max-width: 1024px) {
+  .products-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .kpi-grid,
+  .additional-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .table-header,
+  .table-row {
+    grid-template-columns: 2fr 1fr 1.5fr 1fr;
+    font-size: 0.75rem;
+  }
+
+  .header-controls {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .period-select,
+  .cave-select {
+    width: 100%;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div>// ===== sales.component.html =====<section class="content-section">  <div class="section-header">    <div>      <h2 class="section-title-main">Analyse des Ventes</h2>      <p class="section-subtitle">Suivez vos performances commerciales</p>    </div>    <div class="header-controls">      <select [(ngModel)]="selectedPeriode" class="period-select">        <option value="jour">Aujourd\'hui</option>        <option value="semaine">Cette semaine</option>        <option value="mois">Ce mois</option>        <option value="annee">Cette année</option>      </select>      <select [(ngModel)]="selectedCave" class="cave-select">        <option value="all">Toutes les caves</option>        <option value="cave-1">Cave Principale</option>        <option value="cave-2">Cave Victoria Island</option>        <option value="cave-3">Cave Ikoyi</option>      </select>    </div>  </div>  <!-- KPIs principaux -->  <div class="kpi-grid">    <div class="kpi-card">      <div class="kpi-icon">💰</div>      <div class="kpi-content">        <div class="kpi-label">Chiffre d\'Affaires</div>        <div class="kpi-value">{{formatMontant(ventesStats.caJour)}}</div>        <div class="kpi-progress">          <div class="kpi-progress-bar" [style.width.%]="getProgressPercent()"></div>        </div>        <div class="kpi-target">Objectif: {{formatMontant(ventesStats.caObjectif)}}</div>      </div>    </div>    <div class="kpi-card">      <div class="kpi-icon">🛒</div>      <div class="kpi-content">        <div class="kpi-label">Nombre de Ventes</div>        <div class="kpi-value">{{ventesStats.nombreVentes}}</div>        <div class="kpi-change positive">+12% vs hier</div>      </div>    </div>    <div class="kpi-card">      <div class="kpi-icon">💳</div>      <div class="kpi-content">        <div class="kpi-label">Panier Moyen</div>        <div class="kpi-value">{{formatMontant(ventesStats.panierMoyen)}}</div>        <div class="kpi-change positive">+8% vs hier</div>      </div>    </div>    <div class="kpi-card">      <div class="kpi-icon">📊</div>      <div class="kpi-content">        <div class="kpi-label">Taux de Conversion</div>        <div class="kpi-value">{{ventesStats.tauxConversion}}%</div>        <div class="kpi-change negative">-2% vs hier</div>      </div>    </div>  </div>  <!-- Graphique des ventes -->  <div class="chart-section">    <div class="chart-card">      <div class="chart-header">        <h3>📈 Évolution des Ventes</h3>        <div class="chart-legend">          <span class="legend-item">            <span class="legend-dot primary"></span>            Ventes          </span>        </div>      </div>      <div class="chart-body">        <div class="bar-chart">          <div class="bar-chart-wrapper">            <div *ngFor="let vente of ventesParJour" class="bar-item">              <div class="bar-tooltip">{{formatMontant(vente.montant)}}</div>              <div class="bar" [style.height.%]="getBarHeight(vente.montant)"></div>              <div class="bar-label">{{vente.jour}}</div>            </div>          </div>        </div>      </div>    </div>  </div>  <!-- Top produits et catégories -->  <div class="products-section">    <div class="products-card">      <div class="products-header">        <h3>🏆 Top 5 Produits</h3>        <button class="btn-export">📥 Exporter</button>      </div>      <div class="products-body">        <div class="products-table">          <div class="table-header">            <div class="table-cell">Produit</div>            <div class="table-cell">Quantité</div>            <div class="table-cell">CA</div>            <div class="table-cell">Évolution</div>          </div>          <div *ngFor="let produit of topProduits; let i = index" class="table-row">            <div class="table-cell">              <div class="product-rank">{{i + 1}}</div>              <div class="product-name">{{produit.nom}}</div>            </div>            <div class="table-cell">{{produit.quantite}}</div>            <div class="table-cell">{{formatMontant(produit.ca)}}</div>            <div class="table-cell">              <span class="evolution-badge" [class.positive]="produit.evolution > 0" [class.negative]="produit.evolution < 0">                {{produit.evolution > 0 ? \'+\' : \'\'}}{{produit.evolution}}%              </span>            </div>          </div>        </div>      </div>    </div>    <!-- Répartition par catégorie -->    <div class="category-card">      <div class="category-header">        <h3>📊 Répartition par Catégorie</h3>      </div>      <div class="category-body">        <div class="category-item">          <div class="category-info">            <span class="category-icon">🍾</span>            <span class="category-name">Champagne</span>          </div>          <div class="category-stats">            <div class="category-amount">2 420 000 FCFA</div>            <div class="category-progress">              <div class="category-bar" style="width: 65%"></div>            </div>            <div class="category-percent">35%</div>          </div>        </div>        <div class="category-item">          <div class="category-info">            <span class="category-icon">🥃</span>            <span class="category-name">Spiritueux</span>          </div>          <div class="category-stats">            <div class="category-amount">1 260 000 FCFA</div>            <div class="category-progress">              <div class="category-bar" style="width: 45%"></div>            </div>            <div class="category-percent">28%</div>          </div>        </div>        <div class="category-item">          <div class="category-info">            <span class="category-icon">🍷</span>            <span class="category-name">Vin</span>          </div>          <div class="category-stats">            <div class="category-amount">980 000 FCFA</div>            <div class="category-progress">              <div class="category-bar" style="width: 35%"></div>            </div>            <div class="category-percent">22%</div>          </div>        </div>        <div class="category-item">          <div class="category-info">            <span class="category-icon">🍺</span>            <span class="category-name">Bière</span>          </div>          <div class="category-stats">            <div class="category-amount">420 000 FCFA</div>            <div class="category-progress">              <div class="category-bar" style="width: 25%"></div>            </div>            <div class="category-percent">12%</div>          </div>        </div>        <div class="category-item">          <div class="category-info">            <span class="category-icon">🥤</span>            <span class="category-name">Soft Drinks</span>          </div>          <div class="category-stats">            <div class="category-amount">120 000 FCFA</div>            <div class="category-progress">              <div class="category-bar" style="width: 15%"></div>            </div>            <div class="category-percent">3%</div>          </div>        </div>      </div>    </div>  </div>  <!-- Statistiques complémentaires -->  <div class="additional-stats">    <div class="stat-card-small">      <div class="stat-small-icon">⏰</div>      <div class="stat-small-content">        <div class="stat-small-label">Heure de Pointe</div>        <div class="stat-small-value">14h - 18h</div>      </div>    </div>    <div class="stat-card-small">      <div class="stat-small-icon">👥</div>      <div class="stat-small-content">        <div class="stat-small-label">Clients Uniques</div>        <div class="stat-small-value">28</div>      </div>    </div>    <div class="stat-card-small">      <div class="stat-small-icon">🔄</div>      <div class="stat-small-content">        <div class="stat-small-label">Clients Récurrents</div>        <div class="stat-small-value">18 (64%)</div>      </div>    </div>    <div class="stat-card-small">      <div class="stat-small-icon">⭐</div>      <div class="stat-small-content">        <div class="stat-small-label">Ventes VIP</div>        <div class="stat-small-value">6 (18%)</div>      </div>    </div>  </div></section>*/</div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AdminDashboardComponent', 'selector': 'app-admin-dashboard'},{'name': 'AlertsComponent', 'selector': 'app-alerts'},{'name': 'App', 'selector': 'app-root'},{'name': 'CaisseComponent', 'selector': 'app-caisse'},{'name': 'CaveCreateComponent', 'selector': 'app-cave-create'},{'name': 'CaveListComponent', 'selector': 'app-cave-lists'},{'name': 'ClientDashboardComponent', 'selector': 'app-client-dashboard'},{'name': 'ClientsComponent', 'selector': 'app-client'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DrinksComponent', 'selector': 'app-drinks'},{'name': 'EmployeesComponent', 'selector': 'app-employees'},{'name': 'EntriesComponent', 'selector': 'app-entries'},{'name': 'ExitsComponent', 'selector': 'app-exits'},{'name': 'ExpenseComponent', 'selector': 'app-depenses'},{'name': 'FaqComponent', 'selector': 'app-faq'},{'name': 'FournisseursComponent', 'selector': 'app-fournisseur'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'ImprovementsComponent', 'selector': 'app-improvements'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ManagerDashboardComponent', 'selector': 'app-manager-dashboard'},{'name': 'ManagersComponent', 'selector': 'app-managers'},{'name': 'MaterialComponent', 'selector': 'app-materiel'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'OrdersComponent', 'selector': 'app-orders'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfitComponent', 'selector': 'app-profit'},{'name': 'RecentActionsComponent', 'selector': 'app-recent-actions'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'SalesComponent', 'selector': 'app-sales'},{'name': 'ScanComponent', 'selector': 'app-scan'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'StockComponent', 'selector': 'app-stock'},{'name': 'StockComponent', 'selector': 'app-stock'},{'name': 'TeamComponent', 'selector': 'app-team'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'UserCreateComponent', 'selector': 'app-user-create'},{'name': 'UserListComponent', 'selector': 'app-user-list'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'WaitressDashboardComponent', 'selector': 'app-waitress-dashboard'},{'name': 'WinePairingComponent', 'selector': 'app-wine-pairing'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'SalesComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'SalesComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

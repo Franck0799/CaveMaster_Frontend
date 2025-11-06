@@ -1,0 +1,926 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cave-master-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cave-master-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  Availability</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/view/admin-dashboard/managers/managers.component.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Interface pour la disponibilité actuelle</p>
+
+            </p>
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#heureArrivee" 
+>
+                                            heureArrivee
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#heureDepart" 
+>
+                                            heureDepart
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#lastUpdate" 
+>
+                                            lastUpdate
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#status" 
+>
+                                            status
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="heureArrivee"></a>
+                                        <span class="name "><b>heureArrivee</b>
+                                            <a href="#heureArrivee">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>heureArrivee:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="heureDepart"></a>
+                                        <span class="name "><b>heureDepart</b>
+                                            <a href="#heureDepart">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>heureDepart:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="lastUpdate"></a>
+                                        <span class="name "><b>lastUpdate</b>
+                                            <a href="#lastUpdate">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>lastUpdate:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="status"></a>
+                                        <span class="name "><b>status</b>
+                                            <a href="#status">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>status:     <code>&quot;présent&quot; | &quot;absent&quot; | &quot;congé&quot;</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>&quot;présent&quot; | &quot;absent&quot; | &quot;congé&quot;</code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule, ReactiveFormsModule } from &#x27;@angular/forms&#x27;;
+
+/**
+ * Interface pour l&#x27;historique de disponibilité
+ */
+interface AvailabilityHistory {
+  date: string;
+  status: &#x27;présent&#x27; | &#x27;absent&#x27; | &#x27;congé&#x27;;
+  heureArrivee?: string;
+  heureDepart?: string;
+  duree?: string;
+}
+
+/**
+ * Interface pour la disponibilité actuelle
+ */
+interface Availability {
+  status: &#x27;présent&#x27; | &#x27;absent&#x27; | &#x27;congé&#x27;;
+  heureArrivee?: string;
+  heureDepart?: string;
+  lastUpdate: string;
+}
+
+/**
+ * Interface pour un employé rattaché à un manager
+ */
+interface Employee {
+  id: string;
+  avatar: string;
+  name: string;
+  position: string;
+  ventes: string;
+  heures: string;
+}
+
+/**
+ * Interface pour définir la structure d&#x27;un manager
+ */
+interface Manager {
+  id: string;
+  avatar: string;
+  name: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  role: string;
+  performance: {
+    ventes: string;
+    equipe: string;
+    satisfaction: string;
+  };
+  employees: Employee[];
+  showEmployees?: boolean;
+  caveId?: string;
+  availability: Availability;
+  availabilityHistory: AvailabilityHistory[];
+}
+
+/**
+ * Interface pour le formulaire d&#x27;ajout de manager
+ */
+interface NewManagerForm {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  caveId: string;
+  role: string;
+}
+
+@Component({
+  selector: &#x27;app-managers&#x27;,
+  standalone: true,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  templateUrl: &#x27;./managers.component.html&#x27;,
+  styleUrls: [&#x27;./managers.component.scss&#x27;]
+})
+export class ManagersComponent implements OnInit {
+
+  // Liste de tous les managers avec disponibilité
+  managers: Manager[] &#x3D; [
+    {
+      id: &#x27;1&#x27;,
+      avatar: &#x27;👨‍💼&#x27;,
+      firstName: &#x27;Jaures&#x27;,
+      lastName: &#x27;Nguessan&#x27;,
+      name: &#x27;Jaures Nguessan&#x27;,
+      email: &#x27;jaures.nguessan@caveviking.com&#x27;,
+      phone: &#x27;+234 801 111 2222&#x27;,
+      role: &#x27;Manager Principal&#x27;,
+      performance: {
+        ventes: &#x27;1.2M FCFA&#x27;,
+        equipe: &#x27;8 personnes&#x27;,
+        satisfaction: &#x27;4.8/5&#x27;
+      },
+      employees: [
+        {
+          id: &#x27;emp1&#x27;,
+          avatar: &#x27;👨&#x27;,
+          name: &#x27;Marc Kouassi&#x27;,
+          position: &#x27;Vendeur&#x27;,
+          ventes: &#x27;250K&#x27;,
+          heures: &#x27;160h&#x27;
+        },
+        {
+          id: &#x27;emp2&#x27;,
+          avatar: &#x27;👩&#x27;,
+          name: &#x27;Sophie Diallo&#x27;,
+          position: &#x27;Caissière&#x27;,
+          ventes: &#x27;180K&#x27;,
+          heures: &#x27;155h&#x27;
+        }
+      ],
+      showEmployees: false,
+      availability: {
+        status: &#x27;présent&#x27;,
+        heureArrivee: &#x27;07:45&#x27;,
+        heureDepart: &#x27;18:30&#x27;,
+        lastUpdate: &#x27;2025-01-27T07:45:00&#x27;
+      },
+      availabilityHistory: [
+        { date: &#x27;2025-01-27&#x27;, status: &#x27;présent&#x27;, heureArrivee: &#x27;07:45&#x27;, heureDepart: &#x27;18:30&#x27;, duree: &#x27;10h45&#x27; },
+        { date: &#x27;2025-01-26&#x27;, status: &#x27;présent&#x27;, heureArrivee: &#x27;07:50&#x27;, heureDepart: &#x27;18:00&#x27;, duree: &#x27;10h10&#x27; },
+        { date: &#x27;2025-01-25&#x27;, status: &#x27;présent&#x27;, heureArrivee: &#x27;07:40&#x27;, heureDepart: &#x27;18:15&#x27;, duree: &#x27;10h35&#x27; },
+        { date: &#x27;2025-01-24&#x27;, status: &#x27;absent&#x27;, heureArrivee: &#x27;-&#x27;, heureDepart: &#x27;-&#x27;, duree: &#x27;-&#x27; }
+      ]
+    },
+    {
+      id: &#x27;2&#x27;,
+      avatar: &#x27;👩‍💼&#x27;,
+      firstName: &#x27;Patricia&#x27;,
+      lastName: &#x27;Sagou&#x27;,
+      name: &#x27;Patricia Sagou&#x27;,
+      email: &#x27;patricia.sagou@caveviking.com&#x27;,
+      phone: &#x27;+234 802 333 4444&#x27;,
+      role: &#x27;Manager&#x27;,
+      performance: {
+        ventes: &#x27;980K FCFA&#x27;,
+        equipe: &#x27;6 personnes&#x27;,
+        satisfaction: &#x27;4.6/5&#x27;
+      },
+      employees: [
+        {
+          id: &#x27;emp3&#x27;,
+          avatar: &#x27;👨&#x27;,
+          name: &#x27;Paul Mensah&#x27;,
+          position: &#x27;Magasinier&#x27;,
+          ventes: &#x27;150K&#x27;,
+          heures: &#x27;165h&#x27;
+        }
+      ],
+      showEmployees: false,
+      availability: {
+        status: &#x27;congé&#x27;,
+        lastUpdate: &#x27;2025-01-25T00:00:00&#x27;
+      },
+      availabilityHistory: [
+        { date: &#x27;2025-01-27&#x27;, status: &#x27;congé&#x27;, heureArrivee: &#x27;-&#x27;, heureDepart: &#x27;-&#x27;, duree: &#x27;-&#x27; },
+        { date: &#x27;2025-01-26&#x27;, status: &#x27;congé&#x27;, heureArrivee: &#x27;-&#x27;, heureDepart: &#x27;-&#x27;, duree: &#x27;-&#x27; },
+        { date: &#x27;2025-01-25&#x27;, status: &#x27;présent&#x27;, heureArrivee: &#x27;08:00&#x27;, heureDepart: &#x27;17:30&#x27;, duree: &#x27;9h30&#x27; },
+        { date: &#x27;2025-01-24&#x27;, status: &#x27;présent&#x27;, heureArrivee: &#x27;08:10&#x27;, heureDepart: &#x27;17:45&#x27;, duree: &#x27;9h35&#x27; }
+      ]
+    }
+  ];
+
+  // Modals
+  isAddManagerModalOpen: boolean &#x3D; false;
+  isEditManagerModalOpen: boolean &#x3D; false;
+  isViewDetailsModalOpen: boolean &#x3D; false;
+  isViewHistoryModalOpen: boolean &#x3D; false;
+
+  // Manager sélectionné pour les modals
+  selectedManager: Manager | null &#x3D; null;
+
+  // Formulaire pour nouveau manager
+  newManagerForm: NewManagerForm &#x3D; {
+    firstName: &#x27;&#x27;,
+    lastName: &#x27;&#x27;,
+    email: &#x27;&#x27;,
+    phone: &#x27;&#x27;,
+    caveId: &#x27;&#x27;,
+    role: &#x27;Manager&#x27;
+  };
+
+  // Formulaire d&#x27;édition
+  editManagerForm: Manager | null &#x3D; null;
+
+  // Liste des caves
+  caves: any[] &#x3D; [
+    { id: &#x27;cave1&#x27;, name: &#x27;Cave Abidjan Centre&#x27; },
+    { id: &#x27;cave2&#x27;, name: &#x27;Cave Cocody&#x27; },
+    { id: &#x27;cave3&#x27;, name: &#x27;Cave Yopougon&#x27; }
+  ];
+
+  constructor() {}
+
+  ngOnInit(): void {
+    this.loadManagers();
+    this.loadCaves();
+  }
+
+  /**
+   * Charge la liste des managers depuis le backend
+   */
+  loadManagers(): void {
+    console.log(&#x27;Chargement des managers...&#x27;);
+  }
+
+  /**
+   * Charge la liste des caves
+   */
+  loadCaves(): void {
+    console.log(&#x27;Chargement des caves...&#x27;);
+  }
+
+  /**
+   * Retourne tous les managers
+   */
+  getAllManagers(): Manager[] {
+    return this.managers;
+  }
+
+  /**
+   * Toggle l&#x27;affichage des employés d&#x27;un manager
+   */
+  toggleEmployees(manager: Manager): void {
+    manager.showEmployees &#x3D; !manager.showEmployees;
+  }
+
+  /**
+   * Calcule le nombre total de managers
+   */
+  getTotalManagersCount(): number {
+    return this.managers.length;
+  }
+
+  /**
+   * Compte les managers présents
+   */
+  getPresentManagersCount(): number {
+    return this.managers.filter(m &#x3D;&gt; m.availability.status &#x3D;&#x3D;&#x3D; &#x27;présent&#x27;).length;
+  }
+
+  /**
+   * Compte les managers absents
+   */
+  getAbsentManagersCount(): number {
+    return this.managers.filter(m &#x3D;&gt; m.availability.status &#x3D;&#x3D;&#x3D; &#x27;absent&#x27;).length;
+  }
+
+  /**
+   * Compte les managers en congé
+   */
+  getOnLeaveManagersCount(): number {
+    return this.managers.filter(m &#x3D;&gt; m.availability.status &#x3D;&#x3D;&#x3D; &#x27;congé&#x27;).length;
+  }
+
+  /**
+   * Calcule le nombre total d&#x27;employés supervisés
+   */
+  getTotalEmployeesSupervised(): number {
+    return this.managers.reduce((total, manager) &#x3D;&gt; {
+      return total + manager.employees.length;
+    }, 0);
+  }
+
+  /**
+   * Calcule les ventes totales de tous les managers
+   */
+  getTotalSales(): string {
+    return &#x27;2.18M&#x27;;
+  }
+
+  /**
+   * Ouvre le modal d&#x27;ajout de manager
+   */
+  openAddManagerModal(): void {
+    this.isAddManagerModalOpen &#x3D; true;
+    this.resetManagerForm();
+  }
+
+  /**
+   * Ferme le modal d&#x27;ajout de manager
+   */
+  closeAddManagerModal(): void {
+    this.isAddManagerModalOpen &#x3D; false;
+  }
+
+  /**
+   * Réinitialise le formulaire de manager
+   */
+  resetManagerForm(): void {
+    this.newManagerForm &#x3D; {
+      firstName: &#x27;&#x27;,
+      lastName: &#x27;&#x27;,
+      email: &#x27;&#x27;,
+      phone: &#x27;&#x27;,
+      caveId: &#x27;&#x27;,
+      role: &#x27;Manager&#x27;
+    };
+  }
+
+  /**
+   * Ajoute un nouveau manager
+   */
+  addNewManager(): void {
+    if (!this.validateManagerForm()) {
+      alert(&#x27;Veuillez remplir tous les champs obligatoires&#x27;);
+      return;
+    }
+
+    const newManager: Manager &#x3D; {
+      id: this.generateId(),
+      avatar: this.getRandomAvatar(),
+      firstName: this.newManagerForm.firstName,
+      lastName: this.newManagerForm.lastName,
+      name: &#x60;${this.newManagerForm.firstName} ${this.newManagerForm.lastName}&#x60;,
+      email: this.newManagerForm.email,
+      phone: this.newManagerForm.phone,
+      role: this.newManagerForm.role,
+      performance: {
+        ventes: &#x27;0 FCFA&#x27;,
+        equipe: &#x27;0 personnes&#x27;,
+        satisfaction: &#x27;0/5&#x27;
+      },
+      employees: [],
+      showEmployees: false,
+      caveId: this.newManagerForm.caveId,
+      availability: {
+        status: &#x27;absent&#x27;,
+        lastUpdate: new Date().toISOString()
+      },
+      availabilityHistory: []
+    };
+
+    this.managers.push(newManager);
+    console.log(&#x27;Nouveau manager ajouté:&#x27;, newManager);
+    this.closeAddManagerModal();
+    alert(&#x27;Manager ajouté avec succès !&#x27;);
+  }
+
+  /**
+   * Valide le formulaire de manager
+   */
+  validateManagerForm(): boolean {
+    return !!(
+      this.newManagerForm.firstName &amp;&amp;
+      this.newManagerForm.lastName &amp;&amp;
+      this.newManagerForm.email &amp;&amp;
+      this.newManagerForm.caveId &amp;&amp;
+      this.newManagerForm.role
+    );
+  }
+
+  /**
+   * Génère un ID unique
+   */
+  generateId(): string {
+    return &#x60;mgr_${Date.now()}_${Math.random().toString(36).substr(2, 9)}&#x60;;
+  }
+
+  /**
+   * Retourne un avatar aléatoire
+   */
+  getRandomAvatar(): string {
+    const avatars &#x3D; [&#x27;👨‍💼&#x27;, &#x27;👩‍💼&#x27;, &#x27;👨‍🏫&#x27;, &#x27;👩‍🏫&#x27;, &#x27;👨‍💻&#x27;, &#x27;👩‍💻&#x27;];
+    return avatars[Math.floor(Math.random() * avatars.length)];
+  }
+
+  /**
+   * Ouvre le modal d&#x27;édition avec les informations du manager
+   */
+  editManager(manager: Manager): void {
+    this.selectedManager &#x3D; manager;
+    this.editManagerForm &#x3D; { ...manager };
+    this.isEditManagerModalOpen &#x3D; true;
+  }
+
+  /**
+   * Ferme le modal d&#x27;édition
+   */
+  closeEditManagerModal(): void {
+    this.isEditManagerModalOpen &#x3D; false;
+    this.selectedManager &#x3D; null;
+    this.editManagerForm &#x3D; null;
+  }
+
+  /**
+   * Sauvegarde les modifications du manager
+   */
+  saveManagerChanges(): void {
+    if (!this.editManagerForm) return;
+
+    const index &#x3D; this.managers.findIndex(m &#x3D;&gt; m.id &#x3D;&#x3D;&#x3D; this.editManagerForm!.id);
+    if (index !&#x3D;&#x3D; -1) {
+      this.managers[index] &#x3D; { ...this.editManagerForm };
+      console.log(&#x27;Manager modifié:&#x27;, this.managers[index]);
+      alert(&#x27;Informations mises à jour avec succès !&#x27;);
+      this.closeEditManagerModal();
+    }
+  }
+
+  /**
+   * Supprime un manager
+   */
+  deleteManager(manager: Manager): void {
+    if (confirm(&#x60;Êtes-vous sûr de vouloir supprimer ${manager.name} ?&#x60;)) {
+      this.managers &#x3D; this.managers.filter(m &#x3D;&gt; m.id !&#x3D;&#x3D; manager.id);
+      console.log(&#x27;Manager supprimé:&#x27;, manager);
+      alert(&#x27;Manager supprimé avec succès&#x27;);
+    }
+  }
+
+  /**
+   * Affiche les statistiques détaillées d&#x27;un manager
+   */
+  viewManagerStats(manager: Manager): void {
+    this.selectedManager &#x3D; manager;
+    this.isViewDetailsModalOpen &#x3D; true;
+  }
+
+  /**
+   * Ferme le modal de détails
+   */
+  closeDetailsModal(): void {
+    this.isViewDetailsModalOpen &#x3D; false;
+    this.selectedManager &#x3D; null;
+  }
+
+  /**
+   * Affiche l&#x27;historique de disponibilité
+   */
+  viewAvailabilityHistory(manager: Manager): void {
+    this.selectedManager &#x3D; manager;
+    this.isViewHistoryModalOpen &#x3D; true;
+  }
+
+  /**
+   * Ferme le modal d&#x27;historique
+   */
+  closeHistoryModal(): void {
+    this.isViewHistoryModalOpen &#x3D; false;
+    this.selectedManager &#x3D; null;
+  }
+
+  /**
+   * Retourne la classe CSS selon le statut
+   */
+  getStatusClass(status: string): string {
+    switch(status) {
+      case &#x27;présent&#x27;: return &#x27;status-present&#x27;;
+      case &#x27;absent&#x27;: return &#x27;status-absent&#x27;;
+      case &#x27;congé&#x27;: return &#x27;status-leave&#x27;;
+      default: return &#x27;&#x27;;
+    }
+  }
+
+  /**
+   * Retourne l&#x27;icône selon le statut
+   */
+  getStatusIcon(status: string): string {
+    switch(status) {
+      case &#x27;présent&#x27;: return &#x27;✅&#x27;;
+      case &#x27;absent&#x27;: return &#x27;❌&#x27;;
+      case &#x27;congé&#x27;: return &#x27;🏖️&#x27;;
+      default: return &#x27;❓&#x27;;
+    }
+  }
+
+  /**
+   * Compte les jours présents dans l&#x27;historique
+   */
+  getHistoryPresentDays(manager: Manager): number {
+    return manager.availabilityHistory.filter(h &#x3D;&gt; h.status &#x3D;&#x3D;&#x3D; &#x27;présent&#x27;).length;
+  }
+
+  /**
+   * Compte les jours absents dans l&#x27;historique
+   */
+  getHistoryAbsentDays(manager: Manager): number {
+    return manager.availabilityHistory.filter(h &#x3D;&gt; h.status &#x3D;&#x3D;&#x3D; &#x27;absent&#x27;).length;
+  }
+
+  /**
+   * Compte les jours de congé dans l&#x27;historique
+   */
+  getHistoryLeaveDays(manager: Manager): number {
+    return manager.availabilityHistory.filter(h &#x3D;&gt; h.status &#x3D;&#x3D;&#x3D; &#x27;congé&#x27;).length;
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'Availability-1.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

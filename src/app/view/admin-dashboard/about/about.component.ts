@@ -54,7 +54,7 @@ export class AboutComponent implements OnInit {
   team: TeamMember[] = [
     {
       name: 'Franck KONGO',
-      role: 'CEO, Fondateur & Développeur Full-Stack',
+      role: 'Manager, Développeur Full-Stack',
       avatar: '👨‍💼',
       bio: 'Spécialiste en gestion de caves '
     },
@@ -62,7 +62,13 @@ export class AboutComponent implements OnInit {
       name: 'Auxence CHABEHOU',
       role: 'CTO',
       avatar: '👨‍💼',
-      bio: 'Développeuse senior full-stack'
+      bio: 'Développeur senior full-stack'
+    },
+    {
+      name: 'Maxime KONGO',
+      role: 'CEO',
+      avatar: '👨‍💼',
+      bio: 'supervise les opérations globales'
     }
   ];
 

@@ -1,0 +1,107 @@
+
+<div class="daily-report-page">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">Rapport Journalier</h1>
+      <p class="page-subtitle">{{ reportDate | date:'EEEE d MMMM y':'':'fr' }}</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-secondary" (click)="viewHistory()">
+        📅 Historique
+      </button>
+      <button class="btn-primary" (click)="submitReport()" [disabled]="!canSubmit">
+        💾 Enregistrer le rapport
+      </button>
+    </div>
+  </div>
+
+  <!-- Résumé rapide -->
+  <div class="quick-summary">
+    <div class="summary-card">
+      <div class="summary-icon">💰</div>
+      <div class="summary-content">
+        <div class="summary-label">Ventes totales</div>
+        <div class="summary-value">{{ report.totalSales | number:'1.2-2' }} €</div>
+      </div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-icon">🛒</div>
+      <div class="summary-content">
+        <div class="summary-label">Commandes</div>
+        <div class="summary-value">{{ report.totalOrders }}</div>
+      </div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-icon">👥</div>
+      <div class="summary-content">
+        <div class="summary-label">Équipe présente</div>
+        <div class="summary-value">{{ report.teamPresent }}</div>
+      </div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-icon">⚖️</div>
+      <div class="summary-content">
+        <div class="summary-label">Différence caisse</div>
+        <div class="summary-value" [class.positive]="cashDifference >= 0" [class.negative]="cashDifference < 0">
+          {{ cashDifference | number:'1.2-2' }} €
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulaire de rapport -->
+  <div class="report-form">
+    <!-- Section Caisse -->
+    <div class="form-section">
+      <h3 class="section-title">💵 Caisse</h3>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Ouverture de caisse</label>
+          <input type="number" [(ngModel)]="report.openingCash" class="form-input">
+        </div>
+        <div class="form-group">
+          <label>Fermeture de caisse</label>
+          <input type="number" [(ngModel)]="report.closingCash" class="form-input">
+        </div>
+      </div>
+    </div>
+
+    <!-- Section Ventes -->
+    <div class="form-section">
+      <h3 class="section-title">📊 Ventes</h3>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Paiements espèces</label>
+          <input type="number" [(ngModel)]="report.cashPayments" class="form-input">
+        </div>
+        <div class="form-group">
+          <label>Paiements carte</label>
+          <input type="number" [(ngModel)]="report.cardPayments" class="form-input">
+        </div>
+      </div>
+    </div>
+
+    <!-- Section Incidents -->
+    <div class="form-section">
+      <h3 class="section-title">⚠️ Incidents</h3>
+      <div class="incidents-list">
+        <div class="incident-item" *ngFor="let incident of report.incidents; let i = index">
+          <input type="text" [(ngModel)]="report.incidents[i]" class="form-input" placeholder="Décrire l'incident...">
+          <button class="btn-remove" (click)="removeIncident(i)">🗑️</button>
+        </div>
+      </div>
+      <button class="btn-add" (click)="addIncident()">
+        ➕ Ajouter un incident
+      </button>
+    </div>
+
+    <!-- Section Notes -->
+    <div class="form-section">
+      <h3 class="section-title">📝 Notes et observations</h3>
+      <textarea [(ngModel)]="report.notes"
+                class="form-textarea"
+                rows="6"
+                placeholder="Notes générales, observations, points à améliorer..."></textarea>
+    </div>
+  </div>
+</div>

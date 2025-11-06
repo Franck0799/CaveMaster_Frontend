@@ -1,0 +1,3060 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cave-master-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cave-master-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  UserCreateComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/view/admin-dashboard/user-create/user-create.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-user-create</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>FormsModule</code>
+                            <code>ReactiveFormsModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./user-create.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./user-create.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#availableAvatars" >availableAvatars</a>
+                            </li>
+                            <li>
+                                <a href="#caves" >caves</a>
+                            </li>
+                            <li>
+                                <a href="#isEditing" >isEditing</a>
+                            </li>
+                            <li>
+                                <a href="#managers" >managers</a>
+                            </li>
+                            <li>
+                                <a href="#message" >message</a>
+                            </li>
+                            <li>
+                                <a href="#messageType" >messageType</a>
+                            </li>
+                            <li>
+                                <a href="#roles" >roles</a>
+                            </li>
+                            <li>
+                                <a href="#selectedAvatar" >selectedAvatar</a>
+                            </li>
+                            <li>
+                                <a href="#selectedUser" >selectedUser</a>
+                            </li>
+                            <li>
+                                <a href="#statuses" >statuses</a>
+                            </li>
+                            <li>
+                                <a href="#userForm" >userForm</a>
+                            </li>
+                            <li>
+                                <a href="#users" >users</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#createUser" >createUser</a>
+                            </li>
+                            <li>
+                                <a href="#deleteUser" >deleteUser</a>
+                            </li>
+                            <li>
+                                <a href="#editUser" >editUser</a>
+                            </li>
+                            <li>
+                                <a href="#isFieldInvalid" >isFieldInvalid</a>
+                            </li>
+                            <li>
+                                <a href="#isManagerRole" >isManagerRole</a>
+                            </li>
+                            <li>
+                                <a href="#loadUsers" >loadUsers</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onCaveChange" >onCaveChange</a>
+                            </li>
+                            <li>
+                                <a href="#resetForm" >resetForm</a>
+                            </li>
+                            <li>
+                                <a href="#selectAvatar" >selectAvatar</a>
+                            </li>
+                            <li>
+                                <a href="#showMessage" >showMessage</a>
+                            </li>
+                            <li>
+                                <a href="#submitForm" >submitForm</a>
+                            </li>
+                            <li>
+                                <a href="#updateManagersList" >updateManagersList</a>
+                            </li>
+                            <li>
+                                <a href="#updateUser" >updateUser</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(formBuilder: FormBuilder)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">src/app/view/admin-dashboard/user-create/user-create.component.ts:86</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>formBuilder</td>
+                                                  
+                                                        <td>
+                                                                    <code>FormBuilder</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createUser"></a>
+                    <span class="name">
+                        <span ><b>createUser</b></span>
+                        <a href="#createUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createUser()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="198"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-create/user-create.component.ts:198</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Crée un nouvel utilisateur avec les données du formulaire</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteUser"></a>
+                    <span class="name">
+                        <span ><b>deleteUser</b></span>
+                        <a href="#deleteUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteUser(userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="332"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-create/user-create.component.ts:332</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Supprime un utilisateur après confirmation</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>userId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>L&#39;ID de l&#39;utilisateur à supprimer</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editUser"></a>
+                    <span class="name">
+                        <span ><b>editUser</b></span>
+                        <a href="#editUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>editUser(user: <a href="../interfaces/User.html" target="_self">User</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="300"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-create/user-create.component.ts:300</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Édite un utilisateur existant</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>user</td>
+                                            <td>
+                                                            <code><a href="../interfaces/User.html" target="_self" >User</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>L&#39;utilisateur à éditer</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isFieldInvalid"></a>
+                    <span class="name">
+                        <span ><b>isFieldInvalid</b></span>
+                        <a href="#isFieldInvalid"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isFieldInvalid(fieldName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="417"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-create/user-create.component.ts:417</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Vérifie si un champ du formulaire est invalide et a été touché</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>fieldName</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Le nom du champ</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>true si le champ est invalide et touché</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isManagerRole"></a>
+                    <span class="name">
+                        <span ><b>isManagerRole</b></span>
+                        <a href="#isManagerRole"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isManagerRole(role: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="445"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-create/user-create.component.ts:445</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Détermine si un rôle est celui d&#39;un manager</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>role</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Le rôle à vérifier</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>true si c&#39;est un manager</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadUsers"></a>
+                    <span class="name">
+                        <span ><b>loadUsers</b></span>
+                        <a href="#loadUsers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadUsers()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="132"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-create/user-create.component.ts:132</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Charge la liste de tous les utilisateurs
+À remplacer par un appel API backend</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="122"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-create/user-create.component.ts:122</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onCaveChange"></a>
+                    <span class="name">
+                        <span ><b>onCaveChange</b></span>
+                        <a href="#onCaveChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onCaveChange()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="429"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-create/user-create.component.ts:429</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Réagit aux changements du champ cave</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetForm"></a>
+                    <span class="name">
+                        <span ><b>resetForm</b></span>
+                        <a href="#resetForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resetForm()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="363"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-create/user-create.component.ts:363</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Réinitialise le formulaire et les variables d&#39;état</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectAvatar"></a>
+                    <span class="name">
+                        <span ><b>selectAvatar</b></span>
+                        <a href="#selectAvatar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>selectAvatar(avatar: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="406"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-create/user-create.component.ts:406</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Change l&#39;avatar sélectionné</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>avatar</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Le nouvel avatar</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showMessage"></a>
+                    <span class="name">
+                        <span ><b>showMessage</b></span>
+                        <a href="#showMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>showMessage(msg: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, type: "success" | "error" | "info")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="388"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-create/user-create.component.ts:388</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Affiche un message temporaire (succès, erreur, info)</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>msg</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Le message à afficher</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                        <code>&quot;success&quot; | &quot;error&quot; | &quot;info&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Le type de message</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="submitForm"></a>
+                    <span class="name">
+                        <span ><b>submitForm</b></span>
+                        <a href="#submitForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>submitForm()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="348"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-create/user-create.component.ts:348</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Gère la soumission du formulaire
+Crée ou met à jour selon le mode</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateManagersList"></a>
+                    <span class="name">
+                        <span ><b>updateManagersList</b></span>
+                        <a href="#updateManagersList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateManagersList()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="182"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-create/user-create.component.ts:182</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Met à jour la liste des managers basée sur la cave sélectionnée</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateUser"></a>
+                    <span class="name">
+                        <span ><b>updateUser</b></span>
+                        <a href="#updateUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateUser()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="256"
+                                    class="link-to-prism">src/app/view/admin-dashboard/user-create/user-create.component.ts:256</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Met à jour un utilisateur existant</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="availableAvatars"></a>
+                    <span class="name">
+                        <span ><b>availableAvatars</b></span>
+                        <a href="#availableAvatars"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    &#x27;👨‍💼&#x27;, &#x27;👩‍💼&#x27;, &#x27;👨&#x27;, &#x27;👩&#x27;, &#x27;👨‍🔬&#x27;, &#x27;👩‍💻&#x27;, &#x27;👨‍⚕️&#x27;, &#x27;👩‍⚕️&#x27;
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="81" class="link-to-prism">src/app/view/admin-dashboard/user-create/user-create.component.ts:81</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="caves"></a>
+                    <span class="name">
+                        <span ><b>caves</b></span>
+                        <a href="#caves"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    &#x27;Cave Principale&#x27;,
+    &#x27;Cave Secondaire&#x27;,
+    &#x27;Cave Premium&#x27;
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/app/view/admin-dashboard/user-create/user-create.component.ts:68</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isEditing"></a>
+                    <span class="name">
+                        <span ><b>isEditing</b></span>
+                        <a href="#isEditing"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/view/admin-dashboard/user-create/user-create.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="managers"></a>
+                    <span class="name">
+                        <span ><b>managers</b></span>
+                        <a href="#managers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>User[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="78" class="link-to-prism">src/app/view/admin-dashboard/user-create/user-create.component.ts:78</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="message"></a>
+                    <span class="name">
+                        <span ><b>message</b></span>
+                        <a href="#message"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/view/admin-dashboard/user-create/user-create.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="messageType"></a>
+                    <span class="name">
+                        <span ><b>messageType</b></span>
+                        <a href="#messageType"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;success&quot; | &quot;error&quot; | &quot;info&quot;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;info&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/view/admin-dashboard/user-create/user-create.component.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="roles"></a>
+                    <span class="name">
+                        <span ><b>roles</b></span>
+                        <a href="#roles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    &#x27;Manager Principal&#x27;,
+    &#x27;Manager Adjoint&#x27;,
+    &#x27;Manager Nuit&#x27;,
+    &#x27;Caissier(ère)&#x27;,
+    &#x27;Vendeur(se)&#x27;,
+    &#x27;Magasinier&#x27;,
+    &#x27;Livreur&#x27;,
+    &#x27;Assistant(e)&#x27;,
+    &#x27;Sommelier&#x27;,
+    &#x27;Conseiller(ère)&#x27;
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/view/admin-dashboard/user-create/user-create.component.ts:54</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedAvatar"></a>
+                    <span class="name">
+                        <span ><b>selectedAvatar</b></span>
+                        <a href="#selectedAvatar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;👨&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">src/app/view/admin-dashboard/user-create/user-create.component.ts:86</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedUser"></a>
+                    <span class="name">
+                        <span ><b>selectedUser</b></span>
+                        <a href="#selectedUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>User | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/view/admin-dashboard/user-create/user-create.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="statuses"></a>
+                    <span class="name">
+                        <span ><b>statuses</b></span>
+                        <a href="#statuses"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[&#x27;active&#x27;, &#x27;inactive&#x27;, &#x27;on-leave&#x27;]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="75" class="link-to-prism">src/app/view/admin-dashboard/user-create/user-create.component.ts:75</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userForm"></a>
+                    <span class="name">
+                        <span ><b>userForm</b></span>
+                        <a href="#userForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/view/admin-dashboard/user-create/user-create.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="users"></a>
+                    <span class="name">
+                        <span ><b>users</b></span>
+                        <a href="#users"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>User[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/view/admin-dashboard/user-create/user-create.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+
+// Interface pour représenter un utilisateur
+interface User {
+  id: string;           // Identifiant unique
+  firstName: string;    // Prénom
+  lastName: string;     // Nom de famille
+  email: string;        // Email
+  phone: string;        // Téléphone
+  role: string;         // Rôle/Poste
+  avatar: string;       // Emoji d&#x27;avatar
+  cave: string;         // Cave d&#x27;affectation
+  manager?: string;     // Manager de supervision (optionnel)
+  status: &#x27;active&#x27; | &#x27;inactive&#x27; | &#x27;on-leave&#x27;; // Statut
+  joinDate: string;     // Date d&#x27;embauche
+}
+
+@Component({
+  selector: &#x27;app-user-create&#x27;,
+  standalone: true,
+  // Imports des modules nécessaires
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  templateUrl: &#x27;./user-create.component.html&#x27;,
+  styleUrls: [&#x27;./user-create.component.scss&#x27;]
+})
+export class UserCreateComponent implements OnInit {
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; PROPRIÉTÉS DU COMPOSANT &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  // Formulaire réactif pour création/modification d&#x27;utilisateur
+  userForm: FormGroup;
+
+  // Flag indiquant si on est en mode édition
+  isEditing: boolean &#x3D; false;
+
+  // Liste de tous les utilisateurs
+  users: User[] &#x3D; [];
+
+  // Utilisateur actuellement en édition
+  selectedUser: User | null &#x3D; null;
+
+  // Message de succès/erreur
+  message: string &#x3D; &#x27;&#x27;;
+
+  // Type de message (success, error, info)
+  messageType: &#x27;success&#x27; | &#x27;error&#x27; | &#x27;info&#x27; &#x3D; &#x27;info&#x27;;
+
+  // Liste des rôles disponibles
+  roles: string[] &#x3D; [
+    &#x27;Manager Principal&#x27;,
+    &#x27;Manager Adjoint&#x27;,
+    &#x27;Manager Nuit&#x27;,
+    &#x27;Caissier(ère)&#x27;,
+    &#x27;Vendeur(se)&#x27;,
+    &#x27;Magasinier&#x27;,
+    &#x27;Livreur&#x27;,
+    &#x27;Assistant(e)&#x27;,
+    &#x27;Sommelier&#x27;,
+    &#x27;Conseiller(ère)&#x27;
+  ];
+
+  // Liste des caves disponibles
+  caves: string[] &#x3D; [
+    &#x27;Cave Principale&#x27;,
+    &#x27;Cave Secondaire&#x27;,
+    &#x27;Cave Premium&#x27;
+  ];
+
+  // Liste des statuts disponibles
+  statuses: string[] &#x3D; [&#x27;active&#x27;, &#x27;inactive&#x27;, &#x27;on-leave&#x27;];
+
+  // Liste des managers pour supervision (filtrée par cave)
+  managers: User[] &#x3D; [];
+
+  // Avatars disponibles (emojis)
+  availableAvatars: string[] &#x3D; [
+    &#x27;👨‍💼&#x27;, &#x27;👩‍💼&#x27;, &#x27;👨&#x27;, &#x27;👩&#x27;, &#x27;👨‍🔬&#x27;, &#x27;👩‍💻&#x27;, &#x27;👨‍⚕️&#x27;, &#x27;👩‍⚕️&#x27;
+  ];
+
+  // Avatar sélectionné pour le nouvel utilisateur
+  selectedAvatar: string &#x3D; &#x27;👨&#x27;;
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; CONSTRUCTEUR AVEC INJECTION DE DÉPENDANCES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  constructor(private formBuilder: FormBuilder) {
+    // Initialise le formulaire réactif avec validation
+    this.userForm &#x3D; this.formBuilder.group({
+      // Champ prénom : obligatoire, min 2 caractères
+      firstName: [&#x27;&#x27;, [Validators.required, Validators.minLength(2)]],
+
+      // Champ nom : obligatoire, min 2 caractères
+      lastName: [&#x27;&#x27;, [Validators.required, Validators.minLength(2)]],
+
+      // Champ email : obligatoire, doit être un email valide
+      email: [&#x27;&#x27;, [Validators.required, Validators.email]],
+
+      // Champ téléphone : optionnel, pattern pour validé le format
+      phone: [&#x27;&#x27;, [Validators.pattern(/^\+?[0-9\s\-\(\)]+$/)]],
+
+      // Champ rôle : obligatoire
+      role: [&#x27;&#x27;, Validators.required],
+
+      // Champ cave : obligatoire
+      cave: [&#x27;&#x27;, Validators.required],
+
+      // Champ manager : optionnel (seulement pour les employés)
+      manager: [&#x27;&#x27;],
+
+      // Champ statut : obligatoire, valeur par défaut &#x27;active&#x27;
+      status: [&#x27;active&#x27;, Validators.required],
+
+      // Champ date d&#x27;embauche : obligatoire
+      joinDate: [&#x27;&#x27;, Validators.required]
+    });
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE D&#x27;INITIALISATION &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  ngOnInit(): void {
+    // Charge les données des utilisateurs au démarrage
+    this.loadUsers();
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE CHARGEMENT DES UTILISATEURS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Charge la liste de tous les utilisateurs
+   * À remplacer par un appel API backend
+   */
+  loadUsers(): void {
+    // Données mockées des utilisateurs
+    this.users &#x3D; [
+      {
+        id: &#x27;user_1&#x27;,
+        firstName: &#x27;Jean&#x27;,
+        lastName: &#x27;Kouassi&#x27;,
+        email: &#x27;jean.kouassi@caveviking.com&#x27;,
+        phone: &#x27;+234 801 234 5678&#x27;,
+        role: &#x27;Manager Principal&#x27;,
+        avatar: &#x27;👨‍💼&#x27;,
+        cave: &#x27;Cave Principale&#x27;,
+        status: &#x27;active&#x27;,
+        joinDate: &#x27;2023-01-15&#x27;
+      },
+      {
+        id: &#x27;user_2&#x27;,
+        firstName: &#x27;Marie&#x27;,
+        lastName: &#x27;Diabate&#x27;,
+        email: &#x27;marie.diabate@caveviking.com&#x27;,
+        phone: &#x27;+234 802 345 6789&#x27;,
+        role: &#x27;Manager Adjoint&#x27;,
+        avatar: &#x27;👩‍💼&#x27;,
+        cave: &#x27;Cave Principale&#x27;,
+        status: &#x27;active&#x27;,
+        joinDate: &#x27;2023-03-20&#x27;
+      },
+      {
+        id: &#x27;user_3&#x27;,
+        firstName: &#x27;Alice&#x27;,
+        lastName: &#x27;Martin&#x27;,
+        email: &#x27;alice.martin@caveviking.com&#x27;,
+        phone: &#x27;+234 803 456 7890&#x27;,
+        role: &#x27;Caissière&#x27;,
+        avatar: &#x27;👩&#x27;,
+        cave: &#x27;Cave Principale&#x27;,
+        manager: &#x27;Jean Kouassi&#x27;,
+        status: &#x27;active&#x27;,
+        joinDate: &#x27;2023-02-10&#x27;
+      }
+    ];
+
+    // Met à jour la liste des managers disponibles
+    this.updateManagersList();
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE MISE À JOUR DE LA LISTE DES MANAGERS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Met à jour la liste des managers basée sur la cave sélectionnée
+   */
+  updateManagersList(): void {
+    // Récupère la cave sélectionnée depuis le formulaire
+    const selectedCave &#x3D; this.userForm.get(&#x27;cave&#x27;)?.value;
+
+    // Filtre les managers de la cave sélectionnée
+    // (un manager doit avoir &quot;Manager&quot; dans son rôle)
+    this.managers &#x3D; this.users.filter(user &#x3D;&gt;
+      user.cave &#x3D;&#x3D;&#x3D; selectedCave &amp;&amp;
+      (user.role.includes(&#x27;Manager&#x27;) || user.role &#x3D;&#x3D;&#x3D; &#x27;Sommelier&#x27; || user.role &#x3D;&#x3D;&#x3D; &#x27;Conseiller(ère)&#x27;)
+    );
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE CRÉATION D&#x27;UTILISATEUR &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Crée un nouvel utilisateur avec les données du formulaire
+   */
+  createUser(): void {
+    // Vérifie que le formulaire est valide
+    if (this.userForm.invalid) {
+      // Affiche un message d&#x27;erreur
+      this.showMessage(&#x27;⚠️ Veuillez remplir tous les champs obligatoires correctement&#x27;, &#x27;error&#x27;);
+      return;
+    }
+
+    // Crée un nouvel utilisateur avec les valeurs du formulaire
+    const newUser: User &#x3D; {
+      // Génère un ID unique basé sur le timestamp
+      id: &#x27;user_&#x27; + Date.now(),
+
+      // Récupère le prénom
+      firstName: this.userForm.get(&#x27;firstName&#x27;)?.value,
+
+      // Récupère le nom
+      lastName: this.userForm.get(&#x27;lastName&#x27;)?.value,
+
+      // Récupère l&#x27;email
+      email: this.userForm.get(&#x27;email&#x27;)?.value,
+
+      // Récupère le téléphone (optionnel)
+      phone: this.userForm.get(&#x27;phone&#x27;)?.value || &#x27;&#x27;,
+
+      // Récupère le rôle
+      role: this.userForm.get(&#x27;role&#x27;)?.value,
+
+      // Utilise l&#x27;avatar sélectionné
+      avatar: this.selectedAvatar,
+
+      // Récupère la cave
+      cave: this.userForm.get(&#x27;cave&#x27;)?.value,
+
+      // Récupère le manager (optionnel)
+      manager: this.userForm.get(&#x27;manager&#x27;)?.value || undefined,
+
+      // Récupère le statut (valeur par défaut &#x27;active&#x27;)
+      status: this.userForm.get(&#x27;status&#x27;)?.value || &#x27;active&#x27;,
+
+      // Utilise la date d&#x27;embauche fournie ou aujourd&#x27;hui
+      joinDate: this.userForm.get(&#x27;joinDate&#x27;)?.value || new Date().toISOString().split(&#x27;T&#x27;)[0]
+    };
+
+    // Ajoute le nouvel utilisateur à la liste
+    this.users.push(newUser);
+
+    // Affiche un message de succès
+    this.showMessage(&#x27;✓ Utilisateur créé avec succès !&#x27;, &#x27;success&#x27;);
+
+    // Réinitialise le formulaire
+    this.resetForm();
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE MISE À JOUR D&#x27;UTILISATEUR &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Met à jour un utilisateur existant
+   */
+  updateUser(): void {
+    // Vérifie que le formulaire est valide
+    if (this.userForm.invalid) {
+      // Affiche une erreur
+      this.showMessage(&#x27;⚠️ Veuillez remplir tous les champs obligatoires correctement&#x27;, &#x27;error&#x27;);
+      return;
+    }
+
+    // Vérifie qu&#x27;un utilisateur est sélectionné pour édition
+    if (!this.selectedUser) {
+      // Affiche une erreur
+      this.showMessage(&#x27;⚠️ Aucun utilisateur sélectionné&#x27;, &#x27;error&#x27;);
+      return;
+    }
+
+    // Trouve l&#x27;index de l&#x27;utilisateur sélectionné
+    const index &#x3D; this.users.findIndex(u &#x3D;&gt; u.id &#x3D;&#x3D;&#x3D; this.selectedUser?.id);
+
+    // Vérifie que l&#x27;utilisateur a été trouvé
+    if (index !&#x3D;&#x3D; -1) {
+      // Met à jour les propriétés de l&#x27;utilisateur
+      this.users[index].firstName &#x3D; this.userForm.get(&#x27;firstName&#x27;)?.value;
+      this.users[index].lastName &#x3D; this.userForm.get(&#x27;lastName&#x27;)?.value;
+      this.users[index].email &#x3D; this.userForm.get(&#x27;email&#x27;)?.value;
+      this.users[index].phone &#x3D; this.userForm.get(&#x27;phone&#x27;)?.value;
+      this.users[index].role &#x3D; this.userForm.get(&#x27;role&#x27;)?.value;
+      this.users[index].cave &#x3D; this.userForm.get(&#x27;cave&#x27;)?.value;
+      this.users[index].manager &#x3D; this.userForm.get(&#x27;manager&#x27;)?.value;
+      this.users[index].status &#x3D; this.userForm.get(&#x27;status&#x27;)?.value;
+      this.users[index].joinDate &#x3D; this.userForm.get(&#x27;joinDate&#x27;)?.value;
+    }
+
+    // Affiche un message de succès
+    this.showMessage(&#x27;✓ Utilisateur mis à jour avec succès !&#x27;, &#x27;success&#x27;);
+
+    // Réinitialise le formulaire
+    this.resetForm();
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE POUR ÉDITER UN UTILISATEUR &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Édite un utilisateur existant
+   * @param user L&#x27;utilisateur à éditer
+   */
+  editUser(user: User): void {
+    // Active le mode édition
+    this.isEditing &#x3D; true;
+
+    // Stocke l&#x27;utilisateur sélectionné
+    this.selectedUser &#x3D; user;
+
+    // Stocke l&#x27;avatar actuel
+    this.selectedAvatar &#x3D; user.avatar;
+
+    // Remplir le formulaire avec les données de l&#x27;utilisateur
+    this.userForm.patchValue({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      phone: user.phone,
+      role: user.role,
+      cave: user.cave,
+      manager: user.manager || &#x27;&#x27;,
+      status: user.status,
+      joinDate: user.joinDate
+    });
+
+    // Met à jour la liste des managers pour la cave sélectionnée
+    this.updateManagersList();
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE POUR SUPPRIMER UN UTILISATEUR &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Supprime un utilisateur après confirmation
+   * @param userId L&#x27;ID de l&#x27;utilisateur à supprimer
+   */
+  deleteUser(userId: string): void {
+    // Demande une confirmation avant la suppression
+    if (confirm(&#x27;⚠️ Êtes-vous sûr de vouloir supprimer cet utilisateur ? Cette action est irréversible.&#x27;)) {
+      // Filtre l&#x27;utilisateur de la liste (suppression)
+      this.users &#x3D; this.users.filter(u &#x3D;&gt; u.id !&#x3D;&#x3D; userId);
+
+      // Affiche un message de succès
+      this.showMessage(&#x27;✓ Utilisateur supprimé avec succès !&#x27;, &#x27;success&#x27;);
+    }
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE SOUMISSION DU FORMULAIRE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Gère la soumission du formulaire
+   * Crée ou met à jour selon le mode
+   */
+  submitForm(): void {
+    // Vérifie si on est en mode édition
+    if (this.isEditing) {
+      // Si oui, met à jour l&#x27;utilisateur existant
+      this.updateUser();
+    } else {
+      // Sinon, crée un nouvel utilisateur
+      this.createUser();
+    }
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE RÉINITIALISATION &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Réinitialise le formulaire et les variables d&#x27;état
+   */
+  resetForm(): void {
+    // Réinitialise le formulaire aux valeurs par défaut
+    this.userForm.reset({
+      status: &#x27;active&#x27;  // Statut par défaut
+    });
+
+    // Réinitialise l&#x27;avatar sélectionné
+    this.selectedAvatar &#x3D; &#x27;👨&#x27;;
+
+    // Désactive le mode édition
+    this.isEditing &#x3D; false;
+
+    // Efface la sélection d&#x27;utilisateur
+    this.selectedUser &#x3D; null;
+
+    // Vide la liste des managers
+    this.managers &#x3D; [];
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE D&#x27;AFFICHAGE DE MESSAGE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Affiche un message temporaire (succès, erreur, info)
+   * @param msg Le message à afficher
+   * @param type Le type de message
+   */
+  showMessage(msg: string, type: &#x27;success&#x27; | &#x27;error&#x27; | &#x27;info&#x27;): void {
+    // Stocke le message
+    this.message &#x3D; msg;
+
+    // Stocke le type de message
+    this.messageType &#x3D; type;
+
+    // Efface le message après 3 secondes
+    setTimeout(() &#x3D;&gt; {
+      this.message &#x3D; &#x27;&#x27;;
+    }, 3000);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE GESTION DU CHANGEMENT D&#x27;AVATAR &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Change l&#x27;avatar sélectionné
+   * @param avatar Le nouvel avatar
+   */
+  selectAvatar(avatar: string): void {
+    // Stocke le nouvel avatar
+    this.selectedAvatar &#x3D; avatar;
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE VÉRIFICATION DE VALIDITÉ DU CHAMP &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Vérifie si un champ du formulaire est invalide et a été touché
+   * @param fieldName Le nom du champ
+   * @returns true si le champ est invalide et touché
+   */
+  isFieldInvalid(fieldName: string): boolean {
+    // Récupère le champ du formulaire
+    const field &#x3D; this.userForm.get(fieldName);
+
+    // Retourne true si le champ est invalide ET a été touché
+    return !!(field &amp;&amp; field.invalid &amp;&amp; field.touched);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE GESTION DU CHANGEMENT DE CAVE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Réagit aux changements du champ cave
+   */
+  onCaveChange(): void {
+    // Met à jour la liste des managers pour la nouvelle cave
+    this.updateManagersList();
+
+    // Réinitialise la sélection du manager
+    this.userForm.patchValue({
+      manager: &#x27;&#x27;
+    });
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODE DE DÉTERMINATION DU TYPE DE RÔLE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  /**
+   * Détermine si un rôle est celui d&#x27;un manager
+   * @param role Le rôle à vérifier
+   * @returns true si c&#x27;est un manager
+   */
+  isManagerRole(role: string): boolean {
+    // Vérifie si le rôle contient &quot;Manager&quot;
+    return role.includes(&#x27;Manager&#x27;);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; FICHIER: user-create.component.html &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+&lt;!-- Template pour la création/modification d&#x27;utilisateurs --&gt;
+
+&lt;div class&#x3D;&quot;user-create-container&quot;&gt;
+
+  &lt;!-- Message de feedback --&gt;
+  &lt;div *ngIf&#x3D;&quot;message&quot;
+       class&#x3D;&quot;alert&quot;
+       [ngClass]&#x3D;&quot;&#x27;alert-&#x27; + messageType&quot;&gt;
+    {{ message }}
+  &lt;/div&gt;
+
+  &lt;!-- En-tête du formulaire --&gt;
+  &lt;div class&#x3D;&quot;section-header&quot;&gt;
+    &lt;h2&gt;{{ isEditing ? &#x27;✏️ Modifier un utilisateur&#x27; : &#x27;➕ Ajouter un nouvel utilisateur&#x27; }}&lt;/h2&gt;
+    &lt;!-- Bouton annuler en mode édition --&gt;
+    &lt;button *ngIf&#x3D;&quot;isEditing&quot; (click)&#x3D;&quot;resetForm()&quot; class&#x3D;&quot;btn btn-secondary&quot;&gt;
+      ↻ Annuler
+    &lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Conteneur du formulaire --&gt;
+  &lt;div class&#x3D;&quot;form-container&quot;&gt;
+    &lt;form [formGroup]&#x3D;&quot;userForm&quot; (ngSubmit)&#x3D;&quot;submitForm()&quot;&gt;
+
+      &lt;!-- Section de sélection d&#x27;avatar --&gt;
+      &lt;div class&#x3D;&quot;avatar-section&quot;&gt;
+        &lt;label class&#x3D;&quot;form-label&quot;&gt;Avatar&lt;/label&gt;
+        &lt;!-- Grille de boutons avatars --&gt;
+        &lt;div class&#x3D;&quot;avatar-grid&quot;&gt;
+          &lt;!-- Boucle sur les avatars disponibles --&gt;
+          &lt;button *ngFor&#x3D;&quot;let avatar of availableAvatars&quot;
+                  type&#x3D;&quot;button&quot;
+                  (click)&#x3D;&quot;selectAvatar(avatar)&quot;
+                  class&#x3D;&quot;avatar-btn&quot;
+                  [class.selected]&#x3D;&quot;selectedAvatar &#x3D;&#x3D;&#x3D; avatar&quot;
+                  title&#x3D;&quot;Sélectionner cet avatar&quot;&gt;
+            {{ avatar }}
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Grille 2 colonnes pour prénom et nom --&gt;
+      &lt;div class&#x3D;&quot;form-row&quot;&gt;
+        &lt;!-- Champ Prénom --&gt;
+        &lt;div class&#x3D;&quot;form-group&quot;&gt;
+          &lt;label class&#x3D;&quot;form-label&quot;&gt;Prénom *&lt;/label&gt;
+          &lt;input
+            type&#x3D;&quot;text&quot;
+            class&#x3D;&quot;form-input&quot;
+            formControlName&#x3D;&quot;firstName&quot;
+            placeholder&#x3D;&quot;Ex: Jean&quot;
+            [class.input-error]&#x3D;&quot;isFieldInvalid(&#x27;firstName&#x27;)&quot;&gt;
+          &lt;small *ngIf&#x3D;&quot;isFieldInvalid(&#x27;firstName&#x27;)&quot; class&#x3D;&quot;error-text&quot;&gt;
+            ⚠️ Minimum 2 caractères
+          &lt;/small&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Champ Nom --&gt;
+        &lt;div class&#x3D;&quot;form-group&quot;&gt;
+          &lt;label class&#x3D;&quot;form-label&quot;&gt;Nom *&lt;/label&gt;
+          &lt;input
+            type&#x3D;&quot;text&quot;
+            class&#x3D;&quot;form-input&quot;
+            formControlName&#x3D;&quot;lastName&quot;
+            placeholder&#x3D;&quot;Ex: Kouassi&quot;
+            [class.input-error]&#x3D;&quot;isFieldInvalid(&#x27;lastName&#x27;)&quot;&gt;
+          &lt;small *ngIf&#x3D;&quot;isFieldInvalid(&#x27;lastName&#x27;)&quot; class&#x3D;&quot;error-text&quot;&gt;
+            ⚠️ Minimum 2 caractères
+          &lt;/small&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Champ Email --&gt;
+      &lt;div class&#x3D;&quot;form-group&quot;&gt;
+        &lt;label class&#x3D;&quot;form-label&quot;&gt;Email *&lt;/label&gt;
+        &lt;input
+          type&#x3D;&quot;email&quot;
+          class&#x3D;&quot;form-input&quot;
+          formControlName&#x3D;&quot;email&quot;
+          placeholder&#x3D;&quot;Ex: jean.kouassi@caveviking.com&quot;
+          [class.input-error]&#x3D;&quot;isFieldInvalid(&#x27;email&#x27;)&quot;&gt;
+        &lt;small *ngIf&#x3D;&quot;isFieldInvalid(&#x27;email&#x27;)&quot; class&#x3D;&quot;error-text&quot;&gt;
+          ⚠️ Email invalide
+        &lt;/small&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Champ Téléphone --&gt;
+      &lt;div class&#x3D;&quot;form-group&quot;&gt;
+        &lt;label class&#x3D;&quot;form-label&quot;&gt;Téléphone&lt;/label&gt;
+        &lt;input
+          type&#x3D;&quot;tel&quot;
+          class&#x3D;&quot;form-input&quot;
+          formControlName&#x3D;&quot;phone&quot;
+          placeholder&#x3D;&quot;Ex: +234 801 234 5678&quot;&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Grille 2 colonnes pour rôle et cave --&gt;
+      &lt;div class&#x3D;&quot;form-row&quot;&gt;
+        &lt;!-- Champ Rôle --&gt;
+        &lt;div class&#x3D;&quot;form-group&quot;&gt;
+          &lt;label class&#x3D;&quot;form-label&quot;&gt;Rôle *&lt;/label&gt;
+          &lt;select
+            class&#x3D;&quot;form-input&quot;
+            formControlName&#x3D;&quot;role&quot;
+            [class.input-error]&#x3D;&quot;isFieldInvalid(&#x27;role&#x27;)&quot;&gt;
+            &lt;option value&#x3D;&quot;&quot;&gt;Sélectionner un rôle...&lt;/option&gt;
+            &lt;!-- Boucle sur les rôles disponibles --&gt;
+            &lt;option *ngFor&#x3D;&quot;let role of roles&quot; [value]&#x3D;&quot;role&quot;&gt;
+              {{ role }}
+            &lt;/option&gt;
+          &lt;/select&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Champ Cave --&gt;
+        &lt;div class&#x3D;&quot;form-group&quot;&gt;
+          &lt;label class&#x3D;&quot;form-label&quot;&gt;Cave *&lt;/label&gt;
+          &lt;select
+            class&#x3D;&quot;form-input&quot;
+            formControlName&#x3D;&quot;cave&quot;
+            (change)&#x3D;&quot;onCaveChange()&quot;
+            [class.input-error]&#x3D;&quot;isFieldInvalid(&#x27;cave&#x27;)&quot;&gt;
+            &lt;option value&#x3D;&quot;&quot;&gt;Sélectionner une cave...&lt;/option&gt;
+            &lt;!-- Boucle sur les caves disponibles --&gt;
+            &lt;option *ngFor&#x3D;&quot;let cave of caves&quot; [value]&#x3D;&quot;cave&quot;&gt;
+              🏢 {{ cave }}
+            &lt;/option&gt;
+          &lt;/select&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Champ Manager (conditionnel - visible si cave sélectionnée) --&gt;
+      &lt;div class&#x3D;&quot;form-group&quot; *ngIf&#x3D;&quot;userForm.get(&#x27;cave&#x27;)?.value&quot;&gt;
+        &lt;label class&#x3D;&quot;form-label&quot;&gt;Manager de supervision&lt;/label&gt;
+        &lt;select
+          class&#x3D;&quot;form-input&quot;
+          formControlName&#x3D;&quot;manager&quot;&gt;
+          &lt;option value&#x3D;&quot;&quot;&gt;Pas de manager assigné&lt;/option&gt;
+          &lt;!-- Boucle sur les managers de la cave sélectionnée --&gt;
+          &lt;option *ngFor&#x3D;&quot;let manager of managers&quot;
+                  [value]&#x3D;&quot;manager.firstName + &#x27; &#x27; + manager.lastName&quot;&gt;
+            {{ manager.firstName }} {{ manager.lastName }} - {{ manager.role }}
+          &lt;/option&gt;
+        &lt;/select&gt;
+        &lt;small class&#x3D;&quot;info-text&quot;&gt;Les managers disponibles dépendent de la cave sélectionnée&lt;/small&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Champ Statut --&gt;
+      &lt;div class&#x3D;&quot;form-group&quot;&gt;
+        &lt;label class&#x3D;&quot;form-label&quot;&gt;Statut&lt;/label&gt;
+        &lt;select class&#x3D;&quot;form-input&quot; formControlName&#x3D;&quot;status&quot;&gt;
+          &lt;option value&#x3D;&quot;active&quot;&gt;🟢 Actif&lt;/option&gt;
+          &lt;option value&#x3D;&quot;inactive&quot;&gt;🔴 Inactif&lt;/option&gt;
+          &lt;option value&#x3D;&quot;on-leave&quot;&gt;🟡 En congé&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Champ Date d&#x27;embauche --&gt;
+      &lt;div class&#x3D;&quot;form-group&quot;&gt;
+        &lt;label class&#x3D;&quot;form-label&quot;&gt;Date d&#x27;embauche *&lt;/label&gt;
+        &lt;input
+          type&#x3D;&quot;date&quot;
+          class&#x3D;&quot;form-input&quot;
+          formControlName&#x3D;&quot;joinDate&quot;
+          [class.input-error]&#x3D;&quot;isFieldInvalid(&#x27;joinDate&#x27;)&quot;&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Boutons du formulaire --&gt;
+      &lt;div class&#x3D;&quot;form-actions&quot;&gt;
+        &lt;!-- Bouton réinitialiser --&gt;
+        &lt;button type&#x3D;&quot;reset&quot; (click)&#x3D;&quot;resetForm()&quot; class&#x3D;&quot;btn btn-secondary&quot;&gt;
+          ↻ Réinitialiser
+        &lt;/button&gt;
+        &lt;!-- Bouton soumettre --&gt;
+        &lt;button type&#x3D;&quot;submit&quot; class&#x3D;&quot;btn btn-primary&quot; [disabled]&#x3D;&quot;userForm.invalid&quot;&gt;
+          {{ isEditing ? &#x27;💾 Mettre à jour&#x27; : &#x27;➕ Créer utilisateur&#x27; }}
+        &lt;/button&gt;
+      &lt;/div&gt;
+
+    &lt;/form&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Conteneur de la liste des utilisateurs --&gt;
+  &lt;div class&#x3D;&quot;users-list-container&quot;&gt;
+    &lt;h3&gt;📋 Utilisateurs existants ({{ users.length }})&lt;/h3&gt;
+
+    &lt;!-- Grille de cartes d&#x27;utilisateurs --&gt;
+    &lt;div class&#x3D;&quot;users-cards&quot;&gt;
+      &lt;!-- Boucle sur chaque utilisateur --&gt;
+      &lt;div *ngFor&#x3D;&quot;let user of users&quot; class&#x3D;&quot;user-card&quot;&gt;
+
+        &lt;!-- En-tête de la carte --&gt;
+        &lt;div class&#x3D;&quot;user-card-header&quot;&gt;
+          &lt;!-- Info utilisateur avec avatar --&gt;
+          &lt;div class&#x3D;&quot;user-info&quot;&gt;
+            &lt;!-- Avatar grand --&gt;
+            &lt;span class&#x3D;&quot;avatar-large&quot;&gt;{{ user.avatar }}&lt;/span&gt;
+            &lt;!-- Nom et rôle --&gt;
+            &lt;div&gt;
+              &lt;h4&gt;{{ user.firstName }} {{ user.lastName }}&lt;/h4&gt;
+              &lt;p class&#x3D;&quot;role-badge&quot;&gt;{{ user.role }}&lt;/p&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;!-- Badge de statut --&gt;
+          &lt;span class&#x3D;&quot;status-badge&quot; [ngClass]&#x3D;&quot;&#x27;status-&#x27; + user.status&quot;&gt;
+            {{ user.status &#x3D;&#x3D;&#x3D; &#x27;active&#x27; ? &#x27;🟢 Actif&#x27; :
+               user.status &#x3D;&#x3D;&#x3D; &#x27;inactive&#x27; ? &#x27;🔴 Inactif&#x27; :
+               &#x27;🟡 En congé&#x27; }}
+          &lt;/span&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Détails de l&#x27;utilisateur --&gt;
+        &lt;div class&#x3D;&quot;user-card-details&quot;&gt;
+          &lt;!-- Email --&gt;
+          &lt;div class&#x3D;&quot;detail&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;📧 Email:&lt;/span&gt;
+            &lt;span&gt;{{ user.email }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;!-- Téléphone --&gt;
+          &lt;div class&#x3D;&quot;detail&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;📱 Téléphone:&lt;/span&gt;
+            &lt;span&gt;{{ user.phone }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;!-- Cave --&gt;
+          &lt;div class&#x3D;&quot;detail&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;🏢 Cave:&lt;/span&gt;
+            &lt;span&gt;{{ user.cave }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;!-- Manager (si assigné) --&gt;
+          &lt;div class&#x3D;&quot;detail&quot; *ngIf&#x3D;&quot;user.manager&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;👥 Manager:&lt;/span&gt;
+            &lt;span&gt;{{ user.manager }}&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Boutons d&#x27;action --&gt;
+        &lt;div class&#x3D;&quot;user-card-actions&quot;&gt;
+          &lt;!-- Bouton éditer --&gt;
+          &lt;button (click)&#x3D;&quot;editUser(user)&quot; class&#x3D;&quot;btn btn-secondary btn-sm&quot;&gt;
+            ✏️ Éditer
+          &lt;/button&gt;
+          &lt;!-- Bouton supprimer --&gt;
+          &lt;button (click)&#x3D;&quot;deleteUser(user.id)&quot; class&#x3D;&quot;btn btn-danger btn-sm&quot;&gt;
+            🗑️ Supprimer
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Message si aucun utilisateur --&gt;
+      &lt;div *ngIf&#x3D;&quot;users.length &#x3D;&#x3D;&#x3D; 0&quot; class&#x3D;&quot;empty-state&quot;&gt;
+        &lt;p&gt;📭 Aucun utilisateur créé. Commencez par en ajouter un!&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./user-create.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; CONTENEUR PRINCIPAL &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.user-create-container {
+  // Padding
+  padding: 2rem;
+  // Limite de largeur
+  max-width: 1400px;
+  // Centre
+  margin: 0 auto;
+  // Fond
+  background: var(--dark-bg);
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; ALERTES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.alert {
+  // Padding
+  padding: 1rem 1.5rem;
+  // Coins arrondis
+  border-radius: 0.75rem;
+  // Espacement bas
+  margin-bottom: 1.5rem;
+  // Poids de police
+  font-weight: 500;
+  // Animation
+  animation: slideIn 0.3s ease-out;
+
+  // Succès
+  &amp;.alert-success {
+    background: rgba(var(--success), 0.1);
+    border: 1px solid rgba(var(--success), 0.3);
+    color: var(--success);
+  }
+
+  // Erreur
+  &amp;.alert-error {
+    background: rgba(var(--danger), 0.1);
+    border: 1px solid rgba(var(--danger), 0.3);
+    color: var(--danger);
+  }
+
+  // Info
+  &amp;.alert-info {
+    background: rgba(#3b82f6, 0.1);
+    border: 1px solid rgba(#3b82f6, 0.3);
+    color: #3b82f6;
+  }
+}
+
+// Animation
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; EN-TÊTE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.section-header {
+  // Flexbox
+  display: flex;
+  // Espacement
+  justify-content: space-between;
+  // Aligner
+  align-items: center;
+  // Espacement bas
+  margin-bottom: 2rem;
+
+  // Titre
+  h2 {
+    // Taille
+    font-size: 1.75rem;
+    // Poids
+    font-weight: 700;
+    // Couleur
+    color: var(--text);
+    // Pas de marge
+    margin: 0;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; CONTENEUR FORMULAIRE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.form-container {
+  // Fond
+  background: var(--card-bg);
+  // Bordure
+  border: 1px solid var(--border);
+  // Coins arrondis
+  border-radius: 1rem;
+  // Padding
+  padding: 2rem;
+  // Espacement bas
+  margin-bottom: 2rem;
+  // Transition
+  transition: all 0.3s;
+
+  // Au survol
+  &amp;:hover {
+    border-color: var(--primary);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  // Formulaire
+  form {
+    // Flexbox colonne
+    display: flex;
+    flex-direction: column;
+    // Espacement
+    gap: 1.5rem;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; GROUPE DE FORMULAIRE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.form-group {
+  // Flexbox colonne
+  display: flex;
+  flex-direction: column;
+  // Espacement
+  gap: 0.5rem;
+}
+
+// Label
+.form-label {
+  // Poids
+  font-weight: 600;
+  // Couleur
+  color: var(--text);
+  // Taille
+  font-size: 0.95rem;
+}
+
+// Input et select
+.form-input {
+  // Padding
+  padding: 0.875rem 1rem;
+  // Fond
+  background: #060918;
+  // Bordure
+  border: 1px solid var(--border);
+  // Coins arrondis
+  border-radius: 0.5rem;
+  // Couleur
+  color: var(--text);
+  // Taille de police
+  font-size: 0.95rem;
+  // Transition
+  transition: all 0.3s;
+  // Font family
+  font-family: inherit;
+
+  // Placeholder
+  &amp;::placeholder {
+    color: var(--text-muted);
+  }
+
+  // Focus
+  &amp;:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(var(--primary), 0.1);
+    outline: none;
+  }
+
+  // Erreur
+  &amp;.input-error {
+    border-color: var(--danger);
+    box-shadow: 0 0 0 3px rgba(var(--danger), 0.1);
+  }
+
+  // Options pour select
+  option {
+    background: var(--dark-bg);
+    color: var(--text);
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; TEXTE D&#x27;ERREUR &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.error-text {
+  // Couleur
+  color: var(--danger);
+  // Taille
+  font-size: 0.85rem;
+  // Margin négatif
+  margin-top: -0.25rem;
+}
+
+// Texte info
+.info-text {
+  // Couleur
+  color: var(--text-muted);
+  // Taille
+  font-size: 0.8rem;
+  // Style italic
+  font-style: italic;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; SECTION AVATARS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.avatar-section {
+  // Padding
+  padding: 1.5rem;
+  // Fond
+  background: rgba(0, 0, 0, 0.2);
+  // Coins arrondis
+  border-radius: 0.75rem;
+
+  // Label
+  .form-label {
+    margin-bottom: 1rem;
+  }
+}
+
+// Grille d&#x27;avatars
+.avatar-grid {
+  // Grille CSS
+  display: grid;
+  // Colonnes auto
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  // Espacement
+  gap: 0.75rem;
+}
+
+// Bouton avatar
+.avatar-btn {
+  // Taille
+  width: 100%;
+  aspect-ratio: 1;
+  // Fond
+  background: var(--card-bg);
+  // Bordure
+  border: 2px solid var(--border);
+  // Coins arrondis
+  border-radius: 0.5rem;
+  // Couleur texte
+  color: var(--text);
+  // Taille de police
+  font-size: 2rem;
+  // Cursor
+  cursor: pointer;
+  // Transition
+  transition: all 0.3s;
+
+  // Au survol
+  &amp;:hover {
+    // Bordure
+    border-color: var(--primary);
+    // Transform
+    transform: scale(1.1);
+  }
+
+  // Quand sélectionné
+  &amp;.selected {
+    // Fond
+    background: var(--primary);
+    // Bordure
+    border-color: var(--primary);
+    // Ombre
+    box-shadow: 0 0 15px rgba(var(--primary), 0.5);
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; GRILLE 2 COLONNES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.form-row {
+  // Grille
+  display: grid;
+  // 2 colonnes
+  grid-template-columns: repeat(2, 1fr);
+  // Espacement
+  gap: 1.5rem;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; BOUTONS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.btn {
+  // Padding
+  padding: 0.875rem 1.75rem;
+  // Bordure
+  border: none;
+  // Coins arrondis
+  border-radius: 0.75rem;
+  // Poids
+  font-weight: 600;
+  // Cursor
+  cursor: pointer;
+  // Transition
+  transition: all 0.3s;
+  // Taille
+  font-size: 0.95rem;
+
+  // Survol
+  &amp;:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  // Désactivé
+  &amp;:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  // Primaire
+  &amp;.btn-primary {
+    background: var(--primary);
+    color: white;
+
+    &amp;:hover:not(:disabled) {
+      background: var(--primary-light);
+      box-shadow: 0 8px 20px rgba(var(--primary), 0.3);
+    }
+  }
+
+  // Secondaire
+  &amp;.btn-secondary {
+    background: var(--card-bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+
+    &amp;:hover:not(:disabled) {
+      background: rgba(var(--text), 0.05);
+      border-color: var(--primary);
+    }
+  }
+
+  // Danger
+  &amp;.btn-danger {
+    background: rgba(var(--danger), 0.1);
+    color: var(--danger);
+    border: 1px solid rgba(var(--danger), 0.2);
+
+    &amp;:hover:not(:disabled) {
+      background: rgba(var(--danger), 0.2);
+      box-shadow: 0 8px 15px rgba(var(--danger), 0.2);
+    }
+  }
+
+  // Petit
+  &amp;.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; ACTIONS FORMULAIRE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.form-actions {
+  // Flexbox
+  display: flex;
+  // Espacement
+  gap: 1rem;
+  // Alignement
+  justify-content: flex-end;
+  // Margin top
+  margin-top: 1.5rem;
+  // Padding top
+  padding-top: 1.5rem;
+  // Bordure top
+  border-top: 1px solid var(--border);
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; CONTENEUR LISTE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.users-list-container {
+  // Titre h3
+  h3 {
+    // Taille
+    font-size: 1.5rem;
+    // Poids
+    font-weight: 700;
+    // Couleur
+    color: var(--text);
+    // Espacement bas
+    margin-bottom: 1.5rem;
+    // Pas de marge haut
+    margin-top: 0;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; GRILLE CARTES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.users-cards {
+  // Grille CSS
+  display: grid;
+  // Colonnes auto-fill
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  // Espacement
+  gap: 1.5rem;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; CARTE UTILISATEUR &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.user-card {
+  // Fond
+  background: var(--card-bg);
+  // Bordure
+  border: 1px solid var(--border);
+  // Coins arrondis
+  border-radius: 1rem;
+  // Padding
+  padding: 1.5rem;
+  // Transition
+  transition: all 0.3s;
+
+  // Survol
+  &amp;:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+}
+
+// En-tête carte
+.user-card-header {
+  // Flexbox
+  display: flex;
+  // Espacement
+  justify-content: space-between;
+  // Aligner
+  align-items: flex-start;
+  // Espacement bas
+  margin-bottom: 1.5rem;
+  // Padding bas
+  padding-bottom: 1.5rem;
+  // Bordure bas
+  border-bottom: 1px solid var(--border);
+}
+
+// Info utilisateur
+.user-info {
+  // Flexbox
+  display: flex;
+  // Espacement
+  gap: 1rem;
+  // Aligner
+  align-items: center;
+
+  // Titre h4
+  h4 {
+    // Taille
+    font-size: 1.1rem;
+    // Poids
+    font-weight: 700;
+    // Couleur
+    color: var(--text);
+    // Pas de marge
+    margin: 0;
+  }
+}
+
+// Avatar grand
+.avatar-large {
+  // Taille
+  width: 50px;
+  height: 50px;
+  // Cercle
+  border-radius: 50%;
+  // Fond dégradé
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  // Flexbox
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // Taille de police
+  font-size: 1.5rem;
+  // Flex shrink
+  flex-shrink: 0;
+}
+
+// Badge rôle
+.role-badge {
+  // Couleur
+  color: var(--text-muted);
+  // Taille
+  font-size: 0.85rem;
+  // Pas de marge
+  margin: 0;
+}
+
+// Badge statut
+.status-badge {
+  // Padding
+  padding: 0.4rem 0.8rem;
+  // Coins arrondis
+  border-radius: 0.5rem;
+  // Taille
+  font-size: 0.85rem;
+  // Poids
+  font-weight: 600;
+  // Display
+  display: inline-block;
+
+  // Actif
+  &amp;.status-active {
+    background: rgba(var(--success), 0.15);
+    color: var(--success);
+  }
+
+  // Inactif
+  &amp;.status-inactive {
+    background: rgba(#64748b, 0.15);
+    color: #cbd5e1;
+  }
+
+  // En congé
+  &amp;.status-on-leave {
+    background: rgba(#f59e0b, 0.15);
+    color: #fbbf24;
+  }
+}
+
+// Détails carte
+.user-card-details {
+  // Flexbox colonne
+  display: flex;
+  flex-direction: column;
+  // Espacement
+  gap: 0.75rem;
+  // Espacement bas
+  margin-bottom: 1.5rem;
+}
+
+// Ligne détail
+.detail {
+  // Flexbox
+  display: flex;
+  // Espacement
+  justify-content: space-between;
+  // Aligner
+  align-items: center;
+  // Taille
+  font-size: 0.9rem;
+
+  // Label
+  .label {
+    // Poids
+    font-weight: 600;
+    // Couleur
+    color: var(--text-muted);
+  }
+}
+
+// Actions carte
+.user-card-actions {
+  // Flexbox
+  display: flex;
+  // Espacement
+  gap: 0.5rem;
+  // Padding top
+  padding-top: 1rem;
+  // Bordure top
+  border-top: 1px solid var(--border);
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; ÉTAT VIDE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.empty-state {
+  // Couvre toutes colonnes
+  grid-column: 1 / -1;
+  // Centrer
+  text-align: center;
+  // Padding
+  padding: 3rem 2rem;
+  // Couleur
+  color: var(--text-muted);
+
+  // Paragraphe
+  p {
+    // Taille
+    font-size: 1.1rem;
+    // Pas de marge
+    margin: 0;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; RESPONSIVE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+@media (max-width: 1024px) {
+  // Grille 2 colonnes
+  .users-cards {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  // Container
+  .user-create-container {
+    padding: 1rem;
+  }
+
+  // En-tête
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
+
+  // Grille formulaire
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  // Grille cartes
+  .users-cards {
+    grid-template-columns: 1fr;
+  }
+
+  // Formulaire
+  .form-container {
+    padding: 1.5rem;
+  }
+
+  // Boutons
+  .form-actions {
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+
+    .btn {
+      width: 100%;
+    }
+  }
+
+  // Avatar grid
+  .avatar-grid {
+    grid-template-columns: repeat(auto-fit, minmax(45px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  // Container
+  .user-create-container {
+    padding: 0.5rem;
+  }
+
+  // Titre
+  .section-header h2 {
+    font-size: 1.25rem;
+  }
+
+  // Carte compacte
+  .user-card {
+    padding: 1rem;
+  }
+
+  // Header carte
+  .user-card-header {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  // Avatar
+  .avatar-large {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  // Actions empilées
+  .user-card-actions {
+    flex-direction: column;
+
+    .btn-sm {
+      width: 100%;
+    }
+  }
+
+  // Avatar grid
+  .avatar-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .avatar-btn {
+    font-size: 1.5rem;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- ===== FICHIER: user-create.component.html ===== --><!-- Template pour la création/modification d\'utilisateurs --><div class="user-create-container">  <!-- Message de feedback -->  <div *ngIf="message"       class="alert"       [ngClass]="\'alert-\' + messageType">    {{ message }}  </div>  <!-- En-tête du formulaire -->  <div class="section-header">    <h2>{{ isEditing ? \'✏️ Modifier un utilisateur\' : \'➕ Ajouter un nouvel utilisateur\' }}</h2>    <!-- Bouton annuler en mode édition -->    <button *ngIf="isEditing" (click)="resetForm()" class="btn btn-secondary">      ↻ Annuler    </button>  </div>  <!-- Conteneur du formulaire -->  <div class="form-container">    <form [formGroup]="userForm" (ngSubmit)="submitForm()">      <!-- Section de sélection d\'avatar -->      <div class="avatar-section">        <label class="form-label">Avatar</label>        <!-- Grille de boutons avatars -->        <div class="avatar-grid">          <!-- Boucle sur les avatars disponibles -->          <button *ngFor="let avatar of availableAvatars"                  type="button"                  (click)="selectAvatar(avatar)"                  class="avatar-btn"                  [class.selected]="selectedAvatar === avatar"                  title="Sélectionner cet avatar">            {{ avatar }}          </button>        </div>      </div>      <!-- Grille 2 colonnes pour prénom et nom -->      <div class="form-row">        <!-- Champ Prénom -->        <div class="form-group">          <label class="form-label">Prénom *</label>          <input            type="text"            class="form-input"            formControlName="firstName"            placeholder="Ex: Jean"            [class.input-error]="isFieldInvalid(\'firstName\')">          <small *ngIf="isFieldInvalid(\'firstName\')" class="error-text">            ⚠️ Minimum 2 caractères          </small>        </div>        <!-- Champ Nom -->        <div class="form-group">          <label class="form-label">Nom *</label>          <input            type="text"            class="form-input"            formControlName="lastName"            placeholder="Ex: Kouassi"            [class.input-error]="isFieldInvalid(\'lastName\')">          <small *ngIf="isFieldInvalid(\'lastName\')" class="error-text">            ⚠️ Minimum 2 caractères          </small>        </div>      </div>      <!-- Champ Email -->      <div class="form-group">        <label class="form-label">Email *</label>        <input          type="email"          class="form-input"          formControlName="email"          placeholder="Ex: jean.kouassi@caveviking.com"          [class.input-error]="isFieldInvalid(\'email\')">        <small *ngIf="isFieldInvalid(\'email\')" class="error-text">          ⚠️ Email invalide        </small>      </div>      <!-- Champ Téléphone -->      <div class="form-group">        <label class="form-label">Téléphone</label>        <input          type="tel"          class="form-input"          formControlName="phone"          placeholder="Ex: +234 801 234 5678">      </div>      <!-- Grille 2 colonnes pour rôle et cave -->      <div class="form-row">        <!-- Champ Rôle -->        <div class="form-group">          <label class="form-label">Rôle *</label>          <select            class="form-input"            formControlName="role"            [class.input-error]="isFieldInvalid(\'role\')">            <option value="">Sélectionner un rôle...</option>            <!-- Boucle sur les rôles disponibles -->            <option *ngFor="let role of roles" [value]="role">              {{ role }}            </option>          </select>        </div>        <!-- Champ Cave -->        <div class="form-group">          <label class="form-label">Cave *</label>          <select            class="form-input"            formControlName="cave"            (change)="onCaveChange()"            [class.input-error]="isFieldInvalid(\'cave\')">            <option value="">Sélectionner une cave...</option>            <!-- Boucle sur les caves disponibles -->            <option *ngFor="let cave of caves" [value]="cave">              🏢 {{ cave }}            </option>          </select>        </div>      </div>      <!-- Champ Manager (conditionnel - visible si cave sélectionnée) -->      <div class="form-group" *ngIf="userForm.get(\'cave\')?.value">        <label class="form-label">Manager de supervision</label>        <select          class="form-input"          formControlName="manager">          <option value="">Pas de manager assigné</option>          <!-- Boucle sur les managers de la cave sélectionnée -->          <option *ngFor="let manager of managers"                  [value]="manager.firstName + \' \' + manager.lastName">            {{ manager.firstName }} {{ manager.lastName }} - {{ manager.role }}          </option>        </select>        <small class="info-text">Les managers disponibles dépendent de la cave sélectionnée</small>      </div>      <!-- Champ Statut -->      <div class="form-group">        <label class="form-label">Statut</label>        <select class="form-input" formControlName="status">          <option value="active">🟢 Actif</option>          <option value="inactive">🔴 Inactif</option>          <option value="on-leave">🟡 En congé</option>        </select>      </div>      <!-- Champ Date d\'embauche -->      <div class="form-group">        <label class="form-label">Date d\'embauche *</label>        <input          type="date"          class="form-input"          formControlName="joinDate"          [class.input-error]="isFieldInvalid(\'joinDate\')">      </div>      <!-- Boutons du formulaire -->      <div class="form-actions">        <!-- Bouton réinitialiser -->        <button type="reset" (click)="resetForm()" class="btn btn-secondary">          ↻ Réinitialiser        </button>        <!-- Bouton soumettre -->        <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">          {{ isEditing ? \'💾 Mettre à jour\' : \'➕ Créer utilisateur\' }}        </button>      </div>    </form>  </div>  <!-- Conteneur de la liste des utilisateurs -->  <div class="users-list-container">    <h3>📋 Utilisateurs existants ({{ users.length }})</h3>    <!-- Grille de cartes d\'utilisateurs -->    <div class="users-cards">      <!-- Boucle sur chaque utilisateur -->      <div *ngFor="let user of users" class="user-card">        <!-- En-tête de la carte -->        <div class="user-card-header">          <!-- Info utilisateur avec avatar -->          <div class="user-info">            <!-- Avatar grand -->            <span class="avatar-large">{{ user.avatar }}</span>            <!-- Nom et rôle -->            <div>              <h4>{{ user.firstName }} {{ user.lastName }}</h4>              <p class="role-badge">{{ user.role }}</p>            </div>          </div>          <!-- Badge de statut -->          <span class="status-badge" [ngClass]="\'status-\' + user.status">            {{ user.status === \'active\' ? \'🟢 Actif\' :               user.status === \'inactive\' ? \'🔴 Inactif\' :               \'🟡 En congé\' }}          </span>        </div>        <!-- Détails de l\'utilisateur -->        <div class="user-card-details">          <!-- Email -->          <div class="detail">            <span class="label">📧 Email:</span>            <span>{{ user.email }}</span>          </div>          <!-- Téléphone -->          <div class="detail">            <span class="label">📱 Téléphone:</span>            <span>{{ user.phone }}</span>          </div>          <!-- Cave -->          <div class="detail">            <span class="label">🏢 Cave:</span>            <span>{{ user.cave }}</span>          </div>          <!-- Manager (si assigné) -->          <div class="detail" *ngIf="user.manager">            <span class="label">👥 Manager:</span>            <span>{{ user.manager }}</span>          </div>        </div>        <!-- Boutons d\'action -->        <div class="user-card-actions">          <!-- Bouton éditer -->          <button (click)="editUser(user)" class="btn btn-secondary btn-sm">            ✏️ Éditer          </button>          <!-- Bouton supprimer -->          <button (click)="deleteUser(user.id)" class="btn btn-danger btn-sm">            🗑️ Supprimer          </button>        </div>      </div>      <!-- Message si aucun utilisateur -->      <div *ngIf="users.length === 0" class="empty-state">        <p>📭 Aucun utilisateur créé. Commencez par en ajouter un!</p>      </div>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AdminDashboardComponent', 'selector': 'app-admin-dashboard'},{'name': 'AlertsComponent', 'selector': 'app-alerts'},{'name': 'App', 'selector': 'app-root'},{'name': 'CaisseComponent', 'selector': 'app-caisse'},{'name': 'CaveCreateComponent', 'selector': 'app-cave-create'},{'name': 'CaveListComponent', 'selector': 'app-cave-lists'},{'name': 'ClientDashboardComponent', 'selector': 'app-client-dashboard'},{'name': 'ClientsComponent', 'selector': 'app-client'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DrinksComponent', 'selector': 'app-drinks'},{'name': 'EmployeesComponent', 'selector': 'app-employees'},{'name': 'EntriesComponent', 'selector': 'app-entries'},{'name': 'ExitsComponent', 'selector': 'app-exits'},{'name': 'ExpenseComponent', 'selector': 'app-depenses'},{'name': 'FaqComponent', 'selector': 'app-faq'},{'name': 'FournisseursComponent', 'selector': 'app-fournisseur'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'ImprovementsComponent', 'selector': 'app-improvements'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ManagerDashboardComponent', 'selector': 'app-manager-dashboard'},{'name': 'ManagersComponent', 'selector': 'app-managers'},{'name': 'MaterialComponent', 'selector': 'app-materiel'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'OrdersComponent', 'selector': 'app-orders'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfitComponent', 'selector': 'app-profit'},{'name': 'RecentActionsComponent', 'selector': 'app-recent-actions'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'SalesComponent', 'selector': 'app-sales'},{'name': 'ScanComponent', 'selector': 'app-scan'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'StockComponent', 'selector': 'app-stock'},{'name': 'StockComponent', 'selector': 'app-stock'},{'name': 'TeamComponent', 'selector': 'app-team'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'UserCreateComponent', 'selector': 'app-user-create'},{'name': 'UserListComponent', 'selector': 'app-user-list'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'WaitressDashboardComponent', 'selector': 'app-waitress-dashboard'},{'name': 'WinePairingComponent', 'selector': 'app-wine-pairing'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'UserCreateComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'UserCreateComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

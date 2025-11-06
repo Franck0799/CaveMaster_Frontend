@@ -1,29 +1,11 @@
-// ==========================================
-// FICHIER: src/app/features/exits/exits.component.scss
-// DESCRIPTION: Styles pour le composant des sorties de stock
-// ==========================================
-
-// Variables - Thème sombre
-$primary-color: #8b5cf6;
-$success-color: #10b981;
-$warning-color: #f59e0b;
-$info-color: #3b82f6;
-$danger-color: #ef4444;
-$text-dark: #e5e7eb;
-$text-light: #9ca3af;
-$bg-dark: #0f172a;
-$bg-card: #1e293b;
-$border-color: #334155;
-$shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-
 // Conteneur principal
 .exits-container {
   padding: 2rem;
   max-width: 1400px;
   margin: 0 auto;
-  background: $bg-dark;
+  background: var(--dark-bg);
   min-height: 100vh;
-  color: $text-dark;
+  color: var(--text-primary);
 }
 
 // En-tête
@@ -33,10 +15,10 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   align-items: center;
   margin-bottom: 2rem;
   padding-bottom: 1.5rem;
-  border-bottom: 2px solid $border-color;
+  border-bottom: 2px solid var(--border-color);
 
   h1 {
-    color: $text-dark;
+    color: var(--text-primary);
     font-size: 2rem;
     font-weight: 700;
   }
@@ -54,22 +36,22 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
       border: none;
 
       &.btn-primary {
-        background: $primary-color;
+        background: var(--primary-color);
         color: white;
 
         &:hover {
-          background: darken($primary-color, 10%);
+          background: color-mix(in srgb, var(--primary-color) 90%, black);
           transform: translateY(-2px);
           box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
         }
       }
 
       &.btn-success {
-        background: $success-color;
+        background: var(--success);
         color: white;
 
         &:hover {
-          background: darken($success-color, 10%);
+          background: color-color-mix(in srgb, in srgb, var(--success) 90%, black);
           transform: translateY(-2px);
           box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
         }
@@ -91,9 +73,9 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     gap: 1rem;
     padding: 1.5rem;
     border-radius: 12px;
-    box-shadow: $shadow;
-    background: $bg-card;
-    border: 1px solid $border-color;
+    box-shadow: var(--shadow);
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
     transition: transform 0.3s;
 
     &:hover {
@@ -111,39 +93,39 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
       .stat-value {
         font-size: 1.75rem;
         font-weight: 700;
-        color: $text-dark;
+        color: var(--text-primary);
         margin-bottom: 0.25rem;
       }
 
       .stat-label {
         font-size: 0.9rem;
-        color: $text-light;
+        color: var(--text-muted);
       }
     }
 
     &.stat-primary {
-      border-left: 4px solid $primary-color;
-      .stat-icon { color: $primary-color; }
+      border-left: 4px solid var(--primary-color);
+      .stat-icon { color: var(--primary-color); }
     }
 
     &.stat-success {
-      border-left: 4px solid $success-color;
-      .stat-icon { color: $success-color; }
+      border-left: 4px solid var(--success);
+      .stat-icon { color: var(--success); }
     }
 
     &.stat-warning {
-      border-left: 4px solid $warning-color;
-      .stat-icon { color: $warning-color; }
+      border-left: 4px solid var(--warning);
+      .stat-icon { color: var(--warning); }
     }
 
     &.stat-info {
-      border-left: 4px solid $info-color;
-      .stat-icon { color: $info-color; }
+      border-left: 4px solid var(--info);
+      .stat-icon { color: var(--info); }
     }
 
     &.stat-danger {
-      border-left: 4px solid $danger-color;
-      .stat-icon { color: $danger-color; }
+      border-left: 4px solid var(--danger);
+      .stat-icon { color: var(--danger); }
     }
   }
 }
@@ -155,8 +137,8 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   align-items: center;
   flex-wrap: wrap;
   padding: 1.5rem;
-  background: $bg-card;
-  border: 1px solid $border-color;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   margin-bottom: 2rem;
 
@@ -168,19 +150,19 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     .search-input {
       width: 100%;
       padding: 0.75rem 2.5rem 0.75rem 1rem;
-      border: 1px solid $border-color;
+      border: 1px solid var(--border-color);
       border-radius: 6px;
-      background: $bg-dark;
-      color: $text-dark;
+      background: var(--dark-bg);
+      color: var(--text-primary);
       font-size: 0.95rem;
 
       &::placeholder {
-        color: $text-light;
+        color: var(--text-muted);
       }
 
       &:focus {
         outline: none;
-        border-color: $primary-color;
+        border-color: var(--primary-color);
         box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
       }
     }
@@ -192,13 +174,13 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
       transform: translateY(-50%);
       background: none;
       border: none;
-      color: $text-light;
+      color: var(--text-muted);
       cursor: pointer;
       font-size: 1.2rem;
       padding: 0.25rem;
 
       &:hover {
-        color: $danger-color;
+        color: var(--danger);
       }
     }
   }
@@ -211,22 +193,22 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     .filter-label {
       font-size: 0.9rem;
       font-weight: 600;
-      color: $text-dark;
+      color: var(--text-primary);
       white-space: nowrap;
     }
 
     .filter-select {
       padding: 0.75rem 1rem;
-      border: 1px solid $border-color;
+      border: 1px solid var(--border-color);
       border-radius: 6px;
       cursor: pointer;
-      background: $bg-dark;
-      color: $text-dark;
+      background: var(--dark-bg);
+      color: var(--text-primary);
       font-size: 0.95rem;
 
       &:focus {
         outline: none;
-        border-color: $primary-color;
+        border-color: var(--primary-color);
       }
     }
   }
@@ -234,10 +216,10 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 
 // Tableau des sorties
 .exits-table {
-  background: $bg-card;
-  border: 1px solid $border-color;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
-  box-shadow: $shadow;
+  box-shadow: var(--shadow);
   overflow: hidden;
 
   .table-wrapper {
@@ -250,13 +232,13 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 
     thead {
       background: rgba(139, 92, 246, 0.1);
-      border-bottom: 2px solid $primary-color;
+      border-bottom: 2px solid var(--primary-color);
 
       th {
         padding: 1rem;
         text-align: left;
         font-weight: 600;
-        color: $text-dark;
+        color: var(--text-primary);
         font-size: 0.9rem;
         white-space: nowrap;
 
@@ -272,7 +254,7 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 
     tbody {
       .table-row {
-        border-bottom: 1px solid $border-color;
+        border-bottom: 1px solid var(--border-color);
         transition: background 0.3s;
 
         &:hover {
@@ -282,7 +264,7 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         td {
           padding: 1rem;
           font-size: 0.95rem;
-          color: $text-dark;
+          color: var(--text-primary);
 
           &.text-center {
             text-align: center;
@@ -296,19 +278,19 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         .date-cell {
           .date-main {
             font-weight: 600;
-            color: $text-dark;
+            color: var(--text-primary);
           }
 
           .date-relative {
             font-size: 0.8rem;
-            color: $text-light;
+            color: var(--text-muted);
             margin-top: 0.25rem;
           }
         }
 
         .drink-name {
           font-weight: 600;
-          color: $text-dark;
+          color: var(--text-primary);
         }
 
         .cave-badge {
@@ -335,15 +317,15 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 
         .client-cell {
           font-weight: 500;
-          color: $text-light;
+          color: var(--text-muted);
         }
 
         .price-cell {
-          color: $text-light;
+          color: var(--text-muted);
         }
 
         .total-cell strong {
-          color: $success-color;
+          color: var(--success);
           font-size: 1.05rem;
         }
 
@@ -354,7 +336,7 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             background: none;
             cursor: pointer;
             font-size: 1.2rem;
-            color: $text-light;
+            color: var(--text-muted);
             transition: all 0.3s;
 
             &:hover {
@@ -362,7 +344,7 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             }
 
             &.btn-danger:hover {
-              color: $danger-color;
+              color: var(--danger);
             }
           }
         }
@@ -373,7 +355,7 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   .no-data {
     padding: 3rem;
     text-align: center;
-    color: $text-light;
+    color: var(--text-muted);
     font-size: 1.1rem;
   }
 }
@@ -395,8 +377,8 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .modal-content {
-  background: $bg-card;
-  border: 1px solid $border-color;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: 16px;
   max-width: 650px;
   width: 100%;
@@ -411,14 +393,14 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     justify-content: space-between;
     align-items: center;
     padding: 1.75rem 2rem;
-    border-bottom: 1px solid $border-color;
+    border-bottom: 1px solid var(--border-color);
     background: rgba(139, 92, 246, 0.05);
     flex-shrink: 0;
 
     h2 {
       font-size: 1.5rem;
       font-weight: 700;
-      color: $text-dark;
+      color: var(--text-primary);
       margin: 0;
       display: flex;
       align-items: center;
@@ -437,7 +419,7 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
       width: 36px;
       height: 36px;
       font-size: 1.25rem;
-      color: $text-light;
+      color: var(--text-muted);
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -445,9 +427,9 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
       transition: all 0.3s;
 
       &:hover {
-        color: $danger-color;
+        color: var(--danger);
         background: rgba(239, 68, 68, 0.2);
-        border-color: $danger-color;
+        border-color: var(--danger);
         transform: rotate(90deg);
       }
     }
@@ -463,16 +445,16 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     }
 
     &::-webkit-scrollbar-track {
-      background: $bg-dark;
+      background: var(--dark-bg);
       border-radius: 4px;
     }
 
     &::-webkit-scrollbar-thumb {
-      background: $border-color;
+      background: var(--border-color);
       border-radius: 4px;
 
       &:hover {
-        background: $primary-color;
+        background: var(--primary-color);
       }
     }
 
@@ -486,12 +468,12 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
       label {
         display: block;
         font-weight: 600;
-        color: $text-dark;
+        color: var(--text-primary);
         margin-bottom: 0.625rem;
         font-size: 0.95rem;
 
         .required {
-          color: $danger-color;
+          color: var(--danger);
           margin-left: 0.25rem;
           font-size: 1.1rem;
         }
@@ -502,22 +484,22 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
       textarea {
         width: 100%;
         padding: 0.875rem 1rem;
-        border: 1.5px solid $border-color;
+        border: 1.5px solid var(--border-color);
         border-radius: 8px;
-        background: $bg-dark;
-        color: $text-dark;
+        background: var(--dark-bg);
+        color: var(--text-primary);
         font-size: 0.95rem;
         transition: all 0.3s;
         font-family: inherit;
 
         &::placeholder {
-          color: $text-light;
+          color: var(--text-muted);
           opacity: 0.7;
         }
 
         &:focus {
           outline: none;
-          border-color: $primary-color;
+          border-color: var(--primary-color);
           box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
           background: rgba(139, 92, 246, 0.02);
         }
@@ -561,7 +543,7 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
       }
 
       .error-message {
-        color: $danger-color;
+        color: var(--danger);
         font-size: 0.85rem;
         margin-top: 0.5rem;
         display: flex;
@@ -574,7 +556,7 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
       }
 
       .helper-text {
-        color: $text-light;
+        color: var(--text-muted);
         font-size: 0.85rem;
         margin-top: 0.5rem;
         font-style: italic;
@@ -588,7 +570,7 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     align-items: center;
     gap: 1rem;
     padding: 1.5rem 2rem;
-    border-top: 1px solid $border-color;
+    border-top: 1px solid var(--border-color);
     background: rgba(15, 23, 42, 0.5);
     flex-shrink: 0;
 
@@ -612,17 +594,17 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 
       &.btn-secondary {
         background: transparent;
-        border: 1.5px solid $border-color;
-        color: $text-dark;
+        border: 1.5px solid var(--border-color);
+        color: var(--text-primary);
 
         &:hover {
           background: rgba(255, 255, 255, 0.05);
-          border-color: $text-light;
+          border-color: var(--text-muted);
         }
       }
 
       &.btn-primary {
-        background: linear-gradient(135deg, $primary-color, darken($primary-color, 10%));
+        background: linear-gradient(135deg,var(--primary-color), color-mix(in srgb, var(--primary-color) 90%, black));
         color: white;
         border: none;
 
@@ -672,7 +654,7 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   .total-label {
     font-size: 1.05rem;
     font-weight: 600;
-    color: $text-dark;
+    color: var(--text-primary);
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -686,7 +668,7 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   .total-value {
     font-size: 1.75rem;
     font-weight: 700;
-    color: $success-color;
+    color: var(--success);
     letter-spacing: -0.5px;
     text-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
   }
@@ -696,7 +678,7 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 .empty-state {
   text-align: center;
   padding: 3rem 1rem;
-  color: $text-light;
+  color: var(--text-muted);
 
   .empty-icon {
     font-size: 4rem;
@@ -706,7 +688,7 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 
   h3 {
     font-size: 1.25rem;
-    color: $text-dark;
+    color: var(--text-primary);
     margin-bottom: 0.5rem;
   }
 
@@ -721,7 +703,7 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   justify-content: center;
   align-items: center;
   padding: 3rem;
-  color: $primary-color;
+  color: var(--primary-color);
   font-size: 2rem;
 }
 

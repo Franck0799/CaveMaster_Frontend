@@ -1,111 +1,548 @@
-// ===== VARIABLES SASS =====
-// Les variables SASS commencent par $ (dollar) au lieu de --
-// Elles sont compilées AVANT que le CSS n'arrive au navigateur
-// C'est pour ça qu'elles fonctionnent toujours, même sur de vieux navigateurs
+// ===== MANAGER HOME - TABLEAU DE BORD =====
 
-$primary: #8b5cf6;           // Couleur principale (violet)
-$primary-light: #a78bfa;     // Version plus claire du violet
-$accent: #6366f1;            // Couleur d'accentuation (indigo)
-$success: #10b981;           // Vert pour les succès
-$warning: #f59e0b;           // Orange pour les avertissements
-$danger: #ef4444;            // Rouge pour les dangers
-$info: #3b82f6;              // Bleu pour les informations
-$dark-bg: #0a0d1f;           // Fond sombre principal
-$darker-bg: #060918;         // Fond encore plus sombre
-$card-bg: #1a1d35;           // Fond des cartes
-$card-hover: #232947;        // Fond des cartes au survol
-$text: #e2e8f0;              // Couleur du texte principal
-$text-muted: #94a3b8;        // Texte atténué (moins visible)
-$border: #1e293b;            // Couleur des bordures
-
-// ===== RÉINITIALISATION =====
-// Le * signifie "tous les éléments"
-// On réinitialise les marges et espacements par défaut du navigateur
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box; // La largeur inclut padding et border
+.manager-home {
+  animation: fadeIn 0.4s ease;
 }
 
-// ===== STYLES DE BASE =====
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  // linear-gradient crée un dégradé de couleurs pour le fond
-  background: linear-gradient(135deg, #000000 0%, #0a0f1e 50%, #111827 100%);
-  color: white;
+// ===== EN-TÊTE =====
+.page-header {
+  margin-bottom: 2rem;
 }
 
-.dashboard {
-  display: flex; // Place les enfants côte à côte (sidebar et contenu)
-  min-height: 100vh; // 100vh = 100% de la hauteur de l'écran
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
-// ===== RESPONSIVE DESIGN =====
-// @media query permet d'appliquer des styles différents selon la taille de l'écran
-// max-width: 768px = pour les écrans de 768px ou moins (tablettes et mobiles)
-@media (max-width: 768px) {
-  // Sur mobile, on cache la sidebar en la déplaçant hors de l'écran
-  .sidebar {
-    transform: translateX(-200px); // Déplace de 200px vers la gauche (hors de vue)
+.page-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+.btn-refresh {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
   }
 
-  .main-content {
-    margin-left: 0; // Supprime la marge puisque la sidebar est cachée
+  .icon {
+    font-size: 1.1rem;
   }
+}
 
-  // Toutes les grilles passent en une seule colonne sur mobile
-  .stats-grid,
-  .alerts-grid,
-  .team-grid {
-    grid-template-columns: 1fr; // 1 colonne qui prend toute la largeur
-  }
+// ===== GRILLE DE STATISTIQUES =====
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
 
-  // Responsive pour la section stock
-  .cave-tabs {
-    flex-direction: column; // Empile les onglets verticalement
-  }
-
-  .cave-tab {
-    min-width: 100%; // Chaque onglet prend toute la largeur
-  }
-
-  .stock-controls {
-    flex-direction: column; // Empile les contrôles verticalement
-    align-items: stretch; // Étire les éléments sur toute la largeur
-  }
-
-  .search-box {
-    width: 100%;
-  }
-
-  .stock-filters {
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .filter-btn {
-    flex: 1;
-    min-width: auto;
-  }
-
-  .stock-grid {
+  @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
+}
 
-  // Responsive pour la section caisse
-  .caisse-summary-grid {
-    grid-template-columns: 1fr;
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
   }
 
-  .transaction-header {
-    flex-wrap: wrap; // Permet aux éléments de passer à la ligne
+  &.primary { border-left: 4px solid var(--primary); }
+  &.info { border-left: 4px solid var(--info); }
+  &.success { border-left: 4px solid var(--success); }
+  &.warning { border-left: 4px solid var(--warning); }
+  &.secondary { border-left: 4px solid #6b7280; }
+  &.accent { border-left: 4px solid var(--accent); }
+}
+
+.stat-icon {
+  font-size: 2.5rem;
+  flex-shrink: 0;
+}
+
+.stat-content {
+  flex: 1;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.stat-value {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.stat-trend {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+
+  &.positive {
+    color: var(--success);
   }
 
-  .transaction-amount {
-    width: 100%;
-    text-align: right;
-    margin-top: 0.5rem;
+  &.negative {
+    color: var(--danger);
+  }
+
+  .trend-icon {
+    font-size: 1rem;
   }
 }
-// ===== FIN RESPONSIVE DESIGN =====
 
+.stat-info {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+// ===== GRILLE DE CONTENU =====
+.content-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 2rem;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ===== CARTES =====
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  &.alert-card {
+    border-left: 4px solid var(--warning);
+  }
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+
+  .title-icon {
+    font-size: 1.5rem;
+  }
+}
+
+.btn-link {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: var(--primary-light);
+    transform: translateX(4px);
+  }
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+// ===== LISTE DE COMMANDES =====
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background: var(--darker-bg);
+  border-radius: 0.75rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: var(--card-hover);
+    transform: translateX(4px);
+  }
+}
+
+.order-info {
+  flex: 1;
+}
+
+.order-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.order-id {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.order-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+
+  &.badge-warning {
+    background: rgba(251, 191, 36, 0.2);
+    color: var(--warning);
+  }
+
+  &.badge-info {
+    background: rgba(59, 130, 246, 0.2);
+    color: var(--info);
+  }
+
+  &.badge-success {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--success);
+  }
+}
+
+.order-details {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+
+  .separator {
+    color: var(--border);
+  }
+}
+
+.order-right {
+  text-align: right;
+}
+
+.order-amount {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.25rem;
+}
+
+.order-time {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+// ===== GRAPHIQUE SIMPLE =====
+.simple-chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem;
+  height: 200px;
+  padding: 1rem 0;
+}
+
+.chart-bar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bar-container {
+  width: 100%;
+  height: 150px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.bar {
+  width: 100%;
+  background: linear-gradient(180deg, var(--primary-light), var(--primary));
+  border-radius: 0.5rem 0.5rem 0 0;
+  position: relative;
+  transition: all 0.3s ease;
+  min-height: 20px;
+
+  &:hover {
+    background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+    transform: scaleY(1.05);
+  }
+}
+
+.bar-value {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.bar-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+// ===== LISTE ÉQUIPE =====
+.team-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.team-member {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background: var(--darker-bg);
+  border-radius: 0.75rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: var(--card-hover);
+    transform: translateX(4px);
+  }
+}
+
+.member-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.member-avatar {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  border-radius: 50%;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.member-details {
+  flex: 1;
+}
+
+.member-name {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.member-stats {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+
+  .separator {
+    color: var(--border);
+  }
+}
+
+.status-badge {
+  padding: 0.375rem 0.875rem;
+  border-radius: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+
+  &.status-present {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--success);
+  }
+
+  &.status-absent {
+    background: rgba(239, 68, 68, 0.2);
+    color: var(--danger);
+  }
+
+  &.status-break {
+    background: rgba(251, 191, 36, 0.2);
+    color: var(--warning);
+  }
+}
+
+// ===== ALERTES DE STOCK =====
+.alerts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.alert-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--darker-bg);
+  border-radius: 0.75rem;
+  border-left: 3px solid var(--warning);
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: var(--card-hover);
+    transform: translateX(4px);
+  }
+}
+
+.alert-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.alert-content {
+  flex: 1;
+}
+
+.alert-product {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.alert-details {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+
+  .separator {
+    color: var(--border);
+  }
+}
+
+.alert-stock {
+  &.critical {
+    color: var(--danger);
+    font-weight: 600;
+  }
+}
+
+// ===== ACTIONS RAPIDES =====
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  background: var(--darker-bg);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+
+    .action-icon {
+      transform: scale(1.2);
+    }
+  }
+}
+
+.action-icon {
+  font-size: 2rem;
+  transition: all 0.3s ease;
+}
+
+.action-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+// ===== ANIMATIONS =====
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

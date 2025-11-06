@@ -1,0 +1,4695 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cave-master-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cave-master-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  EmployeesComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/view/admin-dashboard/employees/employees.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-employees</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>FormsModule</code>
+                            <code>ReactiveFormsModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./employees.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./employees.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#caves" >caves</a>
+                            </li>
+                            <li>
+                                <a href="#editEmployeeForm" >editEmployeeForm</a>
+                            </li>
+                            <li>
+                                <a href="#employees" >employees</a>
+                            </li>
+                            <li>
+                                <a href="#isAddEmployeeModalOpen" >isAddEmployeeModalOpen</a>
+                            </li>
+                            <li>
+                                <a href="#isEditEmployeeModalOpen" >isEditEmployeeModalOpen</a>
+                            </li>
+                            <li>
+                                <a href="#isViewDetailsModalOpen" >isViewDetailsModalOpen</a>
+                            </li>
+                            <li>
+                                <a href="#isViewHistoryModalOpen" >isViewHistoryModalOpen</a>
+                            </li>
+                            <li>
+                                <a href="#newEmployeeForm" >newEmployeeForm</a>
+                            </li>
+                            <li>
+                                <a href="#selectedEmployee" >selectedEmployee</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addNewEmployee" >addNewEmployee</a>
+                            </li>
+                            <li>
+                                <a href="#closeAddEmployeeModal" >closeAddEmployeeModal</a>
+                            </li>
+                            <li>
+                                <a href="#closeDetailsModal" >closeDetailsModal</a>
+                            </li>
+                            <li>
+                                <a href="#closeEditEmployeeModal" >closeEditEmployeeModal</a>
+                            </li>
+                            <li>
+                                <a href="#closeHistoryModal" >closeHistoryModal</a>
+                            </li>
+                            <li>
+                                <a href="#deleteEmployee" >deleteEmployee</a>
+                            </li>
+                            <li>
+                                <a href="#editEmployee" >editEmployee</a>
+                            </li>
+                            <li>
+                                <a href="#generateId" >generateId</a>
+                            </li>
+                            <li>
+                                <a href="#getAbsentEmployeesCount" >getAbsentEmployeesCount</a>
+                            </li>
+                            <li>
+                                <a href="#getAllEmployees" >getAllEmployees</a>
+                            </li>
+                            <li>
+                                <a href="#getAverageHours" >getAverageHours</a>
+                            </li>
+                            <li>
+                                <a href="#getAverageSales" >getAverageSales</a>
+                            </li>
+                            <li>
+                                <a href="#getHistoryAbsentDays" >getHistoryAbsentDays</a>
+                            </li>
+                            <li>
+                                <a href="#getHistoryLeaveDays" >getHistoryLeaveDays</a>
+                            </li>
+                            <li>
+                                <a href="#getHistoryPresentDays" >getHistoryPresentDays</a>
+                            </li>
+                            <li>
+                                <a href="#getManagersByCave" >getManagersByCave</a>
+                            </li>
+                            <li>
+                                <a href="#getOnLeaveEmployeesCount" >getOnLeaveEmployeesCount</a>
+                            </li>
+                            <li>
+                                <a href="#getPresentEmployeesCount" >getPresentEmployeesCount</a>
+                            </li>
+                            <li>
+                                <a href="#getRandomAvatar" >getRandomAvatar</a>
+                            </li>
+                            <li>
+                                <a href="#getStatusClass" >getStatusClass</a>
+                            </li>
+                            <li>
+                                <a href="#getStatusIcon" >getStatusIcon</a>
+                            </li>
+                            <li>
+                                <a href="#getTotalEmployeesCount" >getTotalEmployeesCount</a>
+                            </li>
+                            <li>
+                                <a href="#loadCaves" >loadCaves</a>
+                            </li>
+                            <li>
+                                <a href="#loadEmployees" >loadEmployees</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#openAddEmployeeModal" >openAddEmployeeModal</a>
+                            </li>
+                            <li>
+                                <a href="#resetEmployeeForm" >resetEmployeeForm</a>
+                            </li>
+                            <li>
+                                <a href="#saveEmployeeChanges" >saveEmployeeChanges</a>
+                            </li>
+                            <li>
+                                <a href="#updateAvailabilityStatus" >updateAvailabilityStatus</a>
+                            </li>
+                            <li>
+                                <a href="#validateEmployeeForm" >validateEmployeeForm</a>
+                            </li>
+                            <li>
+                                <a href="#viewAvailabilityHistory" >viewAvailabilityHistory</a>
+                            </li>
+                            <li>
+                                <a href="#viewEmployeeDetails" >viewEmployeeDetails</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="168" class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:168</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addNewEmployee"></a>
+                    <span class="name">
+                        <span ><b>addNewEmployee</b></span>
+                        <a href="#addNewEmployee"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addNewEmployee()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="273"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:273</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Ajoute un nouvel employé</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeAddEmployeeModal"></a>
+                    <span class="name">
+                        <span ><b>closeAddEmployeeModal</b></span>
+                        <a href="#closeAddEmployeeModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeAddEmployeeModal()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="251"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:251</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Ferme le modal d&#39;ajout d&#39;employé</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeDetailsModal"></a>
+                    <span class="name">
+                        <span ><b>closeDetailsModal</b></span>
+                        <a href="#closeDetailsModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeDetailsModal()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="400"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:400</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Ferme le modal de détails</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeEditEmployeeModal"></a>
+                    <span class="name">
+                        <span ><b>closeEditEmployeeModal</b></span>
+                        <a href="#closeEditEmployeeModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeEditEmployeeModal()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="357"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:357</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Ferme le modal d&#39;édition</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeHistoryModal"></a>
+                    <span class="name">
+                        <span ><b>closeHistoryModal</b></span>
+                        <a href="#closeHistoryModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeHistoryModal()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="416"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:416</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Ferme le modal d&#39;historique</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteEmployee"></a>
+                    <span class="name">
+                        <span ><b>deleteEmployee</b></span>
+                        <a href="#deleteEmployee"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteEmployee(employee: <a href="../interfaces/Employee.html" target="_self">Employee</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="381"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:381</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Supprime un employé</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>employee</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Employee.html" target="_self" >Employee</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editEmployee"></a>
+                    <span class="name">
+                        <span ><b>editEmployee</b></span>
+                        <a href="#editEmployee"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>editEmployee(employee: <a href="../interfaces/Employee.html" target="_self">Employee</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="348"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:348</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Ouvre le modal d&#39;édition avec les informations de l&#39;employé</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>employee</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Employee.html" target="_self" >Employee</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generateId"></a>
+                    <span class="name">
+                        <span ><b>generateId</b></span>
+                        <a href="#generateId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>generateId()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="322"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:322</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Génère un ID unique pour un nouvel employé</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAbsentEmployeesCount"></a>
+                    <span class="name">
+                        <span ><b>getAbsentEmployeesCount</b></span>
+                        <a href="#getAbsentEmployeesCount"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getAbsentEmployeesCount()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="215"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:215</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Compte les employés absents</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAllEmployees"></a>
+                    <span class="name">
+                        <span ><b>getAllEmployees</b></span>
+                        <a href="#getAllEmployees"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getAllEmployees()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="194"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:194</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retourne tous les employés</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Employee[]</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAverageHours"></a>
+                    <span class="name">
+                        <span ><b>getAverageHours</b></span>
+                        <a href="#getAverageHours"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getAverageHours()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="236"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:236</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Calcule la moyenne des heures travaillées</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAverageSales"></a>
+                    <span class="name">
+                        <span ><b>getAverageSales</b></span>
+                        <a href="#getAverageSales"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getAverageSales()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="229"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:229</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Calcule la moyenne des ventes</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getHistoryAbsentDays"></a>
+                    <span class="name">
+                        <span ><b>getHistoryAbsentDays</b></span>
+                        <a href="#getHistoryAbsentDays"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getHistoryAbsentDays(employee: <a href="../interfaces/Employee.html" target="_self">Employee</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="473"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:473</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Compte les jours absents dans l&#39;historique</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>employee</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Employee.html" target="_self" >Employee</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getHistoryLeaveDays"></a>
+                    <span class="name">
+                        <span ><b>getHistoryLeaveDays</b></span>
+                        <a href="#getHistoryLeaveDays"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getHistoryLeaveDays(employee: <a href="../interfaces/Employee.html" target="_self">Employee</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="480"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:480</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Compte les jours de congé dans l&#39;historique</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>employee</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Employee.html" target="_self" >Employee</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getHistoryPresentDays"></a>
+                    <span class="name">
+                        <span ><b>getHistoryPresentDays</b></span>
+                        <a href="#getHistoryPresentDays"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getHistoryPresentDays(employee: <a href="../interfaces/Employee.html" target="_self">Employee</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="466"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:466</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Compte les jours présents dans l&#39;historique</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>employee</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Employee.html" target="_self" >Employee</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getManagersByCave"></a>
+                    <span class="name">
+                        <span ><b>getManagersByCave</b></span>
+                        <a href="#getManagersByCave"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getManagersByCave(caveId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="337"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:337</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Récupère les managers d&#39;une cave spécifique</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>caveId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>any[]</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getOnLeaveEmployeesCount"></a>
+                    <span class="name">
+                        <span ><b>getOnLeaveEmployeesCount</b></span>
+                        <a href="#getOnLeaveEmployeesCount"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getOnLeaveEmployeesCount()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="222"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:222</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Compte les employés en congé</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getPresentEmployeesCount"></a>
+                    <span class="name">
+                        <span ><b>getPresentEmployeesCount</b></span>
+                        <a href="#getPresentEmployeesCount"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getPresentEmployeesCount()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="208"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:208</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Compte les employés présents</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getRandomAvatar"></a>
+                    <span class="name">
+                        <span ><b>getRandomAvatar</b></span>
+                        <a href="#getRandomAvatar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getRandomAvatar()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="329"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:329</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retourne un avatar aléatoire</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getStatusClass"></a>
+                    <span class="name">
+                        <span ><b>getStatusClass</b></span>
+                        <a href="#getStatusClass"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getStatusClass(status: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="424"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:424</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retourne la classe CSS selon le statut</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>status</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getStatusIcon"></a>
+                    <span class="name">
+                        <span ><b>getStatusIcon</b></span>
+                        <a href="#getStatusIcon"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getStatusIcon(status: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="436"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:436</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retourne l&#39;icône selon le statut</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>status</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTotalEmployeesCount"></a>
+                    <span class="name">
+                        <span ><b>getTotalEmployeesCount</b></span>
+                        <a href="#getTotalEmployeesCount"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getTotalEmployeesCount()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="201"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:201</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Calcule le nombre total d&#39;employés</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadCaves"></a>
+                    <span class="name">
+                        <span ><b>loadCaves</b></span>
+                        <a href="#loadCaves"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadCaves()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="187"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:187</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Charge la liste des caves</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadEmployees"></a>
+                    <span class="name">
+                        <span ><b>loadEmployees</b></span>
+                        <a href="#loadEmployees"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadEmployees()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="180"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:180</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Charge la liste des employés depuis le backend</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="172"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:172</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openAddEmployeeModal"></a>
+                    <span class="name">
+                        <span ><b>openAddEmployeeModal</b></span>
+                        <a href="#openAddEmployeeModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openAddEmployeeModal()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="243"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:243</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Ouvre le modal d&#39;ajout d&#39;employé</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetEmployeeForm"></a>
+                    <span class="name">
+                        <span ><b>resetEmployeeForm</b></span>
+                        <a href="#resetEmployeeForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resetEmployeeForm()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="258"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:258</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Réinitialise le formulaire d&#39;ajout d&#39;employé</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveEmployeeChanges"></a>
+                    <span class="name">
+                        <span ><b>saveEmployeeChanges</b></span>
+                        <a href="#saveEmployeeChanges"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>saveEmployeeChanges()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="366"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:366</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Sauvegarde les modifications de l&#39;employé</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateAvailabilityStatus"></a>
+                    <span class="name">
+                        <span ><b>updateAvailabilityStatus</b></span>
+                        <a href="#updateAvailabilityStatus"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateAvailabilityStatus(employee: <a href="../interfaces/Employee.html" target="_self">Employee</a>, newStatus: "présent" | "absent" | "congé")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="448"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:448</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Met à jour le statut de disponibilité d&#39;un employé</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>employee</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Employee.html" target="_self" >Employee</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>newStatus</td>
+                                            <td>
+                                                        <code>&quot;présent&quot; | &quot;absent&quot; | &quot;congé&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="validateEmployeeForm"></a>
+                    <span class="name">
+                        <span ><b>validateEmployeeForm</b></span>
+                        <a href="#validateEmployeeForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>validateEmployeeForm()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="308"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:308</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Valide le formulaire d&#39;ajout d&#39;employé</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="viewAvailabilityHistory"></a>
+                    <span class="name">
+                        <span ><b>viewAvailabilityHistory</b></span>
+                        <a href="#viewAvailabilityHistory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>viewAvailabilityHistory(employee: <a href="../interfaces/Employee.html" target="_self">Employee</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="408"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:408</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Affiche l&#39;historique de disponibilité</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>employee</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Employee.html" target="_self" >Employee</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="viewEmployeeDetails"></a>
+                    <span class="name">
+                        <span ><b>viewEmployeeDetails</b></span>
+                        <a href="#viewEmployeeDetails"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>viewEmployeeDetails(employee: <a href="../interfaces/Employee.html" target="_self">Employee</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="392"
+                                    class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:392</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Affiche les détails complets d&#39;un employé</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>employee</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Employee.html" target="_self" >Employee</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="caves"></a>
+                    <span class="name">
+                        <span ><b>caves</b></span>
+                        <a href="#caves"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    { id: &#x27;cave1&#x27;, name: &#x27;Cave Abidjan Centre&#x27; },
+    { id: &#x27;cave2&#x27;, name: &#x27;Cave Cocody&#x27; },
+    { id: &#x27;cave3&#x27;, name: &#x27;Cave Yopougon&#x27; }
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="164" class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:164</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editEmployeeForm"></a>
+                    <span class="name">
+                        <span ><b>editEmployeeForm</b></span>
+                        <a href="#editEmployeeForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Employee | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="161" class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:161</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="employees"></a>
+                    <span class="name">
+                        <span ><b>employees</b></span>
+                        <a href="#employees"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Employee[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    {
+      id: &#x27;1&#x27;,
+      avatar: &#x27;👨&#x27;,
+      firstName: &#x27;Jean&#x27;,
+      lastName: &#x27;Kouassi&#x27;,
+      name: &#x27;Jean Kouassi&#x27;,
+      email: &#x27;jean.kouassi@caveviking.com&#x27;,
+      phone: &#x27;+234 801 234 5678&#x27;,
+      position: &#x27;Caissier&#x27;,
+      ventes: &#x27;250K&#x27;,
+      heures: &#x27;160h&#x27;,
+      availability: {
+        status: &#x27;présent&#x27;,
+        heureArrivee: &#x27;08:15&#x27;,
+        heureDepart: &#x27;17:30&#x27;,
+        lastUpdate: &#x27;2025-01-27T08:15:00&#x27;
+      },
+      availabilityHistory: [
+        { date: &#x27;2025-01-27&#x27;, status: &#x27;présent&#x27;, heureArrivee: &#x27;08:15&#x27;, heureDepart: &#x27;17:30&#x27;, duree: &#x27;9h15&#x27; },
+        { date: &#x27;2025-01-26&#x27;, status: &#x27;présent&#x27;, heureArrivee: &#x27;08:05&#x27;, heureDepart: &#x27;17:00&#x27;, duree: &#x27;8h55&#x27; },
+        { date: &#x27;2025-01-25&#x27;, status: &#x27;absent&#x27;, heureArrivee: &#x27;-&#x27;, heureDepart: &#x27;-&#x27;, duree: &#x27;-&#x27; },
+        { date: &#x27;2025-01-24&#x27;, status: &#x27;présent&#x27;, heureArrivee: &#x27;08:20&#x27;, heureDepart: &#x27;17:15&#x27;, duree: &#x27;8h55&#x27; }
+      ]
+    },
+    {
+      id: &#x27;2&#x27;,
+      avatar: &#x27;👩&#x27;,
+      firstName: &#x27;Marie&#x27;,
+      lastName: &#x27;Diallo&#x27;,
+      name: &#x27;Marie Diallo&#x27;,
+      email: &#x27;marie.diallo@caveviking.com&#x27;,
+      phone: &#x27;+234 802 345 6789&#x27;,
+      position: &#x27;Vendeuse&#x27;,
+      ventes: &#x27;320K&#x27;,
+      heures: &#x27;155h&#x27;,
+      availability: {
+        status: &#x27;congé&#x27;,
+        lastUpdate: &#x27;2025-01-25T00:00:00&#x27;
+      },
+      availabilityHistory: [
+        { date: &#x27;2025-01-27&#x27;, status: &#x27;congé&#x27;, heureArrivee: &#x27;-&#x27;, heureDepart: &#x27;-&#x27;, duree: &#x27;-&#x27; },
+        { date: &#x27;2025-01-26&#x27;, status: &#x27;congé&#x27;, heureArrivee: &#x27;-&#x27;, heureDepart: &#x27;-&#x27;, duree: &#x27;-&#x27; },
+        { date: &#x27;2025-01-25&#x27;, status: &#x27;présent&#x27;, heureArrivee: &#x27;08:00&#x27;, heureDepart: &#x27;17:00&#x27;, duree: &#x27;9h00&#x27; },
+        { date: &#x27;2025-01-24&#x27;, status: &#x27;présent&#x27;, heureArrivee: &#x27;08:10&#x27;, heureDepart: &#x27;17:20&#x27;, duree: &#x27;9h10&#x27; }
+      ]
+    },
+    {
+      id: &#x27;3&#x27;,
+      avatar: &#x27;👨&#x27;,
+      firstName: &#x27;Paul&#x27;,
+      lastName: &#x27;Mensah&#x27;,
+      name: &#x27;Paul Mensah&#x27;,
+      email: &#x27;paul.mensah@caveviking.com&#x27;,
+      phone: &#x27;+234 803 456 7890&#x27;,
+      position: &#x27;Magasinier&#x27;,
+      ventes: &#x27;180K&#x27;,
+      heures: &#x27;165h&#x27;,
+      availability: {
+        status: &#x27;absent&#x27;,
+        lastUpdate: &#x27;2025-01-27T08:00:00&#x27;
+      },
+      availabilityHistory: [
+        { date: &#x27;2025-01-27&#x27;, status: &#x27;absent&#x27;, heureArrivee: &#x27;-&#x27;, heureDepart: &#x27;-&#x27;, duree: &#x27;-&#x27; },
+        { date: &#x27;2025-01-26&#x27;, status: &#x27;présent&#x27;, heureArrivee: &#x27;07:55&#x27;, heureDepart: &#x27;17:10&#x27;, duree: &#x27;9h15&#x27; },
+        { date: &#x27;2025-01-25&#x27;, status: &#x27;présent&#x27;, heureArrivee: &#x27;08:00&#x27;, heureDepart: &#x27;17:00&#x27;, duree: &#x27;9h00&#x27; },
+        { date: &#x27;2025-01-24&#x27;, status: &#x27;présent&#x27;, heureArrivee: &#x27;08:05&#x27;, heureDepart: &#x27;17:05&#x27;, duree: &#x27;9h00&#x27; }
+      ]
+    }
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="69" class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:69</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isAddEmployeeModalOpen"></a>
+                    <span class="name">
+                        <span ><b>isAddEmployeeModalOpen</b></span>
+                        <a href="#isAddEmployeeModalOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="141" class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:141</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isEditEmployeeModalOpen"></a>
+                    <span class="name">
+                        <span ><b>isEditEmployeeModalOpen</b></span>
+                        <a href="#isEditEmployeeModalOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="142" class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:142</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isViewDetailsModalOpen"></a>
+                    <span class="name">
+                        <span ><b>isViewDetailsModalOpen</b></span>
+                        <a href="#isViewDetailsModalOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="143" class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:143</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isViewHistoryModalOpen"></a>
+                    <span class="name">
+                        <span ><b>isViewHistoryModalOpen</b></span>
+                        <a href="#isViewHistoryModalOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="144" class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:144</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="newEmployeeForm"></a>
+                    <span class="name">
+                        <span ><b>newEmployeeForm</b></span>
+                        <a href="#newEmployeeForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/NewEmployeeForm.html" target="_self" >NewEmployeeForm</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    firstName: &#x27;&#x27;,
+    lastName: &#x27;&#x27;,
+    email: &#x27;&#x27;,
+    phone: &#x27;&#x27;,
+    caveId: &#x27;&#x27;,
+    managerId: &#x27;&#x27;,
+    position: &#x27;&#x27;
+  }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="150" class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:150</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedEmployee"></a>
+                    <span class="name">
+                        <span ><b>selectedEmployee</b></span>
+                        <a href="#selectedEmployee"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Employee | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="147" class="link-to-prism">src/app/view/admin-dashboard/employees/employees.component.ts:147</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule, ReactiveFormsModule } from &#x27;@angular/forms&#x27;;
+
+/**
+ * Interface pour l&#x27;historique de disponibilité
+ */
+interface AvailabilityHistory {
+  date: string;
+  status: &#x27;présent&#x27; | &#x27;absent&#x27; | &#x27;congé&#x27;;
+  heureArrivee?: string;
+  heureDepart?: string;
+  duree?: string;
+}
+
+/**
+ * Interface pour la disponibilité actuelle
+ */
+interface Availability {
+  status: &#x27;présent&#x27; | &#x27;absent&#x27; | &#x27;congé&#x27;;
+  heureArrivee?: string;
+  heureDepart?: string;
+  lastUpdate: string;
+}
+
+/**
+ * Interface pour définir la structure d&#x27;un employé
+ */
+interface Employee {
+  id: string;
+  avatar: string;
+  name: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  position: string;
+  ventes: string;
+  heures: string;
+  managerId?: string;
+  caveId?: string;
+  availability: Availability;
+  availabilityHistory: AvailabilityHistory[];
+}
+
+/**
+ * Interface pour le formulaire d&#x27;ajout d&#x27;employé
+ */
+interface NewEmployeeForm {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  caveId: string;
+  managerId: string;
+  position: string;
+}
+
+@Component({
+  selector: &#x27;app-employees&#x27;,
+  standalone: true,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  templateUrl: &#x27;./employees.component.html&#x27;,
+  styleUrls: [&#x27;./employees.component.scss&#x27;]
+})
+export class EmployeesComponent implements OnInit {
+
+  // Liste de tous les employés avec disponibilité
+  employees: Employee[] &#x3D; [
+    {
+      id: &#x27;1&#x27;,
+      avatar: &#x27;👨&#x27;,
+      firstName: &#x27;Jean&#x27;,
+      lastName: &#x27;Kouassi&#x27;,
+      name: &#x27;Jean Kouassi&#x27;,
+      email: &#x27;jean.kouassi@caveviking.com&#x27;,
+      phone: &#x27;+234 801 234 5678&#x27;,
+      position: &#x27;Caissier&#x27;,
+      ventes: &#x27;250K&#x27;,
+      heures: &#x27;160h&#x27;,
+      availability: {
+        status: &#x27;présent&#x27;,
+        heureArrivee: &#x27;08:15&#x27;,
+        heureDepart: &#x27;17:30&#x27;,
+        lastUpdate: &#x27;2025-01-27T08:15:00&#x27;
+      },
+      availabilityHistory: [
+        { date: &#x27;2025-01-27&#x27;, status: &#x27;présent&#x27;, heureArrivee: &#x27;08:15&#x27;, heureDepart: &#x27;17:30&#x27;, duree: &#x27;9h15&#x27; },
+        { date: &#x27;2025-01-26&#x27;, status: &#x27;présent&#x27;, heureArrivee: &#x27;08:05&#x27;, heureDepart: &#x27;17:00&#x27;, duree: &#x27;8h55&#x27; },
+        { date: &#x27;2025-01-25&#x27;, status: &#x27;absent&#x27;, heureArrivee: &#x27;-&#x27;, heureDepart: &#x27;-&#x27;, duree: &#x27;-&#x27; },
+        { date: &#x27;2025-01-24&#x27;, status: &#x27;présent&#x27;, heureArrivee: &#x27;08:20&#x27;, heureDepart: &#x27;17:15&#x27;, duree: &#x27;8h55&#x27; }
+      ]
+    },
+    {
+      id: &#x27;2&#x27;,
+      avatar: &#x27;👩&#x27;,
+      firstName: &#x27;Marie&#x27;,
+      lastName: &#x27;Diallo&#x27;,
+      name: &#x27;Marie Diallo&#x27;,
+      email: &#x27;marie.diallo@caveviking.com&#x27;,
+      phone: &#x27;+234 802 345 6789&#x27;,
+      position: &#x27;Vendeuse&#x27;,
+      ventes: &#x27;320K&#x27;,
+      heures: &#x27;155h&#x27;,
+      availability: {
+        status: &#x27;congé&#x27;,
+        lastUpdate: &#x27;2025-01-25T00:00:00&#x27;
+      },
+      availabilityHistory: [
+        { date: &#x27;2025-01-27&#x27;, status: &#x27;congé&#x27;, heureArrivee: &#x27;-&#x27;, heureDepart: &#x27;-&#x27;, duree: &#x27;-&#x27; },
+        { date: &#x27;2025-01-26&#x27;, status: &#x27;congé&#x27;, heureArrivee: &#x27;-&#x27;, heureDepart: &#x27;-&#x27;, duree: &#x27;-&#x27; },
+        { date: &#x27;2025-01-25&#x27;, status: &#x27;présent&#x27;, heureArrivee: &#x27;08:00&#x27;, heureDepart: &#x27;17:00&#x27;, duree: &#x27;9h00&#x27; },
+        { date: &#x27;2025-01-24&#x27;, status: &#x27;présent&#x27;, heureArrivee: &#x27;08:10&#x27;, heureDepart: &#x27;17:20&#x27;, duree: &#x27;9h10&#x27; }
+      ]
+    },
+    {
+      id: &#x27;3&#x27;,
+      avatar: &#x27;👨&#x27;,
+      firstName: &#x27;Paul&#x27;,
+      lastName: &#x27;Mensah&#x27;,
+      name: &#x27;Paul Mensah&#x27;,
+      email: &#x27;paul.mensah@caveviking.com&#x27;,
+      phone: &#x27;+234 803 456 7890&#x27;,
+      position: &#x27;Magasinier&#x27;,
+      ventes: &#x27;180K&#x27;,
+      heures: &#x27;165h&#x27;,
+      availability: {
+        status: &#x27;absent&#x27;,
+        lastUpdate: &#x27;2025-01-27T08:00:00&#x27;
+      },
+      availabilityHistory: [
+        { date: &#x27;2025-01-27&#x27;, status: &#x27;absent&#x27;, heureArrivee: &#x27;-&#x27;, heureDepart: &#x27;-&#x27;, duree: &#x27;-&#x27; },
+        { date: &#x27;2025-01-26&#x27;, status: &#x27;présent&#x27;, heureArrivee: &#x27;07:55&#x27;, heureDepart: &#x27;17:10&#x27;, duree: &#x27;9h15&#x27; },
+        { date: &#x27;2025-01-25&#x27;, status: &#x27;présent&#x27;, heureArrivee: &#x27;08:00&#x27;, heureDepart: &#x27;17:00&#x27;, duree: &#x27;9h00&#x27; },
+        { date: &#x27;2025-01-24&#x27;, status: &#x27;présent&#x27;, heureArrivee: &#x27;08:05&#x27;, heureDepart: &#x27;17:05&#x27;, duree: &#x27;9h00&#x27; }
+      ]
+    }
+  ];
+
+  // Modals
+  isAddEmployeeModalOpen: boolean &#x3D; false;
+  isEditEmployeeModalOpen: boolean &#x3D; false;
+  isViewDetailsModalOpen: boolean &#x3D; false;
+  isViewHistoryModalOpen: boolean &#x3D; false;
+
+  // Employé sélectionné pour les modals
+  selectedEmployee: Employee | null &#x3D; null;
+
+  // Formulaire pour nouvel employé
+  newEmployeeForm: NewEmployeeForm &#x3D; {
+    firstName: &#x27;&#x27;,
+    lastName: &#x27;&#x27;,
+    email: &#x27;&#x27;,
+    phone: &#x27;&#x27;,
+    caveId: &#x27;&#x27;,
+    managerId: &#x27;&#x27;,
+    position: &#x27;&#x27;
+  };
+
+  // Formulaire d&#x27;édition
+  editEmployeeForm: Employee | null &#x3D; null;
+
+  // Liste des caves
+  caves: any[] &#x3D; [
+    { id: &#x27;cave1&#x27;, name: &#x27;Cave Abidjan Centre&#x27; },
+    { id: &#x27;cave2&#x27;, name: &#x27;Cave Cocody&#x27; },
+    { id: &#x27;cave3&#x27;, name: &#x27;Cave Yopougon&#x27; }
+  ];
+
+  constructor() {}
+
+  ngOnInit(): void {
+    this.loadEmployees();
+    this.loadCaves();
+  }
+
+  /**
+   * Charge la liste des employés depuis le backend
+   */
+  loadEmployees(): void {
+    console.log(&#x27;Chargement des employés...&#x27;);
+  }
+
+  /**
+   * Charge la liste des caves
+   */
+  loadCaves(): void {
+    console.log(&#x27;Chargement des caves...&#x27;);
+  }
+
+  /**
+   * Retourne tous les employés
+   */
+  getAllEmployees(): Employee[] {
+    return this.employees;
+  }
+
+  /**
+   * Calcule le nombre total d&#x27;employés
+   */
+  getTotalEmployeesCount(): number {
+    return this.employees.length;
+  }
+
+  /**
+   * Compte les employés présents
+   */
+  getPresentEmployeesCount(): number {
+    return this.employees.filter(e &#x3D;&gt; e.availability.status &#x3D;&#x3D;&#x3D; &#x27;présent&#x27;).length;
+  }
+
+  /**
+   * Compte les employés absents
+   */
+  getAbsentEmployeesCount(): number {
+    return this.employees.filter(e &#x3D;&gt; e.availability.status &#x3D;&#x3D;&#x3D; &#x27;absent&#x27;).length;
+  }
+
+  /**
+   * Compte les employés en congé
+   */
+  getOnLeaveEmployeesCount(): number {
+    return this.employees.filter(e &#x3D;&gt; e.availability.status &#x3D;&#x3D;&#x3D; &#x27;congé&#x27;).length;
+  }
+
+  /**
+   * Calcule la moyenne des ventes
+   */
+  getAverageSales(): string {
+    return &#x27;420K&#x27;;
+  }
+
+  /**
+   * Calcule la moyenne des heures travaillées
+   */
+  getAverageHours(): string {
+    return &#x27;158h&#x27;;
+  }
+
+  /**
+   * Ouvre le modal d&#x27;ajout d&#x27;employé
+   */
+  openAddEmployeeModal(): void {
+    this.isAddEmployeeModalOpen &#x3D; true;
+    this.resetEmployeeForm();
+  }
+
+  /**
+   * Ferme le modal d&#x27;ajout d&#x27;employé
+   */
+  closeAddEmployeeModal(): void {
+    this.isAddEmployeeModalOpen &#x3D; false;
+  }
+
+  /**
+   * Réinitialise le formulaire d&#x27;ajout d&#x27;employé
+   */
+  resetEmployeeForm(): void {
+    this.newEmployeeForm &#x3D; {
+      firstName: &#x27;&#x27;,
+      lastName: &#x27;&#x27;,
+      email: &#x27;&#x27;,
+      phone: &#x27;&#x27;,
+      caveId: &#x27;&#x27;,
+      managerId: &#x27;&#x27;,
+      position: &#x27;&#x27;
+    };
+  }
+
+  /**
+   * Ajoute un nouvel employé
+   */
+  addNewEmployee(): void {
+    if (!this.validateEmployeeForm()) {
+      alert(&#x27;Veuillez remplir tous les champs obligatoires&#x27;);
+      return;
+    }
+
+    const newEmployee: Employee &#x3D; {
+      id: this.generateId(),
+      avatar: this.getRandomAvatar(),
+      firstName: this.newEmployeeForm.firstName,
+      lastName: this.newEmployeeForm.lastName,
+      name: &#x60;${this.newEmployeeForm.firstName} ${this.newEmployeeForm.lastName}&#x60;,
+      email: this.newEmployeeForm.email,
+      phone: this.newEmployeeForm.phone,
+      position: this.newEmployeeForm.position,
+      ventes: &#x27;0K&#x27;,
+      heures: &#x27;0h&#x27;,
+      managerId: this.newEmployeeForm.managerId,
+      caveId: this.newEmployeeForm.caveId,
+      availability: {
+        status: &#x27;absent&#x27;,
+        lastUpdate: new Date().toISOString()
+      },
+      availabilityHistory: []
+    };
+
+    this.employees.push(newEmployee);
+    console.log(&#x27;Nouvel employé ajouté:&#x27;, newEmployee);
+    this.closeAddEmployeeModal();
+    alert(&#x27;Employé ajouté avec succès !&#x27;);
+  }
+
+  /**
+   * Valide le formulaire d&#x27;ajout d&#x27;employé
+   */
+  validateEmployeeForm(): boolean {
+    return !!(
+      this.newEmployeeForm.firstName &amp;&amp;
+      this.newEmployeeForm.lastName &amp;&amp;
+      this.newEmployeeForm.email &amp;&amp;
+      this.newEmployeeForm.caveId &amp;&amp;
+      this.newEmployeeForm.managerId &amp;&amp;
+      this.newEmployeeForm.position
+    );
+  }
+
+  /**
+   * Génère un ID unique pour un nouvel employé
+   */
+  generateId(): string {
+    return &#x60;emp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}&#x60;;
+  }
+
+  /**
+   * Retourne un avatar aléatoire
+   */
+  getRandomAvatar(): string {
+    const avatars &#x3D; [&#x27;👨&#x27;, &#x27;👩&#x27;, &#x27;👨‍💼&#x27;, &#x27;👩‍💼&#x27;, &#x27;👨‍🔧&#x27;, &#x27;👩‍🔧&#x27;];
+    return avatars[Math.floor(Math.random() * avatars.length)];
+  }
+
+  /**
+   * Récupère les managers d&#x27;une cave spécifique
+   */
+  getManagersByCave(caveId: string): any[] {
+    // TODO: Filtrer les managers par cave
+    return [
+      { name: &#x27;Jean Dupont&#x27;, role: &#x27;Manager Principal&#x27; },
+      { name: &#x27;Marie Martin&#x27;, role: &#x27;Manager&#x27; }
+    ];
+  }
+
+  /**
+   * Ouvre le modal d&#x27;édition avec les informations de l&#x27;employé
+   */
+  editEmployee(employee: Employee): void {
+    this.selectedEmployee &#x3D; employee;
+    this.editEmployeeForm &#x3D; { ...employee };
+    this.isEditEmployeeModalOpen &#x3D; true;
+  }
+
+  /**
+   * Ferme le modal d&#x27;édition
+   */
+  closeEditEmployeeModal(): void {
+    this.isEditEmployeeModalOpen &#x3D; false;
+    this.selectedEmployee &#x3D; null;
+    this.editEmployeeForm &#x3D; null;
+  }
+
+  /**
+   * Sauvegarde les modifications de l&#x27;employé
+   */
+  saveEmployeeChanges(): void {
+    if (!this.editEmployeeForm) return;
+
+    const index &#x3D; this.employees.findIndex(e &#x3D;&gt; e.id &#x3D;&#x3D;&#x3D; this.editEmployeeForm!.id);
+    if (index !&#x3D;&#x3D; -1) {
+      this.employees[index] &#x3D; { ...this.editEmployeeForm };
+      console.log(&#x27;Employé modifié:&#x27;, this.employees[index]);
+      alert(&#x27;Informations mises à jour avec succès !&#x27;);
+      this.closeEditEmployeeModal();
+    }
+  }
+
+  /**
+   * Supprime un employé
+   */
+  deleteEmployee(employee: Employee): void {
+    if (confirm(&#x60;Êtes-vous sûr de vouloir supprimer ${employee.name} ?&#x60;)) {
+      this.employees &#x3D; this.employees.filter(e &#x3D;&gt; e.id !&#x3D;&#x3D; employee.id);
+      console.log(&#x27;Employé supprimé:&#x27;, employee);
+      alert(&#x27;Employé supprimé avec succès&#x27;);
+    }
+  }
+
+  /**
+   * Affiche les détails complets d&#x27;un employé
+   */
+  viewEmployeeDetails(employee: Employee): void {
+    this.selectedEmployee &#x3D; employee;
+    this.isViewDetailsModalOpen &#x3D; true;
+  }
+
+  /**
+   * Ferme le modal de détails
+   */
+  closeDetailsModal(): void {
+    this.isViewDetailsModalOpen &#x3D; false;
+    this.selectedEmployee &#x3D; null;
+  }
+
+  /**
+   * Affiche l&#x27;historique de disponibilité
+   */
+  viewAvailabilityHistory(employee: Employee): void {
+    this.selectedEmployee &#x3D; employee;
+    this.isViewHistoryModalOpen &#x3D; true;
+  }
+
+  /**
+   * Ferme le modal d&#x27;historique
+   */
+  closeHistoryModal(): void {
+    this.isViewHistoryModalOpen &#x3D; false;
+    this.selectedEmployee &#x3D; null;
+  }
+
+  /**
+   * Retourne la classe CSS selon le statut
+   */
+  getStatusClass(status: string): string {
+    switch(status) {
+      case &#x27;présent&#x27;: return &#x27;status-present&#x27;;
+      case &#x27;absent&#x27;: return &#x27;status-absent&#x27;;
+      case &#x27;congé&#x27;: return &#x27;status-leave&#x27;;
+      default: return &#x27;&#x27;;
+    }
+  }
+
+  /**
+   * Retourne l&#x27;icône selon le statut
+   */
+  getStatusIcon(status: string): string {
+    switch(status) {
+      case &#x27;présent&#x27;: return &#x27;✅&#x27;;
+      case &#x27;absent&#x27;: return &#x27;❌&#x27;;
+      case &#x27;congé&#x27;: return &#x27;🏖️&#x27;;
+      default: return &#x27;❓&#x27;;
+    }
+  }
+
+  /**
+   * Met à jour le statut de disponibilité d&#x27;un employé
+   */
+  updateAvailabilityStatus(employee: Employee, newStatus: &#x27;présent&#x27; | &#x27;absent&#x27; | &#x27;congé&#x27;): void {
+    employee.availability.status &#x3D; newStatus;
+    employee.availability.lastUpdate &#x3D; new Date().toISOString();
+
+    if (newStatus &#x3D;&#x3D;&#x3D; &#x27;présent&#x27; &amp;&amp; !employee.availability.heureArrivee) {
+      employee.availability.heureArrivee &#x3D; new Date().toLocaleTimeString(&#x27;fr-FR&#x27;, {
+        hour: &#x27;2-digit&#x27;,
+        minute: &#x27;2-digit&#x27;
+      });
+    }
+
+    console.log(&#x27;Statut mis à jour:&#x27;, employee);
+    // TODO: Appel API pour sauvegarder
+  }
+
+  /**
+   * Compte les jours présents dans l&#x27;historique
+   */
+  getHistoryPresentDays(employee: Employee): number {
+    return employee.availabilityHistory.filter(h &#x3D;&gt; h.status &#x3D;&#x3D;&#x3D; &#x27;présent&#x27;).length;
+  }
+
+  /**
+   * Compte les jours absents dans l&#x27;historique
+   */
+  getHistoryAbsentDays(employee: Employee): number {
+    return employee.availabilityHistory.filter(h &#x3D;&gt; h.status &#x3D;&#x3D;&#x3D; &#x27;absent&#x27;).length;
+  }
+
+  /**
+   * Compte les jours de congé dans l&#x27;historique
+   */
+  getHistoryLeaveDays(employee: Employee): number {
+    return employee.availabilityHistory.filter(h &#x3D;&gt; h.status &#x3D;&#x3D;&#x3D; &#x27;congé&#x27;).length;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; PAGE MES EMPLOYÉS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+&lt;div class&#x3D;&quot;page-section&quot;&gt;
+
+  &lt;section class&#x3D;&quot;content-section&quot;&gt;
+
+    &lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; En-tête de page &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+    &lt;div class&#x3D;&quot;section-header&quot;&gt;
+      &lt;h2 class&#x3D;&quot;section-title-main&quot;&gt;👨‍💼 Mes Employés&lt;/h2&gt;
+      &lt;button class&#x3D;&quot;btn btn-primary&quot; (click)&#x3D;&quot;openAddEmployeeModal()&quot;&gt;
+        ➕ Ajouter un employé
+      &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Statistiques globales &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+    &lt;div class&#x3D;&quot;employees-stats-grid&quot;&gt;
+
+      &lt;!-- Total Employés --&gt;
+      &lt;div class&#x3D;&quot;stat-card stat-card-blue&quot;&gt;
+        &lt;div class&#x3D;&quot;stat-icon&quot;&gt;👥&lt;/div&gt;
+        &lt;div class&#x3D;&quot;stat-content&quot;&gt;
+          &lt;div class&#x3D;&quot;stat-label&quot;&gt;Total Employés&lt;/div&gt;
+          &lt;div class&#x3D;&quot;stat-value&quot;&gt;{{ getTotalEmployeesCount() }}&lt;/div&gt;
+          &lt;div class&#x3D;&quot;stat-change positive&quot;&gt;+5 ce mois&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Employés Présents --&gt;
+      &lt;div class&#x3D;&quot;stat-card stat-card-green&quot;&gt;
+        &lt;div class&#x3D;&quot;stat-icon&quot;&gt;✅&lt;/div&gt;
+        &lt;div class&#x3D;&quot;stat-content&quot;&gt;
+          &lt;div class&#x3D;&quot;stat-label&quot;&gt;Présents Aujourd&#x27;hui&lt;/div&gt;
+          &lt;div class&#x3D;&quot;stat-value&quot;&gt;{{ getPresentEmployeesCount() }}&lt;/div&gt;
+          &lt;div class&#x3D;&quot;stat-change positive&quot;&gt;En service&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Employés Absents --&gt;
+      &lt;div class&#x3D;&quot;stat-card stat-card-red&quot;&gt;
+        &lt;div class&#x3D;&quot;stat-icon&quot;&gt;❌&lt;/div&gt;
+        &lt;div class&#x3D;&quot;stat-content&quot;&gt;
+          &lt;div class&#x3D;&quot;stat-label&quot;&gt;Absents&lt;/div&gt;
+          &lt;div class&#x3D;&quot;stat-value&quot;&gt;{{ getAbsentEmployeesCount() }}&lt;/div&gt;
+          &lt;div class&#x3D;&quot;stat-change negative&quot;&gt;Aujourd&#x27;hui&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- En Congé --&gt;
+      &lt;div class&#x3D;&quot;stat-card stat-card-orange&quot;&gt;
+        &lt;div class&#x3D;&quot;stat-icon&quot;&gt;🏖️&lt;/div&gt;
+        &lt;div class&#x3D;&quot;stat-content&quot;&gt;
+          &lt;div class&#x3D;&quot;stat-label&quot;&gt;En Congé&lt;/div&gt;
+          &lt;div class&#x3D;&quot;stat-value&quot;&gt;{{ getOnLeaveEmployeesCount() }}&lt;/div&gt;
+          &lt;div class&#x3D;&quot;stat-change neutral&quot;&gt;Actuellement&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Tableau des employés &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+    &lt;div class&#x3D;&quot;employees-table&quot;&gt;
+
+      &lt;div class&#x3D;&quot;table-header&quot;&gt;
+        &lt;h3&gt;Liste complète des employés&lt;/h3&gt;
+      &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;table-column-headers&quot;&gt;
+            &lt;div&gt;Nom et poste&lt;/div&gt;
+            &lt;div&gt;Disponibilité&lt;/div&gt;
+            &lt;div&gt;Arrivée&lt;/div&gt;
+            &lt;div&gt;Départ&lt;/div&gt;
+            &lt;div&gt;Revenus total&lt;/div&gt;
+            &lt;div&gt;Heures eff&lt;/div&gt;
+            &lt;div&gt;Options&lt;/div&gt;
+
+        &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;table-content&quot;&gt;
+
+    &lt;!-- Boucle sur chaque employé --&gt;
+    &lt;div *ngFor&#x3D;&quot;let employee of getAllEmployees()&quot; class&#x3D;&quot;employee-row&quot;&gt;
+
+      &lt;!-- Colonne 1: Avatar + Nom et poste --&gt;
+      &lt;div class&#x3D;&quot;employee-info-wrapper&quot;&gt;
+        &lt;div class&#x3D;&quot;employee-info&quot;&gt;
+          &lt;div class&#x3D;&quot;employee-avatar-sm&quot;&gt;
+            {{ employee.avatar }}
+            &lt;span class&#x3D;&quot;status-indicator&quot;
+                  [ngClass]&#x3D;&quot;{
+                    &#x27;present&#x27;: employee.availability.status &#x3D;&#x3D;&#x3D; &#x27;présent&#x27;,
+                    &#x27;absent&#x27;: employee.availability.status &#x3D;&#x3D;&#x3D; &#x27;absent&#x27;,
+                    &#x27;leave&#x27;: employee.availability.status &#x3D;&#x3D;&#x3D; &#x27;congé&#x27;
+                  }&quot;&gt;
+            &lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;employee-details&quot;&gt;
+            &lt;div class&#x3D;&quot;employee-name-bold&quot;&gt;{{ employee.name }}&lt;/div&gt;
+            &lt;div class&#x3D;&quot;employee-position-sm&quot;&gt;{{ employee.position }}&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Colonne 2: Badge de disponibilité --&gt;
+      &lt;div class&#x3D;&quot;availability-badge&quot; [ngClass]&#x3D;&quot;getStatusClass(employee.availability.status)&quot;&gt;
+        &lt;span class&#x3D;&quot;status-icon&quot;&gt;{{ getStatusIcon(employee.availability.status) }}&lt;/span&gt;
+        &lt;span class&#x3D;&quot;status-text&quot;&gt;{{ employee.availability.status | titlecase }}&lt;/span&gt;
+      &lt;/div&gt;
+
+                &lt;!-- Colonne 3: Arrivée --&gt;
+      &lt;div class&#x3D;&quot;info-badge-cell&quot;&gt;
+            &lt;span class&#x3D;&quot;info-badge&quot; *ngIf&#x3D;&quot;employee.availability.status &#x3D;&#x3D;&#x3D; &#x27;présent&#x27;; else dashArrivee&quot;&gt;
+              🕐 {{ employee.availability.heureArrivee }}
+            &lt;/span&gt;
+            &lt;ng-template #dashArrivee&gt;
+              &lt;span class&#x3D;&quot;info-badge&quot;&gt;-&lt;/span&gt;
+            &lt;/ng-template&gt;
+      &lt;/div&gt;
+
+          &lt;!-- Colonne 4: Départ --&gt;
+      &lt;div class&#x3D;&quot;info-badge-cell&quot;&gt;
+            &lt;span class&#x3D;&quot;info-badge&quot; *ngIf&#x3D;&quot;employee.availability.status &#x3D;&#x3D;&#x3D; &#x27;présent&#x27; &amp;&amp; employee.availability.heureDepart; else dashDepart&quot;&gt;
+              🕐 {{ employee.availability.heureDepart }}
+            &lt;/span&gt;
+            &lt;ng-template #dashDepart&gt;
+              &lt;span class&#x3D;&quot;info-badge&quot;&gt;-&lt;/span&gt;
+            &lt;/ng-template&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Colonne 5: Rev. total --&gt;
+      &lt;div class&#x3D;&quot;info-badge-cell&quot;&gt;
+        &lt;span class&#x3D;&quot;info-badge&quot;&gt;
+          💰 {{ employee.ventes }}
+        &lt;/span&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Colonne 6: Heures --&gt;
+      &lt;div class&#x3D;&quot;info-badge-cell&quot;&gt;
+        &lt;span class&#x3D;&quot;info-badge&quot;&gt;
+          ⏱️ {{ employee.heures }}
+        &lt;/span&gt;
+      &lt;/div&gt;
+
+
+        &lt;!-- Actions sous l&#x27;avatar --&gt;
+        &lt;div class&#x3D;&quot;employee-row-actions&quot;&gt;
+          &lt;button class&#x3D;&quot;btn-icon btn-view&quot;
+                  title&#x3D;&quot;Voir le profil&quot;
+                  (click)&#x3D;&quot;viewEmployeeDetails(employee)&quot;&gt;
+            👁️
+          &lt;/button&gt;
+
+          &lt;button class&#x3D;&quot;btn-icon btn-history&quot;
+                  title&#x3D;&quot;Voir l&#x27;historique&quot;
+                  (click)&#x3D;&quot;viewAvailabilityHistory(employee)&quot;&gt;
+            📊
+          &lt;/button&gt;
+
+          &lt;button class&#x3D;&quot;btn-icon btn-edit&quot;
+                  title&#x3D;&quot;Modifier&quot;
+                  (click)&#x3D;&quot;editEmployee(employee)&quot;&gt;
+            ✏️
+          &lt;/button&gt;
+
+          &lt;button class&#x3D;&quot;btn-icon btn-danger&quot;
+                  title&#x3D;&quot;Supprimer&quot;
+                  (click)&#x3D;&quot;deleteEmployee(employee)&quot;&gt;
+            🗑️
+          &lt;/button&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+
+        &lt;!-- Message si aucun employé --&gt;
+        &lt;div *ngIf&#x3D;&quot;getAllEmployees().length &#x3D;&#x3D;&#x3D; 0&quot; class&#x3D;&quot;empty-state&quot;&gt;
+          &lt;div class&#x3D;&quot;empty-icon&quot;&gt;📭&lt;/div&gt;
+          &lt;p&gt;Aucun employé pour le moment&lt;/p&gt;
+          &lt;button class&#x3D;&quot;btn btn-primary&quot; (click)&#x3D;&quot;openAddEmployeeModal()&quot;&gt;
+            Ajouter le premier employé
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+&lt;/div&gt;
+
+&lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MODAL AJOUTER EMPLOYÉ &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+&lt;div *ngIf&#x3D;&quot;isAddEmployeeModalOpen&quot; class&#x3D;&quot;modal&quot; (click)&#x3D;&quot;closeAddEmployeeModal()&quot;&gt;
+  &lt;div class&#x3D;&quot;modal-content&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot;&gt;
+    &lt;div class&#x3D;&quot;modal-header&quot;&gt;
+      &lt;h2 class&#x3D;&quot;modal-title&quot;&gt;➕ Ajouter un nouvel employé&lt;/h2&gt;
+      &lt;button class&#x3D;&quot;close-btn&quot; (click)&#x3D;&quot;closeAddEmployeeModal()&quot;&gt;×&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;modal-body&quot;&gt;
+      &lt;form&gt;
+        &lt;div class&#x3D;&quot;form-group&quot;&gt;
+          &lt;label class&#x3D;&quot;form-label&quot;&gt;Prénom *&lt;/label&gt;
+          &lt;input type&#x3D;&quot;text&quot; class&#x3D;&quot;form-input&quot; [(ngModel)]&#x3D;&quot;newEmployeeForm.firstName&quot;
+                 name&#x3D;&quot;firstName&quot; placeholder&#x3D;&quot;Ex: Alice&quot; required&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;form-group&quot;&gt;
+          &lt;label class&#x3D;&quot;form-label&quot;&gt;Nom *&lt;/label&gt;
+          &lt;input type&#x3D;&quot;text&quot; class&#x3D;&quot;form-input&quot; [(ngModel)]&#x3D;&quot;newEmployeeForm.lastName&quot;
+                 name&#x3D;&quot;lastName&quot; placeholder&#x3D;&quot;Ex: Martin&quot; required&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;form-group&quot;&gt;
+          &lt;label class&#x3D;&quot;form-label&quot;&gt;Email *&lt;/label&gt;
+          &lt;input type&#x3D;&quot;email&quot; class&#x3D;&quot;form-input&quot; [(ngModel)]&#x3D;&quot;newEmployeeForm.email&quot;
+                 name&#x3D;&quot;email&quot; placeholder&#x3D;&quot;Ex: alice.martin@caveviking.com&quot; required&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;form-group&quot;&gt;
+          &lt;label class&#x3D;&quot;form-label&quot;&gt;Téléphone&lt;/label&gt;
+          &lt;input type&#x3D;&quot;tel&quot; class&#x3D;&quot;form-input&quot; [(ngModel)]&#x3D;&quot;newEmployeeForm.phone&quot;
+                 name&#x3D;&quot;phone&quot; placeholder&#x3D;&quot;Ex: +234 801 234 5678&quot;&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;form-group&quot;&gt;
+          &lt;label class&#x3D;&quot;form-label&quot;&gt;Cave d&#x27;affectation *&lt;/label&gt;
+          &lt;select class&#x3D;&quot;form-input&quot; [(ngModel)]&#x3D;&quot;newEmployeeForm.caveId&quot; name&#x3D;&quot;caveId&quot; required&gt;
+            &lt;option value&#x3D;&quot;&quot;&gt;Sélectionner une cave...&lt;/option&gt;
+            &lt;option *ngFor&#x3D;&quot;let cave of caves&quot; [value]&#x3D;&quot;cave.id&quot;&gt;{{ cave.name }}&lt;/option&gt;
+          &lt;/select&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;form-group&quot; *ngIf&#x3D;&quot;newEmployeeForm.caveId&quot;&gt;
+          &lt;label class&#x3D;&quot;form-label&quot;&gt;Manager de supervision *&lt;/label&gt;
+          &lt;select class&#x3D;&quot;form-input&quot; [(ngModel)]&#x3D;&quot;newEmployeeForm.managerId&quot; name&#x3D;&quot;managerId&quot; required&gt;
+            &lt;option value&#x3D;&quot;&quot;&gt;Sélectionner un manager...&lt;/option&gt;
+            &lt;option *ngFor&#x3D;&quot;let manager of getManagersByCave(newEmployeeForm.caveId)&quot;
+                    [value]&#x3D;&quot;manager.name&quot;&gt;
+              {{ manager.name }} - {{ manager.role }}
+            &lt;/option&gt;
+          &lt;/select&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;form-group&quot;&gt;
+          &lt;label class&#x3D;&quot;form-label&quot;&gt;Poste *&lt;/label&gt;
+          &lt;select class&#x3D;&quot;form-input&quot; [(ngModel)]&#x3D;&quot;newEmployeeForm.position&quot; name&#x3D;&quot;position&quot; required&gt;
+            &lt;option value&#x3D;&quot;&quot;&gt;Sélectionner un poste...&lt;/option&gt;
+            &lt;option value&#x3D;&quot;Caissier(ère)&quot;&gt;Caissier(ère)&lt;/option&gt;
+            &lt;option value&#x3D;&quot;Vendeur(se)&quot;&gt;Vendeur(se)&lt;/option&gt;
+            &lt;option value&#x3D;&quot;Magasinier&quot;&gt;Magasinier&lt;/option&gt;
+            &lt;option value&#x3D;&quot;Livreur&quot;&gt;Livreur&lt;/option&gt;
+            &lt;option value&#x3D;&quot;Assistant(e)&quot;&gt;Assistant(e)&lt;/option&gt;
+            &lt;option value&#x3D;&quot;Sommelier&quot;&gt;Sommelier&lt;/option&gt;
+            &lt;option value&#x3D;&quot;Conseiller(ère)&quot;&gt;Conseiller(ère)&lt;/option&gt;
+          &lt;/select&gt;
+        &lt;/div&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;modal-footer&quot;&gt;
+      &lt;button class&#x3D;&quot;btn btn-cancel&quot; (click)&#x3D;&quot;closeAddEmployeeModal()&quot;&gt;Annuler&lt;/button&gt;
+      &lt;button class&#x3D;&quot;btn btn-primary&quot; (click)&#x3D;&quot;addNewEmployee()&quot;&gt;Ajouter l&#x27;employé&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MODAL VOIR PROFIL COMPLET &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+&lt;div *ngIf&#x3D;&quot;isViewDetailsModalOpen &amp;&amp; selectedEmployee&quot; class&#x3D;&quot;modal&quot; (click)&#x3D;&quot;closeDetailsModal()&quot;&gt;
+  &lt;div class&#x3D;&quot;modal-content modal-content-large&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot;&gt;
+    &lt;div class&#x3D;&quot;modal-header&quot;&gt;
+      &lt;h2 class&#x3D;&quot;modal-title&quot;&gt;👤 Profil de {{ selectedEmployee.name }}&lt;/h2&gt;
+      &lt;button class&#x3D;&quot;close-btn&quot; (click)&#x3D;&quot;closeDetailsModal()&quot;&gt;×&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;modal-body&quot;&gt;
+      &lt;!-- Résumé du profil --&gt;
+      &lt;div class&#x3D;&quot;profile-summary&quot;&gt;
+        &lt;div class&#x3D;&quot;profile-avatar-large&quot;&gt;{{ selectedEmployee.avatar }}&lt;/div&gt;
+        &lt;div class&#x3D;&quot;profile-info&quot;&gt;
+          &lt;h3&gt;{{ selectedEmployee.name }}&lt;/h3&gt;
+          &lt;p class&#x3D;&quot;profile-position&quot;&gt;{{ selectedEmployee.position }}&lt;/p&gt;
+          &lt;div class&#x3D;&quot;availability-badge-large&quot; [ngClass]&#x3D;&quot;getStatusClass(selectedEmployee.availability.status)&quot;&gt;
+            {{ getStatusIcon(selectedEmployee.availability.status) }}
+            {{ selectedEmployee.availability.status | titlecase }}
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Informations personnelles --&gt;
+      &lt;div class&#x3D;&quot;info-section&quot;&gt;
+        &lt;h4 class&#x3D;&quot;section-subtitle&quot;&gt;📋 Informations Personnelles&lt;/h4&gt;
+        &lt;div class&#x3D;&quot;info-grid&quot;&gt;
+          &lt;div class&#x3D;&quot;info-item&quot;&gt;
+            &lt;span class&#x3D;&quot;info-label&quot;&gt;Email:&lt;/span&gt;
+            &lt;span class&#x3D;&quot;info-value&quot;&gt;{{ selectedEmployee.email }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;info-item&quot;&gt;
+            &lt;span class&#x3D;&quot;info-label&quot;&gt;Téléphone:&lt;/span&gt;
+            &lt;span class&#x3D;&quot;info-value&quot;&gt;{{ selectedEmployee.phone }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;info-item&quot;&gt;
+            &lt;span class&#x3D;&quot;info-label&quot;&gt;Poste:&lt;/span&gt;
+            &lt;span class&#x3D;&quot;info-value&quot;&gt;{{ selectedEmployee.position }}&lt;/span&gt;
+          &lt;/div&gt;
+           &lt;div class&#x3D;&quot;info-item&quot;&gt;
+            &lt;span class&#x3D;&quot;info-label&quot;&gt;Cave d&#x27;affectation:&lt;/span&gt;
+            &lt;span class&#x3D;&quot;info-value&quot;&gt;{{ selectedEmployee.caveId || &#x27;Non assignée&#x27; }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;info-item&quot;&gt;
+            &lt;span class&#x3D;&quot;info-label&quot;&gt;Manager de supervision:&lt;/span&gt;
+            &lt;span class&#x3D;&quot;info-value&quot;&gt;{{ selectedEmployee.managerId || &#x27;Non assigné&#x27; }}&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Disponibilité actuelle --&gt;
+      &lt;div class&#x3D;&quot;info-section&quot;&gt;
+        &lt;h4 class&#x3D;&quot;section-subtitle&quot;&gt;⏰ Disponibilité Actuelle&lt;/h4&gt;
+        &lt;div class&#x3D;&quot;info-grid&quot;&gt;
+          &lt;div class&#x3D;&quot;info-item&quot;&gt;
+            &lt;span class&#x3D;&quot;info-label&quot;&gt;Statut:&lt;/span&gt;
+            &lt;span class&#x3D;&quot;info-value&quot; [ngClass]&#x3D;&quot;getStatusClass(selectedEmployee.availability.status)&quot;&gt;
+              {{ selectedEmployee.availability.status | titlecase }}
+            &lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;info-item&quot; *ngIf&#x3D;&quot;selectedEmployee.availability.heureArrivee&quot;&gt;
+            &lt;span class&#x3D;&quot;info-label&quot;&gt;Heure d&#x27;arrivée:&lt;/span&gt;
+            &lt;span class&#x3D;&quot;info-value&quot;&gt;{{ selectedEmployee.availability.heureArrivee }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;info-item&quot; *ngIf&#x3D;&quot;selectedEmployee.availability.heureDepart&quot;&gt;
+            &lt;span class&#x3D;&quot;info-label&quot;&gt;Heure de départ:&lt;/span&gt;
+            &lt;span class&#x3D;&quot;info-value&quot;&gt;{{ selectedEmployee.availability.heureDepart }}&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Performance --&gt;
+      &lt;div class&#x3D;&quot;info-section&quot;&gt;
+        &lt;h4 class&#x3D;&quot;section-subtitle&quot;&gt;📊 Performance&lt;/h4&gt;
+        &lt;div class&#x3D;&quot;info-grid&quot;&gt;
+          &lt;div class&#x3D;&quot;info-item&quot;&gt;
+            &lt;span class&#x3D;&quot;info-label&quot;&gt;Ventes totales:&lt;/span&gt;
+            &lt;span class&#x3D;&quot;info-value&quot;&gt;{{ selectedEmployee.ventes }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;info-item&quot;&gt;
+            &lt;span class&#x3D;&quot;info-label&quot;&gt;Heures travaillées:&lt;/span&gt;
+            &lt;span class&#x3D;&quot;info-value&quot;&gt;{{ selectedEmployee.heures }}&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;modal-footer&quot;&gt;
+      &lt;button class&#x3D;&quot;btn btn-secondary&quot; (click)&#x3D;&quot;viewAvailabilityHistory(selectedEmployee)&quot;&gt;
+        📊 Voir l&#x27;historique
+      &lt;/button&gt;
+      &lt;button class&#x3D;&quot;btn btn-primary&quot; (click)&#x3D;&quot;editEmployee(selectedEmployee); closeDetailsModal()&quot;&gt;
+        ✏️ Modifier le profil
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MODAL HISTORIQUE DE DISPONIBILITÉ &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+&lt;div *ngIf&#x3D;&quot;isViewHistoryModalOpen &amp;&amp; selectedEmployee&quot; class&#x3D;&quot;modal&quot; (click)&#x3D;&quot;closeHistoryModal()&quot;&gt;
+  &lt;div class&#x3D;&quot;modal-content modal-content-large&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot;&gt;
+    &lt;div class&#x3D;&quot;modal-header&quot;&gt;
+      &lt;h2 class&#x3D;&quot;modal-title&quot;&gt;📊 Historique de {{ selectedEmployee.name }}&lt;/h2&gt;
+      &lt;button class&#x3D;&quot;close-btn&quot; (click)&#x3D;&quot;closeHistoryModal()&quot;&gt;×&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;modal-body&quot;&gt;
+      &lt;!-- Statistiques résumées --&gt;
+      &lt;div class&#x3D;&quot;history-stats&quot;&gt;
+        &lt;div class&#x3D;&quot;history-stat-card&quot;&gt;
+          &lt;div class&#x3D;&quot;stat-icon-small&quot;&gt;✅&lt;/div&gt;
+          &lt;div class&#x3D;&quot;stat-content-small&quot;&gt;
+            &lt;div class&#x3D;&quot;stat-value-small&quot;&gt;
+              {{ getHistoryPresentDays(selectedEmployee) }}
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;stat-label-small&quot;&gt;Jours présents&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;history-stat-card&quot;&gt;
+          &lt;div class&#x3D;&quot;stat-icon-small&quot;&gt;❌&lt;/div&gt;
+          &lt;div class&#x3D;&quot;stat-content-small&quot;&gt;
+            &lt;div class&#x3D;&quot;stat-value-small&quot;&gt;
+              {{ getHistoryAbsentDays(selectedEmployee) }}
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;stat-label-small&quot;&gt;Jours absents&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;history-stat-card&quot;&gt;
+          &lt;div class&#x3D;&quot;stat-icon-small&quot;&gt;🏖️&lt;/div&gt;
+          &lt;div class&#x3D;&quot;stat-content-small&quot;&gt;
+            &lt;div class&#x3D;&quot;stat-value-small&quot;&gt;
+             {{ getHistoryLeaveDays(selectedEmployee) }}
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;stat-label-small&quot;&gt;Jours de congé&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Tableau d&#x27;historique --&gt;
+      &lt;div class&#x3D;&quot;history-table&quot;&gt;
+        &lt;div class&#x3D;&quot;history-table-header&quot;&gt;
+          &lt;h4&gt;Historique des 30 derniers jours&lt;/h4&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;history-table-content&quot;&gt;
+          &lt;table class&#x3D;&quot;data-table&quot;&gt;
+            &lt;thead&gt;
+              &lt;tr&gt;
+                &lt;th&gt;Date&lt;/th&gt;
+                &lt;th&gt;Statut&lt;/th&gt;
+                &lt;th&gt;Arrivée&lt;/th&gt;
+                &lt;th&gt;Départ&lt;/th&gt;
+                &lt;th&gt;Durée&lt;/th&gt;
+              &lt;/tr&gt;
+            &lt;/thead&gt;
+            &lt;tbody&gt;
+              &lt;tr *ngFor&#x3D;&quot;let record of selectedEmployee.availabilityHistory&quot;
+                  [ngClass]&#x3D;&quot;&#x27;row-&#x27; + record.status&quot;&gt;
+                &lt;td class&#x3D;&quot;date-cell&quot;&gt;{{ record.date }}&lt;/td&gt;
+                &lt;td&gt;
+                  &lt;span class&#x3D;&quot;status-badge-small&quot; [ngClass]&#x3D;&quot;getStatusClass(record.status)&quot;&gt;
+                    {{ getStatusIcon(record.status) }} {{ record.status | titlecase }}
+                  &lt;/span&gt;
+                &lt;/td&gt;
+                &lt;td class&#x3D;&quot;time-cell&quot;&gt;{{ record.heureArrivee || &#x27;-&#x27; }}&lt;/td&gt;
+                &lt;td class&#x3D;&quot;time-cell&quot;&gt;{{ record.heureDepart || &#x27;-&#x27; }}&lt;/td&gt;
+                &lt;td class&#x3D;&quot;duration-cell&quot;&gt;{{ record.duree || &#x27;-&#x27; }}&lt;/td&gt;
+              &lt;/tr&gt;
+            &lt;/tbody&gt;
+          &lt;/table&gt;
+
+          &lt;!-- Message si pas d&#x27;historique --&gt;
+          &lt;div *ngIf&#x3D;&quot;selectedEmployee.availabilityHistory.length &#x3D;&#x3D;&#x3D; 0&quot; class&#x3D;&quot;empty-history&quot;&gt;
+            &lt;p&gt;Aucun historique disponible pour cet employé&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;modal-footer&quot;&gt;
+      &lt;button class&#x3D;&quot;btn btn-secondary&quot; (click)&#x3D;&quot;closeHistoryModal()&quot;&gt;Fermer&lt;/button&gt;
+      &lt;button class&#x3D;&quot;btn btn-primary&quot; (click)&#x3D;&quot;closeHistoryModal(); editEmployee(selectedEmployee)&quot;&gt;
+        ✏️ Modifier le profil
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MODAL MODIFIER EMPLOYÉ &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+&lt;div *ngIf&#x3D;&quot;isEditEmployeeModalOpen &amp;&amp; editEmployeeForm&quot; class&#x3D;&quot;modal&quot; (click)&#x3D;&quot;closeEditEmployeeModal()&quot;&gt;
+  &lt;div class&#x3D;&quot;modal-content&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot;&gt;
+    &lt;div class&#x3D;&quot;modal-header&quot;&gt;
+      &lt;h2 class&#x3D;&quot;modal-title&quot;&gt;✏️ Modifier l&#x27;employé&lt;/h2&gt;
+      &lt;button class&#x3D;&quot;close-btn&quot; (click)&#x3D;&quot;closeEditEmployeeModal()&quot;&gt;×&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;modal-body&quot;&gt;
+      &lt;form&gt;
+        &lt;div class&#x3D;&quot;form-group&quot;&gt;
+          &lt;label class&#x3D;&quot;form-label&quot;&gt;Prénom *&lt;/label&gt;
+          &lt;input type&#x3D;&quot;text&quot; class&#x3D;&quot;form-input&quot; [(ngModel)]&#x3D;&quot;editEmployeeForm.firstName&quot;
+                 name&#x3D;&quot;firstName&quot; required&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;form-group&quot;&gt;
+          &lt;label class&#x3D;&quot;form-label&quot;&gt;Nom *&lt;/label&gt;
+          &lt;input type&#x3D;&quot;text&quot; class&#x3D;&quot;form-input&quot; [(ngModel)]&#x3D;&quot;editEmployeeForm.lastName&quot;
+                 name&#x3D;&quot;lastName&quot; required&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;form-group&quot;&gt;
+          &lt;label class&#x3D;&quot;form-label&quot;&gt;Email *&lt;/label&gt;
+          &lt;input type&#x3D;&quot;email&quot; class&#x3D;&quot;form-input&quot; [(ngModel)]&#x3D;&quot;editEmployeeForm.email&quot;
+                 name&#x3D;&quot;email&quot; required&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;form-group&quot;&gt;
+          &lt;label class&#x3D;&quot;form-label&quot;&gt;Téléphone&lt;/label&gt;
+          &lt;input type&#x3D;&quot;tel&quot; class&#x3D;&quot;form-input&quot; [(ngModel)]&#x3D;&quot;editEmployeeForm.phone&quot;
+                 name&#x3D;&quot;phone&quot;&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;form-group&quot;&gt;
+          &lt;label class&#x3D;&quot;form-label&quot;&gt;Cave d&#x27;affectation *&lt;/label&gt;
+          &lt;select class&#x3D;&quot;form-input&quot; [(ngModel)]&#x3D;&quot;editEmployeeForm.caveId&quot; name&#x3D;&quot;caveId&quot; required&gt;
+            &lt;option value&#x3D;&quot;&quot;&gt;Sélectionner une cave...&lt;/option&gt;
+            &lt;option *ngFor&#x3D;&quot;let cave of caves&quot; [value]&#x3D;&quot;cave.id&quot;&gt;{{ cave.name }}&lt;/option&gt;
+          &lt;/select&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;form-group&quot; *ngIf&#x3D;&quot;editEmployeeForm.caveId&quot;&gt;
+          &lt;label class&#x3D;&quot;form-label&quot;&gt;Manager de supervision *&lt;/label&gt;
+          &lt;select class&#x3D;&quot;form-input&quot; [(ngModel)]&#x3D;&quot;editEmployeeForm.managerId&quot; name&#x3D;&quot;managerId&quot; required&gt;
+            &lt;option value&#x3D;&quot;&quot;&gt;Sélectionner un manager...&lt;/option&gt;
+            &lt;option *ngFor&#x3D;&quot;let manager of getManagersByCave(editEmployeeForm.caveId)&quot;
+                    [value]&#x3D;&quot;manager.name&quot;&gt;
+              {{ manager.name }} - {{ manager.role }}
+            &lt;/option&gt;
+          &lt;/select&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;form-group&quot;&gt;
+          &lt;label class&#x3D;&quot;form-label&quot;&gt;Poste *&lt;/label&gt;
+          &lt;select class&#x3D;&quot;form-input&quot; [(ngModel)]&#x3D;&quot;editEmployeeForm.position&quot; name&#x3D;&quot;position&quot; required&gt;
+            &lt;option value&#x3D;&quot;Caissier(ère)&quot;&gt;Caissier(ère)&lt;/option&gt;
+            &lt;option value&#x3D;&quot;Vendeur(se)&quot;&gt;Vendeur(se)&lt;/option&gt;
+            &lt;option value&#x3D;&quot;Magasinier&quot;&gt;Magasinier&lt;/option&gt;
+            &lt;option value&#x3D;&quot;Livreur&quot;&gt;Livreur&lt;/option&gt;
+            &lt;option value&#x3D;&quot;Assistant(e)&quot;&gt;Assistant(e)&lt;/option&gt;
+            &lt;option value&#x3D;&quot;Sommelier&quot;&gt;Sommelier&lt;/option&gt;
+            &lt;option value&#x3D;&quot;Conseiller(ère)&quot;&gt;Conseiller(ère)&lt;/option&gt;
+          &lt;/select&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;form-group&quot;&gt;
+          &lt;label class&#x3D;&quot;form-label&quot;&gt;Statut de disponibilité&lt;/label&gt;
+          &lt;select class&#x3D;&quot;form-input&quot; [(ngModel)]&#x3D;&quot;editEmployeeForm.availability.status&quot; name&#x3D;&quot;status&quot;&gt;
+            &lt;option value&#x3D;&quot;présent&quot;&gt;✅ Présent&lt;/option&gt;
+            &lt;option value&#x3D;&quot;absent&quot;&gt;❌ Absent&lt;/option&gt;
+            &lt;option value&#x3D;&quot;congé&quot;&gt;🏖️ En Congé&lt;/option&gt;
+          &lt;/select&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;form-group&quot; *ngIf&#x3D;&quot;editEmployeeForm.availability.status &#x3D;&#x3D;&#x3D; &#x27;présent&#x27;&quot;&gt;
+          &lt;label class&#x3D;&quot;form-label&quot;&gt;Heure d&#x27;arrivée&lt;/label&gt;
+          &lt;input type&#x3D;&quot;time&quot; class&#x3D;&quot;form-input&quot; [(ngModel)]&#x3D;&quot;editEmployeeForm.availability.heureArrivee&quot;
+                 name&#x3D;&quot;heureArrivee&quot;&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;form-group&quot; *ngIf&#x3D;&quot;editEmployeeForm.availability.status &#x3D;&#x3D;&#x3D; &#x27;présent&#x27;&quot;&gt;
+          &lt;label class&#x3D;&quot;form-label&quot;&gt;Heure de départ&lt;/label&gt;
+          &lt;input type&#x3D;&quot;time&quot; class&#x3D;&quot;form-input&quot; [(ngModel)]&#x3D;&quot;editEmployeeForm.availability.heureDepart&quot;
+                 name&#x3D;&quot;heureDepart&quot;&gt;
+        &lt;/div&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;modal-footer&quot;&gt;
+      &lt;button class&#x3D;&quot;btn btn-cancel&quot; (click)&#x3D;&quot;closeEditEmployeeModal()&quot;&gt;Annuler&lt;/button&gt;
+      &lt;button class&#x3D;&quot;btn btn-primary&quot; (click)&#x3D;&quot;saveEmployeeChanges()&quot;&gt;
+        💾 Enregistrer les modifications
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./employees.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Section principale &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.page-section {
+  padding: 2rem;
+  background: var(--dark-bg);
+  min-height: 100vh;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Section de contenu &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.content-section {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; En-tête de section &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+
+  .section-title-main {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    transition: all 0.3s ease;
+
+    &amp;:hover {
+      color: var(--primary-color);
+      text-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+    }
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Grille de statistiques des employés &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.employees-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Carte de statistique &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.stat-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &amp;:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5), var(--glow-primary);
+    border-color: var(--primary-color);
+
+    .stat-icon {
+      transform: scale(1.15) rotate(10deg);
+    }
+  }
+
+  .stat-icon {
+    font-size: 2.5rem;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(99, 102, 241, 0.15);
+    border: 2px solid rgba(99, 102, 241, 0.3);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+  }
+
+  .stat-content {
+    flex: 1;
+
+    .stat-label {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.25rem;
+      transition: color 0.3s ease;
+    }
+
+    .stat-value {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+      transition: all 0.3s ease;
+    }
+
+    .stat-change {
+      font-size: 0.75rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+
+      &amp;.positive {
+        color: color-color-mix(in srgb, in srgb, var(--success) 90%, white);
+
+        &amp;:hover {
+          color: var(--success);
+        }
+      }
+
+      &amp;.negative {
+        color: color-color-mix(in srgb, in srgb, var(--danger) 90%, white);
+
+        &amp;:hover {
+          color: var(--danger);
+        }
+      }
+
+      &amp;.neutral {
+        color: var(--text-secondary);
+      }
+    }
+  }
+
+  &amp;.stat-card-blue .stat-icon {
+    background: rgba(59, 130, 246, 0.15);
+    border-color: rgba(59, 130, 246, 0.3);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+  }
+
+  &amp;.stat-card-green .stat-icon {
+    background: rgba(16, 185, 129, 0.15);
+    border-color: rgba(16, 185, 129, 0.3);
+    box-shadow: var(--glow-success);
+  }
+
+  &amp;.stat-card-purple .stat-icon {
+    background: rgba(139, 92, 246, 0.15);
+    border-color: rgba(139, 92, 246, 0.3);
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.2);
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Tableau des employés &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.employees-table {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+
+  .table-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--dark-bg)er;
+
+    h3 {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+  }
+
+  // En-têtes des colonnes
+  .table-column-headers {
+    display: grid;
+    grid-template-columns: 280px 180px 110px 90px 120px 110px 80px;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    background: rgba(15, 23, 42, 0.5);
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    align-items: center;
+
+    &gt; div {
+      white-space: nowrap;
+
+      &amp;:last-child {
+        text-align: right;
+      }
+    }
+  }
+
+  .table-content {
+    padding: 0;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Ligne d&#x27;employé &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.employee-row {
+  display: grid;
+  grid-template-columns: 250px 180px 110px 110px 110px 110px 1fr;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(51, 65, 85, 0.3);
+  transition: all 0.3s ease;
+
+  &amp;:hover {
+    background: var(--dark-bg)er;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+
+    .employee-avatar-sm {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px rgba(102, 126, 234, 0.5);
+    }
+  }
+
+  &amp;:last-child {
+    border-bottom: none;
+  }
+
+  // Colonne 1: Avatar + Nom et poste
+  .employee-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-width: 0;
+
+    .employee-avatar-sm {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      border: 2px solid rgba(102, 126, 234, 0.3);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+
+      .status-indicator {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        border: 2px solid var(--card-bg);
+
+        &amp;.present {
+          background: var(--success);
+        }
+
+        &amp;.absent {
+          background: var(--danger);
+        }
+
+        &amp;.leave {
+          background: var(--stat-orange);
+        }
+      }
+    }
+
+    .employee-details {
+      flex: 1;
+      min-width: 0;
+
+      .employee-name-bold {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 0.25rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .employee-position-sm {
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+  // Colonne 2: Badge de disponibilité
+  .availability-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    width: 100%;
+
+    .status-icon {
+      font-size: 1rem;
+    }
+
+    &amp;.status-present {
+      background: rgba(16, 185, 129, 0.15);
+      color: color-color-mix(in srgb, in srgb, var(--success) 90%, white);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+
+      &amp;:hover {
+        box-shadow: var(--glow-success);
+      }
+    }
+
+    &amp;.status-absent {
+      background: rgba(239, 68, 68, 0.15);
+      color: color-color-mix(in srgb, in srgb, var(--danger) 90%, white);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+
+      &amp;:hover {
+        box-shadow: var(--glow-danger);
+      }
+    }
+
+    &amp;.status-leave {
+      background: rgba(251, 146, 60, 0.15);
+      color: color-color-mix(in srgb, in srgb, var(--stat-orange) 90%, white);
+      border: 1px solid rgba(251, 146, 60, 0.3);
+
+      &amp;:hover {
+        box-shadow: 0 0 20px rgba(251, 146, 60, 0.3);
+      }
+    }
+  }
+
+  // Colonnes 3-6: Badges d&#x27;information (Arrivée, Départ, Rev.total, Heures)
+  .info-badge-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .info-badge {
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      background: rgba(30, 58, 138, 0.3);
+      font-size: 0.875rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #93c5fd;
+      white-space: nowrap;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      transition: all 0.3s ease;
+
+      &amp;:hover {
+        background: rgba(30, 58, 138, 0.5);
+        border-color: rgba(59, 130, 246, 0.4);
+      }
+
+      &amp;.empty {
+        color: var(--text-secondary);
+        background: rgba(51, 65, 85, 0.3);
+        border-color: rgba(51, 65, 85, 0.2);
+      }
+    }
+  }
+
+  // Colonne 7: Actions
+  .employee-row-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-start;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+  }
+
+  &amp;:hover .employee-row-actions {
+    opacity: 1;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Responsive &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+@media (max-width: 1200px) {
+  .employees-table {
+    .table-column-headers {
+      grid-template-columns: 200px 150px 100px 100px 100px 100px 1fr;
+      gap: 0.75rem;
+      font-size: 0.8rem;
+    }
+
+    .employee-row {
+      grid-template-columns: 200px 150px 100px 100px 100px 100px 1fr;
+      gap: 0.75rem;
+      padding: 1rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .employees-table {
+    .table-column-headers {
+      display: none;
+    }
+
+    .employee-row {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1.5rem 1rem;
+
+      .employee-info {
+        width: 100%;
+      }
+
+      .availability-badge {
+        width: 100%;
+      }
+
+      .info-badge-cell {
+        width: 100%;
+
+        .info-badge {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+
+      .employee-row-actions {
+        width: 100%;
+        justify-content: center;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Boutons icônes &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.btn-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: var(--dark-bg)er;
+  color: var(--text-primary);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &amp;:hover {
+    background: color-color-mix(in srgb, in srgb, var(--card-bg) 95%, white);
+    transform: scale(1.15) translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    border-color: color-color-mix(in srgb, in srgb, var(--border-color) 90%, white);
+  }
+
+  &amp;.btn-danger {
+    &amp;:hover {
+      background: rgba(239, 68, 68, 0.1);
+      color: color-color-mix(in srgb, in srgb, var(--danger) 90%, white);
+      border-color: var(--danger);
+      box-shadow: var(--glow-danger);
+    }
+  }
+
+  &amp;.btn-edit {
+    &amp;:hover {
+      background: rgba(59, 130, 246, 0.1);
+      color: #60a5fa;
+      border-color: #3b82f6;
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+    }
+  }
+
+  &amp;.btn-view {
+    &amp;:hover {
+      background: rgba(16, 185, 129, 0.1);
+      color: #4ade80;
+      border-color: #10b981;
+      box-shadow: var(--glow-success);
+    }
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; État vide &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+
+  .empty-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+    animation: float 3s ease-in-out infinite;
+  }
+
+  p {
+    color: var(--text-secondary);
+    font-size: 1.125rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Boutons standards &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &amp;.btn-primary {
+    background: var(--primary-color);
+    color: white;
+
+    &amp;:hover {
+      background: color-mix(in srgb, var(--primary-color) 90%, white);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4), var(--glow-primary);
+    }
+  }
+
+  &amp;.btn-cancel {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+
+    &amp;:hover {
+      background: var(--dark-bg)er;
+      border-color: color-color-mix(in srgb, in srgb, var(--border-color) 90%, white);
+    }
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Modal &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  animation: fadeIn 0.3s ease;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .modal-content {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), var(--glow-primary);
+    animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(50px) scale(0.95);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+
+    &amp;.modal-content-large {
+      max-width: 900px;
+    }
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--border-color);
+    background: linear-gradient(135deg, var(--dark-bg)er 0%, color-color-mix(in srgb, in srgb, var(--card-bg) 98%, black) 100%);
+
+    .modal-title {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .close-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      background: var(--card-bg);
+      color: var(--text-secondary);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &amp;:hover {
+        background: var(--dark-bg)er;
+        color: var(--danger);
+        transform: rotate(90deg) scale(1.1);
+        box-shadow: var(--glow-danger);
+        border-color: var(--danger);
+      }
+    }
+  }
+
+  .modal-body {
+    padding: 2rem;
+  }
+
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding: 1.5rem 2rem;
+    border-top: 1px solid var(--border-color);
+    background: linear-gradient(135deg, color-color-mix(in srgb, in srgb, var(--card-bg) 98%, black) 0%, var(--dark-bg)er 100%);
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Profil détaillé &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.profile-summary {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.05) 100%);
+  border-radius: 12px;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+
+  &amp;::before {
+    content: &#x27;&#x27;;
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.5;
+    }
+    50% {
+      transform: scale(1.1);
+      opacity: 0.8;
+    }
+  }
+
+  .profile-avatar-large {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    flex-shrink: 0;
+    border: 4px solid rgba(102, 126, 234, 0.4);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4), 0 0 30px rgba(102, 126, 234, 0.3);
+    transition: all 0.4s ease;
+    position: relative;
+    z-index: 1;
+
+    &amp;:hover {
+      transform: scale(1.05) rotate(5deg);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5), 0 0 40px rgba(102, 126, 234, 0.5);
+    }
+  }
+
+  .profile-info {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+
+    h3 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0 0 0.5rem 0;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .profile-position {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      margin: 0 0 1rem 0;
+      font-weight: 500;
+    }
+  }
+
+  .availability-badge-large {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    &amp;.status-present {
+      background: rgba(16, 185, 129, 0.2);
+      color: color-color-mix(in srgb, in srgb, var(--success) 85%, white);
+      border: 2px solid rgba(16, 185, 129, 0.4);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+
+      &amp;:hover {
+        box-shadow: var(--glow-success), 0 6px 16px rgba(16, 185, 129, 0.3);
+        transform: translateY(-2px);
+      }
+    }
+
+    &amp;.status-absent {
+      background: rgba(239, 68, 68, 0.2);
+      color: color-color-mix(in srgb, in srgb, var(--danger) 85%, white);
+      border: 2px solid rgba(239, 68, 68, 0.4);
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+
+      &amp;:hover {
+        box-shadow: var(--glow-danger), 0 6px 16px rgba(239, 68, 68, 0.3);
+        transform: translateY(-2px);
+      }
+    }
+
+    &amp;.status-leave {
+      background: rgba(251, 146, 60, 0.2);
+      color: color-color-mix(in srgb, in srgb, var(--stat-orange) 85%, white);
+      border: 2px solid rgba(251, 146, 60, 0.4);
+      box-shadow: 0 4px 12px rgba(251, 146, 60, 0.2);
+
+      &amp;:hover {
+        box-shadow: 0 0 20px rgba(251, 146, 60, 0.4), 0 6px 16px rgba(251, 146, 60, 0.3);
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+.info-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: rgba(15, 23, 42, 0.4);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+
+  &amp;:hover {
+    background: rgba(15, 23, 42, 0.6);
+    border-color: color-color-mix(in srgb, in srgb, var(--border-color) 90%, white);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .section-subtitle {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 1.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid rgba(99, 102, 241, 0.3);
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+
+  .info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: rgba(30, 41, 59, 0.5);
+    border-radius: 8px;
+    border: 1px solid rgba(51, 65, 85, 0.5);
+    transition: all 0.3s ease;
+
+    &amp;:hover {
+      background: rgba(30, 41, 59, 0.7);
+      border-color: rgba(99, 102, 241, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .info-label {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .info-value {
+      font-size: 1rem;
+      color: var(--text-primary);
+      font-weight: 500;
+
+      &amp;.status-present {
+        color: color-color-mix(in srgb, in srgb, var(--success) 90%, white);
+      }
+
+      &amp;.status-absent {
+        color: color-color-mix(in srgb, in srgb, var(--danger) 90%, white);
+      }
+
+      &amp;.status-leave {
+        color: color-color-mix(in srgb, in srgb, var(--stat-orange) 90%, white);
+      }
+    }
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Historique &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.history-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.history-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.6) 100%);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &amp;:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    border-color: color-color-mix(in srgb, in srgb, var(--border-color) 85%, white);
+  }
+
+  .stat-icon-small {
+    font-size: 2rem;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: rgba(99, 102, 241, 0.15);
+    border: 2px solid rgba(99, 102, 241, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  &amp;:hover .stat-icon-small {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+  }
+
+  .stat-content-small {
+    flex: 1;
+
+    .stat-value-small {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-label-small {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+  }
+}
+
+.history-table {
+  background: rgba(15, 23, 42, 0.4);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+
+  .history-table-header {
+    padding: 1.5rem;
+    background: linear-gradient(135deg, var(--dark-bg)er 0%, color-color-mix(in srgb, in srgb, var(--card-bg) 98%, black) 100%);
+    border-bottom: 2px solid rgba(99, 102, 241, 0.3);
+
+    h4 {
+      margin: 0;
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  }
+
+  .history-table-content {
+    padding: 0;
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    thead {
+      background: rgba(15, 23, 42, 0.6);
+
+      th {
+        padding: 1rem 1.5rem;
+        text-align: left;
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-bottom: 1px solid var(--border-color);
+      }
+    }
+
+    tbody {
+      tr {
+        border-bottom: 1px solid rgba(51, 65, 85, 0.3);
+        transition: all 0.3s ease;
+
+        &amp;:hover {
+          background: rgba(30, 41, 59, 0.4);
+        }
+
+        &amp;.row-présent {
+          border-left: 3px solid var(--success);
+        }
+
+        &amp;.row-absent {
+          border-left: 3px solid var(--danger);
+        }
+
+        &amp;.row-congé {
+          border-left: 3px solid var(--stat-orange);
+        }
+
+        td {
+          padding: 1rem 1.5rem;
+          color: var(--text-primary);
+          font-size: 0.9rem;
+
+          &amp;.date-cell {
+            font-weight: 600;
+            color: color-color-mix(in srgb, in srgb, var(--text-secondary) 80%, white);
+          }
+
+          &amp;.time-cell {
+            font-family: &#x27;Courier New&#x27;, monospace;
+            color: #93c5fd;
+          }
+
+          &amp;.duration-cell {
+            font-weight: 600;
+            color: color-mix(in srgb, var(--primary-color) 80%, white);
+          }
+        }
+      }
+    }
+  }
+
+  .status-badge-small {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+
+    &amp;.status-present {
+      background: rgba(16, 185, 129, 0.15);
+      color: color-color-mix(in srgb, in srgb, var(--success) 90%, white);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    &amp;.status-absent {
+      background: rgba(239, 68, 68, 0.15);
+      color: color-color-mix(in srgb, in srgb, var(--danger) 90%, white);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    &amp;.status-leave {
+      background: rgba(251, 146, 60, 0.15);
+      color: color-color-mix(in srgb, in srgb, var(--stat-orange) 90%, white);
+      border: 1px solid rgba(251, 146, 60, 0.3);
+    }
+  }
+
+  .empty-history {
+    padding: 4rem 2rem;
+    text-align: center;
+
+    p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      margin: 0;
+    }
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Formulaire &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.form-group {
+  margin-bottom: 1.5rem;
+
+  .form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    background: var(--dark-bg)er;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+
+    &amp;:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2), var(--glow-primary);
+      transform: translateY(-2px);
+    }
+
+    &amp;::placeholder {
+      color: var(--text-secondary);
+    }
+
+    &amp;:hover {
+      border-color: color-color-mix(in srgb, in srgb, var(--border-color) 90%, white);
+    }
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Boutons &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &amp;.btn-primary {
+    background: var(--primary-color);
+    color: white;
+
+    &amp;:hover {
+      background: color-mix(in srgb, var(--primary-color) 90%, white);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4), var(--glow-primary);
+    }
+  }
+
+  &amp;.btn-secondary {
+    background: rgba(51, 65, 85, 0.5);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+
+    &amp;:hover {
+      background: rgba(51, 65, 85, 0.7);
+      border-color: color-color-mix(in srgb, in srgb, var(--border-color) 90%, white);
+      transform: translateY(-2px);
+    }
+  }
+
+  &amp;.btn-cancel {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+
+    &amp;:hover {
+      background: var(--dark-bg)er;
+      border-color: color-color-mix(in srgb, in srgb, var(--border-color) 90%, white);
+    }
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Responsive (mobile) &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+@media (max-width: 768px) {
+  .profile-summary {
+    flex-direction: column;
+    text-align: center;
+
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .history-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .data-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .modal-body {
+    padding: 1.5rem;
+  }
+
+  .modal-header,
+  .modal-footer {
+    padding: 1rem 1.5rem;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- ===== PAGE MES EMPLOYÉS ===== --><div class="page-section">  <section class="content-section">    <!-- ===== En-tête de page ===== -->    <div class="section-header">      <h2 class="section-title-main">👨‍💼 Mes Employés</h2>      <button class="btn btn-primary" (click)="openAddEmployeeModal()">        ➕ Ajouter un employé      </button>    </div>    <!-- ===== Statistiques globales ===== -->    <div class="employees-stats-grid">      <!-- Total Employés -->      <div class="stat-card stat-card-blue">        <div class="stat-icon">👥</div>        <div class="stat-content">          <div class="stat-label">Total Employés</div>          <div class="stat-value">{{ getTotalEmployeesCount() }}</div>          <div class="stat-change positive">+5 ce mois</div>        </div>      </div>      <!-- Employés Présents -->      <div class="stat-card stat-card-green">        <div class="stat-icon">✅</div>        <div class="stat-content">          <div class="stat-label">Présents Aujourd\'hui</div>          <div class="stat-value">{{ getPresentEmployeesCount() }}</div>          <div class="stat-change positive">En service</div>        </div>      </div>      <!-- Employés Absents -->      <div class="stat-card stat-card-red">        <div class="stat-icon">❌</div>        <div class="stat-content">          <div class="stat-label">Absents</div>          <div class="stat-value">{{ getAbsentEmployeesCount() }}</div>          <div class="stat-change negative">Aujourd\'hui</div>        </div>      </div>      <!-- En Congé -->      <div class="stat-card stat-card-orange">        <div class="stat-icon">🏖️</div>        <div class="stat-content">          <div class="stat-label">En Congé</div>          <div class="stat-value">{{ getOnLeaveEmployeesCount() }}</div>          <div class="stat-change neutral">Actuellement</div>        </div>      </div>    </div>    <!-- ===== Tableau des employés ===== -->    <div class="employees-table">      <div class="table-header">        <h3>Liste complète des employés</h3>      </div>        <div class="table-column-headers">            <div>Nom et poste</div>            <div>Disponibilité</div>            <div>Arrivée</div>            <div>Départ</div>            <div>Revenus total</div>            <div>Heures eff</div>            <div>Options</div>        </div>    <div class="table-content">    <!-- Boucle sur chaque employé -->    <div *ngFor="let employee of getAllEmployees()" class="employee-row">      <!-- Colonne 1: Avatar + Nom et poste -->      <div class="employee-info-wrapper">        <div class="employee-info">          <div class="employee-avatar-sm">            {{ employee.avatar }}            <span class="status-indicator"                  [ngClass]="{                    \'present\': employee.availability.status === \'présent\',                    \'absent\': employee.availability.status === \'absent\',                    \'leave\': employee.availability.status === \'congé\'                  }">            </span>          </div>          <div class="employee-details">            <div class="employee-name-bold">{{ employee.name }}</div>            <div class="employee-position-sm">{{ employee.position }}</div>          </div>        </div>      </div>      <!-- Colonne 2: Badge de disponibilité -->      <div class="availability-badge" [ngClass]="getStatusClass(employee.availability.status)">        <span class="status-icon">{{ getStatusIcon(employee.availability.status) }}</span>        <span class="status-text">{{ employee.availability.status | titlecase }}</span>      </div>                <!-- Colonne 3: Arrivée -->      <div class="info-badge-cell">            <span class="info-badge" *ngIf="employee.availability.status === \'présent\'; else dashArrivee">              🕐 {{ employee.availability.heureArrivee }}            </span>            <ng-template #dashArrivee>              <span class="info-badge">-</span>            </ng-template>      </div>          <!-- Colonne 4: Départ -->      <div class="info-badge-cell">            <span class="info-badge" *ngIf="employee.availability.status === \'présent\' && employee.availability.heureDepart; else dashDepart">              🕐 {{ employee.availability.heureDepart }}            </span>            <ng-template #dashDepart>              <span class="info-badge">-</span>            </ng-template>      </div>      <!-- Colonne 5: Rev. total -->      <div class="info-badge-cell">        <span class="info-badge">          💰 {{ employee.ventes }}        </span>      </div>      <!-- Colonne 6: Heures -->      <div class="info-badge-cell">        <span class="info-badge">          ⏱️ {{ employee.heures }}        </span>      </div>        <!-- Actions sous l\'avatar -->        <div class="employee-row-actions">          <button class="btn-icon btn-view"                  title="Voir le profil"                  (click)="viewEmployeeDetails(employee)">            👁️          </button>          <button class="btn-icon btn-history"                  title="Voir l\'historique"                  (click)="viewAvailabilityHistory(employee)">            📊          </button>          <button class="btn-icon btn-edit"                  title="Modifier"                  (click)="editEmployee(employee)">            ✏️          </button>          <button class="btn-icon btn-danger"                  title="Supprimer"                  (click)="deleteEmployee(employee)">            🗑️          </button>        </div>    </div>        <!-- Message si aucun employé -->        <div *ngIf="getAllEmployees().length === 0" class="empty-state">          <div class="empty-icon">📭</div>          <p>Aucun employé pour le moment</p>          <button class="btn btn-primary" (click)="openAddEmployeeModal()">            Ajouter le premier employé          </button>        </div>      </div>    </div>  </section></div><!-- ===== MODAL AJOUTER EMPLOYÉ ===== --><div *ngIf="isAddEmployeeModalOpen" class="modal" (click)="closeAddEmployeeModal()">  <div class="modal-content" (click)="$event.stopPropagation()">    <div class="modal-header">      <h2 class="modal-title">➕ Ajouter un nouvel employé</h2>      <button class="close-btn" (click)="closeAddEmployeeModal()">×</button>    </div>    <div class="modal-body">      <form>        <div class="form-group">          <label class="form-label">Prénom *</label>          <input type="text" class="form-input" [(ngModel)]="newEmployeeForm.firstName"                 name="firstName" placeholder="Ex: Alice" required>        </div>        <div class="form-group">          <label class="form-label">Nom *</label>          <input type="text" class="form-input" [(ngModel)]="newEmployeeForm.lastName"                 name="lastName" placeholder="Ex: Martin" required>        </div>        <div class="form-group">          <label class="form-label">Email *</label>          <input type="email" class="form-input" [(ngModel)]="newEmployeeForm.email"                 name="email" placeholder="Ex: alice.martin@caveviking.com" required>        </div>        <div class="form-group">          <label class="form-label">Téléphone</label>          <input type="tel" class="form-input" [(ngModel)]="newEmployeeForm.phone"                 name="phone" placeholder="Ex: +234 801 234 5678">        </div>        <div class="form-group">          <label class="form-label">Cave d\'affectation *</label>          <select class="form-input" [(ngModel)]="newEmployeeForm.caveId" name="caveId" required>            <option value="">Sélectionner une cave...</option>            <option *ngFor="let cave of caves" [value]="cave.id">{{ cave.name }}</option>          </select>        </div>        <div class="form-group" *ngIf="newEmployeeForm.caveId">          <label class="form-label">Manager de supervision *</label>          <select class="form-input" [(ngModel)]="newEmployeeForm.managerId" name="managerId" required>            <option value="">Sélectionner un manager...</option>            <option *ngFor="let manager of getManagersByCave(newEmployeeForm.caveId)"                    [value]="manager.name">              {{ manager.name }} - {{ manager.role }}            </option>          </select>        </div>        <div class="form-group">          <label class="form-label">Poste *</label>          <select class="form-input" [(ngModel)]="newEmployeeForm.position" name="position" required>            <option value="">Sélectionner un poste...</option>            <option value="Caissier(ère)">Caissier(ère)</option>            <option value="Vendeur(se)">Vendeur(se)</option>            <option value="Magasinier">Magasinier</option>            <option value="Livreur">Livreur</option>            <option value="Assistant(e)">Assistant(e)</option>            <option value="Sommelier">Sommelier</option>            <option value="Conseiller(ère)">Conseiller(ère)</option>          </select>        </div>      </form>    </div>    <div class="modal-footer">      <button class="btn btn-cancel" (click)="closeAddEmployeeModal()">Annuler</button>      <button class="btn btn-primary" (click)="addNewEmployee()">Ajouter l\'employé</button>    </div>  </div></div><!-- ===== MODAL VOIR PROFIL COMPLET ===== --><div *ngIf="isViewDetailsModalOpen && selectedEmployee" class="modal" (click)="closeDetailsModal()">  <div class="modal-content modal-content-large" (click)="$event.stopPropagation()">    <div class="modal-header">      <h2 class="modal-title">👤 Profil de {{ selectedEmployee.name }}</h2>      <button class="close-btn" (click)="closeDetailsModal()">×</button>    </div>    <div class="modal-body">      <!-- Résumé du profil -->      <div class="profile-summary">        <div class="profile-avatar-large">{{ selectedEmployee.avatar }}</div>        <div class="profile-info">          <h3>{{ selectedEmployee.name }}</h3>          <p class="profile-position">{{ selectedEmployee.position }}</p>          <div class="availability-badge-large" [ngClass]="getStatusClass(selectedEmployee.availability.status)">            {{ getStatusIcon(selectedEmployee.availability.status) }}            {{ selectedEmployee.availability.status | titlecase }}          </div>        </div>      </div>      <!-- Informations personnelles -->      <div class="info-section">        <h4 class="section-subtitle">📋 Informations Personnelles</h4>        <div class="info-grid">          <div class="info-item">            <span class="info-label">Email:</span>            <span class="info-value">{{ selectedEmployee.email }}</span>          </div>          <div class="info-item">            <span class="info-label">Téléphone:</span>            <span class="info-value">{{ selectedEmployee.phone }}</span>          </div>          <div class="info-item">            <span class="info-label">Poste:</span>            <span class="info-value">{{ selectedEmployee.position }}</span>          </div>           <div class="info-item">            <span class="info-label">Cave d\'affectation:</span>            <span class="info-value">{{ selectedEmployee.caveId || \'Non assignée\' }}</span>          </div>          <div class="info-item">            <span class="info-label">Manager de supervision:</span>            <span class="info-value">{{ selectedEmployee.managerId || \'Non assigné\' }}</span>          </div>        </div>      </div>      <!-- Disponibilité actuelle -->      <div class="info-section">        <h4 class="section-subtitle">⏰ Disponibilité Actuelle</h4>        <div class="info-grid">          <div class="info-item">            <span class="info-label">Statut:</span>            <span class="info-value" [ngClass]="getStatusClass(selectedEmployee.availability.status)">              {{ selectedEmployee.availability.status | titlecase }}            </span>          </div>          <div class="info-item" *ngIf="selectedEmployee.availability.heureArrivee">            <span class="info-label">Heure d\'arrivée:</span>            <span class="info-value">{{ selectedEmployee.availability.heureArrivee }}</span>          </div>          <div class="info-item" *ngIf="selectedEmployee.availability.heureDepart">            <span class="info-label">Heure de départ:</span>            <span class="info-value">{{ selectedEmployee.availability.heureDepart }}</span>          </div>        </div>      </div>      <!-- Performance -->      <div class="info-section">        <h4 class="section-subtitle">📊 Performance</h4>        <div class="info-grid">          <div class="info-item">            <span class="info-label">Ventes totales:</span>            <span class="info-value">{{ selectedEmployee.ventes }}</span>          </div>          <div class="info-item">            <span class="info-label">Heures travaillées:</span>            <span class="info-value">{{ selectedEmployee.heures }}</span>          </div>        </div>      </div>    </div>    <div class="modal-footer">      <button class="btn btn-secondary" (click)="viewAvailabilityHistory(selectedEmployee)">        📊 Voir l\'historique      </button>      <button class="btn btn-primary" (click)="editEmployee(selectedEmployee); closeDetailsModal()">        ✏️ Modifier le profil      </button>    </div>  </div></div><!-- ===== MODAL HISTORIQUE DE DISPONIBILITÉ ===== --><div *ngIf="isViewHistoryModalOpen && selectedEmployee" class="modal" (click)="closeHistoryModal()">  <div class="modal-content modal-content-large" (click)="$event.stopPropagation()">    <div class="modal-header">      <h2 class="modal-title">📊 Historique de {{ selectedEmployee.name }}</h2>      <button class="close-btn" (click)="closeHistoryModal()">×</button>    </div>    <div class="modal-body">      <!-- Statistiques résumées -->      <div class="history-stats">        <div class="history-stat-card">          <div class="stat-icon-small">✅</div>          <div class="stat-content-small">            <div class="stat-value-small">              {{ getHistoryPresentDays(selectedEmployee) }}            </div>            <div class="stat-label-small">Jours présents</div>          </div>        </div>        <div class="history-stat-card">          <div class="stat-icon-small">❌</div>          <div class="stat-content-small">            <div class="stat-value-small">              {{ getHistoryAbsentDays(selectedEmployee) }}            </div>            <div class="stat-label-small">Jours absents</div>          </div>        </div>        <div class="history-stat-card">          <div class="stat-icon-small">🏖️</div>          <div class="stat-content-small">            <div class="stat-value-small">             {{ getHistoryLeaveDays(selectedEmployee) }}            </div>            <div class="stat-label-small">Jours de congé</div>          </div>        </div>      </div>      <!-- Tableau d\'historique -->      <div class="history-table">        <div class="history-table-header">          <h4>Historique des 30 derniers jours</h4>        </div>        <div class="history-table-content">          <table class="data-table">            <thead>              <tr>                <th>Date</th>                <th>Statut</th>                <th>Arrivée</th>                <th>Départ</th>                <th>Durée</th>              </tr>            </thead>            <tbody>              <tr *ngFor="let record of selectedEmployee.availabilityHistory"                  [ngClass]="\'row-\' + record.status">                <td class="date-cell">{{ record.date }}</td>                <td>                  <span class="status-badge-small" [ngClass]="getStatusClass(record.status)">                    {{ getStatusIcon(record.status) }} {{ record.status | titlecase }}                  </span>                </td>                <td class="time-cell">{{ record.heureArrivee || \'-\' }}</td>                <td class="time-cell">{{ record.heureDepart || \'-\' }}</td>                <td class="duration-cell">{{ record.duree || \'-\' }}</td>              </tr>            </tbody>          </table>          <!-- Message si pas d\'historique -->          <div *ngIf="selectedEmployee.availabilityHistory.length === 0" class="empty-history">            <p>Aucun historique disponible pour cet employé</p>          </div>        </div>      </div>    </div>    <div class="modal-footer">      <button class="btn btn-secondary" (click)="closeHistoryModal()">Fermer</button>      <button class="btn btn-primary" (click)="closeHistoryModal(); editEmployee(selectedEmployee)">        ✏️ Modifier le profil      </button>    </div>  </div></div><!-- ===== MODAL MODIFIER EMPLOYÉ ===== --><div *ngIf="isEditEmployeeModalOpen && editEmployeeForm" class="modal" (click)="closeEditEmployeeModal()">  <div class="modal-content" (click)="$event.stopPropagation()">    <div class="modal-header">      <h2 class="modal-title">✏️ Modifier l\'employé</h2>      <button class="close-btn" (click)="closeEditEmployeeModal()">×</button>    </div>    <div class="modal-body">      <form>        <div class="form-group">          <label class="form-label">Prénom *</label>          <input type="text" class="form-input" [(ngModel)]="editEmployeeForm.firstName"                 name="firstName" required>        </div>        <div class="form-group">          <label class="form-label">Nom *</label>          <input type="text" class="form-input" [(ngModel)]="editEmployeeForm.lastName"                 name="lastName" required>        </div>        <div class="form-group">          <label class="form-label">Email *</label>          <input type="email" class="form-input" [(ngModel)]="editEmployeeForm.email"                 name="email" required>        </div>        <div class="form-group">          <label class="form-label">Téléphone</label>          <input type="tel" class="form-input" [(ngModel)]="editEmployeeForm.phone"                 name="phone">        </div>        <div class="form-group">          <label class="form-label">Cave d\'affectation *</label>          <select class="form-input" [(ngModel)]="editEmployeeForm.caveId" name="caveId" required>            <option value="">Sélectionner une cave...</option>            <option *ngFor="let cave of caves" [value]="cave.id">{{ cave.name }}</option>          </select>        </div>        <div class="form-group" *ngIf="editEmployeeForm.caveId">          <label class="form-label">Manager de supervision *</label>          <select class="form-input" [(ngModel)]="editEmployeeForm.managerId" name="managerId" required>            <option value="">Sélectionner un manager...</option>            <option *ngFor="let manager of getManagersByCave(editEmployeeForm.caveId)"                    [value]="manager.name">              {{ manager.name }} - {{ manager.role }}            </option>          </select>        </div>        <div class="form-group">          <label class="form-label">Poste *</label>          <select class="form-input" [(ngModel)]="editEmployeeForm.position" name="position" required>            <option value="Caissier(ère)">Caissier(ère)</option>            <option value="Vendeur(se)">Vendeur(se)</option>            <option value="Magasinier">Magasinier</option>            <option value="Livreur">Livreur</option>            <option value="Assistant(e)">Assistant(e)</option>            <option value="Sommelier">Sommelier</option>            <option value="Conseiller(ère)">Conseiller(ère)</option>          </select>        </div>        <div class="form-group">          <label class="form-label">Statut de disponibilité</label>          <select class="form-input" [(ngModel)]="editEmployeeForm.availability.status" name="status">            <option value="présent">✅ Présent</option>            <option value="absent">❌ Absent</option>            <option value="congé">🏖️ En Congé</option>          </select>        </div>        <div class="form-group" *ngIf="editEmployeeForm.availability.status === \'présent\'">          <label class="form-label">Heure d\'arrivée</label>          <input type="time" class="form-input" [(ngModel)]="editEmployeeForm.availability.heureArrivee"                 name="heureArrivee">        </div>        <div class="form-group" *ngIf="editEmployeeForm.availability.status === \'présent\'">          <label class="form-label">Heure de départ</label>          <input type="time" class="form-input" [(ngModel)]="editEmployeeForm.availability.heureDepart"                 name="heureDepart">        </div>      </form>    </div>    <div class="modal-footer">      <button class="btn btn-cancel" (click)="closeEditEmployeeModal()">Annuler</button>      <button class="btn btn-primary" (click)="saveEmployeeChanges()">        💾 Enregistrer les modifications      </button>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AdminDashboardComponent', 'selector': 'app-admin-dashboard'},{'name': 'AlertsComponent', 'selector': 'app-alerts'},{'name': 'App', 'selector': 'app-root'},{'name': 'CaisseComponent', 'selector': 'app-caisse'},{'name': 'CaveCreateComponent', 'selector': 'app-cave-create'},{'name': 'CaveListComponent', 'selector': 'app-cave-lists'},{'name': 'ClientDashboardComponent', 'selector': 'app-client-dashboard'},{'name': 'ClientsComponent', 'selector': 'app-client'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DrinksComponent', 'selector': 'app-drinks'},{'name': 'EmployeesComponent', 'selector': 'app-employees'},{'name': 'EntriesComponent', 'selector': 'app-entries'},{'name': 'ExitsComponent', 'selector': 'app-exits'},{'name': 'ExpenseComponent', 'selector': 'app-depenses'},{'name': 'FaqComponent', 'selector': 'app-faq'},{'name': 'FournisseursComponent', 'selector': 'app-fournisseur'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'ImprovementsComponent', 'selector': 'app-improvements'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ManagerDashboardComponent', 'selector': 'app-manager-dashboard'},{'name': 'ManagersComponent', 'selector': 'app-managers'},{'name': 'MaterialComponent', 'selector': 'app-materiel'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'OrdersComponent', 'selector': 'app-orders'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfitComponent', 'selector': 'app-profit'},{'name': 'RecentActionsComponent', 'selector': 'app-recent-actions'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'SalesComponent', 'selector': 'app-sales'},{'name': 'ScanComponent', 'selector': 'app-scan'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'StockComponent', 'selector': 'app-stock'},{'name': 'StockComponent', 'selector': 'app-stock'},{'name': 'TeamComponent', 'selector': 'app-team'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'UserCreateComponent', 'selector': 'app-user-create'},{'name': 'UserListComponent', 'selector': 'app-user-list'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'WaitressDashboardComponent', 'selector': 'app-waitress-dashboard'},{'name': 'WinePairingComponent', 'selector': 'app-wine-pairing'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'EmployeesComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'EmployeesComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

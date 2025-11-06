@@ -1,0 +1,1647 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cave-master-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cave-master-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  FaqComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/view/admin-dashboard/faq/faq.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-faq</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>FormsModule</code>
+                            <code>ReactiveFormsModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./faq.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./faq.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#categories" >categories</a>
+                            </li>
+                            <li>
+                                <a href="#faqItems" >faqItems</a>
+                            </li>
+                            <li>
+                                <a href="#filteredItems" >filteredItems</a>
+                            </li>
+                            <li>
+                                <a href="#searchQuery" >searchQuery</a>
+                            </li>
+                            <li>
+                                <a href="#selectedCategory" >selectedCategory</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#filterFAQ" >filterFAQ</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#toggleItem" >toggleItem</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filterFAQ"></a>
+                    <span class="name">
+                        <span ><b>filterFAQ</b></span>
+                        <a href="#filterFAQ"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>filterFAQ()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="78"
+                                    class="link-to-prism">src/app/view/admin-dashboard/faq/faq.component.ts:78</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="70"
+                                    class="link-to-prism">src/app/view/admin-dashboard/faq/faq.component.ts:70</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleItem"></a>
+                    <span class="name">
+                        <span ><b>toggleItem</b></span>
+                        <a href="#toggleItem"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleItem(item: <a href="../interfaces/FAQItem.html" target="_self">FAQItem</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="74"
+                                    class="link-to-prism">src/app/view/admin-dashboard/faq/faq.component.ts:74</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>item</td>
+                                            <td>
+                                                            <code><a href="../interfaces/FAQItem.html" target="_self" >FAQItem</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="categories"></a>
+                    <span class="name">
+                        <span ><b>categories</b></span>
+                        <a href="#categories"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    &#x27;Général&#x27;,
+    &#x27;Gestion des stocks&#x27;,
+    &#x27;Employés et Managers&#x27;,
+    &#x27;Facturation&#x27;,
+    &#x27;Technique&#x27;
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/view/admin-dashboard/faq/faq.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="faqItems"></a>
+                    <span class="name">
+                        <span ><b>faqItems</b></span>
+                        <a href="#faqItems"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/FAQItem.html" target="_self" >FAQItem[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    {
+      id: &#x27;1&#x27;,
+      category: &#x27;Général&#x27;,
+      question: &#x27;Comment créer une nouvelle cave ?&#x27;,
+      answer: &#x27;Pour créer une nouvelle cave, rendez-vous dans le menu &quot;Mes Caves&quot; puis cliquez sur le bouton &quot;Ajouter une cave&quot;. Remplissez le formulaire avec le nom, l\&#x27;emplacement et les informations nécessaires.&#x27;,
+      isOpen: false
+    },
+    {
+      id: &#x27;2&#x27;,
+      category: &#x27;Gestion des stocks&#x27;,
+      question: &#x27;Comment ajouter des produits au stock ?&#x27;,
+      answer: &#x27;Allez dans &quot;Mes boissons&quot; &gt; &quot;Ajouter une boisson&quot;, ou utilisez le scanner de code-barres pour une entrée rapide. Vous pouvez également importer un fichier CSV avec plusieurs produits.&#x27;,
+      isOpen: false
+    },
+    {
+      id: &#x27;3&#x27;,
+      category: &#x27;Employés et Managers&#x27;,
+      question: &#x27;Comment assigner un employé à un manager ?&#x27;,
+      answer: &#x27;Dans la section &quot;Mes Employés&quot;, lors de l\&#x27;ajout ou la modification d\&#x27;un employé, sélectionnez le manager de supervision dans la liste déroulante.&#x27;,
+      isOpen: false
+    },
+    {
+      id: &#x27;4&#x27;,
+      category: &#x27;Technique&#x27;,
+      question: &#x27;L\&#x27;application fonctionne-t-elle hors ligne ?&#x27;,
+      answer: &#x27;CaveMaster nécessite une connexion internet pour synchroniser les données. Cependant, certaines fonctions de consultation sont disponibles en mode hors ligne.&#x27;,
+      isOpen: false
+    }
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/view/admin-dashboard/faq/faq.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filteredItems"></a>
+                    <span class="name">
+                        <span ><b>filteredItems</b></span>
+                        <a href="#filteredItems"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/FAQItem.html" target="_self" >FAQItem[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/app/view/admin-dashboard/faq/faq.component.ts:68</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchQuery"></a>
+                    <span class="name">
+                        <span ><b>searchQuery</b></span>
+                        <a href="#searchQuery"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/view/admin-dashboard/faq/faq.component.ts:26</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedCategory"></a>
+                    <span class="name">
+                        <span ><b>selectedCategory</b></span>
+                        <a href="#selectedCategory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;all&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/view/admin-dashboard/faq/faq.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+
+interface FAQItem {
+  id: string;
+  category: string;
+  question: string;
+  answer: string;
+  isOpen: boolean;
+}
+
+@Component({
+  selector: &#x27;app-faq&#x27;,
+  standalone: true,
+    // Import des modules nécessaires
+    imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  templateUrl: &#x27;./faq.component.html&#x27;,
+  styleUrls: [&#x27;./faq.component.scss&#x27;]
+})
+export class FaqComponent implements OnInit {
+  searchQuery: string &#x3D; &#x27;&#x27;;
+  selectedCategory: string &#x3D; &#x27;all&#x27;;
+
+  categories: string[] &#x3D; [
+    &#x27;Général&#x27;,
+    &#x27;Gestion des stocks&#x27;,
+    &#x27;Employés et Managers&#x27;,
+    &#x27;Facturation&#x27;,
+    &#x27;Technique&#x27;
+  ];
+
+  faqItems: FAQItem[] &#x3D; [
+    {
+      id: &#x27;1&#x27;,
+      category: &#x27;Général&#x27;,
+      question: &#x27;Comment créer une nouvelle cave ?&#x27;,
+      answer: &#x27;Pour créer une nouvelle cave, rendez-vous dans le menu &quot;Mes Caves&quot; puis cliquez sur le bouton &quot;Ajouter une cave&quot;. Remplissez le formulaire avec le nom, l\&#x27;emplacement et les informations nécessaires.&#x27;,
+      isOpen: false
+    },
+    {
+      id: &#x27;2&#x27;,
+      category: &#x27;Gestion des stocks&#x27;,
+      question: &#x27;Comment ajouter des produits au stock ?&#x27;,
+      answer: &#x27;Allez dans &quot;Mes boissons&quot; &gt; &quot;Ajouter une boisson&quot;, ou utilisez le scanner de code-barres pour une entrée rapide. Vous pouvez également importer un fichier CSV avec plusieurs produits.&#x27;,
+      isOpen: false
+    },
+    {
+      id: &#x27;3&#x27;,
+      category: &#x27;Employés et Managers&#x27;,
+      question: &#x27;Comment assigner un employé à un manager ?&#x27;,
+      answer: &#x27;Dans la section &quot;Mes Employés&quot;, lors de l\&#x27;ajout ou la modification d\&#x27;un employé, sélectionnez le manager de supervision dans la liste déroulante.&#x27;,
+      isOpen: false
+    },
+    {
+      id: &#x27;4&#x27;,
+      category: &#x27;Technique&#x27;,
+      question: &#x27;L\&#x27;application fonctionne-t-elle hors ligne ?&#x27;,
+      answer: &#x27;CaveMaster nécessite une connexion internet pour synchroniser les données. Cependant, certaines fonctions de consultation sont disponibles en mode hors ligne.&#x27;,
+      isOpen: false
+    }
+  ];
+
+  filteredItems: FAQItem[] &#x3D; [];
+
+  ngOnInit(): void {
+    this.filteredItems &#x3D; [...this.faqItems];
+  }
+
+  toggleItem(item: FAQItem): void {
+    item.isOpen &#x3D; !item.isOpen;
+  }
+
+  filterFAQ(): void {
+    this.filteredItems &#x3D; this.faqItems.filter(item &#x3D;&gt; {
+      const matchesSearch &#x3D; this.searchQuery &#x3D;&#x3D;&#x3D; &#x27;&#x27; ||
+        item.question.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        item.answer.toLowerCase().includes(this.searchQuery.toLowerCase());
+
+      const matchesCategory &#x3D; this.selectedCategory &#x3D;&#x3D;&#x3D; &#x27;all&#x27; ||
+        item.category &#x3D;&#x3D;&#x3D; this.selectedCategory;
+
+      return matchesSearch &amp;&amp; matchesCategory;
+    });
+  }
+}
+
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- faq.component.html --&gt;
+&lt;div class&#x3D;&quot;page-section&quot;&gt;
+  &lt;div class&#x3D;&quot;content-section&quot;&gt;
+    &lt;!-- Header --&gt;
+    &lt;div class&#x3D;&quot;section-header&quot;&gt;
+      &lt;h1 class&#x3D;&quot;section-title-main&quot;&gt;
+        &lt;i class&#x3D;&quot;fas fa-question-circle&quot;&gt;&lt;/i&gt;
+        Foire Aux Questions
+      &lt;/h1&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Filters --&gt;
+    &lt;div class&#x3D;&quot;faq-filters&quot;&gt;
+      &lt;div class&#x3D;&quot;search-box&quot;&gt;
+        &lt;i class&#x3D;&quot;fas fa-search&quot;&gt;&lt;/i&gt;
+        &lt;input
+          type&#x3D;&quot;text&quot;
+          placeholder&#x3D;&quot;Rechercher une question...&quot;
+          [(ngModel)]&#x3D;&quot;searchQuery&quot;
+          (input)&#x3D;&quot;filterFAQ()&quot;
+        /&gt;
+      &lt;/div&gt;
+
+      &lt;select
+        class&#x3D;&quot;filter-select&quot;
+        [(ngModel)]&#x3D;&quot;selectedCategory&quot;
+        (change)&#x3D;&quot;filterFAQ()&quot;
+      &gt;
+        &lt;option value&#x3D;&quot;all&quot;&gt;Toutes les catégories&lt;/option&gt;
+        &lt;option *ngFor&#x3D;&quot;let cat of categories&quot; [value]&#x3D;&quot;cat&quot;&gt;
+          {{ cat }}
+        &lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/div&gt;
+
+    &lt;!-- FAQ List --&gt;
+    &lt;div class&#x3D;&quot;faq-list&quot;&gt;
+      &lt;div
+        *ngFor&#x3D;&quot;let item of filteredItems&quot;
+        class&#x3D;&quot;faq-item&quot;
+      &gt;
+        &lt;div
+          class&#x3D;&quot;faq-question&quot;
+          (click)&#x3D;&quot;toggleItem(item)&quot;
+        &gt;
+          &lt;span class&#x3D;&quot;category-badge&quot;&gt;{{ item.category }}&lt;/span&gt;
+          &lt;h3&gt;{{ item.question }}&lt;/h3&gt;
+          &lt;i
+            class&#x3D;&quot;fas&quot;
+            [ngClass]&#x3D;&quot;item.isOpen ? &#x27;fa-chevron-up&#x27; : &#x27;fa-chevron-down&#x27;&quot;
+          &gt;&lt;/i&gt;
+        &lt;/div&gt;
+
+        &lt;div
+          class&#x3D;&quot;faq-answer&quot;
+          [ngClass]&#x3D;&quot;{ &#x27;open&#x27;: item.isOpen }&quot;
+        &gt;
+          &lt;p&gt;{{ item.answer }}&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- No results --&gt;
+      &lt;div
+        *ngIf&#x3D;&quot;filteredItems.length &#x3D;&#x3D;&#x3D; 0&quot;
+        class&#x3D;&quot;text-center p-4&quot;
+      &gt;
+        &lt;i class&#x3D;&quot;fas fa-search fa-3x text-secondary mb-3&quot;&gt;&lt;/i&gt;
+        &lt;p class&#x3D;&quot;text-secondary&quot;&gt;
+          Aucune question ne correspond à votre recherche.
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Help Section --&gt;
+    &lt;div class&#x3D;&quot;help-section&quot;&gt;
+      &lt;h3&gt;Vous ne trouvez pas votre réponse ?&lt;/h3&gt;
+      &lt;p&gt;
+        Notre équipe support est disponible pour vous aider 24h/7j
+      &lt;/p&gt;
+      &lt;button class&#x3D;&quot;btn btn-primary btn-large&quot;&gt;
+        &lt;i class&#x3D;&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
+        Contacter le Support
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./faq.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+// FICHIER: FAQ &amp; Common Styles (corrigé)
+// DESCRIPTION: Styles communs + FAQ avec variables CSS dynamiques
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; STYLES DE BASE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.page-section {
+  // Ligne 1: Espacement interne
+  padding: 2rem;
+  // Ligne 2: Couleur de fond depuis variable CSS
+  background: var(--dark-bg);
+  // Ligne 3: Hauteur minimale égale à la fenêtre
+  min-height: 100vh;
+}
+
+.content-section {
+  // Ligne 1: Largeur maximale du contenu
+  max-width: 1400px;
+  // Ligne 2: Centre horizontalement
+  margin: 0 auto;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; EN-TÊTE DE SECTION &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.section-header {
+  // Ligne 1-3: Disposition flexbox
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // Ligne 4: Marge en bas
+  margin-bottom: 2rem;
+
+  .section-title-main {
+    // Ligne 1: Grande taille
+    font-size: 2rem;
+    // Ligne 2: Texte très gras
+    font-weight: 700;
+    // Ligne 3: Couleur du texte
+    color: var(--text-primary);
+    // Ligne 4: Supprime la marge
+    margin: 0;
+
+    i {
+      // Ligne 1: Espace à droite de l&#x27;icône
+      margin-right: 0.75rem;
+      // Ligne 2: Couleur primaire pour l&#x27;icône (✅ CORRIGÉ)
+      color: var(--primary);
+    }
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; SYSTÈME DE BOUTONS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.btn {
+  // Ligne 1: Padding interne
+  padding: 0.75rem 1.5rem;
+  // Ligne 2: Coins arrondis
+  border-radius: 8px;
+  // Ligne 3: Pas de bordure
+  border: none;
+  // Ligne 4: Taille de police
+  font-size: 0.9rem;
+  // Ligne 5: Semi-gras
+  font-weight: 600;
+  // Ligne 6: Curseur pointer
+  cursor: pointer;
+  // Ligne 7: Transition douce
+  transition: all 0.2s ease;
+  // Ligne 8-10: Disposition flex
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  // Bouton primaire
+  &amp;.btn-primary {
+    // Ligne 1: Fond primaire (✅ CORRIGÉ)
+    background: var(--primary);
+    // Ligne 2: Texte blanc
+    color: white;
+
+    &amp;:hover:not(:disabled) {
+      // Ligne 1: Couleur légèrement plus claire (✅ CORRIGÉ)
+      background: color-mix(in srgb, var(--primary) 90%, white);
+      // Ligne 2: Légère élévation
+      transform: translateY(-2px);
+      // Ligne 3: Ombre colorée
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    }
+  }
+
+  // Bouton secondaire
+  &amp;.btn-secondary {
+    // Ligne 1: Fond avec couleur de bordure
+    background: var(--border-color);
+    // Ligne 2: Texte principal
+    color: var(--text-primary);
+
+    &amp;:hover:not(:disabled) {
+      // ✅ CORRIGÉ: Couleur légèrement plus claire au survol
+      background: color-mix(in srgb, var(--border-color) 90%, white);
+    }
+  }
+
+  // Bouton petit
+  &amp;.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  // Bouton pleine largeur
+  &amp;.btn-block {
+    width: 100%;
+    justify-content: center;
+  }
+
+  // Bouton large
+  &amp;.btn-large {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+  }
+
+  // État désactivé
+  &amp;:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; STATISTIQUES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.stats-overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+
+  &amp;:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    // ✅ CORRIGÉ: Bordure légèrement plus claire
+    border-color: color-mix(in srgb, var(--border-color) 90%, white);
+  }
+
+  .stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+
+    // ✅ CORRIGÉ: Variantes de couleur
+    &amp;.icon-primary { color: var(--primary); }
+    &amp;.icon-success { color: var(--success); }
+    &amp;.icon-warning { color: var(--warning); }
+    &amp;.icon-info { color: var(--info); }
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-description {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; SECTION GRAPHIQUES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.charts-section {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-color);
+  margin-bottom: 2rem;
+
+  h3 {
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; ANIMATIONS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; ÉTATS DE CHARGEMENT &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+.loading-spinner {
+  // Ligne 1: Bordure grise
+  border: 3px solid var(--border-color);
+  // Ligne 2: Bordure supérieure colorée (✅ CORRIGÉ)
+  border-top: 3px solid var(--primary);
+  // Ligne 3: Forme circulaire
+  border-radius: 50%;
+  // Ligne 4-5: Dimensions
+  width: 40px;
+  height: 40px;
+  // Ligne 6: Animation de rotation
+  animation: spin 1s linear infinite;
+  // Ligne 7: Centre avec marge verticale
+  margin: 2rem auto;
+}
+
+.skeleton {
+  // ✅ CORRIGÉ: Gradient animé avec color-mix
+  background: linear-gradient(
+    90deg,
+    var(--card-bg) 25%,
+    color-mix(in srgb, var(--card-bg) 95%, white) 50%,
+    var(--card-bg) 75%
+  );
+  background-size: 200% 100%;
+  animation: loading 1.5s ease-in-out infinite;
+  border-radius: 4px;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; ALERTES ET NOTIFICATIONS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.alert {
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  i {
+    font-size: 1.5rem;
+  }
+
+  // ✅ CORRIGÉ: Alerte de succès (vert)
+  &amp;.alert-success {
+    background: rgba(16, 185, 129, 0.15);
+    color: color-mix(in srgb, var(--success) 90%, white);
+    border-left: 4px solid var(--success);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+  }
+
+  // ✅ CORRIGÉ: Alerte de danger (rouge)
+  &amp;.alert-danger {
+    background: rgba(239, 68, 68, 0.15);
+    color: color-mix(in srgb, var(--danger) 90%, white);
+    border-left: 4px solid var(--danger);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+  }
+
+  // ✅ CORRIGÉ: Alerte d&#x27;avertissement (orange)
+  &amp;.alert-warning {
+    background: rgba(245, 158, 11, 0.15);
+    color: color-mix(in srgb, var(--warning) 90%, white);
+    border-left: 4px solid var(--warning);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+  }
+
+  // ✅ CORRIGÉ: Alerte d&#x27;information (bleu)
+  &amp;.alert-info {
+    background: rgba(59, 130, 246, 0.15);
+    color: color-mix(in srgb, var(--info) 90%, white);
+    border-left: 4px solid var(--info);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MODAL &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal-content {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  animation: slideUp 0.3s ease;
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+    h3 {
+      margin: 0;
+      color: var(--text-primary);
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: color 0.2s ease;
+
+      &amp;:hover {
+        color: var(--text-primary);
+      }
+    }
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; TOOLTIP &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.tooltip {
+  position: relative;
+
+  &amp;::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.5rem 1rem;
+    // ✅ CORRIGÉ: Fond plus sombre
+    background: var(--dark-bg-darker);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+  }
+
+  &amp;:hover::after {
+    opacity: 1;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; STYLES FAQ &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+.faq-filters {
+  // Ligne 1-2: Disposition flex horizontale
+  display: flex;
+  gap: 1rem;
+  // Ligne 3: Marge en bas
+  margin-bottom: 2rem;
+
+  .search-box {
+    // Ligne 1: Prend tout l&#x27;espace disponible
+    flex: 1;
+    // Ligne 2: Position relative pour l&#x27;icône
+    position: relative;
+
+    i {
+      // Ligne 1-4: Position absolue pour l&#x27;icône de recherche
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      // Ligne 5: Couleur secondaire
+      color: var(--text-secondary);
+    }
+
+    input {
+      // Ligne 1: Pleine largeur
+      width: 100%;
+      // Ligne 2: Padding avec espace pour l&#x27;icône à gauche
+      padding: 0.875rem 1rem 0.875rem 3rem;
+      // Ligne 3: Bordure épaisse
+      border: 2px solid var(--border-color);
+      // Ligne 4: Coins arrondis
+      border-radius: 10px;
+      // Ligne 5: Taille de police
+      font-size: 1rem;
+      // Ligne 6: Fond de carte
+      background: var(--card-bg);
+      // Ligne 7: Couleur du texte
+      color: var(--text-primary);
+      // Ligne 8: Transition douce
+      transition: all 0.2s ease;
+
+      &amp;::placeholder {
+        // Couleur du placeholder
+        color: var(--text-secondary);
+      }
+
+      &amp;:focus {
+        // Ligne 1: Supprime l&#x27;outline par défaut
+        outline: none;
+        // Ligne 2: Bordure colorée au focus (✅ CORRIGÉ)
+        border-color: var(--primary);
+        // Ligne 3: Ombre colorée (effet de focus)
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+      }
+    }
+  }
+
+  .filter-select {
+    // Ligne 1: Padding interne
+    padding: 0.875rem 1rem;
+    // Ligne 2: Bordure épaisse
+    border: 2px solid var(--border-color);
+    // Ligne 3: Coins arrondis
+    border-radius: 10px;
+    // Ligne 4: Largeur minimale
+    min-width: 200px;
+    // Ligne 5: Curseur pointer
+    cursor: pointer;
+    // Ligne 6: Fond de carte
+    background: var(--card-bg);
+    // Ligne 7: Couleur du texte
+    color: var(--text-primary);
+  }
+}
+
+.faq-list {
+  .faq-item {
+    // Ligne 1: Fond de carte
+    background: var(--card-bg);
+    // Ligne 2: Coins arrondis
+    border-radius: 12px;
+    // Ligne 3: Marge en bas
+    margin-bottom: 1rem;
+    // Ligne 4: Cache le débordement (pour l&#x27;animation)
+    overflow: hidden;
+    // Ligne 5: Ombre portée
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    // Ligne 6: Bordure
+    border: 1px solid var(--border-color);
+
+    .faq-question {
+      // Ligne 1: Padding généreux
+      padding: 1.5rem;
+      // Ligne 2: Curseur pointer (cliquable)
+      cursor: pointer;
+      // Ligne 3-5: Disposition flex
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      // Ligne 6: Transition du fond
+      transition: background 0.2s ease;
+
+      &amp;:hover {
+        // ✅ CORRIGÉ: Fond légèrement plus clair au survol
+        background: color-mix(in srgb, var(--card-bg) 97%, white);
+      }
+
+      .category-badge {
+        // Ligne 1: Fond semi-transparent
+        background: rgba(99, 102, 241, 0.2);
+        // Ligne 2: Texte coloré (✅ CORRIGÉ)
+        color: color-mix(in srgb, var(--primary) 85%, white);
+        // Ligne 3: Padding du badge
+        padding: 0.375rem 0.75rem;
+        // Ligne 4: Forme de pilule
+        border-radius: 20px;
+        // Ligne 5-7: Style du texte
+        font-size: 0.75rem;
+        font-weight: 600;
+        white-space: nowrap;
+        // Ligne 8: Bordure colorée
+        border: 1px solid rgba(99, 102, 241, 0.3);
+      }
+
+      h3 {
+        // Ligne 1: Prend tout l&#x27;espace disponible
+        flex: 1;
+        // Ligne 2: Supprime la marge
+        margin: 0;
+        // Ligne 3: Taille normale
+        font-size: 1rem;
+        // Ligne 4: Semi-gras
+        font-weight: 600;
+        // Ligne 5: Couleur du texte
+        color: var(--text-primary);
+      }
+
+      i {
+        // Ligne 1: Couleur secondaire pour l&#x27;icône
+        color: var(--text-secondary);
+        // Ligne 2: Transition de rotation (pour l&#x27;icône chevron)
+        transition: transform 0.2s ease;
+      }
+    }
+
+    .faq-answer {
+      // Ligne 1: Hauteur de 0 par défaut (fermé)
+      max-height: 0;
+      // Ligne 2: Cache le débordement
+      overflow: hidden;
+      // Ligne 3: Transition de la hauteur
+      transition: max-height 0.3s ease;
+
+      &amp;.open {
+        // Hauteur maximale quand ouvert
+        max-height: 500px;
+      }
+
+      p {
+        // Ligne 1: Padding interne
+        padding: 0 1.5rem 1.5rem;
+        // Ligne 2: Couleur secondaire
+        color: var(--text-secondary);
+        // Ligne 3: Hauteur de ligne pour la lisibilité
+        line-height: 1.6;
+      }
+    }
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; SECTION D&#x27;AIDE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.help-section {
+  // Ligne 1: Gradient de fond (✅ CORRIGÉ)
+  background: linear-gradient(135deg, #4338ca, var(--primary));
+  // Ligne 2: Texte blanc
+  color: white;
+  // Ligne 3: Padding généreux
+  padding: 3rem;
+  // Ligne 4: Coins arrondis
+  border-radius: 12px;
+  // Ligne 5: Texte centré
+  text-align: center;
+  // Ligne 6: Grande marge en haut
+  margin-top: 3rem;
+  // Ligne 7: Ombre portée
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+
+  h3 {
+    // Ligne 1: Grande taille
+    font-size: 1.75rem;
+    // Ligne 2: Marge en bas
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    // Ligne 1: Marge en bas
+    margin-bottom: 1.5rem;
+    // Ligne 2: Légèrement transparent
+    opacity: 0.95;
+  }
+
+  .btn-primary {
+    // Ligne 1: Fond blanc (contraste avec le fond violet)
+    background: white;
+    // Ligne 2: Texte coloré (✅ CORRIGÉ)
+    color: var(--primary);
+
+    &amp;:hover {
+      // Ligne 1: Légère élévation
+      transform: translateY(-2px);
+      // Ligne 2: Ombre blanche
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+    }
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; CLASSES UTILITAIRES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.text-center { text-align: center; }
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+.p-1 { padding: 0.5rem; }
+.p-2 { padding: 1rem; }
+.p-3 { padding: 1.5rem; }
+.p-4 { padding: 2rem; }
+
+.d-flex { display: flex; }
+.align-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+
+.gap-1 { gap: 0.5rem; }
+.gap-2 { gap: 1rem; }
+.gap-3 { gap: 1.5rem; }
+
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-success { color: var(--success); }
+.text-danger { color: var(--danger); }
+.text-warning { color: var(--warning); }
+.text-info { color: var(--info); }
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; RESPONSIVE DESIGN &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+@media (max-width: 1024px) {
+  .contact-container {
+    grid-template-columns: 1fr;
+  }
+
+  .caves-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .faq-filters {
+    // En colonne sur mobile
+    flex-direction: column;
+
+    .filter-select {
+      // Pleine largeur
+      width: 100%;
+    }
+  }
+
+  .caves-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-hero h1 {
+    font-size: 1.75rem;
+  }
+
+  .improvements-timeline {
+    padding-left: 2rem;
+
+    &amp;::before {
+      left: 0.5rem;
+    }
+  }
+
+  .improvement-item .improvement-marker {
+    left: -1.75rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-section {
+    padding: 1rem;
+  }
+
+  .cave-card .cave-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .team-grid,
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; FIN DU FICHIER &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- faq.component.html --><div class="page-section">  <div class="content-section">    <!-- Header -->    <div class="section-header">      <h1 class="section-title-main">        <i class="fas fa-question-circle"></i>        Foire Aux Questions      </h1>    </div>    <!-- Filters -->    <div class="faq-filters">      <div class="search-box">        <i class="fas fa-search"></i>        <input          type="text"          placeholder="Rechercher une question..."          [(ngModel)]="searchQuery"          (input)="filterFAQ()"        />      </div>      <select        class="filter-select"        [(ngModel)]="selectedCategory"        (change)="filterFAQ()"      >        <option value="all">Toutes les catégories</option>        <option *ngFor="let cat of categories" [value]="cat">          {{ cat }}        </option>      </select>    </div>    <!-- FAQ List -->    <div class="faq-list">      <div        *ngFor="let item of filteredItems"        class="faq-item"      >        <div          class="faq-question"          (click)="toggleItem(item)"        >          <span class="category-badge">{{ item.category }}</span>          <h3>{{ item.question }}</h3>          <i            class="fas"            [ngClass]="item.isOpen ? \'fa-chevron-up\' : \'fa-chevron-down\'"          ></i>        </div>        <div          class="faq-answer"          [ngClass]="{ \'open\': item.isOpen }"        >          <p>{{ item.answer }}</p>        </div>      </div>      <!-- No results -->      <div        *ngIf="filteredItems.length === 0"        class="text-center p-4"      >        <i class="fas fa-search fa-3x text-secondary mb-3"></i>        <p class="text-secondary">          Aucune question ne correspond à votre recherche.        </p>      </div>    </div>    <!-- Help Section -->    <div class="help-section">      <h3>Vous ne trouvez pas votre réponse ?</h3>      <p>        Notre équipe support est disponible pour vous aider 24h/7j      </p>      <button class="btn btn-primary btn-large">        <i class="fas fa-envelope"></i>        Contacter le Support      </button>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AdminDashboardComponent', 'selector': 'app-admin-dashboard'},{'name': 'AlertsComponent', 'selector': 'app-alerts'},{'name': 'App', 'selector': 'app-root'},{'name': 'CaisseComponent', 'selector': 'app-caisse'},{'name': 'CaveCreateComponent', 'selector': 'app-cave-create'},{'name': 'CaveListComponent', 'selector': 'app-cave-lists'},{'name': 'ClientDashboardComponent', 'selector': 'app-client-dashboard'},{'name': 'ClientsComponent', 'selector': 'app-client'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DrinksComponent', 'selector': 'app-drinks'},{'name': 'EmployeesComponent', 'selector': 'app-employees'},{'name': 'EntriesComponent', 'selector': 'app-entries'},{'name': 'ExitsComponent', 'selector': 'app-exits'},{'name': 'ExpenseComponent', 'selector': 'app-depenses'},{'name': 'FaqComponent', 'selector': 'app-faq'},{'name': 'FournisseursComponent', 'selector': 'app-fournisseur'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'ImprovementsComponent', 'selector': 'app-improvements'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ManagerDashboardComponent', 'selector': 'app-manager-dashboard'},{'name': 'ManagersComponent', 'selector': 'app-managers'},{'name': 'MaterialComponent', 'selector': 'app-materiel'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'OrdersComponent', 'selector': 'app-orders'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfitComponent', 'selector': 'app-profit'},{'name': 'RecentActionsComponent', 'selector': 'app-recent-actions'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'SalesComponent', 'selector': 'app-sales'},{'name': 'ScanComponent', 'selector': 'app-scan'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'StockComponent', 'selector': 'app-stock'},{'name': 'StockComponent', 'selector': 'app-stock'},{'name': 'TeamComponent', 'selector': 'app-team'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'UserCreateComponent', 'selector': 'app-user-create'},{'name': 'UserListComponent', 'selector': 'app-user-list'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'WaitressDashboardComponent', 'selector': 'app-waitress-dashboard'},{'name': 'WinePairingComponent', 'selector': 'app-wine-pairing'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'FaqComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'FaqComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

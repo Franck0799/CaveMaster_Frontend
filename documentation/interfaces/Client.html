@@ -1,0 +1,2001 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cave-master-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cave-master-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  Client</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/view/admin-dashboard/client/client.component.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Interface définissant la structure d&#39;un client</p>
+
+            </p>
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#accordsPreferees" 
+>
+                                            accordsPreferees
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#adresse" 
+>
+                                            adresse
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#anniversaire" 
+>
+                                            anniversaire
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#budgetMoyen" 
+>
+                                            budgetMoyen
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#categoriePreferee" 
+>
+                                            categoriePreferee
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#connaissanceVin" 
+>
+                                            connaissanceVin
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#dateInscription" 
+>
+                                            dateInscription
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#derniereVisite" 
+>
+                                            derniereVisite
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#email" 
+>
+                                            email
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#id" 
+>
+                                            id
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#nom" 
+>
+                                            nom
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#nombreCommandes" 
+>
+                                            nombreCommandes
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#notes" 
+>
+                                            notes
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#occasionAchat" 
+>
+                                            occasionAchat
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#pays" 
+>
+                                            pays
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#pointsFidelite" 
+>
+                                            pointsFidelite
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#preferences" 
+>
+                                            preferences
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#prenom" 
+>
+                                            prenom
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#programFidelite" 
+>
+                                            programFidelite
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#statut" 
+>
+                                            statut
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#telephone" 
+>
+                                            telephone
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#totalDepense" 
+>
+                                            totalDepense
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#typeClient" 
+>
+                                            typeClient
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#ville" 
+>
+                                            ville
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="accordsPreferees"></a>
+                                        <span class="name "><b>accordsPreferees</b>
+                                            <a href="#accordsPreferees">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>accordsPreferees:     <code>string[]</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>string[]</code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="adresse"></a>
+                                        <span class="name "><b>adresse</b>
+                                            <a href="#adresse">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>adresse:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="anniversaire"></a>
+                                        <span class="name "><b>anniversaire</b>
+                                            <a href="#anniversaire">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>anniversaire:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="budgetMoyen"></a>
+                                        <span class="name "><b>budgetMoyen</b>
+                                            <a href="#budgetMoyen">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>budgetMoyen:     <code>&quot;Économique&quot; | &quot;Standard&quot; | &quot;Premium&quot; | &quot;Luxe&quot;</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>&quot;Économique&quot; | &quot;Standard&quot; | &quot;Premium&quot; | &quot;Luxe&quot;</code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="categoriePreferee"></a>
+                                        <span class="name "><b>categoriePreferee</b>
+                                            <a href="#categoriePreferee">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>categoriePreferee:     <code>&quot;Vins&quot; | &quot;Champagnes&quot; | &quot;Spiritueux&quot; | &quot;Bières&quot; | &quot;Mixte&quot;</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>&quot;Vins&quot; | &quot;Champagnes&quot; | &quot;Spiritueux&quot; | &quot;Bières&quot; | &quot;Mixte&quot;</code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="connaissanceVin"></a>
+                                        <span class="name "><b>connaissanceVin</b>
+                                            <a href="#connaissanceVin">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>connaissanceVin:     <code>&quot;Débutant&quot; | &quot;Amateur&quot; | &quot;Connaisseur&quot; | &quot;Expert&quot; | &quot;Sommelier&quot;</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>&quot;Débutant&quot; | &quot;Amateur&quot; | &quot;Connaisseur&quot; | &quot;Expert&quot; | &quot;Sommelier&quot;</code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="dateInscription"></a>
+                                        <span class="name "><b>dateInscription</b>
+                                            <a href="#dateInscription">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>dateInscription:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="derniereVisite"></a>
+                                        <span class="name "><b>derniereVisite</b>
+                                            <a href="#derniereVisite">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>derniereVisite:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="email"></a>
+                                        <span class="name "><b>email</b>
+                                            <a href="#email">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>email:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="id"></a>
+                                        <span class="name "><b>id</b>
+                                            <a href="#id">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>id:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="nom"></a>
+                                        <span class="name "><b>nom</b>
+                                            <a href="#nom">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>nom:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="nombreCommandes"></a>
+                                        <span class="name "><b>nombreCommandes</b>
+                                            <a href="#nombreCommandes">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>nombreCommandes:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="notes"></a>
+                                        <span class="name "><b>notes</b>
+                                            <a href="#notes">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>notes:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="occasionAchat"></a>
+                                        <span class="name "><b>occasionAchat</b>
+                                            <a href="#occasionAchat">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>occasionAchat:     <code>string[]</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>string[]</code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="pays"></a>
+                                        <span class="name "><b>pays</b>
+                                            <a href="#pays">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>pays:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="pointsFidelite"></a>
+                                        <span class="name "><b>pointsFidelite</b>
+                                            <a href="#pointsFidelite">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>pointsFidelite:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="preferences"></a>
+                                        <span class="name "><b>preferences</b>
+                                            <a href="#preferences">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>preferences:     <code>literal type</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>literal type</code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="prenom"></a>
+                                        <span class="name "><b>prenom</b>
+                                            <a href="#prenom">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>prenom:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="programFidelite"></a>
+                                        <span class="name "><b>programFidelite</b>
+                                            <a href="#programFidelite">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>programFidelite:     <code>&quot;Bronze&quot; | &quot;Argent&quot; | &quot;Or&quot; | &quot;Platine&quot;</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>&quot;Bronze&quot; | &quot;Argent&quot; | &quot;Or&quot; | &quot;Platine&quot;</code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="statut"></a>
+                                        <span class="name "><b>statut</b>
+                                            <a href="#statut">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>statut:     <code>&quot;actif&quot; | &quot;inactif&quot; | &quot;vip&quot;</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>&quot;actif&quot; | &quot;inactif&quot; | &quot;vip&quot;</code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="telephone"></a>
+                                        <span class="name "><b>telephone</b>
+                                            <a href="#telephone">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>telephone:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="totalDepense"></a>
+                                        <span class="name "><b>totalDepense</b>
+                                            <a href="#totalDepense">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>totalDepense:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="typeClient"></a>
+                                        <span class="name "><b>typeClient</b>
+                                            <a href="#typeClient">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>typeClient:     <code>&quot;presentiel&quot; | &quot;en ligne&quot; | &quot;evenementiel&quot;</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>&quot;presentiel&quot; | &quot;en ligne&quot; | &quot;evenementiel&quot;</code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="ville"></a>
+                                        <span class="name "><b>ville</b>
+                                            <a href="#ville">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>ville:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule, FormBuilder, FormGroup, Validators, ReactiveFormsModule } from &#x27;@angular/forms&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+
+/**
+ * Interface définissant la structure d&#x27;un client
+ */
+interface Client {
+  id: number;
+  nom: string;
+  prenom: string;
+  email: string;
+  telephone: string;
+  adresse: string;
+  ville: string;
+  pays: string;
+  typeClient: &#x27;presentiel&#x27; | &#x27;en ligne&#x27; | &#x27;evenementiel&#x27;;
+  dateInscription: Date;
+  statut: &#x27;actif&#x27; | &#x27;inactif&#x27; | &#x27;vip&#x27;;
+  nombreCommandes: number;
+  totalDepense: number;
+
+  // Nouvelles propriétés spécifiques à la cave
+  categoriePreferee?: &#x27;Vins&#x27; | &#x27;Champagnes&#x27; | &#x27;Spiritueux&#x27; | &#x27;Bières&#x27; | &#x27;Mixte&#x27;;
+  programFidelite?: &#x27;Bronze&#x27; | &#x27;Argent&#x27; | &#x27;Or&#x27; | &#x27;Platine&#x27;;
+  pointsFidelite?: number;
+  derniereVisite?: Date;
+  anniversaire?: Date;
+  preferences?: {
+    vinsRouges?: boolean;
+    vinsBlancs?: boolean;
+    vinsRoses?: boolean;
+    champagnes?: boolean;
+    spiritueux?: boolean;
+    bieres?: boolean;
+  };
+  notes?: string;
+  connaissanceVin?: &#x27;Débutant&#x27; | &#x27;Amateur&#x27; | &#x27;Connaisseur&#x27; | &#x27;Expert&#x27; | &#x27;Sommelier&#x27;;
+  budgetMoyen?: &#x27;Économique&#x27; | &#x27;Standard&#x27; | &#x27;Premium&#x27; | &#x27;Luxe&#x27;;
+  occasionAchat?: string[];
+  accordsPreferees?: string[];
+}
+
+/**
+ * Interface pour les statistiques détaillées
+ */
+interface ClientStats {
+  totalClients: number;
+  clientsActifs: number;
+  clientsVIP: number;
+  clientsPresentiel: number;
+  clientsEnLigne: number;
+  clientsEvenementiel: number;
+  chiffreAffairesTotal: number;
+  panierMoyen: number;
+}
+
+@Component({
+  selector: &#x27;app-client&#x27;,
+  standalone: true,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  templateUrl: &#x27;./client.component.html&#x27;,
+  styleUrls: [&#x27;./client.component.scss&#x27;]
+})
+export class ClientsComponent implements OnInit {
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; VARIABLES DE DONNÉES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  clients: Client[] &#x3D; [];
+  clientsFiltres: Client[] &#x3D; [];
+  clientSelectionne: Client | null &#x3D; null;
+  clientEnEdition: Client | null &#x3D; null;
+  stats: ClientStats &#x3D; {
+    totalClients: 0,
+    clientsActifs: 0,
+    clientsVIP: 0,
+    clientsPresentiel: 0,
+    clientsEnLigne: 0,
+    clientsEvenementiel: 0,
+    chiffreAffairesTotal: 0,
+    panierMoyen: 0
+  };
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; VARIABLES DE RECHERCHE / FILTRES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  recherche: string &#x3D; &#x27;&#x27;;
+  filtreType: string &#x3D; &#x27;tous&#x27;;
+  filtreStatut: string &#x3D; &#x27;tous&#x27;;
+  filtreFidelite: string &#x3D; &#x27;tous&#x27;;
+  filtreCategorie: string &#x3D; &#x27;tous&#x27;;
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; VARIABLES DES MODALS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  isAddModalOpen: boolean &#x3D; false;
+  isEditModalOpen: boolean &#x3D; false;
+  isDetailsModalOpen: boolean &#x3D; false;
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; FORMULAIRES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  clientForm!: FormGroup;
+  editForm!: FormGroup;
+  submitted &#x3D; false;
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; LISTES DE RÉFÉRENCE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  pays: string[] &#x3D; [
+    &#x27;Côte d\&#x27;Ivoire&#x27;, &#x27;France&#x27;, &#x27;Sénégal&#x27;, &#x27;Mali&#x27;, &#x27;Burkina Faso&#x27;,
+    &#x27;Ghana&#x27;, &#x27;Togo&#x27;, &#x27;Bénin&#x27;, &#x27;Niger&#x27;, &#x27;Guinée&#x27;
+  ];
+
+  typesClient &#x3D; [&#x27;presentiel&#x27;, &#x27;en ligne&#x27;, &#x27;evenementiel&#x27;];
+  statutsClient &#x3D; [&#x27;actif&#x27;, &#x27;inactif&#x27;, &#x27;vip&#x27;];
+  categoriesPreferees &#x3D; [&#x27;Vins&#x27;, &#x27;Champagnes&#x27;, &#x27;Spiritueux&#x27;, &#x27;Bières&#x27;, &#x27;Mixte&#x27;];
+  niveauxFidelite &#x3D; [&#x27;Bronze&#x27;, &#x27;Argent&#x27;, &#x27;Or&#x27;, &#x27;Platine&#x27;];
+  niveauxConnaissance &#x3D; [&#x27;Débutant&#x27;, &#x27;Amateur&#x27;, &#x27;Connaisseur&#x27;, &#x27;Expert&#x27;, &#x27;Sommelier&#x27;];
+  budgetsMoyens &#x3D; [&#x27;Économique&#x27;, &#x27;Standard&#x27;, &#x27;Premium&#x27;, &#x27;Luxe&#x27;];
+
+  occasionsAchat &#x3D; [
+    &#x27;Usage personnel&#x27;,
+    &#x27;Cadeaux&#x27;,
+    &#x27;Événements&#x27;,
+    &#x27;Repas festifs&#x27;,
+    &#x27;Collection&#x27;,
+    &#x27;Investissement&#x27;,
+    &#x27;Restaurant/Bar&#x27;
+  ];
+
+  accordsMetsVins &#x3D; [
+    &#x27;Viandes rouges&#x27;,
+    &#x27;Viandes blanches&#x27;,
+    &#x27;Poissons&#x27;,
+    &#x27;Fruits de mer&#x27;,
+    &#x27;Fromages&#x27;,
+    &#x27;Desserts&#x27;,
+    &#x27;Apéritifs&#x27;,
+    &#x27;Plats végétariens&#x27;,
+    &#x27;Plats épicés&#x27;,
+    &#x27;Charcuterie&#x27;
+  ];
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; CONSTRUCTEUR &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  constructor(
+    private fb: FormBuilder,
+    private router: Router
+  ) {}
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; INITIALISATION &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  ngOnInit(): void {
+    this.initForms();
+    this.chargerClients();
+    this.calculerStatistiques();
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; INITIALISATION DES FORMULAIRES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  initForms(): void {
+    this.clientForm &#x3D; this.fb.group({
+      nom: [&#x27;&#x27;, [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      prenom: [&#x27;&#x27;, [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      email: [&#x27;&#x27;, [Validators.required, Validators.email]],
+      telephone: [&#x27;&#x27;, [Validators.required, Validators.pattern(/^[+]?[\d\s-()]+$/)]],
+      adresse: [&#x27;&#x27;, [Validators.required, Validators.minLength(5), Validators.maxLength(200)]],
+      ville: [&#x27;&#x27;, [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
+      pays: [&#x27;&#x27;, Validators.required],
+      typeClient: [&#x27;&#x27;, Validators.required],
+      statut: [&#x27;actif&#x27;, Validators.required],
+      categoriePreferee: [&#x27;&#x27;],
+      programFidelite: [&#x27;Bronze&#x27;],
+      connaissanceVin: [&#x27;&#x27;],
+      budgetMoyen: [&#x27;&#x27;],
+      anniversaire: [&#x27;&#x27;],
+      notes: [&#x27;&#x27;]
+    });
+
+    this.editForm &#x3D; this.fb.group({
+      nom: [&#x27;&#x27;, [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      prenom: [&#x27;&#x27;, [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      email: [&#x27;&#x27;, [Validators.required, Validators.email]],
+      telephone: [&#x27;&#x27;, [Validators.required, Validators.pattern(/^[+]?[\d\s-()]+$/)]],
+      adresse: [&#x27;&#x27;, [Validators.required, Validators.minLength(5), Validators.maxLength(200)]],
+      ville: [&#x27;&#x27;, [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
+      pays: [&#x27;&#x27;, Validators.required],
+      typeClient: [&#x27;&#x27;, Validators.required],
+      statut: [&#x27;actif&#x27;, Validators.required],
+      categoriePreferee: [&#x27;&#x27;],
+      programFidelite: [&#x27;&#x27;],
+      connaissanceVin: [&#x27;&#x27;],
+      budgetMoyen: [&#x27;&#x27;],
+      anniversaire: [&#x27;&#x27;],
+      notes: [&#x27;&#x27;]
+    });
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; CHARGEMENT DES DONNÉES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  chargerClients(): void {
+    this.clients &#x3D; [
+      {
+        id: 1,
+        nom: &#x27;Kouassi&#x27;,
+        prenom: &#x27;Yao&#x27;,
+        email: &#x27;yao.kouassi@email.ci&#x27;,
+        telephone: &#x27;+225 27 20 12 34 56&#x27;,
+        adresse: &#x27;Cocody Riviera 2&#x27;,
+        ville: &#x27;Abidjan&#x27;,
+        pays: &#x27;Côte d\&#x27;Ivoire&#x27;,
+        typeClient: &#x27;presentiel&#x27;,
+        dateInscription: new Date(&#x27;2023-01-15&#x27;),
+        statut: &#x27;vip&#x27;,
+        nombreCommandes: 45,
+        totalDepense: 2850000,
+        categoriePreferee: &#x27;Vins&#x27;,
+        programFidelite: &#x27;Or&#x27;,
+        pointsFidelite: 2850,
+        derniereVisite: new Date(&#x27;2024-10-25&#x27;),
+        anniversaire: new Date(&#x27;1985-06-15&#x27;),
+        preferences: {
+          vinsRouges: true,
+          champagnes: true,
+          spiritueux: false
+        },
+        connaissanceVin: &#x27;Connaisseur&#x27;,
+        budgetMoyen: &#x27;Premium&#x27;,
+        occasionAchat: [&#x27;Usage personnel&#x27;, &#x27;Événements&#x27;, &#x27;Cadeaux&#x27;],
+        accordsPreferees: [&#x27;Viandes rouges&#x27;, &#x27;Fromages&#x27;],
+        notes: &#x27;Client régulier, apprécie les grands crus de Bordeaux&#x27;
+      },
+      {
+        id: 2,
+        nom: &#x27;Traoré&#x27;,
+        prenom: &#x27;Aminata&#x27;,
+        email: &#x27;aminata.traore@email.ci&#x27;,
+        telephone: &#x27;+225 27 21 98 76 54&#x27;,
+        adresse: &#x27;Marcory Zone 4&#x27;,
+        ville: &#x27;Abidjan&#x27;,
+        pays: &#x27;Côte d\&#x27;Ivoire&#x27;,
+        typeClient: &#x27;en ligne&#x27;,
+        dateInscription: new Date(&#x27;2023-03-22&#x27;),
+        statut: &#x27;actif&#x27;,
+        nombreCommandes: 32,
+        totalDepense: 1950000,
+        categoriePreferee: &#x27;Champagnes&#x27;,
+        programFidelite: &#x27;Argent&#x27;,
+        pointsFidelite: 1950,
+        derniereVisite: new Date(&#x27;2024-10-20&#x27;),
+        anniversaire: new Date(&#x27;1990-03-10&#x27;),
+        preferences: {
+          champagnes: true,
+          vinsRoses: true,
+          vinsBlancs: true
+        },
+        connaissanceVin: &#x27;Amateur&#x27;,
+        budgetMoyen: &#x27;Standard&#x27;,
+        occasionAchat: [&#x27;Événements&#x27;, &#x27;Repas festifs&#x27;],
+        accordsPreferees: [&#x27;Apéritifs&#x27;, &#x27;Desserts&#x27;],
+        notes: &#x27;Préfère les commandes en ligne, livraison rapide souhaitée&#x27;
+      },
+      {
+        id: 3,
+        nom: &#x27;Bamba&#x27;,
+        prenom: &#x27;Mamadou&#x27;,
+        email: &#x27;mamadou.bamba@email.ci&#x27;,
+        telephone: &#x27;+225 27 22 45 67 89&#x27;,
+        adresse: &#x27;Yopougon Selmer&#x27;,
+        ville: &#x27;Abidjan&#x27;,
+        pays: &#x27;Côte d\&#x27;Ivoire&#x27;,
+        typeClient: &#x27;evenementiel&#x27;,
+        dateInscription: new Date(&#x27;2022-11-10&#x27;),
+        statut: &#x27;vip&#x27;,
+        nombreCommandes: 67,
+        totalDepense: 4120000,
+        categoriePreferee: &#x27;Mixte&#x27;,
+        programFidelite: &#x27;Platine&#x27;,
+        pointsFidelite: 4120,
+        derniereVisite: new Date(&#x27;2024-10-28&#x27;),
+        anniversaire: new Date(&#x27;1982-08-22&#x27;),
+        preferences: {
+          vinsRouges: true,
+          vinsBlancs: true,
+          champagnes: true,
+          spiritueux: true,
+          bieres: true
+        },
+        connaissanceVin: &#x27;Expert&#x27;,
+        budgetMoyen: &#x27;Luxe&#x27;,
+        occasionAchat: [&#x27;Événements&#x27;, &#x27;Restaurant/Bar&#x27;],
+        accordsPreferees: [&#x27;Viandes rouges&#x27;, &#x27;Poissons&#x27;, &#x27;Fromages&#x27;, &#x27;Desserts&#x27;],
+        notes: &#x27;Propriétaire de restaurant, commandes en gros régulières&#x27;
+      },
+      {
+        id: 4,
+        nom: &#x27;Koné&#x27;,
+        prenom: &#x27;Mariam&#x27;,
+        email: &#x27;mariam.kone@email.ci&#x27;,
+        telephone: &#x27;+225 27 23 01 23 45&#x27;,
+        adresse: &#x27;Plateau&#x27;,
+        ville: &#x27;Abidjan&#x27;,
+        pays: &#x27;Côte d\&#x27;Ivoire&#x27;,
+        typeClient: &#x27;en ligne&#x27;,
+        dateInscription: new Date(&#x27;2024-01-05&#x27;),
+        statut: &#x27;actif&#x27;,
+        nombreCommandes: 18,
+        totalDepense: 980000,
+        categoriePreferee: &#x27;Vins&#x27;,
+        programFidelite: &#x27;Bronze&#x27;,
+        pointsFidelite: 980,
+        derniereVisite: new Date(&#x27;2024-10-15&#x27;),
+        anniversaire: new Date(&#x27;1995-12-05&#x27;),
+        preferences: {
+          vinsRoses: true,
+          vinsBlancs: true
+        },
+        connaissanceVin: &#x27;Débutant&#x27;,
+        budgetMoyen: &#x27;Économique&#x27;,
+        occasionAchat: [&#x27;Usage personnel&#x27;, &#x27;Cadeaux&#x27;],
+        accordsPreferees: [&#x27;Poissons&#x27;, &#x27;Fruits de mer&#x27;],
+        notes: &#x27;Nouvelle cliente, intéressée par les vins légers&#x27;
+      },
+      {
+        id: 5,
+        nom: &#x27;Diallo&#x27;,
+        prenom: &#x27;Ibrahim&#x27;,
+        email: &#x27;ibrahim.diallo@email.ci&#x27;,
+        telephone: &#x27;+225 27 24 11 22 33&#x27;,
+        adresse: &#x27;Abobo Pk18&#x27;,
+        ville: &#x27;Abidjan&#x27;,
+        pays: &#x27;Côte d\&#x27;Ivoire&#x27;,
+        typeClient: &#x27;presentiel&#x27;,
+        dateInscription: new Date(&#x27;2023-06-18&#x27;),
+        statut: &#x27;inactif&#x27;,
+        nombreCommandes: 5,
+        totalDepense: 215000,
+        categoriePreferee: &#x27;Bières&#x27;,
+        programFidelite: &#x27;Bronze&#x27;,
+        pointsFidelite: 215,
+        derniereVisite: new Date(&#x27;2024-05-10&#x27;),
+        connaissanceVin: &#x27;Débutant&#x27;,
+        budgetMoyen: &#x27;Économique&#x27;,
+        occasionAchat: [&#x27;Usage personnel&#x27;],
+        notes: &#x27;Client inactif depuis 6 mois&#x27;
+      },
+      {
+        id: 6,
+        nom: &#x27;Camara&#x27;,
+        prenom: &#x27;Fatoumata&#x27;,
+        email: &#x27;fatoumata.camara@email.ci&#x27;,
+        telephone: &#x27;+225 27 25 33 44 55&#x27;,
+        adresse: &#x27;Angré 7ème Tranche&#x27;,
+        ville: &#x27;Abidjan&#x27;,
+        pays: &#x27;Côte d\&#x27;Ivoire&#x27;,
+        typeClient: &#x27;en ligne&#x27;,
+        dateInscription: new Date(&#x27;2023-08-25&#x27;),
+        statut: &#x27;actif&#x27;,
+        nombreCommandes: 28,
+        totalDepense: 1650000,
+        categoriePreferee: &#x27;Champagnes&#x27;,
+        programFidelite: &#x27;Argent&#x27;,
+        pointsFidelite: 1650,
+        derniereVisite: new Date(&#x27;2024-10-22&#x27;),
+        anniversaire: new Date(&#x27;1988-11-30&#x27;),
+        preferences: {
+          champagnes: true,
+          vinsRoses: true
+        },
+        connaissanceVin: &#x27;Amateur&#x27;,
+        budgetMoyen: &#x27;Premium&#x27;,
+        occasionAchat: [&#x27;Cadeaux&#x27;, &#x27;Événements&#x27;],
+        accordsPreferees: [&#x27;Apéritifs&#x27;, &#x27;Desserts&#x27;],
+        notes: &#x27;Achète principalement pour offrir&#x27;
+      },
+      {
+        id: 7,
+        nom: &#x27;Ouattara&#x27;,
+        prenom: &#x27;Seydou&#x27;,
+        email: &#x27;seydou.ouattara@email.ci&#x27;,
+        telephone: &#x27;+225 27 26 55 66 77&#x27;,
+        adresse: &#x27;Adjamé Bracodi&#x27;,
+        ville: &#x27;Abidjan&#x27;,
+        pays: &#x27;Côte d\&#x27;Ivoire&#x27;,
+        typeClient: &#x27;presentiel&#x27;,
+        dateInscription: new Date(&#x27;2022-09-12&#x27;),
+        statut: &#x27;vip&#x27;,
+        nombreCommandes: 89,
+        totalDepense: 5780000,
+        categoriePreferee: &#x27;Vins&#x27;,
+        programFidelite: &#x27;Platine&#x27;,
+        pointsFidelite: 5780,
+        derniereVisite: new Date(&#x27;2024-10-29&#x27;),
+        anniversaire: new Date(&#x27;1975-04-18&#x27;),
+        preferences: {
+          vinsRouges: true,
+          champagnes: true,
+          spiritueux: true
+        },
+        connaissanceVin: &#x27;Sommelier&#x27;,
+        budgetMoyen: &#x27;Luxe&#x27;,
+        occasionAchat: [&#x27;Collection&#x27;, &#x27;Investissement&#x27;, &#x27;Usage personnel&#x27;],
+        accordsPreferees: [&#x27;Viandes rouges&#x27;, &#x27;Fromages&#x27;, &#x27;Charcuterie&#x27;],
+        notes: &#x27;Collectionneur de vins, intéressé par les millésimes rares&#x27;
+      },
+      {
+        id: 8,
+        nom: &#x27;Sanogo&#x27;,
+        prenom: &#x27;Marie&#x27;,
+        email: &#x27;marie.sanogo@email.ci&#x27;,
+        telephone: &#x27;+225 27 27 88 99 00&#x27;,
+        adresse: &#x27;Treichville&#x27;,
+        ville: &#x27;Abidjan&#x27;,
+        pays: &#x27;Côte d\&#x27;Ivoire&#x27;,
+        typeClient: &#x27;en ligne&#x27;,
+        dateInscription: new Date(&#x27;2023-12-03&#x27;),
+        statut: &#x27;actif&#x27;,
+        nombreCommandes: 12,
+        totalDepense: 720000,
+        categoriePreferee: &#x27;Spiritueux&#x27;,
+        programFidelite: &#x27;Bronze&#x27;,
+        pointsFidelite: 720,
+        derniereVisite: new Date(&#x27;2024-10-18&#x27;),
+        anniversaire: new Date(&#x27;1992-07-25&#x27;),
+        preferences: {
+          spiritueux: true,
+          bieres: true
+        },
+        connaissanceVin: &#x27;Amateur&#x27;,
+        budgetMoyen: &#x27;Standard&#x27;,
+        occasionAchat: [&#x27;Repas festifs&#x27;, &#x27;Cadeaux&#x27;],
+        accordsPreferees: [&#x27;Desserts&#x27;, &#x27;Apéritifs&#x27;],
+        notes: &#x27;Préfère les spiritueux premium&#x27;
+      }
+    ];
+
+    this.clientsFiltres &#x3D; [...this.clients];
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; STATISTIQUES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  calculerStatistiques(): void {
+    this.stats &#x3D; {
+      totalClients: this.clients.length,
+      clientsActifs: this.clients.filter(c &#x3D;&gt; c.statut &#x3D;&#x3D;&#x3D; &#x27;actif&#x27;).length,
+      clientsVIP: this.clients.filter(c &#x3D;&gt; c.statut &#x3D;&#x3D;&#x3D; &#x27;vip&#x27;).length,
+      clientsPresentiel: this.clients.filter(c &#x3D;&gt; c.typeClient &#x3D;&#x3D;&#x3D; &#x27;presentiel&#x27;).length,
+      clientsEnLigne: this.clients.filter(c &#x3D;&gt; c.typeClient &#x3D;&#x3D;&#x3D; &#x27;en ligne&#x27;).length,
+      clientsEvenementiel: this.clients.filter(c &#x3D;&gt; c.typeClient &#x3D;&#x3D;&#x3D; &#x27;evenementiel&#x27;).length,
+      chiffreAffairesTotal: this.clients.reduce((sum, c) &#x3D;&gt; sum + c.totalDepense, 0),
+      panierMoyen: this.clients.length &gt; 0
+        ? this.clients.reduce((sum, c) &#x3D;&gt; sum + c.totalDepense, 0) / this.clients.reduce((sum, c) &#x3D;&gt; sum + c.nombreCommandes, 0)
+        : 0
+    };
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; FILTRAGE / RECHERCHE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  filtrerClients(): void {
+    const rechercheLower &#x3D; this.recherche.toLowerCase();
+
+    this.clientsFiltres &#x3D; this.clients.filter(client &#x3D;&gt; {
+      const matchRecherche &#x3D;
+        client.nom.toLowerCase().includes(rechercheLower) ||
+        client.prenom.toLowerCase().includes(rechercheLower) ||
+        client.email.toLowerCase().includes(rechercheLower) ||
+        client.telephone.toLowerCase().includes(rechercheLower) ||
+        client.ville.toLowerCase().includes(rechercheLower);
+
+      const matchType &#x3D; this.filtreType &#x3D;&#x3D;&#x3D; &#x27;tous&#x27; || client.typeClient &#x3D;&#x3D;&#x3D; this.filtreType;
+      const matchStatut &#x3D; this.filtreStatut &#x3D;&#x3D;&#x3D; &#x27;tous&#x27; || client.statut &#x3D;&#x3D;&#x3D; this.filtreStatut;
+      const matchFidelite &#x3D; this.filtreFidelite &#x3D;&#x3D;&#x3D; &#x27;tous&#x27; || client.programFidelite &#x3D;&#x3D;&#x3D; this.filtreFidelite;
+      const matchCategorie &#x3D; this.filtreCategorie &#x3D;&#x3D;&#x3D; &#x27;tous&#x27; || client.categoriePreferee &#x3D;&#x3D;&#x3D; this.filtreCategorie;
+
+      return matchRecherche &amp;&amp; matchType &amp;&amp; matchStatut &amp;&amp; matchFidelite &amp;&amp; matchCategorie;
+    });
+  }
+
+  changerFiltreType(type: string): void {
+    this.filtreType &#x3D; type;
+    this.filtrerClients();
+  }
+
+  changerFiltreStatut(statut: string): void {
+    this.filtreStatut &#x3D; statut;
+    this.filtrerClients();
+  }
+
+  changerFiltreFidelite(fidelite: string): void {
+    this.filtreFidelite &#x3D; fidelite;
+    this.filtrerClients();
+  }
+
+  changerFiltreCategorie(categorie: string): void {
+    this.filtreCategorie &#x3D; categorie;
+    this.filtrerClients();
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; GESTION DES MODALS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  openAddModal(): void {
+    this.isAddModalOpen &#x3D; true;
+    this.submitted &#x3D; false;
+    this.clientForm.reset({ statut: &#x27;actif&#x27;, programFidelite: &#x27;Bronze&#x27; });
+  }
+
+  closeAddModal(): void {
+    this.isAddModalOpen &#x3D; false;
+  }
+
+  openEditModal(client: Client): void {
+    this.clientEnEdition &#x3D; client;
+    this.isEditModalOpen &#x3D; true;
+    this.submitted &#x3D; false;
+
+    this.editForm.patchValue({
+      nom: client.nom,
+      prenom: client.prenom,
+      email: client.email,
+      telephone: client.telephone,
+      adresse: client.adresse,
+      ville: client.ville,
+      pays: client.pays,
+      typeClient: client.typeClient,
+      statut: client.statut,
+      categoriePreferee: client.categoriePreferee,
+      programFidelite: client.programFidelite,
+      connaissanceVin: client.connaissanceVin,
+      budgetMoyen: client.budgetMoyen,
+      anniversaire: client.anniversaire ? this.formatDateForInput(client.anniversaire) : &#x27;&#x27;,
+      notes: client.notes
+    });
+  }
+
+  closeEditModal(): void {
+    this.isEditModalOpen &#x3D; false;
+    this.clientEnEdition &#x3D; null;
+  }
+
+  openDetailsModal(client: Client): void {
+    this.clientSelectionne &#x3D; client;
+    this.isDetailsModalOpen &#x3D; true;
+  }
+
+  closeDetailsModal(): void {
+    this.isDetailsModalOpen &#x3D; false;
+    this.clientSelectionne &#x3D; null;
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; GESTION DES CLIENTS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  get f() {
+    return this.clientForm.controls;
+  }
+
+  get ef() {
+    return this.editForm.controls;
+  }
+
+  ajouterClient(): void {
+    this.submitted &#x3D; true;
+
+    if (this.clientForm.invalid) {
+      alert(&#x27;⚠️ Veuillez corriger les erreurs dans le formulaire&#x27;);
+      return;
+    }
+
+    const nouveauClient: Client &#x3D; {
+      ...this.clientForm.value,
+      id: Date.now(),
+      dateInscription: new Date(),
+      nombreCommandes: 0,
+      totalDepense: 0,
+      pointsFidelite: 0,
+      preferences: {}
+    };
+
+    this.clients.push(nouveauClient);
+    this.clientsFiltres &#x3D; [...this.clients];
+    this.calculerStatistiques();
+
+    console.log(&#x27;✅ Nouveau client ajouté:&#x27;, nouveauClient);
+    alert(&#x27;✅ Client créé avec succès !&#x27;);
+    this.closeAddModal();
+  }
+
+  modifierClient(): void {
+    this.submitted &#x3D; true;
+
+    if (this.editForm.invalid || !this.clientEnEdition) {
+      alert(&#x27;⚠️ Veuillez corriger les erreurs dans le formulaire&#x27;);
+      return;
+    }
+
+    const index &#x3D; this.clients.findIndex(c &#x3D;&gt; c.id &#x3D;&#x3D;&#x3D; this.clientEnEdition!.id);
+
+    if (index !&#x3D;&#x3D; -1) {
+      this.clients[index] &#x3D; {
+        ...this.clientEnEdition,
+        ...this.editForm.value
+      };
+
+      this.clientsFiltres &#x3D; [...this.clients];
+      this.calculerStatistiques();
+
+      console.log(&#x27;✅ Client modifié:&#x27;, this.clients[index]);
+      alert(&#x27;✅ Client modifié avec succès !&#x27;);
+      this.closeEditModal();
+    }
+  }
+
+  supprimerClient(id: number): void {
+    if (confirm(&#x27;❌ Êtes-vous sûr de vouloir supprimer ce client ?&#x27;)) {
+      this.clients &#x3D; this.clients.filter(c &#x3D;&gt; c.id !&#x3D;&#x3D; id);
+      this.clientsFiltres &#x3D; this.clientsFiltres.filter(c &#x3D;&gt; c.id !&#x3D;&#x3D; id);
+      this.calculerStatistiques();
+
+      alert(&#x27;✅ Client supprimé avec succès&#x27;);
+      console.log(&#x27;🗑️ Client supprimé, ID:&#x27;, id);
+    }
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; UTILITAIRES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  getInitiales(nom: string, prenom: string): string {
+    return &#x60;${nom.charAt(0)}${prenom.charAt(0)}&#x60;.toUpperCase();
+  }
+
+  getPanierMoyen(client: Client): number {
+    if (client.nombreCommandes &#x3D;&#x3D;&#x3D; 0) return 0;
+    return client.totalDepense / client.nombreCommandes;
+  }
+
+  getJoursDepuisInscription(client: Client): number {
+    const now &#x3D; new Date();
+    const dateInscription &#x3D; new Date(client.dateInscription);
+    const diffTime &#x3D; Math.abs(now.getTime() - dateInscription.getTime());
+    const diffDays &#x3D; Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  }
+
+  getJoursDepuisDerniereVisite(client: Client): number {
+    if (!client.derniereVisite) return 0;
+    const now &#x3D; new Date();
+    const derniereVisite &#x3D; new Date(client.derniereVisite);
+    const diffTime &#x3D; Math.abs(now.getTime() - derniereVisite.getTime());
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  }
+
+  getTypeClass(type: string): string {
+    return &#x60;type-${type.replace(&#x27; &#x27;, &#x27;-&#x27;)}&#x60;;
+  }
+
+  getTypeIcon(type: string): string {
+    const icons: { [key: string]: string } &#x3D; {
+      &#x27;presentiel&#x27;: &#x27;fas fa-store&#x27;,
+      &#x27;en ligne&#x27;: &#x27;fas fa-globe&#x27;,
+      &#x27;evenementiel&#x27;: &#x27;fas fa-calendar-check&#x27;
+    };
+    return icons[type] || &#x27;fas fa-user&#x27;;
+  }
+
+  getStatutClass(statut: string): string {
+    return &#x60;statut-${statut}&#x60;;
+  }
+
+  getStatutIcon(statut: string): string {
+    const icons: { [key: string]: string } &#x3D; {
+      &#x27;actif&#x27;: &#x27;fas fa-check-circle&#x27;,
+      &#x27;inactif&#x27;: &#x27;fas fa-times-circle&#x27;,
+      &#x27;vip&#x27;: &#x27;fas fa-crown&#x27;
+    };
+    return icons[statut] || &#x27;fas fa-user&#x27;;
+  }
+
+  getFideliteClass(fidelite?: string): string {
+    if (!fidelite) return &#x27;&#x27;;
+    return &#x60;fidelite-${fidelite.toLowerCase()}&#x60;;
+  }
+
+  getFideliteIcon(fidelite?: string): string {
+    const icons: { [key: string]: string } &#x3D; {
+      &#x27;Bronze&#x27;: &#x27;🥉&#x27;,
+      &#x27;Argent&#x27;: &#x27;🥈&#x27;,
+      &#x27;Or&#x27;: &#x27;🥇&#x27;,
+      &#x27;Platine&#x27;: &#x27;💎&#x27;
+    };
+    return icons[fidelite || &#x27;&#x27;] || &#x27;🏅&#x27;;
+  }
+
+  getConnaissanceIcon(connaissance?: string): string {
+    const icons: { [key: string]: string } &#x3D; {
+      &#x27;Débutant&#x27;: &#x27;🌱&#x27;,
+      &#x27;Amateur&#x27;: &#x27;🍷&#x27;,
+      &#x27;Connaisseur&#x27;: &#x27;🎓&#x27;,
+      &#x27;Expert&#x27;: &#x27;⭐&#x27;,
+      &#x27;Sommelier&#x27;: &#x27;👨‍🍳&#x27;
+    };
+    return icons[connaissance || &#x27;&#x27;] || &#x27;🍷&#x27;;
+  }
+
+  formatDateForInput(date: Date): string {
+    const d &#x3D; new Date(date);
+    return d.toISOString().split(&#x27;T&#x27;)[0];
+  }
+
+  exporterClients(): void {
+    const csv &#x3D; this.genererCSV();
+    this.telechargerFichier(csv, &#x60;clients-${Date.now()}.csv&#x60;);
+  }
+
+  private genererCSV(): string {
+    const headers &#x3D; [
+      &#x27;ID&#x27;, &#x27;Nom&#x27;, &#x27;Prénom&#x27;, &#x27;Email&#x27;, &#x27;Téléphone&#x27;, &#x27;Type&#x27;, &#x27;Statut&#x27;,
+      &#x27;Catégorie Préférée&#x27;, &#x27;Programme Fidélité&#x27;, &#x27;Points&#x27;, &#x27;Commandes&#x27;,
+      &#x27;Total Dépensé&#x27;, &#x27;Panier Moyen&#x27;
+    ];
+
+    const rows &#x3D; this.clientsFiltres.map(c &#x3D;&gt; [
+      c.id,
+      c.nom,
+      c.prenom,
+      c.email,
+      c.telephone,
+      c.typeClient,
+      c.statut,
+      c.categoriePreferee || &#x27;-&#x27;,
+      c.programFidelite || &#x27;-&#x27;,
+      c.pointsFidelite || 0,
+      c.nombreCommandes,
+      c.totalDepense,
+      this.getPanierMoyen(c).toFixed(0)
+    ]);
+
+    return [
+      headers.join(&#x27;,&#x27;),
+      ...rows.map(r &#x3D;&gt; r.join(&#x27;,&#x27;))
+    ].join(&#x27;\n&#x27;);
+  }
+
+  private telechargerFichier(content: string, filename: string): void {
+    const blob &#x3D; new Blob([content], { type: &#x27;text/csv;charset&#x3D;utf-8;&#x27; });
+    const url &#x3D; window.URL.createObjectURL(blob);
+    const a &#x3D; document.createElement(&#x27;a&#x27;);
+    a.href &#x3D; url;
+    a.download &#x3D; filename;
+    a.click();
+    window.URL.revokeObjectURL(url);
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'Client.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

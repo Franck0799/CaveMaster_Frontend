@@ -1,61 +1,118 @@
-// orders.component.html
-/*
-<section class="content-section">
-  <div class="section-header">
-    <h2 class="section-title-main">Commandes Récentes</h2>
-    <p class="section-subtitle">Suivez l'état de toutes vos commandes</p>
+
+<div class="orders-page">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">Commandes en cours</h1>
+      <p class="page-subtitle">{{ getActiveOrdersCount() }} commandes actives</p>
+    </div>
+    <button class="btn-refresh" (click)="refreshOrders()">
+      🔄 Actualiser
+    </button>
   </div>
 
-  <div class="orders-container">
-    <div class="orders-header">
-      <h3 style="font-size: 1.2rem; font-weight: 600;">Filtrer par statut</h3>
-      <div class="orders-tabs">
-        <button class="order-tab"
-                [class.active]="currentOrderFilter === 'all'"
-                (click)="filterOrders('all')">
-          Toutes ({{getOrderCount('all')}})
+  <!-- Statistiques -->
+  <div class="stats-row">
+    <div class="stat-item pending">
+      <span class="stat-count">{{ getCountByStatus('pending') }}</span>
+      <span class="stat-label">En attente</span>
+    </div>
+    <div class="stat-item progress">
+      <span class="stat-count">{{ getCountByStatus('in-progress') }}</span>
+      <span class="stat-label">En préparation</span>
+    </div>
+    <div class="stat-item ready">
+      <span class="stat-count">{{ getCountByStatus('ready') }}</span>
+      <span class="stat-label">Prêtes</span>
+    </div>
+  </div>
+
+  <!-- Filtres -->
+  <div class="filters">
+    <button class="filter-btn"
+            [class.active]="selectedStatus === 'all'"
+            (click)="filterByStatus('all')">
+      Toutes
+    </button>
+    <button class="filter-btn"
+            [class.active]="selectedStatus === 'pending'"
+            (click)="filterByStatus('pending')">
+      En attente
+    </button>
+    <button class="filter-btn"
+            [class.active]="selectedStatus === 'in-progress'"
+            (click)="filterByStatus('in-progress')">
+      En préparation
+    </button>
+    <button class="filter-btn"
+            [class.active]="selectedStatus === 'ready'"
+            (click)="filterByStatus('ready')">
+      Prêtes
+    </button>
+  </div>
+
+  <!-- Liste des commandes -->
+  <div class="orders-grid">
+    <div class="order-card" *ngFor="let order of filteredOrders" [class]="'status-' + order.status">
+      <div class="order-header">
+        <div class="order-info">
+          <h3 class="order-id">{{ order.id }}</h3>
+          <span class="table-number">{{ order.tableNumber }}</span>
+        </div>
+        <span class="status-badge" [class]="'status-' + order.status">
+          {{ getStatusLabel(order.status) }}
+        </span>
+      </div>
+
+      <div class="order-body">
+        <div class="server-info">
+          <span class="server-icon">👨‍🍳</span>
+          <span class="server-name">{{ order.server }}</span>
+        </div>
+
+        <div class="items-list">
+          <div class="item" *ngFor="let item of order.items">
+            <span class="item-name">{{ item.quantity }}x {{ item.productName }}</span>
+            <span class="item-price">{{ item.price * item.quantity | number:'1.2-2' }} €</span>
+          </div>
+        </div>
+
+        <div class="order-notes" *ngIf="order.notes">
+          <span class="notes-icon">💬</span>
+          <span class="notes-text">{{ order.notes }}</span>
+        </div>
+
+        <div class="order-footer">
+          <div class="time-info">
+            <span class="time-icon">⏱️</span>
+            <span class="time-text">{{ getTimeAgo(order.createdAt) }}</span>
+          </div>
+          <div class="total-amount">
+            <span class="total-label">Total:</span>
+            <span class="total-value">{{ order.totalAmount | number:'1.2-2' }} €</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="order-actions">
+        <button class="action-btn primary"
+                *ngIf="order.status === 'pending'"
+                (click)="startOrder(order)">
+          ▶️ Démarrer
         </button>
-        <button class="order-tab"
-                [class.active]="currentOrderFilter === 'paye'"
-                (click)="filterOrders('paye')">
-          Payé ({{getOrderCount('paye')}})
+        <button class="action-btn success"
+                *ngIf="order.status === 'in-progress'"
+                (click)="markReady(order)">
+          ✅ Prête
         </button>
-        <button class="order-tab"
-                [class.active]="currentOrderFilter === 'en-cours'"
-                (click)="filterOrders('en-cours')">
-          En cours ({{getOrderCount('en-cours')}})
+        <button class="action-btn info"
+                *ngIf="order.status === 'ready'"
+                (click)="markServed(order)">
+          🍽️ Servie
         </button>
-        <button class="order-tab"
-                [class.active]="currentOrderFilter === 'termine'"
-                (click)="filterOrders('termine')">
-          Terminé ({{getOrderCount('termine')}})
+        <button class="action-btn" (click)="viewOrder(order)">
+          👁️ Détails
         </button>
       </div>
     </div>
-
-    <div class="orders-list">
-      <div *ngIf="filteredOrders.length === 0" class="empty-state">
-        <div class="empty-state-icon">📦</div>
-        <p>Aucune commande dans cette catégorie</p>
-      </div>
-
-      <div class="order-item" *ngFor="let order of filteredOrders">
-        <div class="order-header-row">
-          <div class="order-id">{{order.id}}</div>
-          <div class="order-status" [class]="'status-' + order.status">{{order.statusText}}</div>
-        </div>
-        <div class="order-details">
-          <div class="order-detail-item"><span>👤</span><span>{{order.client}}</span></div>
-          <div class="order-detail-item"><span>🕐</span><span>{{order.date}}</span></div>
-        </div>
-        <div class="order-products">📦 {{order.produits}}</div>
-        <div class="order-total">
-          <span class="total-label">Total:</span>
-          <span class="total-amount">{{order.total}}</span>
-        </div>
-      </div>
-    </div>
   </div>
-</section>
-*/
-
+</div>

@@ -1,0 +1,1365 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cave-master-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cave-master-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  WinePairing</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/view/admin-dashboard/wine-pairing/wine-pairing.component.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Interface pour définir un accord mets &amp; vins</p>
+
+            </p>
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#category" 
+>
+                                            category
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#createdAt" 
+>
+                                            createdAt
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#description" 
+>
+                                            description
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#dish" 
+>
+                                            dish
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#dishIcon" 
+>
+                                            dishIcon
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#id" 
+>
+                                            id
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#rating" 
+>
+                                            rating
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#region" 
+>
+                                            region
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#tags" 
+>
+                                            tags
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#temperature" 
+>
+                                            temperature
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#vintage" 
+>
+                                            vintage
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#wine" 
+>
+                                            wine
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#wineIcon" 
+>
+                                            wineIcon
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#wineType" 
+>
+                                            wineType
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="category"></a>
+                                        <span class="name "><b>category</b>
+                                            <a href="#category">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>category:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="createdAt"></a>
+                                        <span class="name "><b>createdAt</b>
+                                            <a href="#createdAt">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>createdAt:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="description"></a>
+                                        <span class="name "><b>description</b>
+                                            <a href="#description">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>description:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="dish"></a>
+                                        <span class="name "><b>dish</b>
+                                            <a href="#dish">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>dish:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="dishIcon"></a>
+                                        <span class="name "><b>dishIcon</b>
+                                            <a href="#dishIcon">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>dishIcon:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="id"></a>
+                                        <span class="name "><b>id</b>
+                                            <a href="#id">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>id:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="rating"></a>
+                                        <span class="name "><b>rating</b>
+                                            <a href="#rating">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>rating:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="region"></a>
+                                        <span class="name "><b>region</b>
+                                            <a href="#region">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>region:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="tags"></a>
+                                        <span class="name "><b>tags</b>
+                                            <a href="#tags">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>tags:     <code>string[]</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>string[]</code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="temperature"></a>
+                                        <span class="name "><b>temperature</b>
+                                            <a href="#temperature">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>temperature:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="vintage"></a>
+                                        <span class="name "><b>vintage</b>
+                                            <a href="#vintage">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>vintage:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="wine"></a>
+                                        <span class="name "><b>wine</b>
+                                            <a href="#wine">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>wine:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="wineIcon"></a>
+                                        <span class="name "><b>wineIcon</b>
+                                            <a href="#wineIcon">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>wineIcon:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="wineType"></a>
+                                        <span class="name "><b>wineType</b>
+                                            <a href="#wineType">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>wineType:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+
+/**
+ * Interface pour définir un accord mets &amp; vins
+ */
+interface WinePairing {
+  id: string;
+  category: string; // Type de plat: Viandes, Poissons, Fromages, etc.
+  dish: string; // Nom du plat
+  dishIcon: string; // Emoji du plat
+  wine: string; // Nom du vin
+  wineIcon: string; // Emoji du vin
+  wineType: string; // Type: Rouge, Blanc, Rosé, etc.
+  description: string; // Description de l&#x27;accord
+  temperature: string; // Température de service
+  region?: string; // Région viticole
+  vintage?: string; // Millésime recommandé
+  tags?: string[]; // Tags pour recherche
+  rating?: number; // Note de l&#x27;accord (1-5)
+  createdAt: Date;
+}
+
+/**
+ * Interface pour le formulaire d&#x27;ajout d&#x27;accord
+ */
+interface WinePairingForm {
+  category: string;
+  dish: string;
+  dishIcon: string;
+  wine: string;
+  wineIcon: string;
+  wineType: string;
+  description: string;
+  temperature: string;
+  region: string;
+  vintage: string;
+  tags: string[];
+}
+
+/**
+ * Composant WinePairing - Gestion des accords mets &amp; vins
+ * Permet de créer, consulter et gérer les associations plats-vins
+ */
+@Component({
+  selector: &#x27;app-wine-pairing&#x27;,
+   standalone: true,
+  // Import des modules nécessaires
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  templateUrl: &#x27;./wine-pairing.component.html&#x27;,
+  styleUrls: [&#x27;./wine-pairing.component.scss&#x27;]
+})
+export class WinePairingComponent implements OnInit {
+
+  // Liste des accords mets &amp; vins
+  winePairings: WinePairing[] &#x3D; [];
+
+  // Accords filtrés (pour la recherche)
+  filteredPairings: WinePairing[] &#x3D; [];
+
+  // Modal d&#x27;ajout/édition
+  isModalOpen: boolean &#x3D; false;
+  isEditMode: boolean &#x3D; false;
+  selectedPairing: WinePairing | null &#x3D; null;
+
+  // Formulaire
+  pairingForm: WinePairingForm &#x3D; this.getEmptyForm();
+
+  // Filtres et recherche
+  searchQuery: string &#x3D; &#x27;&#x27;;
+  selectedCategory: string &#x3D; &#x27;all&#x27;;
+  selectedWineType: string &#x3D; &#x27;all&#x27;;
+
+  // Catégories de plats disponibles
+  categories: string[] &#x3D; [
+    &#x27;Viandes rouges&#x27;,
+    &#x27;Viandes blanches&#x27;,
+    &#x27;Poissons&#x27;,
+    &#x27;Fruits de mer&#x27;,
+    &#x27;Fromages&#x27;,
+    &#x27;Desserts&#x27;,
+    &#x27;Apéritifs&#x27;,
+    &#x27;Plats végétariens&#x27;,
+    &#x27;Plats épicés&#x27;,
+    &#x27;Charcuterie&#x27;
+  ];
+
+  // Types de vins
+  wineTypes: string[] &#x3D; [
+    &#x27;Vin Rouge&#x27;,
+    &#x27;Vin Blanc&#x27;,
+    &#x27;Vin Rosé&#x27;,
+    &#x27;Champagne&#x27;,
+    &#x27;Vin Mousseux&#x27;,
+    &#x27;Vin Blanc Liquoreux&#x27;,
+    &#x27;Porto&#x27;,
+    &#x27;Vin de Glace&#x27;
+  ];
+
+  // Icônes disponibles pour les plats
+  dishIcons: string[] &#x3D; [
+    &#x27;🥩&#x27;, &#x27;🍗&#x27;, &#x27;🐟&#x27;, &#x27;🦞&#x27;, &#x27;🧀&#x27;, &#x27;🍰&#x27;, &#x27;🥗&#x27;, &#x27;🍕&#x27;, &#x27;🍝&#x27;, &#x27;🌮&#x27;
+  ];
+
+  // Icônes disponibles pour les vins
+  wineIcons: string[] &#x3D; [
+    &#x27;🍷&#x27;, &#x27;🥂&#x27;, &#x27;🍾&#x27;, &#x27;🍇&#x27;, &#x27;🍾&#x27;, &#x27;🥃&#x27;
+  ];
+
+  // État de chargement
+  isLoading: boolean &#x3D; false;
+
+  constructor() {}
+
+  ngOnInit(): void {
+    // Chargement initial des accords
+    this.loadWinePairings();
+  }
+
+  /**
+   * Charge les accords mets &amp; vins depuis le backend
+   */
+  loadWinePairings(): void {
+    this.isLoading &#x3D; true;
+
+    // TODO: Appel API
+    // Simulation avec des données de test
+    this.winePairings &#x3D; this.generateMockPairings();
+    this.filteredPairings &#x3D; [...this.winePairings];
+
+    this.isLoading &#x3D; false;
+    console.log(&#x27;Accords chargés:&#x27;, this.winePairings.length);
+  }
+
+  /**
+   * Génère des accords de test pour la démo
+   * @returns Liste d&#x27;accords simulés
+   */
+  private generateMockPairings(): WinePairing[] {
+    return [
+      {
+        id: &#x27;1&#x27;,
+        category: &#x27;Viandes rouges&#x27;,
+        dish: &#x27;Steak grillé&#x27;,
+        dishIcon: &#x27;🥩&#x27;,
+        wine: &#x27;Bordeaux Rouge&#x27;,
+        wineIcon: &#x27;🍷&#x27;,
+        wineType: &#x27;Vin Rouge&#x27;,
+        description: &#x27;Un Bordeaux corsé sublime parfaitement un steak grillé. Les tanins structurés du vin s\&#x27;accordent avec la richesse de la viande.&#x27;,
+        temperature: &#x27;16-18°C&#x27;,
+        region: &#x27;Bordeaux&#x27;,
+        vintage: &#x27;2015-2018&#x27;,
+        tags: [&#x27;classique&#x27;, &#x27;élégant&#x27;, &#x27;tanins&#x27;],
+        rating: 5,
+        createdAt: new Date()
+      },
+      {
+        id: &#x27;2&#x27;,
+        category: &#x27;Poissons&#x27;,
+        dish: &#x27;Saumon grillé&#x27;,
+        dishIcon: &#x27;🐟&#x27;,
+        wine: &#x27;Chablis&#x27;,
+        wineIcon: &#x27;🍷&#x27;,
+        wineType: &#x27;Vin Blanc&#x27;,
+        description: &#x27;La fraîcheur minérale d\&#x27;un Chablis complète délicatement le goût délicat du saumon grillé.&#x27;,
+        temperature: &#x27;10-12°C&#x27;,
+        region: &#x27;Bourgogne&#x27;,
+        vintage: &#x27;2019-2021&#x27;,
+        tags: [&#x27;frais&#x27;, &#x27;minéral&#x27;, &#x27;délicat&#x27;],
+        rating: 4,
+        createdAt: new Date()
+      },
+      {
+        id: &#x27;3&#x27;,
+        category: &#x27;Fromages&#x27;,
+        dish: &#x27;Plateau de fromages affinés&#x27;,
+        dishIcon: &#x27;🧀&#x27;,
+        wine: &#x27;Porto Tawny&#x27;,
+        wineIcon: &#x27;🥃&#x27;,
+        wineType: &#x27;Porto&#x27;,
+        description: &#x27;Le Porto Tawny avec ses notes de fruits secs et de caramel s\&#x27;accorde merveilleusement avec les fromages affinés.&#x27;,
+        temperature: &#x27;14-16°C&#x27;,
+        region: &#x27;Porto&#x27;,
+        vintage: &#x27;10-20 ans&#x27;,
+        tags: [&#x27;intense&#x27;, &#x27;complexe&#x27;, &#x27;doux&#x27;],
+        rating: 5,
+        createdAt: new Date()
+      },
+      {
+        id: &#x27;4&#x27;,
+        category: &#x27;Fruits de mer&#x27;,
+        dish: &#x27;Huîtres fraîches&#x27;,
+        dishIcon: &#x27;🦞&#x27;,
+        wine: &#x27;Muscadet&#x27;,
+        wineIcon: &#x27;🍷&#x27;,
+        wineType: &#x27;Vin Blanc&#x27;,
+        description: &#x27;Un Muscadet sec et iodé est le compagnon idéal des huîtres fraîches.&#x27;,
+        temperature: &#x27;8-10°C&#x27;,
+        region: &#x27;Loire&#x27;,
+        vintage: &#x27;Millésime récent&#x27;,
+        tags: [&#x27;iodé&#x27;, &#x27;frais&#x27;, &#x27;maritime&#x27;],
+        rating: 5,
+        createdAt: new Date()
+      },
+      {
+        id: &#x27;5&#x27;,
+        category: &#x27;Desserts&#x27;,
+        dish: &#x27;Tarte tatin&#x27;,
+        dishIcon: &#x27;🍰&#x27;,
+        wine: &#x27;Sauternes&#x27;,
+        wineIcon: &#x27;🍷&#x27;,
+        wineType: &#x27;Vin Blanc Liquoreux&#x27;,
+        description: &#x27;Un Sauternes moelleux avec ses notes de miel et d\&#x27;abricot sublime une tarte tatin aux pommes caramélisées.&#x27;,
+        temperature: &#x27;8-10°C&#x27;,
+        region: &#x27;Bordeaux&#x27;,
+        vintage: &#x27;2015-2017&#x27;,
+        tags: [&#x27;sucré&#x27;, &#x27;onctueux&#x27;, &#x27;complexe&#x27;],
+        rating: 4,
+        createdAt: new Date()
+      },
+      {
+        id: &#x27;6&#x27;,
+        category: &#x27;Apéritifs&#x27;,
+        dish: &#x27;Olives et tapenade&#x27;,
+        dishIcon: &#x27;🫒&#x27;,
+        wine: &#x27;Champagne Brut&#x27;,
+        wineIcon: &#x27;🥂&#x27;,
+        wineType: &#x27;Champagne&#x27;,
+        description: &#x27;Les bulles fines d\&#x27;un Champagne Brut nettoient le palais entre chaque bouchée d\&#x27;olives.&#x27;,
+        temperature: &#x27;6-8°C&#x27;,
+        region: &#x27;Champagne&#x27;,
+        vintage: &#x27;Non millésimé&#x27;,
+        tags: [&#x27;festif&#x27;, &#x27;élégant&#x27;, &#x27;pétillant&#x27;],
+        rating: 4,
+        createdAt: new Date()
+      }
+    ];
+  }
+
+  /**
+   * Recherche et filtre les accords
+   */
+  applyFilters(): void {
+    let result &#x3D; [...this.winePairings];
+
+    // Filtre par recherche textuelle
+    if (this.searchQuery.trim()) {
+      const query &#x3D; this.searchQuery.toLowerCase();
+      result &#x3D; result.filter(pairing &#x3D;&gt;
+        pairing.dish.toLowerCase().includes(query) ||
+        pairing.wine.toLowerCase().includes(query) ||
+        pairing.description.toLowerCase().includes(query) ||
+        pairing.tags?.some(tag &#x3D;&gt; tag.toLowerCase().includes(query))
+      );
+    }
+
+    // Filtre par catégorie
+    if (this.selectedCategory !&#x3D;&#x3D; &#x27;all&#x27;) {
+      result &#x3D; result.filter(pairing &#x3D;&gt; pairing.category &#x3D;&#x3D;&#x3D; this.selectedCategory);
+    }
+
+    // Filtre par type de vin
+    if (this.selectedWineType !&#x3D;&#x3D; &#x27;all&#x27;) {
+      result &#x3D; result.filter(pairing &#x3D;&gt; pairing.wineType &#x3D;&#x3D;&#x3D; this.selectedWineType);
+    }
+
+    this.filteredPairings &#x3D; result;
+    console.log(&#x27;Filtres appliqués:&#x27;, result.length, &#x27;résultats&#x27;);
+  }
+
+  /**
+   * Gère le changement de recherche
+   */
+  onSearchChange(): void {
+    this.applyFilters();
+  }
+
+  /**
+   * Gère le changement de catégorie
+   */
+  onCategoryChange(): void {
+    this.applyFilters();
+  }
+
+  /**
+   * Gère le changement de type de vin
+   */
+  onWineTypeChange(): void {
+    this.applyFilters();
+  }
+
+  /**
+   * Réinitialise tous les filtres
+   */
+  resetFilters(): void {
+    this.searchQuery &#x3D; &#x27;&#x27;;
+    this.selectedCategory &#x3D; &#x27;all&#x27;;
+    this.selectedWineType &#x3D; &#x27;all&#x27;;
+    this.filteredPairings &#x3D; [...this.winePairings];
+  }
+
+  /**
+   * Ouvre le modal d&#x27;ajout d&#x27;accord
+   */
+  openAddModal(): void {
+    this.isEditMode &#x3D; false;
+    this.selectedPairing &#x3D; null;
+    this.pairingForm &#x3D; this.getEmptyForm();
+    this.isModalOpen &#x3D; true;
+  }
+
+  /**
+   * Ouvre le modal d&#x27;édition d&#x27;accord
+   * @param pairing - Accord à éditer
+   */
+  openEditModal(pairing: WinePairing): void {
+    this.isEditMode &#x3D; true;
+    this.selectedPairing &#x3D; pairing;
+    this.pairingForm &#x3D; {
+      category: pairing.category,
+      dish: pairing.dish,
+      dishIcon: pairing.dishIcon,
+      wine: pairing.wine,
+      wineIcon: pairing.wineIcon,
+      wineType: pairing.wineType,
+      description: pairing.description,
+      temperature: pairing.temperature,
+      region: pairing.region || &#x27;&#x27;,
+      vintage: pairing.vintage || &#x27;&#x27;,
+      tags: pairing.tags || []
+    };
+    this.isModalOpen &#x3D; true;
+  }
+
+  /**
+   * Ferme le modal
+   */
+  closeModal(): void {
+    this.isModalOpen &#x3D; false;
+    this.isEditMode &#x3D; false;
+    this.selectedPairing &#x3D; null;
+    this.pairingForm &#x3D; this.getEmptyForm();
+  }
+
+  /**
+   * Sauvegarde l&#x27;accord (ajout ou modification)
+   */
+  savePairing(): void {
+    // Validation
+    if (!this.validateForm()) {
+      alert(&#x27;Veuillez remplir tous les champs obligatoires&#x27;);
+      return;
+    }
+
+    if (this.isEditMode &amp;&amp; this.selectedPairing) {
+      // Mode édition
+      this.updatePairing();
+    } else {
+      // Mode ajout
+      this.addPairing();
+    }
+  }
+
+  /**
+   * Ajoute un nouvel accord
+   */
+  private addPairing(): void {
+    const newPairing: WinePairing &#x3D; {
+      id: this.generateId(),
+      category: this.pairingForm.category,
+      dish: this.pairingForm.dish,
+      dishIcon: this.pairingForm.dishIcon,
+      wine: this.pairingForm.wine,
+      wineIcon: this.pairingForm.wineIcon,
+      wineType: this.pairingForm.wineType,
+      description: this.pairingForm.description,
+      temperature: this.pairingForm.temperature,
+      region: this.pairingForm.region,
+      vintage: this.pairingForm.vintage,
+      tags: this.pairingForm.tags,
+      rating: 0,
+      createdAt: new Date()
+    };
+
+    this.winePairings.unshift(newPairing);
+    this.applyFilters();
+
+    // TODO: Appel API
+    console.log(&#x27;Accord ajouté:&#x27;, newPairing);
+
+    alert(&#x27;Accord mets &amp; vins ajouté avec succès !&#x27;);
+    this.closeModal();
+  }
+
+  /**
+   * Met à jour un accord existant
+   */
+  private updatePairing(): void {
+    if (!this.selectedPairing) return;
+
+    const index &#x3D; this.winePairings.findIndex(p &#x3D;&gt; p.id &#x3D;&#x3D;&#x3D; this.selectedPairing!.id);
+    if (index !&#x3D;&#x3D; -1) {
+      this.winePairings[index] &#x3D; {
+        ...this.selectedPairing,
+        category: this.pairingForm.category,
+        dish: this.pairingForm.dish,
+        dishIcon: this.pairingForm.dishIcon,
+        wine: this.pairingForm.wine,
+        wineIcon: this.pairingForm.wineIcon,
+        wineType: this.pairingForm.wineType,
+        description: this.pairingForm.description,
+        temperature: this.pairingForm.temperature,
+        region: this.pairingForm.region,
+        vintage: this.pairingForm.vintage,
+        tags: this.pairingForm.tags
+      };
+
+      this.applyFilters();
+
+      // TODO: Appel API
+      console.log(&#x27;Accord mis à jour:&#x27;, this.winePairings[index]);
+
+      alert(&#x27;Accord mis à jour avec succès !&#x27;);
+      this.closeModal();
+    }
+  }
+
+  /**
+   * Supprime un accord
+   * @param pairing - Accord à supprimer
+   */
+  deletePairing(pairing: WinePairing): void {
+    if (confirm(&#x60;Êtes-vous sûr de vouloir supprimer l&#x27;accord &quot;${pairing.dish} &amp; ${pairing.wine}&quot; ?&#x60;)) {
+      this.winePairings &#x3D; this.winePairings.filter(p &#x3D;&gt; p.id !&#x3D;&#x3D; pairing.id);
+      this.applyFilters();
+
+      // TODO: Appel API
+      console.log(&#x27;Accord supprimé:&#x27;, pairing.id);
+
+      alert(&#x27;Accord supprimé avec succès&#x27;);
+    }
+  }
+
+  /**
+   * Valide le formulaire
+   * @returns true si le formulaire est valide
+   */
+  private validateForm(): boolean {
+    return !!(
+      this.pairingForm.category &amp;&amp;
+      this.pairingForm.dish &amp;&amp;
+      this.pairingForm.wine &amp;&amp;
+      this.pairingForm.wineType &amp;&amp;
+      this.pairingForm.description &amp;&amp;
+      this.pairingForm.temperature
+    );
+  }
+
+  /**
+   * Retourne un formulaire vide
+   * @returns Formulaire initialisé
+   */
+  private getEmptyForm(): WinePairingForm {
+    return {
+      category: &#x27;&#x27;,
+      dish: &#x27;&#x27;,
+      dishIcon: &#x27;🍽️&#x27;,
+      wine: &#x27;&#x27;,
+      wineIcon: &#x27;🍷&#x27;,
+      wineType: &#x27;&#x27;,
+      description: &#x27;&#x27;,
+      temperature: &#x27;&#x27;,
+      region: &#x27;&#x27;,
+      vintage: &#x27;&#x27;,
+      tags: []
+    };
+  }
+
+  /**
+   * Génère un ID unique
+   * @returns ID généré
+   */
+  private generateId(): string {
+    return &#x60;pairing_${Date.now()}_${Math.random().toString(36).substr(2, 9)}&#x60;;
+  }
+
+  /**
+   * Ajoute un tag au formulaire
+   * @param tag - Tag à ajouter
+   */
+  addTag(tag: string): void {
+    if (tag &amp;&amp; !this.pairingForm.tags.includes(tag)) {
+      this.pairingForm.tags.push(tag);
+    }
+  }
+
+  /**
+   * Supprime un tag du formulaire
+   * @param tag - Tag à supprimer
+   */
+  removeTag(tag: string): void {
+    this.pairingForm.tags &#x3D; this.pairingForm.tags.filter(t &#x3D;&gt; t !&#x3D;&#x3D; tag);
+  }
+
+  /**
+   * Retourne les étoiles de notation
+   * @param rating - Note (1-5)
+   * @returns Tableau d&#x27;étoiles
+   */
+  getStars(rating: number): boolean[] {
+    return Array(5).fill(false).map((_, index) &#x3D;&gt; index &lt; rating);
+  }
+
+  /**
+   * Exporte les accords en CSV
+   */
+  exportToPDF(): void {
+    console.log(&#x27;Export des accords en PDF...&#x27;);
+    // TODO: Implémenter l&#x27;export CSV
+    alert(&#x27;Accords exportés avec succès !&#x27;);
+  }
+
+  /**
+   * Imprime les accords
+   */
+  printPairings(): void {
+    window.print();
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'WinePairing-1.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

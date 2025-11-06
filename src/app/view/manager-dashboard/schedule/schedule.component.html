@@ -1,0 +1,83 @@
+
+<div class="schedule-page">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">Planning de l'équipe</h1>
+      <p class="page-subtitle">{{ getCurrentWeekRange() }}</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-secondary" (click)="previousWeek()">
+        ◀ Semaine précédente
+      </button>
+      <button class="btn-secondary" (click)="nextWeek()">
+        Semaine suivante ▶
+      </button>
+      <button class="btn-primary" (click)="addShift()">
+        ➕ Ajouter un shift
+      </button>
+    </div>
+  </div>
+
+  <!-- Calendrier hebdomadaire -->
+  <div class="calendar-grid">
+    <div class="calendar-header">
+      <div class="day-column" *ngFor="let day of weekDays">
+        <div class="day-name">{{ day.name }}</div>
+        <div class="day-date">{{ day.date | date:'dd/MM' }}</div>
+      </div>
+    </div>
+
+    <div class="calendar-body">
+      <div class="day-column" *ngFor="let day of weekDays">
+        <div class="shift-card"
+             *ngFor="let shift of getShiftsForDay(day.date)"
+             [class]="'shift-' + shift.type">
+          <div class="shift-header">
+            <div class="employee-info">
+              <span class="employee-avatar">{{ shift.employeeAvatar }}</span>
+              <span class="employee-name">{{ shift.employeeName }}</span>
+            </div>
+            <span class="status-dot" [class]="'status-' + shift.status"></span>
+          </div>
+          <div class="shift-time">
+            <span class="time-icon">🕐</span>
+            <span class="time-text">{{ shift.startTime }} - {{ shift.endTime }}</span>
+          </div>
+          <div class="shift-actions">
+            <button class="action-icon" (click)="editShift(shift)">✏️</button>
+            <button class="action-icon" (click)="deleteShift(shift)">🗑️</button>
+          </div>
+        </div>
+
+        <!-- Zone vide pour ajouter un shift -->
+        <div class="add-shift-zone" (click)="addShiftForDay(day.date)">
+          <span class="add-icon">➕</span>
+          <span class="add-text">Ajouter</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Légende -->
+  <div class="legend">
+    <h4 class="legend-title">Types de service</h4>
+    <div class="legend-items">
+      <div class="legend-item">
+        <span class="legend-dot morning"></span>
+        <span class="legend-text">Matin (8h-14h)</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-dot afternoon"></span>
+        <span class="legend-text">Après-midi (14h-20h)</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-dot evening"></span>
+        <span class="legend-text">Soir (18h-23h)</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-dot night"></span>
+        <span class="legend-text">Nuit (20h-2h)</span>
+      </div>
+    </div>
+  </div>
+</div>

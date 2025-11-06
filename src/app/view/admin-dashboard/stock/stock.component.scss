@@ -1,25 +1,3 @@
-// ===== VARIABLES =====
-$primary: #6366f1;
-$primary-light: #818cf8;
-$success: #10b981;
-$warning: #f59e0b;
-$danger: #ef4444;
-$info: #3b82f6;
-
-$dark-bg: #0a0e27;
-$darker-bg: #060918;
-$card-bg: #1a1f3a;
-$card-hover: #232947;
-
-$text: #e2e8f0;
-$text-muted: #94a3b8;
-
-$border: #1e293b;
-$border-light: #334155;
-
-$transition: all 0.3s ease;
-$shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-
 $spacing-xs: 0.5rem;
 $spacing-sm: 0.75rem;
 $spacing-md: 1rem;
@@ -28,10 +6,10 @@ $spacing-xl: 2rem;
 
 // ===== BASE =====
 .stock-dashboard {
-  background: $dark-bg;
+  background: var(--dark-bg);
   min-height: 100vh;
   padding: $spacing-xl;
-  color: $text;
+  color: var(--text);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
@@ -42,13 +20,13 @@ $spacing-xl: 2rem;
   align-items: center;
   margin-bottom: $spacing-xl;
   padding-bottom: $spacing-lg;
-  border-bottom: 2px solid $border;
+  border-bottom: 2px solid var(--border);
 }
 
 .dashboard-title {
   font-size: 2rem;
   font-weight: 700;
-  color: $text;
+  color: var(--text);
   margin: 0;
   display: flex;
   align-items: center;
@@ -70,18 +48,18 @@ $spacing-xl: 2rem;
   align-items: center;
   gap: $spacing-sm;
   padding: $spacing-md $spacing-lg;
-  background: $primary;
+  background: var(--primary);
   border: none;
   border-radius: 0.5rem;
   color: white;
   font-weight: 600;
   cursor: pointer;
-  transition: $transition;
+  transition: var(--transition);
 
   &:hover {
-    background: $primary-light;
+    background: var(--primary-light);
     transform: translateY(-2px);
-    box-shadow: $shadow;
+    box-shadow: var(--shadow);
   }
 
   .icon {
@@ -90,19 +68,19 @@ $spacing-xl: 2rem;
 }
 
 .btn-view {
-  background: $card-bg;
-  border: 1px solid $border;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
 
   &:hover {
-    background: $card-hover;
-    border-color: $border-light;
+    background: var(--card-hover);
+    border-color: var(--border-light);
   }
 }
 
 // ===== ALERTES =====
 .alerts-section {
-  background: $card-bg;
-  border: 1px solid $border;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
   border-radius: 1rem;
   margin-bottom: $spacing-xl;
   overflow: hidden;
@@ -113,31 +91,31 @@ $spacing-xl: 2rem;
   justify-content: space-between;
   align-items: center;
   padding: $spacing-lg $spacing-xl;
-  border-bottom: 1px solid $border;
-  background: linear-gradient(135deg, rgba($warning, 0.1), transparent);
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(135deg, rgba(var(--warning), 0.1), transparent);
 
   h3 {
     margin: 0;
     font-size: 1.25rem;
-    color: $text;
+    color: var(--text);
   }
 }
 
 .btn-close-alerts {
   background: transparent;
   border: none;
-  color: $text-muted;
+  color: var(--text-muted);
   font-size: 1.5rem;
   cursor: pointer;
   padding: 0;
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  transition: $transition;
+  transition: var(--transition);
 
   &:hover {
-    background: $card-hover;
-    color: $text;
+    background: var(--card-hover);
+    color: var(--text);
   }
 }
 
@@ -152,20 +130,20 @@ $spacing-xl: 2rem;
   display: flex;
   gap: $spacing-md;
   padding: $spacing-md;
-  background: $darker-bg;
+  background: var(--darker-bg);
   border-radius: 0.5rem;
   border-left: 4px solid;
 
   &.alert-critique {
-    border-left-color: $danger;
+    border-left-color: var(--danger);
   }
 
   &.alert-faible {
-    border-left-color: $warning;
+    border-left-color: var(--warning);
   }
 
   &.alert-excedent {
-    border-left-color: $info;
+    border-left-color: var(--info);
   }
 }
 
@@ -180,19 +158,19 @@ $spacing-xl: 2rem;
 
 .alert-title {
   font-weight: 600;
-  color: $text;
+  color: var(--text);
   margin-bottom: $spacing-xs;
 }
 
 .alert-message {
   font-size: 0.875rem;
-  color: $text-muted;
+  color: var(--text-muted);
   margin-bottom: $spacing-xs;
 }
 
 .alert-details {
   font-size: 0.8rem;
-  color: $text-muted;
+  color: var(--text-muted);
 }
 
 // ===== STATS GRID =====
@@ -204,19 +182,19 @@ $spacing-xl: 2rem;
 }
 
 .stat-card {
-  background: $card-bg;
-  border: 1px solid $border;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
   border-radius: 1rem;
   padding: $spacing-lg;
   display: flex;
   align-items: center;
   gap: $spacing-lg;
-  transition: $transition;
+  transition:  var(--transition);
 
   &:hover {
     transform: translateY(-4px);
-    box-shadow: $shadow;
-    border-color: $border-light;
+    box-shadow: var(--shadow);
+    border-color: var(--border-light);
   }
 
   .stat-icon {
@@ -226,7 +204,7 @@ $spacing-xl: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: $darker-bg;
+    background: var(--darker-bg);
     border-radius: 0.75rem;
     flex-shrink: 0;
   }
@@ -237,7 +215,7 @@ $spacing-xl: 2rem;
 
   .stat-label {
     font-size: 0.875rem;
-    color: $text-muted;
+    color: var(--text-muted);
     margin-bottom: $spacing-xs;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -246,23 +224,23 @@ $spacing-xl: 2rem;
   .stat-value {
     font-size: 1.75rem;
     font-weight: 700;
-    color: $text;
+    color: var(--text);
   }
 
   &.stat-card--primary .stat-icon {
-    background: rgba($primary, 0.2);
+    background: rgba(var(--primary), 0.2);
   }
 
   &.stat-card--success .stat-icon {
-    background: rgba($success, 0.2);
+    background: rgba(var(--success), 0.2);
   }
 
   &.stat-card--danger .stat-icon {
-    background: rgba($danger, 0.2);
+    background: rgba(var(--danger), 0.2);
   }
 
   &.stat-card--warning .stat-icon {
-    background: rgba($warning, 0.2);
+    background: rgba(var(--warning), 0.2);
   }
 }
 
@@ -272,10 +250,10 @@ $spacing-xl: 2rem;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: $spacing-lg;
   margin-bottom: $spacing-xl;
-  background: $card-bg;
+  background: var(--card-bg);
   padding: $spacing-lg;
   border-radius: 1rem;
-  border: 1px solid $border;
+  border: 1px solid var(--border);
 }
 
 .filter-group {
@@ -285,7 +263,7 @@ $spacing-xl: 2rem;
 
   label {
     font-weight: 600;
-    color: $text-muted;
+    color: var(--text-muted);
     font-size: 0.875rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -294,21 +272,21 @@ $spacing-xl: 2rem;
   .filter-select,
   .filter-input {
     padding: $spacing-md;
-    background: $darker-bg;
-    border: 1px solid $border;
+    background: var(--darker-bg);
+    border: 1px solid var(--border);
     border-radius: 0.5rem;
-    color: $text;
+    color: var(--text);
     font-size: 1rem;
-    transition: $transition;
+    transition:  var(--transition);
 
     &:hover {
-      border-color: $border-light;
+      border-color: var(--border-light);
     }
 
     &:focus {
       outline: none;
-      border-color: $primary;
-      box-shadow: 0 0 0 3px rgba($primary, 0.1);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(var(--primary), 0.1);
     }
   }
 
@@ -319,18 +297,18 @@ $spacing-xl: 2rem;
 
 .btn-reset {
   padding: $spacing-md $spacing-lg;
-  background: $card-hover;
-  border: 1px solid $border;
+  background: var(--card-hover);
+  border: 1px solid var(--border);
   border-radius: 0.5rem;
-  color: $text;
+  color: var(--text);
   font-weight: 600;
   cursor: pointer;
-  transition: $transition;
+  transition:  var(--transition);
   margin-top: auto;
 
   &:hover {
-    background: $border;
-    border-color: $border-light;
+    background: var(--border);
+    border-color: var(--border-light);
   }
 }
 
@@ -341,14 +319,14 @@ $spacing-xl: 2rem;
   gap: $spacing-lg;
   margin-bottom: $spacing-lg;
   padding: $spacing-md $spacing-lg;
-  background: $card-bg;
+  background: var(--card-bg);
   border-radius: 0.5rem;
-  border: 1px solid $border;
+  border: 1px solid var(--border);
 }
 
 .sort-label {
   font-weight: 600;
-  color: $text-muted;
+  color: var(--text-muted);
   font-size: 0.875rem;
 }
 
@@ -360,29 +338,29 @@ $spacing-xl: 2rem;
 
 .sort-btn {
   padding: $spacing-sm $spacing-md;
-  background: $darker-bg;
-  border: 1px solid $border;
+  background: var(--darker-bg);
+  border: 1px solid var(--border);
   border-radius: 0.375rem;
-  color: $text-muted;
+  color: var(--text-muted);
   font-size: 0.875rem;
   cursor: pointer;
-  transition: $transition;
+  transition:  var(--transition);
 
   &:hover {
-    background: $card-hover;
-    color: $text;
+    background: var(--card-hover);
+    color: var(--text);
   }
 
   &.active {
-    background: $primary;
-    border-color: $primary;
+    background: var(--primary);
+    border-color: var(--primary);
     color: white;
   }
 }
 
 .results-count {
   font-size: 0.875rem;
-  color: $text-muted;
+  color: var(--text-muted);
   margin-left: auto;
 }
 
@@ -394,24 +372,24 @@ $spacing-xl: 2rem;
 }
 
 .stock-card {
-  background: $card-bg;
-  border: 1px solid $border;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
   border-radius: 1rem;
   overflow: hidden;
-  transition: $transition;
+  transition:  var(--transition);
 
   &:hover {
     transform: translateY(-4px);
-    box-shadow: $shadow;
-    border-color: $border-light;
+    box-shadow: var(--shadow);
+    border-color: var(--border-light);
   }
 }
 
 .stock-card-header {
   position: relative;
   padding: $spacing-lg;
-  background: linear-gradient(135deg, rgba($primary, 0.1), transparent);
-  border-bottom: 1px solid $border;
+  background: linear-gradient(135deg, rgba(var(--primary), 0.1), transparent);
+  border-bottom: 1px solid var(--border);
 }
 
 .stock-icon {
@@ -424,10 +402,10 @@ $spacing-xl: 2rem;
   top: $spacing-md;
   right: $spacing-md;
   padding: $spacing-xs $spacing-md;
-  background: $darker-bg;
+  background: var(--darker-bg);
   border-radius: 0.5rem;
   font-size: 1.2rem;
-  border: 1px solid $border;
+  border: 1px solid var(--border);
 }
 
 .stock-card-body {
@@ -437,13 +415,13 @@ $spacing-xl: 2rem;
 .stock-name {
   font-size: 1.25rem;
   font-weight: 700;
-  color: $text;
+  color: var(--text);
   margin: 0 0 $spacing-xs 0;
 }
 
 .stock-category {
   font-size: 0.875rem;
-  color: $text-muted;
+  color: var(--text-muted);
   margin-bottom: $spacing-md;
 }
 
@@ -453,7 +431,7 @@ $spacing-xl: 2rem;
   gap: $spacing-xs;
   margin-bottom: $spacing-md;
   padding: $spacing-md;
-  background: $darker-bg;
+  background: var(--darker-bg);
   border-radius: 0.5rem;
 }
 
@@ -468,7 +446,7 @@ $spacing-xl: 2rem;
   }
 
   .value {
-    color: $text-muted;
+    color: var(--text-muted);
   }
 }
 
@@ -486,7 +464,7 @@ $spacing-xl: 2rem;
 
 .gauge-label {
   font-weight: 600;
-  color: $text;
+  color: var(--text);
   font-size: 0.875rem;
 }
 
@@ -498,29 +476,29 @@ $spacing-xl: 2rem;
   text-transform: uppercase;
 
   &.status-rupture {
-    background: rgba($danger, 0.2);
-    color: $danger;
+    background: rgba(var(--danger), 0.2);
+    color: var(--danger);
   }
 
   &.status-faible {
-    background: rgba($warning, 0.2);
-    color: $warning;
+    background: rgba(var(--warning), 0.2);
+    color: var(--warning);
   }
 
   &.status-normal {
-    background: rgba($success, 0.2);
-    color: $success;
+    background: rgba(var(--success), 0.2);
+    color: var(--success);
   }
 
   &.status-excedent {
-    background: rgba($info, 0.2);
-    color: $info;
+    background: rgba(var(--info), 0.2);
+    color: var(--info);
   }
 }
 
 .gauge-bar {
   height: 12px;
-  background: $darker-bg;
+  background: var(--darker-bg);
   border-radius: 9999px;
   overflow: hidden;
   margin-bottom: $spacing-xs;
@@ -532,19 +510,19 @@ $spacing-xl: 2rem;
   transition: width 0.5s ease;
 
   &.status-rupture {
-    background: $danger;
+    background: var(--danger);
   }
 
   &.status-faible {
-    background: $warning;
+    background: var(--warning);
   }
 
   &.status-normal {
-    background: $success;
+    background: var(--success);
   }
 
   &.status-excedent {
-    background: $info;
+    background: var(--info);
   }
 }
 
@@ -552,19 +530,19 @@ $spacing-xl: 2rem;
   display: flex;
   justify-content: space-between;
   font-size: 0.75rem;
-  color: $text-muted;
+  color: var(--text-muted);
 }
 
 .stock-value {
   padding: $spacing-md;
-  background: $darker-bg;
+  background: var(--darker-bg);
   border-radius: 0.5rem;
   margin-bottom: $spacing-md;
 }
 
 .value-label {
   font-size: 0.75rem;
-  color: $text-muted;
+  color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: $spacing-xs;
@@ -573,7 +551,7 @@ $spacing-xl: 2rem;
 .value-amount {
   font-size: 1.25rem;
   font-weight: 700;
-  color: $success;
+  color: var(--success);
 }
 
 .stock-etat {
@@ -588,30 +566,30 @@ $spacing-xl: 2rem;
   font-weight: 600;
 
   &.etat-neuf {
-    background: rgba($success, 0.2);
-    color: $success;
+    background: rgba(var(--success), 0.2);
+    color: var(--success);
   }
 
   &.etat-bon {
-    background: rgba($info, 0.2);
-    color: $info;
+    background: rgba(var(--info), 0.2);
+    color: var(--info);
   }
 
   &.etat-usé {
-    background: rgba($warning, 0.2);
-    color: $warning;
+    background: rgba(var(--warning), 0.2);
+    color: var(--warning);
   }
 
   &.etat-à {
-    background: rgba($danger, 0.2);
-    color: $danger;
+    background: rgba(var(--danger), 0.2);
+    color: var(--danger);
   }
 }
 
 .stock-card-footer {
   padding: $spacing-md $spacing-lg;
-  background: $darker-bg;
-  border-top: 1px solid $border;
+  background: var(--darker-bg);
+  border-top: 1px solid var(--border);
   display: flex;
   gap: $spacing-sm;
 }
@@ -624,22 +602,22 @@ $spacing-xl: 2rem;
   color: white;
   font-weight: 600;
   cursor: pointer;
-  transition: $transition;
+  transition:  var(--transition);
   font-size: 0.875rem;
 
   &.btn-details {
-    background: $info;
+    background: var(--info);
 
     &:hover {
-      background: darken($info, 10%);
+      background: color-color-mix(in srgb, in srgb, var(--info) 90%, black);
     }
   }
 
   &.btn-movement {
-    background: $primary;
+    background: var(--primary);
 
     &:hover {
-      background: $primary-light;
+      background: var(--primary-light);
     }
   }
 }
@@ -647,8 +625,8 @@ $spacing-xl: 2rem;
 // ===== LISTE DE STOCK =====
 .stock-list {
   .section-card {
-    background: $card-bg;
-    border: 1px solid $border;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
     border-radius: 1rem;
     overflow: hidden;
   }
@@ -663,17 +641,17 @@ $spacing-xl: 2rem;
   border-collapse: collapse;
 
   thead {
-    background: $darker-bg;
+    background: var(--darker-bg);
 
     th {
       padding: $spacing-md $spacing-lg;
       text-align: left;
       font-weight: 600;
-      color: $text-muted;
+      color: var(--text-muted);
       font-size: 0.875rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      border-bottom: 2px solid $border;
+      border-bottom: 2px solid var(--border);
       white-space: nowrap;
 
       &.text-right {
@@ -688,16 +666,16 @@ $spacing-xl: 2rem;
 
   tbody {
     tr {
-      border-bottom: 1px solid $border;
+      border-bottom: 1px solid var(--border);
       transition: background 0.2s;
 
       &:hover {
-        background: $card-hover;
+        background: var(--card-hover);
       }
 
       td {
         padding: $spacing-md $spacing-lg;
-        color: $text;
+        color: var(--text);
         font-size: 0.95rem;
 
         &.text-right {
@@ -729,7 +707,7 @@ $spacing-xl: 2rem;
 .type-badge {
   display: inline-block;
   padding: $spacing-xs $spacing-md;
-  background: rgba($primary, 0.2);
+  background: rgba(var(--primary), 0.2);
   border-radius: 0.5rem;
   font-size: 0.875rem;
   font-weight: 600;
@@ -739,24 +717,24 @@ $spacing-xl: 2rem;
   font-weight: 600;
 
   &.status-rupture {
-    color: $danger;
+    color: var(--danger);
   }
 
   &.status-faible {
-    color: $warning;
+    color: var(--warning);
   }
 
   &.status-normal {
-    color: $success;
+    color: var(--success);
   }
 
   &.status-excedent {
-    color: $info;
+    color: var(--info);
   }
 }
 
 .stock-limits {
-  color: $text-muted;
+  color: var(--text-muted);
   font-size: 0.875rem;
 }
 
@@ -768,23 +746,23 @@ $spacing-xl: 2rem;
   text-transform: uppercase;
 
   &.status-rupture {
-    background: rgba($danger, 0.2);
-    color: $danger;
+    background: rgba(var(--danger), 0.2);
+    color: var(--danger);
   }
 
   &.status-faible {
-    background: rgba($warning, 0.2);
-    color: $warning;
+    background: rgba(var(--warning), 0.2);
+    color: var(--warning);
   }
 
   &.status-normal {
-    background: rgba($success, 0.2);
-    color: $success;
+    background: rgba(var(--success), 0.2);
+    color: var(--success);
   }
 
   &.status-excedent {
-    background: rgba($info, 0.2);
-    color: $info;
+    background: rgba(var(--info), 0.2);
+    color: var(--info);
   }
 }
 
@@ -795,22 +773,22 @@ $spacing-xl: 2rem;
   color: white;
   font-size: 1.2rem;
   cursor: pointer;
-  transition: $transition;
+  transition:  var(--transition);
   margin: 0 $spacing-xs / 2;
 
   &.btn-info {
-    background: $info;
+    background: var(--info);
 
     &:hover {
-      background: darken($info, 10%);
+      background: color-color-mix(in srgb, in srgb, var(--info) 90%, black);
     }
   }
 
   &.btn-primary {
-    background: $primary;
+    background: var(--primary);
 
     &:hover {
-      background: $primary-light;
+      background: var(--primary-light);
     }
   }
 }
@@ -822,13 +800,13 @@ $spacing-xl: 2rem;
   align-items: center;
   justify-content: center;
   padding: $spacing-xl * 2;
-  color: $text-muted;
+  color: var(--text-muted);
 
   .spinner {
     width: 48px;
     height: 48px;
-    border: 4px solid $border;
-    border-top-color: $primary;
+    border: 4px solid var(--border);
+    border-top-color: var(--primary);
     border-radius: 50%;
     animation: spin 1s linear infinite;
     margin-bottom: $spacing-lg;
@@ -845,9 +823,9 @@ $spacing-xl: 2rem;
 .no-results {
   text-align: center;
   padding: $spacing-xl * 2;
-  background: $card-bg;
+  background: var(--card-bg);
   border-radius: 1rem;
-  border: 1px solid $border;
+  border: 1px solid var(--border);
 
   .no-results-icon {
     font-size: 4rem;
@@ -855,12 +833,12 @@ $spacing-xl: 2rem;
   }
 
   h3 {
-    color: $text;
+    color: var(--text);
     margin-bottom: $spacing-md;
   }
 
   p {
-    color: $text-muted;
+    color: var(--text-muted);
     margin-bottom: $spacing-lg;
   }
 }
@@ -881,8 +859,8 @@ $spacing-xl: 2rem;
 }
 
 .modal-content {
-  background: $card-bg;
-  border: 1px solid $border;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
   border-radius: 1rem;
   width: 100%;
   max-width: 600px;
@@ -896,31 +874,31 @@ $spacing-xl: 2rem;
   justify-content: space-between;
   align-items: center;
   padding: $spacing-lg $spacing-xl;
-  border-bottom: 1px solid $border;
-  background: linear-gradient(135deg, rgba($primary, 0.1), transparent);
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(135deg, rgba(var(--primary), 0.1), transparent);
 
   h2 {
     margin: 0;
     font-size: 1.5rem;
-    color: $text;
+    color: var(--text);
   }
 }
 
 .btn-close {
   background: transparent;
   border: none;
-  color: $text-muted;
+  color: var(--text-muted);
   font-size: 1.5rem;
   cursor: pointer;
   padding: 0;
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  transition: $transition;
+  transition:  var(--transition);
 
   &:hover {
-    background: $card-hover;
-    color: $text;
+    background: var(--card-hover);
+    color: var(--text);
   }
 }
 
@@ -933,7 +911,7 @@ $spacing-xl: 2rem;
   align-items: center;
   gap: $spacing-lg;
   padding: $spacing-lg;
-  background: $darker-bg;
+  background: var(--darker-bg);
   border-radius: 0.5rem;
   margin-bottom: $spacing-xl;
 }
@@ -950,13 +928,13 @@ $spacing-xl: 2rem;
 
 .movement-form {
   padding: $spacing-lg;
-  background: $darker-bg;
+  background: var(--darker-bg);
   border-radius: 0.5rem;
-  border: 1px solid $border;
+  border: 1px solid var(--border);
 
   h4 {
     margin: 0 0 $spacing-md 0;
-    color: $text;
+    color: var(--text);
   }
 }
 
@@ -964,17 +942,17 @@ $spacing-xl: 2rem;
   width: 100%;
   padding: $spacing-md;
   margin-bottom: $spacing-md;
-  background: $card-bg;
-  border: 1px solid $border;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
   border-radius: 0.5rem;
-  color: $text;
+  color: var(--text);
   font-size: 1rem;
-  transition: $transition;
+  transition:  var(--transition);
 
   &:focus {
     outline: none;
-    border-color: $primary;
-    box-shadow: 0 0 0 3px rgba($primary, 0.1);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(var(--primary), 0.1);
   }
 }
 
@@ -986,26 +964,26 @@ $spacing-xl: 2rem;
   color: white;
   font-weight: 600;
   cursor: pointer;
-  transition: $transition;
+  transition:  var(--transition);
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: $shadow;
+    box-shadow: var(--shadow);
   }
 
   &.btn-success {
-    background: $success;
+    background: var(--success);
 
     &:hover {
-      background: darken($success, 10%);
+      background: color-color-mix(in srgb, in srgb, var(--success) 90%, black);
     }
   }
 
   &.btn-danger {
-    background: $danger;
+    background: var(--danger);
 
     &:hover {
-      background: darken($danger, 10%);
+      background: color-color-mix(in srgb, in srgb, var(--danger) 90%, black);
     }
   }
 }
@@ -1020,10 +998,10 @@ $spacing-xl: 2rem;
   align-items: center;
   gap: $spacing-xl;
   padding: $spacing-xl;
-  background: linear-gradient(135deg, rgba($primary, 0.1), transparent);
+  background: linear-gradient(135deg, rgba(var(--primary), 0.1), transparent);
   border-radius: 0.75rem;
   margin-bottom: $spacing-xl;
-  border: 1px solid rgba($primary, 0.2);
+  border: 1px solid rgba(var(--primary), 0.2);
 
   .item-icon-xlarge {
     font-size: 5rem;
@@ -1032,16 +1010,16 @@ $spacing-xl: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: $darker-bg;
+    background: var(--darker-bg);
     border-radius: 1rem;
-    border: 2px solid $border;
+    border: 2px solid var(--border);
   }
 
   h3 {
     margin: 0 0 $spacing-md 0;
     font-size: 2rem;
     font-weight: 700;
-    color: $text;
+    color: var(--text);
   }
 
   .item-meta {
@@ -1061,43 +1039,43 @@ $spacing-xl: 2rem;
 }
 
 .type-badge-detail {
-  background: rgba($primary, 0.2);
-  color: $primary;
+  background: rgba(var(--primary), 0.2);
+  color: var(--primary);
 }
 
 .category-badge-detail {
-  background: rgba($info, 0.2);
-  color: $info;
+  background: rgba(var(--info), 0.2);
+  color: var(--info);
 }
 
 .status-badge-detail {
   &.status-rupture {
-    background: rgba($danger, 0.2);
-    color: $danger;
+    background: rgba(var(--danger), 0.2);
+    color: var(--danger);
   }
 
   &.status-faible {
-    background: rgba($warning, 0.2);
-    color: $warning;
+    background: rgba(var(--warning), 0.2);
+    color: var(--warning);
   }
 
   &.status-normal {
-    background: rgba($success, 0.2);
-    color: $success;
+    background: rgba(var(--success), 0.2);
+    color: var(--success);
   }
 
   &.status-excedent {
-    background: rgba($info, 0.2);
-    color: $info;
+    background: rgba(var(--info), 0.2);
+    color: var(--info);
   }
 }
 
 .details-section {
-  background: $darker-bg;
+  background: var(--darker-bg);
   padding: $spacing-lg;
   border-radius: 0.75rem;
   margin-bottom: $spacing-lg;
-  border: 1px solid $border;
+  border: 1px solid var(--border);
 
   &:last-child {
     margin-bottom: 0;
@@ -1108,9 +1086,9 @@ $spacing-xl: 2rem;
   margin: 0 0 $spacing-lg 0;
   font-size: 1.25rem;
   font-weight: 600;
-  color: $text;
+  color: var(--text);
   padding-bottom: $spacing-md;
-  border-bottom: 2px solid $border;
+  border-bottom: 2px solid var(--border);
 }
 
 .details-grid {
@@ -1126,7 +1104,7 @@ $spacing-xl: 2rem;
 
   label {
     font-size: 0.75rem;
-    color: $text-muted;
+    color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     font-weight: 600;
@@ -1134,35 +1112,35 @@ $spacing-xl: 2rem;
 
   span {
     font-size: 1rem;
-    color: $text;
+    color: var(--text);
     font-weight: 500;
 
     &.value-highlight {
       font-size: 1.5rem;
       font-weight: 700;
-      color: $primary-light;
+      color: var(--primary-light);
     }
 
     &.value-money {
       font-size: 1.125rem;
       font-weight: 600;
-      color: $text;
+      color: var(--text);
     }
 
     &.value-profit {
       font-size: 1.125rem;
       font-weight: 600;
-      color: $success;
+      color: var(--success);
     }
 
     a {
-      color: $primary;
+      color: var(--primary);
       text-decoration: none;
-      transition: $transition;
+      transition:  var(--transition);
 
       &:hover {
         text-decoration: underline;
-        color: $primary-light;
+        color: var(--primary-light);
       }
     }
   }
@@ -1171,13 +1149,13 @@ $spacing-xl: 2rem;
 .pairing-section {
   margin-top: $spacing-lg;
   padding-top: $spacing-lg;
-  border-top: 1px solid $border;
+  border-top: 1px solid var(--border);
 }
 
 .pairing-label {
   display: block;
   font-size: 0.875rem;
-  color: $text;
+  color: var(--text);
   font-weight: 600;
   margin-bottom: $spacing-md;
 }
@@ -1190,21 +1168,21 @@ $spacing-xl: 2rem;
 
 .pairing-tag {
   padding: $spacing-xs $spacing-md;
-  background: rgba($success, 0.2);
-  color: $success;
+  background: rgba(var(--success), 0.2);
+  color: var(--success);
   border-radius: 0.5rem;
   font-size: 0.875rem;
   font-weight: 500;
-  border: 1px solid rgba($success, 0.3);
+  border: 1px solid rgba(var(--success), 0.3);
 }
 
 .notes-content {
   margin: 0;
   padding: $spacing-md;
-  background: $card-bg;
+  background: var(--card-bg);
   border-radius: 0.5rem;
-  border: 1px solid $border;
-  color: $text;
+  border: 1px solid var(--border);
+  color: var(--text);
   line-height: 1.6;
   font-size: 0.95rem;
 }

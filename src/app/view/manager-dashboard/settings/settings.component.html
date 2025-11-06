@@ -1,0 +1,469 @@
+<!-- ===== PAGE PARAMÈTRES ===== -->
+<div class="page-section">
+  
+  <section class="content-section">
+    
+    <!-- En-tête avec titre et actions -->
+    <div class="section-header">
+      <h2 class="section-title-main">⚙️ Paramètres</h2>
+      
+      <!-- Indicateur de modifications non sauvegardées -->
+      <div class="unsaved-indicator" *ngIf="hasUnsavedChanges">
+        ⚠️ Modifications non sauvegardées
+      </div>
+    </div>
+
+    <!-- Conteneur principal avec onglets -->
+    <div class="settings-container">
+      
+      <!-- ===== Navigation par onglets ===== -->
+      <div class="settings-tabs">
+        
+        <!-- Onglet: Général -->
+        <button class="settings-tab"
+                [class.active]="activeTab === 'general'"
+                (click)="switchTab('general')">
+          🌐 Général
+        </button>
+        
+        <!-- Onglet: Notifications -->
+        <button class="settings-tab"
+                [class.active]="activeTab === 'notifications'"
+                (click)="switchTab('notifications')">
+          🔔 Notifications
+        </button>
+        
+        <!-- Onglet: Affichage -->
+        <button class="settings-tab"
+                [class.active]="activeTab === 'display'"
+                (click)="switchTab('display')">
+          🎨 Affichage
+        </button>
+        
+        <!-- Onglet: Sécurité -->
+        <button class="settings-tab"
+                [class.active]="activeTab === 'security'"
+                (click)="switchTab('security')">
+          🔒 Sécurité
+        </button>
+        
+        <!-- Onglet: Business -->
+        <button class="settings-tab"
+                [class.active]="activeTab === 'business'"
+                (click)="switchTab('business')">
+          💼 Business
+        </button>
+      </div>
+
+      <!-- ===== Contenu des onglets ===== -->
+      <div class="settings-content">
+        
+        <!-- ===== ONGLET GÉNÉRAL ===== -->
+        <div *ngIf="activeTab === 'general'" class="settings-panel">
+          <h3 class="panel-title">Paramètres généraux</h3>
+          
+          <!-- Langue -->
+          <div class="setting-item">
+            <div class="setting-label">
+              <strong>Langue</strong>
+              <span class="setting-description">Langue de l'interface</span>
+            </div>
+            <select class="setting-input"
+                    [(ngModel)]="settings.general.language"
+                    (change)="onSettingsChange()">
+              <option value="fr">Français</option>
+              <option value="en">English</option>
+              <option value="es">Español</option>
+            </select>
+          </div>
+
+          <!-- Fuseau horaire -->
+          <div class="setting-item">
+            <div class="setting-label">
+              <strong>Fuseau horaire</strong>
+              <span class="setting-description">Votre fuseau horaire local</span>
+            </div>
+            <select class="setting-input"
+                    [(ngModel)]="settings.general.timezone"
+                    (change)="onSettingsChange()">
+              <option value="Africa/Lagos">Lagos (WAT)</option>
+              <option value="Africa/Abidjan">Abidjan (GMT)</option>
+              <option value="Africa/Cairo">Cairo (EET)</option>
+            </select>
+          </div>
+
+          <!-- Format de date -->
+          <div class="setting-item">
+            <div class="setting-label">
+              <strong>Format de date</strong>
+              <span class="setting-description">Comment afficher les dates</span>
+            </div>
+            <select class="setting-input"
+                    [(ngModel)]="settings.general.dateFormat"
+                    (change)="onSettingsChange()">
+              <option value="DD/MM/YYYY">JJ/MM/AAAA</option>
+              <option value="MM/DD/YYYY">MM/JJ/AAAA</option>
+              <option value="YYYY-MM-DD">AAAA-MM-JJ</option>
+            </select>
+          </div>
+
+          <!-- Devise -->
+          <div class="setting-item">
+            <div class="setting-label">
+              <strong>Devise</strong>
+              <span class="setting-description">Devise par défaut</span>
+            </div>
+            <select class="setting-input"
+                    [(ngModel)]="settings.general.currency"
+                    (change)="onSettingsChange()">
+              <option value="FCFA">FCFA</option>
+              <option value="EUR">Euro (€)</option>
+              <option value="USD">Dollar ($)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- ===== ONGLET NOTIFICATIONS ===== -->
+        <div *ngIf="activeTab === 'notifications'" class="settings-panel">
+          <h3 class="panel-title">Préférences de notifications</h3>
+          
+          <!-- Email -->
+          <div class="setting-item">
+            <div class="setting-label">
+              <strong>Notifications par email</strong>
+              <span class="setting-description">Recevoir des emails de notification</span>
+            </div>
+            <div class="setting-actions">
+              <label class="toggle-switch">
+                <input type="checkbox"
+                       [(ngModel)]="settings.notifications.email"
+                       (change)="onSettingsChange()">
+                <span class="toggle-slider"></span>
+              </label>
+              <button class="btn btn-sm btn-secondary" 
+                      (click)="testEmailNotification()"
+                      [disabled]="!settings.notifications.email">
+                📧 Tester
+              </button>
+            </div>
+          </div>
+
+          <!-- SMS -->
+          <div class="setting-item">
+            <div class="setting-label">
+              <strong>Notifications par SMS</strong>
+              <span class="setting-description">Recevoir des SMS de notification</span>
+            </div>
+            <div class="setting-actions">
+              <label class="toggle-switch">
+                <input type="checkbox"
+                       [(ngModel)]="settings.notifications.sms"
+                       (change)="onSettingsChange()">
+                <span class="toggle-slider"></span>
+              </label>
+              <button class="btn btn-sm btn-secondary" 
+                      (click)="testSMSNotification()"
+                      [disabled]="!settings.notifications.sms">
+                📱 Tester
+              </button>
+            </div>
+          </div>
+
+          <!-- Push -->
+          <div class="setting-item">
+            <div class="setting-label">
+              <strong>Notifications push</strong>
+              <span class="setting-description">Recevoir des notifications navigateur</span>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox"
+                     [(ngModel)]="settings.notifications.push"
+                     (change)="onSettingsChange()">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="divider"></div>
+          
+          <h4 class="subsection-title">Types de notifications</h4>
+
+          <!-- Stock faible -->
+          <div class="setting-item">
+            <div class="setting-label">
+              <strong>Alertes stock faible</strong>
+              <span class="setting-description">Quand le stock est en dessous du seuil</span>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox"
+                     [(ngModel)]="settings.notifications.lowStock"
+                     (change)="onSettingsChange()">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <!-- Nouvelles commandes -->
+          <div class="setting-item">
+            <div class="setting-label">
+              <strong>Nouvelles commandes</strong>
+              <span class="setting-description">Lors de nouvelles commandes</span>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox"
+                     [(ngModel)]="settings.notifications.newOrders"
+                     (change)="onSettingsChange()">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <!-- Activité employés -->
+          <div class="setting-item">
+            <div class="setting-label">
+              <strong>Activité des employés</strong>
+              <span class="setting-description">Actions importantes des employés</span>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox"
+                     [(ngModel)]="settings.notifications.employeeActivity"
+                     (change)="onSettingsChange()">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- ===== ONGLET AFFICHAGE ===== -->
+        <div *ngIf="activeTab === 'display'" class="settings-panel">
+          <h3 class="panel-title">Préférences d'affichage</h3>
+          
+          <!-- Thème -->
+          <div class="setting-item">
+            <div class="setting-label">
+              <strong>Thème</strong>
+              <span class="setting-description">Apparence de l'interface</span>
+            </div>
+            <div class="theme-selector">
+              <button class="theme-option"
+                      [class.active]="settings.display.theme === 'light'"
+                      (click)="changeTheme('light')">
+                ☀️ Clair
+              </button>
+              <button class="theme-option"
+                      [class.active]="settings.display.theme === 'dark'"
+                      (click)="changeTheme('dark')">
+                🌙 Sombre
+              </button>
+              <button class="theme-option"
+                      [class.active]="settings.display.theme === 'auto'"
+                      (click)="changeTheme('auto')">
+                🔄 Auto
+              </button>
+            </div>
+          </div>
+
+          <!-- Taille de police -->
+          <div class="setting-item">
+            <div class="setting-label">
+              <strong>Taille de police</strong>
+              <span class="setting-description">Taille du texte dans l'application</span>
+            </div>
+            <div class="font-size-selector">
+              <button class="font-size-option"
+                      [class.active]="settings.display.fontSize === 'small'"
+                      (click)="changeFontSize('small')">
+                Petit
+              </button>
+              <button class="font-size-option"
+                      [class.active]="settings.display.fontSize === 'medium'"
+                      (click)="changeFontSize('medium')">
+                Moyen
+              </button>
+              <button class="font-size-option"
+                      [class.active]="settings.display.fontSize === 'large'"
+                      (click)="changeFontSize('large')">
+                Grand
+              </button>
+            </div>
+          </div>
+
+          <!-- Sidebar réduite -->
+          <div class="setting-item">
+            <div class="setting-label">
+              <strong>Menu latéral réduit</strong>
+              <span class="setting-description">Afficher uniquement les icônes</span>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox"
+                     [(ngModel)]="settings.display.sidebarCollapsed"
+                     (change)="onSettingsChange()">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- ===== ONGLET SÉCURITÉ ===== -->
+        <div *ngIf="activeTab === 'security'" class="settings-panel">
+          <h3 class="panel-title">Sécurité et confidentialité</h3>
+          
+          <!-- Authentification à deux facteurs -->
+          <div class="setting-item">
+            <div class="setting-label">
+              <strong>Authentification à deux facteurs (2FA)</strong>
+              <span class="setting-description">Sécurité renforcée pour votre compte</span>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox"
+                     [(ngModel)]="settings.security.twoFactorAuth"
+                     (change)="toggleTwoFactorAuth()">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <!-- Timeout de session -->
+          <div class="setting-item">
+            <div class="setting-label">
+              <strong>Timeout de session</strong>
+              <span class="setting-description">Déconnexion automatique après inactivité</span>
+            </div>
+            <div class="setting-input-group">
+              <input type="number"
+                     class="setting-input"
+                     [(ngModel)]="settings.security.sessionTimeout"
+                     (change)="onSettingsChange()"
+                     min="5"
+                     max="120">
+              <span class="input-suffix">minutes</span>
+            </div>
+          </div>
+
+          <!-- Notifications de connexion -->
+          <div class="setting-item">
+            <div class="setting-label">
+              <strong>Notifications de connexion</strong>
+              <span class="setting-description">Être informé des nouvelles connexions</span>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox"
+                     [(ngModel)]="settings.security.loginNotifications"
+                     (change)="onSettingsChange()">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- ===== ONGLET BUSINESS ===== -->
+        <div *ngIf="activeTab === 'business'" class="settings-panel">
+          <h3 class="panel-title">Paramètres business</h3>
+          
+          <!-- Taux de taxe -->
+          <div class="setting-item">
+            <div class="setting-label">
+              <strong>Taux de taxe (TVA)</strong>
+              <span class="setting-description">Taxe appliquée aux ventes</span>
+            </div>
+            <div class="setting-input-group">
+              <input type="number"
+                     class="setting-input"
+                     [(ngModel)]="settings.business.taxRate"
+                     (change)="onSettingsChange()"
+                     min="0"
+                     max="100"
+                     step="0.1">
+              <span class="input-suffix">%</span>
+            </div>
+          </div>
+
+          <!-- Seuil stock faible -->
+          <div class="setting-item">
+            <div class="setting-label">
+              <strong>Seuil de stock faible</strong>
+              <span class="setting-description">Nombre d'unités pour déclencher une alerte</span>
+            </div>
+            <input type="number"
+                   class="setting-input"
+                   [(ngModel)]="settings.business.lowStockThreshold"
+                   (change)="onSettingsChange()"
+                   min="0">
+          </div>
+
+          <div class="divider"></div>
+          
+          <h4 class="subsection-title">Sauvegarde et données</h4>
+
+          <!-- Sauvegarde automatique -->
+          <div class="setting-item">
+            <div class="setting-label">
+              <strong>Sauvegarde automatique</strong>
+              <span class="setting-description">Sauvegarder automatiquement les données</span>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox"
+                     [(ngModel)]="settings.business.autoBackup"
+                     (change)="onSettingsChange()">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <!-- Fréquence de sauvegarde -->
+          <div class="setting-item" *ngIf="settings.business.autoBackup">
+            <div class="setting-label">
+              <strong>Fréquence de sauvegarde</strong>
+              <span class="setting-description">À quelle fréquence effectuer les sauvegardes</span>
+            </div>
+            <select class="setting-input"
+                    [(ngModel)]="settings.business.backupFrequency"
+                    (change)="onSettingsChange()">
+              <option value="hourly">Toutes les heures</option>
+              <option value="daily">Quotidien</option>
+              <option value="weekly">Hebdomadaire</option>
+              <option value="monthly">Mensuel</option>
+            </select>
+          </div>
+
+          <!-- Bouton sauvegarde manuelle -->
+          <div class="setting-item">
+            <div class="setting-label">
+              <strong>Sauvegarde manuelle</strong>
+              <span class="setting-description">Effectuer une sauvegarde immédiate</span>
+            </div>
+            <button class="btn btn-secondary" (click)="performManualBackup()">
+              💾 Sauvegarder maintenant
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== Boutons d'action en bas ===== -->
+      <div class="settings-footer">
+        
+        <!-- Actions secondaires -->
+        <div class="footer-left">
+          <button class="btn btn-outline" (click)="resetToDefaults()">
+            🔄 Réinitialiser
+          </button>
+          
+          <button class="btn btn-outline" (click)="importSettings()">
+            📥 Importer
+          </button>
+          
+          <button class="btn btn-outline" (click)="exportSettings()">
+            📤 Exporter
+          </button>
+        </div>
+
+        <!-- Actions principales -->
+        <div class="footer-right">
+          <button class="btn btn-cancel" 
+                  (click)="cancelChanges()"
+                  [disabled]="!hasUnsavedChanges">
+            Annuler
+          </button>
+          
+          <button class="btn btn-primary" 
+                  (click)="saveSettings()"
+                  [disabled]="!hasUnsavedChanges">
+            💾 Enregistrer les modifications
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

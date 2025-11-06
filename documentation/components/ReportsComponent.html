@@ -1,0 +1,1675 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cave-master-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cave-master-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ReportsComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/view/manager-dashboard/reports/reports.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-reports</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>FormsModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./reports.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./reports.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#dateDebut" >dateDebut</a>
+                            </li>
+                            <li>
+                                <a href="#dateFin" >dateFin</a>
+                            </li>
+                            <li>
+                                <a href="#rapportsRecents" >rapportsRecents</a>
+                            </li>
+                            <li>
+                                <a href="#rapportTemplates" >rapportTemplates</a>
+                            </li>
+                            <li>
+                                <a href="#selectedCave" >selectedCave</a>
+                            </li>
+                            <li>
+                                <a href="#selectedPeriode" >selectedPeriode</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#genererRapport" >genererRapport</a>
+                            </li>
+                            <li>
+                                <a href="#getColorClass" >getColorClass</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#telechargerRapport" >telechargerRapport</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="genererRapport"></a>
+                    <span class="name">
+                        <span ><b>genererRapport</b></span>
+                        <a href="#genererRapport"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>genererRapport(typeRapport: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="113"
+                                    class="link-to-prism">src/app/view/manager-dashboard/reports/reports.component.ts:113</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>typeRapport</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getColorClass"></a>
+                    <span class="name">
+                        <span ><b>getColorClass</b></span>
+                        <a href="#getColorClass"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getColorClass(color: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="128"
+                                    class="link-to-prism">src/app/view/manager-dashboard/reports/reports.component.ts:128</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>color</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="106"
+                                    class="link-to-prism">src/app/view/manager-dashboard/reports/reports.component.ts:106</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="telechargerRapport"></a>
+                    <span class="name">
+                        <span ><b>telechargerRapport</b></span>
+                        <a href="#telechargerRapport"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>telechargerRapport(rapportId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="123"
+                                    class="link-to-prism">src/app/view/manager-dashboard/reports/reports.component.ts:123</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>rapportId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dateDebut"></a>
+                    <span class="name">
+                        <span ><b>dateDebut</b></span>
+                        <a href="#dateDebut"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/view/manager-dashboard/reports/reports.component.ts:25</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dateFin"></a>
+                    <span class="name">
+                        <span ><b>dateFin</b></span>
+                        <a href="#dateFin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/view/manager-dashboard/reports/reports.component.ts:26</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="rapportsRecents"></a>
+                    <span class="name">
+                        <span ><b>rapportsRecents</b></span>
+                        <a href="#rapportsRecents"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    {
+      id: &#x27;rpt-1&#x27;,
+      titre: &#x27;Rapport Ventes - Octobre 2025&#x27;,
+      type: &#x27;ventes&#x27;,
+      date: &#x27;2025-10-08&#x27;,
+      taille: &#x27;2.4 MB&#x27;,
+      statut: &#x27;complete&#x27;
+    },
+    {
+      id: &#x27;rpt-2&#x27;,
+      titre: &#x27;Rapport Stock - Semaine 40&#x27;,
+      type: &#x27;stock&#x27;,
+      date: &#x27;2025-10-07&#x27;,
+      taille: &#x27;1.8 MB&#x27;,
+      statut: &#x27;complete&#x27;
+    },
+    {
+      id: &#x27;rpt-3&#x27;,
+      titre: &#x27;Rapport Caisse - Septembre 2025&#x27;,
+      type: &#x27;caisse&#x27;,
+      date: &#x27;2025-10-01&#x27;,
+      taille: &#x27;3.2 MB&#x27;,
+      statut: &#x27;complete&#x27;
+    }
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="79" class="link-to-prism">src/app/view/manager-dashboard/reports/reports.component.ts:79</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="rapportTemplates"></a>
+                    <span class="name">
+                        <span ><b>rapportTemplates</b></span>
+                        <a href="#rapportTemplates"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/RapportTemplate.html" target="_self" >RapportTemplate[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    {
+      id: &#x27;ventes&#x27;,
+      type: &#x27;ventes&#x27;,
+      titre: &#x27;Rapport de Ventes&#x27;,
+      description: &#x27;Analyse complète des ventes par période&#x27;,
+      icon: &#x27;📊&#x27;,
+      color: &#x27;success&#x27;
+    },
+    {
+      id: &#x27;stock&#x27;,
+      type: &#x27;stock&#x27;,
+      titre: &#x27;Rapport de Stock&#x27;,
+      description: &#x27;État des stocks et mouvements&#x27;,
+      icon: &#x27;📦&#x27;,
+      color: &#x27;info&#x27;
+    },
+    {
+      id: &#x27;caisse&#x27;,
+      type: &#x27;caisse&#x27;,
+      titre: &#x27;Rapport de Caisse&#x27;,
+      description: &#x27;Encaissements et transactions&#x27;,
+      icon: &#x27;💰&#x27;,
+      color: &#x27;warning&#x27;
+    },
+    {
+      id: &#x27;equipe&#x27;,
+      type: &#x27;equipe&#x27;,
+      titre: &#x27;Rapport d\&#x27;Équipe&#x27;,
+      description: &#x27;Performances et présences du personnel&#x27;,
+      icon: &#x27;👥&#x27;,
+      color: &#x27;primary&#x27;
+    },
+    {
+      id: &#x27;clients&#x27;,
+      type: &#x27;clients&#x27;,
+      titre: &#x27;Rapport Clients&#x27;,
+      description: &#x27;Analyse de la clientèle et fidélité&#x27;,
+      icon: &#x27;👤&#x27;,
+      color: &#x27;accent&#x27;
+    },
+    {
+      id: &#x27;global&#x27;,
+      type: &#x27;global&#x27;,
+      titre: &#x27;Rapport Global&#x27;,
+      description: &#x27;Vue d\&#x27;ensemble complète de l\&#x27;activité&#x27;,
+      icon: &#x27;📋&#x27;,
+      color: &#x27;purple&#x27;
+    }
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/view/manager-dashboard/reports/reports.component.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedCave"></a>
+                    <span class="name">
+                        <span ><b>selectedCave</b></span>
+                        <a href="#selectedCave"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;all&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/view/manager-dashboard/reports/reports.component.ts:24</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedPeriode"></a>
+                    <span class="name">
+                        <span ><b>selectedPeriode</b></span>
+                        <a href="#selectedPeriode"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;mois&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/view/manager-dashboard/reports/reports.component.ts:23</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+
+interface RapportTemplate {
+  id: string;
+  type: string;
+  titre: string;
+  description: string;
+  icon: string;
+  color: string;
+}
+
+@Component({
+  selector: &#x27;app-reports&#x27;,
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  templateUrl: &#x27;./reports.component.html&#x27;,
+  styleUrls: [&#x27;./reports.component.scss&#x27;]
+})
+export class ReportsComponent implements OnInit {
+  selectedPeriode: string &#x3D; &#x27;mois&#x27;;
+  selectedCave: string &#x3D; &#x27;all&#x27;;
+  dateDebut: string &#x3D; &#x27;&#x27;;
+  dateFin: string &#x3D; &#x27;&#x27;;
+
+  rapportTemplates: RapportTemplate[] &#x3D; [
+    {
+      id: &#x27;ventes&#x27;,
+      type: &#x27;ventes&#x27;,
+      titre: &#x27;Rapport de Ventes&#x27;,
+      description: &#x27;Analyse complète des ventes par période&#x27;,
+      icon: &#x27;📊&#x27;,
+      color: &#x27;success&#x27;
+    },
+    {
+      id: &#x27;stock&#x27;,
+      type: &#x27;stock&#x27;,
+      titre: &#x27;Rapport de Stock&#x27;,
+      description: &#x27;État des stocks et mouvements&#x27;,
+      icon: &#x27;📦&#x27;,
+      color: &#x27;info&#x27;
+    },
+    {
+      id: &#x27;caisse&#x27;,
+      type: &#x27;caisse&#x27;,
+      titre: &#x27;Rapport de Caisse&#x27;,
+      description: &#x27;Encaissements et transactions&#x27;,
+      icon: &#x27;💰&#x27;,
+      color: &#x27;warning&#x27;
+    },
+    {
+      id: &#x27;equipe&#x27;,
+      type: &#x27;equipe&#x27;,
+      titre: &#x27;Rapport d\&#x27;Équipe&#x27;,
+      description: &#x27;Performances et présences du personnel&#x27;,
+      icon: &#x27;👥&#x27;,
+      color: &#x27;primary&#x27;
+    },
+    {
+      id: &#x27;clients&#x27;,
+      type: &#x27;clients&#x27;,
+      titre: &#x27;Rapport Clients&#x27;,
+      description: &#x27;Analyse de la clientèle et fidélité&#x27;,
+      icon: &#x27;👤&#x27;,
+      color: &#x27;accent&#x27;
+    },
+    {
+      id: &#x27;global&#x27;,
+      type: &#x27;global&#x27;,
+      titre: &#x27;Rapport Global&#x27;,
+      description: &#x27;Vue d\&#x27;ensemble complète de l\&#x27;activité&#x27;,
+      icon: &#x27;📋&#x27;,
+      color: &#x27;purple&#x27;
+    }
+  ];
+
+  rapportsRecents &#x3D; [
+    {
+      id: &#x27;rpt-1&#x27;,
+      titre: &#x27;Rapport Ventes - Octobre 2025&#x27;,
+      type: &#x27;ventes&#x27;,
+      date: &#x27;2025-10-08&#x27;,
+      taille: &#x27;2.4 MB&#x27;,
+      statut: &#x27;complete&#x27;
+    },
+    {
+      id: &#x27;rpt-2&#x27;,
+      titre: &#x27;Rapport Stock - Semaine 40&#x27;,
+      type: &#x27;stock&#x27;,
+      date: &#x27;2025-10-07&#x27;,
+      taille: &#x27;1.8 MB&#x27;,
+      statut: &#x27;complete&#x27;
+    },
+    {
+      id: &#x27;rpt-3&#x27;,
+      titre: &#x27;Rapport Caisse - Septembre 2025&#x27;,
+      type: &#x27;caisse&#x27;,
+      date: &#x27;2025-10-01&#x27;,
+      taille: &#x27;3.2 MB&#x27;,
+      statut: &#x27;complete&#x27;
+    }
+  ];
+
+  ngOnInit(): void {
+    const today &#x3D; new Date();
+    const firstDay &#x3D; new Date(today.getFullYear(), today.getMonth(), 1);
+    this.dateDebut &#x3D; firstDay.toISOString().split(&#x27;T&#x27;)[0];
+    this.dateFin &#x3D; today.toISOString().split(&#x27;T&#x27;)[0];
+  }
+
+  genererRapport(typeRapport: string): void {
+    console.log(&#x60;Génération du rapport ${typeRapport}&#x60;, {
+      periode: this.selectedPeriode,
+      cave: this.selectedCave,
+      dateDebut: this.dateDebut,
+      dateFin: this.dateFin
+    });
+    alert(&#x60;Génération du rapport ${typeRapport} en cours...&#x60;);
+  }
+
+  telechargerRapport(rapportId: string): void {
+    console.log(&#x60;Téléchargement du rapport ${rapportId}&#x60;);
+    alert(&#x60;Téléchargement du rapport ${rapportId}...&#x60;);
+  }
+
+  getColorClass(color: string): string {
+    return &#x60;template-card-${color}&#x60;;
+  }
+}
+
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; reports.component.html &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+&lt;section class&#x3D;&quot;content-section&quot;&gt;
+  &lt;div class&#x3D;&quot;section-header&quot;&gt;
+    &lt;div&gt;
+      &lt;h2 class&#x3D;&quot;section-title-main&quot;&gt;Rapports &amp; Analyses&lt;/h2&gt;
+      &lt;p class&#x3D;&quot;section-subtitle&quot;&gt;Générez des rapports détaillés sur votre activité&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Configuration du rapport --&gt;
+  &lt;div class&#x3D;&quot;report-config-card&quot;&gt;
+    &lt;h3 class&#x3D;&quot;config-title&quot;&gt;⚙️ Configuration du Rapport&lt;/h3&gt;
+
+    &lt;div class&#x3D;&quot;config-grid&quot;&gt;
+      &lt;div class&#x3D;&quot;config-group&quot;&gt;
+        &lt;label class&#x3D;&quot;config-label&quot;&gt;Période&lt;/label&gt;
+        &lt;select [(ngModel)]&#x3D;&quot;selectedPeriode&quot; class&#x3D;&quot;config-select&quot;&gt;
+          &lt;option value&#x3D;&quot;jour&quot;&gt;Aujourd&#x27;hui&lt;/option&gt;
+          &lt;option value&#x3D;&quot;semaine&quot;&gt;Cette semaine&lt;/option&gt;
+          &lt;option value&#x3D;&quot;mois&quot;&gt;Ce mois&lt;/option&gt;
+          &lt;option value&#x3D;&quot;trimestre&quot;&gt;Ce trimestre&lt;/option&gt;
+          &lt;option value&#x3D;&quot;annee&quot;&gt;Cette année&lt;/option&gt;
+          &lt;option value&#x3D;&quot;personnalisee&quot;&gt;Période personnalisée&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;config-group&quot;&gt;
+        &lt;label class&#x3D;&quot;config-label&quot;&gt;Cave&lt;/label&gt;
+        &lt;select [(ngModel)]&#x3D;&quot;selectedCave&quot; class&#x3D;&quot;config-select&quot;&gt;
+          &lt;option value&#x3D;&quot;all&quot;&gt;Toutes les caves&lt;/option&gt;
+          &lt;option value&#x3D;&quot;cave-1&quot;&gt;Cave Principale&lt;/option&gt;
+          &lt;option value&#x3D;&quot;cave-2&quot;&gt;Cave Victoria Island&lt;/option&gt;
+          &lt;option value&#x3D;&quot;cave-3&quot;&gt;Cave Ikoyi&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;config-group&quot; *ngIf&#x3D;&quot;selectedPeriode &#x3D;&#x3D;&#x3D; &#x27;personnalisee&#x27;&quot;&gt;
+        &lt;label class&#x3D;&quot;config-label&quot;&gt;Date de début&lt;/label&gt;
+        &lt;input type&#x3D;&quot;date&quot; [(ngModel)]&#x3D;&quot;dateDebut&quot; class&#x3D;&quot;config-input&quot;&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;config-group&quot; *ngIf&#x3D;&quot;selectedPeriode &#x3D;&#x3D;&#x3D; &#x27;personnalisee&#x27;&quot;&gt;
+        &lt;label class&#x3D;&quot;config-label&quot;&gt;Date de fin&lt;/label&gt;
+        &lt;input type&#x3D;&quot;date&quot; [(ngModel)]&#x3D;&quot;dateFin&quot; class&#x3D;&quot;config-input&quot;&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Templates de rapports --&gt;
+  &lt;div class&#x3D;&quot;templates-section&quot;&gt;
+    &lt;h3 class&#x3D;&quot;templates-title&quot;&gt;📄 Types de Rapports Disponibles&lt;/h3&gt;
+
+    &lt;div class&#x3D;&quot;templates-grid&quot;&gt;
+      &lt;div *ngFor&#x3D;&quot;let template of rapportTemplates&quot;
+           class&#x3D;&quot;template-card&quot;
+           [ngClass]&#x3D;&quot;getColorClass(template.color)&quot;&gt;
+        &lt;div class&#x3D;&quot;template-icon&quot;&gt;{{template.icon}}&lt;/div&gt;
+        &lt;div class&#x3D;&quot;template-content&quot;&gt;
+          &lt;h4 class&#x3D;&quot;template-title&quot;&gt;{{template.titre}}&lt;/h4&gt;
+          &lt;p class&#x3D;&quot;template-description&quot;&gt;{{template.description}}&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;button class&#x3D;&quot;btn-generate&quot; (click)&#x3D;&quot;genererRapport(template.type)&quot;&gt;
+          🚀 Générer
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Rapports récents --&gt;
+  &lt;div class&#x3D;&quot;recent-reports-section&quot;&gt;
+    &lt;div class&#x3D;&quot;recent-reports-header&quot;&gt;
+      &lt;h3&gt;📚 Rapports Récents&lt;/h3&gt;
+      &lt;button class&#x3D;&quot;btn-view-all&quot;&gt;Voir tout l&#x27;historique&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;recent-reports-list&quot;&gt;
+      &lt;div *ngFor&#x3D;&quot;let rapport of rapportsRecents&quot; class&#x3D;&quot;report-item&quot;&gt;
+        &lt;div class&#x3D;&quot;report-icon&quot;&gt;
+          &lt;span *ngIf&#x3D;&quot;rapport.type &#x3D;&#x3D;&#x3D; &#x27;ventes&#x27;&quot;&gt;📊&lt;/span&gt;
+          &lt;span *ngIf&#x3D;&quot;rapport.type &#x3D;&#x3D;&#x3D; &#x27;stock&#x27;&quot;&gt;📦&lt;/span&gt;
+          &lt;span *ngIf&#x3D;&quot;rapport.type &#x3D;&#x3D;&#x3D; &#x27;caisse&#x27;&quot;&gt;💰&lt;/span&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;report-info&quot;&gt;
+          &lt;div class&#x3D;&quot;report-title&quot;&gt;{{rapport.titre}}&lt;/div&gt;
+          &lt;div class&#x3D;&quot;report-meta&quot;&gt;
+            &lt;span class&#x3D;&quot;report-date&quot;&gt;📅 {{rapport.date}}&lt;/span&gt;
+            &lt;span class&#x3D;&quot;report-size&quot;&gt;📁 {{rapport.taille}}&lt;/span&gt;
+            &lt;span class&#x3D;&quot;report-status success&quot;&gt;✓ Terminé&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;report-actions&quot;&gt;
+          &lt;button class&#x3D;&quot;btn-icon&quot; (click)&#x3D;&quot;telechargerRapport(rapport.id)&quot; title&#x3D;&quot;Télécharger&quot;&gt;
+            📥
+          &lt;/button&gt;
+          &lt;button class&#x3D;&quot;btn-icon&quot; title&#x3D;&quot;Aperçu&quot;&gt;
+            👁️
+          &lt;/button&gt;
+          &lt;button class&#x3D;&quot;btn-icon&quot; title&#x3D;&quot;Partager&quot;&gt;
+            📤
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Statistiques rapides --&gt;
+  &lt;div class&#x3D;&quot;quick-stats&quot;&gt;
+    &lt;div class&#x3D;&quot;quick-stat-card&quot;&gt;
+      &lt;div class&#x3D;&quot;quick-stat-icon&quot;&gt;📊&lt;/div&gt;
+      &lt;div class&#x3D;&quot;quick-stat-content&quot;&gt;
+        &lt;div class&#x3D;&quot;quick-stat-value&quot;&gt;125&lt;/div&gt;
+        &lt;div class&#x3D;&quot;quick-stat-label&quot;&gt;Rapports générés ce mois&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;quick-stat-card&quot;&gt;
+      &lt;div class&#x3D;&quot;quick-stat-icon&quot;&gt;⬇️&lt;/div&gt;
+      &lt;div class&#x3D;&quot;quick-stat-content&quot;&gt;
+        &lt;div class&#x3D;&quot;quick-stat-value&quot;&gt;89&lt;/div&gt;
+        &lt;div class&#x3D;&quot;quick-stat-label&quot;&gt;Téléchargements&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;quick-stat-card&quot;&gt;
+      &lt;div class&#x3D;&quot;quick-stat-icon&quot;&gt;📈&lt;/div&gt;
+      &lt;div class&#x3D;&quot;quick-stat-content&quot;&gt;
+        &lt;div class&#x3D;&quot;quick-stat-value&quot;&gt;45 MB&lt;/div&gt;
+        &lt;div class&#x3D;&quot;quick-stat-label&quot;&gt;Espace utilisé&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;quick-stat-card&quot;&gt;
+      &lt;div class&#x3D;&quot;quick-stat-icon&quot;&gt;⏱️&lt;/div&gt;
+      &lt;div class&#x3D;&quot;quick-stat-content&quot;&gt;
+        &lt;div class&#x3D;&quot;quick-stat-value&quot;&gt;2 min&lt;/div&gt;
+        &lt;div class&#x3D;&quot;quick-stat-label&quot;&gt;Temps moyen de génération&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Formats d&#x27;export --&gt;
+  &lt;div class&#x3D;&quot;export-formats&quot;&gt;
+    &lt;h3 class&#x3D;&quot;export-title&quot;&gt;📤 Formats d&#x27;Export Disponibles&lt;/h3&gt;
+    &lt;div class&#x3D;&quot;formats-grid&quot;&gt;
+      &lt;div class&#x3D;&quot;format-card&quot;&gt;
+        &lt;span class&#x3D;&quot;format-icon&quot;&gt;📄&lt;/span&gt;
+        &lt;span class&#x3D;&quot;format-name&quot;&gt;PDF&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;format-card&quot;&gt;
+        &lt;span class&#x3D;&quot;format-icon&quot;&gt;📊&lt;/span&gt;
+        &lt;span class&#x3D;&quot;format-name&quot;&gt;Excel&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;format-card&quot;&gt;
+        &lt;span class&#x3D;&quot;format-icon&quot;&gt;📋&lt;/span&gt;
+        &lt;span class&#x3D;&quot;format-name&quot;&gt;CSV&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;format-card&quot;&gt;
+        &lt;span class&#x3D;&quot;format-icon&quot;&gt;📝&lt;/span&gt;
+        &lt;span class&#x3D;&quot;format-name&quot;&gt;Word&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+*/
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./reports.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; RÉINITIALISATION &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+// Le * signifie &quot;tous les éléments&quot;
+// On réinitialise les marges et espacements par défaut du navigateur
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; // La largeur inclut padding et border
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; STYLES DE BASE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+body {
+  font-family: -apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, sans-serif;
+  // linear-gradient crée un dégradé de couleurs pour le fond
+  background: linear-gradient(135deg, #000000 0%, #0a0f1e 50%, #111827 100%);
+  color: white;
+}
+
+.content-section {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  color: var(--text);
+}
+
+.section-header {
+  margin-bottom: 2rem;
+}
+
+.section-title-main {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.report-config-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.config-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--text);
+}
+
+.config-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.config-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.config-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.config-select,
+.config-input {
+  padding: 0.75rem 1rem;
+  background: var(--darker-bg);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  color: var(--text);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &amp;:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+  }
+}
+
+.templates-section {
+  margin-bottom: 2rem;
+}
+
+.templates-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--text);
+}
+
+.templates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.template-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: all 0.3s;
+
+  &amp;:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  &amp;.template-card-success {
+    border-color: var(--success);
+    &amp;:hover { box-shadow: 0 15px 40px rgba(16, 185, 129, 0.3); }
+  }
+
+  &amp;.template-card-info {
+    border-color: var(--info);
+    &amp;:hover { box-shadow: 0 15px 40px rgba(59, 130, 246, 0.3); }
+  }
+
+  &amp;.template-card-warning {
+    border-color: var(--warning);
+    &amp;:hover { box-shadow: 0 15px 40px rgba(245, 158, 11, 0.3); }
+  }
+
+  &amp;.template-card-primary {
+    border-color: var(--primary);
+    &amp;:hover { box-shadow: 0 15px 40px rgba(139, 92, 246, 0.3); }
+  }
+
+  &amp;.template-card-accent {
+    border-color: var(--accent);
+    &amp;:hover { box-shadow: 0 15px 40px rgba(99, 102, 241, 0.3); }
+  }
+
+  &amp;.template-card-purple {
+    border-color: var(--primary-light);
+    &amp;:hover { box-shadow: 0 15px 40px rgba(167, 139, 250, 0.3); }
+  }
+}
+
+.template-icon {
+  font-size: 3rem;
+  text-align: center;
+}
+
+.template-content {
+  flex: 1;
+}
+
+.template-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.template-description {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.btn-generate {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  border: none;
+  border-radius: 0.5rem;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 0.95rem;
+
+  &amp;:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
+  }
+}
+
+.recent-reports-section {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.recent-reports-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+}
+
+.btn-view-all {
+  padding: 0.5rem 1rem;
+  background: rgba(139, 92, 246, 0.15);
+  border: 1px solid var(--primary);
+  border-radius: 0.5rem;
+  color: var(--primary-light);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.3s;
+
+  &amp;:hover {
+    background: var(--primary);
+    color: white;
+  }
+}
+
+.recent-reports-list {
+  max-height: 400px;
+  overflow-y: auto;
+
+  &amp;::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &amp;::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+  }
+}
+
+.report-item {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  transition: all 0.3s;
+
+  &amp;:hover {
+    background: var(--card-hover);
+    padding-left: 2rem;
+  }
+
+  &amp;:last-child {
+    border-bottom: none;
+  }
+}
+
+.report-icon {
+  width: 50px;
+  height: 50px;
+  background: rgba(139, 92, 246, 0.15);
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  flex-shrink: 0;
+}
+
+.report-info {
+  flex: 1;
+}
+
+.report-title {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.report-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.report-status {
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+
+  &amp;.success {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--success);
+  }
+}
+
+.report-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(139, 92, 246, 0.15);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &amp;:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    transform: scale(1.1);
+  }
+}
+
+.quick-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.quick-stat-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.3s;
+
+  &amp;:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    border-color: var(--primary);
+  }
+}
+
+.quick-stat-icon {
+  font-size: 2.5rem;
+  width: 70px;
+  height: 70px;
+  background: rgba(139, 92, 246, 0.15);
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.quick-stat-content {
+  flex: 1;
+}
+
+.quick-stat-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+}
+
+.quick-stat-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.export-formats {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+.export-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--text);
+}
+
+.formats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.format-card {
+  background: var(--darker-bg);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.3s;
+  cursor: pointer;
+
+  &amp;:hover {
+    background: var(--card-hover);
+    border-color: var(--primary);
+    transform: translateY(-3px);
+  }
+}
+
+.format-icon {
+  font-size: 2.5rem;
+}
+
+.format-name {
+  font-weight: 700;
+  color: var(--text);
+}
+
+@media (max-width: 768px) {
+  .templates-grid,
+  .quick-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .config-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .report-item {
+    flex-wrap: wrap;
+  }
+
+  .report-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div>// ===== reports.component.html =====<section class="content-section">  <div class="section-header">    <div>      <h2 class="section-title-main">Rapports & Analyses</h2>      <p class="section-subtitle">Générez des rapports détaillés sur votre activité</p>    </div>  </div>  <!-- Configuration du rapport -->  <div class="report-config-card">    <h3 class="config-title">⚙️ Configuration du Rapport</h3>    <div class="config-grid">      <div class="config-group">        <label class="config-label">Période</label>        <select [(ngModel)]="selectedPeriode" class="config-select">          <option value="jour">Aujourd\'hui</option>          <option value="semaine">Cette semaine</option>          <option value="mois">Ce mois</option>          <option value="trimestre">Ce trimestre</option>          <option value="annee">Cette année</option>          <option value="personnalisee">Période personnalisée</option>        </select>      </div>      <div class="config-group">        <label class="config-label">Cave</label>        <select [(ngModel)]="selectedCave" class="config-select">          <option value="all">Toutes les caves</option>          <option value="cave-1">Cave Principale</option>          <option value="cave-2">Cave Victoria Island</option>          <option value="cave-3">Cave Ikoyi</option>        </select>      </div>      <div class="config-group" *ngIf="selectedPeriode === \'personnalisee\'">        <label class="config-label">Date de début</label>        <input type="date" [(ngModel)]="dateDebut" class="config-input">      </div>      <div class="config-group" *ngIf="selectedPeriode === \'personnalisee\'">        <label class="config-label">Date de fin</label>        <input type="date" [(ngModel)]="dateFin" class="config-input">      </div>    </div>  </div>  <!-- Templates de rapports -->  <div class="templates-section">    <h3 class="templates-title">📄 Types de Rapports Disponibles</h3>    <div class="templates-grid">      <div *ngFor="let template of rapportTemplates"           class="template-card"           [ngClass]="getColorClass(template.color)">        <div class="template-icon">{{template.icon}}</div>        <div class="template-content">          <h4 class="template-title">{{template.titre}}</h4>          <p class="template-description">{{template.description}}</p>        </div>        <button class="btn-generate" (click)="genererRapport(template.type)">          🚀 Générer        </button>      </div>    </div>  </div>  <!-- Rapports récents -->  <div class="recent-reports-section">    <div class="recent-reports-header">      <h3>📚 Rapports Récents</h3>      <button class="btn-view-all">Voir tout l\'historique</button>    </div>    <div class="recent-reports-list">      <div *ngFor="let rapport of rapportsRecents" class="report-item">        <div class="report-icon">          <span *ngIf="rapport.type === \'ventes\'">📊</span>          <span *ngIf="rapport.type === \'stock\'">📦</span>          <span *ngIf="rapport.type === \'caisse\'">💰</span>        </div>        <div class="report-info">          <div class="report-title">{{rapport.titre}}</div>          <div class="report-meta">            <span class="report-date">📅 {{rapport.date}}</span>            <span class="report-size">📁 {{rapport.taille}}</span>            <span class="report-status success">✓ Terminé</span>          </div>        </div>        <div class="report-actions">          <button class="btn-icon" (click)="telechargerRapport(rapport.id)" title="Télécharger">            📥          </button>          <button class="btn-icon" title="Aperçu">            👁️          </button>          <button class="btn-icon" title="Partager">            📤          </button>        </div>      </div>    </div>  </div>  <!-- Statistiques rapides -->  <div class="quick-stats">    <div class="quick-stat-card">      <div class="quick-stat-icon">📊</div>      <div class="quick-stat-content">        <div class="quick-stat-value">125</div>        <div class="quick-stat-label">Rapports générés ce mois</div>      </div>    </div>    <div class="quick-stat-card">      <div class="quick-stat-icon">⬇️</div>      <div class="quick-stat-content">        <div class="quick-stat-value">89</div>        <div class="quick-stat-label">Téléchargements</div>      </div>    </div>    <div class="quick-stat-card">      <div class="quick-stat-icon">📈</div>      <div class="quick-stat-content">        <div class="quick-stat-value">45 MB</div>        <div class="quick-stat-label">Espace utilisé</div>      </div>    </div>    <div class="quick-stat-card">      <div class="quick-stat-icon">⏱️</div>      <div class="quick-stat-content">        <div class="quick-stat-value">2 min</div>        <div class="quick-stat-label">Temps moyen de génération</div>      </div>    </div>  </div>  <!-- Formats d\'export -->  <div class="export-formats">    <h3 class="export-title">📤 Formats d\'Export Disponibles</h3>    <div class="formats-grid">      <div class="format-card">        <span class="format-icon">📄</span>        <span class="format-name">PDF</span>      </div>      <div class="format-card">        <span class="format-icon">📊</span>        <span class="format-name">Excel</span>      </div>      <div class="format-card">        <span class="format-icon">📋</span>        <span class="format-name">CSV</span>      </div>      <div class="format-card">        <span class="format-icon">📝</span>        <span class="format-name">Word</span>      </div>    </div>  </div></section>*/</div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AdminDashboardComponent', 'selector': 'app-admin-dashboard'},{'name': 'AlertsComponent', 'selector': 'app-alerts'},{'name': 'App', 'selector': 'app-root'},{'name': 'CaisseComponent', 'selector': 'app-caisse'},{'name': 'CaveCreateComponent', 'selector': 'app-cave-create'},{'name': 'CaveListComponent', 'selector': 'app-cave-lists'},{'name': 'ClientDashboardComponent', 'selector': 'app-client-dashboard'},{'name': 'ClientsComponent', 'selector': 'app-client'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DrinksComponent', 'selector': 'app-drinks'},{'name': 'EmployeesComponent', 'selector': 'app-employees'},{'name': 'EntriesComponent', 'selector': 'app-entries'},{'name': 'ExitsComponent', 'selector': 'app-exits'},{'name': 'ExpenseComponent', 'selector': 'app-depenses'},{'name': 'FaqComponent', 'selector': 'app-faq'},{'name': 'FournisseursComponent', 'selector': 'app-fournisseur'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'ImprovementsComponent', 'selector': 'app-improvements'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ManagerDashboardComponent', 'selector': 'app-manager-dashboard'},{'name': 'ManagersComponent', 'selector': 'app-managers'},{'name': 'MaterialComponent', 'selector': 'app-materiel'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'OrdersComponent', 'selector': 'app-orders'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfitComponent', 'selector': 'app-profit'},{'name': 'RecentActionsComponent', 'selector': 'app-recent-actions'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'SalesComponent', 'selector': 'app-sales'},{'name': 'ScanComponent', 'selector': 'app-scan'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'StockComponent', 'selector': 'app-stock'},{'name': 'StockComponent', 'selector': 'app-stock'},{'name': 'TeamComponent', 'selector': 'app-team'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'UserCreateComponent', 'selector': 'app-user-create'},{'name': 'UserListComponent', 'selector': 'app-user-list'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'WaitressDashboardComponent', 'selector': 'app-waitress-dashboard'},{'name': 'WinePairingComponent', 'selector': 'app-wine-pairing'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'ReportsComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ReportsComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,2718 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cave-master-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cave-master-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  SettingsComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/view/admin-dashboard/settings/settings.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Composant Settings - Paramètres de l&#39;application
+Permet de configurer tous les aspects de l&#39;application</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-settings</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>FormsModule</code>
+                            <code>ReactiveFormsModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./settings.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./settings.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#activeTab" >activeTab</a>
+                            </li>
+                            <li>
+                                <a href="#hasUnsavedChanges" >hasUnsavedChanges</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#originalSettings" >originalSettings</a>
+                            </li>
+                            <li>
+                                <a href="#settings" >settings</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#cancelChanges" >cancelChanges</a>
+                            </li>
+                            <li>
+                                <a href="#changeFontSize" >changeFontSize</a>
+                            </li>
+                            <li>
+                                <a href="#changeTheme" >changeTheme</a>
+                            </li>
+                            <li>
+                                <a href="#exportSettings" >exportSettings</a>
+                            </li>
+                            <li>
+                                <a href="#importSettings" >importSettings</a>
+                            </li>
+                            <li>
+                                <a href="#loadSettings" >loadSettings</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onSettingsChange" >onSettingsChange</a>
+                            </li>
+                            <li>
+                                <a href="#performManualBackup" >performManualBackup</a>
+                            </li>
+                            <li>
+                                <a href="#resetToDefaults" >resetToDefaults</a>
+                            </li>
+                            <li>
+                                <a href="#saveSettings" >saveSettings</a>
+                            </li>
+                            <li>
+                                <a href="#switchTab" >switchTab</a>
+                            </li>
+                            <li>
+                                <a href="#testEmailNotification" >testEmailNotification</a>
+                            </li>
+                            <li>
+                                <a href="#testSMSNotification" >testSMSNotification</a>
+                            </li>
+                            <li>
+                                <a href="#toggleTwoFactorAuth" >toggleTwoFactorAuth</a>
+                            </li>
+                            <li>
+                                <a href="#validateSettings" >validateSettings</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(themeService: <a href="../injectables/ThemeService.html" target="_self">ThemeService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="97" class="link-to-prism">src/app/view/admin-dashboard/settings/settings.component.ts:97</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>themeService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ThemeService.html" target="_self" >ThemeService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cancelChanges"></a>
+                    <span class="name">
+                        <span ><b>cancelChanges</b></span>
+                        <a href="#cancelChanges"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cancelChanges()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="164"
+                                    class="link-to-prism">src/app/view/admin-dashboard/settings/settings.component.ts:164</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Annule les modifications</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changeFontSize"></a>
+                    <span class="name">
+                        <span ><b>changeFontSize</b></span>
+                        <a href="#changeFontSize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>changeFontSize(size: "small" | "medium" | "large")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="328"
+                                    class="link-to-prism">src/app/view/admin-dashboard/settings/settings.component.ts:328</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Change la taille de police</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>size</td>
+                                            <td>
+                                                        <code>&quot;small&quot; | &quot;medium&quot; | &quot;large&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Nouvelle taille</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changeTheme"></a>
+                    <span class="name">
+                        <span ><b>changeTheme</b></span>
+                        <a href="#changeTheme"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>changeTheme(theme: "light" | "dark" | "auto")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="314"
+                                    class="link-to-prism">src/app/view/admin-dashboard/settings/settings.component.ts:314</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Change le thème de l&#39;application</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>theme</td>
+                                            <td>
+                                                        <code>&quot;light&quot; | &quot;dark&quot; | &quot;auto&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Nouveau thème</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportSettings"></a>
+                    <span class="name">
+                        <span ><b>exportSettings</b></span>
+                        <a href="#exportSettings"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportSettings()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="245"
+                                    class="link-to-prism">src/app/view/admin-dashboard/settings/settings.component.ts:245</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Exporte les paramètres</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="importSettings"></a>
+                    <span class="name">
+                        <span ><b>importSettings</b></span>
+                        <a href="#importSettings"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>importSettings()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="256"
+                                    class="link-to-prism">src/app/view/admin-dashboard/settings/settings.component.ts:256</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Importe des paramètres depuis un fichier</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadSettings"></a>
+                    <span class="name">
+                        <span ><b>loadSettings</b></span>
+                        <a href="#loadSettings"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadSettings()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="118"
+                                    class="link-to-prism">src/app/view/admin-dashboard/settings/settings.component.ts:118</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Charge les paramètres depuis le backend</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="104"
+                                    class="link-to-prism">src/app/view/admin-dashboard/settings/settings.component.ts:104</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSettingsChange"></a>
+                    <span class="name">
+                        <span ><b>onSettingsChange</b></span>
+                        <a href="#onSettingsChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onSettingsChange()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="135"
+                                    class="link-to-prism">src/app/view/admin-dashboard/settings/settings.component.ts:135</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Détecte les changements dans les paramètres</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="performManualBackup"></a>
+                    <span class="name">
+                        <span ><b>performManualBackup</b></span>
+                        <a href="#performManualBackup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>performManualBackup()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="301"
+                                    class="link-to-prism">src/app/view/admin-dashboard/settings/settings.component.ts:301</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Lance une sauvegarde manuelle</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetToDefaults"></a>
+                    <span class="name">
+                        <span ><b>resetToDefaults</b></span>
+                        <a href="#resetToDefaults"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resetToDefaults()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="201"
+                                    class="link-to-prism">src/app/view/admin-dashboard/settings/settings.component.ts:201</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Réinitialise tous les paramètres aux valeurs par défaut</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveSettings"></a>
+                    <span class="name">
+                        <span ><b>saveSettings</b></span>
+                        <a href="#saveSettings"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>saveSettings()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="143"
+                                    class="link-to-prism">src/app/view/admin-dashboard/settings/settings.component.ts:143</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Enregistre les paramètres</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="switchTab"></a>
+                    <span class="name">
+                        <span ><b>switchTab</b></span>
+                        <a href="#switchTab"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>switchTab(tab: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="127"
+                                    class="link-to-prism">src/app/view/admin-dashboard/settings/settings.component.ts:127</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Change l&#39;onglet actif</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>tab</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Nom de l&#39;onglet</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="testEmailNotification"></a>
+                    <span class="name">
+                        <span ><b>testEmailNotification</b></span>
+                        <a href="#testEmailNotification"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>testEmailNotification()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="265"
+                                    class="link-to-prism">src/app/view/admin-dashboard/settings/settings.component.ts:265</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Teste les notifications email</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="testSMSNotification"></a>
+                    <span class="name">
+                        <span ><b>testSMSNotification</b></span>
+                        <a href="#testSMSNotification"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>testSMSNotification()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="273"
+                                    class="link-to-prism">src/app/view/admin-dashboard/settings/settings.component.ts:273</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Teste les notifications SMS</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleTwoFactorAuth"></a>
+                    <span class="name">
+                        <span ><b>toggleTwoFactorAuth</b></span>
+                        <a href="#toggleTwoFactorAuth"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleTwoFactorAuth()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="281"
+                                    class="link-to-prism">src/app/view/admin-dashboard/settings/settings.component.ts:281</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Active/désactive l&#39;authentification à deux facteurs</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="validateSettings"></a>
+                    <span class="name">
+                        <span ><b>validateSettings</b></span>
+                        <a href="#validateSettings"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>validateSettings()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="176"
+                                    class="link-to-prism">src/app/view/admin-dashboard/settings/settings.component.ts:176</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Valide les paramètres</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>true si les paramètres sont valides</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="activeTab"></a>
+                    <span class="name">
+                        <span ><b>activeTab</b></span>
+                        <a href="#activeTab"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;general&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/view/admin-dashboard/settings/settings.component.ts:57</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hasUnsavedChanges"></a>
+                    <span class="name">
+                        <span ><b>hasUnsavedChanges</b></span>
+                        <a href="#hasUnsavedChanges"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="97" class="link-to-prism">src/app/view/admin-dashboard/settings/settings.component.ts:97</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="originalSettings"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>originalSettings</b></span>
+                        <a href="#originalSettings"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/AppSettings.html" target="_self" >AppSettings</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="94" class="link-to-prism">src/app/view/admin-dashboard/settings/settings.component.ts:94</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="settings"></a>
+                    <span class="name">
+                        <span ><b>settings</b></span>
+                        <a href="#settings"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/AppSettings.html" target="_self" >AppSettings</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    general: {
+      language: &#x27;fr&#x27;,
+      timezone: &#x27;Africa/Lagos&#x27;,
+      dateFormat: &#x27;DD/MM/YYYY&#x27;,
+      currency: &#x27;FCFA&#x27;
+    },
+    notifications: {
+      email: true,
+      sms: false,
+      push: true,
+      lowStock: true,
+      newOrders: true,
+      employeeActivity: false
+    },
+    display: {
+      theme: &#x27;light&#x27;,
+      fontSize: &#x27;medium&#x27;,
+      sidebarCollapsed: false
+    },
+    security: {
+      twoFactorAuth: false,
+      sessionTimeout: 30,
+      loginNotifications: true
+    },
+    business: {
+      taxRate: 18,
+      lowStockThreshold: 10,
+      autoBackup: true,
+      backupFrequency: &#x27;daily&#x27;
+    }
+  }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/view/admin-dashboard/settings/settings.component.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+import { ThemeService, Theme } from &#x27;../../../core/services/theme.service&#x27;;
+
+/**
+ * Interface pour les paramètres de l&#x27;application
+ */
+interface AppSettings {
+  general: {
+    language: string;
+    timezone: string;
+    dateFormat: string;
+    currency: string;
+  };
+  notifications: {
+    email: boolean;
+    sms: boolean;
+    push: boolean;
+    lowStock: boolean;
+    newOrders: boolean;
+    employeeActivity: boolean;
+  };
+  display: {
+    theme: &#x27;light&#x27; | &#x27;dark&#x27; | &#x27;auto&#x27;;
+    fontSize: &#x27;small&#x27; | &#x27;medium&#x27; | &#x27;large&#x27;;
+    sidebarCollapsed: boolean;
+  };
+  security: {
+    twoFactorAuth: boolean;
+    sessionTimeout: number; // en minutes
+    loginNotifications: boolean;
+  };
+  business: {
+    taxRate: number;
+    lowStockThreshold: number;
+    autoBackup: boolean;
+    backupFrequency: string;
+  };
+}
+
+/**
+ * Composant Settings - Paramètres de l&#x27;application
+ * Permet de configurer tous les aspects de l&#x27;application
+ */
+@Component({
+  selector: &#x27;app-settings&#x27;,
+  standalone: true,
+  // Import des modules nécessaires
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  templateUrl: &#x27;./settings.component.html&#x27;,
+  styleUrls: [&#x27;./settings.component.scss&#x27;]
+})
+export class SettingsComponent implements OnInit {
+
+  // Onglet actif
+  activeTab: string &#x3D; &#x27;general&#x27;;
+
+  // Paramètres de l&#x27;application
+  settings: AppSettings &#x3D; {
+    general: {
+      language: &#x27;fr&#x27;,
+      timezone: &#x27;Africa/Lagos&#x27;,
+      dateFormat: &#x27;DD/MM/YYYY&#x27;,
+      currency: &#x27;FCFA&#x27;
+    },
+    notifications: {
+      email: true,
+      sms: false,
+      push: true,
+      lowStock: true,
+      newOrders: true,
+      employeeActivity: false
+    },
+    display: {
+      theme: &#x27;light&#x27;,
+      fontSize: &#x27;medium&#x27;,
+      sidebarCollapsed: false
+    },
+    security: {
+      twoFactorAuth: false,
+      sessionTimeout: 30,
+      loginNotifications: true
+    },
+    business: {
+      taxRate: 18,
+      lowStockThreshold: 10,
+      autoBackup: true,
+      backupFrequency: &#x27;daily&#x27;
+    }
+  };
+
+  // Sauvegarde des paramètres originaux
+  private originalSettings: AppSettings;
+
+  // État des modifications
+  hasUnsavedChanges: boolean &#x3D; false;
+
+  constructor(private themeService: ThemeService) {
+    // Sauvegarde des paramètres originaux
+    this.originalSettings &#x3D; JSON.parse(JSON.stringify(this.settings));
+  }
+
+  ngOnInit(): void {
+    // Charge le thème actuel depuis le service
+    const currentTheme &#x3D; this.themeService.getCurrentTheme();
+    this.settings.display.theme &#x3D; currentTheme;
+
+    // Chargement des paramètres depuis le backend
+    this.loadSettings();
+  }
+
+
+
+  /**
+   * Charge les paramètres depuis le backend
+   */
+  loadSettings(): void {
+    // TODO: Appel API pour charger les paramètres
+    console.log(&#x27;Chargement des paramètres...&#x27;);
+  }
+
+  /**
+   * Change l&#x27;onglet actif
+   * @param tab - Nom de l&#x27;onglet
+   */
+  switchTab(tab: string): void {
+    this.activeTab &#x3D; tab;
+    console.log(&#x27;Onglet actif:&#x27;, tab);
+  }
+
+  /**
+   * Détecte les changements dans les paramètres
+   */
+  onSettingsChange(): void {
+    // Compare les paramètres actuels avec les originaux
+    this.hasUnsavedChanges &#x3D; JSON.stringify(this.settings) !&#x3D;&#x3D; JSON.stringify(this.originalSettings);
+  }
+
+  /**
+   * Enregistre les paramètres
+   */
+  saveSettings(): void {
+    // Validation
+    if (!this.validateSettings()) {
+      alert(&#x27;Veuillez corriger les erreurs avant de sauvegarder&#x27;);
+      return;
+    }
+
+    // TODO: Appel API pour sauvegarder
+    console.log(&#x27;Sauvegarde des paramètres:&#x27;, this.settings);
+
+    // Simulation de sauvegarde
+    alert(&#x27;Paramètres enregistrés avec succès !&#x27;);
+
+    // Mise à jour des paramètres originaux
+    this.originalSettings &#x3D; JSON.parse(JSON.stringify(this.settings));
+    this.hasUnsavedChanges &#x3D; false;
+  }
+
+  /**
+   * Annule les modifications
+   */
+  cancelChanges(): void {
+    if (confirm(&#x27;Êtes-vous sûr de vouloir annuler les modifications ?&#x27;)) {
+      // Restauration des paramètres originaux
+      this.settings &#x3D; JSON.parse(JSON.stringify(this.originalSettings));
+      this.hasUnsavedChanges &#x3D; false;
+    }
+  }
+
+  /**
+   * Valide les paramètres
+   * @returns true si les paramètres sont valides
+   */
+  validateSettings(): boolean {
+    // Validation du taux de taxe
+    if (this.settings.business.taxRate &lt; 0 || this.settings.business.taxRate &gt; 100) {
+      alert(&#x27;Le taux de taxe doit être entre 0 et 100&#x27;);
+      return false;
+    }
+
+    // Validation du seuil de stock faible
+    if (this.settings.business.lowStockThreshold &lt; 0) {
+      alert(&#x27;Le seuil de stock faible doit être positif&#x27;);
+      return false;
+    }
+
+    // Validation du timeout de session
+    if (this.settings.security.sessionTimeout &lt; 5 || this.settings.security.sessionTimeout &gt; 120) {
+      alert(&#x27;Le timeout de session doit être entre 5 et 120 minutes&#x27;);
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
+   * Réinitialise tous les paramètres aux valeurs par défaut
+   */
+  resetToDefaults(): void {
+    if (confirm(&#x27;Êtes-vous sûr de vouloir réinitialiser tous les paramètres aux valeurs par défaut ?&#x27;)) {
+      // Réinitialisation aux valeurs par défaut
+      this.settings &#x3D; {
+        general: {
+          language: &#x27;fr&#x27;,
+          timezone: &#x27;Africa/Lagos&#x27;,
+          dateFormat: &#x27;DD/MM/YYYY&#x27;,
+          currency: &#x27;FCFA&#x27;
+        },
+        notifications: {
+          email: true,
+          sms: false,
+          push: true,
+          lowStock: true,
+          newOrders: true,
+          employeeActivity: false
+        },
+        display: {
+          theme: &#x27;light&#x27;,
+          fontSize: &#x27;medium&#x27;,
+          sidebarCollapsed: false
+        },
+        security: {
+          twoFactorAuth: false,
+          sessionTimeout: 30,
+          loginNotifications: true
+        },
+        business: {
+          taxRate: 18,
+          lowStockThreshold: 10,
+          autoBackup: true,
+          backupFrequency: &#x27;daily&#x27;
+        }
+      };
+
+      this.onSettingsChange();
+      alert(&#x27;Paramètres réinitialisés aux valeurs par défaut&#x27;);
+    }
+  }
+
+  /**
+   * Exporte les paramètres
+   */
+  exportSettings(): void {
+    const dataStr &#x3D; JSON.stringify(this.settings, null, 2);
+    console.log(&#x27;Export des paramètres:&#x27;, dataStr);
+
+    // Dans une vraie app, créer un fichier téléchargeable
+    alert(&#x27;Paramètres exportés avec succès !&#x27;);
+  }
+
+  /**
+   * Importe des paramètres depuis un fichier
+   */
+  importSettings(): void {
+    // Dans une vraie app, ouvrir un sélecteur de fichier
+    console.log(&#x27;Import de paramètres...&#x27;);
+    alert(&#x27;Fonctionnalité d\&#x27;import à implémenter&#x27;);
+  }
+
+  /**
+   * Teste les notifications email
+   */
+  testEmailNotification(): void {
+    console.log(&#x27;Test de notification email...&#x27;);
+    alert(&#x27;Email de test envoyé !&#x27;);
+  }
+
+  /**
+   * Teste les notifications SMS
+   */
+  testSMSNotification(): void {
+    console.log(&#x27;Test de notification SMS...&#x27;);
+    alert(&#x27;SMS de test envoyé !&#x27;);
+  }
+
+  /**
+   * Active/désactive l&#x27;authentification à deux facteurs
+   */
+  toggleTwoFactorAuth(): void {
+    if (this.settings.security.twoFactorAuth) {
+      // Configuration de 2FA
+      console.log(&#x27;Configuration de l\&#x27;authentification à deux facteurs...&#x27;);
+      alert(&#x27;Scannez le QR code avec votre application d\&#x27;authentification&#x27;);
+    } else {
+      // Désactivation de 2FA
+      if (confirm(&#x27;Êtes-vous sûr de vouloir désactiver l\&#x27;authentification à deux facteurs ?&#x27;)) {
+        console.log(&#x27;2FA désactivée&#x27;);
+      } else {
+        // Annulation
+        this.settings.security.twoFactorAuth &#x3D; true;
+      }
+    }
+    this.onSettingsChange();
+  }
+
+  /**
+   * Lance une sauvegarde manuelle
+   */
+  performManualBackup(): void {
+    console.log(&#x27;Sauvegarde manuelle en cours...&#x27;);
+
+    // Simulation de sauvegarde
+    setTimeout(() &#x3D;&gt; {
+      alert(&#x27;Sauvegarde effectuée avec succès !&#x27;);
+    }, 1000);
+  }
+
+  /**
+   * Change le thème de l&#x27;application
+   * @param theme - Nouveau thème
+   */
+  changeTheme(theme: &#x27;light&#x27; | &#x27;dark&#x27; | &#x27;auto&#x27;): void {
+    this.settings.display.theme &#x3D; theme;
+
+    // 🔥 UTILISE LE SERVICE DE THÈME
+    this.themeService.setTheme(theme);
+
+    this.onSettingsChange();
+    console.log(&#x27;🎨 Thème changé:&#x27;, theme);
+  }
+
+  /**
+   * Change la taille de police
+   * @param size - Nouvelle taille
+   */
+  changeFontSize(size: &#x27;small&#x27; | &#x27;medium&#x27; | &#x27;large&#x27;): void {
+    this.settings.display.fontSize &#x3D; size;
+
+    // Application de la taille (dans une vraie app)
+    document.body.setAttribute(&#x27;data-font-size&#x27;, size);
+
+    this.onSettingsChange();
+    console.log(&#x27;Taille de police changée:&#x27;, size);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; PAGE PARAMÈTRES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+&lt;div class&#x3D;&quot;page-section&quot;&gt;
+  
+  &lt;section class&#x3D;&quot;content-section&quot;&gt;
+    
+    &lt;!-- En-tête avec titre et actions --&gt;
+    &lt;div class&#x3D;&quot;section-header&quot;&gt;
+      &lt;h2 class&#x3D;&quot;section-title-main&quot;&gt;⚙️ Paramètres&lt;/h2&gt;
+      
+      &lt;!-- Indicateur de modifications non sauvegardées --&gt;
+      &lt;div class&#x3D;&quot;unsaved-indicator&quot; *ngIf&#x3D;&quot;hasUnsavedChanges&quot;&gt;
+        ⚠️ Modifications non sauvegardées
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Conteneur principal avec onglets --&gt;
+    &lt;div class&#x3D;&quot;settings-container&quot;&gt;
+      
+      &lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Navigation par onglets &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+      &lt;div class&#x3D;&quot;settings-tabs&quot;&gt;
+        
+        &lt;!-- Onglet: Général --&gt;
+        &lt;button class&#x3D;&quot;settings-tab&quot;
+                [class.active]&#x3D;&quot;activeTab &#x3D;&#x3D;&#x3D; &#x27;general&#x27;&quot;
+                (click)&#x3D;&quot;switchTab(&#x27;general&#x27;)&quot;&gt;
+          🌐 Général
+        &lt;/button&gt;
+        
+        &lt;!-- Onglet: Notifications --&gt;
+        &lt;button class&#x3D;&quot;settings-tab&quot;
+                [class.active]&#x3D;&quot;activeTab &#x3D;&#x3D;&#x3D; &#x27;notifications&#x27;&quot;
+                (click)&#x3D;&quot;switchTab(&#x27;notifications&#x27;)&quot;&gt;
+          🔔 Notifications
+        &lt;/button&gt;
+        
+        &lt;!-- Onglet: Affichage --&gt;
+        &lt;button class&#x3D;&quot;settings-tab&quot;
+                [class.active]&#x3D;&quot;activeTab &#x3D;&#x3D;&#x3D; &#x27;display&#x27;&quot;
+                (click)&#x3D;&quot;switchTab(&#x27;display&#x27;)&quot;&gt;
+          🎨 Affichage
+        &lt;/button&gt;
+        
+        &lt;!-- Onglet: Sécurité --&gt;
+        &lt;button class&#x3D;&quot;settings-tab&quot;
+                [class.active]&#x3D;&quot;activeTab &#x3D;&#x3D;&#x3D; &#x27;security&#x27;&quot;
+                (click)&#x3D;&quot;switchTab(&#x27;security&#x27;)&quot;&gt;
+          🔒 Sécurité
+        &lt;/button&gt;
+        
+        &lt;!-- Onglet: Business --&gt;
+        &lt;button class&#x3D;&quot;settings-tab&quot;
+                [class.active]&#x3D;&quot;activeTab &#x3D;&#x3D;&#x3D; &#x27;business&#x27;&quot;
+                (click)&#x3D;&quot;switchTab(&#x27;business&#x27;)&quot;&gt;
+          💼 Business
+        &lt;/button&gt;
+      &lt;/div&gt;
+
+      &lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Contenu des onglets &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+      &lt;div class&#x3D;&quot;settings-content&quot;&gt;
+        
+        &lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; ONGLET GÉNÉRAL &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+        &lt;div *ngIf&#x3D;&quot;activeTab &#x3D;&#x3D;&#x3D; &#x27;general&#x27;&quot; class&#x3D;&quot;settings-panel&quot;&gt;
+          &lt;h3 class&#x3D;&quot;panel-title&quot;&gt;Paramètres généraux&lt;/h3&gt;
+          
+          &lt;!-- Langue --&gt;
+          &lt;div class&#x3D;&quot;setting-item&quot;&gt;
+            &lt;div class&#x3D;&quot;setting-label&quot;&gt;
+              &lt;strong&gt;Langue&lt;/strong&gt;
+              &lt;span class&#x3D;&quot;setting-description&quot;&gt;Langue de l&#x27;interface&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;select class&#x3D;&quot;setting-input&quot;
+                    [(ngModel)]&#x3D;&quot;settings.general.language&quot;
+                    (change)&#x3D;&quot;onSettingsChange()&quot;&gt;
+              &lt;option value&#x3D;&quot;fr&quot;&gt;Français&lt;/option&gt;
+              &lt;option value&#x3D;&quot;en&quot;&gt;English&lt;/option&gt;
+              &lt;option value&#x3D;&quot;es&quot;&gt;Español&lt;/option&gt;
+            &lt;/select&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Fuseau horaire --&gt;
+          &lt;div class&#x3D;&quot;setting-item&quot;&gt;
+            &lt;div class&#x3D;&quot;setting-label&quot;&gt;
+              &lt;strong&gt;Fuseau horaire&lt;/strong&gt;
+              &lt;span class&#x3D;&quot;setting-description&quot;&gt;Votre fuseau horaire local&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;select class&#x3D;&quot;setting-input&quot;
+                    [(ngModel)]&#x3D;&quot;settings.general.timezone&quot;
+                    (change)&#x3D;&quot;onSettingsChange()&quot;&gt;
+              &lt;option value&#x3D;&quot;Africa/Lagos&quot;&gt;Lagos (WAT)&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Africa/Abidjan&quot;&gt;Abidjan (GMT)&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Africa/Cairo&quot;&gt;Cairo (EET)&lt;/option&gt;
+            &lt;/select&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Format de date --&gt;
+          &lt;div class&#x3D;&quot;setting-item&quot;&gt;
+            &lt;div class&#x3D;&quot;setting-label&quot;&gt;
+              &lt;strong&gt;Format de date&lt;/strong&gt;
+              &lt;span class&#x3D;&quot;setting-description&quot;&gt;Comment afficher les dates&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;select class&#x3D;&quot;setting-input&quot;
+                    [(ngModel)]&#x3D;&quot;settings.general.dateFormat&quot;
+                    (change)&#x3D;&quot;onSettingsChange()&quot;&gt;
+              &lt;option value&#x3D;&quot;DD/MM/YYYY&quot;&gt;JJ/MM/AAAA&lt;/option&gt;
+              &lt;option value&#x3D;&quot;MM/DD/YYYY&quot;&gt;MM/JJ/AAAA&lt;/option&gt;
+              &lt;option value&#x3D;&quot;YYYY-MM-DD&quot;&gt;AAAA-MM-JJ&lt;/option&gt;
+            &lt;/select&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Devise --&gt;
+          &lt;div class&#x3D;&quot;setting-item&quot;&gt;
+            &lt;div class&#x3D;&quot;setting-label&quot;&gt;
+              &lt;strong&gt;Devise&lt;/strong&gt;
+              &lt;span class&#x3D;&quot;setting-description&quot;&gt;Devise par défaut&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;select class&#x3D;&quot;setting-input&quot;
+                    [(ngModel)]&#x3D;&quot;settings.general.currency&quot;
+                    (change)&#x3D;&quot;onSettingsChange()&quot;&gt;
+              &lt;option value&#x3D;&quot;FCFA&quot;&gt;FCFA&lt;/option&gt;
+              &lt;option value&#x3D;&quot;EUR&quot;&gt;Euro (€)&lt;/option&gt;
+              &lt;option value&#x3D;&quot;USD&quot;&gt;Dollar ($)&lt;/option&gt;
+            &lt;/select&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; ONGLET NOTIFICATIONS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+        &lt;div *ngIf&#x3D;&quot;activeTab &#x3D;&#x3D;&#x3D; &#x27;notifications&#x27;&quot; class&#x3D;&quot;settings-panel&quot;&gt;
+          &lt;h3 class&#x3D;&quot;panel-title&quot;&gt;Préférences de notifications&lt;/h3&gt;
+          
+          &lt;!-- Email --&gt;
+          &lt;div class&#x3D;&quot;setting-item&quot;&gt;
+            &lt;div class&#x3D;&quot;setting-label&quot;&gt;
+              &lt;strong&gt;Notifications par email&lt;/strong&gt;
+              &lt;span class&#x3D;&quot;setting-description&quot;&gt;Recevoir des emails de notification&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;setting-actions&quot;&gt;
+              &lt;label class&#x3D;&quot;toggle-switch&quot;&gt;
+                &lt;input type&#x3D;&quot;checkbox&quot;
+                       [(ngModel)]&#x3D;&quot;settings.notifications.email&quot;
+                       (change)&#x3D;&quot;onSettingsChange()&quot;&gt;
+                &lt;span class&#x3D;&quot;toggle-slider&quot;&gt;&lt;/span&gt;
+              &lt;/label&gt;
+              &lt;button class&#x3D;&quot;btn btn-sm btn-secondary&quot; 
+                      (click)&#x3D;&quot;testEmailNotification()&quot;
+                      [disabled]&#x3D;&quot;!settings.notifications.email&quot;&gt;
+                📧 Tester
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- SMS --&gt;
+          &lt;div class&#x3D;&quot;setting-item&quot;&gt;
+            &lt;div class&#x3D;&quot;setting-label&quot;&gt;
+              &lt;strong&gt;Notifications par SMS&lt;/strong&gt;
+              &lt;span class&#x3D;&quot;setting-description&quot;&gt;Recevoir des SMS de notification&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;setting-actions&quot;&gt;
+              &lt;label class&#x3D;&quot;toggle-switch&quot;&gt;
+                &lt;input type&#x3D;&quot;checkbox&quot;
+                       [(ngModel)]&#x3D;&quot;settings.notifications.sms&quot;
+                       (change)&#x3D;&quot;onSettingsChange()&quot;&gt;
+                &lt;span class&#x3D;&quot;toggle-slider&quot;&gt;&lt;/span&gt;
+              &lt;/label&gt;
+              &lt;button class&#x3D;&quot;btn btn-sm btn-secondary&quot; 
+                      (click)&#x3D;&quot;testSMSNotification()&quot;
+                      [disabled]&#x3D;&quot;!settings.notifications.sms&quot;&gt;
+                📱 Tester
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Push --&gt;
+          &lt;div class&#x3D;&quot;setting-item&quot;&gt;
+            &lt;div class&#x3D;&quot;setting-label&quot;&gt;
+              &lt;strong&gt;Notifications push&lt;/strong&gt;
+              &lt;span class&#x3D;&quot;setting-description&quot;&gt;Recevoir des notifications navigateur&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;label class&#x3D;&quot;toggle-switch&quot;&gt;
+              &lt;input type&#x3D;&quot;checkbox&quot;
+                     [(ngModel)]&#x3D;&quot;settings.notifications.push&quot;
+                     (change)&#x3D;&quot;onSettingsChange()&quot;&gt;
+              &lt;span class&#x3D;&quot;toggle-slider&quot;&gt;&lt;/span&gt;
+            &lt;/label&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;divider&quot;&gt;&lt;/div&gt;
+          
+          &lt;h4 class&#x3D;&quot;subsection-title&quot;&gt;Types de notifications&lt;/h4&gt;
+
+          &lt;!-- Stock faible --&gt;
+          &lt;div class&#x3D;&quot;setting-item&quot;&gt;
+            &lt;div class&#x3D;&quot;setting-label&quot;&gt;
+              &lt;strong&gt;Alertes stock faible&lt;/strong&gt;
+              &lt;span class&#x3D;&quot;setting-description&quot;&gt;Quand le stock est en dessous du seuil&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;label class&#x3D;&quot;toggle-switch&quot;&gt;
+              &lt;input type&#x3D;&quot;checkbox&quot;
+                     [(ngModel)]&#x3D;&quot;settings.notifications.lowStock&quot;
+                     (change)&#x3D;&quot;onSettingsChange()&quot;&gt;
+              &lt;span class&#x3D;&quot;toggle-slider&quot;&gt;&lt;/span&gt;
+            &lt;/label&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Nouvelles commandes --&gt;
+          &lt;div class&#x3D;&quot;setting-item&quot;&gt;
+            &lt;div class&#x3D;&quot;setting-label&quot;&gt;
+              &lt;strong&gt;Nouvelles commandes&lt;/strong&gt;
+              &lt;span class&#x3D;&quot;setting-description&quot;&gt;Lors de nouvelles commandes&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;label class&#x3D;&quot;toggle-switch&quot;&gt;
+              &lt;input type&#x3D;&quot;checkbox&quot;
+                     [(ngModel)]&#x3D;&quot;settings.notifications.newOrders&quot;
+                     (change)&#x3D;&quot;onSettingsChange()&quot;&gt;
+              &lt;span class&#x3D;&quot;toggle-slider&quot;&gt;&lt;/span&gt;
+            &lt;/label&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Activité employés --&gt;
+          &lt;div class&#x3D;&quot;setting-item&quot;&gt;
+            &lt;div class&#x3D;&quot;setting-label&quot;&gt;
+              &lt;strong&gt;Activité des employés&lt;/strong&gt;
+              &lt;span class&#x3D;&quot;setting-description&quot;&gt;Actions importantes des employés&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;label class&#x3D;&quot;toggle-switch&quot;&gt;
+              &lt;input type&#x3D;&quot;checkbox&quot;
+                     [(ngModel)]&#x3D;&quot;settings.notifications.employeeActivity&quot;
+                     (change)&#x3D;&quot;onSettingsChange()&quot;&gt;
+              &lt;span class&#x3D;&quot;toggle-slider&quot;&gt;&lt;/span&gt;
+            &lt;/label&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; ONGLET AFFICHAGE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+        &lt;div *ngIf&#x3D;&quot;activeTab &#x3D;&#x3D;&#x3D; &#x27;display&#x27;&quot; class&#x3D;&quot;settings-panel&quot;&gt;
+          &lt;h3 class&#x3D;&quot;panel-title&quot;&gt;Préférences d&#x27;affichage&lt;/h3&gt;
+          
+          &lt;!-- Thème --&gt;
+          &lt;div class&#x3D;&quot;setting-item&quot;&gt;
+            &lt;div class&#x3D;&quot;setting-label&quot;&gt;
+              &lt;strong&gt;Thème&lt;/strong&gt;
+              &lt;span class&#x3D;&quot;setting-description&quot;&gt;Apparence de l&#x27;interface&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;theme-selector&quot;&gt;
+              &lt;button class&#x3D;&quot;theme-option&quot;
+                      [class.active]&#x3D;&quot;settings.display.theme &#x3D;&#x3D;&#x3D; &#x27;light&#x27;&quot;
+                      (click)&#x3D;&quot;changeTheme(&#x27;light&#x27;)&quot;&gt;
+                ☀️ Clair
+              &lt;/button&gt;
+              &lt;button class&#x3D;&quot;theme-option&quot;
+                      [class.active]&#x3D;&quot;settings.display.theme &#x3D;&#x3D;&#x3D; &#x27;dark&#x27;&quot;
+                      (click)&#x3D;&quot;changeTheme(&#x27;dark&#x27;)&quot;&gt;
+                🌙 Sombre
+              &lt;/button&gt;
+              &lt;button class&#x3D;&quot;theme-option&quot;
+                      [class.active]&#x3D;&quot;settings.display.theme &#x3D;&#x3D;&#x3D; &#x27;auto&#x27;&quot;
+                      (click)&#x3D;&quot;changeTheme(&#x27;auto&#x27;)&quot;&gt;
+                🔄 Auto
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Taille de police --&gt;
+          &lt;div class&#x3D;&quot;setting-item&quot;&gt;
+            &lt;div class&#x3D;&quot;setting-label&quot;&gt;
+              &lt;strong&gt;Taille de police&lt;/strong&gt;
+              &lt;span class&#x3D;&quot;setting-description&quot;&gt;Taille du texte dans l&#x27;application&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;font-size-selector&quot;&gt;
+              &lt;button class&#x3D;&quot;font-size-option&quot;
+                      [class.active]&#x3D;&quot;settings.display.fontSize &#x3D;&#x3D;&#x3D; &#x27;small&#x27;&quot;
+                      (click)&#x3D;&quot;changeFontSize(&#x27;small&#x27;)&quot;&gt;
+                Petit
+              &lt;/button&gt;
+              &lt;button class&#x3D;&quot;font-size-option&quot;
+                      [class.active]&#x3D;&quot;settings.display.fontSize &#x3D;&#x3D;&#x3D; &#x27;medium&#x27;&quot;
+                      (click)&#x3D;&quot;changeFontSize(&#x27;medium&#x27;)&quot;&gt;
+                Moyen
+              &lt;/button&gt;
+              &lt;button class&#x3D;&quot;font-size-option&quot;
+                      [class.active]&#x3D;&quot;settings.display.fontSize &#x3D;&#x3D;&#x3D; &#x27;large&#x27;&quot;
+                      (click)&#x3D;&quot;changeFontSize(&#x27;large&#x27;)&quot;&gt;
+                Grand
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Sidebar réduite --&gt;
+          &lt;div class&#x3D;&quot;setting-item&quot;&gt;
+            &lt;div class&#x3D;&quot;setting-label&quot;&gt;
+              &lt;strong&gt;Menu latéral réduit&lt;/strong&gt;
+              &lt;span class&#x3D;&quot;setting-description&quot;&gt;Afficher uniquement les icônes&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;label class&#x3D;&quot;toggle-switch&quot;&gt;
+              &lt;input type&#x3D;&quot;checkbox&quot;
+                     [(ngModel)]&#x3D;&quot;settings.display.sidebarCollapsed&quot;
+                     (change)&#x3D;&quot;onSettingsChange()&quot;&gt;
+              &lt;span class&#x3D;&quot;toggle-slider&quot;&gt;&lt;/span&gt;
+            &lt;/label&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; ONGLET SÉCURITÉ &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+        &lt;div *ngIf&#x3D;&quot;activeTab &#x3D;&#x3D;&#x3D; &#x27;security&#x27;&quot; class&#x3D;&quot;settings-panel&quot;&gt;
+          &lt;h3 class&#x3D;&quot;panel-title&quot;&gt;Sécurité et confidentialité&lt;/h3&gt;
+          
+          &lt;!-- Authentification à deux facteurs --&gt;
+          &lt;div class&#x3D;&quot;setting-item&quot;&gt;
+            &lt;div class&#x3D;&quot;setting-label&quot;&gt;
+              &lt;strong&gt;Authentification à deux facteurs (2FA)&lt;/strong&gt;
+              &lt;span class&#x3D;&quot;setting-description&quot;&gt;Sécurité renforcée pour votre compte&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;label class&#x3D;&quot;toggle-switch&quot;&gt;
+              &lt;input type&#x3D;&quot;checkbox&quot;
+                     [(ngModel)]&#x3D;&quot;settings.security.twoFactorAuth&quot;
+                     (change)&#x3D;&quot;toggleTwoFactorAuth()&quot;&gt;
+              &lt;span class&#x3D;&quot;toggle-slider&quot;&gt;&lt;/span&gt;
+            &lt;/label&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Timeout de session --&gt;
+          &lt;div class&#x3D;&quot;setting-item&quot;&gt;
+            &lt;div class&#x3D;&quot;setting-label&quot;&gt;
+              &lt;strong&gt;Timeout de session&lt;/strong&gt;
+              &lt;span class&#x3D;&quot;setting-description&quot;&gt;Déconnexion automatique après inactivité&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;setting-input-group&quot;&gt;
+              &lt;input type&#x3D;&quot;number&quot;
+                     class&#x3D;&quot;setting-input&quot;
+                     [(ngModel)]&#x3D;&quot;settings.security.sessionTimeout&quot;
+                     (change)&#x3D;&quot;onSettingsChange()&quot;
+                     min&#x3D;&quot;5&quot;
+                     max&#x3D;&quot;120&quot;&gt;
+              &lt;span class&#x3D;&quot;input-suffix&quot;&gt;minutes&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Notifications de connexion --&gt;
+          &lt;div class&#x3D;&quot;setting-item&quot;&gt;
+            &lt;div class&#x3D;&quot;setting-label&quot;&gt;
+              &lt;strong&gt;Notifications de connexion&lt;/strong&gt;
+              &lt;span class&#x3D;&quot;setting-description&quot;&gt;Être informé des nouvelles connexions&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;label class&#x3D;&quot;toggle-switch&quot;&gt;
+              &lt;input type&#x3D;&quot;checkbox&quot;
+                     [(ngModel)]&#x3D;&quot;settings.security.loginNotifications&quot;
+                     (change)&#x3D;&quot;onSettingsChange()&quot;&gt;
+              &lt;span class&#x3D;&quot;toggle-slider&quot;&gt;&lt;/span&gt;
+            &lt;/label&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; ONGLET BUSINESS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+        &lt;div *ngIf&#x3D;&quot;activeTab &#x3D;&#x3D;&#x3D; &#x27;business&#x27;&quot; class&#x3D;&quot;settings-panel&quot;&gt;
+          &lt;h3 class&#x3D;&quot;panel-title&quot;&gt;Paramètres business&lt;/h3&gt;
+          
+          &lt;!-- Taux de taxe --&gt;
+          &lt;div class&#x3D;&quot;setting-item&quot;&gt;
+            &lt;div class&#x3D;&quot;setting-label&quot;&gt;
+              &lt;strong&gt;Taux de taxe (TVA)&lt;/strong&gt;
+              &lt;span class&#x3D;&quot;setting-description&quot;&gt;Taxe appliquée aux ventes&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;setting-input-group&quot;&gt;
+              &lt;input type&#x3D;&quot;number&quot;
+                     class&#x3D;&quot;setting-input&quot;
+                     [(ngModel)]&#x3D;&quot;settings.business.taxRate&quot;
+                     (change)&#x3D;&quot;onSettingsChange()&quot;
+                     min&#x3D;&quot;0&quot;
+                     max&#x3D;&quot;100&quot;
+                     step&#x3D;&quot;0.1&quot;&gt;
+              &lt;span class&#x3D;&quot;input-suffix&quot;&gt;%&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Seuil stock faible --&gt;
+          &lt;div class&#x3D;&quot;setting-item&quot;&gt;
+            &lt;div class&#x3D;&quot;setting-label&quot;&gt;
+              &lt;strong&gt;Seuil de stock faible&lt;/strong&gt;
+              &lt;span class&#x3D;&quot;setting-description&quot;&gt;Nombre d&#x27;unités pour déclencher une alerte&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;input type&#x3D;&quot;number&quot;
+                   class&#x3D;&quot;setting-input&quot;
+                   [(ngModel)]&#x3D;&quot;settings.business.lowStockThreshold&quot;
+                   (change)&#x3D;&quot;onSettingsChange()&quot;
+                   min&#x3D;&quot;0&quot;&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;divider&quot;&gt;&lt;/div&gt;
+          
+          &lt;h4 class&#x3D;&quot;subsection-title&quot;&gt;Sauvegarde et données&lt;/h4&gt;
+
+          &lt;!-- Sauvegarde automatique --&gt;
+          &lt;div class&#x3D;&quot;setting-item&quot;&gt;
+            &lt;div class&#x3D;&quot;setting-label&quot;&gt;
+              &lt;strong&gt;Sauvegarde automatique&lt;/strong&gt;
+              &lt;span class&#x3D;&quot;setting-description&quot;&gt;Sauvegarder automatiquement les données&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;label class&#x3D;&quot;toggle-switch&quot;&gt;
+              &lt;input type&#x3D;&quot;checkbox&quot;
+                     [(ngModel)]&#x3D;&quot;settings.business.autoBackup&quot;
+                     (change)&#x3D;&quot;onSettingsChange()&quot;&gt;
+              &lt;span class&#x3D;&quot;toggle-slider&quot;&gt;&lt;/span&gt;
+            &lt;/label&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Fréquence de sauvegarde --&gt;
+          &lt;div class&#x3D;&quot;setting-item&quot; *ngIf&#x3D;&quot;settings.business.autoBackup&quot;&gt;
+            &lt;div class&#x3D;&quot;setting-label&quot;&gt;
+              &lt;strong&gt;Fréquence de sauvegarde&lt;/strong&gt;
+              &lt;span class&#x3D;&quot;setting-description&quot;&gt;À quelle fréquence effectuer les sauvegardes&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;select class&#x3D;&quot;setting-input&quot;
+                    [(ngModel)]&#x3D;&quot;settings.business.backupFrequency&quot;
+                    (change)&#x3D;&quot;onSettingsChange()&quot;&gt;
+              &lt;option value&#x3D;&quot;hourly&quot;&gt;Toutes les heures&lt;/option&gt;
+              &lt;option value&#x3D;&quot;daily&quot;&gt;Quotidien&lt;/option&gt;
+              &lt;option value&#x3D;&quot;weekly&quot;&gt;Hebdomadaire&lt;/option&gt;
+              &lt;option value&#x3D;&quot;monthly&quot;&gt;Mensuel&lt;/option&gt;
+            &lt;/select&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Bouton sauvegarde manuelle --&gt;
+          &lt;div class&#x3D;&quot;setting-item&quot;&gt;
+            &lt;div class&#x3D;&quot;setting-label&quot;&gt;
+              &lt;strong&gt;Sauvegarde manuelle&lt;/strong&gt;
+              &lt;span class&#x3D;&quot;setting-description&quot;&gt;Effectuer une sauvegarde immédiate&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;button class&#x3D;&quot;btn btn-secondary&quot; (click)&#x3D;&quot;performManualBackup()&quot;&gt;
+              💾 Sauvegarder maintenant
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Boutons d&#x27;action en bas &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+      &lt;div class&#x3D;&quot;settings-footer&quot;&gt;
+        
+        &lt;!-- Actions secondaires --&gt;
+        &lt;div class&#x3D;&quot;footer-left&quot;&gt;
+          &lt;button class&#x3D;&quot;btn btn-outline&quot; (click)&#x3D;&quot;resetToDefaults()&quot;&gt;
+            🔄 Réinitialiser
+          &lt;/button&gt;
+          
+          &lt;button class&#x3D;&quot;btn btn-outline&quot; (click)&#x3D;&quot;importSettings()&quot;&gt;
+            📥 Importer
+          &lt;/button&gt;
+          
+          &lt;button class&#x3D;&quot;btn btn-outline&quot; (click)&#x3D;&quot;exportSettings()&quot;&gt;
+            📤 Exporter
+          &lt;/button&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Actions principales --&gt;
+        &lt;div class&#x3D;&quot;footer-right&quot;&gt;
+          &lt;button class&#x3D;&quot;btn btn-cancel&quot; 
+                  (click)&#x3D;&quot;cancelChanges()&quot;
+                  [disabled]&#x3D;&quot;!hasUnsavedChanges&quot;&gt;
+            Annuler
+          &lt;/button&gt;
+          
+          &lt;button class&#x3D;&quot;btn btn-primary&quot; 
+                  (click)&#x3D;&quot;saveSettings()&quot;
+                  [disabled]&#x3D;&quot;!hasUnsavedChanges&quot;&gt;
+            💾 Enregistrer les modifications
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./settings.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Page principale &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.page-section {
+  padding: 2rem;
+  background: var(--dark-bg);
+  min-height: 100vh;
+}
+
+.content-section {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; En-tête &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+
+  .section-title-main {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    transition: all 0.3s ease;
+
+    &amp;:hover {
+      color: var(--primary-color);
+      text-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+    }
+  }
+
+  .unsaved-indicator {
+    background: rgba(245, 158, 11, 0.2);
+    color: #fbbf24;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    animation: pulse 2s ease-in-out infinite;
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(0.98);
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Conteneur des paramètres &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.settings-container {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  transition: all 0.3s ease;
+
+  &amp;:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    border-color: color-color-mix(in srgb, in srgb, var(--border-color) 90%, white);
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Onglets de navigation &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.settings-tabs {
+  display: flex;
+  border-bottom: 2px solid var(--border-color);
+  overflow-x: auto;
+  background: var(--dark-bg)er;
+
+  &amp;::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  &amp;::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &amp;::-webkit-scrollbar-thumb {
+    background: rgba(99, 102, 241, 0.3);
+    border-radius: 2px;
+  }
+}
+
+.settings-tab {
+  padding: 1rem 1.5rem;
+  border: none;
+  background: transparent;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-bottom: 3px solid transparent;
+  white-space: nowrap;
+  position: relative;
+
+  &amp;:hover {
+    color: var(--text-primary);
+    background: rgba(99, 102, 241, 0.1);
+    transform: translateY(-2px);
+  }
+
+  &amp;.active {
+    color: var(--primary-color);
+    border-bottom-color:var(--primary-color);
+    background: rgba(99, 102, 241, 0.15);
+
+    &amp;::after {
+      content: &#x27;&#x27;;
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--primary-color);
+      box-shadow: var(--glow-primary);
+    }
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Contenu des onglets &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.settings-content {
+  padding: 2rem;
+  min-height: 500px;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Panneau de paramètres &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.settings-panel {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.panel-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 1.5rem 0;
+}
+
+.subsection-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 2rem 0 1rem 0;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Item de paramètre &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+
+  &amp;:hover {
+    background: rgba(99, 102, 241, 0.05);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    border-radius: 8px;
+
+    .setting-label strong {
+      color: var(--primary-color);
+    }
+  }
+
+  &amp;:last-child {
+    border-bottom: none;
+  }
+
+  .setting-label {
+    flex: 1;
+    margin-right: 2rem;
+
+    strong {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+      transition: color 0.3s ease;
+    }
+
+    .setting-description {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+  }
+
+  .setting-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Champs de saisie &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.setting-input {
+  min-width: 200px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  background: var(--dark-bg)er;
+  transition: all 0.3s ease;
+
+  &amp;:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2), var(--glow-primary);
+    transform: translateY(-2px);
+  }
+
+  &amp;:hover {
+    border-color: color-color-mix(in srgb, in srgb, var(--border-color) 90%, white);
+  }
+
+  &amp;::placeholder {
+    color: var(--text-secondary);
+  }
+}
+
+.setting-input-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .input-suffix {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Toggle Switch (Interrupteur) &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &amp;:checked + .toggle-slider {
+      background-color:var(--primary-color);
+      box-shadow: var(--glow-primary);
+
+      &amp;:before {
+        transform: translateX(24px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+      }
+    }
+
+    &amp;:focus + .toggle-slider {
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2), var(--glow-primary);
+    }
+  }
+
+  .toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--border-color);
+    transition: all 0.3s ease;
+    border-radius: 26px;
+
+    &amp;:hover {
+      background-color: color-color-mix(in srgb, in srgb, var(--border-color) 90%, white);
+    }
+
+    &amp;:before {
+      position: absolute;
+      content: &quot;&quot;;
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 50%;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Sélecteurs visuels &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.theme-selector,
+.font-size-selector {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.theme-option,
+.font-size-option {
+  padding: 0.75rem 1.25rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--dark-bg)er;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+
+  &amp;:hover {
+    border-color: var(--primary-color);
+    color:var(--primary-color);
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  }
+
+  &amp;.active {
+    border-color: var(--primary-color);
+    background: var(--primary-color);
+    color: white;
+    box-shadow: var(--glow-primary);
+    transform: translateY(-2px);
+
+    &amp;:hover {
+      background: color-mix(in srgb, var(--primary-color) 90%, white);
+    }
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Diviseur &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.divider {
+  height: 1px;
+  background: var(--border-color);
+  margin: 2rem 0;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Pied des paramètres &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.settings-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  border-top: 1px solid var(--border-color);
+  background: var(--dark-bg)er;
+
+  .footer-left,
+  .footer-right {
+    display: flex;
+    gap: 0.75rem;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Boutons &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &amp;:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &amp;.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  &amp;.btn-primary {
+    background: var(--primary-color);
+    color: white;
+
+    &amp;:hover:not(:disabled) {
+      background: color-mix(in srgb, var(--primary-color) 90%, white);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4), var(--glow-primary);
+    }
+  }
+
+  &amp;.btn-secondary {
+    background: var(--secondary);
+    color: white;
+
+    &amp;:hover:not(:disabled) {
+      background: color-color-mix(in srgb, in srgb, var(--secondary) 90%, white);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(129, 140, 248, 0.4);
+    }
+  }
+
+  &amp;.btn-outline {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+
+    &amp;:hover:not(:disabled) {
+      background: var(--dark-bg)er;
+      border-color: color-color-mix(in srgb, in srgb, var(--border-color) 90%, white);
+      transform: translateY(-2px);
+    }
+  }
+
+  &amp;.btn-cancel {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+
+    &amp;:hover:not(:disabled) {
+      background: var(--dark-bg)er;
+      border-color: color-color-mix(in srgb, in srgb, var(--border-color) 90%, white);
+    }
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Responsive (tablette) &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+@media (max-width: 968px) {
+  .setting-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+
+    .setting-label {
+      margin-right: 0;
+    }
+
+    .setting-input {
+      width: 100%;
+    }
+  }
+
+  .theme-selector,
+  .font-size-selector {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .theme-option,
+  .font-size-option {
+    flex: 1;
+    min-width: 100px;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Responsive (mobile) &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+@media (max-width: 640px) {
+  .page-section {
+    padding: 1rem;
+  }
+
+  .settings-content {
+    padding: 1rem;
+  }
+
+  .settings-footer {
+    flex-direction: column;
+    gap: 1rem;
+
+    .footer-left,
+    .footer-right {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  .settings-tabs {
+    padding: 0 0.5rem;
+  }
+
+  .settings-tab {
+    padding: 0.75rem 1rem;
+    font-size: 0.8rem;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- ===== PAGE PARAMÈTRES ===== --><div class="page-section">    <section class="content-section">        <!-- En-tête avec titre et actions -->    <div class="section-header">      <h2 class="section-title-main">⚙️ Paramètres</h2>            <!-- Indicateur de modifications non sauvegardées -->      <div class="unsaved-indicator" *ngIf="hasUnsavedChanges">        ⚠️ Modifications non sauvegardées      </div>    </div>    <!-- Conteneur principal avec onglets -->    <div class="settings-container">            <!-- ===== Navigation par onglets ===== -->      <div class="settings-tabs">                <!-- Onglet: Général -->        <button class="settings-tab"                [class.active]="activeTab === \'general\'"                (click)="switchTab(\'general\')">          🌐 Général        </button>                <!-- Onglet: Notifications -->        <button class="settings-tab"                [class.active]="activeTab === \'notifications\'"                (click)="switchTab(\'notifications\')">          🔔 Notifications        </button>                <!-- Onglet: Affichage -->        <button class="settings-tab"                [class.active]="activeTab === \'display\'"                (click)="switchTab(\'display\')">          🎨 Affichage        </button>                <!-- Onglet: Sécurité -->        <button class="settings-tab"                [class.active]="activeTab === \'security\'"                (click)="switchTab(\'security\')">          🔒 Sécurité        </button>                <!-- Onglet: Business -->        <button class="settings-tab"                [class.active]="activeTab === \'business\'"                (click)="switchTab(\'business\')">          💼 Business        </button>      </div>      <!-- ===== Contenu des onglets ===== -->      <div class="settings-content">                <!-- ===== ONGLET GÉNÉRAL ===== -->        <div *ngIf="activeTab === \'general\'" class="settings-panel">          <h3 class="panel-title">Paramètres généraux</h3>                    <!-- Langue -->          <div class="setting-item">            <div class="setting-label">              <strong>Langue</strong>              <span class="setting-description">Langue de l\'interface</span>            </div>            <select class="setting-input"                    [(ngModel)]="settings.general.language"                    (change)="onSettingsChange()">              <option value="fr">Français</option>              <option value="en">English</option>              <option value="es">Español</option>            </select>          </div>          <!-- Fuseau horaire -->          <div class="setting-item">            <div class="setting-label">              <strong>Fuseau horaire</strong>              <span class="setting-description">Votre fuseau horaire local</span>            </div>            <select class="setting-input"                    [(ngModel)]="settings.general.timezone"                    (change)="onSettingsChange()">              <option value="Africa/Lagos">Lagos (WAT)</option>              <option value="Africa/Abidjan">Abidjan (GMT)</option>              <option value="Africa/Cairo">Cairo (EET)</option>            </select>          </div>          <!-- Format de date -->          <div class="setting-item">            <div class="setting-label">              <strong>Format de date</strong>              <span class="setting-description">Comment afficher les dates</span>            </div>            <select class="setting-input"                    [(ngModel)]="settings.general.dateFormat"                    (change)="onSettingsChange()">              <option value="DD/MM/YYYY">JJ/MM/AAAA</option>              <option value="MM/DD/YYYY">MM/JJ/AAAA</option>              <option value="YYYY-MM-DD">AAAA-MM-JJ</option>            </select>          </div>          <!-- Devise -->          <div class="setting-item">            <div class="setting-label">              <strong>Devise</strong>              <span class="setting-description">Devise par défaut</span>            </div>            <select class="setting-input"                    [(ngModel)]="settings.general.currency"                    (change)="onSettingsChange()">              <option value="FCFA">FCFA</option>              <option value="EUR">Euro (€)</option>              <option value="USD">Dollar ($)</option>            </select>          </div>        </div>        <!-- ===== ONGLET NOTIFICATIONS ===== -->        <div *ngIf="activeTab === \'notifications\'" class="settings-panel">          <h3 class="panel-title">Préférences de notifications</h3>                    <!-- Email -->          <div class="setting-item">            <div class="setting-label">              <strong>Notifications par email</strong>              <span class="setting-description">Recevoir des emails de notification</span>            </div>            <div class="setting-actions">              <label class="toggle-switch">                <input type="checkbox"                       [(ngModel)]="settings.notifications.email"                       (change)="onSettingsChange()">                <span class="toggle-slider"></span>              </label>              <button class="btn btn-sm btn-secondary"                       (click)="testEmailNotification()"                      [disabled]="!settings.notifications.email">                📧 Tester              </button>            </div>          </div>          <!-- SMS -->          <div class="setting-item">            <div class="setting-label">              <strong>Notifications par SMS</strong>              <span class="setting-description">Recevoir des SMS de notification</span>            </div>            <div class="setting-actions">              <label class="toggle-switch">                <input type="checkbox"                       [(ngModel)]="settings.notifications.sms"                       (change)="onSettingsChange()">                <span class="toggle-slider"></span>              </label>              <button class="btn btn-sm btn-secondary"                       (click)="testSMSNotification()"                      [disabled]="!settings.notifications.sms">                📱 Tester              </button>            </div>          </div>          <!-- Push -->          <div class="setting-item">            <div class="setting-label">              <strong>Notifications push</strong>              <span class="setting-description">Recevoir des notifications navigateur</span>            </div>            <label class="toggle-switch">              <input type="checkbox"                     [(ngModel)]="settings.notifications.push"                     (change)="onSettingsChange()">              <span class="toggle-slider"></span>            </label>          </div>          <div class="divider"></div>                    <h4 class="subsection-title">Types de notifications</h4>          <!-- Stock faible -->          <div class="setting-item">            <div class="setting-label">              <strong>Alertes stock faible</strong>              <span class="setting-description">Quand le stock est en dessous du seuil</span>            </div>            <label class="toggle-switch">              <input type="checkbox"                     [(ngModel)]="settings.notifications.lowStock"                     (change)="onSettingsChange()">              <span class="toggle-slider"></span>            </label>          </div>          <!-- Nouvelles commandes -->          <div class="setting-item">            <div class="setting-label">              <strong>Nouvelles commandes</strong>              <span class="setting-description">Lors de nouvelles commandes</span>            </div>            <label class="toggle-switch">              <input type="checkbox"                     [(ngModel)]="settings.notifications.newOrders"                     (change)="onSettingsChange()">              <span class="toggle-slider"></span>            </label>          </div>          <!-- Activité employés -->          <div class="setting-item">            <div class="setting-label">              <strong>Activité des employés</strong>              <span class="setting-description">Actions importantes des employés</span>            </div>            <label class="toggle-switch">              <input type="checkbox"                     [(ngModel)]="settings.notifications.employeeActivity"                     (change)="onSettingsChange()">              <span class="toggle-slider"></span>            </label>          </div>        </div>        <!-- ===== ONGLET AFFICHAGE ===== -->        <div *ngIf="activeTab === \'display\'" class="settings-panel">          <h3 class="panel-title">Préférences d\'affichage</h3>                    <!-- Thème -->          <div class="setting-item">            <div class="setting-label">              <strong>Thème</strong>              <span class="setting-description">Apparence de l\'interface</span>            </div>            <div class="theme-selector">              <button class="theme-option"                      [class.active]="settings.display.theme === \'light\'"                      (click)="changeTheme(\'light\')">                ☀️ Clair              </button>              <button class="theme-option"                      [class.active]="settings.display.theme === \'dark\'"                      (click)="changeTheme(\'dark\')">                🌙 Sombre              </button>              <button class="theme-option"                      [class.active]="settings.display.theme === \'auto\'"                      (click)="changeTheme(\'auto\')">                🔄 Auto              </button>            </div>          </div>          <!-- Taille de police -->          <div class="setting-item">            <div class="setting-label">              <strong>Taille de police</strong>              <span class="setting-description">Taille du texte dans l\'application</span>            </div>            <div class="font-size-selector">              <button class="font-size-option"                      [class.active]="settings.display.fontSize === \'small\'"                      (click)="changeFontSize(\'small\')">                Petit              </button>              <button class="font-size-option"                      [class.active]="settings.display.fontSize === \'medium\'"                      (click)="changeFontSize(\'medium\')">                Moyen              </button>              <button class="font-size-option"                      [class.active]="settings.display.fontSize === \'large\'"                      (click)="changeFontSize(\'large\')">                Grand              </button>            </div>          </div>          <!-- Sidebar réduite -->          <div class="setting-item">            <div class="setting-label">              <strong>Menu latéral réduit</strong>              <span class="setting-description">Afficher uniquement les icônes</span>            </div>            <label class="toggle-switch">              <input type="checkbox"                     [(ngModel)]="settings.display.sidebarCollapsed"                     (change)="onSettingsChange()">              <span class="toggle-slider"></span>            </label>          </div>        </div>        <!-- ===== ONGLET SÉCURITÉ ===== -->        <div *ngIf="activeTab === \'security\'" class="settings-panel">          <h3 class="panel-title">Sécurité et confidentialité</h3>                    <!-- Authentification à deux facteurs -->          <div class="setting-item">            <div class="setting-label">              <strong>Authentification à deux facteurs (2FA)</strong>              <span class="setting-description">Sécurité renforcée pour votre compte</span>            </div>            <label class="toggle-switch">              <input type="checkbox"                     [(ngModel)]="settings.security.twoFactorAuth"                     (change)="toggleTwoFactorAuth()">              <span class="toggle-slider"></span>            </label>          </div>          <!-- Timeout de session -->          <div class="setting-item">            <div class="setting-label">              <strong>Timeout de session</strong>              <span class="setting-description">Déconnexion automatique après inactivité</span>            </div>            <div class="setting-input-group">              <input type="number"                     class="setting-input"                     [(ngModel)]="settings.security.sessionTimeout"                     (change)="onSettingsChange()"                     min="5"                     max="120">              <span class="input-suffix">minutes</span>            </div>          </div>          <!-- Notifications de connexion -->          <div class="setting-item">            <div class="setting-label">              <strong>Notifications de connexion</strong>              <span class="setting-description">Être informé des nouvelles connexions</span>            </div>            <label class="toggle-switch">              <input type="checkbox"                     [(ngModel)]="settings.security.loginNotifications"                     (change)="onSettingsChange()">              <span class="toggle-slider"></span>            </label>          </div>        </div>        <!-- ===== ONGLET BUSINESS ===== -->        <div *ngIf="activeTab === \'business\'" class="settings-panel">          <h3 class="panel-title">Paramètres business</h3>                    <!-- Taux de taxe -->          <div class="setting-item">            <div class="setting-label">              <strong>Taux de taxe (TVA)</strong>              <span class="setting-description">Taxe appliquée aux ventes</span>            </div>            <div class="setting-input-group">              <input type="number"                     class="setting-input"                     [(ngModel)]="settings.business.taxRate"                     (change)="onSettingsChange()"                     min="0"                     max="100"                     step="0.1">              <span class="input-suffix">%</span>            </div>          </div>          <!-- Seuil stock faible -->          <div class="setting-item">            <div class="setting-label">              <strong>Seuil de stock faible</strong>              <span class="setting-description">Nombre d\'unités pour déclencher une alerte</span>            </div>            <input type="number"                   class="setting-input"                   [(ngModel)]="settings.business.lowStockThreshold"                   (change)="onSettingsChange()"                   min="0">          </div>          <div class="divider"></div>                    <h4 class="subsection-title">Sauvegarde et données</h4>          <!-- Sauvegarde automatique -->          <div class="setting-item">            <div class="setting-label">              <strong>Sauvegarde automatique</strong>              <span class="setting-description">Sauvegarder automatiquement les données</span>            </div>            <label class="toggle-switch">              <input type="checkbox"                     [(ngModel)]="settings.business.autoBackup"                     (change)="onSettingsChange()">              <span class="toggle-slider"></span>            </label>          </div>          <!-- Fréquence de sauvegarde -->          <div class="setting-item" *ngIf="settings.business.autoBackup">            <div class="setting-label">              <strong>Fréquence de sauvegarde</strong>              <span class="setting-description">À quelle fréquence effectuer les sauvegardes</span>            </div>            <select class="setting-input"                    [(ngModel)]="settings.business.backupFrequency"                    (change)="onSettingsChange()">              <option value="hourly">Toutes les heures</option>              <option value="daily">Quotidien</option>              <option value="weekly">Hebdomadaire</option>              <option value="monthly">Mensuel</option>            </select>          </div>          <!-- Bouton sauvegarde manuelle -->          <div class="setting-item">            <div class="setting-label">              <strong>Sauvegarde manuelle</strong>              <span class="setting-description">Effectuer une sauvegarde immédiate</span>            </div>            <button class="btn btn-secondary" (click)="performManualBackup()">              💾 Sauvegarder maintenant            </button>          </div>        </div>      </div>      <!-- ===== Boutons d\'action en bas ===== -->      <div class="settings-footer">                <!-- Actions secondaires -->        <div class="footer-left">          <button class="btn btn-outline" (click)="resetToDefaults()">            🔄 Réinitialiser          </button>                    <button class="btn btn-outline" (click)="importSettings()">            📥 Importer          </button>                    <button class="btn btn-outline" (click)="exportSettings()">            📤 Exporter          </button>        </div>        <!-- Actions principales -->        <div class="footer-right">          <button class="btn btn-cancel"                   (click)="cancelChanges()"                  [disabled]="!hasUnsavedChanges">            Annuler          </button>                    <button class="btn btn-primary"                   (click)="saveSettings()"                  [disabled]="!hasUnsavedChanges">            💾 Enregistrer les modifications          </button>        </div>      </div>    </div>  </section></div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AdminDashboardComponent', 'selector': 'app-admin-dashboard'},{'name': 'AlertsComponent', 'selector': 'app-alerts'},{'name': 'App', 'selector': 'app-root'},{'name': 'CaisseComponent', 'selector': 'app-caisse'},{'name': 'CaveCreateComponent', 'selector': 'app-cave-create'},{'name': 'CaveListComponent', 'selector': 'app-cave-lists'},{'name': 'ClientDashboardComponent', 'selector': 'app-client-dashboard'},{'name': 'ClientsComponent', 'selector': 'app-client'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DrinksComponent', 'selector': 'app-drinks'},{'name': 'EmployeesComponent', 'selector': 'app-employees'},{'name': 'EntriesComponent', 'selector': 'app-entries'},{'name': 'ExitsComponent', 'selector': 'app-exits'},{'name': 'ExpenseComponent', 'selector': 'app-depenses'},{'name': 'FaqComponent', 'selector': 'app-faq'},{'name': 'FournisseursComponent', 'selector': 'app-fournisseur'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'ImprovementsComponent', 'selector': 'app-improvements'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ManagerDashboardComponent', 'selector': 'app-manager-dashboard'},{'name': 'ManagersComponent', 'selector': 'app-managers'},{'name': 'MaterialComponent', 'selector': 'app-materiel'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'OrdersComponent', 'selector': 'app-orders'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfitComponent', 'selector': 'app-profit'},{'name': 'RecentActionsComponent', 'selector': 'app-recent-actions'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'SalesComponent', 'selector': 'app-sales'},{'name': 'ScanComponent', 'selector': 'app-scan'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'StockComponent', 'selector': 'app-stock'},{'name': 'StockComponent', 'selector': 'app-stock'},{'name': 'TeamComponent', 'selector': 'app-team'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'UserCreateComponent', 'selector': 'app-user-create'},{'name': 'UserListComponent', 'selector': 'app-user-list'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'WaitressDashboardComponent', 'selector': 'app-waitress-dashboard'},{'name': 'WinePairingComponent', 'selector': 'app-wine-pairing'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'SettingsComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'SettingsComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

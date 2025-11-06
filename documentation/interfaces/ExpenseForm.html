@@ -1,0 +1,1073 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cave-master-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cave-master-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  ExpenseForm</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/view/admin-dashboard/depenses/depenses.component.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Interface pour le formulaire de dépense</p>
+
+            </p>
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#amount" 
+>
+                                            amount
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#beneficiary" 
+>
+                                            beneficiary
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#category" 
+>
+                                            category
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#date" 
+>
+                                            date
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#description" 
+>
+                                            description
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="amount"></a>
+                                        <span class="name "><b>amount</b>
+                                            <a href="#amount">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>amount:     <code>number | null</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>number | null</code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="beneficiary"></a>
+                                        <span class="name "><b>beneficiary</b>
+                                            <a href="#beneficiary">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>beneficiary:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="category"></a>
+                                        <span class="name "><b>category</b>
+                                            <a href="#category">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>category:         <code><a href="../miscellaneous/enumerations.html#ExpenseCategory" target="_self" >ExpenseCategory</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../miscellaneous/enumerations.html#ExpenseCategory" target="_self" >ExpenseCategory</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="date"></a>
+                                        <span class="name "><b>date</b>
+                                            <a href="#date">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>date:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="description"></a>
+                                        <span class="name "><b>description</b>
+                                            <a href="#description">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>description:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, OnDestroy } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule, ReactiveFormsModule } from &#x27;@angular/forms&#x27;;
+import { ActivatedRoute, Router } from &#x27;@angular/router&#x27;;
+import { Subscription } from &#x27;rxjs&#x27;;
+
+/**
+ * Énumération des catégories de dépenses
+ */
+export enum ExpenseCategory {
+  SALAIRE &#x3D; &#x27;Salaire&#x27;,
+  ELECTRICITE &#x3D; &#x27;Électricité&#x27;,
+  EAU &#x3D; &#x27;Eau&#x27;,
+  CARBURANT &#x3D; &#x27;Carburant&#x27;,
+  MATERIEL &#x3D; &#x27;Matériel&#x27;,
+  AUTRE &#x3D; &#x27;Autre&#x27;
+}
+
+/**
+ * Interface pour définir une dépense
+ */
+interface Expense {
+  id: string;
+  category: ExpenseCategory;
+  description: string;
+  beneficiary?: string;
+  amount: number;
+  date: string;
+  createdAt?: Date;
+}
+
+/**
+ * Interface pour le formulaire de dépense
+ */
+interface ExpenseForm {
+  category: ExpenseCategory;
+  description: string;
+  beneficiary: string;
+  amount: number | null;
+  date: string;
+}
+
+/**
+ * Interface pour les statistiques par catégorie
+ */
+interface CategoryTotal {
+  category: ExpenseCategory;
+  label: string;
+  icon: string;
+  color: string;
+  total: number;
+}
+
+/**
+ * Composant de gestion des dépenses
+ */
+@Component({
+  selector: &#x27;app-depenses&#x27;,
+  standalone: true,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  templateUrl: &#x27;./depenses.component.html&#x27;,
+  styleUrls: [&#x27;./depenses.component.scss&#x27;]
+})
+export class ExpenseComponent implements OnInit, OnDestroy {
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  // PROPRIÉTÉS
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  expenses: Expense[] &#x3D; [];
+  filteredExpenses: Expense[] &#x3D; [];
+  searchTerm: string &#x3D; &#x27;&#x27;;
+  filterCategory: ExpenseCategory | &#x27;all&#x27; &#x3D; &#x27;all&#x27;;
+  isLoading: boolean &#x3D; false;
+  isModalOpen: boolean &#x3D; false;
+  isEditMode: boolean &#x3D; false;
+  selectedExpense: Expense | null &#x3D; null;
+  expenseForm: ExpenseForm &#x3D; this.getEmptyForm();
+  showExportMenu: boolean &#x3D; false;
+  editingExpense: Expense | null &#x3D; null;
+
+  // Variables pour le template
+  openModal: boolean &#x3D; false;
+  formData &#x3D; this.getEmptyForm();
+
+  // Configuration des catégories
+  categories &#x3D; [
+    { value: ExpenseCategory.SALAIRE, label: &#x27;Salaire&#x27;, color: &#x27;blue&#x27;, icon: &#x27;💰&#x27; },
+    { value: ExpenseCategory.ELECTRICITE, label: &#x27;Électricité&#x27;, color: &#x27;yellow&#x27;, icon: &#x27;⚡&#x27; },
+    { value: ExpenseCategory.EAU, label: &#x27;Eau&#x27;, color: &#x27;cyan&#x27;, icon: &#x27;💧&#x27; },
+    { value: ExpenseCategory.CARBURANT, label: &#x27;Carburant&#x27;, color: &#x27;red&#x27;, icon: &#x27;⛽&#x27; },
+    { value: ExpenseCategory.MATERIEL, label: &#x27;Matériel&#x27;, color: &#x27;green&#x27;, icon: &#x27;🔧&#x27; },
+    { value: ExpenseCategory.AUTRE, label: &#x27;Autre&#x27;, color: &#x27;gray&#x27;, icon: &#x27;📦&#x27; }
+  ];
+
+  // Énumérations pour le template
+  expenseCategories &#x3D; Object.values(ExpenseCategory);
+
+  private routeSubscription?: Subscription;
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  // CONSTRUCTEUR
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  // LIFECYCLE HOOKS
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  ngOnInit(): void {
+    this.loadExpenses();
+    this.applyFilters();
+  }
+
+  ngOnDestroy(): void {
+    if (this.routeSubscription) {
+      this.routeSubscription.unsubscribe();
+    }
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  // CHARGEMENT DES DONNÉES
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  loadExpenses(): void {
+    this.isLoading &#x3D; true;
+
+    // Charger depuis localStorage
+    const stored &#x3D; localStorage.getItem(&#x27;expenses-data&#x27;);
+    if (stored) {
+      this.expenses &#x3D; JSON.parse(stored);
+    } else {
+      this.expenses &#x3D; this.generateMockExpenses();
+      this.saveExpenses();
+    }
+
+    this.filteredExpenses &#x3D; [...this.expenses];
+    this.isLoading &#x3D; false;
+    console.log(&#x27;✅ Dépenses chargées:&#x27;, this.expenses.length);
+  }
+
+  private generateMockExpenses(): Expense[] {
+    return [
+      {
+        id: this.generateId(),
+        category: ExpenseCategory.SALAIRE,
+        description: &#x27;Salaire du mois de novembre&#x27;,
+        beneficiary: &#x27;Jean Dupont&#x27;,
+        amount: 250000,
+        date: &#x27;2024-11-01&#x27;,
+        createdAt: new Date()
+      },
+      {
+        id: this.generateId(),
+        category: ExpenseCategory.ELECTRICITE,
+        description: &#x27;Facture CIE novembre&#x27;,
+        beneficiary: &#x27;CIE&#x27;,
+        amount: 45000,
+        date: &#x27;2024-11-05&#x27;,
+        createdAt: new Date()
+      }
+    ];
+  }
+
+  private saveExpenses(): void {
+    localStorage.setItem(&#x27;expenses-data&#x27;, JSON.stringify(this.expenses));
+    console.log(&#x27;💾 Dépenses sauvegardées&#x27;);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  // FILTRAGE ET RECHERCHE
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  applyFilters(): void {
+    let result &#x3D; [...this.expenses];
+
+    // Filtrer par catégorie
+    if (this.filterCategory !&#x3D;&#x3D; &#x27;all&#x27;) {
+      result &#x3D; result.filter(exp &#x3D;&gt; exp.category &#x3D;&#x3D;&#x3D; this.filterCategory);
+    }
+
+    // Filtrer par recherche
+    if (this.searchTerm.trim()) {
+      const term &#x3D; this.searchTerm.toLowerCase();
+      result &#x3D; result.filter(exp &#x3D;&gt;
+        exp.description.toLowerCase().includes(term) ||
+        exp.beneficiary?.toLowerCase().includes(term) ||
+        exp.category.toLowerCase().includes(term)
+      );
+    }
+
+    // Trier par date (plus récent en premier)
+    result.sort((a, b) &#x3D;&gt; new Date(b.date).getTime() - new Date(a.date).getTime());
+
+    this.filteredExpenses &#x3D; result;
+  }
+
+  onCategoryChange(): void {
+    this.applyFilters();
+  }
+
+  onSearchChange(): void {
+    this.applyFilters();
+  }
+
+  resetFilters(): void {
+    this.filterCategory &#x3D; &#x27;all&#x27;;
+    this.searchTerm &#x3D; &#x27;&#x27;;
+    this.applyFilters();
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  // CALCULS ET STATISTIQUES
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  getTotalByCategory(): CategoryTotal[] {
+    return this.categories.map(cat &#x3D;&gt; ({
+      category: cat.value,
+      label: cat.label,
+      icon: cat.icon,
+      color: cat.color,
+      total: this.expenses
+        .filter(exp &#x3D;&gt; exp.category &#x3D;&#x3D;&#x3D; cat.value)
+        .reduce((sum, exp) &#x3D;&gt; sum + exp.amount, 0)
+    }));
+  }
+
+  get totalByCategory(): CategoryTotal[] {
+    return this.getTotalByCategory();
+  }
+
+  getGrandTotal(): number {
+    return this.expenses.reduce((sum, exp) &#x3D;&gt; sum + exp.amount, 0);
+  }
+
+  get grandTotal(): number {
+    return this.getGrandTotal();
+  }
+
+  getCategoryInfo(category: ExpenseCategory) {
+    return this.categories.find(c &#x3D;&gt; c.value &#x3D;&#x3D;&#x3D; category);
+  }
+
+  getCategoryColor(category: ExpenseCategory): string {
+    return this.getCategoryInfo(category)?.color || &#x27;gray&#x27;;
+  }
+
+  getCategoryIcon(category: ExpenseCategory): string {
+    return this.getCategoryInfo(category)?.icon || &#x27;📦&#x27;;
+  }
+
+  getCategoryLabel(category: ExpenseCategory): string {
+    return this.getCategoryInfo(category)?.label || category;
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  // MODAL - AJOUT/MODIFICATION
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  openAddModal(): void {
+    this.isEditMode &#x3D; false;
+    this.selectedExpense &#x3D; null;
+    this.editingExpense &#x3D; null;
+    this.expenseForm &#x3D; this.getEmptyForm();
+    this.formData &#x3D; this.getEmptyForm();
+    this.isModalOpen &#x3D; true;
+    this.openModal &#x3D; true;
+  }
+
+  openEditModal(expense: Expense): void {
+    this.isEditMode &#x3D; true;
+    this.selectedExpense &#x3D; expense;
+    this.editingExpense &#x3D; expense;
+    this.expenseForm &#x3D; {
+      category: expense.category,
+      description: expense.description,
+      beneficiary: expense.beneficiary || &#x27;&#x27;,
+      amount: expense.amount,
+      date: expense.date
+    };
+    this.formData &#x3D; { ...this.expenseForm };
+    this.isModalOpen &#x3D; true;
+    this.openModal &#x3D; true;
+  }
+
+  closeModal(): void {
+    this.isModalOpen &#x3D; false;
+    this.openModal &#x3D; false;
+    this.isEditMode &#x3D; false;
+    this.selectedExpense &#x3D; null;
+    this.editingExpense &#x3D; null;
+    this.expenseForm &#x3D; this.getEmptyForm();
+    this.formData &#x3D; this.getEmptyForm();
+  }
+
+  handleSubmit(event?: Event): void {
+    if (event) {
+      event.preventDefault();
+    }
+    this.saveExpense();
+  }
+
+  saveExpense(): void {
+    if (!this.validateForm()) {
+      alert(&#x27;⚠️ Veuillez remplir tous les champs obligatoires&#x27;);
+      return;
+    }
+
+    if (this.isEditMode &amp;&amp; (this.selectedExpense || this.editingExpense)) {
+      this.updateExpense();
+    } else {
+      this.addExpense();
+    }
+  }
+
+  private addExpense(): void {
+    const newExpense: Expense &#x3D; {
+      id: this.generateId(),
+      category: this.expenseForm.category,
+      description: this.expenseForm.description,
+      beneficiary: this.expenseForm.beneficiary || undefined,
+      amount: this.expenseForm.amount!,
+      date: this.expenseForm.date,
+      createdAt: new Date()
+    };
+
+    this.expenses.unshift(newExpense);
+    this.saveExpenses();
+    this.applyFilters();
+
+    console.log(&#x27;✅ Dépense ajoutée:&#x27;, newExpense);
+    alert(&#x27;✅ Dépense ajoutée avec succès !&#x27;);
+    this.closeModal();
+  }
+
+  private updateExpense(): void {
+    const expense &#x3D; this.selectedExpense || this.editingExpense;
+    if (!expense) return;
+
+    const index &#x3D; this.expenses.findIndex(e &#x3D;&gt; e.id &#x3D;&#x3D;&#x3D; expense.id);
+    if (index !&#x3D;&#x3D; -1) {
+      this.expenses[index] &#x3D; {
+        ...expense,
+        category: this.expenseForm.category,
+        description: this.expenseForm.description,
+        beneficiary: this.expenseForm.beneficiary || undefined,
+        amount: this.expenseForm.amount!,
+        date: this.expenseForm.date
+      };
+
+      this.saveExpenses();
+      this.applyFilters();
+      console.log(&#x27;✅ Dépense mise à jour:&#x27;, this.expenses[index]);
+      alert(&#x27;✅ Dépense mise à jour avec succès !&#x27;);
+      this.closeModal();
+    }
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  // GESTION DES ACTIONS
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  handleEdit(expense: Expense): void {
+    this.openEditModal(expense);
+  }
+
+  handleDelete(expenseId: string): void {
+    const expense &#x3D; this.expenses.find(e &#x3D;&gt; e.id &#x3D;&#x3D;&#x3D; expenseId);
+    if (expense) {
+      this.deleteExpense(expense);
+    }
+  }
+
+  editingExpenseValue(expense: Expense): boolean {
+    return this.editingExpense?.id &#x3D;&#x3D;&#x3D; expense.id;
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  // SUPPRESSION
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  deleteExpense(expense: Expense): void {
+    if (confirm(&#x60;❌ Êtes-vous sûr de vouloir supprimer cette dépense ?\n&quot;${expense.description}&quot;&#x60;)) {
+      this.expenses &#x3D; this.expenses.filter(e &#x3D;&gt; e.id !&#x3D;&#x3D; expense.id);
+      this.saveExpenses();
+      this.applyFilters();
+      console.log(&#x27;🗑️ Dépense supprimée:&#x27;, expense.id);
+      alert(&#x27;✅ Dépense supprimée avec succès&#x27;);
+    }
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  // VALIDATION
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  private validateForm(): boolean {
+    return !!(
+      this.expenseForm.category &amp;&amp;
+      this.expenseForm.description &amp;&amp;
+      this.expenseForm.amount &amp;&amp;
+      this.expenseForm.amount &gt; 0 &amp;&amp;
+      this.expenseForm.date
+    );
+  }
+
+  private getEmptyForm(): ExpenseForm {
+    const today &#x3D; new Date().toISOString().split(&#x27;T&#x27;)[0];
+    return {
+      category: ExpenseCategory.SALAIRE,
+      description: &#x27;&#x27;,
+      beneficiary: &#x27;&#x27;,
+      amount: null,
+      date: today
+    };
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  // EXPORT
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  toggleExportMenu(): void {
+    this.showExportMenu &#x3D; !this.showExportMenu;
+  }
+
+  exportToCSV(): void {
+    const headers &#x3D; [&#x27;Date&#x27;, &#x27;Catégorie&#x27;, &#x27;Description&#x27;, &#x27;Bénéficiaire&#x27;, &#x27;Montant&#x27;];
+    const rows &#x3D; this.expenses.map(exp &#x3D;&gt; [
+      exp.date,
+      this.getCategoryInfo(exp.category)?.label || &#x27;&#x27;,
+      exp.description,
+      exp.beneficiary || &#x27;&#x27;,
+      exp.amount
+    ]);
+
+    const csv &#x3D; [headers, ...rows].map(row &#x3D;&gt; row.join(&#x27;,&#x27;)).join(&#x27;\n&#x27;);
+    this.downloadFile(csv, &#x27;text/csv&#x27;, &#x27;depenses.csv&#x27;);
+    this.showExportMenu &#x3D; false;
+  }
+
+  exportToExcel(): void {
+    const totalByCategory &#x3D; this.getTotalByCategory();
+    const grandTotal &#x3D; this.getGrandTotal();
+
+    // Créer les données pour l&#x27;export
+    let csvContent &#x3D; &#x27;Date,Catégorie,Description,Bénéficiaire,Montant (FCFA)\n&#x27;;
+
+    this.expenses.forEach(exp &#x3D;&gt; {
+      const cat &#x3D; this.getCategoryInfo(exp.category);
+      csvContent +&#x3D; &#x60;${exp.date},&quot;${cat?.label || &#x27;&#x27;}&quot;,&quot;${exp.description}&quot;,&quot;${exp.beneficiary || &#x27;&#x27;}&quot;,${exp.amount}\n&#x60;;
+    });
+
+    // Ajouter le résumé
+    csvContent +&#x3D; &#x27;\n\nRÉSUMÉ PAR CATÉGORIE\n&#x27;;
+    totalByCategory.forEach(cat &#x3D;&gt; {
+      csvContent +&#x3D; &#x60;&quot;${cat.label}&quot;,${cat.total}\n&#x60;;
+    });
+    csvContent +&#x3D; &#x60;\nTOTAL GÉNÉRAL,${grandTotal}\n&#x60;;
+
+    // Télécharger le fichier
+    this.downloadFile(csvContent, &#x27;text/csv;charset&#x3D;utf-8;&#x27;, &#x27;depenses.csv&#x27;);
+    this.showExportMenu &#x3D; false;
+  }
+
+  exportToPDF(): void {
+    const totalByCategory &#x3D; this.getTotalByCategory();
+    const grandTotal &#x3D; this.getGrandTotal();
+
+    const printWindow &#x3D; window.open(&#x27;&#x27;, &#x27;&#x27;, &#x27;width&#x3D;800,height&#x3D;600&#x27;);
+    if (!printWindow) {
+      alert(&#x27;⚠️ Veuillez autoriser les popups pour exporter en PDF&#x27;);
+      return;
+    }
+
+    const html &#x3D; &#x60;
+      &lt;!DOCTYPE html&gt;
+      &lt;html&gt;
+      &lt;head&gt;
+        &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;
+        &lt;title&gt;Rapport des Dépenses&lt;/title&gt;
+        &lt;style&gt;
+          * { margin: 0; padding: 0; box-sizing: border-box; }
+          body { font-family: &#x27;Segoe UI&#x27;, Arial, sans-serif; padding: 40px; color: #1e293b; background: white; }
+          .header { text-align: center; margin-bottom: 40px; border-bottom: 3px solid #6366f1; padding-bottom: 20px; }
+          h1 { color: #6366f1; font-size: 32px; margin-bottom: 10px; }
+          .date { color: #64748b; font-size: 14px; }
+          table { width: 100%; border-collapse: collapse; margin: 30px 0; }
+          th { background-color: #f1f5f9; padding: 14px; text-align: left; border-bottom: 2px solid #cbd5e1; font-weight: 600; color: #475569; font-size: 13px; text-transform: uppercase; }
+          td { padding: 12px 14px; border-bottom: 1px solid #e2e8f0; font-size: 14px; }
+          tr:hover { background-color: #f8fafc; }
+          .amount { text-align: right; font-weight: 600; color: #10b981; }
+          .category { display: inline-block; padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; }
+          .cat-blue { background: #dbeafe; color: #1e40af; }
+          .cat-yellow { background: #fef3c7; color: #92400e; }
+          .cat-cyan { background: #cffafe; color: #155e75; }
+          .cat-red { background: #fee2e2; color: #991b1b; }
+          .cat-green { background: #dcfce7; color: #166534; }
+          .cat-gray { background: #f3f4f6; color: #374151; }
+          .summary { margin-top: 40px; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); padding: 30px; border-radius: 12px; border: 2px solid #e2e8f0; }
+          .summary h2 { color: #334155; margin-bottom: 20px; font-size: 20px; }
+          .summary-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e2e8f0; }
+          .summary-item:last-child { border-bottom: none; }
+          .summary-label { font-weight: 500; color: #475569; }
+          .summary-value { font-weight: 600; color: #1e293b; }
+          .total { margin-top: 20px; padding-top: 20px; border-top: 3px solid #6366f1; font-size: 18px; }
+          .total .summary-value { color: #6366f1; font-size: 22px; }
+          @media print {
+            body { padding: 20px; }
+            .header { page-break-after: avoid; }
+            table { page-break-inside: auto; }
+            tr { page-break-inside: avoid; }
+          }
+        &lt;/style&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+        &lt;div class&#x3D;&quot;header&quot;&gt;
+          &lt;h1&gt;📊 Rapport des Dépenses&lt;/h1&gt;
+          &lt;p class&#x3D;&quot;date&quot;&gt;Généré le ${new Date().toLocaleDateString(&#x27;fr-FR&#x27;, { weekday: &#x27;long&#x27;, year: &#x27;numeric&#x27;, month: &#x27;long&#x27;, day: &#x27;numeric&#x27; })}&lt;/p&gt;
+        &lt;/div&gt;
+
+        &lt;table&gt;
+          &lt;thead&gt;
+            &lt;tr&gt;
+              &lt;th&gt;Date&lt;/th&gt;
+              &lt;th&gt;Catégorie&lt;/th&gt;
+              &lt;th&gt;Description&lt;/th&gt;
+              &lt;th&gt;Bénéficiaire&lt;/th&gt;
+              &lt;th style&#x3D;&quot;text-align: right;&quot;&gt;Montant (FCFA)&lt;/th&gt;
+            &lt;/tr&gt;
+          &lt;/thead&gt;
+          &lt;tbody&gt;
+            ${this.expenses.map(exp &#x3D;&gt; {
+              const cat &#x3D; this.getCategoryInfo(exp.category);
+              return &#x60;
+                &lt;tr&gt;
+                  &lt;td&gt;${new Date(exp.date).toLocaleDateString(&#x27;fr-FR&#x27;)}&lt;/td&gt;
+                  &lt;td&gt;&lt;span class&#x3D;&quot;category cat-${cat?.color}&quot;&gt;${cat?.icon} ${cat?.label}&lt;/span&gt;&lt;/td&gt;
+                  &lt;td&gt;${exp.description}&lt;/td&gt;
+                  &lt;td&gt;${exp.beneficiary || &#x27;-&#x27;}&lt;/td&gt;
+                  &lt;td class&#x3D;&quot;amount&quot;&gt;${this.formatNumber(exp.amount)}&lt;/td&gt;
+                &lt;/tr&gt;
+              &#x60;;
+            }).join(&#x27;&#x27;)}
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+
+        &lt;div class&#x3D;&quot;summary&quot;&gt;
+          &lt;h2&gt;📈 Résumé par Catégorie&lt;/h2&gt;
+          ${totalByCategory.map(cat &#x3D;&gt; &#x60;
+            &lt;div class&#x3D;&quot;summary-item&quot;&gt;
+              &lt;span class&#x3D;&quot;summary-label&quot;&gt;${cat.icon} ${cat.label}&lt;/span&gt;
+              &lt;span class&#x3D;&quot;summary-value&quot;&gt;${this.formatNumber(cat.total)} FCFA&lt;/span&gt;
+            &lt;/div&gt;
+          &#x60;).join(&#x27;&#x27;)}
+          &lt;div class&#x3D;&quot;summary-item total&quot;&gt;
+            &lt;span class&#x3D;&quot;summary-label&quot;&gt;💎 TOTAL GÉNÉRAL&lt;/span&gt;
+            &lt;span class&#x3D;&quot;summary-value&quot;&gt;${this.formatNumber(grandTotal)} FCFA&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;script&gt;
+          window.onload &#x3D; function() {
+            window.print();
+            setTimeout(() &#x3D;&gt; window.close(), 500);
+          }
+        &lt;/script&gt;
+      &lt;/body&gt;
+      &lt;/html&gt;
+    &#x60;;
+
+    printWindow.document.write(html);
+    printWindow.document.close();
+    this.showExportMenu &#x3D; false;
+  }
+
+  private downloadFile(content: string, mimeType: string, filename: string): void {
+    // Ajouter le BOM pour le support UTF-8 dans Excel
+    const BOM &#x3D; &#x27;\uFEFF&#x27;;
+    const blob &#x3D; new Blob([BOM + content], { type: mimeType });
+    const url &#x3D; URL.createObjectURL(blob);
+    const a &#x3D; document.createElement(&#x27;a&#x27;);
+    a.href &#x3D; url;
+    a.download &#x3D; filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  // MÉTHODES UTILITAIRES
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  private generateId(): string {
+    return &#x60;expense_${Date.now()}_${Math.random().toString(36).substr(2, 9)}&#x60;;
+  }
+
+  formatNumber(num: number): string {
+    return num.toString().replace(/\B(?&#x3D;(\d{3})+(?!\d))/g, &#x27; &#x27;);
+  }
+
+  formatDate(dateString: string): string {
+    return new Date(dateString).toLocaleDateString(&#x27;fr-FR&#x27;);
+  }
+
+  getCategoryClass(category: ExpenseCategory): string {
+    const cat &#x3D; this.getCategoryInfo(category);
+    return &#x60;cat-${cat?.color || &#x27;gray&#x27;}&#x60;;
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'ExpenseForm.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

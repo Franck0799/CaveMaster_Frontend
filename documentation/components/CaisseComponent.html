@@ -1,0 +1,3761 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cave-master-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cave-master-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  CaisseComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/view/admin-dashboard/caisse/caisse.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-caisse</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>FormsModule</code>
+                            <code>ReactiveFormsModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./caisse.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./caisse.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#currentTransactionFilter" >currentTransactionFilter</a>
+                            </li>
+                            <li>
+                                <a href="#currentView" >currentView</a>
+                            </li>
+                            <li>
+                                <a href="#managersData" >managersData</a>
+                            </li>
+                            <li>
+                                <a href="#selectedDate" >selectedDate</a>
+                            </li>
+                            <li>
+                                <a href="#selectedManagerId" >selectedManagerId</a>
+                            </li>
+                            <li>
+                                <a href="#transactionsData" >transactionsData</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#envoyerNotification" >envoyerNotification</a>
+                            </li>
+                            <li>
+                                <a href="#exporterRapport" >exporterRapport</a>
+                            </li>
+                            <li>
+                                <a href="#fermerCaisse" >fermerCaisse</a>
+                            </li>
+                            <li>
+                                <a href="#filterTransactions" >filterTransactions</a>
+                            </li>
+                            <li>
+                                <a href="#formatDate" >formatDate</a>
+                            </li>
+                            <li>
+                                <a href="#formatMontant" >formatMontant</a>
+                            </li>
+                            <li>
+                                <a href="#getManagerAvatar" >getManagerAvatar</a>
+                            </li>
+                            <li>
+                                <a href="#getManagerById" >getManagerById</a>
+                            </li>
+                            <li>
+                                <a href="#getManagerStatut" >getManagerStatut</a>
+                            </li>
+                            <li>
+                                <a href="#getTransactionCount" >getTransactionCount</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#selectManager" >selectManager</a>
+                            </li>
+                            <li>
+                                <a href="#switchView" >switchView</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#selectedManager" >selectedManager</a>
+                                </li>
+                                <li>
+                                    <a href="#filteredTransactions" >filteredTransactions</a>
+                                </li>
+                                <li>
+                                    <a href="#statistiquesManager" >statistiquesManager</a>
+                                </li>
+                                <li>
+                                    <a href="#statistiquesGlobales" >statistiquesGlobales</a>
+                                </li>
+                                <li>
+                                    <a href="#totalGlobal" >totalGlobal</a>
+                                </li>
+                                <li>
+                                    <a href="#totalEspecesGlobal" >totalEspecesGlobal</a>
+                                </li>
+                                <li>
+                                    <a href="#totalWaveGlobal" >totalWaveGlobal</a>
+                                </li>
+                                <li>
+                                    <a href="#totalMobileGlobal" >totalMobileGlobal</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="envoyerNotification"></a>
+                    <span class="name">
+                        <span ><b>envoyerNotification</b></span>
+                        <a href="#envoyerNotification"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>envoyerNotification(managerId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="447"
+                                    class="link-to-prism">src/app/view/admin-dashboard/caisse/caisse.component.ts:447</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>managerId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exporterRapport"></a>
+                    <span class="name">
+                        <span ><b>exporterRapport</b></span>
+                        <a href="#exporterRapport"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exporterRapport()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="443"
+                                    class="link-to-prism">src/app/view/admin-dashboard/caisse/caisse.component.ts:443</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fermerCaisse"></a>
+                    <span class="name">
+                        <span ><b>fermerCaisse</b></span>
+                        <a href="#fermerCaisse"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>fermerCaisse(managerId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="452"
+                                    class="link-to-prism">src/app/view/admin-dashboard/caisse/caisse.component.ts:452</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>managerId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filterTransactions"></a>
+                    <span class="name">
+                        <span ><b>filterTransactions</b></span>
+                        <a href="#filterTransactions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>filterTransactions(filter: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="329"
+                                    class="link-to-prism">src/app/view/admin-dashboard/caisse/caisse.component.ts:329</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>filter</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatDate"></a>
+                    <span class="name">
+                        <span ><b>formatDate</b></span>
+                        <a href="#formatDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatDate(isoDate: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="417"
+                                    class="link-to-prism">src/app/view/admin-dashboard/caisse/caisse.component.ts:417</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>isoDate</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatMontant"></a>
+                    <span class="name">
+                        <span ><b>formatMontant</b></span>
+                        <a href="#formatMontant"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatMontant(montant: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="425"
+                                    class="link-to-prism">src/app/view/admin-dashboard/caisse/caisse.component.ts:425</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>montant</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getManagerAvatar"></a>
+                    <span class="name">
+                        <span ><b>getManagerAvatar</b></span>
+                        <a href="#getManagerAvatar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getManagerAvatar(managerId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="434"
+                                    class="link-to-prism">src/app/view/admin-dashboard/caisse/caisse.component.ts:434</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>managerId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getManagerById"></a>
+                    <span class="name">
+                        <span ><b>getManagerById</b></span>
+                        <a href="#getManagerById"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getManagerById(managerId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="430"
+                                    class="link-to-prism">src/app/view/admin-dashboard/caisse/caisse.component.ts:430</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>managerId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Manager | undefined</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getManagerStatut"></a>
+                    <span class="name">
+                        <span ><b>getManagerStatut</b></span>
+                        <a href="#getManagerStatut"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getManagerStatut(managerId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="438"
+                                    class="link-to-prism">src/app/view/admin-dashboard/caisse/caisse.component.ts:438</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>managerId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTransactionCount"></a>
+                    <span class="name">
+                        <span ><b>getTransactionCount</b></span>
+                        <a href="#getTransactionCount"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getTransactionCount(type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="405"
+                                    class="link-to-prism">src/app/view/admin-dashboard/caisse/caisse.component.ts:405</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="310"
+                                    class="link-to-prism">src/app/view/admin-dashboard/caisse/caisse.component.ts:310</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectManager"></a>
+                    <span class="name">
+                        <span ><b>selectManager</b></span>
+                        <a href="#selectManager"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>selectManager(managerId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="315"
+                                    class="link-to-prism">src/app/view/admin-dashboard/caisse/caisse.component.ts:315</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>managerId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="switchView"></a>
+                    <span class="name">
+                        <span ><b>switchView</b></span>
+                        <a href="#switchView"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>switchView(view: "resume" | "details")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="324"
+                                    class="link-to-prism">src/app/view/admin-dashboard/caisse/caisse.component.ts:324</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>view</td>
+                                            <td>
+                                                        <code>&quot;resume&quot; | &quot;details&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentTransactionFilter"></a>
+                    <span class="name">
+                        <span ><b>currentTransactionFilter</b></span>
+                        <a href="#currentTransactionFilter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;all&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/view/admin-dashboard/caisse/caisse.component.ts:58</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentView"></a>
+                    <span class="name">
+                        <span ><b>currentView</b></span>
+                        <a href="#currentView"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;resume&quot; | &quot;details&quot;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;resume&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/view/admin-dashboard/caisse/caisse.component.ts:61</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="managersData"></a>
+                    <span class="name">
+                        <span ><b>managersData</b></span>
+                        <a href="#managersData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Manager[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    {
+      id: &#x27;mgr-1&#x27;,
+      nom: &#x27;Jean Kouassi&#x27;,
+      cave: &#x27;Cave Principale&#x27;,
+      caveAdresse: &#x27;Lekki Phase 1, Abidjan&#x27;,
+      avatar: &#x27;👨‍💼&#x27;,
+      statut: &#x27;actif&#x27;
+    },
+    {
+      id: &#x27;mgr-2&#x27;,
+      nom: &#x27;Aminata Diallo&#x27;,
+      cave: &#x27;Cave Grand Maitre&#x27;,
+      caveAdresse: &#x27;Grand Maitre,Abidjan&#x27;,
+      avatar: &#x27;👩‍💼&#x27;,
+      statut: &#x27;actif&#x27;
+    },
+    {
+      id: &#x27;mgr-3&#x27;,
+      nom: &#x27;Ibrahim Cisse&#x27;,
+      cave: &#x27;Cave Temple du repos&#x27;,
+      caveAdresse: &#x27;Temple du repos, Abidjan&#x27;,
+      avatar: &#x27;👨‍💼&#x27;,
+      statut: &#x27;actif&#x27;
+    },
+    {
+      id: &#x27;mgr-4&#x27;,
+      nom: &#x27;Fatou Ndiaye&#x27;,
+      cave: &#x27;Cave La cachette&#x27;,
+      caveAdresse: &#x27;La cachette, Abidjan&#x27;,
+      avatar: &#x27;👩‍💼&#x27;,
+      statut: &#x27;absent&#x27;
+    }
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">src/app/view/admin-dashboard/caisse/caisse.component.ts:64</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedDate"></a>
+                    <span class="name">
+                        <span ><b>selectedDate</b></span>
+                        <a href="#selectedDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Date().toISOString().split(&#x27;T&#x27;)[0]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/view/admin-dashboard/caisse/caisse.component.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedManagerId"></a>
+                    <span class="name">
+                        <span ><b>selectedManagerId</b></span>
+                        <a href="#selectedManagerId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;mgr-1&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/view/admin-dashboard/caisse/caisse.component.ts:52</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="transactionsData"></a>
+                    <span class="name">
+                        <span ><b>transactionsData</b></span>
+                        <a href="#transactionsData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Transaction[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    // Transactions Manager 1 (Jean Kouassi - Cave Principale)
+    {
+      id: &#x27;tr-1-1&#x27;,
+      date: &#x27;29/10/2025&#x27;,
+      heure: &#x27;14:30&#x27;,
+      type: &#x27;vente&#x27;,
+      typeText: &#x27;Vente&#x27;,
+      montant: 185000,
+      moyenPaiement: &#x27;Wave&#x27;,
+      moyenPaiementText: &#x27;Wave &#x27;,
+      client: &#x27;Koffi Mensah&#x27;,
+      reference: &#x27;CMD-2045&#x27;,
+      caissier: &#x27;Alice Martin&#x27;,
+      managerId: &#x27;mgr-1&#x27;,
+      caveNom: &#x27;Cave Principale&#x27;,
+      details: &#x27;3x Dom Pérignon, 2x Hennessy VSOP&#x27;
+    },
+    {
+      id: &#x27;tr-1-2&#x27;,
+      date: &#x27;29/10/2025&#x27;,
+      heure: &#x27;13:30&#x27;,
+      type: &#x27;vente&#x27;,
+      typeText: &#x27;Vente&#x27;,
+      montant: 140000,
+      moyenPaiement: &#x27;mobile&#x27;,
+      moyenPaiementText: &#x27;Paiement Mobile&#x27;,
+      client: &#x27;Aminata Diallo&#x27;,
+      reference: &#x27;CMD-2044&#x27;,
+      caissier: &#x27;Grace Toure&#x27;,
+      managerId: &#x27;mgr-1&#x27;,
+      caveNom: &#x27;Cave Principale&#x27;,
+      details: &#x27;5x Château Margaux, 10x Heineken&#x27;
+    },
+    {
+      id: &#x27;tr-1-3&#x27;,
+      date: &#x27;29/10/2025&#x27;,
+      heure: &#x27;12:15&#x27;,
+      type: &#x27;vente&#x27;,
+      typeText: &#x27;Vente&#x27;,
+      montant: 75000,
+      moyenPaiement: &#x27;especes&#x27;,
+      moyenPaiementText: &#x27;Espèces&#x27;,
+      client: &#x27;Ibrahim Cisse&#x27;,
+      reference: &#x27;CMD-2043&#x27;,
+      caissier: &#x27;Alice Martin&#x27;,
+      managerId: &#x27;mgr-1&#x27;,
+      caveNom: &#x27;Cave Principale&#x27;,
+      details: &#x27;2x Moët &amp; Chandon, 1x Whisky Premium&#x27;
+    },
+    {
+      id: &#x27;tr-1-4&#x27;,
+      date: &#x27;29/10/2025&#x27;,
+      heure: &#x27;10:30&#x27;,
+      type: &#x27;remboursement&#x27;,
+      typeText: &#x27;Remboursement&#x27;,
+      montant: -15000,
+      moyenPaiement: &#x27;especes&#x27;,
+      moyenPaiementText: &#x27;Espèces&#x27;,
+      client: &#x27;Client Anonyme&#x27;,
+      reference: &#x27;RMB-001&#x27;,
+      caissier: &#x27;Alice Martin&#x27;,
+      managerId: &#x27;mgr-1&#x27;,
+      caveNom: &#x27;Cave Principale&#x27;,
+      details: &#x27;Retour produit défectueux&#x27;
+    },
+    {
+      id: &#x27;tr-1-5&#x27;,
+      date: &#x27;29/10/2025&#x27;,
+      heure: &#x27;08:00&#x27;,
+      type: &#x27;ouverture&#x27;,
+      typeText: &#x27;Ouverture Caisse&#x27;,
+      montant: 50000,
+      moyenPaiement: &#x27;especes&#x27;,
+      moyenPaiementText: &#x27;Fond de Caisse&#x27;,
+      caissier: &#x27;Alice Martin&#x27;,
+      managerId: &#x27;mgr-1&#x27;,
+      caveNom: &#x27;Cave Principale&#x27;,
+      details: &#x27;Ouverture de caisse du jour&#x27;
+    },
+
+    // Transactions Manager 2 (Aminata Diallo - Cave Grand Maitre)
+    {
+      id: &#x27;tr-2-1&#x27;,
+      date: &#x27;29/10/2025&#x27;,
+      heure: &#x27;15:45&#x27;,
+      type: &#x27;vente&#x27;,
+      typeText: &#x27;Vente&#x27;,
+      montant: 220000,
+      moyenPaiement: &#x27;Wave&#x27;,
+      moyenPaiementText: &#x27;Wave&#x27;,
+      client: &#x27;Youssef Ahmed&#x27;,
+      reference: &#x27;CMD-3021&#x27;,
+      caissier: &#x27;Mariam Sow&#x27;,
+      managerId: &#x27;mgr-2&#x27;,
+      caveNom: &#x27;Cave Grand Maitre&#x27;,
+      details: &#x27;10x Moët &amp; Chandon, 5x Hennessy&#x27;
+    },
+    {
+      id: &#x27;tr-2-2&#x27;,
+      date: &#x27;29/10/2025&#x27;,
+      heure: &#x27;14:20&#x27;,
+      type: &#x27;vente&#x27;,
+      typeText: &#x27;Vente&#x27;,
+      montant: 95000,
+      moyenPaiement: &#x27;mobile&#x27;,
+      moyenPaiementText: &#x27;Paiement Mobile&#x27;,
+      client: &#x27;Sandra Obi&#x27;,
+      reference: &#x27;CMD-3020&#x27;,
+      caissier: &#x27;David Kone&#x27;,
+      managerId: &#x27;mgr-2&#x27;,
+      caveNom: &#x27;Cave Grand Maitre&#x27;,
+      details: &#x27;3x Champagne Rosé, 2x Vin Rouge&#x27;
+    },
+    {
+      id: &#x27;tr-2-3&#x27;,
+      date: &#x27;29/10/2025&#x27;,
+      heure: &#x27;11:30&#x27;,
+      type: &#x27;vente&#x27;,
+      typeText: &#x27;Vente&#x27;,
+      montant: 180000,
+      moyenPaiement: &#x27;especes&#x27;,
+      moyenPaiementText: &#x27;Espèces&#x27;,
+      client: &#x27;Chief Adebayo&#x27;,
+      reference: &#x27;CMD-3019&#x27;,
+      caissier: &#x27;Mariam Sow&#x27;,
+      managerId: &#x27;mgr-2&#x27;,
+      caveNom: &#x27;Cave Grand Maitre&#x27;,
+      details: &#x27;6x Dom Pérignon&#x27;
+    },
+    {
+      id: &#x27;tr-2-4&#x27;,
+      date: &#x27;29/10/2025&#x27;,
+      heure: &#x27;08:00&#x27;,
+      type: &#x27;ouverture&#x27;,
+      typeText: &#x27;Ouverture Caisse&#x27;,
+      montant: 75000,
+      moyenPaiement: &#x27;especes&#x27;,
+      moyenPaiementText: &#x27;Fond de Caisse&#x27;,
+      caissier: &#x27;Mariam Sow&#x27;,
+      managerId: &#x27;mgr-2&#x27;,
+      caveNom: &#x27;Cave Grand Maitre&#x27;,
+      details: &#x27;Ouverture de caisse du jour&#x27;
+    },
+
+    // Transactions Manager 3 (Ibrahim Cisse - Cave Temple du repos)
+    {
+      id: &#x27;tr-3-1&#x27;,
+      date: &#x27;29/10/2025&#x27;,
+      heure: &#x27;16:00&#x27;,
+      type: &#x27;vente&#x27;,
+      typeText: &#x27;Vente&#x27;,
+      montant: 310000,
+      moyenPaiement: &#x27;Wave&#x27;,
+      moyenPaiementText: &#x27;Wave &#x27;,
+      client: &#x27;Mrs. Williams&#x27;,
+      reference: &#x27;CMD-4015&#x27;,
+      caissier: &#x27;Emma Sow&#x27;,
+      managerId: &#x27;mgr-3&#x27;,
+      caveNom: &#x27;Cave Temple du repos&#x27;,
+      details: &#x27;15x Vin Rouge Premium, 5x Champagne&#x27;
+    },
+    {
+      id: &#x27;tr-3-2&#x27;,
+      date: &#x27;29/10/2025&#x27;,
+      heure: &#x27;13:45&#x27;,
+      type: &#x27;vente&#x27;,
+      typeText: &#x27;Vente&#x27;,
+      montant: 125000,
+      moyenPaiement: &#x27;mobile&#x27;,
+      moyenPaiementText: &#x27;Paiement Mobile&#x27;,
+      client: &#x27;Ahmed Hassan&#x27;,
+      reference: &#x27;CMD-4014&#x27;,
+      caissier: &#x27;Frank Bamba&#x27;,
+      managerId: &#x27;mgr-3&#x27;,
+      caveNom: &#x27;Cave Temple du repos&#x27;,
+      details: &#x27;4x Hennessy VSOP, 3x Jack Daniels&#x27;
+    },
+    {
+      id: &#x27;tr-3-3&#x27;,
+      date: &#x27;29/10/2025&#x27;,
+      heure: &#x27;10:15&#x27;,
+      type: &#x27;vente&#x27;,
+      typeText: &#x27;Vente&#x27;,
+      montant: 65000,
+      moyenPaiement: &#x27;especes&#x27;,
+      moyenPaiementText: &#x27;Espèces&#x27;,
+      client: &#x27;Kunle Ajayi&#x27;,
+      reference: &#x27;CMD-4013&#x27;,
+      caissier: &#x27;Emma Sow&#x27;,
+      managerId: &#x27;mgr-3&#x27;,
+      caveNom: &#x27;Cave Temple du repos&#x27;,
+      details: &#x27;20x Heineken, 10x Soft Drinks&#x27;
+    },
+    {
+      id: &#x27;tr-3-4&#x27;,
+      date: &#x27;29/10/2025&#x27;,
+      heure: &#x27;08:30&#x27;,
+      type: &#x27;ouverture&#x27;,
+      typeText: &#x27;Ouverture Caisse&#x27;,
+      montant: 60000,
+      moyenPaiement: &#x27;especes&#x27;,
+      moyenPaiementText: &#x27;Fond de Caisse&#x27;,
+      caissier: &#x27;Emma Sow&#x27;,
+      managerId: &#x27;mgr-3&#x27;,
+      caveNom: &#x27;Cave Temple du repos&#x27;,
+      details: &#x27;Ouverture de caisse du jour&#x27;
+    }
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="100" class="link-to-prism">src/app/view/admin-dashboard/caisse/caisse.component.ts:100</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="selectedManager"></a>
+                        <span class="name"><b>selectedManager</b><a href="#selectedManager"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>selectedManager()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="319" class="link-to-prism">src/app/view/admin-dashboard/caisse/caisse.component.ts:319</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="filteredTransactions"></a>
+                        <span class="name"><b>filteredTransactions</b><a href="#filteredTransactions"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>filteredTransactions()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="333" class="link-to-prism">src/app/view/admin-dashboard/caisse/caisse.component.ts:333</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="statistiquesManager"></a>
+                        <span class="name"><b>statistiquesManager</b><a href="#statistiquesManager"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>statistiquesManager()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="351" class="link-to-prism">src/app/view/admin-dashboard/caisse/caisse.component.ts:351</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="statistiquesGlobales"></a>
+                        <span class="name"><b>statistiquesGlobales</b><a href="#statistiquesGlobales"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>statistiquesGlobales()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="366" class="link-to-prism">src/app/view/admin-dashboard/caisse/caisse.component.ts:366</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="totalGlobal"></a>
+                        <span class="name"><b>totalGlobal</b><a href="#totalGlobal"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>totalGlobal()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="388" class="link-to-prism">src/app/view/admin-dashboard/caisse/caisse.component.ts:388</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="totalEspecesGlobal"></a>
+                        <span class="name"><b>totalEspecesGlobal</b><a href="#totalEspecesGlobal"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>totalEspecesGlobal()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="392" class="link-to-prism">src/app/view/admin-dashboard/caisse/caisse.component.ts:392</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="totalWaveGlobal"></a>
+                        <span class="name"><b>totalWaveGlobal</b><a href="#totalWaveGlobal"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>totalWaveGlobal()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="396" class="link-to-prism">src/app/view/admin-dashboard/caisse/caisse.component.ts:396</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="totalMobileGlobal"></a>
+                        <span class="name"><b>totalMobileGlobal</b><a href="#totalMobileGlobal"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>totalMobileGlobal()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="400" class="link-to-prism">src/app/view/admin-dashboard/caisse/caisse.component.ts:400</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; INTERFACES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+interface Manager {
+  id: string;
+  nom: string;
+  cave: string;
+  caveAdresse: string;
+  avatar: string;
+  statut: &#x27;actif&#x27; | &#x27;inactif&#x27; | &#x27;absent&#x27;;
+}
+
+interface Transaction {
+  id: string;
+  date: string;
+  heure: string;
+  type: &#x27;vente&#x27; | &#x27;remboursement&#x27; | &#x27;ouverture&#x27; | &#x27;fermeture&#x27;;
+  typeText: string;
+  montant: number;
+  moyenPaiement: &#x27;especes&#x27; | &#x27;Wave&#x27; | &#x27;mobile&#x27; | &#x27;credit&#x27;;
+  moyenPaiementText: string;
+  client?: string;
+  reference?: string;
+  caissier: string;
+  managerId: string;
+  caveNom: string;
+  details: string;
+}
+
+interface StatistiqueCaisse {
+  managerId: string;
+  totalJour: number;
+  especes: number;
+  wave: number;
+  mobile: number;
+  nombreTransactions: number;
+  derniereMaj: string;
+}
+
+@Component({
+  selector: &#x27;app-caisse&#x27;,
+  standalone: true,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  templateUrl: &#x27;./caisse.component.html&#x27;,
+  styleUrls: [&#x27;./caisse.component.scss&#x27;]
+})
+export class CaisseComponent implements OnInit {
+  // Manager sélectionné
+  selectedManagerId: string &#x3D; &#x27;mgr-1&#x27;;
+
+  // Date sélectionnée
+  selectedDate: string &#x3D; new Date().toISOString().split(&#x27;T&#x27;)[0];
+
+  // Filtre des transactions
+  currentTransactionFilter: string &#x3D; &#x27;all&#x27;;
+
+  // Vue: &#x27;resume&#x27; ou &#x27;details&#x27;
+  currentView: &#x27;resume&#x27; | &#x27;details&#x27; &#x3D; &#x27;resume&#x27;;
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; DONNÉES DES MANAGERS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  managersData: Manager[] &#x3D; [
+    {
+      id: &#x27;mgr-1&#x27;,
+      nom: &#x27;Jean Kouassi&#x27;,
+      cave: &#x27;Cave Principale&#x27;,
+      caveAdresse: &#x27;Lekki Phase 1, Abidjan&#x27;,
+      avatar: &#x27;👨‍💼&#x27;,
+      statut: &#x27;actif&#x27;
+    },
+    {
+      id: &#x27;mgr-2&#x27;,
+      nom: &#x27;Aminata Diallo&#x27;,
+      cave: &#x27;Cave Grand Maitre&#x27;,
+      caveAdresse: &#x27;Grand Maitre,Abidjan&#x27;,
+      avatar: &#x27;👩‍💼&#x27;,
+      statut: &#x27;actif&#x27;
+    },
+    {
+      id: &#x27;mgr-3&#x27;,
+      nom: &#x27;Ibrahim Cisse&#x27;,
+      cave: &#x27;Cave Temple du repos&#x27;,
+      caveAdresse: &#x27;Temple du repos, Abidjan&#x27;,
+      avatar: &#x27;👨‍💼&#x27;,
+      statut: &#x27;actif&#x27;
+    },
+    {
+      id: &#x27;mgr-4&#x27;,
+      nom: &#x27;Fatou Ndiaye&#x27;,
+      cave: &#x27;Cave La cachette&#x27;,
+      caveAdresse: &#x27;La cachette, Abidjan&#x27;,
+      avatar: &#x27;👩‍💼&#x27;,
+      statut: &#x27;absent&#x27;
+    }
+  ];
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; DONNÉES DES TRANSACTIONS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  transactionsData: Transaction[] &#x3D; [
+    // Transactions Manager 1 (Jean Kouassi - Cave Principale)
+    {
+      id: &#x27;tr-1-1&#x27;,
+      date: &#x27;29/10/2025&#x27;,
+      heure: &#x27;14:30&#x27;,
+      type: &#x27;vente&#x27;,
+      typeText: &#x27;Vente&#x27;,
+      montant: 185000,
+      moyenPaiement: &#x27;Wave&#x27;,
+      moyenPaiementText: &#x27;Wave &#x27;,
+      client: &#x27;Koffi Mensah&#x27;,
+      reference: &#x27;CMD-2045&#x27;,
+      caissier: &#x27;Alice Martin&#x27;,
+      managerId: &#x27;mgr-1&#x27;,
+      caveNom: &#x27;Cave Principale&#x27;,
+      details: &#x27;3x Dom Pérignon, 2x Hennessy VSOP&#x27;
+    },
+    {
+      id: &#x27;tr-1-2&#x27;,
+      date: &#x27;29/10/2025&#x27;,
+      heure: &#x27;13:30&#x27;,
+      type: &#x27;vente&#x27;,
+      typeText: &#x27;Vente&#x27;,
+      montant: 140000,
+      moyenPaiement: &#x27;mobile&#x27;,
+      moyenPaiementText: &#x27;Paiement Mobile&#x27;,
+      client: &#x27;Aminata Diallo&#x27;,
+      reference: &#x27;CMD-2044&#x27;,
+      caissier: &#x27;Grace Toure&#x27;,
+      managerId: &#x27;mgr-1&#x27;,
+      caveNom: &#x27;Cave Principale&#x27;,
+      details: &#x27;5x Château Margaux, 10x Heineken&#x27;
+    },
+    {
+      id: &#x27;tr-1-3&#x27;,
+      date: &#x27;29/10/2025&#x27;,
+      heure: &#x27;12:15&#x27;,
+      type: &#x27;vente&#x27;,
+      typeText: &#x27;Vente&#x27;,
+      montant: 75000,
+      moyenPaiement: &#x27;especes&#x27;,
+      moyenPaiementText: &#x27;Espèces&#x27;,
+      client: &#x27;Ibrahim Cisse&#x27;,
+      reference: &#x27;CMD-2043&#x27;,
+      caissier: &#x27;Alice Martin&#x27;,
+      managerId: &#x27;mgr-1&#x27;,
+      caveNom: &#x27;Cave Principale&#x27;,
+      details: &#x27;2x Moët &amp; Chandon, 1x Whisky Premium&#x27;
+    },
+    {
+      id: &#x27;tr-1-4&#x27;,
+      date: &#x27;29/10/2025&#x27;,
+      heure: &#x27;10:30&#x27;,
+      type: &#x27;remboursement&#x27;,
+      typeText: &#x27;Remboursement&#x27;,
+      montant: -15000,
+      moyenPaiement: &#x27;especes&#x27;,
+      moyenPaiementText: &#x27;Espèces&#x27;,
+      client: &#x27;Client Anonyme&#x27;,
+      reference: &#x27;RMB-001&#x27;,
+      caissier: &#x27;Alice Martin&#x27;,
+      managerId: &#x27;mgr-1&#x27;,
+      caveNom: &#x27;Cave Principale&#x27;,
+      details: &#x27;Retour produit défectueux&#x27;
+    },
+    {
+      id: &#x27;tr-1-5&#x27;,
+      date: &#x27;29/10/2025&#x27;,
+      heure: &#x27;08:00&#x27;,
+      type: &#x27;ouverture&#x27;,
+      typeText: &#x27;Ouverture Caisse&#x27;,
+      montant: 50000,
+      moyenPaiement: &#x27;especes&#x27;,
+      moyenPaiementText: &#x27;Fond de Caisse&#x27;,
+      caissier: &#x27;Alice Martin&#x27;,
+      managerId: &#x27;mgr-1&#x27;,
+      caveNom: &#x27;Cave Principale&#x27;,
+      details: &#x27;Ouverture de caisse du jour&#x27;
+    },
+
+    // Transactions Manager 2 (Aminata Diallo - Cave Grand Maitre)
+    {
+      id: &#x27;tr-2-1&#x27;,
+      date: &#x27;29/10/2025&#x27;,
+      heure: &#x27;15:45&#x27;,
+      type: &#x27;vente&#x27;,
+      typeText: &#x27;Vente&#x27;,
+      montant: 220000,
+      moyenPaiement: &#x27;Wave&#x27;,
+      moyenPaiementText: &#x27;Wave&#x27;,
+      client: &#x27;Youssef Ahmed&#x27;,
+      reference: &#x27;CMD-3021&#x27;,
+      caissier: &#x27;Mariam Sow&#x27;,
+      managerId: &#x27;mgr-2&#x27;,
+      caveNom: &#x27;Cave Grand Maitre&#x27;,
+      details: &#x27;10x Moët &amp; Chandon, 5x Hennessy&#x27;
+    },
+    {
+      id: &#x27;tr-2-2&#x27;,
+      date: &#x27;29/10/2025&#x27;,
+      heure: &#x27;14:20&#x27;,
+      type: &#x27;vente&#x27;,
+      typeText: &#x27;Vente&#x27;,
+      montant: 95000,
+      moyenPaiement: &#x27;mobile&#x27;,
+      moyenPaiementText: &#x27;Paiement Mobile&#x27;,
+      client: &#x27;Sandra Obi&#x27;,
+      reference: &#x27;CMD-3020&#x27;,
+      caissier: &#x27;David Kone&#x27;,
+      managerId: &#x27;mgr-2&#x27;,
+      caveNom: &#x27;Cave Grand Maitre&#x27;,
+      details: &#x27;3x Champagne Rosé, 2x Vin Rouge&#x27;
+    },
+    {
+      id: &#x27;tr-2-3&#x27;,
+      date: &#x27;29/10/2025&#x27;,
+      heure: &#x27;11:30&#x27;,
+      type: &#x27;vente&#x27;,
+      typeText: &#x27;Vente&#x27;,
+      montant: 180000,
+      moyenPaiement: &#x27;especes&#x27;,
+      moyenPaiementText: &#x27;Espèces&#x27;,
+      client: &#x27;Chief Adebayo&#x27;,
+      reference: &#x27;CMD-3019&#x27;,
+      caissier: &#x27;Mariam Sow&#x27;,
+      managerId: &#x27;mgr-2&#x27;,
+      caveNom: &#x27;Cave Grand Maitre&#x27;,
+      details: &#x27;6x Dom Pérignon&#x27;
+    },
+    {
+      id: &#x27;tr-2-4&#x27;,
+      date: &#x27;29/10/2025&#x27;,
+      heure: &#x27;08:00&#x27;,
+      type: &#x27;ouverture&#x27;,
+      typeText: &#x27;Ouverture Caisse&#x27;,
+      montant: 75000,
+      moyenPaiement: &#x27;especes&#x27;,
+      moyenPaiementText: &#x27;Fond de Caisse&#x27;,
+      caissier: &#x27;Mariam Sow&#x27;,
+      managerId: &#x27;mgr-2&#x27;,
+      caveNom: &#x27;Cave Grand Maitre&#x27;,
+      details: &#x27;Ouverture de caisse du jour&#x27;
+    },
+
+    // Transactions Manager 3 (Ibrahim Cisse - Cave Temple du repos)
+    {
+      id: &#x27;tr-3-1&#x27;,
+      date: &#x27;29/10/2025&#x27;,
+      heure: &#x27;16:00&#x27;,
+      type: &#x27;vente&#x27;,
+      typeText: &#x27;Vente&#x27;,
+      montant: 310000,
+      moyenPaiement: &#x27;Wave&#x27;,
+      moyenPaiementText: &#x27;Wave &#x27;,
+      client: &#x27;Mrs. Williams&#x27;,
+      reference: &#x27;CMD-4015&#x27;,
+      caissier: &#x27;Emma Sow&#x27;,
+      managerId: &#x27;mgr-3&#x27;,
+      caveNom: &#x27;Cave Temple du repos&#x27;,
+      details: &#x27;15x Vin Rouge Premium, 5x Champagne&#x27;
+    },
+    {
+      id: &#x27;tr-3-2&#x27;,
+      date: &#x27;29/10/2025&#x27;,
+      heure: &#x27;13:45&#x27;,
+      type: &#x27;vente&#x27;,
+      typeText: &#x27;Vente&#x27;,
+      montant: 125000,
+      moyenPaiement: &#x27;mobile&#x27;,
+      moyenPaiementText: &#x27;Paiement Mobile&#x27;,
+      client: &#x27;Ahmed Hassan&#x27;,
+      reference: &#x27;CMD-4014&#x27;,
+      caissier: &#x27;Frank Bamba&#x27;,
+      managerId: &#x27;mgr-3&#x27;,
+      caveNom: &#x27;Cave Temple du repos&#x27;,
+      details: &#x27;4x Hennessy VSOP, 3x Jack Daniels&#x27;
+    },
+    {
+      id: &#x27;tr-3-3&#x27;,
+      date: &#x27;29/10/2025&#x27;,
+      heure: &#x27;10:15&#x27;,
+      type: &#x27;vente&#x27;,
+      typeText: &#x27;Vente&#x27;,
+      montant: 65000,
+      moyenPaiement: &#x27;especes&#x27;,
+      moyenPaiementText: &#x27;Espèces&#x27;,
+      client: &#x27;Kunle Ajayi&#x27;,
+      reference: &#x27;CMD-4013&#x27;,
+      caissier: &#x27;Emma Sow&#x27;,
+      managerId: &#x27;mgr-3&#x27;,
+      caveNom: &#x27;Cave Temple du repos&#x27;,
+      details: &#x27;20x Heineken, 10x Soft Drinks&#x27;
+    },
+    {
+      id: &#x27;tr-3-4&#x27;,
+      date: &#x27;29/10/2025&#x27;,
+      heure: &#x27;08:30&#x27;,
+      type: &#x27;ouverture&#x27;,
+      typeText: &#x27;Ouverture Caisse&#x27;,
+      montant: 60000,
+      moyenPaiement: &#x27;especes&#x27;,
+      moyenPaiementText: &#x27;Fond de Caisse&#x27;,
+      caissier: &#x27;Emma Sow&#x27;,
+      managerId: &#x27;mgr-3&#x27;,
+      caveNom: &#x27;Cave Temple du repos&#x27;,
+      details: &#x27;Ouverture de caisse du jour&#x27;
+    }
+  ];
+
+  ngOnInit(): void {
+    console.log(&#x27;Caisse initialisé&#x27;);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; SÉLECTION MANAGER &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  selectManager(managerId: string): void {
+    this.selectedManagerId &#x3D; managerId;
+  }
+
+  get selectedManager(): Manager | undefined {
+    return this.managersData.find(m &#x3D;&gt; m.id &#x3D;&#x3D;&#x3D; this.selectedManagerId);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; CHANGEMENT DE VUE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  switchView(view: &#x27;resume&#x27; | &#x27;details&#x27;): void {
+    this.currentView &#x3D; view;
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; FILTRAGE TRANSACTIONS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  filterTransactions(filter: string): void {
+    this.currentTransactionFilter &#x3D; filter;
+  }
+
+  get filteredTransactions(): Transaction[] {
+    let filtered &#x3D; this.transactionsData;
+
+    // Filtre par manager
+    filtered &#x3D; filtered.filter(t &#x3D;&gt; t.managerId &#x3D;&#x3D;&#x3D; this.selectedManagerId);
+
+    // Filtre par date
+    filtered &#x3D; filtered.filter(t &#x3D;&gt; t.date &#x3D;&#x3D;&#x3D; this.formatDate(this.selectedDate));
+
+    // Filtre par type
+    if (this.currentTransactionFilter !&#x3D;&#x3D; &#x27;all&#x27;) {
+      filtered &#x3D; filtered.filter(t &#x3D;&gt; t.type &#x3D;&#x3D;&#x3D; this.currentTransactionFilter);
+    }
+
+    return filtered;
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; STATISTIQUES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  get statistiquesManager(): StatistiqueCaisse {
+    const transactions &#x3D; this.filteredTransactions;
+    const positives &#x3D; transactions.filter(t &#x3D;&gt; t.montant &gt; 0);
+
+    return {
+      managerId: this.selectedManagerId,
+      totalJour: transactions.reduce((sum, t) &#x3D;&gt; sum + t.montant, 0),
+      especes: positives.filter(t &#x3D;&gt; t.moyenPaiement &#x3D;&#x3D;&#x3D; &#x27;especes&#x27;).reduce((sum, t) &#x3D;&gt; sum + t.montant, 0),
+      wave: positives.filter(t &#x3D;&gt; t.moyenPaiement &#x3D;&#x3D;&#x3D; &#x27;Wave&#x27;).reduce((sum, t) &#x3D;&gt; sum + t.montant, 0),
+      mobile: positives.filter(t &#x3D;&gt; t.moyenPaiement &#x3D;&#x3D;&#x3D; &#x27;mobile&#x27;).reduce((sum, t) &#x3D;&gt; sum + t.montant, 0),
+      nombreTransactions: transactions.length,
+      derniereMaj: new Date().toLocaleTimeString(&#x27;fr-FR&#x27;, { hour: &#x27;2-digit&#x27;, minute: &#x27;2-digit&#x27; })
+    };
+  }
+
+  get statistiquesGlobales() {
+    const stats &#x3D; this.managersData.map(manager &#x3D;&gt; {
+      const transactions &#x3D; this.transactionsData.filter(
+        t &#x3D;&gt; t.managerId &#x3D;&#x3D;&#x3D; manager.id &amp;&amp; t.date &#x3D;&#x3D;&#x3D; this.formatDate(this.selectedDate)
+      );
+      const positives &#x3D; transactions.filter(t &#x3D;&gt; t.montant &gt; 0);
+
+      return {
+        managerId: manager.id,
+        managerNom: manager.nom,
+        cave: manager.cave,
+        totalJour: transactions.reduce((sum, t) &#x3D;&gt; sum + t.montant, 0),
+        especes: positives.filter(t &#x3D;&gt; t.moyenPaiement &#x3D;&#x3D;&#x3D; &#x27;especes&#x27;).reduce((sum, t) &#x3D;&gt; sum + t.montant, 0),
+        Wave: positives.filter(t &#x3D;&gt; t.moyenPaiement &#x3D;&#x3D;&#x3D; &#x27;Wave&#x27;).reduce((sum, t) &#x3D;&gt; sum + t.montant, 0),
+        mobile: positives.filter(t &#x3D;&gt; t.moyenPaiement &#x3D;&#x3D;&#x3D; &#x27;mobile&#x27;).reduce((sum, t) &#x3D;&gt; sum + t.montant, 0),
+        nombreTransactions: transactions.length
+      };
+    });
+
+    return stats;
+  }
+
+  get totalGlobal(): number {
+    return this.statistiquesGlobales.reduce((sum, s) &#x3D;&gt; sum + s.totalJour, 0);
+  }
+
+  get totalEspecesGlobal(): number {
+    return this.statistiquesGlobales.reduce((sum, s) &#x3D;&gt; sum + s.especes, 0);
+  }
+
+  get totalWaveGlobal(): number {
+    return this.statistiquesGlobales.reduce((sum, s) &#x3D;&gt; sum + s.Wave, 0);
+  }
+
+  get totalMobileGlobal(): number {
+    return this.statistiquesGlobales.reduce((sum, s) &#x3D;&gt; sum + s.mobile, 0);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; COMPTAGE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  getTransactionCount(type: string): number {
+    let transactions &#x3D; this.transactionsData.filter(
+      t &#x3D;&gt; t.managerId &#x3D;&#x3D;&#x3D; this.selectedManagerId &amp;&amp; t.date &#x3D;&#x3D;&#x3D; this.formatDate(this.selectedDate)
+    );
+
+    if (type &#x3D;&#x3D;&#x3D; &#x27;all&#x27;) {
+      return transactions.length;
+    }
+    return transactions.filter(t &#x3D;&gt; t.type &#x3D;&#x3D;&#x3D; type).length;
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; FORMATAGE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  formatDate(isoDate: string): string {
+    const date &#x3D; new Date(isoDate);
+    const day &#x3D; String(date.getDate()).padStart(2, &#x27;0&#x27;);
+    const month &#x3D; String(date.getMonth() + 1).padStart(2, &#x27;0&#x27;);
+    const year &#x3D; date.getFullYear();
+    return &#x60;${day}/${month}/${year}&#x60;;
+  }
+
+  formatMontant(montant: number): string {
+    return new Intl.NumberFormat(&#x27;fr-FR&#x27;).format(Math.abs(montant)) + &#x27; FCFA&#x27;;
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; MÉTHODES UTILITAIRES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  getManagerById(managerId: string): Manager | undefined {
+    return this.managersData.find(m &#x3D;&gt; m.id &#x3D;&#x3D;&#x3D; managerId);
+  }
+
+  getManagerAvatar(managerId: string): string {
+    return this.getManagerById(managerId)?.avatar || &#x27;👤&#x27;;
+  }
+
+  getManagerStatut(managerId: string): string {
+    return this.getManagerById(managerId)?.statut || &#x27;inactif&#x27;;
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; ACTIONS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  exporterRapport(): void {
+    alert(&#x27;Export du rapport en PDF/Excel...&#x27;);
+  }
+
+  envoyerNotification(managerId: string): void {
+    const manager &#x3D; this.managersData.find(m &#x3D;&gt; m.id &#x3D;&#x3D;&#x3D; managerId);
+    alert(&#x60;Notification envoyée à ${manager?.nom}&#x60;);
+  }
+
+  fermerCaisse(managerId: string): void {
+    const manager &#x3D; this.managersData.find(m &#x3D;&gt; m.id &#x3D;&#x3D;&#x3D; managerId);
+    if (confirm(&#x60;Êtes-vous sûr de vouloir fermer la caisse de ${manager?.nom} ?&#x60;)) {
+      alert(&#x27;Caisse fermée avec succès&#x27;);
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;caisse-container&quot;&gt;
+  &lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; EN-TÊTE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+  &lt;header class&#x3D;&quot;page-header&quot;&gt;
+    &lt;div class&#x3D;&quot;header-content&quot;&gt;
+      &lt;div class&#x3D;&quot;header-left&quot;&gt;
+        &lt;h1 class&#x3D;&quot;page-title&quot;&gt;💰 Gestion des Caisses&lt;/h1&gt;
+        &lt;p class&#x3D;&quot;page-subtitle&quot;&gt;Supervision en temps réel de toutes les caisses&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;header-actions&quot;&gt;
+        &lt;button class&#x3D;&quot;action-btn action-btn-primary&quot; (click)&#x3D;&quot;exporterRapport()&quot;&gt;
+          &lt;span class&#x3D;&quot;btn-icon&quot;&gt;📊&lt;/span&gt;
+          &lt;span class&#x3D;&quot;btn-text&quot;&gt;Exporter Rapport&lt;/span&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/header&gt;
+
+  &lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; SÉLECTION DE DATE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+  &lt;section class&#x3D;&quot;date-section&quot;&gt;
+    &lt;div class&#x3D;&quot;date-selector-card&quot;&gt;
+      &lt;label for&#x3D;&quot;dateSelect&quot; class&#x3D;&quot;date-label&quot;&gt;
+        &lt;span class&#x3D;&quot;date-icon&quot;&gt;📅&lt;/span&gt;
+        &lt;span&gt;Date de consultation:&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;input
+        type&#x3D;&quot;date&quot;
+        id&#x3D;&quot;dateSelect&quot;
+        [(ngModel)]&#x3D;&quot;selectedDate&quot;
+        class&#x3D;&quot;date-input&quot;&gt;
+      &lt;div class&#x3D;&quot;date-info&quot;&gt;
+        &lt;span class&#x3D;&quot;info-icon&quot;&gt;ℹ️&lt;/span&gt;
+        &lt;span class&#x3D;&quot;info-text&quot;&gt;Mise à jour: {{statistiquesManager.derniereMaj}}&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; VUE RÉSUMÉ GLOBAL &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+  &lt;section class&#x3D;&quot;view-toggle-section&quot;&gt;
+    &lt;div class&#x3D;&quot;view-toggle&quot;&gt;
+      &lt;button
+        class&#x3D;&quot;toggle-btn&quot;
+        [class.active]&#x3D;&quot;currentView &#x3D;&#x3D;&#x3D; &#x27;resume&#x27;&quot;
+        (click)&#x3D;&quot;switchView(&#x27;resume&#x27;)&quot;&gt;
+        &lt;span class&#x3D;&quot;toggle-icon&quot;&gt;📊&lt;/span&gt;
+        &lt;span&gt;Vue Résumé&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;button
+        class&#x3D;&quot;toggle-btn&quot;
+        [class.active]&#x3D;&quot;currentView &#x3D;&#x3D;&#x3D; &#x27;details&#x27;&quot;
+        (click)&#x3D;&quot;switchView(&#x27;details&#x27;)&quot;&gt;
+        &lt;span class&#x3D;&quot;toggle-icon&quot;&gt;🔍&lt;/span&gt;
+        &lt;span&gt;Vue Détaillée&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; VUE RÉSUMÉ &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+  &lt;div *ngIf&#x3D;&quot;currentView &#x3D;&#x3D;&#x3D; &#x27;resume&#x27;&quot; class&#x3D;&quot;resume-view&quot;&gt;
+    &lt;!-- Statistiques Globales --&gt;
+    &lt;section class&#x3D;&quot;global-stats-section&quot;&gt;
+      &lt;h2 class&#x3D;&quot;section-title&quot;&gt;
+        &lt;span class&#x3D;&quot;title-icon&quot;&gt;🌍&lt;/span&gt;
+        Statistiques Globales
+      &lt;/h2&gt;
+
+      &lt;div class&#x3D;&quot;global-stats-grid&quot;&gt;
+        &lt;div class&#x3D;&quot;global-stat-card global-stat-total&quot;&gt;
+          &lt;div class&#x3D;&quot;stat-icon-wrapper&quot;&gt;
+            &lt;span class&#x3D;&quot;stat-icon&quot;&gt;💰&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;stat-content&quot;&gt;
+            &lt;div class&#x3D;&quot;stat-label&quot;&gt;Total Toutes Caisses&lt;/div&gt;
+            &lt;div class&#x3D;&quot;stat-value&quot;&gt;{{formatMontant(totalGlobal)}}&lt;/div&gt;
+            &lt;div class&#x3D;&quot;stat-detail&quot;&gt;{{statistiquesGlobales.length}} caisses actives&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;global-stat-card global-stat-especes&quot;&gt;
+          &lt;div class&#x3D;&quot;stat-icon-wrapper&quot;&gt;
+            &lt;span class&#x3D;&quot;stat-icon&quot;&gt;💵&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;stat-content&quot;&gt;
+            &lt;div class&#x3D;&quot;stat-label&quot;&gt;Total Espèces&lt;/div&gt;
+            &lt;div class&#x3D;&quot;stat-value&quot;&gt;{{formatMontant(totalEspecesGlobal)}}&lt;/div&gt;
+            &lt;div class&#x3D;&quot;stat-detail&quot;&gt;Toutes caisses confondues&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;global-stat-card global-stat-carte&quot;&gt;
+          &lt;div class&#x3D;&quot;stat-icon-wrapper&quot;&gt;
+            &lt;span class&#x3D;&quot;stat-icon&quot;&gt;💳&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;stat-content&quot;&gt;
+            &lt;div class&#x3D;&quot;stat-label&quot;&gt;Total Wave&lt;/div&gt;
+            &lt;div class&#x3D;&quot;stat-value&quot;&gt;{{formatMontant(totalWaveGlobal)}}&lt;/div&gt;
+            &lt;div class&#x3D;&quot;stat-detail&quot;&gt;Paiements électroniques&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;global-stat-card global-stat-mobile&quot;&gt;
+          &lt;div class&#x3D;&quot;stat-icon-wrapper&quot;&gt;
+            &lt;span class&#x3D;&quot;stat-icon&quot;&gt;📱&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;stat-content&quot;&gt;
+            &lt;div class&#x3D;&quot;stat-label&quot;&gt;Total Mobile&lt;/div&gt;
+            &lt;div class&#x3D;&quot;stat-value&quot;&gt;{{formatMontant(totalMobileGlobal)}}&lt;/div&gt;
+            &lt;div class&#x3D;&quot;stat-detail&quot;&gt;Paiements mobiles&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;!-- Résumé par Manager --&gt;
+    &lt;section class&#x3D;&quot;managers-summary-section&quot;&gt;
+      &lt;h2 class&#x3D;&quot;section-title&quot;&gt;
+        &lt;span class&#x3D;&quot;title-icon&quot;&gt;👥&lt;/span&gt;
+        Résumé par Manager
+      &lt;/h2&gt;
+
+      &lt;div class&#x3D;&quot;managers-grid&quot;&gt;
+                  &lt;div
+          *ngFor&#x3D;&quot;let stat of statistiquesGlobales&quot;
+          class&#x3D;&quot;manager-summary-card&quot;
+          [class.card-selected]&#x3D;&quot;selectedManagerId &#x3D;&#x3D;&#x3D; stat.managerId&quot;
+          (click)&#x3D;&quot;selectManager(stat.managerId)&quot;&gt;
+
+          &lt;div class&#x3D;&quot;manager-card-header&quot;&gt;
+            &lt;div class&#x3D;&quot;manager-avatar&quot;&gt;
+              {{getManagerAvatar(stat.managerId)}}
+              &lt;div class&#x3D;&quot;status-dot&quot; [ngClass]&#x3D;&quot;&#x27;status-&#x27; + getManagerStatut(stat.managerId)&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;manager-info&quot;&gt;
+              &lt;h3 class&#x3D;&quot;manager-name&quot;&gt;{{stat.managerNom}}&lt;/h3&gt;
+              &lt;p class&#x3D;&quot;manager-cave&quot;&gt;{{stat.cave}}&lt;/p&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;manager-card-body&quot;&gt;
+            &lt;div class&#x3D;&quot;summary-stat&quot;&gt;
+              &lt;span class&#x3D;&quot;summary-label&quot;&gt;Total du jour&lt;/span&gt;
+              &lt;span class&#x3D;&quot;summary-value summary-value-total&quot;&gt;{{formatMontant(stat.totalJour)}}&lt;/span&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;summary-stats-grid&quot;&gt;
+              &lt;div class&#x3D;&quot;mini-stat&quot;&gt;
+                &lt;span class&#x3D;&quot;mini-icon&quot;&gt;💵&lt;/span&gt;
+                &lt;div class&#x3D;&quot;mini-content&quot;&gt;
+                  &lt;span class&#x3D;&quot;mini-label&quot;&gt;Espèces&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;mini-value&quot;&gt;{{formatMontant(stat.especes)}}&lt;/span&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              &lt;div class&#x3D;&quot;mini-stat&quot;&gt;
+                &lt;span class&#x3D;&quot;mini-icon&quot;&gt;💳&lt;/span&gt;
+                &lt;div class&#x3D;&quot;mini-content&quot;&gt;
+                  &lt;span class&#x3D;&quot;mini-label&quot;&gt;Wave&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;mini-value&quot;&gt;{{formatMontant(stat.Wave)}}&lt;/span&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              &lt;div class&#x3D;&quot;mini-stat&quot;&gt;
+                &lt;span class&#x3D;&quot;mini-icon&quot;&gt;📱&lt;/span&gt;
+                &lt;div class&#x3D;&quot;mini-content&quot;&gt;
+                  &lt;span class&#x3D;&quot;mini-label&quot;&gt;Mobile&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;mini-value&quot;&gt;{{formatMontant(stat.mobile)}}&lt;/span&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              &lt;div class&#x3D;&quot;mini-stat&quot;&gt;
+                &lt;span class&#x3D;&quot;mini-icon&quot;&gt;🧾&lt;/span&gt;
+                &lt;div class&#x3D;&quot;mini-content&quot;&gt;
+                  &lt;span class&#x3D;&quot;mini-label&quot;&gt;Transactions&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;mini-value&quot;&gt;{{stat.nombreTransactions}}&lt;/span&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;manager-card-footer&quot;&gt;
+            &lt;button class&#x3D;&quot;card-action-btn&quot; (click)&#x3D;&quot;switchView(&#x27;details&#x27;); $event.stopPropagation()&quot;&gt;
+              &lt;span&gt;Voir détails&lt;/span&gt;
+              &lt;span&gt;→&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
+
+  &lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; VUE DÉTAILLÉE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+  &lt;div *ngIf&#x3D;&quot;currentView &#x3D;&#x3D;&#x3D; &#x27;details&#x27;&quot; class&#x3D;&quot;details-view&quot;&gt;
+    &lt;!-- Sélection du Manager --&gt;
+    &lt;section class&#x3D;&quot;manager-selection-section&quot;&gt;
+      &lt;h2 class&#x3D;&quot;section-title&quot;&gt;
+        &lt;span class&#x3D;&quot;title-icon&quot;&gt;👤&lt;/span&gt;
+        Sélectionner un Manager
+      &lt;/h2&gt;
+
+      &lt;div class&#x3D;&quot;manager-tabs&quot;&gt;
+        &lt;button
+          *ngFor&#x3D;&quot;let manager of managersData&quot;
+          class&#x3D;&quot;manager-tab&quot;
+          [class.active]&#x3D;&quot;selectedManagerId &#x3D;&#x3D;&#x3D; manager.id&quot;
+          (click)&#x3D;&quot;selectManager(manager.id)&quot;&gt;
+          &lt;div class&#x3D;&quot;tab-avatar&quot;&gt;
+            {{manager.avatar}}
+            &lt;div class&#x3D;&quot;status-indicator&quot; [class]&#x3D;&quot;&#x27;status-&#x27; + manager.statut&quot;&gt;&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;tab-content&quot;&gt;
+            &lt;div class&#x3D;&quot;tab-name&quot;&gt;{{manager.nom}}&lt;/div&gt;
+            &lt;div class&#x3D;&quot;tab-cave&quot;&gt;{{manager.cave}}&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;!-- Informations Manager Sélectionné --&gt;
+    &lt;section class&#x3D;&quot;selected-manager-info&quot; *ngIf&#x3D;&quot;selectedManager&quot;&gt;
+      &lt;div class&#x3D;&quot;info-card&quot;&gt;
+        &lt;div class&#x3D;&quot;info-header&quot;&gt;
+          &lt;div class&#x3D;&quot;info-avatar-large&quot;&gt;
+            {{selectedManager.avatar}}
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;info-details&quot;&gt;
+            &lt;h3 class&#x3D;&quot;info-name&quot;&gt;{{selectedManager.nom}}&lt;/h3&gt;
+            &lt;p class&#x3D;&quot;info-cave&quot;&gt;🏢 {{selectedManager.cave}}&lt;/p&gt;
+            &lt;p class&#x3D;&quot;info-adresse&quot;&gt;📍 {{selectedManager.caveAdresse}}&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;info-actions&quot;&gt;
+            &lt;button class&#x3D;&quot;info-action-btn&quot; (click)&#x3D;&quot;envoyerNotification(selectedManager.id)&quot;&gt;
+              &lt;span&gt;📧&lt;/span&gt;
+              &lt;span&gt;Notifier&lt;/span&gt;
+            &lt;/button&gt;
+            &lt;button class&#x3D;&quot;info-action-btn btn-danger&quot; (click)&#x3D;&quot;fermerCaisse(selectedManager.id)&quot;&gt;
+              &lt;span&gt;🔒&lt;/span&gt;
+              &lt;span&gt;Fermer caisse&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;!-- Statistiques du Manager --&gt;
+    &lt;section class&#x3D;&quot;manager-stats-section&quot;&gt;
+      &lt;h2 class&#x3D;&quot;section-title&quot;&gt;
+        &lt;span class&#x3D;&quot;title-icon&quot;&gt;📊&lt;/span&gt;
+        Statistiques de Caisse
+      &lt;/h2&gt;
+
+      &lt;div class&#x3D;&quot;stats-grid&quot;&gt;
+        &lt;div class&#x3D;&quot;stat-card stat-card-total&quot;&gt;
+          &lt;div class&#x3D;&quot;stat-icon&quot;&gt;💰&lt;/div&gt;
+          &lt;div class&#x3D;&quot;stat-content&quot;&gt;
+            &lt;div class&#x3D;&quot;stat-label&quot;&gt;Total du Jour&lt;/div&gt;
+            &lt;div class&#x3D;&quot;stat-value&quot;&gt;{{formatMontant(statistiquesManager.totalJour)}}&lt;/div&gt;
+            &lt;div class&#x3D;&quot;stat-transactions&quot;&gt;{{statistiquesManager.nombreTransactions}} transactions&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;stat-card stat-card-especes&quot;&gt;
+          &lt;div class&#x3D;&quot;stat-icon&quot;&gt;💵&lt;/div&gt;
+          &lt;div class&#x3D;&quot;stat-content&quot;&gt;
+            &lt;div class&#x3D;&quot;stat-label&quot;&gt;Espèces&lt;/div&gt;
+            &lt;div class&#x3D;&quot;stat-value&quot;&gt;{{formatMontant(statistiquesManager.especes)}}&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;stat-card stat-card-carte&quot;&gt;
+          &lt;div class&#x3D;&quot;stat-icon&quot;&gt;💳&lt;/div&gt;
+          &lt;div class&#x3D;&quot;stat-content&quot;&gt;
+            &lt;div class&#x3D;&quot;stat-label&quot;&gt;Wave&lt;/div&gt;
+            &lt;div class&#x3D;&quot;stat-value&quot;&gt;{{formatMontant(statistiquesManager.wave)}}&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;stat-card stat-card-mobile&quot;&gt;
+          &lt;div class&#x3D;&quot;stat-icon&quot;&gt;📱&lt;/div&gt;
+          &lt;div class&#x3D;&quot;stat-content&quot;&gt;
+            &lt;div class&#x3D;&quot;stat-label&quot;&gt;Paiement Mobile&lt;/div&gt;
+            &lt;div class&#x3D;&quot;stat-value&quot;&gt;{{formatMontant(statistiquesManager.mobile)}}&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;!-- Filtres des Transactions --&gt;
+    &lt;section class&#x3D;&quot;transactions-filters-section&quot;&gt;
+      &lt;h3 class&#x3D;&quot;filter-title&quot;&gt;Filtrer par type&lt;/h3&gt;
+      &lt;div class&#x3D;&quot;transaction-tabs&quot;&gt;
+        &lt;button
+          class&#x3D;&quot;transaction-tab&quot;
+          [class.active]&#x3D;&quot;currentTransactionFilter &#x3D;&#x3D;&#x3D; &#x27;all&#x27;&quot;
+          (click)&#x3D;&quot;filterTransactions(&#x27;all&#x27;)&quot;&gt;
+          Toutes ({{getTransactionCount(&#x27;all&#x27;)}})
+        &lt;/button&gt;
+        &lt;button
+          class&#x3D;&quot;transaction-tab&quot;
+          [class.active]&#x3D;&quot;currentTransactionFilter &#x3D;&#x3D;&#x3D; &#x27;vente&#x27;&quot;
+          (click)&#x3D;&quot;filterTransactions(&#x27;vente&#x27;)&quot;&gt;
+          Ventes ({{getTransactionCount(&#x27;vente&#x27;)}})
+        &lt;/button&gt;
+        &lt;button
+          class&#x3D;&quot;transaction-tab&quot;
+          [class.active]&#x3D;&quot;currentTransactionFilter &#x3D;&#x3D;&#x3D; &#x27;remboursement&#x27;&quot;
+          (click)&#x3D;&quot;filterTransactions(&#x27;remboursement&#x27;)&quot;&gt;
+          Remboursements ({{getTransactionCount(&#x27;remboursement&#x27;)}})
+        &lt;/button&gt;
+        &lt;button
+          class&#x3D;&quot;transaction-tab&quot;
+          [class.active]&#x3D;&quot;currentTransactionFilter &#x3D;&#x3D;&#x3D; &#x27;ouverture&#x27;&quot;
+          (click)&#x3D;&quot;filterTransactions(&#x27;ouverture&#x27;)&quot;&gt;
+          Ouverture/Fermeture ({{getTransactionCount(&#x27;ouverture&#x27;) + getTransactionCount(&#x27;fermeture&#x27;)}})
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;!-- Liste des Transactions --&gt;
+    &lt;section class&#x3D;&quot;transactions-list-section&quot;&gt;
+      &lt;h2 class&#x3D;&quot;section-title&quot;&gt;
+        &lt;span class&#x3D;&quot;title-icon&quot;&gt;📝&lt;/span&gt;
+        Transactions de la Journée
+      &lt;/h2&gt;
+
+      &lt;div class&#x3D;&quot;transactions-container&quot;&gt;
+        &lt;div *ngIf&#x3D;&quot;filteredTransactions.length &#x3D;&#x3D;&#x3D; 0&quot; class&#x3D;&quot;empty-state&quot;&gt;
+          &lt;div class&#x3D;&quot;empty-icon&quot;&gt;💰&lt;/div&gt;
+          &lt;p class&#x3D;&quot;empty-text&quot;&gt;Aucune transaction pour cette période&lt;/p&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;transaction-item&quot; *ngFor&#x3D;&quot;let transaction of filteredTransactions&quot;&gt;
+          &lt;div class&#x3D;&quot;transaction-header&quot;&gt;
+            &lt;div class&#x3D;&quot;transaction-icon&quot; [class]&#x3D;&quot;&#x27;transaction-&#x27; + transaction.type&quot;&gt;
+              &lt;span *ngIf&#x3D;&quot;transaction.type &#x3D;&#x3D;&#x3D; &#x27;vente&#x27;&quot;&gt;🛒&lt;/span&gt;
+              &lt;span *ngIf&#x3D;&quot;transaction.type &#x3D;&#x3D;&#x3D; &#x27;remboursement&#x27;&quot;&gt;↩️&lt;/span&gt;
+              &lt;span *ngIf&#x3D;&quot;transaction.type &#x3D;&#x3D;&#x3D; &#x27;ouverture&#x27;&quot;&gt;🔓&lt;/span&gt;
+              &lt;span *ngIf&#x3D;&quot;transaction.type &#x3D;&#x3D;&#x3D; &#x27;fermeture&#x27;&quot;&gt;🔒&lt;/span&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;transaction-info&quot;&gt;
+              &lt;div class&#x3D;&quot;transaction-type-row&quot;&gt;
+                &lt;span class&#x3D;&quot;transaction-type-badge&quot; [class]&#x3D;&quot;&#x27;type-badge-&#x27; + transaction.type&quot;&gt;
+                  {{transaction.typeText}}
+                &lt;/span&gt;
+                &lt;span class&#x3D;&quot;transaction-id&quot;&gt;{{transaction.id}}&lt;/span&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;transaction-datetime&quot;&gt;{{transaction.date}} à {{transaction.heure}}&lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;transaction-amount&quot;
+                 [class.amount-positive]&#x3D;&quot;transaction.montant &gt; 0&quot;
+                 [class.amount-negative]&#x3D;&quot;transaction.montant &lt; 0&quot;&gt;
+              {{transaction.montant &gt; 0 ? &#x27;+&#x27; : &#x27;&#x27;}}{{formatMontant(transaction.montant)}}
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;transaction-body&quot;&gt;
+            &lt;div class&#x3D;&quot;transaction-detail-row&quot; *ngIf&#x3D;&quot;transaction.client&quot;&gt;
+              &lt;span class&#x3D;&quot;detail-icon&quot;&gt;👤&lt;/span&gt;
+              &lt;span class&#x3D;&quot;detail-text&quot;&gt;Client: {{transaction.client}}&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;transaction-detail-row&quot;&gt;
+              &lt;span class&#x3D;&quot;detail-icon&quot;&gt;💳&lt;/span&gt;
+              &lt;span class&#x3D;&quot;detail-text&quot;&gt;{{transaction.moyenPaiementText}}&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;transaction-detail-row&quot; *ngIf&#x3D;&quot;transaction.reference&quot;&gt;
+              &lt;span class&#x3D;&quot;detail-icon&quot;&gt;📝&lt;/span&gt;
+              &lt;span class&#x3D;&quot;detail-text&quot;&gt;Réf: {{transaction.reference}}&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;transaction-detail-row&quot;&gt;
+              &lt;span class&#x3D;&quot;detail-icon&quot;&gt;👨‍💼&lt;/span&gt;
+              &lt;span class&#x3D;&quot;detail-text&quot;&gt;Caissier: {{transaction.caissier}}&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;transaction-details-text&quot;&gt;
+              {{transaction.details}}
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./caisse.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; CONTENEUR PRINCIPAL &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.caisse-container {
+  padding: 2rem;
+  max-width: 1600px;
+  margin: 0 auto;
+  color: var(--text);
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; EN-TÊTE DE PAGE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.page-header {
+  margin-bottom: 2rem;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.header-left {
+  flex: 1;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.page-subtitle {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.header-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1.5rem;
+  border-radius: 0.75rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s;
+
+  &amp;.action-btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+
+    &amp;:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
+    }
+  }
+}
+
+.btn-icon {
+  font-size: 1.2rem;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; SECTION DATE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.date-section {
+  margin-bottom: 2rem;
+}
+
+.date-selector-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.date-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.date-icon {
+  font-size: 1.5rem;
+}
+
+.date-input {
+  padding: 0.75rem 1.25rem;
+  background: var(--darker-bg);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  color: var(--text);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &amp;:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+  }
+}
+
+.date-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+  padding: 0.5rem 1rem;
+  background: rgba(99, 102, 241, 0.1);
+  border-radius: 0.5rem;
+}
+
+.info-icon {
+  font-size: 1.2rem;
+}
+
+.info-text {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; TOGGLE DE VUE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.view-toggle-section {
+  margin-bottom: 2rem;
+}
+
+.view-toggle {
+  display: flex;
+  gap: 1rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 0.5rem;
+  width: fit-content;
+}
+
+.toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  border: none;
+  border-radius: 0.5rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 600;
+  font-size: 0.95rem;
+
+  &amp;:hover {
+    background: var(--card-hover);
+    color: var(--text);
+  }
+
+  &amp;.active {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+  }
+}
+
+.toggle-icon {
+  font-size: 1.2rem;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; VUE RÉSUMÉ &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.resume-view {
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--text);
+}
+
+.title-icon {
+  font-size: 1.75rem;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; STATISTIQUES GLOBALES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.global-stats-section {
+  margin-bottom: 3rem;
+}
+
+.global-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.global-stat-card {
+  background: var(--card-bg);
+  border: 2px solid var(--border);
+  border-radius: 1.25rem;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+
+  &amp;::before {
+    content: &#x27;&#x27;;
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+    transition: left 0.5s;
+  }
+
+  &amp;:hover::before {
+    left: 100%;
+  }
+
+  &amp;:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  }
+
+  &amp;.global-stat-total {
+    border-color: var(--primary);
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(139, 92, 246, 0.05));
+  }
+
+  &amp;.global-stat-especes {
+    border-color: var(--success);
+  }
+
+  &amp;.global-stat-carte {
+    border-color: var(--info);
+  }
+
+  &amp;.global-stat-mobile {
+    border-color: var(--warning);
+  }
+}
+
+.stat-icon-wrapper {
+  width: 70px;
+  height: 70px;
+  border-radius: 1rem;
+  background: rgba(139, 92, 246, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stat-icon {
+  font-size: 2.5rem;
+}
+
+.stat-content {
+  flex: 1;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  color: var(--text);
+}
+
+.stat-detail {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; RÉSUMÉ PAR MANAGER &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.managers-summary-section {
+  margin-bottom: 3rem;
+}
+
+.managers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.manager-summary-card {
+  background: var(--card-bg);
+  border: 2px solid var(--border);
+  border-radius: 1.25rem;
+  overflow: hidden;
+  transition: all 0.3s;
+  cursor: pointer;
+
+  &amp;:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    border-color: var(--primary);
+  }
+
+  &amp;.card-selected {
+    border-color: var(--primary);
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(139, 92, 246, 0.05));
+    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+  }
+}
+
+.manager-card-header {
+  padding: 1.75rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.manager-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.status-dot {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 3px solid var(--card-bg);
+
+  &amp;.status-actif {
+    background: var(--success);
+    animation: pulse-status 2s infinite;
+  }
+}
+
+@keyframes pulse-status {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+  }
+}
+
+.manager-info {
+  flex: 1;
+}
+
+.manager-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  color: var(--text);
+}
+
+.manager-cave {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.manager-card-body {
+  padding: 1.75rem;
+}
+
+.summary-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem;
+  background: var(--darker-bg);
+  border-radius: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.summary-label {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.summary-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+
+  &amp;.summary-value-total {
+    color: var(--success);
+  }
+}
+
+.summary-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.mini-stat {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: var(--darker-bg);
+  border-radius: 0.5rem;
+}
+
+.mini-icon {
+  font-size: 1.5rem;
+}
+
+.mini-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.mini-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.mini-value {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.manager-card-footer {
+  padding: 1rem 1.75rem;
+  border-top: 1px solid var(--border);
+}
+
+.card-action-btn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background: transparent;
+  border: none;
+  color: var(--primary-light);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s;
+
+  &amp;:hover {
+    color: var(--primary);
+    padding-left: 1rem;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; VUE DÉTAILLÉE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.details-view {
+  animation: fadeIn 0.4s ease;
+}
+
+.manager-selection-section {
+  margin-bottom: 2rem;
+}
+
+.manager-tabs {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.manager-tab {
+  background: var(--card-bg);
+  border: 2px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+  min-width: 200px;
+
+  &amp;:hover {
+    background: var(--card-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  }
+
+  &amp;.active {
+    border-color: var(--primary);
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(139, 92, 246, 0.05));
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+  }
+}
+
+.tab-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.status-indicator {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--card-bg);
+
+  &amp;.status-actif {
+    background: var(--success);
+  }
+
+  &amp;.status-inactif {
+    background: var(--text-muted);
+  }
+
+  &amp;.status-absent {
+    background: var(--warning);
+  }
+}
+
+.tab-content {
+  flex: 1;
+}
+
+.tab-name {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+  color: var(--text);
+}
+
+.tab-cave {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; INFORMATIONS MANAGER &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.selected-manager-info {
+  margin-bottom: 2rem;
+}
+
+.info-card {
+  background: linear-gradient(135deg, rgba(26, 29, 53, 0.9), rgba(26, 29, 53, 0.6));
+  border: 2px solid var(--primary);
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(139, 92, 246, 0.2);
+}
+
+.info-header {
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.info-avatar-large {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  flex-shrink: 0;
+}
+
+.info-details {
+  flex: 1;
+  min-width: 200px;
+}
+
+.info-name {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: var(--text);
+}
+
+.info-cave,
+.info-adresse {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.info-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.info-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--primary);
+  border: none;
+  border-radius: 0.75rem;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+
+  &amp;:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
+  }
+
+  &amp;.btn-danger {
+    background: var(--danger);
+
+    &amp;:hover {
+      box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
+    }
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; STATISTIQUES MANAGER &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.manager-stats-section {
+  margin-bottom: 2rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.stat-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.75rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  transition: all 0.3s;
+
+  &amp;:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  &amp;.stat-card-total {
+    border-color: var(--primary);
+  }
+
+  &amp;.stat-card-especes {
+    border-color: var(--success);
+  }
+
+  &amp;.stat-card-carte {
+    border-color: var(--info);
+  }
+
+  &amp;.stat-card-mobile {
+    border-color: var(--warning);
+  }
+}
+
+.stat-icon {
+  font-size: 2.5rem;
+  width: 60px;
+  text-align: center;
+}
+
+.stat-transactions {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; FILTRES TRANSACTIONS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.transactions-filters-section {
+  margin-bottom: 2rem;
+}
+
+.filter-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.transaction-tabs {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.transaction-tab {
+  padding: 0.75rem 1.25rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 600;
+  font-size: 0.9rem;
+
+  &amp;:hover {
+    background: var(--card-hover);
+    color: var(--text);
+  }
+
+  &amp;.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; LISTE TRANSACTIONS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.transactions-list-section {
+  margin-bottom: 2rem;
+}
+
+.transactions-container {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.transaction-item {
+  border-bottom: 1px solid var(--border);
+  transition: all 0.3s;
+
+  &amp;:hover {
+    background: var(--card-hover);
+  }
+
+  &amp;:last-child {
+    border-bottom: none;
+  }
+}
+
+.transaction-header {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.5rem;
+}
+
+.transaction-icon {
+  width: 55px;
+  height: 55px;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  flex-shrink: 0;
+
+  &amp;.transaction-vente {
+    background: rgba(16, 185, 129, 0.15);
+  }
+
+  &amp;.transaction-remboursement {
+    background: rgba(239, 68, 68, 0.15);
+  }
+
+  &amp;.transaction-ouverture,
+  &amp;.transaction-fermeture {
+    background: rgba(59, 130, 246, 0.15);
+  }
+}
+
+.transaction-info {
+  flex: 1;
+}
+
+.transaction-type-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.transaction-type-badge {
+  padding: 0.4rem 0.9rem;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  &amp;.type-badge-vente {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--success);
+  }
+
+  &amp;.type-badge-remboursement {
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--danger);
+  }
+
+  &amp;.type-badge-ouverture,
+  &amp;.type-badge-fermeture {
+    background: rgba(59, 130, 246, 0.15);
+    color: var(--info);
+  }
+}
+
+.transaction-id {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.transaction-datetime {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.transaction-amount {
+  font-size: 1.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+
+  &amp;.amount-positive {
+    color: var(--success);
+  }
+
+  &amp;.amount-negative {
+    color: var(--danger);
+  }
+}
+
+.transaction-body {
+  padding: 0 1.5rem 1.5rem 1.5rem;
+}
+
+.transaction-detail-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.detail-icon {
+  font-size: 1.1rem;
+  width: 24px;
+  text-align: center;
+}
+
+.detail-text {
+  flex: 1;
+}
+
+.transaction-details-text {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--darker-bg);
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; ÉTAT VIDE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.empty-icon {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-text {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; RESPONSIVE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+@media (max-width: 768px) {
+  .caisse-container {
+    padding: 1rem;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+  }
+
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .date-selector-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .date-info {
+    margin-left: 0;
+  }
+
+  .view-toggle {
+    width: 100%;
+  }
+
+  .toggle-btn {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .global-stats-grid,
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .managers-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .manager-tabs {
+    flex-direction: column;
+  }
+
+  .manager-tab {
+    min-width: 100%;
+  }
+
+  .info-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .info-actions {
+    width: 100%;
+  }
+
+  .info-action-btn {
+    flex: 1;
+  }
+
+  .transaction-header {
+    flex-wrap: wrap;
+  }
+
+  .transaction-amount {
+    width: 100%;
+    text-align: right;
+    margin-top: 0.5rem;
+  }
+
+  .summary-stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="caisse-container">  <!-- ===== EN-TÊTE ===== -->  <header class="page-header">    <div class="header-content">      <div class="header-left">        <h1 class="page-title">💰 Gestion des Caisses</h1>        <p class="page-subtitle">Supervision en temps réel de toutes les caisses</p>      </div>      <div class="header-actions">        <button class="action-btn action-btn-primary" (click)="exporterRapport()">          <span class="btn-icon">📊</span>          <span class="btn-text">Exporter Rapport</span>        </button>      </div>    </div>  </header>  <!-- ===== SÉLECTION DE DATE ===== -->  <section class="date-section">    <div class="date-selector-card">      <label for="dateSelect" class="date-label">        <span class="date-icon">📅</span>        <span>Date de consultation:</span>      </label>      <input        type="date"        id="dateSelect"        [(ngModel)]="selectedDate"        class="date-input">      <div class="date-info">        <span class="info-icon">ℹ️</span>        <span class="info-text">Mise à jour: {{statistiquesManager.derniereMaj}}</span>      </div>    </div>  </section>  <!-- ===== VUE RÉSUMÉ GLOBAL ===== -->  <section class="view-toggle-section">    <div class="view-toggle">      <button        class="toggle-btn"        [class.active]="currentView === \'resume\'"        (click)="switchView(\'resume\')">        <span class="toggle-icon">📊</span>        <span>Vue Résumé</span>      </button>      <button        class="toggle-btn"        [class.active]="currentView === \'details\'"        (click)="switchView(\'details\')">        <span class="toggle-icon">🔍</span>        <span>Vue Détaillée</span>      </button>    </div>  </section>  <!-- ===== VUE RÉSUMÉ ===== -->  <div *ngIf="currentView === \'resume\'" class="resume-view">    <!-- Statistiques Globales -->    <section class="global-stats-section">      <h2 class="section-title">        <span class="title-icon">🌍</span>        Statistiques Globales      </h2>      <div class="global-stats-grid">        <div class="global-stat-card global-stat-total">          <div class="stat-icon-wrapper">            <span class="stat-icon">💰</span>          </div>          <div class="stat-content">            <div class="stat-label">Total Toutes Caisses</div>            <div class="stat-value">{{formatMontant(totalGlobal)}}</div>            <div class="stat-detail">{{statistiquesGlobales.length}} caisses actives</div>          </div>        </div>        <div class="global-stat-card global-stat-especes">          <div class="stat-icon-wrapper">            <span class="stat-icon">💵</span>          </div>          <div class="stat-content">            <div class="stat-label">Total Espèces</div>            <div class="stat-value">{{formatMontant(totalEspecesGlobal)}}</div>            <div class="stat-detail">Toutes caisses confondues</div>          </div>        </div>        <div class="global-stat-card global-stat-carte">          <div class="stat-icon-wrapper">            <span class="stat-icon">💳</span>          </div>          <div class="stat-content">            <div class="stat-label">Total Wave</div>            <div class="stat-value">{{formatMontant(totalWaveGlobal)}}</div>            <div class="stat-detail">Paiements électroniques</div>          </div>        </div>        <div class="global-stat-card global-stat-mobile">          <div class="stat-icon-wrapper">            <span class="stat-icon">📱</span>          </div>          <div class="stat-content">            <div class="stat-label">Total Mobile</div>            <div class="stat-value">{{formatMontant(totalMobileGlobal)}}</div>            <div class="stat-detail">Paiements mobiles</div>          </div>        </div>      </div>    </section>    <!-- Résumé par Manager -->    <section class="managers-summary-section">      <h2 class="section-title">        <span class="title-icon">👥</span>        Résumé par Manager      </h2>      <div class="managers-grid">                  <div          *ngFor="let stat of statistiquesGlobales"          class="manager-summary-card"          [class.card-selected]="selectedManagerId === stat.managerId"          (click)="selectManager(stat.managerId)">          <div class="manager-card-header">            <div class="manager-avatar">              {{getManagerAvatar(stat.managerId)}}              <div class="status-dot" [ngClass]="\'status-\' + getManagerStatut(stat.managerId)"></div>            </div>            <div class="manager-info">              <h3 class="manager-name">{{stat.managerNom}}</h3>              <p class="manager-cave">{{stat.cave}}</p>            </div>          </div>          <div class="manager-card-body">            <div class="summary-stat">              <span class="summary-label">Total du jour</span>              <span class="summary-value summary-value-total">{{formatMontant(stat.totalJour)}}</span>            </div>            <div class="summary-stats-grid">              <div class="mini-stat">                <span class="mini-icon">💵</span>                <div class="mini-content">                  <span class="mini-label">Espèces</span>                  <span class="mini-value">{{formatMontant(stat.especes)}}</span>                </div>              </div>              <div class="mini-stat">                <span class="mini-icon">💳</span>                <div class="mini-content">                  <span class="mini-label">Wave</span>                  <span class="mini-value">{{formatMontant(stat.Wave)}}</span>                </div>              </div>              <div class="mini-stat">                <span class="mini-icon">📱</span>                <div class="mini-content">                  <span class="mini-label">Mobile</span>                  <span class="mini-value">{{formatMontant(stat.mobile)}}</span>                </div>              </div>              <div class="mini-stat">                <span class="mini-icon">🧾</span>                <div class="mini-content">                  <span class="mini-label">Transactions</span>                  <span class="mini-value">{{stat.nombreTransactions}}</span>                </div>              </div>            </div>          </div>          <div class="manager-card-footer">            <button class="card-action-btn" (click)="switchView(\'details\'); $event.stopPropagation()">              <span>Voir détails</span>              <span>→</span>            </button>          </div>        </div>      </div>    </section>  </div>  <!-- ===== VUE DÉTAILLÉE ===== -->  <div *ngIf="currentView === \'details\'" class="details-view">    <!-- Sélection du Manager -->    <section class="manager-selection-section">      <h2 class="section-title">        <span class="title-icon">👤</span>        Sélectionner un Manager      </h2>      <div class="manager-tabs">        <button          *ngFor="let manager of managersData"          class="manager-tab"          [class.active]="selectedManagerId === manager.id"          (click)="selectManager(manager.id)">          <div class="tab-avatar">            {{manager.avatar}}            <div class="status-indicator" [class]="\'status-\' + manager.statut"></div>          </div>          <div class="tab-content">            <div class="tab-name">{{manager.nom}}</div>            <div class="tab-cave">{{manager.cave}}</div>          </div>        </button>      </div>    </section>    <!-- Informations Manager Sélectionné -->    <section class="selected-manager-info" *ngIf="selectedManager">      <div class="info-card">        <div class="info-header">          <div class="info-avatar-large">            {{selectedManager.avatar}}          </div>          <div class="info-details">            <h3 class="info-name">{{selectedManager.nom}}</h3>            <p class="info-cave">🏢 {{selectedManager.cave}}</p>            <p class="info-adresse">📍 {{selectedManager.caveAdresse}}</p>          </div>          <div class="info-actions">            <button class="info-action-btn" (click)="envoyerNotification(selectedManager.id)">              <span>📧</span>              <span>Notifier</span>            </button>            <button class="info-action-btn btn-danger" (click)="fermerCaisse(selectedManager.id)">              <span>🔒</span>              <span>Fermer caisse</span>            </button>          </div>        </div>      </div>    </section>    <!-- Statistiques du Manager -->    <section class="manager-stats-section">      <h2 class="section-title">        <span class="title-icon">📊</span>        Statistiques de Caisse      </h2>      <div class="stats-grid">        <div class="stat-card stat-card-total">          <div class="stat-icon">💰</div>          <div class="stat-content">            <div class="stat-label">Total du Jour</div>            <div class="stat-value">{{formatMontant(statistiquesManager.totalJour)}}</div>            <div class="stat-transactions">{{statistiquesManager.nombreTransactions}} transactions</div>          </div>        </div>        <div class="stat-card stat-card-especes">          <div class="stat-icon">💵</div>          <div class="stat-content">            <div class="stat-label">Espèces</div>            <div class="stat-value">{{formatMontant(statistiquesManager.especes)}}</div>          </div>        </div>        <div class="stat-card stat-card-carte">          <div class="stat-icon">💳</div>          <div class="stat-content">            <div class="stat-label">Wave</div>            <div class="stat-value">{{formatMontant(statistiquesManager.wave)}}</div>          </div>        </div>        <div class="stat-card stat-card-mobile">          <div class="stat-icon">📱</div>          <div class="stat-content">            <div class="stat-label">Paiement Mobile</div>            <div class="stat-value">{{formatMontant(statistiquesManager.mobile)}}</div>          </div>        </div>      </div>    </section>    <!-- Filtres des Transactions -->    <section class="transactions-filters-section">      <h3 class="filter-title">Filtrer par type</h3>      <div class="transaction-tabs">        <button          class="transaction-tab"          [class.active]="currentTransactionFilter === \'all\'"          (click)="filterTransactions(\'all\')">          Toutes ({{getTransactionCount(\'all\')}})        </button>        <button          class="transaction-tab"          [class.active]="currentTransactionFilter === \'vente\'"          (click)="filterTransactions(\'vente\')">          Ventes ({{getTransactionCount(\'vente\')}})        </button>        <button          class="transaction-tab"          [class.active]="currentTransactionFilter === \'remboursement\'"          (click)="filterTransactions(\'remboursement\')">          Remboursements ({{getTransactionCount(\'remboursement\')}})        </button>        <button          class="transaction-tab"          [class.active]="currentTransactionFilter === \'ouverture\'"          (click)="filterTransactions(\'ouverture\')">          Ouverture/Fermeture ({{getTransactionCount(\'ouverture\') + getTransactionCount(\'fermeture\')}})        </button>      </div>    </section>    <!-- Liste des Transactions -->    <section class="transactions-list-section">      <h2 class="section-title">        <span class="title-icon">📝</span>        Transactions de la Journée      </h2>      <div class="transactions-container">        <div *ngIf="filteredTransactions.length === 0" class="empty-state">          <div class="empty-icon">💰</div>          <p class="empty-text">Aucune transaction pour cette période</p>        </div>        <div class="transaction-item" *ngFor="let transaction of filteredTransactions">          <div class="transaction-header">            <div class="transaction-icon" [class]="\'transaction-\' + transaction.type">              <span *ngIf="transaction.type === \'vente\'">🛒</span>              <span *ngIf="transaction.type === \'remboursement\'">↩️</span>              <span *ngIf="transaction.type === \'ouverture\'">🔓</span>              <span *ngIf="transaction.type === \'fermeture\'">🔒</span>            </div>            <div class="transaction-info">              <div class="transaction-type-row">                <span class="transaction-type-badge" [class]="\'type-badge-\' + transaction.type">                  {{transaction.typeText}}                </span>                <span class="transaction-id">{{transaction.id}}</span>              </div>              <div class="transaction-datetime">{{transaction.date}} à {{transaction.heure}}</div>            </div>            <div class="transaction-amount"                 [class.amount-positive]="transaction.montant > 0"                 [class.amount-negative]="transaction.montant < 0">              {{transaction.montant > 0 ? \'+\' : \'\'}}{{formatMontant(transaction.montant)}}            </div>          </div>          <div class="transaction-body">            <div class="transaction-detail-row" *ngIf="transaction.client">              <span class="detail-icon">👤</span>              <span class="detail-text">Client: {{transaction.client}}</span>            </div>            <div class="transaction-detail-row">              <span class="detail-icon">💳</span>              <span class="detail-text">{{transaction.moyenPaiementText}}</span>            </div>            <div class="transaction-detail-row" *ngIf="transaction.reference">              <span class="detail-icon">📝</span>              <span class="detail-text">Réf: {{transaction.reference}}</span>            </div>            <div class="transaction-detail-row">              <span class="detail-icon">👨‍💼</span>              <span class="detail-text">Caissier: {{transaction.caissier}}</span>            </div>            <div class="transaction-details-text">              {{transaction.details}}            </div>          </div>        </div>      </div>    </section>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AdminDashboardComponent', 'selector': 'app-admin-dashboard'},{'name': 'AlertsComponent', 'selector': 'app-alerts'},{'name': 'App', 'selector': 'app-root'},{'name': 'CaisseComponent', 'selector': 'app-caisse'},{'name': 'CaveCreateComponent', 'selector': 'app-cave-create'},{'name': 'CaveListComponent', 'selector': 'app-cave-lists'},{'name': 'ClientDashboardComponent', 'selector': 'app-client-dashboard'},{'name': 'ClientsComponent', 'selector': 'app-client'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DrinksComponent', 'selector': 'app-drinks'},{'name': 'EmployeesComponent', 'selector': 'app-employees'},{'name': 'EntriesComponent', 'selector': 'app-entries'},{'name': 'ExitsComponent', 'selector': 'app-exits'},{'name': 'ExpenseComponent', 'selector': 'app-depenses'},{'name': 'FaqComponent', 'selector': 'app-faq'},{'name': 'FournisseursComponent', 'selector': 'app-fournisseur'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'ImprovementsComponent', 'selector': 'app-improvements'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ManagerDashboardComponent', 'selector': 'app-manager-dashboard'},{'name': 'ManagersComponent', 'selector': 'app-managers'},{'name': 'MaterialComponent', 'selector': 'app-materiel'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'OrdersComponent', 'selector': 'app-orders'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfitComponent', 'selector': 'app-profit'},{'name': 'RecentActionsComponent', 'selector': 'app-recent-actions'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'SalesComponent', 'selector': 'app-sales'},{'name': 'ScanComponent', 'selector': 'app-scan'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'StockComponent', 'selector': 'app-stock'},{'name': 'StockComponent', 'selector': 'app-stock'},{'name': 'TeamComponent', 'selector': 'app-team'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'UserCreateComponent', 'selector': 'app-user-create'},{'name': 'UserListComponent', 'selector': 'app-user-list'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'WaitressDashboardComponent', 'selector': 'app-waitress-dashboard'},{'name': 'WinePairingComponent', 'selector': 'app-wine-pairing'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'CaisseComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'CaisseComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

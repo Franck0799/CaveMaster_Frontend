@@ -1,0 +1,2000 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cave-master-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cave-master-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  RecentActionsComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/view/admin-dashboard/recent-actions/recent-actions.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Composant RecentActions - Affiche les actions récentes du système
+Utilisé comme composant réutilisable dans le dashboard</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-recent-actions</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>FormsModule</code>
+                            <code>ReactiveFormsModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./recent-actions.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./recent-actions.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#displayLimit" >displayLimit</a>
+                            </li>
+                            <li>
+                                <a href="#isLoading" >isLoading</a>
+                            </li>
+                            <li>
+                                <a href="#recentActions" >recentActions</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#clearAllActions" >clearAllActions</a>
+                            </li>
+                            <li>
+                                <a href="#deleteAction" >deleteAction</a>
+                            </li>
+                            <li>
+                                <a href="#exportActions" >exportActions</a>
+                            </li>
+                            <li>
+                                <a href="#filterByType" >filterByType</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#generateMockActions" >generateMockActions</a>
+                            </li>
+                            <li>
+                                <a href="#getActionTypeClass" >getActionTypeClass</a>
+                            </li>
+                            <li>
+                                <a href="#getDisplayedActions" >getDisplayedActions</a>
+                            </li>
+                            <li>
+                                <a href="#getRelativeTime" >getRelativeTime</a>
+                            </li>
+                            <li>
+                                <a href="#hasMore" >hasMore</a>
+                            </li>
+                            <li>
+                                <a href="#loadMore" >loadMore</a>
+                            </li>
+                            <li>
+                                <a href="#loadRecentActions" >loadRecentActions</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#refreshActions" >refreshActions</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/view/admin-dashboard/recent-actions/recent-actions.component.ts:41</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clearAllActions"></a>
+                    <span class="name">
+                        <span ><b>clearAllActions</b></span>
+                        <a href="#clearAllActions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>clearAllActions()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="230"
+                                    class="link-to-prism">src/app/view/admin-dashboard/recent-actions/recent-actions.component.ts:230</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Efface toutes les actions</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteAction"></a>
+                    <span class="name">
+                        <span ><b>deleteAction</b></span>
+                        <a href="#deleteAction"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteAction(actionId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="220"
+                                    class="link-to-prism">src/app/view/admin-dashboard/recent-actions/recent-actions.component.ts:220</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Supprime une action de la liste</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>actionId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>ID de l&#39;action à supprimer</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportActions"></a>
+                    <span class="name">
+                        <span ><b>exportActions</b></span>
+                        <a href="#exportActions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportActions()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="240"
+                                    class="link-to-prism">src/app/view/admin-dashboard/recent-actions/recent-actions.component.ts:240</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Exporte l&#39;historique des actions</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filterByType"></a>
+                    <span class="name">
+                        <span ><b>filterByType</b></span>
+                        <a href="#filterByType"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>filterByType(type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="167"
+                                    class="link-to-prism">src/app/view/admin-dashboard/recent-actions/recent-actions.component.ts:167</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Filtre les actions par type</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Type d&#39;action à filtrer</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>RecentAction[]</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Actions filtrées</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generateMockActions"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>generateMockActions</b></span>
+                        <a href="#generateMockActions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>generateMockActions()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="81"
+                                    class="link-to-prism">src/app/view/admin-dashboard/recent-actions/recent-actions.component.ts:81</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Génère des actions de test pour la démo</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>RecentAction[]</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Liste d&#39;actions simulées</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getActionTypeClass"></a>
+                    <span class="name">
+                        <span ><b>getActionTypeClass</b></span>
+                        <a href="#getActionTypeClass"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getActionTypeClass(type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="151"
+                                    class="link-to-prism">src/app/view/admin-dashboard/recent-actions/recent-actions.component.ts:151</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retourne la classe CSS selon le type d&#39;action</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Type d&#39;action</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Classe CSS correspondante</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getDisplayedActions"></a>
+                    <span class="name">
+                        <span ><b>getDisplayedActions</b></span>
+                        <a href="#getDisplayedActions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getDisplayedActions()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="178"
+                                    class="link-to-prism">src/app/view/admin-dashboard/recent-actions/recent-actions.component.ts:178</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retourne les actions limitées au nombre à afficher</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>RecentAction[]</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Actions à afficher</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getRelativeTime"></a>
+                    <span class="name">
+                        <span ><b>getRelativeTime</b></span>
+                        <a href="#getRelativeTime"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getRelativeTime(timestamp: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank">Date</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="203"
+                                    class="link-to-prism">src/app/view/admin-dashboard/recent-actions/recent-actions.component.ts:203</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Calcule le temps relatif depuis une action</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>timestamp</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Date de l&#39;action</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Temps relatif formaté</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hasMore"></a>
+                    <span class="name">
+                        <span ><b>hasMore</b></span>
+                        <a href="#hasMore"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>hasMore()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="194"
+                                    class="link-to-prism">src/app/view/admin-dashboard/recent-actions/recent-actions.component.ts:194</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Vérifie s&#39;il y a plus d&#39;actions à afficher</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>true s&#39;il reste des actions</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadMore"></a>
+                    <span class="name">
+                        <span ><b>loadMore</b></span>
+                        <a href="#loadMore"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadMore()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="185"
+                                    class="link-to-prism">src/app/view/admin-dashboard/recent-actions/recent-actions.component.ts:185</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Charge plus d&#39;actions</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadRecentActions"></a>
+                    <span class="name">
+                        <span ><b>loadRecentActions</b></span>
+                        <a href="#loadRecentActions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadRecentActions()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="58"
+                                    class="link-to-prism">src/app/view/admin-dashboard/recent-actions/recent-actions.component.ts:58</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Charge les actions récentes depuis le backend</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="45"
+                                    class="link-to-prism">src/app/view/admin-dashboard/recent-actions/recent-actions.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="refreshActions"></a>
+                    <span class="name">
+                        <span ><b>refreshActions</b></span>
+                        <a href="#refreshActions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>refreshActions()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="72"
+                                    class="link-to-prism">src/app/view/admin-dashboard/recent-actions/recent-actions.component.ts:72</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Rafraîchit la liste des actions</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="displayLimit"></a>
+                    <span class="name">
+                        <span ><b>displayLimit</b></span>
+                        <a href="#displayLimit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>10</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/view/admin-dashboard/recent-actions/recent-actions.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isLoading"></a>
+                    <span class="name">
+                        <span ><b>isLoading</b></span>
+                        <a href="#isLoading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/view/admin-dashboard/recent-actions/recent-actions.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="recentActions"></a>
+                    <span class="name">
+                        <span ><b>recentActions</b></span>
+                        <a href="#recentActions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>RecentAction[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/view/admin-dashboard/recent-actions/recent-actions.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+
+/**
+ * Interface pour définir une action récente
+ */
+interface RecentAction {
+  id: string;
+  type: &#x27;add&#x27; | &#x27;remove&#x27; | &#x27;update&#x27; | &#x27;alert&#x27;; // Type d&#x27;action
+  icon: string; // Emoji de l&#x27;icône
+  title: string; // Titre de l&#x27;action
+  details: string; // Détails de l&#x27;action
+  time: string; // Temps relatif (ex: &quot;Il y a 5 min&quot;)
+  timestamp: Date; // Timestamp exact
+  userId?: string; // ID de l&#x27;utilisateur qui a fait l&#x27;action
+  userName?: string; // Nom de l&#x27;utilisateur
+}
+
+/**
+ * Composant RecentActions - Affiche les actions récentes du système
+ * Utilisé comme composant réutilisable dans le dashboard
+ */
+@Component({
+  selector: &#x27;app-recent-actions&#x27;,
+   standalone: true,
+  // Import des modules nécessaires
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  templateUrl: &#x27;./recent-actions.component.html&#x27;,
+  styleUrls: [&#x27;./recent-actions.component.scss&#x27;]
+})
+export class RecentActionsComponent implements OnInit {
+
+  // Liste des actions récentes
+  recentActions: RecentAction[] &#x3D; [];
+
+  // Nombre d&#x27;actions à afficher par défaut
+  displayLimit: number &#x3D; 10;
+
+  // État de chargement
+  isLoading: boolean &#x3D; false;
+
+  constructor() {}
+
+  ngOnInit(): void {
+    // Chargement initial des actions
+    this.loadRecentActions();
+
+    // Mise à jour automatique toutes les 30 secondes
+    setInterval(() &#x3D;&gt; {
+      this.refreshActions();
+    }, 30000);
+  }
+
+  /**
+   * Charge les actions récentes depuis le backend
+   */
+  loadRecentActions(): void {
+    this.isLoading &#x3D; true;
+
+    // TODO: Appel API pour charger les actions
+    // Simulation avec des données de test
+    this.recentActions &#x3D; this.generateMockActions();
+
+    this.isLoading &#x3D; false;
+    console.log(&#x27;Actions récentes chargées:&#x27;, this.recentActions.length);
+  }
+
+  /**
+   * Rafraîchit la liste des actions
+   */
+  refreshActions(): void {
+    console.log(&#x27;Rafraîchissement des actions...&#x27;);
+    this.loadRecentActions();
+  }
+
+  /**
+   * Génère des actions de test pour la démo
+   * @returns Liste d&#x27;actions simulées
+   */
+  private generateMockActions(): RecentAction[] {
+    const now &#x3D; new Date();
+
+    return [
+      {
+        id: &#x27;1&#x27;,
+        type: &#x27;add&#x27;,
+        icon: &#x27;📦&#x27;,
+        title: &#x27;Nouvelle entrée de stock&#x27;,
+        details: &#x27;50 bouteilles de Château Margaux 2015 ajoutées&#x27;,
+        time: &#x27;Il y a 5 min&#x27;,
+        timestamp: new Date(now.getTime() - 5 * 60000),
+        userName: &#x27;Jean Kouassi&#x27;
+      },
+      {
+        id: &#x27;2&#x27;,
+        type: &#x27;remove&#x27;,
+        icon: &#x27;📤&#x27;,
+        title: &#x27;Sortie de stock&#x27;,
+        details: &#x27;12 bouteilles de Champagne Moët vendues&#x27;,
+        time: &#x27;Il y a 15 min&#x27;,
+        timestamp: new Date(now.getTime() - 15 * 60000),
+        userName: &#x27;Marie Diallo&#x27;
+      },
+      {
+        id: &#x27;3&#x27;,
+        type: &#x27;add&#x27;,
+        icon: &#x27;👤&#x27;,
+        title: &#x27;Nouvel employé ajouté&#x27;,
+        details: &#x27;Paul Mensah - Magasinier à Cave Principale&#x27;,
+        time: &#x27;Il y a 1 heure&#x27;,
+        timestamp: new Date(now.getTime() - 60 * 60000),
+        userName: &#x27;Admin&#x27;
+      },
+      {
+        id: &#x27;4&#x27;,
+        type: &#x27;alert&#x27;,
+        icon: &#x27;⚠️&#x27;,
+        title: &#x27;Stock faible détecté&#x27;,
+        details: &#x27;Heineken 33cl - Seulement 8 unités restantes&#x27;,
+        time: &#x27;Il y a 2 heures&#x27;,
+        timestamp: new Date(now.getTime() - 120 * 60000)
+      },
+      {
+        id: &#x27;5&#x27;,
+        type: &#x27;update&#x27;,
+        icon: &#x27;✏️&#x27;,
+        title: &#x27;Produit modifié&#x27;,
+        details: &#x27;Prix du Martini Rosso mis à jour: 8500 FCFA&#x27;,
+        time: &#x27;Il y a 3 heures&#x27;,
+        timestamp: new Date(now.getTime() - 180 * 60000),
+        userName: &#x27;Sophie Martin&#x27;
+      },
+      {
+        id: &#x27;6&#x27;,
+        type: &#x27;add&#x27;,
+        icon: &#x27;🛒&#x27;,
+        title: &#x27;Nouvelle commande&#x27;,
+        details: &#x27;Commande #1234 - Client: Amadou Diallo&#x27;,
+        time: &#x27;Il y a 4 heures&#x27;,
+        timestamp: new Date(now.getTime() - 240 * 60000)
+      }
+    ];
+  }
+
+  /**
+   * Retourne la classe CSS selon le type d&#x27;action
+   * @param type - Type d&#x27;action
+   * @returns Classe CSS correspondante
+   */
+  getActionTypeClass(type: string): string {
+    const classMap: { [key: string]: string } &#x3D; {
+      &#x27;add&#x27;: &#x27;action-type-add&#x27;,
+      &#x27;remove&#x27;: &#x27;action-type-remove&#x27;,
+      &#x27;update&#x27;: &#x27;action-type-update&#x27;,
+      &#x27;alert&#x27;: &#x27;action-type-alert&#x27;
+    };
+
+    return classMap[type] || &#x27;action-type-default&#x27;;
+  }
+
+  /**
+   * Filtre les actions par type
+   * @param type - Type d&#x27;action à filtrer
+   * @returns Actions filtrées
+   */
+  filterByType(type: string): RecentAction[] {
+    if (!type || type &#x3D;&#x3D;&#x3D; &#x27;all&#x27;) {
+      return this.recentActions;
+    }
+    return this.recentActions.filter(action &#x3D;&gt; action.type &#x3D;&#x3D;&#x3D; type);
+  }
+
+  /**
+   * Retourne les actions limitées au nombre à afficher
+   * @returns Actions à afficher
+   */
+  getDisplayedActions(): RecentAction[] {
+    return this.recentActions.slice(0, this.displayLimit);
+  }
+
+  /**
+   * Charge plus d&#x27;actions
+   */
+  loadMore(): void {
+    this.displayLimit +&#x3D; 10;
+    console.log(&#x27;Affichage de&#x27;, this.displayLimit, &#x27;actions&#x27;);
+  }
+
+  /**
+   * Vérifie s&#x27;il y a plus d&#x27;actions à afficher
+   * @returns true s&#x27;il reste des actions
+   */
+  hasMore(): boolean {
+    return this.displayLimit &lt; this.recentActions.length;
+  }
+
+  /**
+   * Calcule le temps relatif depuis une action
+   * @param timestamp - Date de l&#x27;action
+   * @returns Temps relatif formaté
+   */
+  getRelativeTime(timestamp: Date): string {
+    const now &#x3D; new Date();
+    const diffMs &#x3D; now.getTime() - timestamp.getTime();
+    const diffMins &#x3D; Math.floor(diffMs / 60000);
+    const diffHours &#x3D; Math.floor(diffMins / 60);
+    const diffDays &#x3D; Math.floor(diffHours / 24);
+
+    if (diffMins &lt; 1) return &#x27;À l\&#x27;instant&#x27;;
+    if (diffMins &lt; 60) return &#x60;Il y a ${diffMins} min&#x60;;
+    if (diffHours &lt; 24) return &#x60;Il y a ${diffHours} heure${diffHours &gt; 1 ? &#x27;s&#x27; : &#x27;&#x27;}&#x60;;
+    return &#x60;Il y a ${diffDays} jour${diffDays &gt; 1 ? &#x27;s&#x27; : &#x27;&#x27;}&#x60;;
+  }
+
+  /**
+   * Supprime une action de la liste
+   * @param actionId - ID de l&#x27;action à supprimer
+   */
+  deleteAction(actionId: string): void {
+    if (confirm(&#x27;Voulez-vous vraiment supprimer cette action de l\&#x27;historique ?&#x27;)) {
+      this.recentActions &#x3D; this.recentActions.filter(a &#x3D;&gt; a.id !&#x3D;&#x3D; actionId);
+      console.log(&#x27;Action supprimée:&#x27;, actionId);
+    }
+  }
+
+  /**
+   * Efface toutes les actions
+   */
+  clearAllActions(): void {
+    if (confirm(&#x27;Voulez-vous vraiment effacer tout l\&#x27;historique des actions ?&#x27;)) {
+      this.recentActions &#x3D; [];
+      console.log(&#x27;Historique effacé&#x27;);
+    }
+  }
+
+  /**
+   * Exporte l&#x27;historique des actions
+   */
+  exportActions(): void {
+    console.log(&#x27;Export de l\&#x27;historique...&#x27;);
+
+    // Dans une vraie app, on créerait un fichier CSV ou JSON
+    const dataStr &#x3D; JSON.stringify(this.recentActions, null, 2);
+    console.log(&#x27;Données exportées:&#x27;, dataStr);
+
+    alert(&#x27;Historique exporté avec succès !&#x27;);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; COMPOSANT ACTIONS RÉCENTES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+&lt;div class&#x3D;&quot;recent-actions-container&quot;&gt;
+  
+  &lt;!-- En-tête avec titre et actions --&gt;
+  &lt;div class&#x3D;&quot;actions-header&quot;&gt;
+    &lt;h3 class&#x3D;&quot;actions-title&quot;&gt;📋 Actions Récentes&lt;/h3&gt;
+    
+    &lt;!-- Boutons d&#x27;action --&gt;
+    &lt;div class&#x3D;&quot;actions-controls&quot;&gt;
+      &lt;!-- Bouton rafraîchir --&gt;
+      &lt;button class&#x3D;&quot;btn-icon&quot; 
+              (click)&#x3D;&quot;refreshActions()&quot;
+              title&#x3D;&quot;Rafraîchir&quot;&gt;
+        🔄
+      &lt;/button&gt;
+      
+      &lt;!-- Bouton exporter --&gt;
+      &lt;button class&#x3D;&quot;btn-icon&quot; 
+              (click)&#x3D;&quot;exportActions()&quot;
+              title&#x3D;&quot;Exporter&quot;&gt;
+        📥
+      &lt;/button&gt;
+      
+      &lt;!-- Bouton effacer tout --&gt;
+      &lt;button class&#x3D;&quot;btn-icon btn-danger&quot; 
+              (click)&#x3D;&quot;clearAllActions()&quot;
+              title&#x3D;&quot;Effacer tout&quot;&gt;
+        🗑️
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Indicateur de chargement --&gt;
+  &lt;div *ngIf&#x3D;&quot;isLoading&quot; class&#x3D;&quot;loading-indicator&quot;&gt;
+    &lt;div class&#x3D;&quot;spinner&quot;&gt;&lt;/div&gt;
+    &lt;p&gt;Chargement des actions...&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Liste des actions --&gt;
+  &lt;div class&#x3D;&quot;actions-list&quot; *ngIf&#x3D;&quot;!isLoading&quot;&gt;
+    
+    &lt;!-- Boucle sur chaque action affichée --&gt;
+    &lt;div *ngFor&#x3D;&quot;let action of getDisplayedActions()&quot; 
+         class&#x3D;&quot;action-item&quot;
+         [class.action-item-hoverable]&#x3D;&quot;true&quot;&gt;
+      
+      &lt;!-- Icône de l&#x27;action avec indicateur de type --&gt;
+      &lt;div class&#x3D;&quot;action-icon&quot; [ngClass]&#x3D;&quot;getActionTypeClass(action.type)&quot;&gt;
+        {{ action.icon }}
+      &lt;/div&gt;
+      
+      &lt;!-- Contenu de l&#x27;action --&gt;
+      &lt;div class&#x3D;&quot;action-content&quot;&gt;
+        &lt;!-- Titre de l&#x27;action --&gt;
+        &lt;div class&#x3D;&quot;action-title&quot;&gt;{{ action.title }}&lt;/div&gt;
+        
+        &lt;!-- Détails de l&#x27;action --&gt;
+        &lt;div class&#x3D;&quot;action-details&quot;&gt;{{ action.details }}&lt;/div&gt;
+        
+        &lt;!-- Nom de l&#x27;utilisateur si disponible --&gt;
+        &lt;div class&#x3D;&quot;action-user&quot; *ngIf&#x3D;&quot;action.userName&quot;&gt;
+          👤 {{ action.userName }}
+        &lt;/div&gt;
+      &lt;/div&gt;
+      
+      &lt;!-- Temps relatif et bouton supprimer --&gt;
+      &lt;div class&#x3D;&quot;action-meta&quot;&gt;
+        &lt;div class&#x3D;&quot;action-time&quot;&gt;{{ action.time }}&lt;/div&gt;
+        
+        &lt;!-- Bouton supprimer (visible au survol) --&gt;
+        &lt;button class&#x3D;&quot;action-delete&quot; 
+                (click)&#x3D;&quot;deleteAction(action.id)&quot;
+                title&#x3D;&quot;Supprimer&quot;&gt;
+          ×
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Message si aucune action --&gt;
+    &lt;div *ngIf&#x3D;&quot;recentActions.length &#x3D;&#x3D;&#x3D; 0&quot; class&#x3D;&quot;empty-state&quot;&gt;
+      &lt;div class&#x3D;&quot;empty-icon&quot;&gt;📭&lt;/div&gt;
+      &lt;p&gt;Aucune action récente&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Bouton &quot;Charger plus&quot; --&gt;
+  &lt;div class&#x3D;&quot;actions-footer&quot; *ngIf&#x3D;&quot;hasMore() &amp;&amp; !isLoading&quot;&gt;
+    &lt;button class&#x3D;&quot;btn btn-secondary btn-block&quot; (click)&#x3D;&quot;loadMore()&quot;&gt;
+      ⬇️ Charger plus d&#x27;actions
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./recent-actions.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Conteneur principal &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.recent-actions-container {
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; En-tête des actions &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.actions-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+
+  .actions-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .actions-controls {
+    display: flex;
+    gap: 0.5rem;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Boutons icônes &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.btn-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  border: none;
+  background: var(--dark-bg);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &amp;:hover {
+    background: #e2e8f0;
+    transform: scale(1.1);
+  }
+
+  &amp;.btn-danger:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Indicateur de chargement &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.loading-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--dark-bg);
+    border-top-color: $primary-color;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Liste des actions &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.actions-list {
+  max-height: 600px;
+  overflow-y: auto;
+  padding: 0.5rem;
+
+  &amp;::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &amp;::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &amp;::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+
+    &amp;:hover {
+      background: rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Item d&#x27;action &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.action-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  position: relative;
+
+  &amp;.action-item-hoverable:hover {
+    background: var(--dark-bg);
+
+    .action-delete {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Icône de l&#x27;action &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.action-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+
+  &amp;.action-type-add {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success);
+  }
+
+  &amp;.action-type-remove {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+  }
+
+  &amp;.action-type-update {
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--info);
+  }
+
+  &amp;.action-type-alert {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--warning);
+  }
+
+  &amp;.action-type-default {
+    background: rgba(100, 116, 139, 0.1);
+    color: var(--text-secondary);
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Contenu de l&#x27;action &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.action-content {
+  flex: 1;
+  min-width: 0;
+
+  .action-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+  }
+
+  .action-details {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+
+  .action-user {
+    font-size: 0.75rem;
+    color: $primary-color;
+    margin-top: 0.25rem;
+    font-weight: 500;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Métadonnées de l&#x27;action &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.action-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+
+  .action-time {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+
+  .action-delete {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+    font-size: 1.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s ease;
+
+    &amp;:hover {
+      background: rgba(239, 68, 68, 0.2);
+      transform: scale(1.1);
+    }
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; État vide &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+
+  .empty-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+  }
+
+  p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin: 0;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Pied avec bouton &quot;Charger plus&quot; &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.actions-footer {
+  padding: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Boutons standards &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  &amp;.btn-secondary {
+    background: var(--text-secondary);
+    color: white;
+
+    &amp;:hover {
+      background: color-color-mix(in srgb, in srgb, var(--text-secondary) 90%, black);
+      transform: translateY(-2px);
+    }
+  }
+
+  &amp;.btn-block {
+    width: 100%;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Responsive (mobile) &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+@media (max-width: 768px) {
+  .actions-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+
+    .actions-controls {
+      width: 100%;
+      justify-content: flex-end;
+    }
+  }
+
+  .action-item {
+    flex-wrap: wrap;
+
+    .action-meta {
+      width: 100%;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-top: 0.5rem;
+
+      .action-delete {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+  }
+
+  .actions-list {
+    max-height: 500px;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Responsive (très petit écran) &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+@media (max-width: 480px) {
+  .actions-header {
+    padding: 1rem;
+
+    .actions-title {
+      font-size: 1.1rem;
+    }
+  }
+
+  .action-item {
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+
+  .action-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.25rem;
+  }
+
+  .action-content {
+    .action-title {
+      font-size: 0.85rem;
+    }
+
+    .action-details {
+      font-size: 0.75rem;
+    }
+  }
+
+  .btn-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Animation d&#x27;entrée pour les nouvelles actions &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.action-item {
+  animation: slideInRight 0.3s ease-out;
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; États de transition &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.actions-list {
+  position: relative;
+
+  &amp;::after {
+    content: &#x27;&#x27;;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background: linear-gradient(to bottom, transparent, var(--card-bg));
+    pointer-events: none;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Amélioration de l&#x27;accessibilité &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.btn-icon,
+.action-delete {
+  &amp;:focus {
+    outline: 2px solid $primary-color;
+    outline-offset: 2px;
+  }
+
+  &amp;:focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+// &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Badge pour les actions urgentes &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.action-item {
+  &amp;.urgent {
+    border-left: 3px solid var(--danger);
+
+    .action-icon {
+      animation: pulse 2s ease-in-out infinite;
+    }
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- ===== COMPOSANT ACTIONS RÉCENTES ===== --><div class="recent-actions-container">    <!-- En-tête avec titre et actions -->  <div class="actions-header">    <h3 class="actions-title">📋 Actions Récentes</h3>        <!-- Boutons d\'action -->    <div class="actions-controls">      <!-- Bouton rafraîchir -->      <button class="btn-icon"               (click)="refreshActions()"              title="Rafraîchir">        🔄      </button>            <!-- Bouton exporter -->      <button class="btn-icon"               (click)="exportActions()"              title="Exporter">        📥      </button>            <!-- Bouton effacer tout -->      <button class="btn-icon btn-danger"               (click)="clearAllActions()"              title="Effacer tout">        🗑️      </button>    </div>  </div>  <!-- Indicateur de chargement -->  <div *ngIf="isLoading" class="loading-indicator">    <div class="spinner"></div>    <p>Chargement des actions...</p>  </div>  <!-- Liste des actions -->  <div class="actions-list" *ngIf="!isLoading">        <!-- Boucle sur chaque action affichée -->    <div *ngFor="let action of getDisplayedActions()"          class="action-item"         [class.action-item-hoverable]="true">            <!-- Icône de l\'action avec indicateur de type -->      <div class="action-icon" [ngClass]="getActionTypeClass(action.type)">        {{ action.icon }}      </div>            <!-- Contenu de l\'action -->      <div class="action-content">        <!-- Titre de l\'action -->        <div class="action-title">{{ action.title }}</div>                <!-- Détails de l\'action -->        <div class="action-details">{{ action.details }}</div>                <!-- Nom de l\'utilisateur si disponible -->        <div class="action-user" *ngIf="action.userName">          👤 {{ action.userName }}        </div>      </div>            <!-- Temps relatif et bouton supprimer -->      <div class="action-meta">        <div class="action-time">{{ action.time }}</div>                <!-- Bouton supprimer (visible au survol) -->        <button class="action-delete"                 (click)="deleteAction(action.id)"                title="Supprimer">          ×        </button>      </div>    </div>    <!-- Message si aucune action -->    <div *ngIf="recentActions.length === 0" class="empty-state">      <div class="empty-icon">📭</div>      <p>Aucune action récente</p>    </div>  </div>  <!-- Bouton "Charger plus" -->  <div class="actions-footer" *ngIf="hasMore() && !isLoading">    <button class="btn btn-secondary btn-block" (click)="loadMore()">      ⬇️ Charger plus d\'actions    </button>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AdminDashboardComponent', 'selector': 'app-admin-dashboard'},{'name': 'AlertsComponent', 'selector': 'app-alerts'},{'name': 'App', 'selector': 'app-root'},{'name': 'CaisseComponent', 'selector': 'app-caisse'},{'name': 'CaveCreateComponent', 'selector': 'app-cave-create'},{'name': 'CaveListComponent', 'selector': 'app-cave-lists'},{'name': 'ClientDashboardComponent', 'selector': 'app-client-dashboard'},{'name': 'ClientsComponent', 'selector': 'app-client'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DrinksComponent', 'selector': 'app-drinks'},{'name': 'EmployeesComponent', 'selector': 'app-employees'},{'name': 'EntriesComponent', 'selector': 'app-entries'},{'name': 'ExitsComponent', 'selector': 'app-exits'},{'name': 'ExpenseComponent', 'selector': 'app-depenses'},{'name': 'FaqComponent', 'selector': 'app-faq'},{'name': 'FournisseursComponent', 'selector': 'app-fournisseur'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'ImprovementsComponent', 'selector': 'app-improvements'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ManagerDashboardComponent', 'selector': 'app-manager-dashboard'},{'name': 'ManagersComponent', 'selector': 'app-managers'},{'name': 'MaterialComponent', 'selector': 'app-materiel'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'OrdersComponent', 'selector': 'app-orders'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfitComponent', 'selector': 'app-profit'},{'name': 'RecentActionsComponent', 'selector': 'app-recent-actions'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'SalesComponent', 'selector': 'app-sales'},{'name': 'ScanComponent', 'selector': 'app-scan'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'StockComponent', 'selector': 'app-stock'},{'name': 'StockComponent', 'selector': 'app-stock'},{'name': 'TeamComponent', 'selector': 'app-team'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'UserCreateComponent', 'selector': 'app-user-create'},{'name': 'UserListComponent', 'selector': 'app-user-list'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'WaitressDashboardComponent', 'selector': 'app-waitress-dashboard'},{'name': 'WinePairingComponent', 'selector': 'app-wine-pairing'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'RecentActionsComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'RecentActionsComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,842 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cave-master-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cave-master-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  Order</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/view/client-dashboard/client-dashboard.component.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#date" 
+>
+                                            date
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#emoji" 
+>
+                                            emoji
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#id" 
+>
+                                            id
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#price" 
+>
+                                            price
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#quantity" 
+>
+                                            quantity
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#status" 
+>
+                                            status
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#title" 
+>
+                                            title
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="date"></a>
+                                        <span class="name "><b>date</b>
+                                            <a href="#date">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>date:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="emoji"></a>
+                                        <span class="name "><b>emoji</b>
+                                            <a href="#emoji">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>emoji:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="id"></a>
+                                        <span class="name "><b>id</b>
+                                            <a href="#id">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>id:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="price"></a>
+                                        <span class="name "><b>price</b>
+                                            <a href="#price">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>price:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="quantity"></a>
+                                        <span class="name "><b>quantity</b>
+                                            <a href="#quantity">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>quantity:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="status"></a>
+                                        <span class="name "><b>status</b>
+                                            <a href="#status">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>status:     <code>&quot;delivered&quot; | &quot;processing&quot; | &quot;pending&quot; | &quot;cancelled&quot;</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>&quot;delivered&quot; | &quot;processing&quot; | &quot;pending&quot; | &quot;cancelled&quot;</code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="title"></a>
+                                        <span class="name "><b>title</b>
+                                            <a href="#title">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>title:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+// Interface pour les produits
+interface Product {
+  id: number;
+  name: string;
+  category: string;
+  price: number;
+  emoji: string;
+  badge?: &#x27;HOT&#x27; | &#x27;NEW&#x27;;
+  isFavorite: boolean;
+}
+
+// Interface pour les commandes
+interface Order {
+  id: string;
+  title: string;
+  quantity: number;
+  date: string;
+  price: number;
+  status: &#x27;delivered&#x27; | &#x27;processing&#x27; | &#x27;pending&#x27; | &#x27;cancelled&#x27;;
+  emoji: string;
+}
+
+// Interface pour les statistiques
+interface Stat {
+  label: string;
+  value: string | number;
+  change: string;
+  isPositive: boolean;
+  emoji: string;
+  color: &#x27;purple&#x27; | &#x27;green&#x27; | &#x27;blue&#x27; | &#x27;orange&#x27;;
+}
+
+@Component({
+  selector: &#x27;app-client-dashboard&#x27;,
+    standalone: true,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  templateUrl: &#x27;./client-dashboard.component.html&#x27;,
+  styleUrls: [&#x27;./client-dashboard.component.scss&#x27;]
+})
+export class ClientDashboardComponent implements OnInit {
+  // Variables pour la gestion de l&#x27;interface
+  currentPage: string &#x3D; &#x27;dashboard&#x27;;
+  sidebarOpen: boolean &#x3D; window.innerWidth &gt; 768;
+  cartCount: number &#x3D; 5;
+  notificationCount: number &#x3D; 5;
+  loyaltyPoints: number &#x3D; 1850;
+  loyaltyLevel: string &#x3D; &#x27;GOLD&#x27;;
+
+  // Données utilisateur
+  userName: string &#x3D; &#x27;Marie Dupont&#x27;;
+  userStatus: string &#x3D; &#x27;Client Premium&#x27;;
+
+  // Tableaux de données
+  stats: Stat[] &#x3D; [];
+  products: Product[] &#x3D; [];
+  orders: Order[] &#x3D; [];
+
+  // Modal
+  showModal: boolean &#x3D; false;
+  selectedProduct: Product | null &#x3D; null;
+  modalQuantity: number &#x3D; 1;
+
+  constructor() {}
+
+  ngOnInit(): void {
+    // Initialise toutes les données
+    this.initializeStats();
+    this.initializeProducts();
+    this.initializeOrders();
+
+    // Gère le redimensionnement de la fenêtre
+    window.addEventListener(&#x27;resize&#x27;, () &#x3D;&gt; this.handleResize());
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; INITIALISATION DES DONNÉES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  /**
+   * Initialise les statistiques du tableau de bord
+   * Crée un tableau avec 4 cartes de stats affichant les informations clés
+   */
+  initializeStats(): void {
+    this.stats &#x3D; [
+      {
+        label: &#x27;Commandes totales&#x27;,
+        value: 47,
+        change: &#x27;+12 ce mois&#x27;,
+        isPositive: true,
+        emoji: &#x27;🛍️&#x27;,
+        color: &#x27;purple&#x27;
+      },
+      {
+        label: &#x27;Total dépensé&#x27;,
+        value: &#x27;2.8M FCFA&#x27;,
+        change: &#x27;+18% ce mois&#x27;,
+        isPositive: true,
+        emoji: &#x27;💰&#x27;,
+        color: &#x27;green&#x27;
+      },
+      {
+        label: &#x27;Points fidélité&#x27;,
+        value: &#x27;1,850&#x27;,
+        change: &#x27;250 pts pour récompense&#x27;,
+        isPositive: true,
+        emoji: &#x27;🎁&#x27;,
+        color: &#x27;blue&#x27;
+      },
+      {
+        label: &#x27;Favoris&#x27;,
+        value: 23,
+        change: &#x27;+5 cette semaine&#x27;,
+        isPositive: true,
+        emoji: &#x27;❤️&#x27;,
+        color: &#x27;orange&#x27;
+      }
+    ];
+  }
+
+  /**
+   * Initialise le catalogue de produits
+   * Chaque produit contient un ID, nom, catégorie, prix, emoji et état favori
+   */
+  initializeProducts(): void {
+    this.products &#x3D; [
+      { id: 1, name: &#x27;Dom Pérignon&#x27;, category: &#x27;Champagne Premium&#x27;, price: 45000, emoji: &#x27;🥂&#x27;, badge: &#x27;HOT&#x27;, isFavorite: false },
+      { id: 2, name: &#x27;Heineken Premium&#x27;, category: &#x27;Bière Blonde&#x27;, price: 1500, emoji: &#x27;🍺&#x27;, badge: &#x27;NEW&#x27;, isFavorite: false },
+      { id: 3, name: &#x27;Château Margaux&#x27;, category: &#x27;Vin Rouge Bordeaux&#x27;, price: 25000, emoji: &#x27;🍷&#x27;, isFavorite: true },
+      { id: 4, name: &#x27;Hennessy VSOP&#x27;, category: &#x27;Cognac&#x27;, price: 35000, emoji: &#x27;🥃&#x27;, badge: &#x27;HOT&#x27;, isFavorite: false },
+      { id: 5, name: &#x27;Moët &amp; Chandon&#x27;, category: &#x27;Champagne&#x27;, price: 15000, emoji: &#x27;🍾&#x27;, isFavorite: true },
+      { id: 6, name: &#x27;Bissap Artisanal&#x27;, category: &#x27;Boisson Locale&#x27;, price: 500, emoji: &#x27;🍹&#x27;, badge: &#x27;NEW&#x27;, isFavorite: false }
+    ];
+  }
+
+  /**
+   * Initialise les commandes récentes
+   * Affiche les commandes avec leur statut (livré, en traitement, en attente, annulé)
+   */
+  initializeOrders(): void {
+    this.orders &#x3D; [
+      { id: &#x27;#12456&#x27;, title: &#x27;Moët &amp; Chandon Impérial&#x27;, quantity: 2, date: &#x27;15 Sept 2025&#x27;, price: 30000, status: &#x27;delivered&#x27;, emoji: &#x27;🥂&#x27; },
+      { id: &#x27;#12457&#x27;, title: &#x27;Château Margaux 2015&#x27;, quantity: 1, date: &#x27;Aujourd\&#x27;hui&#x27;, price: 25000, status: &#x27;processing&#x27;, emoji: &#x27;🍷&#x27; },
+      { id: &#x27;#12455&#x27;, title: &#x27;Pack Heineken x12&#x27;, quantity: 3, date: &#x27;12 Sept 2025&#x27;, price: 18000, status: &#x27;delivered&#x27;, emoji: &#x27;🍺&#x27; },
+      { id: &#x27;#12450&#x27;, title: &#x27;Hennessy VSOP&#x27;, quantity: 1, date: &#x27;8 Sept 2025&#x27;, price: 35000, status: &#x27;pending&#x27;, emoji: &#x27;🥃&#x27; },
+      { id: &#x27;#12448&#x27;, title: &#x27;Dom Pérignon Vintage&#x27;, quantity: 1, date: &#x27;5 Sept 2025&#x27;, price: 45000, status: &#x27;cancelled&#x27;, emoji: &#x27;🍾&#x27; }
+    ];
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; NAVIGATION &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  /**
+   * Change la page active en mettant à jour currentPage
+   * Ferme aussi la sidebar en mode mobile
+   * @param page - Le nom de la page à afficher
+   */
+  navigateTo(page: string): void {
+    this.currentPage &#x3D; page;
+
+    // Ferme la sidebar sur mobile
+    if (window.innerWidth &lt;&#x3D; 768) {
+      this.sidebarOpen &#x3D; false;
+    }
+
+    // Scroll vers le haut
+    window.scrollTo({ top: 0, behavior: &#x27;smooth&#x27; });
+  }
+
+  /**
+   * Bascule l&#x27;état de la sidebar (ouvert/fermé)
+   * Utilisé pour le menu burger sur mobile
+   */
+  toggleSidebar(): void {
+    this.sidebarOpen &#x3D; !this.sidebarOpen;
+  }
+
+  /**
+   * Gère le redimensionnement de la fenêtre
+   * Ferme la sidebar automatiquement en passant en mode mobile
+   */
+  private handleResize(): void {
+    if (window.innerWidth &gt; 768) {
+      this.sidebarOpen &#x3D; true;
+    }
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; GESTION DES FAVORIS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  /**
+   * Bascule l&#x27;état favori d&#x27;un produit
+   * Met à jour le tableau isFavorite du produit
+   * @param product - Le produit dont on change l&#x27;état favori
+   */
+  toggleFavorite(product: Product): void {
+    product.isFavorite &#x3D; !product.isFavorite;
+  }
+
+  /**
+   * Retourne uniquement les produits marqués en favoris
+   * Utilisé pour afficher la page des favoris
+   */
+  getFavoriteProducts(): Product[] {
+    return this.products.filter(p &#x3D;&gt; p.isFavorite);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; GESTION DU PANIER &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  /**
+   * Ajoute un produit au panier
+   * Augmente le compteur du panier et affiche une notification visuelle
+   * @param product - Le produit à ajouter
+   */
+  addToCart(product: Product): void {
+    this.cartCount++;
+    // Pourrait déclencher une animation ou une notification toast
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; GESTION DES MODALES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  /**
+   * Ouvre la modal du produit avec ses détails
+   * Initialise la quantité à 1
+   * @param product - Le produit à afficher dans la modal
+   */
+  openProductModal(product: Product): void {
+    this.selectedProduct &#x3D; product;
+    this.modalQuantity &#x3D; 1;
+    this.showModal &#x3D; true;
+  }
+
+  /**
+   * Ferme la modal du produit
+   * Réinitialise les données associées
+   */
+  closeModal(): void {
+    this.showModal &#x3D; false;
+    this.selectedProduct &#x3D; null;
+  }
+
+  /**
+   * Augmente la quantité dans la modal
+   */
+  increaseQuantity(): void {
+    this.modalQuantity++;
+  }
+
+  /**
+   * Diminue la quantité dans la modal
+   * Ne peut pas aller en dessous de 1
+   */
+  decreaseQuantity(): void {
+    if (this.modalQuantity &gt; 1) {
+      this.modalQuantity--;
+    }
+  }
+
+  /**
+   * Ajoute le produit sélectionné au panier depuis la modal
+   * Utilise la quantité définie dans la modal
+   */
+  addProductFromModal(): void {
+    if (this.selectedProduct) {
+      this.cartCount +&#x3D; this.modalQuantity;
+      this.closeModal();
+    }
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; GESTION DES NOTIFICATIONS &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  /**
+   * Retourne la classe CSS de statut pour les badges de commande
+   * Les couleurs correspondent au statut (vert pour livré, bleu pour traitement, etc)
+   * @param status - Le statut de la commande
+   */
+  getStatusClass(status: string): string {
+    return &#x60;status-${status}&#x60;;
+  }
+
+  /**
+   * Retourne le texte du statut en minuscules
+   * Utilisé pour l&#x27;affichage dans les badges
+   * @param status - Le statut de la commande
+   */
+  getStatusText(status: string): string {
+    const statusMap: { [key: string]: string } &#x3D; {
+      &#x27;delivered&#x27;: &#x27;Livré&#x27;,
+      &#x27;processing&#x27;: &#x27;En préparation&#x27;,
+      &#x27;pending&#x27;: &#x27;En attente&#x27;,
+      &#x27;cancelled&#x27;: &#x27;Annulé&#x27;
+    };
+    return statusMap[status] || status;
+  }
+
+  /**
+   * Retourne la classe pour la couleur des stat cards
+   * Correspond à l&#x27;attribut &#x27;color&#x27; de chaque stat
+   * @param color - La couleur définie
+   */
+  getStatCardClass(color: string): string {
+    return &#x60;stat-card-${color}&#x60;;
+  }
+
+  /**
+   * Marque une notification comme lue
+   * Utilisé pour mettre à jour l&#x27;interface des notifications
+   */
+  markNotificationAsRead(): void {
+    // Implémentation de la logique de notification
+    this.notificationCount--;
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'Order.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

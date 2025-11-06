@@ -1,0 +1,128 @@
+
+<div class="mycave-page">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">Ma Cave</h1>
+      <p class="page-subtitle">{{ caveName }} - {{ products.length }} produits</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-secondary" (click)="exportInventory()">
+        📥 Exporter
+      </button>
+      <button class="btn-primary" [routerLink]="['/manager', 'stockrequest']">
+        📦 Commander du stock
+      </button>
+    </div>
+  </div>
+
+  <!-- Statistiques rapides -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">🍷</div>
+      <div class="stat-content">
+        <div class="stat-label">Total produits</div>
+        <div class="stat-value">{{ products.length }}</div>
+      </div>
+    </div>
+    <div class="stat-card warning">
+      <div class="stat-icon">⚠️</div>
+      <div class="stat-content">
+        <div class="stat-label">Stock faible</div>
+        <div class="stat-value">{{ getLowStockCount() }}</div>
+      </div>
+    </div>
+    <div class="stat-card success">
+      <div class="stat-icon">💰</div>
+      <div class="stat-content">
+        <div class="stat-label">Valeur totale</div>
+        <div class="stat-value">{{ getTotalValue() | number:'1.0-0' }} €</div>
+      </div>
+    </div>
+    <div class="stat-card info">
+      <div class="stat-icon">📊</div>
+      <div class="stat-content">
+        <div class="stat-label">Catégories</div>
+        <div class="stat-value">{{ getUniqueCategories() }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filtres et recherche -->
+  <div class="filters-bar">
+    <div class="filter-group">
+      <select class="filter-select" [(ngModel)]="selectedCategory" (change)="applyFilters()">
+        <option value="all">Toutes catégories</option>
+        <option value="Vin Rouge">Vin Rouge</option>
+        <option value="Vin Blanc">Vin Blanc</option>
+        <option value="Champagne">Champagne</option>
+        <option value="Spiritueux">Spiritueux</option>
+      </select>
+
+      <select class="filter-select" [(ngModel)]="stockFilter" (change)="applyFilters()">
+        <option value="all">Tous les stocks</option>
+        <option value="low">Stock faible</option>
+        <option value="ok">Stock OK</option>
+        <option value="out">Rupture</option>
+      </select>
+    </div>
+
+    <input type="text"
+           class="search-input"
+           placeholder="Rechercher un produit..."
+           [(ngModel)]="searchTerm"
+           (input)="applyFilters()">
+  </div>
+
+  <!-- Liste des produits -->
+  <div class="products-grid">
+    <div class="product-card" *ngFor="let product of filteredProducts">
+      <div class="product-image">
+        <div class="product-placeholder">🍷</div>
+        <div class="stock-badge" [class.low]="isLowStock(product)" [class.out]="product.stock === 0">
+          {{ product.stock === 0 ? 'Rupture' : product.stock }}
+        </div>
+      </div>
+
+      <div class="product-info">
+        <h3 class="product-name">{{ product.name }}</h3>
+        <div class="product-meta">
+          <span class="category">{{ product.category }}</span>
+          <span class="vintage">{{ product.vintage }}</span>
+        </div>
+        <div class="product-details">
+          <div class="detail-item">
+            <span class="label">Prix:</span>
+            <span class="value price">{{ product.price | number:'1.2-2' }} €</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Emplacement:</span>
+            <span class="value">{{ product.location }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Fournisseur:</span>
+            <span class="value">{{ product.supplier }}</span>
+          </div>
+        </div>
+
+        <div class="stock-bar">
+          <div class="bar-container">
+            <div class="bar-fill"
+                 [style.width.%]="(product.stock / (product.minStock * 2)) * 100"
+                 [class.low]="isLowStock(product)">
+            </div>
+          </div>
+          <span class="stock-text">{{ product.stock }}/{{ product.minStock * 2 }}</span>
+        </div>
+      </div>
+
+      <div class="product-actions">
+        <button class="action-btn" (click)="adjustStock(product)">
+          📝 Ajuster
+        </button>
+        <button class="action-btn" (click)="viewDetails(product)">
+          👁️ Détails
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

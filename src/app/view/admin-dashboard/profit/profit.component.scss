@@ -1,20 +1,82 @@
 // ==========================================
-// FICHIER: src/app/view/admin-dashboard/benefice/benefice.component.scss
-// DESCRIPTION: Styles du composant de gestion des bénéfices
+// FICHIER: benefice.component.scss
+// DESCRIPTION: Styles pour la gestion des bénéfices avec support du double thème
 // ==========================================
 
-.benefice-container {
-  padding: 2rem;
-  background: #f8f9fa;
-  min-height: 100vh;
+// ===== VARIABLES CSS POUR LES THÈMES =====
+// Ces variables changent automatiquement selon le thème actif
 
-  // ========== EN-TÊTE ==========
+// Variables par défaut (thème clair)
+:root {
+  // Couleurs de fond
+  --bg-primary: #f8f9fa;           // Fond principal de la page
+  --bg-secondary: #ffffff;         // Fond des cartes et sections
+  --bg-tertiary: #ecf0f1;         // Fond pour éléments secondaires
+
+  // Couleurs de texte
+  --text-primary: #2c3e50;        // Texte principal
+  --text-secondary: #7f8c8d;      // Texte secondaire
+  --text-muted: #95a5a6;          // Texte atténué
+
+  // Couleurs de bordure
+  --border-color: #e0e0e0;        // Bordures principales
+  --border-light: #ecf0f1;        // Bordures légères
+
+  // Ombres
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);     // Petite ombre
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);     // Ombre moyenne
+  --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.12);    // Grande ombre
+
+  // Couleurs d'état (restent identiques dans les deux thèmes)
+  --success-color: #27ae60;       // Vert pour les valeurs positives
+  --danger-color: #e74c3c;        // Rouge pour les valeurs négatives
+  --warning-color: #f39c12;       // Orange pour les avertissements
+  --info-color: #3498db;          // Bleu pour les informations
+
+  // Couleurs de gradient (violet)
+  --gradient-start: #667eea;      // Début du dégradé
+  --gradient-end: #764ba2;        // Fin du dégradé
+}
+
+// Variables pour le thème sombre
+// Appliquées quand la classe 'dark-theme' est sur le body
+body.dark-theme {
+  // Couleurs de fond inversées
+  --bg-primary: #1a1d2e;          // Fond principal sombre
+  --bg-secondary: #252a3d;        // Fond des cartes plus clair
+  --bg-tertiary: #2d3348;         // Fond pour éléments secondaires
+
+  // Couleurs de texte inversées
+  --text-primary: #e8eaf0;        // Texte principal clair
+  --text-secondary: #a8adb7;      // Texte secondaire
+  --text-muted: #6c727f;          // Texte atténué
+
+  // Couleurs de bordure adaptées
+  --border-color: #3a3f52;        // Bordures principales
+  --border-light: #2d3348;        // Bordures légères
+
+  // Ombres adaptées pour le sombre
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+// ===== 1. CONTENEUR PRINCIPAL =====
+.benefice-container {
+  // Utilise les variables CSS qui changent selon le thème
+  padding: 2rem;                  // Espacement intérieur
+  background: var(--bg-primary);  // Fond qui s'adapte au thème
+  min-height: 100vh;              // Hauteur minimale plein écran
+  transition: background-color 0.3s ease; // Animation douce lors du changement de thème
+
+  // ===== 2. EN-TÊTE DE LA PAGE =====
   .page-header {
-    background: white;
-    border-radius: 12px;
+    background: var(--bg-secondary);  // Fond qui s'adapte
+    border-radius: 12px;              // Coins arrondis
     padding: 2rem;
     margin-bottom: 2rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-sm);     // Ombre qui s'adapte
+    transition: all 0.3s ease;        // Animation sur tous les changements
 
     .header-content {
       display: flex;
@@ -27,11 +89,12 @@
     .page-title {
       font-size: 2rem;
       font-weight: 700;
-      color: #2c3e50;
+      color: var(--text-primary);     // Couleur qui s'adapte
       margin: 0;
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      transition: color 0.3s ease;    // Animation sur le changement de couleur
 
       .icon {
         font-size: 2.5rem;
@@ -40,8 +103,9 @@
 
     .page-subtitle {
       font-size: 1rem;
-      color: #7f8c8d;
+      color: var(--text-secondary);   // Couleur secondaire adaptative
       margin: 0.5rem 0 0 0;
+      transition: color 0.3s ease;
     }
 
     .header-right {
@@ -51,7 +115,7 @@
     }
   }
 
-  // ========== BOUTONS ==========
+  // ===== 3. BOUTONS =====
   .btn {
     padding: 0.75rem 1.5rem;
     border: none;
@@ -70,44 +134,49 @@
 
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      box-shadow: var(--shadow-md);   // Ombre adaptée au thème
     }
 
+    // Bouton primaire avec gradient violet (identique dans les deux thèmes)
     &.btn-primary {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
       color: white;
 
       &:hover {
-        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        background: linear-gradient(135deg, var(--gradient-end) 0%, var(--gradient-start) 100%);
       }
     }
 
+    // Bouton secondaire qui s'adapte au thème
     &.btn-secondary {
-      background: #ecf0f1;
-      color: #2c3e50;
+      background: var(--bg-tertiary);   // Fond adaptatif
+      color: var(--text-primary);       // Texte adaptatif
+      transition: all 0.3s ease;
 
       &:hover {
-        background: #bdc3c7;
+        background: var(--border-color); // Fond au survol adaptatif
       }
     }
   }
 
-  // ========== SECTION FILTRES ==========
+  // ===== 4. SECTION FILTRES =====
   .filters-section {
     margin-bottom: 2rem;
   }
 
   .filters-card {
-    background: white;
+    background: var(--bg-secondary);    // Fond adaptatif
     border-radius: 12px;
     padding: 2rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-sm);       // Ombre adaptative
+    transition: all 0.3s ease;
 
     .filters-title {
       font-size: 1.5rem;
       font-weight: 700;
-      color: #2c3e50;
+      color: var(--text-primary);       // Texte adaptatif
       margin: 0 0 1.5rem 0;
+      transition: color 0.3s ease;
     }
 
     .filter-group {
@@ -121,8 +190,9 @@
     .filter-label {
       font-size: 1.1rem;
       font-weight: 600;
-      color: #34495e;
+      color: var(--text-primary);       // Texte adaptatif
       margin: 0 0 1rem 0;
+      transition: color 0.3s ease;
     }
 
     .filter-row {
@@ -145,21 +215,31 @@
         display: block;
         font-size: 0.9rem;
         font-weight: 600;
-        color: #34495e;
+        color: var(--text-primary);     // Label adaptatif
         margin-bottom: 0.5rem;
+        transition: color 0.3s ease;
       }
 
       .form-control {
         width: 100%;
         padding: 0.75rem;
-        border: 2px solid #ecf0f1;
+        border: 2px solid var(--border-color); // Bordure adaptative
         border-radius: 8px;
         font-size: 0.95rem;
-        transition: border-color 0.3s ease;
+        background: var(--bg-secondary);       // Fond adaptatif
+        color: var(--text-primary);            // Texte adaptatif
+        transition: all 0.3s ease;
 
         &:focus {
           outline: none;
-          border-color: #667eea;
+          border-color: var(--gradient-start);  // Bordure violette au focus
+          background: var(--bg-secondary);      // Garde le fond adaptatif
+        }
+
+        // Styles pour les options du select en mode sombre
+        option {
+          background: var(--bg-secondary);
+          color: var(--text-primary);
         }
       }
     }
@@ -172,7 +252,7 @@
     }
   }
 
-  // ========== ALERTES ==========
+  // ===== 5. ALERTES =====
   .alerts-section {
     margin-bottom: 2rem;
   }
@@ -182,25 +262,36 @@
     border-radius: 8px;
     margin-bottom: 1rem;
     font-weight: 500;
+    transition: all 0.3s ease;
 
     &.alert-warning {
+      // Les couleurs d'alerte restent cohérentes dans les deux thèmes
       background: #fff3cd;
       color: #856404;
       border-left: 4px solid #ffc107;
+
+      // Adaptation pour le mode sombre
+      body.dark-theme & {
+        background: rgba(255, 193, 7, 0.15);  // Fond jaune semi-transparent
+        color: #ffc107;                        // Texte jaune vif
+        border-left-color: #ffc107;
+      }
     }
   }
 
-  // ========== RECOMMANDATIONS ==========
+  // ===== 6. RECOMMANDATIONS =====
   .recommendations-section {
     margin-bottom: 2rem;
   }
 
   .recommendations-card {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    // Le gradient reste identique dans les deux thèmes pour la visibilité
+    background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
     border-radius: 12px;
     padding: 2rem;
-    color: white;
+    color: white;                             // Texte toujours blanc sur gradient
     box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    transition: all 0.3s ease;
 
     .card-title {
       font-size: 1.5rem;
@@ -225,7 +316,7 @@
     }
   }
 
-  // ========== NAVIGATION VUES ==========
+  // ===== 7. NAVIGATION PAR ONGLETS =====
   .view-tabs {
     display: flex;
     gap: 1rem;
@@ -235,13 +326,13 @@
   .tab-btn {
     flex: 1;
     padding: 1rem;
-    background: white;
-    border: 2px solid #ecf0f1;
+    background: var(--bg-secondary);        // Fond adaptatif
+    border: 2px solid var(--border-color); // Bordure adaptative
     border-radius: 8px;
     cursor: pointer;
     font-size: 1rem;
     font-weight: 600;
-    color: #7f8c8d;
+    color: var(--text-secondary);          // Texte adaptatif
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
@@ -253,18 +344,19 @@
     }
 
     &:hover {
-      border-color: #667eea;
-      color: #667eea;
+      border-color: var(--gradient-start);
+      color: var(--gradient-start);
     }
 
     &.active {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border-color: #667eea;
+      // Le gradient reste identique pour l'onglet actif
+      background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+      border-color: var(--gradient-start);
       color: white;
     }
   }
 
-  // ========== STATS GRID ==========
+  // ===== 8. GRILLE DE STATISTIQUES =====
   .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -273,18 +365,18 @@
   }
 
   .stat-card {
-    background: white;
+    background: var(--bg-secondary);        // Fond adaptatif
     border-radius: 12px;
     padding: 1.5rem;
     display: flex;
     align-items: center;
     gap: 1rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: var(--shadow-sm);           // Ombre adaptative
+    transition: all 0.3s ease;
 
     &:hover {
       transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+      box-shadow: var(--shadow-lg);         // Ombre plus forte au survol
     }
 
     .stat-icon {
@@ -298,30 +390,34 @@
 
     .stat-label {
       font-size: 0.9rem;
-      color: #7f8c8d;
+      color: var(--text-secondary);         // Label adaptatif
       font-weight: 500;
       margin-bottom: 0.5rem;
+      transition: color 0.3s ease;
     }
 
     .stat-value {
       font-size: 1.75rem;
       font-weight: 700;
-      color: #2c3e50;
+      color: var(--text-primary);           // Valeur adaptative
       margin-bottom: 0.25rem;
+      transition: color 0.3s ease;
     }
 
     .stat-detail {
       font-size: 0.85rem;
-      color: #95a5a6;
+      color: var(--text-muted);             // Détail adaptatif
+      transition: color 0.3s ease;
     }
 
+    // Les couleurs des icônes restent identiques
     &.stat-primary .stat-icon { color: #3498db; }
     &.stat-success .stat-icon { color: #27ae60; }
     &.stat-danger .stat-icon { color: #e74c3c; }
     &.stat-info .stat-icon { color: #9b59b6; }
   }
 
-  // ========== DETAILS GRID ==========
+  // ===== 9. GRILLE DE DÉTAILS =====
   .details-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -330,18 +426,20 @@
   }
 
   .detail-card {
-    background: white;
+    background: var(--bg-secondary);        // Fond adaptatif
     border-radius: 12px;
     padding: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-sm);           // Ombre adaptative
+    transition: all 0.3s ease;
 
     .card-title {
       font-size: 1.2rem;
       font-weight: 700;
-      color: #2c3e50;
+      color: var(--text-primary);           // Titre adaptatif
       margin: 0 0 1rem 0;
       padding-bottom: 0.75rem;
-      border-bottom: 2px solid #ecf0f1;
+      border-bottom: 2px solid var(--border-light); // Bordure adaptative
+      transition: all 0.3s ease;
     }
 
     .detail-list {
@@ -360,22 +458,24 @@
       &.total-item {
         margin-top: 0.5rem;
         padding-top: 1rem;
-        border-top: 2px solid #ecf0f1;
+        border-top: 2px solid var(--border-light); // Bordure adaptative
       }
     }
 
     .detail-label {
-      color: #7f8c8d;
+      color: var(--text-secondary);         // Label adaptatif
       font-weight: 500;
+      transition: color 0.3s ease;
     }
 
     .detail-value {
-      color: #2c3e50;
+      color: var(--text-primary);           // Valeur adaptative
       font-weight: 600;
+      transition: color 0.3s ease;
     }
   }
 
-  // ========== ANALYSIS GRID ==========
+  // ===== 10. GRILLE D'ANALYSE =====
   .analysis-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -384,18 +484,20 @@
   }
 
   .analysis-card {
-    background: white;
+    background: var(--bg-secondary);        // Fond adaptatif
     border-radius: 12px;
     padding: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-sm);           // Ombre adaptative
+    transition: all 0.3s ease;
 
     .card-title {
       font-size: 1.2rem;
       font-weight: 700;
-      color: #2c3e50;
+      color: var(--text-primary);           // Titre adaptatif
       margin: 0 0 1rem 0;
       padding-bottom: 0.75rem;
-      border-bottom: 2px solid #ecf0f1;
+      border-bottom: 2px solid var(--border-light); // Bordure adaptative
+      transition: all 0.3s ease;
     }
 
     .ranking-list {
@@ -409,18 +511,19 @@
       align-items: center;
       gap: 0.75rem;
       padding: 0.75rem;
-      background: #f8f9fa;
+      background: var(--bg-tertiary);       // Fond adaptatif
       border-radius: 8px;
-      transition: background 0.3s ease;
+      transition: all 0.3s ease;
 
       &:hover {
-        background: #e9ecef;
+        background: var(--border-light);    // Fond au survol adaptatif
       }
 
       .rank {
         width: 28px;
         height: 28px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        // Le gradient reste identique
+        background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
         color: white;
         border-radius: 50%;
         display: flex;
@@ -439,30 +542,34 @@
       .item-name {
         flex: 1;
         font-weight: 500;
-        color: #2c3e50;
+        color: var(--text-primary);         // Nom adaptatif
+        transition: color 0.3s ease;
       }
 
       .item-value {
         font-weight: 700;
-        color: #2c3e50;
+        color: var(--text-primary);         // Valeur adaptative
         flex-shrink: 0;
+        transition: color 0.3s ease;
       }
     }
 
     .no-data {
       padding: 2rem;
       text-align: center;
-      color: #95a5a6;
+      color: var(--text-muted);             // Texte adaptatif
       font-style: italic;
+      transition: color 0.3s ease;
     }
   }
 
-  // ========== TABLE ==========
+  // ===== 11. TABLEAU DE DONNÉES =====
   .table-container {
-    background: white;
+    background: var(--bg-secondary);        // Fond adaptatif
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-sm);           // Ombre adaptative
+    transition: all 0.3s ease;
   }
 
   .data-table {
@@ -470,7 +577,8 @@
     border-collapse: collapse;
 
     thead {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      // Le gradient de l'en-tête reste identique
+      background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
       color: white;
 
       th {
@@ -489,11 +597,11 @@
 
     tbody {
       tr {
-        border-bottom: 1px solid #ecf0f1;
-        transition: background 0.3s ease;
+        border-bottom: 1px solid var(--border-light); // Bordure adaptative
+        transition: all 0.3s ease;
 
         &:hover {
-          background: #f8f9fa;
+          background: var(--bg-tertiary);   // Fond au survol adaptatif
         }
 
         &:last-child {
@@ -503,8 +611,9 @@
 
       td {
         padding: 1rem;
-        color: #2c3e50;
+        color: var(--text-primary);         // Texte adaptatif
         font-size: 0.95rem;
+        transition: color 0.3s ease;
 
         &.text-right {
           text-align: right;
@@ -513,7 +622,7 @@
         &.no-data {
           text-align: center;
           padding: 3rem;
-          color: #95a5a6;
+          color: var(--text-muted);         // Texte adaptatif
           font-style: italic;
         }
       }
@@ -534,39 +643,42 @@
     }
   }
 
-  // ========== CLASSES UTILITAIRES ==========
+  // ===== 12. CLASSES UTILITAIRES =====
+  // Ces couleurs restent identiques dans les deux thèmes pour la cohérence
   .text-success {
-    color: #27ae60 !important;
+    color: var(--success-color) !important;
   }
 
   .text-danger {
-    color: #e74c3c !important;
+    color: var(--danger-color) !important;
   }
 
   .text-warning {
-    color: #f39c12 !important;
+    color: var(--warning-color) !important;
   }
 
   .text-muted {
-    color: #95a5a6 !important;
+    color: var(--text-muted) !important;
   }
 
   .text-right {
     text-align: right;
   }
 
-  // ========== LOADER ==========
+  // ===== 13. LOADER =====
   .loader-overlay {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.9);
+    background: var(--bg-primary);          // Fond adaptatif
+    opacity: 0.95;                          // Légèrement transparent
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 9999;
+    transition: background 0.3s ease;
   }
 
   .loader {
@@ -575,8 +687,8 @@
     .spinner {
       width: 60px;
       height: 60px;
-      border: 4px solid #ecf0f1;
-      border-top-color: #667eea;
+      border: 4px solid var(--border-color);     // Bordure adaptative
+      border-top-color: var(--gradient-start);   // Bordure violette
       border-radius: 50%;
       animation: spin 1s linear infinite;
       margin: 0 auto 1rem;
@@ -584,16 +696,20 @@
 
     p {
       font-size: 1rem;
-      color: #7f8c8d;
+      color: var(--text-secondary);         // Texte adaptatif
       font-weight: 500;
+      transition: color 0.3s ease;
     }
   }
 
+  // Animation de rotation du spinner
   @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+      transform: rotate(360deg);
+    }
   }
 
-  // ========== RESPONSIVE ==========
+  // ===== 14. RESPONSIVE =====
   @media (max-width: 1200px) {
     .stats-grid {
       grid-template-columns: repeat(2, 1fr);
@@ -652,6 +768,7 @@
     }
   }
 
+  // ===== 15. STYLES POUR L'IMPRESSION =====
   @media print {
     .page-header .header-right,
     .filters-section,

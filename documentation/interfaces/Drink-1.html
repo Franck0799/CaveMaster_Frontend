@@ -1,0 +1,2837 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cave-master-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cave-master-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  Drink</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/view/admin-dashboard/entries/entries.component.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Interface pour définir une boisson complète
+Cette interface contient TOUS les détails d&#39;une boisson</p>
+
+            </p>
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#badge" 
+>
+                                            badge
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#bulkQuantity" 
+>
+                                            bulkQuantity
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#bulkUnit" 
+>
+                                            bulkUnit
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#category" 
+>
+                                            category
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#commercialContact" 
+>
+                                            commercialContact
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#commercialName" 
+>
+                                            commercialName
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#createdAt" 
+>
+                                            createdAt
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#depot" 
+>
+                                            depot
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#description" 
+>
+                                            description
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#format" 
+>
+                                            format
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#icon" 
+>
+                                            icon
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#id" 
+>
+                                            id
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#name" 
+>
+                                            name
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#packagingType" 
+>
+                                            packagingType
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#purchasePrice" 
+>
+                                            purchasePrice
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#sales" 
+>
+                                            sales
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#sellingPrice" 
+>
+                                            sellingPrice
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#stock" 
+>
+                                            stock
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#supplier" 
+>
+                                            supplier
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#totalBottles" 
+>
+                                            totalBottles
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#unitsPerBulk" 
+>
+                                            unitsPerBulk
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="badge"></a>
+                                        <span class="name "><b>badge</b>
+                                            <a href="#badge">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>badge:     <code>&quot;hot&quot; | &quot;new&quot;</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>&quot;hot&quot; | &quot;new&quot;</code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="bulkQuantity"></a>
+                                        <span class="name "><b>bulkQuantity</b>
+                                            <a href="#bulkQuantity">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>bulkQuantity:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="bulkUnit"></a>
+                                        <span class="name "><b>bulkUnit</b>
+                                            <a href="#bulkUnit">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>bulkUnit:         <code><a href="../miscellaneous/enumerations.html#BulkUnit" target="_self" >BulkUnit</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../miscellaneous/enumerations.html#BulkUnit" target="_self" >BulkUnit</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="category"></a>
+                                        <span class="name "><b>category</b>
+                                            <a href="#category">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>category:         <code><a href="../miscellaneous/enumerations.html#DrinkCategory" target="_self" >DrinkCategory</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../miscellaneous/enumerations.html#DrinkCategory" target="_self" >DrinkCategory</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="commercialContact"></a>
+                                        <span class="name "><b>commercialContact</b>
+                                            <a href="#commercialContact">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>commercialContact:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="commercialName"></a>
+                                        <span class="name "><b>commercialName</b>
+                                            <a href="#commercialName">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>commercialName:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="createdAt"></a>
+                                        <span class="name "><b>createdAt</b>
+                                            <a href="#createdAt">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>createdAt:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="depot"></a>
+                                        <span class="name "><b>depot</b>
+                                            <a href="#depot">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>depot:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="description"></a>
+                                        <span class="name "><b>description</b>
+                                            <a href="#description">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>description:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="format"></a>
+                                        <span class="name "><b>format</b>
+                                            <a href="#format">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>format:         <code><a href="../miscellaneous/enumerations.html#DrinkFormat" target="_self" >DrinkFormat</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../miscellaneous/enumerations.html#DrinkFormat" target="_self" >DrinkFormat</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="icon"></a>
+                                        <span class="name "><b>icon</b>
+                                            <a href="#icon">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>icon:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="id"></a>
+                                        <span class="name "><b>id</b>
+                                            <a href="#id">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>id:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="name"></a>
+                                        <span class="name "><b>name</b>
+                                            <a href="#name">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>name:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="packagingType"></a>
+                                        <span class="name "><b>packagingType</b>
+                                            <a href="#packagingType">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>packagingType:         <code><a href="../miscellaneous/enumerations.html#PackagingType" target="_self" >PackagingType</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../miscellaneous/enumerations.html#PackagingType" target="_self" >PackagingType</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="purchasePrice"></a>
+                                        <span class="name "><b>purchasePrice</b>
+                                            <a href="#purchasePrice">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>purchasePrice:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="sales"></a>
+                                        <span class="name "><b>sales</b>
+                                            <a href="#sales">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>sales:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="sellingPrice"></a>
+                                        <span class="name "><b>sellingPrice</b>
+                                            <a href="#sellingPrice">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>sellingPrice:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="stock"></a>
+                                        <span class="name "><b>stock</b>
+                                            <a href="#stock">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>stock:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="supplier"></a>
+                                        <span class="name "><b>supplier</b>
+                                            <a href="#supplier">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>supplier:         <code><a href="../miscellaneous/enumerations.html#Supplier" target="_self" >Supplier</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../miscellaneous/enumerations.html#Supplier" target="_self" >Supplier</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="totalBottles"></a>
+                                        <span class="name "><b>totalBottles</b>
+                                            <a href="#totalBottles">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>totalBottles:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="unitsPerBulk"></a>
+                                        <span class="name "><b>unitsPerBulk</b>
+                                            <a href="#unitsPerBulk">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>unitsPerBulk:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule, ReactiveFormsModule } from &#x27;@angular/forms&#x27;;
+
+/**
+ * Énumérations importées depuis drinks.component
+ */
+export enum DrinkCategory {
+  BIERES &#x3D; &#x27;Bières&#x27;,
+  SUCRERIES &#x3D; &#x27;Sucreries&#x27;,
+  CHAMPAGNE &#x3D; &#x27;Champagne&#x27;,
+  VIN_BLANC &#x3D; &#x27;Vin Blanc&#x27;,
+  VIN_ROUGE &#x3D; &#x27;Vin Rouge&#x27;,
+  VIN_ROSE &#x3D; &#x27;Vin Rosé&#x27;,
+  VIN_MOUSSEUX &#x3D; &#x27;Vin Mousseux&#x27;,
+  LIQUEURS &#x3D; &#x27;Liqueurs&#x27;,
+  BOISSONS_ENERGISANTES &#x3D; &#x27;Boissons Énergisantes&#x27;,
+  BOISSONS_LOCALES &#x3D; &#x27;Boissons Locales&#x27;
+}
+
+export enum DrinkFormat {
+  CL_25 &#x3D; &#x27;25cl&#x27;,
+  CL_33 &#x3D; &#x27;33cl&#x27;,
+  CL_50 &#x3D; &#x27;50cl&#x27;,
+  CL_65 &#x3D; &#x27;65cl&#x27;,
+  CL_75 &#x3D; &#x27;75cl&#x27;,
+  L_1 &#x3D; &#x27;1L&#x27;,
+  L_1_5 &#x3D; &#x27;1.5L&#x27;,
+  L_2 &#x3D; &#x27;2L&#x27;
+}
+
+export enum Supplier {
+  SOLIBRA &#x3D; &#x27;Solibra&#x27;,
+  BRASSIVOIRE &#x3D; &#x27;Brassivoire&#x27;,
+  SICOBRA &#x3D; &#x27;Sicobra&#x27;,
+  UNIBRA &#x3D; &#x27;Unibra&#x27;,
+  AUTRES &#x3D; &#x27;Autres&#x27;
+}
+
+export enum PackagingType {
+  BOUTEILLE &#x3D; &#x27;Bouteille&#x27;,
+  CANETTE &#x3D; &#x27;Canette&#x27;,
+  VERRE &#x3D; &#x27;Verre&#x27;,
+  PLASTIQUE &#x3D; &#x27;Plastique&#x27;,
+  SACHET &#x3D; &#x27;Sachet&#x27;
+}
+
+export enum BulkUnit {
+  CARTON &#x3D; &#x27;Carton&#x27;,
+  CASIER &#x3D; &#x27;Casier&#x27;,
+  PACK &#x3D; &#x27;Pack&#x27;,
+  CAISSE &#x3D; &#x27;Caisse&#x27;
+}
+
+/**
+ * Interface pour définir une boisson complète
+ * Cette interface contient TOUS les détails d&#x27;une boisson
+ */
+interface Drink {
+  // Identifiants
+  id: string;
+  name: string;
+  icon: string;
+
+  // Caractéristiques produit
+  category: DrinkCategory;
+  format: DrinkFormat;
+  packagingType: PackagingType;
+
+  // Informations fournisseur et commercial
+  supplier: Supplier;
+  depot: string;                    // Nom du dépôt
+  commercialName: string;           // Nom du commercial
+  commercialContact: string;        // Contact du commercial
+
+  // Conditionnement en gros
+  bulkUnit: BulkUnit;              // Unité de gros (Carton, Casier...)
+  bulkQuantity: number;            // Nombre d&#x27;unités de gros
+  unitsPerBulk: number;            // Unités par conditionnement
+  totalBottles: number;            // Total calculé automatiquement
+
+  // Tarification
+  purchasePrice: number;           // Prix d&#x27;achat unitaire
+  sellingPrice: number;            // Prix de vente unitaire
+
+  // Stock et ventes
+  stock: number;
+  sales?: number;
+
+  // Informations complémentaires
+  description?: string;
+  createdAt?: Date;
+  badge?: &#x27;hot&#x27; | &#x27;new&#x27;;
+}
+
+/**
+ * Interface pour définir une cave
+ */
+interface Cave {
+  id: string;
+  name: string;
+  location: string;
+  capacity: number;
+  currentStock: number;
+  description?: string;
+  temperature?: string;           // Température de conservation
+  humidity?: string;              // Taux d&#x27;humidité
+}
+
+/**
+ * Interface pour définir une entrée de stock enrichie
+ * Maintenant avec TOUS les détails de la boisson
+ */
+interface StockEntry {
+  // Identifiants
+  id: string;
+  date: Date;
+
+  // Informations boisson
+  drinkId: string;
+  drinkName: string;
+  drinkIcon: string;
+  drinkCategory: DrinkCategory;
+  drinkFormat: DrinkFormat;
+
+  // Conditionnement reçu
+  bulkUnit: BulkUnit;              // Type de conditionnement reçu
+  bulkQuantity: number;            // Nombre de conditionnements reçus
+  unitsPerBulk: number;            // Unités par conditionnement
+  quantity: number;                // Quantité totale d&#x27;unités
+
+  // Informations fournisseur
+  supplier: Supplier;
+  supplierInvoice?: string;        // Numéro de facture fournisseur
+  deliveryNote?: string;           // Numéro de bon de livraison
+
+  // Commercial associé
+  commercialName: string;
+  commercialContact: string;
+
+  // Tarification
+  unitPrice: number;               // Prix d&#x27;achat unitaire
+  bulkPrice: number;               // Prix par conditionnement
+  totalCost: number;               // Coût total de l&#x27;entrée
+
+  // Destination
+  caveId: string;
+
+  // Qualité et conformité
+  qualityCheck: &#x27;conforme&#x27; | &#x27;non-conforme&#x27; | &#x27;avec-reserve&#x27;;
+  qualityNotes?: string;
+
+  // Traçabilité
+  addedBy: string;
+  batchNumber?: string;            // Numéro de lot
+  expiryDate?: Date;               // Date de péremption si applicable
+
+  // Notes
+  notes?: string;
+}
+
+/**
+ * Interface pour le formulaire d&#x27;entrée enrichi
+ */
+interface StockEntryForm {
+  // Sélection boisson
+  drinkId: string;
+
+  // Conditionnement
+  bulkUnit: BulkUnit;
+  bulkQuantity: number;
+  unitsPerBulk: number;
+  totalUnits: number;              // Calculé automatiquement
+
+  // Tarification
+  unitPrice: number;
+  bulkPrice: number;               // Calculé automatiquement
+  totalCost: number;               // Calculé automatiquement
+
+  // Fournisseur et documents
+  supplier: Supplier;
+  supplierInvoice: string;
+  deliveryNote: string;
+
+  // Destination
+  caveId: string;
+
+  // Qualité
+  qualityCheck: &#x27;conforme&#x27; | &#x27;non-conforme&#x27; | &#x27;avec-reserve&#x27;;
+  qualityNotes: string;
+
+  // Traçabilité
+  batchNumber: string;
+  expiryDate: string;
+
+  // Notes
+  notes: string;
+}
+
+/**
+ * Interface pour les accords mets-vins suggérés
+ * Intégration avec wine-pairing
+ */
+interface WinePairingSuggestion {
+  dish: string;
+  dishIcon: string;
+  description: string;
+  temperature: string;
+}
+
+/**
+ * Composant EntriesComponent - VERSION ENRICHIE
+ * Gestion complète des entrées de stock avec tous les détails
+ */
+@Component({
+  selector: &#x27;app-entries&#x27;,
+  standalone: true,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  templateUrl: &#x27;./entries.component.html&#x27;,
+  styleUrls: [&#x27;./entries.component.scss&#x27;]
+})
+export class EntriesComponent implements OnInit {
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  // PROPRIÉTÉS
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  /**
+   * Liste complète des entrées de stock
+   */
+  entries: StockEntry[] &#x3D; [];
+
+  /**
+   * Liste filtrée des entrées à afficher
+   */
+  filteredEntries: StockEntry[] &#x3D; [];
+
+  /**
+   * Liste des boissons disponibles (avec détails complets)
+   */
+  drinks: Drink[] &#x3D; [];
+
+  /**
+   * Liste des caves disponibles
+   */
+  caves: Cave[] &#x3D; [];
+
+  /**
+   * Indicateur de chargement
+   */
+  isLoading: boolean &#x3D; false;
+
+  /**
+   * Indique si le modal d&#x27;ajout est ouvert
+   */
+  isAddModalOpen: boolean &#x3D; false;
+
+  /**
+   * Indique si le modal de détails est ouvert
+   */
+  isDetailModalOpen: boolean &#x3D; false;
+
+  /**
+   * Entrée sélectionnée pour afficher les détails
+   */
+  selectedEntry: StockEntry | null &#x3D; null;
+
+  /**
+   * Formulaire pour ajouter une entrée
+   */
+  entryForm: StockEntryForm &#x3D; this.getEmptyForm();
+
+  /**
+   * Filtres
+   */
+  selectedCaveFilter: string | null &#x3D; null;
+  selectedCategoryFilter: DrinkCategory | null &#x3D; null;
+  selectedSupplierFilter: Supplier | null &#x3D; null;
+  periodFilter: number &#x3D; 30; // 30 derniers jours par défaut
+  searchTerm: string &#x3D; &#x27;&#x27;;
+
+  /**
+   * Énumérations pour le template
+   */
+  drinkCategories &#x3D; Object.values(DrinkCategory);
+  suppliers &#x3D; Object.values(Supplier);
+  bulkUnits &#x3D; Object.values(BulkUnit);
+  qualityOptions: Array&lt;&#x27;conforme&#x27; | &#x27;non-conforme&#x27; | &#x27;avec-reserve&#x27;&gt; &#x3D; [
+    &#x27;conforme&#x27;,
+    &#x27;non-conforme&#x27;,
+    &#x27;avec-reserve&#x27;
+  ];
+
+  /**
+   * Statistiques enrichies des entrées
+   */
+  stats &#x3D; {
+    totalEntries: 0,              // Nombre total d&#x27;entrées
+    totalQuantity: 0,             // Quantité totale d&#x27;unités reçues
+    totalCost: 0,                 // Coût total des entrées
+    recentEntries: 0,             // Entrées des 7 derniers jours
+    averageUnitPrice: 0,          // Prix unitaire moyen
+    totalBulkUnits: 0,            // Nombre total de conditionnements reçus
+    conformityRate: 0,            // Taux de conformité (%)
+    topSupplier: &#x27;&#x27;,              // Fournisseur principal
+    topCategory: &#x27;&#x27;               // Catégorie la plus reçue
+  };
+
+  /**
+   * Suggestions d&#x27;accords mets-vins pour la boisson sélectionnée
+   */
+  winePairingSuggestions: WinePairingSuggestion[] &#x3D; [];
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  // CONSTRUCTEUR
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  constructor() {}
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  // LIFECYCLE HOOKS
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  /**
+   * Initialisation du composant
+   * Charge toutes les données au démarrage
+   */
+  ngOnInit(): void {
+    console.log(&#x27;✅ EntriesComponent initialisé avec détails complets&#x27;);
+    this.loadData();
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  // CHARGEMENT DES DONNÉES
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  /**
+   * Charge toutes les données nécessaires
+   * TODO: Remplacer par des appels API réels
+   */
+  loadData(): void {
+    // Cette ligne active l&#x27;indicateur de chargement pour informer l&#x27;utilisateur
+    this.isLoading &#x3D; true;
+
+    // On charge d&#x27;abord les boissons avec TOUS leurs détails (format, conditionnement, commercial, etc.)
+    this.drinks &#x3D; this.generateMockDrinks();
+
+    // Ensuite on charge les caves disponibles pour le stockage
+    this.caves &#x3D; this.generateMockCaves();
+
+    // Enfin on charge l&#x27;historique des entrées de stock
+    this.entries &#x3D; this.generateMockEntries();
+
+    // On initialise les entrées filtrées avec toutes les entrées
+    this.filteredEntries &#x3D; [...this.entries];
+
+    // On calcule toutes les statistiques (total, coûts, conformité, etc.)
+    this.calculateStats();
+
+    // Le chargement est terminé
+    this.isLoading &#x3D; false;
+
+    // Log pour le debug : affiche le nombre d&#x27;éléments chargés
+    console.log(&#x27;✅ Données chargées:&#x27;, {
+      entries: this.entries.length,
+      drinks: this.drinks.length,
+      caves: this.caves.length
+    });
+  }
+
+  /**
+   * Génère des boissons de test AVEC TOUS LES DÉTAILS
+   * Chaque boisson contient maintenant les informations complètes
+   * @returns Liste de boissons simulées avec détails complets
+   */
+  private generateMockDrinks(): Drink[] {
+    // On retourne un tableau de boissons avec TOUS les champs remplis
+    return [
+      {
+        // &#x3D;&#x3D;&#x3D; IDENTIFIANTS &#x3D;&#x3D;&#x3D;
+        id: &#x27;drink_1&#x27;,                              // ID unique de la boisson
+        name: &#x27;Heineken&#x27;,                           // Nom commercial
+        icon: &#x27;🍺&#x27;,                                 // Emoji pour l&#x27;affichage
+
+        // &#x3D;&#x3D;&#x3D; CARACTÉRISTIQUES PRODUIT &#x3D;&#x3D;&#x3D;
+        category: DrinkCategory.BIERES,             // Catégorie : Bière
+        format: DrinkFormat.CL_33,                  // Format : 33cl
+        packagingType: PackagingType.BOUTEILLE,     // Type : Bouteille en verre
+
+        // &#x3D;&#x3D;&#x3D; FOURNISSEUR ET COMMERCIAL &#x3D;&#x3D;&#x3D;
+        supplier: Supplier.SOLIBRA,                 // Fournisseur : Solibra
+        depot: &#x27;Dépôt Abidjan Zone 4&#x27;,             // Localisation du dépôt
+        commercialName: &#x27;Kouadio Jean&#x27;,             // Nom du commercial responsable
+        commercialContact: &#x27;+225 07 00 00 00 01&#x27;,   // Téléphone du commercial
+
+        // &#x3D;&#x3D;&#x3D; CONDITIONNEMENT EN GROS &#x3D;&#x3D;&#x3D;
+        bulkUnit: BulkUnit.CARTON,                  // On commande par carton
+        bulkQuantity: 3,                            // 3 cartons
+        unitsPerBulk: 12,                           // 12 bouteilles par carton
+        totalBottles: 36,                           // Total : 3 × 12 &#x3D; 36 bouteilles
+
+        // &#x3D;&#x3D;&#x3D; TARIFICATION &#x3D;&#x3D;&#x3D;
+        purchasePrice: 650,                         // Prix d&#x27;achat : 650 FCFA/bouteille
+        sellingPrice: 800,                          // Prix de vente : 800 FCFA/bouteille
+
+        // &#x3D;&#x3D;&#x3D; STOCK ET VENTES &#x3D;&#x3D;&#x3D;
+        stock: 150,                                 // Stock actuel : 150 unités
+        sales: 450,                                 // Ventes totales : 450 unités
+
+        // &#x3D;&#x3D;&#x3D; INFORMATIONS COMPLÉMENTAIRES &#x3D;&#x3D;&#x3D;
+        description: &#x27;Bière blonde hollandaise premium&#x27;,
+        createdAt: new Date(),
+        badge: &#x27;hot&#x27;                                // Badge &quot;hot&quot; &#x3D; produit populaire
+      },
+      {
+        id: &#x27;drink_2&#x27;,
+        name: &#x27;Bordeaux Rouge 2018&#x27;,
+        icon: &#x27;🍷&#x27;,
+
+        category: DrinkCategory.VIN_ROUGE,
+        format: DrinkFormat.CL_75,
+        packagingType: PackagingType.BOUTEILLE,
+
+        supplier: Supplier.AUTRES,
+        depot: &#x27;Dépôt Cocody&#x27;,
+        commercialName: &#x27;Bakayoko Aminata&#x27;,
+        commercialContact: &#x27;+225 05 00 00 00 02&#x27;,
+
+        bulkUnit: BulkUnit.CAISSE,
+        bulkQuantity: 2,
+        unitsPerBulk: 6,
+        totalBottles: 12,
+
+        purchasePrice: 12000,
+        sellingPrice: 15000,
+
+        stock: 45,
+        sales: 120,
+
+        description: &#x27;Vin rouge de Bordeaux, millésime 2018, appellation contrôlée&#x27;,
+        createdAt: new Date()
+      },
+      {
+        id: &#x27;drink_3&#x27;,
+        name: &#x27;Champagne Moët &amp; Chandon&#x27;,
+        icon: &#x27;🍾&#x27;,
+
+        category: DrinkCategory.CHAMPAGNE,
+        format: DrinkFormat.CL_75,
+        packagingType: PackagingType.BOUTEILLE,
+
+        supplier: Supplier.AUTRES,
+        depot: &#x27;Dépôt Plateau&#x27;,
+        commercialName: &#x27;Koné Moussa&#x27;,
+        commercialContact: &#x27;+225 07 11 22 33 44&#x27;,
+
+        bulkUnit: BulkUnit.CAISSE,
+        bulkQuantity: 1,
+        unitsPerBulk: 6,
+        totalBottles: 6,
+
+        purchasePrice: 30000,
+        sellingPrice: 35000,
+
+        stock: 20,
+        sales: 85,
+
+        description: &#x27;Champagne brut impérial, cuvée prestige&#x27;,
+        createdAt: new Date(),
+        badge: &#x27;new&#x27;
+      },
+      {
+        id: &#x27;drink_4&#x27;,
+        name: &#x27;Guinness&#x27;,
+        icon: &#x27;🍺&#x27;,
+
+        category: DrinkCategory.BIERES,
+        format: DrinkFormat.CL_33,
+        packagingType: PackagingType.CANETTE,
+
+        supplier: Supplier.BRASSIVOIRE,
+        depot: &#x27;Dépôt Yopougon&#x27;,
+        commercialName: &#x27;Traoré Sekou&#x27;,
+        commercialContact: &#x27;+225 01 55 66 77 88&#x27;,
+
+        bulkUnit: BulkUnit.PACK,
+        bulkQuantity: 2,
+        unitsPerBulk: 24,
+        totalBottles: 48,
+
+        purchasePrice: 850,
+        sellingPrice: 1000,
+
+        stock: 100,
+        sales: 320,
+
+        description: &#x27;Bière brune irlandaise, goût intense&#x27;,
+        createdAt: new Date()
+      },
+      {
+        id: &#x27;drink_5&#x27;,
+        name: &#x27;Chablis 2020&#x27;,
+        icon: &#x27;🍷&#x27;,
+
+        category: DrinkCategory.VIN_BLANC,
+        format: DrinkFormat.CL_75,
+        packagingType: PackagingType.BOUTEILLE,
+
+        supplier: Supplier.AUTRES,
+        depot: &#x27;Dépôt Cocody&#x27;,
+        commercialName: &#x27;Bakayoko Aminata&#x27;,
+        commercialContact: &#x27;+225 05 00 00 00 02&#x27;,
+
+        bulkUnit: BulkUnit.CAISSE,
+        bulkQuantity: 2,
+        unitsPerBulk: 6,
+        totalBottles: 12,
+
+        purchasePrice: 9500,
+        sellingPrice: 12000,
+
+        stock: 30,
+        sales: 95,
+
+        description: &#x27;Vin blanc sec de Bourgogne, notes minérales&#x27;,
+        createdAt: new Date()
+      }
+    ];
+  }
+
+  /**
+   * Génère des caves de test avec détails enrichis
+   * @returns Liste de caves simulées
+   */
+  private generateMockCaves(): Cave[] {
+    // Chaque cave a maintenant des informations de température et humidité
+    return [
+      {
+        id: &#x27;cave_1&#x27;,
+        name: &#x27;Cave Principale&#x27;,
+        location: &#x27;Bâtiment A - Sous-sol&#x27;,
+        capacity: 1000,                       // Capacité maximale : 1000 unités
+        currentStock: 650,                    // Stock actuel : 650 unités
+        description: &#x27;Cave principale de stockage&#x27;,
+        temperature: &#x27;12-14°C&#x27;,               // Température contrôlée
+        humidity: &#x27;70-75%&#x27;                    // Taux d&#x27;humidité optimal
+      },
+      {
+        id: &#x27;cave_2&#x27;,
+        name: &#x27;Cave Secondaire&#x27;,
+        location: &#x27;Bâtiment B - RDC&#x27;,
+        capacity: 500,
+        currentStock: 320,
+        description: &#x27;Cave secondaire pour rotation rapide&#x27;,
+        temperature: &#x27;14-16°C&#x27;,
+        humidity: &#x27;65-70%&#x27;
+      },
+      {
+        id: &#x27;cave_3&#x27;,
+        name: &#x27;Cave de Vieillissement&#x27;,
+        location: &#x27;Bâtiment A - Niveau -2&#x27;,
+        capacity: 300,
+        currentStock: 180,
+        description: &#x27;Cave climatisée pour vins de garde&#x27;,
+        temperature: &#x27;10-12°C&#x27;,               // Plus fraîche pour les vins de garde
+        humidity: &#x27;75-80%&#x27;                    // Humidité plus élevée
+      }
+    ];
+  }
+
+ /**
+ * Génère des entrées de test ENRICHIES avec tous les détails
+ * Chaque entrée contient maintenant les informations complètes de la boisson
+ * @returns Liste d&#x27;entrées de stock simulées triées par date décroissante
+ */
+private generateMockEntries(): StockEntry[] {
+  const now &#x3D; new Date();
+
+  // Déclaration explicite du tableau avec le bon type
+  const entries: StockEntry[] &#x3D; [
+    {
+      // &#x3D;&#x3D;&#x3D; IDENTIFIANTS &#x3D;&#x3D;&#x3D;
+      id: &#x27;entry_1&#x27;,
+      date: new Date(now.getTime() - 2 * 24 * 60 * 60 * 1000), // Il y a 2 jours
+
+      // &#x3D;&#x3D;&#x3D; INFORMATIONS BOISSON COMPLÈTES &#x3D;&#x3D;&#x3D;
+      drinkId: &#x27;drink_1&#x27;,
+      drinkName: &#x27;Heineken&#x27;,
+      drinkIcon: &#x27;🍺&#x27;,
+      drinkCategory: DrinkCategory.BIERES,
+      drinkFormat: DrinkFormat.CL_33,
+
+      // &#x3D;&#x3D;&#x3D; CONDITIONNEMENT REÇU &#x3D;&#x3D;&#x3D;
+      bulkUnit: BulkUnit.CARTON,            // Type : Carton
+      bulkQuantity: 5,                      // Nombre : 5 cartons
+      unitsPerBulk: 12,                     // 12 bouteilles par carton
+      quantity: 60,                         // Total : 5 × 12 &#x3D; 60 bouteilles
+
+      // &#x3D;&#x3D;&#x3D; FOURNISSEUR ET DOCUMENTS &#x3D;&#x3D;&#x3D;
+      supplier: Supplier.SOLIBRA,
+      supplierInvoice: &#x27;INV-2024-001234&#x27;,   // Numéro de facture fournisseur
+      deliveryNote: &#x27;BL-2024-005678&#x27;,       // Numéro de bon de livraison
+
+      // &#x3D;&#x3D;&#x3D; COMMERCIAL &#x3D;&#x3D;&#x3D;
+      commercialName: &#x27;Kouadio Jean&#x27;,
+      commercialContact: &#x27;+225 07 00 00 00 01&#x27;,
+
+      // &#x3D;&#x3D;&#x3D; TARIFICATION &#x3D;&#x3D;&#x3D;
+      unitPrice: 650,                       // 650 FCFA par bouteille
+      bulkPrice: 7800,                      // 650 × 12 &#x3D; 7800 FCFA par carton
+      totalCost: 39000,                     // 7800 × 5 &#x3D; 39000 FCFA total
+
+      // &#x3D;&#x3D;&#x3D; DESTINATION &#x3D;&#x3D;&#x3D;
+      caveId: &#x27;cave_1&#x27;,                     // Stocké dans Cave Principale
+
+      // &#x3D;&#x3D;&#x3D; QUALITÉ ET CONFORMITÉ &#x3D;&#x3D;&#x3D;
+      qualityCheck: &#x27;conforme&#x27; as &#x27;conforme&#x27; | &#x27;non-conforme&#x27; | &#x27;avec-reserve&#x27;,  // ← TYPAGE EXPLICITE
+      qualityNotes: &#x27;Livraison en bon état, bouteilles bien emballées&#x27;,
+
+      // &#x3D;&#x3D;&#x3D; TRAÇABILITÉ &#x3D;&#x3D;&#x3D;
+      addedBy: &#x27;Jean Dupont&#x27;,               // Qui a enregistré l&#x27;entrée
+      batchNumber: &#x27;LOT-2024-H-0123&#x27;,       // Numéro de lot fabricant
+      expiryDate: new Date(2025, 11, 31),   // Date de péremption : 31/12/2025
+
+      // &#x3D;&#x3D;&#x3D; NOTES &#x3D;&#x3D;&#x3D;
+      notes: &#x27;Réception normale, stockage immédiat en cave fraîche&#x27;
+    },
+    {
+      id: &#x27;entry_2&#x27;,
+      date: new Date(now.getTime() - 5 * 24 * 60 * 60 * 1000), // Il y a 5 jours
+
+      drinkId: &#x27;drink_2&#x27;,
+      drinkName: &#x27;Bordeaux Rouge 2018&#x27;,
+      drinkIcon: &#x27;🍷&#x27;,
+      drinkCategory: DrinkCategory.VIN_ROUGE,
+      drinkFormat: DrinkFormat.CL_75,
+
+      bulkUnit: BulkUnit.CAISSE,
+      bulkQuantity: 3,
+      unitsPerBulk: 6,
+      quantity: 18,
+
+      supplier: Supplier.AUTRES,
+      supplierInvoice: &#x27;VINS-2024-456&#x27;,
+      deliveryNote: &#x27;BL-VINS-789&#x27;,
+
+      commercialName: &#x27;Bakayoko Aminata&#x27;,
+      commercialContact: &#x27;+225 05 00 00 00 02&#x27;,
+
+      unitPrice: 12000,
+      bulkPrice: 72000,                     // 12000 × 6
+      totalCost: 216000,                    // 72000 × 3
+
+      caveId: &#x27;cave_3&#x27;,                     // Cave de vieillissement
+
+      qualityCheck: &#x27;conforme&#x27; as &#x27;conforme&#x27; | &#x27;non-conforme&#x27; | &#x27;avec-reserve&#x27;,  // ← TYPAGE EXPLICITE
+      qualityNotes: &#x27;Millésime exceptionnel, bouchons intacts&#x27;,
+
+      addedBy: &#x27;Marie Martin&#x27;,
+      batchNumber: &#x27;BDX-2018-RED-456&#x27;,
+      expiryDate: new Date(2028, 11, 31),   // Vin de garde
+
+      notes: &#x27;Stockage horizontal recommandé pour préserver le bouchon&#x27;
+    },
+    {
+      id: &#x27;entry_3&#x27;,
+      date: new Date(now.getTime() - 10 * 24 * 60 * 60 * 1000), // Il y a 10 jours
+
+      drinkId: &#x27;drink_3&#x27;,
+      drinkName: &#x27;Champagne Moët &amp; Chandon&#x27;,
+      drinkIcon: &#x27;🍾&#x27;,
+      drinkCategory: DrinkCategory.CHAMPAGNE,
+      drinkFormat: DrinkFormat.CL_75,
+
+      bulkUnit: BulkUnit.CAISSE,
+      bulkQuantity: 2,
+      unitsPerBulk: 6,
+      quantity: 12,
+
+      supplier: Supplier.AUTRES,
+      supplierInvoice: &#x27;CHAMP-2024-789&#x27;,
+      deliveryNote: &#x27;BL-CHAMP-321&#x27;,
+
+      commercialName: &#x27;Koné Moussa&#x27;,
+      commercialContact: &#x27;+225 07 11 22 33 44&#x27;,
+
+      unitPrice: 30000,
+      bulkPrice: 180000,                    // 30000 × 6
+      totalCost: 360000,                    // 180000 × 2
+
+      caveId: &#x27;cave_3&#x27;,
+
+      qualityCheck: &#x27;conforme&#x27; as &#x27;conforme&#x27; | &#x27;non-conforme&#x27; | &#x27;avec-reserve&#x27;,  // ← TYPAGE EXPLICITE
+      qualityNotes: &#x27;Température de transport respectée, emballage premium&#x27;,
+
+      addedBy: &#x27;Sophie Bernard&#x27;,
+      batchNumber: &#x27;MC-NV-2024-001&#x27;,
+      expiryDate: new Date(2027, 5, 30),
+
+      notes: &#x27;Stockage à température contrôlée impératif (8-10°C)&#x27;
+    },
+    {
+      id: &#x27;entry_4&#x27;,
+      date: new Date(now.getTime() - 15 * 24 * 60 * 60 * 1000), // Il y a 15 jours
+
+      drinkId: &#x27;drink_4&#x27;,
+      drinkName: &#x27;Guinness&#x27;,
+      drinkIcon: &#x27;🍺&#x27;,
+      drinkCategory: DrinkCategory.BIERES,
+      drinkFormat: DrinkFormat.CL_33,
+
+      bulkUnit: BulkUnit.PACK,
+      bulkQuantity: 4,
+      unitsPerBulk: 24,
+      quantity: 96,
+
+      supplier: Supplier.BRASSIVOIRE,
+      supplierInvoice: &#x27;BRA-2024-555&#x27;,
+      deliveryNote: &#x27;BL-BRA-666&#x27;,
+
+      commercialName: &#x27;Traoré Sekou&#x27;,
+      commercialContact: &#x27;+225 01 55 66 77 88&#x27;,
+
+      unitPrice: 850,
+      bulkPrice: 20400,                     // 850 × 24
+      totalCost: 81600,                     // 20400 × 4
+
+      caveId: &#x27;cave_2&#x27;,
+
+      qualityCheck: &#x27;conforme&#x27; as &#x27;conforme&#x27; | &#x27;non-conforme&#x27; | &#x27;avec-reserve&#x27;,  // ← TYPAGE EXPLICITE
+      qualityNotes: &#x27;Canettes en parfait état, date de production récente&#x27;,
+
+      addedBy: &#x27;Pierre Dubois&#x27;,
+      batchNumber: &#x27;GUIN-2024-333&#x27;,
+      expiryDate: new Date(2025, 8, 30),
+
+      notes: &#x27;Promotion fournisseur - Prix réduit de 10%&#x27;
+    },
+    {
+      id: &#x27;entry_5&#x27;,
+      date: new Date(now.getTime() - 20 * 24 * 60 * 60 * 1000), // Il y a 20 jours
+
+      drinkId: &#x27;drink_5&#x27;,
+      drinkName: &#x27;Chablis 2020&#x27;,
+      drinkIcon: &#x27;🍷&#x27;,
+      drinkCategory: DrinkCategory.VIN_BLANC,
+      drinkFormat: DrinkFormat.CL_75,
+
+      bulkUnit: BulkUnit.CAISSE,
+      bulkQuantity: 2,
+      unitsPerBulk: 6,
+      quantity: 12,
+
+      supplier: Supplier.AUTRES,
+      supplierInvoice: &#x27;CHAB-2024-888&#x27;,
+      deliveryNote: &#x27;BL-CHAB-999&#x27;,
+
+      commercialName: &#x27;Bakayoko Aminata&#x27;,
+      commercialContact: &#x27;+225 05 00 00 00 02&#x27;,
+
+      unitPrice: 9500,
+      bulkPrice: 57000,                     // 9500 × 6
+      totalCost: 114000,                    // 57000 × 2
+
+      caveId: &#x27;cave_3&#x27;,
+
+      qualityCheck: &#x27;avec-reserve&#x27; as &#x27;conforme&#x27; | &#x27;non-conforme&#x27; | &#x27;avec-reserve&#x27;,  // ← TYPAGE EXPLICITE
+      qualityNotes: &#x27;1 bouteille légèrement fêlée, reste conforme&#x27;,
+
+      addedBy: &#x27;Luc Moreau&#x27;,
+      batchNumber: &#x27;CHAB-2020-112&#x27;,
+      expiryDate: new Date(2026, 11, 31),
+
+      notes: &#x27;Remise commerciale obtenue pour la bouteille défectueuse&#x27;
+    }
+  ];
+
+  // TRI par date décroissante (plus récent en premier) et RETURN
+  return entries.sort((a, b) &#x3D;&gt; new Date(b.date).getTime() - new Date(a.date).getTime());
+}
+  // ... (suite dans le prochain message)
+  // ... (suite du fichier entries.component.ts)
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  // CALCULS AUTOMATIQUES DU FORMULAIRE
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  /**
+   * Calcule automatiquement le nombre total d&#x27;unités
+   * Exemple : 3 cartons × 12 bouteilles &#x3D; 36 bouteilles
+   */
+  calculateTotalUnits(): void {
+    // Multiplie le nombre de conditionnements par les unités par conditionnement
+    this.entryForm.totalUnits &#x3D;
+      (this.entryForm.bulkQuantity || 0) * (this.entryForm.unitsPerBulk || 0);
+
+    // Recalcule ensuite le coût total
+    this.calculateTotalCost();
+
+    console.log(&#x27;🔢 Total unités calculé:&#x27;, this.entryForm.totalUnits);
+  }
+
+  /**
+   * Calcule automatiquement le prix par conditionnement
+   * Exemple : 650 FCFA/bouteille × 12 bouteilles &#x3D; 7800 FCFA/carton
+   */
+  calculateBulkPrice(): void {
+    // Prix unitaire × nombre d&#x27;unités par conditionnement
+    this.entryForm.bulkPrice &#x3D;
+      (this.entryForm.unitPrice || 0) * (this.entryForm.unitsPerBulk || 0);
+
+    // Recalcule le coût total
+    this.calculateTotalCost();
+
+    console.log(&#x27;💰 Prix par conditionnement:&#x27;, this.entryForm.bulkPrice);
+  }
+
+  /**
+   * Calcule le coût total de l&#x27;entrée
+   * Exemple : 7800 FCFA/carton × 3 cartons &#x3D; 23400 FCFA
+   */
+  calculateTotalCost(): void {
+    // Prix par conditionnement × nombre de conditionnements
+    this.entryForm.totalCost &#x3D;
+      (this.entryForm.bulkPrice || 0) * (this.entryForm.bulkQuantity || 0);
+
+    console.log(&#x27;💵 Coût total calculé:&#x27;, this.entryForm.totalCost, &#x27;FCFA&#x27;);
+  }
+
+  /**
+   * Gère le changement de boisson sélectionnée
+   * Remplit automatiquement les champs depuis la boisson
+   */
+  onDrinkSelected(): void {
+    // Trouve la boisson sélectionnée dans la liste
+    const drink &#x3D; this.drinks.find(d &#x3D;&gt; d.id &#x3D;&#x3D;&#x3D; this.entryForm.drinkId);
+
+    if (drink) {
+      // Remplit automatiquement les informations de la boisson
+      this.entryForm.bulkUnit &#x3D; drink.bulkUnit;
+      this.entryForm.unitsPerBulk &#x3D; drink.unitsPerBulk;
+      this.entryForm.unitPrice &#x3D; drink.purchasePrice;
+      this.entryForm.supplier &#x3D; drink.supplier;
+
+      // Recalcule tout
+      this.calculateBulkPrice();
+      this.calculateTotalUnits();
+
+      // Charge les suggestions d&#x27;accords mets-vins pour cette boisson
+      this.loadWinePairingSuggestions(drink);
+
+      console.log(&#x27;✅ Boisson sélectionnée:&#x27;, drink.name);
+    }
+  }
+
+  /**
+   * Charge les suggestions d&#x27;accords mets-vins pour une boisson
+   * Intégration avec le composant wine-pairing
+   * @param drink Boisson sélectionnée
+   */
+  loadWinePairingSuggestions(drink: Drink): void {
+    // Réinitialise les suggestions
+    this.winePairingSuggestions &#x3D; [];
+
+    // Suggestions selon la catégorie de boisson
+    switch (drink.category) {
+      case DrinkCategory.VIN_ROUGE:
+        // Pour les vins rouges : viandes, fromages
+        this.winePairingSuggestions &#x3D; [
+          {
+            dish: &#x27;Steak grillé&#x27;,
+            dishIcon: &#x27;🥩&#x27;,
+            description: &#x27;Les tanins du vin rouge s\&#x27;accordent parfaitement avec la richesse de la viande rouge&#x27;,
+            temperature: &#x27;16-18°C&#x27;
+          },
+          {
+            dish: &#x27;Fromages affinés&#x27;,
+            dishIcon: &#x27;🧀&#x27;,
+            description: &#x27;Un accord classique entre la puissance du vin et l\&#x27;intensité du fromage&#x27;,
+            temperature: &#x27;16-18°C&#x27;
+          }
+        ];
+        break;
+
+      case DrinkCategory.VIN_BLANC:
+        // Pour les vins blancs : poissons, fruits de mer
+        this.winePairingSuggestions &#x3D; [
+          {
+            dish: &#x27;Poisson grillé&#x27;,
+            dishIcon: &#x27;🐟&#x27;,
+            description: &#x27;La fraîcheur du vin blanc complète délicatement le goût du poisson&#x27;,
+            temperature: &#x27;10-12°C&#x27;
+          },
+          {
+            dish: &#x27;Fruits de mer&#x27;,
+            dishIcon: &#x27;🦞&#x27;,
+            description: &#x27;Un mariage parfait entre la minéralité du vin et l\&#x27;iode des fruits de mer&#x27;,
+            temperature: &#x27;8-10°C&#x27;
+          }
+        ];
+        break;
+
+      case DrinkCategory.CHAMPAGNE:
+        // Pour le champagne : apéritifs, desserts
+        this.winePairingSuggestions &#x3D; [
+          {
+            dish: &#x27;Apéritif&#x27;,
+            dishIcon: &#x27;🥂&#x27;,
+            description: &#x27;Les bulles fines du champagne sont parfaites pour l\&#x27;apéritif&#x27;,
+            temperature: &#x27;6-8°C&#x27;
+          },
+          {
+            dish: &#x27;Desserts légers&#x27;,
+            dishIcon: &#x27;🍰&#x27;,
+            description: &#x27;Un champagne demi-sec accompagne merveilleusement les desserts&#x27;,
+            temperature: &#x27;6-8°C&#x27;
+          }
+        ];
+        break;
+
+      case DrinkCategory.BIERES:
+        // Pour les bières : snacks, plats épicés
+        this.winePairingSuggestions &#x3D; [
+          {
+            dish: &#x27;Grillades&#x27;,
+            dishIcon: &#x27;🍖&#x27;,
+            description: &#x27;La fraîcheur de la bière rafraîchit le palais entre chaque bouchée&#x27;,
+            temperature: &#x27;4-6°C&#x27;
+          },
+          {
+            dish: &#x27;Plats épicés&#x27;,
+            dishIcon: &#x27;🌶️&#x27;,
+            description: &#x27;La bière atténue le piquant des épices&#x27;,
+            temperature: &#x27;4-6°C&#x27;
+          }
+        ];
+        break;
+
+      default:
+        // Pas de suggestion spécifique
+        this.winePairingSuggestions &#x3D; [];
+    }
+
+    console.log(&#x27;🍽️ Suggestions d\&#x27;accords chargées:&#x27;, this.winePairingSuggestions.length);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  // FILTRAGE ET RECHERCHE
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  /**
+   * Applique tous les filtres actifs sur les entrées
+   * Combine : cave, catégorie, fournisseur, période et recherche textuelle
+   */
+  applyFilters(): void {
+    // On part de toutes les entrées
+    let result &#x3D; [...this.entries];
+
+    // FILTRE 1 : Par cave sélectionnée
+    if (this.selectedCaveFilter) {
+      result &#x3D; result.filter(entry &#x3D;&gt; entry.caveId &#x3D;&#x3D;&#x3D; this.selectedCaveFilter);
+      console.log(&#x60;📍 Filtre cave appliqué: ${result.length} résultats&#x60;);
+    }
+
+    // FILTRE 2 : Par catégorie de boisson
+    if (this.selectedCategoryFilter) {
+      result &#x3D; result.filter(entry &#x3D;&gt; entry.drinkCategory &#x3D;&#x3D;&#x3D; this.selectedCategoryFilter);
+      console.log(&#x60;🏷️ Filtre catégorie appliqué: ${result.length} résultats&#x60;);
+    }
+
+    // FILTRE 3 : Par fournisseur
+    if (this.selectedSupplierFilter) {
+      result &#x3D; result.filter(entry &#x3D;&gt; entry.supplier &#x3D;&#x3D;&#x3D; this.selectedSupplierFilter);
+      console.log(&#x60;🚚 Filtre fournisseur appliqué: ${result.length} résultats&#x60;);
+    }
+
+    // FILTRE 4 : Par période (nombre de jours)
+    if (this.periodFilter &gt; 0) {
+      const cutoffDate &#x3D; new Date();
+      cutoffDate.setDate(cutoffDate.getDate() - this.periodFilter);
+      result &#x3D; result.filter(entry &#x3D;&gt; new Date(entry.date) &gt;&#x3D; cutoffDate);
+      console.log(&#x60;📅 Filtre période appliqué (${this.periodFilter} jours): ${result.length} résultats&#x60;);
+    }
+
+    // FILTRE 5 : Par terme de recherche (nom, notes, commercial, etc.)
+    if (this.searchTerm.trim()) {
+      const term &#x3D; this.searchTerm.toLowerCase();
+      result &#x3D; result.filter(entry &#x3D;&gt;
+        // Recherche dans le nom de la boisson
+        entry.drinkName.toLowerCase().includes(term) ||
+        // Recherche dans le fournisseur
+        entry.supplier.toLowerCase().includes(term) ||
+        // Recherche dans les notes
+        entry.notes?.toLowerCase().includes(term) ||
+        // Recherche dans le nom du commercial
+        entry.commercialName.toLowerCase().includes(term) ||
+        // Recherche dans la personne qui a ajouté
+        entry.addedBy.toLowerCase().includes(term) ||
+        // Recherche dans le numéro de facture
+        entry.supplierInvoice?.toLowerCase().includes(term) ||
+        // Recherche dans le numéro de bon de livraison
+        entry.deliveryNote?.toLowerCase().includes(term)
+      );
+      console.log(&#x60;🔍 Recherche &quot;${term}&quot; appliquée: ${result.length} résultats&#x60;);
+    }
+
+    // Affecte les résultats filtrés
+    this.filteredEntries &#x3D; result;
+
+    console.log(&#x60;✅ Filtrage terminé: ${result.length} entrée(s) sur ${this.entries.length}&#x60;);
+  }
+
+  /**
+   * Gère le changement du filtre cave
+   */
+  onCaveFilterChange(): void {
+    console.log(&#x27;🔄 Changement filtre cave:&#x27;, this.selectedCaveFilter);
+    this.applyFilters();
+  }
+
+  /**
+   * Gère le changement du filtre catégorie
+   */
+  onCategoryFilterChange(): void {
+    console.log(&#x27;🔄 Changement filtre catégorie:&#x27;, this.selectedCategoryFilter);
+    this.applyFilters();
+  }
+
+  /**
+   * Gère le changement du filtre fournisseur
+   */
+  onSupplierFilterChange(): void {
+    console.log(&#x27;🔄 Changement filtre fournisseur:&#x27;, this.selectedSupplierFilter);
+    this.applyFilters();
+  }
+
+  /**
+   * Gère le changement de la période de filtre
+   */
+  onPeriodFilterChange(): void {
+    console.log(&#x27;🔄 Changement période:&#x27;, this.periodFilter, &#x27;jours&#x27;);
+    this.applyFilters();
+  }
+
+  /**
+   * Gère le changement du terme de recherche
+   */
+  onSearchChange(): void {
+    this.applyFilters();
+  }
+
+  /**
+   * Réinitialise tous les filtres à leurs valeurs par défaut
+   */
+  resetFilters(): void {
+    this.selectedCaveFilter &#x3D; null;
+    this.selectedCategoryFilter &#x3D; null;
+    this.selectedSupplierFilter &#x3D; null;
+    this.periodFilter &#x3D; 30;
+    this.searchTerm &#x3D; &#x27;&#x27;;
+    this.filteredEntries &#x3D; [...this.entries];
+
+    console.log(&#x27;🔄 Tous les filtres réinitialisés&#x27;);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  // CALCUL DES STATISTIQUES ENRICHIES
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  /**
+   * Calcule toutes les statistiques des entrées
+   * Version enrichie avec moyennes, taux de conformité, etc.
+   */
+  calculateStats(): void {
+    // 1. Nombre total d&#x27;entrées
+    this.stats.totalEntries &#x3D; this.entries.length;
+
+    // 2. Quantité totale d&#x27;unités reçues
+    this.stats.totalQuantity &#x3D; this.entries.reduce((sum, entry) &#x3D;&gt; sum + entry.quantity, 0);
+
+    // 3. Coût total de toutes les entrées
+    this.stats.totalCost &#x3D; this.entries.reduce((sum, entry) &#x3D;&gt; sum + entry.totalCost, 0);
+
+    // 4. Prix unitaire moyen
+    if (this.entries.length &gt; 0) {
+      const totalUnitPrices &#x3D; this.entries.reduce((sum, entry) &#x3D;&gt; sum + entry.unitPrice, 0);
+      this.stats.averageUnitPrice &#x3D; Math.round(totalUnitPrices / this.entries.length);
+    }
+
+    // 5. Nombre total de conditionnements (cartons, caisses, etc.)
+    this.stats.totalBulkUnits &#x3D; this.entries.reduce((sum, entry) &#x3D;&gt; sum + entry.bulkQuantity, 0);
+
+    // 6. Entrées des 7 derniers jours
+    const sevenDaysAgo &#x3D; new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+    this.stats.recentEntries &#x3D; this.entries.filter(
+      entry &#x3D;&gt; new Date(entry.date) &gt;&#x3D; sevenDaysAgo
+    ).length;
+
+    // 7. Taux de conformité (%)
+    const conformEntries &#x3D; this.entries.filter(e &#x3D;&gt; e.qualityCheck &#x3D;&#x3D;&#x3D; &#x27;conforme&#x27;).length;
+    this.stats.conformityRate &#x3D; this.entries.length &gt; 0
+      ? Math.round((conformEntries / this.entries.length) * 100)
+      : 0;
+
+    // 8. Fournisseur principal (celui qui a le plus d&#x27;entrées)
+    const supplierCounts: { [key: string]: number } &#x3D; {};
+    this.entries.forEach(entry &#x3D;&gt; {
+      const supplier &#x3D; entry.supplier;
+      supplierCounts[supplier] &#x3D; (supplierCounts[supplier] || 0) + 1;
+    });
+
+    let maxCount &#x3D; 0;
+    let topSupplier &#x3D; &#x27;&#x27;;
+    Object.entries(supplierCounts).forEach(([supplier, count]) &#x3D;&gt; {
+      if (count &gt; maxCount) {
+        maxCount &#x3D; count;
+        topSupplier &#x3D; supplier;
+      }
+    });
+    this.stats.topSupplier &#x3D; topSupplier;
+
+    // 9. Catégorie la plus reçue
+    const categoryCounts: { [key: string]: number } &#x3D; {};
+    this.entries.forEach(entry &#x3D;&gt; {
+      const category &#x3D; entry.drinkCategory;
+      categoryCounts[category] &#x3D; (categoryCounts[category] || 0) + 1;
+    });
+
+    maxCount &#x3D; 0;
+    let topCategory &#x3D; &#x27;&#x27;;
+    Object.entries(categoryCounts).forEach(([category, count]) &#x3D;&gt; {
+      if (count &gt; maxCount) {
+        maxCount &#x3D; count;
+        topCategory &#x3D; category;
+      }
+    });
+    this.stats.topCategory &#x3D; topCategory;
+
+    console.log(&#x27;📊 Statistiques calculées:&#x27;, this.stats);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  // MODAL - AJOUT D&#x27;ENTRÉE
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  /**
+   * Ouvre le modal d&#x27;ajout d&#x27;une nouvelle entrée
+   */
+  openAddModal(): void {
+    // Réinitialise le formulaire avec des valeurs vides
+    this.entryForm &#x3D; this.getEmptyForm();
+
+    // Réinitialise les suggestions d&#x27;accords
+    this.winePairingSuggestions &#x3D; [];
+
+    // Ouvre le modal
+    this.isAddModalOpen &#x3D; true;
+
+    console.log(&#x27;➕ Modal d\&#x27;ajout ouvert&#x27;);
+  }
+
+  /**
+   * Ferme le modal d&#x27;ajout et réinitialise le formulaire
+   */
+  closeAddModal(): void {
+    // Ferme le modal
+    this.isAddModalOpen &#x3D; false;
+
+    // Réinitialise le formulaire
+    this.entryForm &#x3D; this.getEmptyForm();
+
+    // Réinitialise les suggestions
+    this.winePairingSuggestions &#x3D; [];
+
+    console.log(&#x27;✅ Modal d\&#x27;ajout fermé&#x27;);
+  }
+
+  /**
+   * Sauvegarde une nouvelle entrée de stock
+   * Valide les données, crée l&#x27;entrée enrichie et met à jour les stats
+   */
+  saveEntry(): void {
+    // VALIDATION : Vérifie que tous les champs obligatoires sont remplis
+    if (!this.validateForm()) {
+      alert(&#x27;⚠️ Veuillez remplir tous les champs obligatoires (boisson, quantité, prix, cave)&#x27;);
+      return;
+    }
+
+    // RÉCUPÉRATION : Trouve la boisson sélectionnée dans la liste
+    const drink &#x3D; this.drinks.find(d &#x3D;&gt; d.id &#x3D;&#x3D;&#x3D; this.entryForm.drinkId);
+    if (!drink) {
+      alert(&#x27;❌ Boisson non trouvée. Veuillez sélectionner une boisson valide.&#x27;);
+      return;
+    }
+
+    // VALIDATION QUANTITÉ : Vérifie que la quantité est positive
+    if (this.entryForm.bulkQuantity &lt;&#x3D; 0 || this.entryForm.totalUnits &lt;&#x3D; 0) {
+      alert(&#x27;❌ La quantité doit être supérieure à zéro&#x27;);
+      return;
+    }
+
+    // CRÉATION : Construit la nouvelle entrée avec TOUS les détails
+    const newEntry: StockEntry &#x3D; {
+      // Génère un ID unique
+      id: this.generateId(),
+
+      // Date actuelle
+      date: new Date(),
+
+      // Informations complètes de la boisson
+      drinkId: this.entryForm.drinkId,
+      drinkName: drink.name,
+      drinkIcon: drink.icon,
+      drinkCategory: drink.category,
+      drinkFormat: drink.format,
+
+      // Conditionnement reçu
+      bulkUnit: this.entryForm.bulkUnit,
+      bulkQuantity: this.entryForm.bulkQuantity,
+      unitsPerBulk: this.entryForm.unitsPerBulk,
+      quantity: this.entryForm.totalUnits,
+
+      // Fournisseur et documents
+      supplier: this.entryForm.supplier,
+      supplierInvoice: this.entryForm.supplierInvoice,
+      deliveryNote: this.entryForm.deliveryNote,
+
+      // Commercial
+      commercialName: drink.commercialName,
+      commercialContact: drink.commercialContact,
+
+      // Tarification
+      unitPrice: this.entryForm.unitPrice,
+      bulkPrice: this.entryForm.bulkPrice,
+      totalCost: this.entryForm.totalCost,
+
+      // Destination
+      caveId: this.entryForm.caveId,
+
+      // Qualité
+      qualityCheck: this.entryForm.qualityCheck,
+      qualityNotes: this.entryForm.qualityNotes,
+
+      // Traçabilité
+      addedBy: &#x27;Utilisateur actuel&#x27;, // TODO: Remplacer par l&#x27;utilisateur connecté
+      batchNumber: this.entryForm.batchNumber,
+      expiryDate: this.entryForm.expiryDate ? new Date(this.entryForm.expiryDate) : undefined,
+
+      // Notes
+      notes: this.entryForm.notes
+    };
+
+    // AJOUT : Insère la nouvelle entrée en première position (plus récente en haut)
+    this.entries.unshift(newEntry);
+
+    // MISE À JOUR : Applique les filtres pour rafraîchir l&#x27;affichage
+    this.applyFilters();
+
+    // RECALCUL : Met à jour toutes les statistiques
+    this.calculateStats();
+
+    // TODO: APPEL API pour sauvegarder sur le serveur
+    // this.entryService.createEntry(newEntry).subscribe(...)
+
+    console.log(&#x27;✅ Entrée ajoutée avec succès:&#x27;, newEntry);
+
+    // NOTIFICATION : Informe l&#x27;utilisateur
+    alert(&#x60;✅ Entrée enregistrée avec succès !\n\n&#x60; +
+          &#x60;📦 Boisson: ${drink.name}\n&#x60; +
+          &#x60;🔢 Quantité: ${newEntry.quantity} unités\n&#x60; +
+          &#x60;💰 Coût total: ${this.formatNumber(newEntry.totalCost)} FCFA&#x60;);
+
+    // FERMETURE : Ferme le modal
+    this.closeAddModal();
+  }
+
+  /**
+   * Valide le formulaire d&#x27;entrée
+   * Vérifie que tous les champs obligatoires sont remplis
+   * @returns true si le formulaire est valide
+   */
+  private validateForm(): boolean {
+    return !!(
+      // Boisson sélectionnée
+      this.entryForm.drinkId &amp;&amp;
+
+      // Quantités valides
+      this.entryForm.bulkQuantity &gt; 0 &amp;&amp;
+      this.entryForm.unitsPerBulk &gt; 0 &amp;&amp;
+      this.entryForm.totalUnits &gt; 0 &amp;&amp;
+
+      // Prix valides
+      this.entryForm.unitPrice &gt; 0 &amp;&amp;
+      this.entryForm.bulkPrice &gt; 0 &amp;&amp;
+      this.entryForm.totalCost &gt; 0 &amp;&amp;
+
+      // Cave sélectionnée
+      this.entryForm.caveId &amp;&amp;
+
+      // Contrôle qualité effectué
+      this.entryForm.qualityCheck
+    );
+  }
+
+  /**
+   * Retourne un formulaire vide initialisé avec valeurs par défaut
+   * @returns Formulaire avec valeurs par défaut
+   */
+  private getEmptyForm(): StockEntryForm {
+    return {
+      drinkId: &#x27;&#x27;,
+      bulkUnit: BulkUnit.CARTON,
+      bulkQuantity: 1,
+      unitsPerBulk: 12,
+      totalUnits: 12,
+      unitPrice: 0,
+      bulkPrice: 0,
+      totalCost: 0,
+      supplier: Supplier.SOLIBRA,
+      supplierInvoice: &#x27;&#x27;,
+      deliveryNote: &#x27;&#x27;,
+      caveId: &#x27;&#x27;,
+      qualityCheck: &#x27;conforme&#x27;,
+      qualityNotes: &#x27;&#x27;,
+      batchNumber: &#x27;&#x27;,
+      expiryDate: &#x27;&#x27;,
+      notes: &#x27;&#x27;
+    };
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  // MODAL - DÉTAILS D&#x27;ENTRÉE
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  /**
+   * Affiche les détails complets d&#x27;une entrée dans un modal
+   * @param entry Entrée à afficher
+   */
+  viewEntryDetails(entry: StockEntry): void {
+    // Sélectionne l&#x27;entrée
+    this.selectedEntry &#x3D; entry;
+
+    // Charge les informations de la boisson pour afficher les accords
+    const drink &#x3D; this.drinks.find(d &#x3D;&gt; d.id &#x3D;&#x3D;&#x3D; entry.drinkId);
+    if (drink) {
+      this.loadWinePairingSuggestions(drink);
+    }
+
+    // Ouvre le modal de détails
+    this.isDetailModalOpen &#x3D; true;
+
+    console.log(&#x27;👁️ Détails de l\&#x27;entrée affichés:&#x27;, entry);
+  }
+
+  /**
+   * Ferme le modal de détails
+   */
+  closeDetailModal(): void {
+    this.isDetailModalOpen &#x3D; false;
+    this.selectedEntry &#x3D; null;
+    this.winePairingSuggestions &#x3D; [];
+
+    console.log(&#x27;✅ Modal de détails fermé&#x27;);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  // SUPPRESSION
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  /**
+   * Supprime une entrée après confirmation de l&#x27;utilisateur
+   * Met à jour la liste, les filtres et les statistiques
+   * @param entry Entrée à supprimer
+   */
+  deleteEntry(entry: StockEntry): void {
+    // Message de confirmation détaillé avec toutes les infos
+    const confirmMessage &#x3D;
+      &#x60;⚠️ Êtes-vous sûr de vouloir supprimer cette entrée ?\n\n&#x60; +
+      &#x60;📦 Produit: ${entry.drinkIcon} ${entry.drinkName}\n&#x60; +
+      &#x60;📏 Format: ${entry.drinkFormat}\n&#x60; +
+      &#x60;🔢 Quantité: ${entry.quantity} unités (${entry.bulkQuantity} × ${entry.bulkUnit})\n&#x60; +
+      &#x60;💰 Coût: ${this.formatNumber(entry.totalCost)} FCFA\n&#x60; +
+      &#x60;📅 Date: ${this.formatDate(entry.date)}\n&#x60; +
+      &#x60;🚚 Fournisseur: ${entry.supplier}\n\n&#x60; +
+      &#x60;Cette action est irréversible !&#x60;;
+
+    // Demande confirmation
+    if (confirm(confirmMessage)) {
+      // Trouve l&#x27;index de l&#x27;entrée dans le tableau
+      const index &#x3D; this.entries.findIndex(e &#x3D;&gt; e.id &#x3D;&#x3D;&#x3D; entry.id);
+
+      if (index !&#x3D;&#x3D; -1) {
+        // Supprime l&#x27;entrée du tableau
+        this.entries.splice(index, 1);
+
+        // Met à jour les filtres pour rafraîchir l&#x27;affichage
+        this.applyFilters();
+
+        // Recalcule les statistiques
+        this.calculateStats();
+
+        // TODO: APPEL API DELETE pour supprimer du serveur
+        // this.entryService.deleteEntry(entry.id).subscribe(...)
+
+        console.log(&#x27;🗑️ Entrée supprimée:&#x27;, entry.id);
+
+        // Notification de succès
+        alert(&#x27;✅ Entrée supprimée avec succès !&#x27;);
+      }
+    } else {
+      console.log(&#x27;❌ Suppression annulée par l\&#x27;utilisateur&#x27;);
+    }
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  // MÉTHODES UTILITAIRES
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  /**
+   * Génère un ID unique pour une entrée
+   * Format: entry_timestamp_random
+   * @returns ID unique généré
+   */
+  private generateId(): string {
+    const timestamp &#x3D; Date.now();
+    const random &#x3D; Math.random().toString(36).substr(2, 9);
+    return &#x60;entry_${timestamp}_${random}&#x60;;
+  }
+
+  /**
+   * Formate un nombre avec des espaces comme séparateurs de milliers
+   * Exemple: 1000000 → &quot;1 000 000&quot;
+   * @param num Nombre à formater
+   * @returns Nombre formaté
+   */
+  formatNumber(num: number): string {
+    return num.toString().replace(/\B(?&#x3D;(\d{3})+(?!\d))/g, &#x27; &#x27;);
+  }
+
+  /**
+   * Formate une date au format français complet
+   * Exemple: &quot;15 janvier 2024 à 14:30&quot;
+   * @param date Date à formater
+   * @returns Date formatée en français
+   */
+  formatDate(date: Date): string {
+    const d &#x3D; new Date(date);
+    const options: Intl.DateTimeFormatOptions &#x3D; {
+      year: &#x27;numeric&#x27;,
+      month: &#x27;long&#x27;,
+      day: &#x27;numeric&#x27;,
+      hour: &#x27;2-digit&#x27;,
+      minute: &#x27;2-digit&#x27;
+    };
+    return d.toLocaleDateString(&#x27;fr-FR&#x27;, options);
+  }
+
+  /**
+   * Retourne le nom d&#x27;une cave à partir de son ID
+   * @param caveId ID de la cave
+   * @returns Nom de la cave ou &quot;Cave inconnue&quot;
+   */
+  getCaveName(caveId: string): string {
+    const cave &#x3D; this.caves.find(c &#x3D;&gt; c.id &#x3D;&#x3D;&#x3D; caveId);
+    return cave ? cave.name : &#x27;Cave inconnue&#x27;;
+  }
+
+  /**
+   * Retourne le nom d&#x27;une boisson à partir de son ID
+   * @param drinkId ID de la boisson
+   * @returns Nom de la boisson ou &quot;Boisson inconnue&quot;
+   */
+  getDrinkName(drinkId: string): string {
+    const drink &#x3D; this.drinks.find(d &#x3D;&gt; d.id &#x3D;&#x3D;&#x3D; drinkId);
+    return drink ? drink.name : &#x27;Boisson inconnue&#x27;;
+  }
+
+  /**
+   * Retourne une date relative lisible
+   * Exemples: &quot;Aujourd&#x27;hui&quot;, &quot;Hier&quot;, &quot;Il y a 3 jours&quot;, &quot;Il y a 2 semaines&quot;
+   * @param date Date à convertir
+   * @returns Texte représentant la date relative
+   */
+  getRelativeDate(date: Date): string {
+    const now &#x3D; new Date();
+    const diff &#x3D; now.getTime() - new Date(date).getTime();
+    const days &#x3D; Math.floor(diff / (1000 * 60 * 60 * 24));
+
+    if (days &#x3D;&#x3D;&#x3D; 0) return &quot;Aujourd&#x27;hui&quot;;
+    if (days &#x3D;&#x3D;&#x3D; 1) return &quot;Hier&quot;;
+    if (days &lt; 7) return &#x60;Il y a ${days} jours&#x60;;
+    if (days &lt; 30) {
+      const weeks &#x3D; Math.floor(days / 7);
+      return &#x60;Il y a ${weeks} semaine${weeks &gt; 1 ? &#x27;s&#x27; : &#x27;&#x27;}&#x60;;
+    }
+    const months &#x3D; Math.floor(days / 30);
+    return &#x60;Il y a ${months} mois&#x60;;
+  }
+
+  /**
+   * Retourne le libellé du contrôle qualité
+   * @param check Type de contrôle
+   * @returns Libellé formaté
+   */
+  getQualityCheckLabel(check: string): string {
+    const labels: {[key: string]: string} &#x3D; {
+      &#x27;conforme&#x27;: &#x27;✅ Conforme&#x27;,
+      &#x27;non-conforme&#x27;: &#x27;❌ Non conforme&#x27;,
+      &#x27;avec-reserve&#x27;: &#x27;⚠️ Avec réserve&#x27;
+    };
+    return labels[check] || check;
+  }
+
+  /**
+   * Retourne la classe CSS pour le contrôle qualité
+   * @param check Type de contrôle
+   * @returns Classe CSS
+   */
+  getQualityCheckClass(check: string): string {
+    const classes: {[key: string]: string} &#x3D; {
+      &#x27;conforme&#x27;: &#x27;quality-conform&#x27;,
+      &#x27;non-conforme&#x27;: &#x27;quality-non-conform&#x27;,
+      &#x27;avec-reserve&#x27;: &#x27;quality-reserve&#x27;
+    };
+    return classes[check] || &#x27;&#x27;;
+  }
+
+  /**
+   * Exporte les entrées filtrées en fichier CSV
+   * Télécharge automatiquement le fichier
+   */
+  exportToCSV(): void {
+    // Vérifie qu&#x27;il y a des entrées à exporter
+    if (this.filteredEntries.length &#x3D;&#x3D;&#x3D; 0) {
+      alert(&#x27;❌ Aucune entrée à exporter&#x27;);
+      return;
+    }
+
+    // En-têtes du CSV avec TOUS les champs
+    const headers &#x3D; [
+      &#x27;Date&#x27;,
+      &#x27;Boisson&#x27;,
+      &#x27;Catégorie&#x27;,
+      &#x27;Format&#x27;,
+      &#x27;Conditionnement&#x27;,
+      &#x27;Quantité Conditionnements&#x27;,
+      &#x27;Unités par Conditionnement&#x27;,
+      &#x27;Quantité Totale&#x27;,
+      &#x27;Prix Unitaire (FCFA)&#x27;,
+      &#x27;Prix Conditionnement (FCFA)&#x27;,
+      &#x27;Coût Total (FCFA)&#x27;,
+      &#x27;Fournisseur&#x27;,
+      &#x27;Commercial&#x27;,
+      &#x27;Contact Commercial&#x27;,
+      &#x27;Cave&#x27;,
+      &#x27;Facture Fournisseur&#x27;,
+      &#x27;Bon de Livraison&#x27;,
+      &#x27;Contrôle Qualité&#x27;,
+      &#x27;Notes Qualité&#x27;,
+      &#x27;Numéro de Lot&#x27;,
+      &#x27;Date de Péremption&#x27;,
+      &#x27;Ajouté par&#x27;,
+      &#x27;Notes&#x27;
+    ];
+// Conversion des données en lignes CSV
+    const rows &#x3D; this.filteredEntries.map(entry &#x3D;&gt; [
+      this.formatDate(entry.date),
+      entry.drinkName,
+      entry.drinkCategory,
+      entry.drinkFormat,
+      entry.bulkUnit,
+      entry.bulkQuantity.toString(),
+      entry.unitsPerBulk.toString(),
+      entry.quantity.toString(),
+      entry.unitPrice.toString(),
+      entry.bulkPrice.toString(),
+      entry.totalCost.toString(),
+      entry.supplier,
+      entry.commercialName,
+      entry.commercialContact,
+      this.getCaveName(entry.caveId),
+      entry.supplierInvoice || &#x27;N/A&#x27;,
+      entry.deliveryNote || &#x27;N/A&#x27;,
+      this.getQualityCheckLabel(entry.qualityCheck),
+      (entry.qualityNotes || &#x27;Aucune note&#x27;).replace(/,/g, &#x27;;&#x27;), // Remplace les virgules
+      entry.batchNumber || &#x27;N/A&#x27;,
+      entry.expiryDate ? this.formatDate(entry.expiryDate) : &#x27;N/A&#x27;,
+      entry.addedBy,
+      (entry.notes || &#x27;Aucune note&#x27;).replace(/,/g, &#x27;;&#x27;) // Remplace les virgules
+    ]);
+
+    // Création du contenu CSV avec encodage UTF-8
+    const csvContent &#x3D; [
+      headers.join(&#x27;,&#x27;),
+      ...rows.map(row &#x3D;&gt; row.map(cell &#x3D;&gt; &#x60;&quot;${cell}&quot;&#x60;).join(&#x27;,&#x27;))
+    ].join(&#x27;\n&#x27;);
+
+    // Création du blob avec BOM UTF-8 pour Excel
+    const blob &#x3D; new Blob([&#x27;\ufeff&#x27; + csvContent], { type: &#x27;text/csv;charset&#x3D;utf-8;&#x27; });
+
+    // Création du lien de téléchargement
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    const url &#x3D; URL.createObjectURL(blob);
+    const fileName &#x3D; &#x60;entrees_stock_${new Date().toISOString().split(&#x27;T&#x27;)[0]}.csv&#x60;;
+
+    link.setAttribute(&#x27;href&#x27;, url);
+    link.setAttribute(&#x27;download&#x27;, fileName);
+    link.style.visibility &#x3D; &#x27;hidden&#x27;;
+
+    // Ajout, clic et suppression du lien
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    // Libération de la mémoire
+    URL.revokeObjectURL(url);
+
+    console.log(&#x60;📊 Export CSV effectué: ${fileName} (${this.filteredEntries.length} entrées)&#x60;);
+
+    alert(&#x60;✅ Export réussi !\n\n&#x60; +
+          &#x60;📄 Fichier: ${fileName}\n&#x60; +
+          &#x60;📊 ${this.filteredEntries.length} entrée(s) exportée(s)\n&#x60; +
+          &#x60;💾 Le fichier a été téléchargé&#x60;);
+  }
+
+  /**
+   * Lance l&#x27;impression de la page actuelle
+   * Utilise la fonction d&#x27;impression du navigateur
+   */
+  printEntries(): void {
+    console.log(&#x27;🖨️ Impression des entrées lancée&#x27;);
+    window.print();
+  }
+
+  /**
+   * Calcule le taux de marge pour une entrée
+   * Compare le prix d&#x27;achat et le prix de vente
+   * @param entry Entrée de stock
+   * @returns Taux de marge en pourcentage
+   */
+  calculateMarginRate(entry: StockEntry): number {
+    // Trouve la boisson correspondante
+    const drink &#x3D; this.drinks.find(d &#x3D;&gt; d.id &#x3D;&#x3D;&#x3D; entry.drinkId);
+
+    if (drink &amp;&amp; entry.unitPrice &gt; 0) {
+      // Calcule la marge : (Prix vente - Prix achat) / Prix achat × 100
+      const margin &#x3D; drink.sellingPrice - entry.unitPrice;
+      const marginRate &#x3D; (margin / entry.unitPrice) * 100;
+      return Math.round(marginRate * 100) / 100; // Arrondi à 2 décimales
+    }
+
+    return 0;
+  }
+
+  /**
+   * Retourne la classe CSS selon la catégorie de boisson
+   * @param category Catégorie de la boisson
+   * @returns Classe CSS
+   */
+  getCategoryClass(category: DrinkCategory): string {
+    const classMap: { [key in DrinkCategory]: string } &#x3D; {
+      [DrinkCategory.BIERES]: &#x27;category-beer&#x27;,
+      [DrinkCategory.SUCRERIES]: &#x27;category-sweet&#x27;,
+      [DrinkCategory.CHAMPAGNE]: &#x27;category-champagne&#x27;,
+      [DrinkCategory.VIN_BLANC]: &#x27;category-white-wine&#x27;,
+      [DrinkCategory.VIN_ROUGE]: &#x27;category-red-wine&#x27;,
+      [DrinkCategory.VIN_ROSE]: &#x27;category-rose-wine&#x27;,
+      [DrinkCategory.VIN_MOUSSEUX]: &#x27;category-sparkling&#x27;,
+      [DrinkCategory.LIQUEURS]: &#x27;category-liquor&#x27;,
+      [DrinkCategory.BOISSONS_ENERGISANTES]: &#x27;category-energy&#x27;,
+      [DrinkCategory.BOISSONS_LOCALES]: &#x27;category-local&#x27;
+    };
+    return classMap[category] || &#x27;&#x27;;
+  }
+
+  /**
+   * Retourne l&#x27;icône selon le type de conditionnement
+   * @param bulkUnit Type de conditionnement
+   * @returns Emoji représentatif
+   */
+  getBulkUnitIcon(bulkUnit: BulkUnit): string {
+    const iconMap: { [key in BulkUnit]: string } &#x3D; {
+      [BulkUnit.CARTON]: &#x27;📦&#x27;,
+      [BulkUnit.CASIER]: &#x27;🧰&#x27;,
+      [BulkUnit.PACK]: &#x27;📦&#x27;,
+      [BulkUnit.CAISSE]: &#x27;🗃️&#x27;
+    };
+    return iconMap[bulkUnit] || &#x27;📦&#x27;;
+  }
+
+  /**
+   * Vérifie si une entrée est récente (moins de 7 jours)
+   * @param entry Entrée à vérifier
+   * @returns true si récente
+   */
+  isRecentEntry(entry: StockEntry): boolean {
+    const sevenDaysAgo &#x3D; new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+    return new Date(entry.date) &gt;&#x3D; sevenDaysAgo;
+  }
+
+  /**
+   * Vérifie si la date de péremption approche (moins de 30 jours)
+   * @param entry Entrée à vérifier
+   * @returns true si la péremption approche
+   */
+  isExpiryApproaching(entry: StockEntry): boolean {
+    if (!entry.expiryDate) return false;
+
+    const thirtyDaysFromNow &#x3D; new Date();
+    thirtyDaysFromNow.setDate(thirtyDaysFromNow.getDate() + 30);
+
+    return new Date(entry.expiryDate) &lt;&#x3D; thirtyDaysFromNow;
+  }
+
+  /**
+   * Calcule le nombre de jours avant la péremption
+   * @param expiryDate Date de péremption
+   * @returns Nombre de jours restants
+   */
+  getDaysUntilExpiry(expiryDate: Date): number {
+    const now &#x3D; new Date();
+    const expiry &#x3D; new Date(expiryDate);
+    const diff &#x3D; expiry.getTime() - now.getTime();
+    return Math.ceil(diff / (1000 * 60 * 60 * 24));
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'Drink-1.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
