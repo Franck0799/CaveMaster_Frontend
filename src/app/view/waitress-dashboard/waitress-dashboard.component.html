@@ -1,718 +1,99 @@
-<body>
-    <div class="dashboard">
-        <!-- ===== SIDEBAR ===== -->
-        <!-- La sidebar reste fixe sur le côté gauche -->
-        <aside class="sidebar">
-            <!-- En-tête avec logo -->
-            <div class="sidebar-header">
-                <span class="logo-icon">🍸</span>
-                <span class="logo-text">Serveuse Panel</span>
-            </div>
+<!-- ==========================================
+FICHIER: src/app/server/server-layout/server-layout.component.html
+DESCRIPTION: Template du layout Serveuse/Serveur
+========================================== -->
 
-            <!-- Navigation principale -->
-            <nav class="sidebar-nav">
-                <!--
-                    Chaque item de navigation :
-                    - (click)="navigateTo('orders')" : appelle la méthode TypeScript au clic
-                    - [class.active]="isActiveTab('orders')" : ajoute la classe 'active' si la condition est vraie
-                -->
-                <div class="nav-item"
-                     [class.active]="isActiveTab('orders')"
-                     (click)="navigateTo('orders')">
-                    <span class="nav-icon">🏠</span>
-                    <span>Mes Commandes</span>
-                </div>
+<div class="server-layout" [class.sidebar-collapsed]="sidebarCollapsed">
 
-                <div class="nav-item"
-                     [class.active]="isActiveTab('new-order')"
-                     (click)="navigateTo('new-order')">
-                    <span class="nav-icon">➕</span>
-                    <span>Nouvelle Commande</span>
-                </div>
-
-                <div class="nav-item"
-                     [class.active]="isActiveTab('menu')"
-                     (click)="navigateTo('menu')">
-                    <span class="nav-icon">🍷</span>
-                    <span>Menu</span>
-                </div>
-
-                <div class="nav-item"
-                     [class.active]="isActiveTab('tables')"
-                     (click)="navigateTo('tables')">
-                    <span class="nav-icon">📋</span>
-                    <span>Tables</span>
-                </div>
-
-                <div class="nav-item"
-                     [class.active]="isActiveTab('tips')"
-                     (click)="navigateTo('tips')">
-                    <span class="nav-icon">💰</span>
-                    <span>Mes Pourboires</span>
-                </div>
-
-                <div class="nav-item"
-                     [class.active]="isActiveTab('stats')">
-                    <span class="nav-icon">📊</span>
-                    <span>Mes Stats</span>
-                </div>
-
-                <div class="nav-item"
-                     [class.active]="isActiveTab('messages')">
-                    <span class="nav-icon">💬</span>
-                    <span>Messages</span>
-                </div>
-            </nav>
-
-            <!-- Pied de sidebar avec bouton déconnexion -->
-            <div class="sidebar-footer">
-                <!-- (click)="logout()" : appelle la méthode TypeScript -->
-                <button class="logout-btn" (click)="logout()">
-                    <span class="nav-icon">🚪</span>
-                    <span>Déconnexion</span>
-                </button>
-            </div>
-        </aside>
-
-        <!-- ===== CONTENU PRINCIPAL ===== -->
-        <main class="main-content">
-            <!-- ===== EN-TÊTE DU HAUT ===== -->
-            <header class="top-header">
-                <div class="header-left">
-                    <h2>Mes Commandes Actives 🍽️</h2>
-                </div>
-                <div class="header-right">
-                    <!--
-                        BOUTON DE DISPONIBILITÉ
-                        - [ngStyle]="getAvailabilityButtonStyle()" : applique les styles dynamiques
-                        - (click)="toggleAvailabilityMenu($event)" : passe l'événement à la méthode
-                    -->
-                    <div style="position: relative;" class="availability-menu-container">
-                        <button [ngStyle]="getAvailabilityButtonStyle()"
-                                (click)="toggleAvailabilityMenu($event)">
-                            <!-- {{ }} : interpolation, affiche la valeur de la propriété -->
-                            <span style="font-size: 1.2rem;">{{ availabilityIcon }}</span>
-                            <span>{{ availabilityText }}</span>
-                            <span style="font-size: 0.8rem;">▼</span>
-                        </button>
-
-                        <!--
-                            Menu déroulant de disponibilité
-                            - [ngStyle]="..." : styles dynamiques incluant display selon availabilityMenuOpen
-                        -->
-                        <div [ngStyle]="getAvailabilityMenuStyle()">
-                            <div style="padding: 0.75rem; color: var(--text-muted); font-size: 0.85rem; font-weight: 600; border-bottom: 1px solid var(--border); margin-bottom: 0.5rem;">
-                                CHANGER MA DISPONIBILITÉ
-                            </div>
-
-                            <!--
-                                Options de disponibilité
-                                - data-* : attributs personnalisés lus par initializeAvailabilityOptions()
-                                - La classe 'availability-option' est ciblée par le JavaScript
-                            -->
-                            <div class="availability-option"
-                                 data-status="en-service"
-                                 data-icon="🟢"
-                                 data-text="En service"
-                                 style="display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem 1rem; cursor: pointer; border-radius: 0.5rem; transition: all 0.3s; margin-bottom: 0.25rem;">
-                                <span style="font-size: 1.3rem;">🟢</span>
-                                <div style="flex: 1;">
-                                    <div style="font-weight: 600; margin-bottom: 0.15rem;">En service</div>
-                                    <div style="font-size: 0.8rem; color: var(--text-muted);">Disponible pour servir</div>
-                                </div>
-                            </div>
-
-                            <div class="availability-option"
-                                 data-status="pause"
-                                 data-icon="🟠"
-                                 data-text="En pause"
-                                 style="display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem 1rem; cursor: pointer; border-radius: 0.5rem; transition: all 0.3s; margin-bottom: 0.25rem;">
-                                <span style="font-size: 1.3rem;">🟠</span>
-                                <div style="flex: 1;">
-                                    <div style="font-weight: 600; margin-bottom: 0.15rem;">En pause</div>
-                                    <div style="font-size: 0.8rem; color: var(--text-muted);">Pause déjeuner / café</div>
-                                </div>
-                            </div>
-
-                            <div class="availability-option"
-                                 data-status="pas-service"
-                                 data-icon="⚪"
-                                 data-text="Pas en service"
-                                 style="display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem 1rem; cursor: pointer; border-radius: 0.5rem; transition: all 0.3s; margin-bottom: 0.25rem;">
-                                <span style="font-size: 1.3rem;">⚪</span>
-                                <div style="flex: 1;">
-                                    <div style="font-weight: 600; margin-bottom: 0.15rem;">Pas en service</div>
-                                    <div style="font-size: 0.8rem; color: var(--text-muted);">Fin de service</div>
-                                </div>
-                            </div>
-
-                            <div class="availability-option"
-                                 data-status="conge"
-                                 data-icon="🔵"
-                                 data-text="En congé"
-                                 style="display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem 1rem; cursor: pointer; border-radius: 0.5rem; transition: all 0.3s;">
-                                <span style="font-size: 1.3rem;">🔵</span>
-                                <div style="flex: 1;">
-                                    <div style="font-weight: 600; margin-bottom: 0.15rem;">En congé</div>
-                                    <div style="font-size: 0.8rem; color: var(--text-muted);">Vacances / Jour de repos</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Icône notifications avec badge -->
-                    <div class="header-icon">
-                        <span class="icon">🔔</span>
-                        <span class="badge">5</span>
-                    </div>
-
-                    <!-- Icône messages avec badge -->
-                    <div class="header-icon">
-                        <span class="icon">💬</span>
-                        <span class="badge">2</span>
-                    </div>
-
-                    <!-- Profil utilisateur -->
-                    <div class="user-profile">
-                        <div class="avatar">👩</div>
-                        <span class="user-name">Sophie</span>
-                    </div>
-                </div>
-            </header>
-
-            <!-- ===== INFORMATIONS DE SERVICE ===== -->
-            <!--
-                Section affichant les statistiques de la journée
-                *ngFor="let stat of stats" : boucle sur le tableau stats
-                - 'let stat' crée une variable locale pour chaque élément
-                - Angular répète le div pour chaque élément du tableau
-            -->
-            <section class="shift-info">
-                <div class="shift-content">
-                    <div class="shift-card" *ngFor="let stat of stats">
-                        <div class="stat-icon">{{ stat.icon }}</div>
-                        <div class="shift-label">{{ stat.label }}</div>
-                        <div class="shift-value">{{ stat.value }}</div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ===== PAGE: MES COMMANDES ===== -->
-            <!--
-                *ngIf="isActiveTab('orders')" : affiche ce div seulement si la condition est vraie
-                C'est l'équivalent Angular de display: none / block
-            -->
-            <div *ngIf="isActiveTab('orders')" class="page-section">
-                <!-- ===== ACTIONS RAPIDES ===== -->
-                <section class="quick-actions-section">
-                    <h3 class="section-title">Actions Rapides</h3>
-                    <div class="actions-grid">
-                        <!-- Chaque carte est cliquable et appelle navigateTo() -->
-                        <div class="action-card" (click)="navigateTo('new-order')">
-                            <div class="action-icon">➕</div>
-                            <div class="action-title">Nouvelle Commande</div>
-                            <div class="action-desc">Créer une commande pour une table</div>
-                        </div>
-
-                        <div class="action-card" (click)="navigateTo('menu')">
-                            <div class="action-icon">🍷</div>
-                            <div class="action-title">Voir le Menu</div>
-                            <div class="action-desc">Consulter tous les produits</div>
-                        </div>
-
-                        <div class="action-card" (click)="navigateTo('tables')">
-                            <div class="action-icon">📋</div>
-                            <div class="action-title">Gérer Tables</div>
-                            <div class="action-desc">Voir l'état des tables</div>
-                        </div>
-
-                        <div class="action-card">
-                            <div class="action-icon">🔔</div>
-                            <div class="action-title">Appels Clients</div>
-                            <div class="action-desc">Répondre aux demandes</div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- ===== COMMANDES EN COURS ===== -->
-                <section class="orders-section">
-                    <!--
-                        {{ ordersCount }} : affiche le nombre de commandes
-                        ordersCount est un getter dans le TypeScript
-                    -->
-                    <h3 class="section-title">Commandes en Cours ({{ ordersCount }})</h3>
-
-                    <!--
-                        Grille des commandes
-                        *ngFor="let order of orders" : boucle sur chaque commande
-                    -->
-                    <div class="orders-grid">
-                        <div class="order-card" *ngFor="let order of orders">
-                            <!-- En-tête de la commande -->
-                            <div class="order-header">
-                                <span class="order-number">Table #{{ order.table }}</span>
-                                <!--
-                                    [ngClass]="getOrderStatusClass(order.status)"
-                                    Ajoute dynamiquement une classe CSS selon le statut
-                                -->
-                                <span class="order-status" [ngClass]="getOrderStatusClass(order.status)">
-                                    {{ order.statusText }}
-                                </span>
-                            </div>
-
-                            <!-- Informations de la commande -->
-                            <div class="order-table">⏱️ Il y a {{ order.time }}</div>
-
-                            <!-- Liste des items -->
-                            <div class="order-items">
-                                <!-- Boucle sur chaque item de la commande -->
-                                <div class="order-item" *ngFor="let item of order.items">
-                                    <span>{{ item.name }}</span>
-                                    <span>{{ formatCurrency(item.price) }}</span>
-                                </div>
-                            </div>
-
-                            <!-- Total de la commande -->
-                            <div class="order-total">
-                                <span>Total:</span>
-                                <span>{{ formatCurrency(order.total) }}</span>
-                            </div>
-
-                            <!--
-                                Actions selon le statut
-                                *ngIf : affiche les boutons conditionnellement
-                            -->
-                            <div class="order-actions">
-                                <!-- Boutons pour commande "new" -->
-                                <ng-container *ngIf="order.status === 'new'">
-                                    <button class="btn btn-secondary" (click)="cancelOrder(order.table)">
-                                        Annuler
-                                    </button>
-                                    <button class="btn btn-primary" (click)="confirmOrder(order.table)">
-                                        ✓ Confirmer
-                                    </button>
-                                </ng-container>
-
-                                <!-- Boutons pour commande "preparing" -->
-                                <ng-container *ngIf="order.status === 'preparing'">
-                                    <button class="btn btn-secondary" (click)="remindOrder(order.table)">
-                                        🔔 Rappeler
-                                    </button>
-                                </ng-container>
-
-                                <!-- Boutons pour commande "ready" -->
-                                <ng-container *ngIf="order.status === 'ready'">
-                                    <button class="btn btn-primary" (click)="serveOrder(order.table)">
-                                        ✓ Servir
-                                    </button>
-                                </ng-container>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- ===== STATISTIQUES DU JOUR ===== -->
-                <section class="stats-section">
-                    <h3 class="section-title" style="text-align: center; margin-bottom: 1.5rem;">Performance du Jour</h3>
-                    <div class="stats-grid">
-                        <!-- Cartes de statistiques statiques -->
-                        <div class="stat-card">
-                            <div class="stat-icon">⭐</div>
-                            <div class="stat-value">4.8/5</div>
-                            <div class="stat-label">Note Moyenne</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">📦</div>
-                            <div class="stat-value">{{ stats[2]?.value || '0' }}</div>
-                            <div class="stat-label">Commandes Servies</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">💰</div>
-                            <div class="stat-value">{{ todayTipsTotal }}</div>
-                            <div class="stat-label">Pourboires</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">📋</div>
-                            <div class="stat-value">8</div>
-                            <div class="stat-label">Tables Assignées</div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-            <!-- ===== PAGE: NOUVELLE COMMANDE ===== -->
-            <div *ngIf="isActiveTab('new-order')" class="page-section">
-                <section style="padding: 2rem;">
-                    <!-- Bouton retour -->
-                    <button class="back-btn" (click)="navigateTo('orders')">
-                        ← Retour aux commandes
-                    </button>
-                    <h3 class="section-title">➕ Créer une Nouvelle Commande</h3>
-
-                    <!-- Formulaire de nouvelle commande -->
-                    <div style="background: var(--card); border: 1px solid var(--border); border-radius: 1rem; padding: 2rem; max-width: 800px; margin: 0 auto;">
-                        <!--
-                            Sélection de la table
-                            [(ngModel)]="selectedTable" : two-way binding
-                            - Lie la valeur du select à la propriété selectedTable
-                            - Quand l'utilisateur change la sélection, selectedTable est mise à jour
-                            - Quand selectedTable change dans le code, le select est mis à jour
-                        -->
-                        <div style="margin-bottom: 1.5rem;">
-                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">📋 Numéro de Table</label>
-                            <select [(ngModel)]="selectedTable"
-                                    style="width: 100%; padding: 0.75rem; background: var(--dark); border: 1px solid var(--border); border-radius: 0.5rem; color: var(--text); font-size: 1rem;">
-                                <option value="">Sélectionner une table...</option>
-                                <!-- Boucle sur les tables disponibles -->
-                                <option *ngFor="let table of tables" [value]="table.number">
-                                    Table #{{ table.number }} - {{ table.statusText }}
-                                </option>
-                            </select>
-                        </div>
-
-                        <!--
-                            Nombre de personnes
-                            [(ngModel)]="guestCount" : two-way binding avec un input number
-                        -->
-                        <div style="margin-bottom: 1.5rem;">
-                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">👥 Nombre de Personnes</label>
-                            <input type="number"
-                                   [(ngModel)]="guestCount"
-                                   min="1"
-                                   max="20"
-                                   style="width: 100%; padding: 0.75rem; background: var(--dark); border: 1px solid var(--border); border-radius: 0.5rem; color: var(--text); font-size: 1rem;">
-                        </div>
-
-                        <!-- Sélection des produits -->
-                        <div style="margin-bottom: 1.5rem;">
-                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">🍷 Ajouter des Produits</label>
-                            <button class="btn btn-primary" (click)="navigateTo('menu')" style="width: 100%;">
-                                Parcourir le Menu
-                            </button>
-                        </div>
-
-                        <!--
-                            Liste des produits ajoutés au panier
-                            *ngIf / *ngFor : affichage conditionnel et boucle
-                        -->
-                        <div style="margin-bottom: 1.5rem; min-height: 100px; background: var(--dark); border: 1px solid var(--border); border-radius: 0.5rem; padding: 1rem;">
-                            <!-- Message si panier vide -->
-                            <p *ngIf="orderItems.length === 0"
-                               style="color: var(--text-muted); text-align: center;">
-                                Aucun produit ajouté
-                            </p>
-
-                            <!-- Liste des produits si panier non vide -->
-                            <div *ngFor="let item of orderItems; let i = index"
-                                 style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: var(--card); border-radius: 0.5rem; margin-bottom: 0.5rem;">
-                                <div>
-                                    <div style="font-weight: 600;">{{ item.name }}</div>
-                                    <div style="color: var(--text-muted); font-size: 0.85rem;">
-                                        {{ formatCurrency(item.price) }}
-                                    </div>
-                                </div>
-                                <!--
-                                    Bouton supprimer
-                                    (click)="removeFromOrder(i)" : passe l'index i à la méthode
-                                -->
-                                <button (click)="removeFromOrder(i)"
-                                        style="background: var(--danger); color: white; border: none; padding: 0.5rem; border-radius: 0.375rem; cursor: pointer;">
-                                    ✕
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Total de la commande -->
-                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: rgba(236, 72, 153, 0.1); border-radius: 0.5rem; margin-bottom: 1.5rem;">
-                            <span style="font-size: 1.2rem; font-weight: 600;">Total:</span>
-                            <span style="font-size: 1.5rem; font-weight: 700; color: var(--primary);">
-                                {{ formatCurrency(orderTotal) }}
-                            </span>
-                        </div>
-
-                        <!-- Boutons d'action -->
-                        <div style="display: flex; gap: 1rem;">
-                            <button class="btn btn-secondary" (click)="navigateTo('orders')" style="flex: 1;">
-                                Annuler
-                            </button>
-                            <button class="btn btn-primary" (click)="createOrder()" style="flex: 2;">
-                                ✓ Créer la Commande
-                            </button>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-            <!-- ===== PAGE: MENU ===== -->
-            <div *ngIf="isActiveTab('menu')" class="page-section">
-                <section class="menu-section">
-                    <button class="back-btn" (click)="navigateTo('orders')">
-                        ← Retour aux commandes
-                    </button>
-                    <h3 class="section-title">🍷 Menu des Boissons</h3>
-
-                    <!--
-                        Catégories de produits
-                        [class.active]="isActiveCategory('all')" : ajoute la classe si catégorie active
-                    -->
-                    <div class="menu-categories">
-                        <button class="category-btn"
-                                [class.active]="isActiveCategory('all')"
-                                (click)="filterMenu('all')">
-                            Tous
-                        </button>
-                        <button class="category-btn"
-                                [class.active]="isActiveCategory('champagne')"
-                                (click)="filterMenu('champagne')">
-                            Champagne
-                        </button>
-                        <button class="category-btn"
-                                [class.active]="isActiveCategory('vin')"
-                                (click)="filterMenu('vin')">
-                            Vins
-                        </button>
-                        <button class="category-btn"
-                                [class.active]="isActiveCategory('biere')"
-                                (click)="filterMenu('biere')">
-                            Bières
-                        </button>
-                        <button class="category-btn"
-                                [class.active]="isActiveCategory('spiritueux')"
-                                (click)="filterMenu('spiritueux')">
-                            Spiritueux
-                        </button>
-                        <button class="category-btn"
-                                [class.active]="isActiveCategory('soft')"
-                                (click)="filterMenu('soft')">
-                            Soft Drinks
-                        </button>
-                    </div>
-
-                    <!--
-                        Grille des produits
-                        *ngFor="let item of filteredMenuItems" : boucle sur les produits filtrés
-                        filteredMenuItems est un getter qui retourne les produits selon la catégorie active
-                    -->
-                    <div class="menu-grid">
-                        <div class="menu-item" *ngFor="let item of filteredMenuItems">
-                            <div class="menu-item-icon">{{ item.icon }}</div>
-                            <div class="menu-item-name">{{ item.name }}</div>
-                            <div class="menu-item-desc">{{ item.desc }}</div>
-                            <div class="menu-item-footer">
-                                <span class="menu-item-price">{{ formatCurrency(item.price) }}</span>
-                                <!--
-                                    Bouton ajouter au panier
-                                    (click)="addToOrder(item.id)" : ajoute le produit au panier
-                                -->
-                                <button class="add-btn" (click)="addToOrder(item.id)">
-                                    + Ajouter
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-            <!-- ===== PAGE: POURBOIRES ===== -->
-            <div *ngIf="isActiveTab('tips')" class="page-section">
-                <section class="tips-section">
-                    <button class="back-btn" (click)="navigateTo('orders')">
-                        ← Retour aux commandes
-                    </button>
-                    <h3 class="section-title">💰 Mes Pourboires</h3>
-
-                    <!-- Résumé des pourboires -->
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
-                        <div class="stat-card">
-                            <div class="stat-icon">💵</div>
-                            <div class="stat-value">{{ todayTipsTotal }}</div>
-                            <div class="stat-label">Aujourd'hui</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">📊</div>
-                            <div class="stat-value">85 000 F</div>
-                            <div class="stat-label">Cette Semaine</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">📈</div>
-                            <div class="stat-value">320 000 F</div>
-                            <div class="stat-label">Ce Mois</div>
-                        </div>
-                    </div>
-
-                    <!-- Historique des pourboires -->
-                    <h4 style="font-size: 1.3rem; margin-bottom: 1rem;">Historique Récent</h4>
-                    <div class="tips-grid">
-                        <!-- Boucle sur chaque pourboire -->
-                        <div class="tip-card" *ngFor="let tip of tips">
-                            <div class="tip-header">
-                                <span class="tip-date">{{ tip.date }}</span>
-                                <span class="tip-amount">{{ formatCurrency(tip.amount) }}</span>
-                            </div>
-                            <div class="tip-details">
-                                📋 Table #{{ tip.table }} <br>
-                                {{ tip.details }}
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-            <!-- ===== PAGE: GÉRER LES TABLES ===== -->
-            <div *ngIf="isActiveTab('tables')" class="page-section">
-                <section style="padding: 2rem;">
-                    <button class="back-btn" (click)="navigateTo('orders')">
-                        ← Retour aux commandes
-                    </button>
-                    <h3 class="section-title">📋 Gérer les Tables</h3>
-
-                    <!-- Grille des tables -->
-                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem;">
-                        <!--
-                            Boucle sur chaque table
-                            [ngStyle]="getTableCardStyle(table.status)" : applique les styles selon le statut
-                        -->
-                        <div *ngFor="let table of tables"
-                             [ngStyle]="getTableCardStyle(table.status)">
-                            <div style="font-size: 3rem; margin-bottom: 0.5rem;">📋</div>
-                            <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">
-                                Table #{{ table.number }}
-                            </div>
-                            <div style="padding: 0.5rem 1rem; background: rgba(0,0,0,0.2); border-radius: 0.5rem; display: inline-block; font-weight: 600; margin-bottom: 0.5rem;">
-                                {{ table.statusText }}
-                            </div>
-                            <!--
-                                Affiche le nombre de personnes seulement si la table est occupée
-                                *ngIf="table.status === 'occupied'" : condition d'affichage
-                            -->
-                            <div *ngIf="table.status === 'occupied'"
-                                 style="color: var(--text-muted); font-size: 0.9rem;">
-                                👥 {{ table.guests }} personne(s)
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-            <!-- ===== PAGE: HISTORIQUE DES VENTES ===== -->
-            <div *ngIf="isActiveTab('history')" class="page-section">
-                <section style="padding: 2rem;">
-                    <button class="back-btn" (click)="navigateTo('orders')">
-                        ← Retour aux commandes
-                    </button>
-                    <h3 class="section-title">📊 Historique des Ventes</h3>
-
-                    <!-- Filtres par date -->
-                    <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
-                        <button class="category-btn"
-                                [class.active]="isActivePeriod('today')"
-                                (click)="filterHistory('today')">
-                            Aujourd'hui
-                        </button>
-                        <button class="category-btn"
-                                [class.active]="isActivePeriod('week')"
-                                (click)="filterHistory('week')">
-                            Cette Semaine
-                        </button>
-                        <button class="category-btn"
-                                [class.active]="isActivePeriod('month')"
-                                (click)="filterHistory('month')">
-                            Ce Mois
-                        </button>
-                        <button class="category-btn"
-                                [class.active]="isActivePeriod('all')"
-                                (click)="filterHistory('all')">
-                            Tout
-                        </button>
-                    </div>
-
-                    <!-- Statistiques résumées -->
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
-                        <div class="stat-card">
-                            <div class="stat-icon">💰</div>
-                            <div class="stat-value">{{ historyTotal }}</div>
-                            <div class="stat-label">Total Ventes</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">📦</div>
-                            <div class="stat-value">{{ historyOrdersCount }}</div>
-                            <div class="stat-label">Commandes</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">📈</div>
-                            <div class="stat-value">{{ historyAverage }}</div>
-                            <div class="stat-label">Moyenne/Commande</div>
-                        </div>
-                    </div>
-
-                    <!-- Liste des ventes -->
-                    <div style="background: var(--card); border: 1px solid var(--border); border-radius: 1rem; overflow: hidden;">
-                        <div style="padding: 1.5rem; border-bottom: 1px solid var(--border);">
-                            <h4 style="font-size: 1.2rem;">Détail des Ventes</h4>
-                        </div>
-
-                        <!-- Boucle sur chaque vente -->
-                        <div *ngFor="let sale of filteredHistory">
-                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border);">
-                                <div style="flex: 1;">
-                                    <div style="font-weight: 600; margin-bottom: 0.25rem;">
-                                        Table #{{ sale.table }}
-                                    </div>
-                                    <div style="color: var(--text-muted); font-size: 0.85rem;">
-                                        {{ sale.time }} • {{ sale.items }} articles
-                                    </div>
-                                </div>
-                                <div style="text-align: right;">
-                                    <div style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">
-                                        {{ formatCurrency(sale.amount) }}
-                                    </div>
-                                    <div style="color: var(--success); font-size: 0.85rem; font-weight: 600;">
-                                        ✓ {{ sale.status }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-            <!-- ===== BOUTON DE STATUT FLOTTANT ===== -->
-            <!-- Bouton fixe en bas à droite pour changer le statut rapidement -->
-            <div style="position: fixed; bottom: 2rem; right: 2rem; z-index: 1000;" class="status-menu-container">
-                <button (click)="toggleStatusMenu($event)"
-                        style="width: 60px; height: 60px; border-radius: 50%; background: var(--primary); border: none; color: white; font-size: 1.5rem; cursor: pointer; box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4); transition: all 0.3s;">
-                    <span>{{ availabilityIcon }}</span>
-                </button>
-
-                <!-- Menu de sélection du statut -->
-                <div [ngStyle]="getStatusMenuStyle()">
-                    <h4 style="margin-bottom: 1rem; font-size: 1rem;">Changer mon statut</h4>
-
-                    <div (click)="changeAvailability('en-service', '🟢', 'En service')"
-                         style="padding: 0.75rem; cursor: pointer; border-radius: 0.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s;">
-                        <span>🟢</span>
-                        <span>En service</span>
-                    </div>
-
-                    <div (click)="changeAvailability('pause', '🟠', 'En pause')"
-                         style="padding: 0.75rem; cursor: pointer; border-radius: 0.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s;">
-                        <span>🟠</span>
-                        <span>En pause</span>
-                    </div>
-
-                    <div (click)="changeAvailability('pas-service', '⚪', 'Pas en service')"
-                         style="padding: 0.75rem; cursor: pointer; border-radius: 0.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s;">
-                        <span>⚪</span>
-                        <span>Pas en service</span>
-                    </div>
-
-                    <div (click)="changeAvailability('conge', '🔵', 'En congé')"
-                         style="padding: 0.75rem; cursor: pointer; border-radius: 0.5rem; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s;">
-                        <span>🔵</span>
-                        <span>En congé</span>
-                    </div>
-                </div>
-            </div>
-        </main>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-container">
+        <i class="icon wine-icon"></i>
+        <span class="logo-text" *ngIf="!sidebarCollapsed">WineFlow</span>
+      </div>
+      <span class="user-role" *ngIf="!sidebarCollapsed">Serveur</span>
     </div>
-</body>
+
+    <!-- Statut de présence -->
+    <div class="presence-indicator" *ngIf="!sidebarCollapsed">
+      <button
+        class="presence-btn"
+        [class.active]="isPresent"
+        (click)="togglePresence()">
+        <i class="icon" [class.check-circle]="isPresent" [class.x-circle]="!isPresent"></i>
+        <span>{{ isPresent ? 'En Service' : 'Hors Service' }}</span>
+      </button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sidebar-nav">
+      <a
+        *ngFor="let item of menuItems"
+        [routerLink]="item.path"
+        class="nav-item"
+        [class.active]="isActive(item.path)"
+        [title]="item.label">
+        <i class="icon" [class]="'icon-' + item.icon"></i>
+        <span class="nav-label" *ngIf="!sidebarCollapsed">{{ item.label }}</span>
+        <span class="badge" *ngIf="item.badge && item.badge > 0">{{ item.badge }}</span>
+      </a>
+    </nav>
+
+    <!-- Footer Sidebar -->
+    <div class="sidebar-footer">
+      <button class="sidebar-toggle" (click)="toggleSidebar()" title="Réduire/Agrandir">
+        <i class="icon" [class.chevron-left]="!sidebarCollapsed" [class.chevron-right]="sidebarCollapsed"></i>
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-wrapper">
+
+    <!-- HEADER -->
+    <header class="top-header">
+      <div class="header-left">
+        <button class="menu-toggle" (click)="toggleSidebar()">
+          <i class="icon menu-icon"></i>
+        </button>
+        <h1 class="page-title">{{ currentUser?.name || 'Serveur' }}</h1>
+      </div>
+
+      <div class="header-right">
+        <!-- Notifications -->
+        <button class="icon-btn notification-btn">
+          <i class="icon bell-icon"></i>
+          <span class="notification-badge">3</span>
+        </button>
+
+        <!-- Theme Toggle -->
+        <button class="icon-btn theme-btn" (click)="toggleTheme()" [title]="'Thème: ' + currentTheme">
+          <i class="icon" [class]="'icon-' + getThemeIcon()"></i>
+        </button>
+
+        <!-- User Menu -->
+        <div class="user-menu">
+          <div class="user-avatar">
+            {{ (currentUser?.name || 'S')[0] }}
+          </div>
+          <div class="user-info">
+            <span class="user-name">{{ currentUser?.name || 'Serveur' }}</span>
+            <span class="user-status" [class.online]="isPresent">
+              {{ isPresent ? 'En service' : 'Hors service' }}
+            </span>
+          </div>
+          <!--<button class="logout-btn" (click)="logout()" title="Déconnexion">
+            <i class="icon log-out-icon"></i>
+          </button> -->
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTENT AREA -->
+    <main class="content-area">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+
+</div>

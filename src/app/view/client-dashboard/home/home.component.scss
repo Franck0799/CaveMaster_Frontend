@@ -1,0 +1,436 @@
+// ==========================================
+// FICHIER: src/app/client/home/home.component.scss
+// DESCRIPTION: Styles de la page d'accueil client
+// ==========================================
+
+.home-container {
+  min-height: 100vh;
+  background: var(--dark-bg);
+}
+
+// ========================================
+// HERO SECTION
+// ========================================
+.hero-section {
+  position: relative;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+  padding: 6rem 2rem;
+  text-align: center;
+  color: white;
+}
+
+.hero-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.8s ease;
+
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+  }
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  color: rgba(255, 255, 255, 0.9);
+  animation: fadeInUp 0.8s ease 0.2s both;
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
+}
+
+.btn-primary {
+  background: #f59e0b;
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 9999px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 25px rgba(245, 158, 11, 0.3);
+  animation: fadeInUp 0.8s ease 0.4s both;
+
+  &:hover {
+    background: #d97706;
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(245, 158, 11, 0.4);
+  }
+
+  &.btn-large {
+    padding: 1.25rem 2.5rem;
+    font-size: 1.25rem;
+  }
+}
+
+// ========================================
+// SECTIONS
+// ========================================
+.section-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+
+.section-highlight {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);
+  padding: 3rem 1rem;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  .icon {
+    font-size: 2rem;
+  }
+}
+
+.section-footer {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.btn-text {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: var(--primary-light);
+    gap: 0.75rem;
+  }
+
+  .icon-arrow {
+    transition: transform 0.3s ease;
+  }
+
+  &:hover .icon-arrow {
+    transform: translateX(4px);
+  }
+}
+
+// ========================================
+// WINES GRID
+// ========================================
+.wines-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.wine-card {
+  background: var(--card-bg);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+  }
+}
+
+.wine-image-container {
+  position: relative;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(239, 68, 68, 0.1) 100%);
+  padding: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 220px;
+}
+
+.wine-emoji {
+  font-size: 8rem;
+}
+
+.btn-favorite {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .icon-heart {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #94a3b8;
+  }
+
+  &.active .icon-heart {
+    color: #ef4444;
+  }
+}
+
+.wine-info {
+  padding: 1.5rem;
+}
+
+.wine-name {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.wine-details {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.wine-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wine-price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.wine-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: #f59e0b;
+
+  .star {
+    font-size: 1rem;
+  }
+
+  .rating-value {
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+}
+
+// ========================================
+// WINES GRID SMALL (pour nouveautés)
+// ========================================
+.wines-grid-small {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.wine-card-small {
+  background: var(--card-bg);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  gap: 1rem;
+
+  &:hover {
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-4px);
+  }
+}
+
+.wine-emoji-small {
+  font-size: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(239, 68, 68, 0.1) 100%);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  min-width: 100px;
+  height: 100px;
+}
+
+.wine-info-small {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.wine-name-small {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.wine-region-small {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: auto;
+}
+
+.wine-footer-small {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.wine-price-small {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.btn-add {
+  background: #f59e0b;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: #d97706;
+    transform: translateY(-2px);
+  }
+}
+
+// ========================================
+// CAVES GRID
+// ========================================
+.caves-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.cave-card {
+  background: var(--card-bg);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-4px);
+  }
+}
+
+.cave-emoji {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.cave-name {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.cave-location {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.cave-specialty {
+  font-size: 0.875rem;
+  color: #f59e0b;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.cave-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+
+  .icon {
+    font-size: 1rem;
+  }
+}
+
+// ========================================
+// ANIMATIONS
+// ========================================
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ========================================
+// RESPONSIVE
+// ========================================
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 4rem 1rem;
+  }
+
+  .section-container {
+    padding: 2rem 1rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .wines-grid,
+  .wines-grid-small,
+  .caves-grid {
+    grid-template-columns: 1fr;
+  }
+}

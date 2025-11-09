@@ -1,0 +1,351 @@
+<!-- ==========================================
+FICHIER: src/app/server/profile/profile.component.html
+DESCRIPTION: Profil personnel du serveur
+========================================== -->
+
+<div class="profile-page">
+
+  <!-- Header -->
+  <div class="page-header">
+    <div class="header-left">
+      <h1 class="page-title">👤 Mon Profil</h1>
+      <p class="page-subtitle">Informations personnelles et statistiques</p>
+    </div>
+    <div class="header-right">
+      <button
+        class="btn-edit"
+        *ngIf="!editMode"
+        (click)="toggleEditMode()">
+        <i class="icon edit-icon"></i>
+        Modifier
+      </button>
+      <button
+        class="btn-cancel"
+        *ngIf="editMode"
+        (click)="toggleEditMode()">
+        <i class="icon x-icon"></i>
+        Annuler
+      </button>
+      <button
+        class="btn-save"
+        *ngIf="editMode"
+        (click)="saveProfile()">
+        <i class="icon save-icon"></i>
+        Enregistrer
+      </button>
+    </div>
+  </div>
+
+  <div class="profile-layout">
+
+    <!-- LEFT COLUMN -->
+    <div class="left-column">
+
+      <!-- Profile Card -->
+      <div class="profile-card">
+        <div class="avatar-section">
+          <div class="avatar-wrapper">
+            <div class="avatar" *ngIf="!editedUser.avatar">
+              {{ (user.firstName || 'S')[0] }}{{ (user.lastName || '')[0] }}
+            </div>
+            <img *ngIf="editedUser.avatar" [src]="editedUser.avatar" alt="Avatar" class="avatar-image">
+            <button class="btn-change-avatar" *ngIf="editMode" (click)="uploadAvatar()">
+              <i class="icon camera-icon"></i>
+            </button>
+          </div>
+          <div class="profile-name">
+            <h2>{{ user.firstName }} {{ user.lastName }}</h2>
+            <span class="profile-role">{{ user.role }}</span>
+          </div>
+        </div>
+
+        <div class="profile-meta">
+          <div class="meta-item">
+            <i class="icon briefcase-icon"></i>
+            <div class="meta-content">
+              <span class="meta-label">Ancienneté</span>
+              <span class="meta-value">{{ getExperienceDuration() }}</span>
+            </div>
+          </div>
+          <div class="meta-item">
+            <i class="icon calendar-icon"></i>
+            <div class="meta-content">
+              <span class="meta-label">Date d'embauche</span>
+              <span class="meta-value">{{ user.hireDate | date:'dd/MM/yyyy' }}</span>
+            </div>
+          </div>
+          <div class="meta-item" *ngIf="user.birthDate">
+            <i class="icon cake-icon"></i>
+            <div class="meta-content">
+              <span class="meta-label">Âge</span>
+              <span class="meta-value">{{ getAge() }} ans</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Personal Info -->
+      <div class="info-card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="icon user-icon"></i>
+            Informations personnelles
+          </h3>
+        </div>
+
+        <div class="info-content">
+          <div class="info-group">
+            <label>Prénom</label>
+            <input
+              *ngIf="editMode"
+              type="text"
+              [(ngModel)]="editedUser.firstName"
+              placeholder="Prénom">
+            <span *ngIf="!editMode">{{ user.firstName }}</span>
+          </div>
+
+          <div class="info-group">
+            <label>Nom</label>
+            <input
+              *ngIf="editMode"
+              type="text"
+              [(ngModel)]="editedUser.lastName"
+              placeholder="Nom">
+            <span *ngIf="!editMode">{{ user.lastName }}</span>
+          </div>
+
+          <div class="info-group">
+            <label>Email</label>
+            <input
+              *ngIf="editMode"
+              type="email"
+              [(ngModel)]="editedUser.email"
+              placeholder="Email">
+            <span *ngIf="!editMode">{{ user.email }}</span>
+          </div>
+
+          <div class="info-group">
+            <label>Téléphone</label>
+            <input
+              *ngIf="editMode"
+              type="tel"
+              [(ngModel)]="editedUser.phone"
+              placeholder="Téléphone">
+            <span *ngIf="!editMode">{{ user.phone }}</span>
+          </div>
+
+          <div class="info-group">
+            <label>Date de naissance</label>
+            <input
+              *ngIf="editMode"
+              type="date"
+              [(ngModel)]="editedUser.birthDate">
+            <span *ngIf="!editMode">{{ user.birthDate | date:'dd/MM/yyyy' }}</span>
+          </div>
+
+          <div class="info-group">
+            <label>Adresse</label>
+            <textarea
+              *ngIf="editMode"
+              [(ngModel)]="editedUser.address"
+              rows="3"
+              placeholder="Adresse complète"></textarea>
+            <span *ngIf="!editMode">{{ user.address }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Emergency Contact -->
+      <div class="info-card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="icon phone-icon"></i>
+            Contact d'urgence
+          </h3>
+        </div>
+
+        <div class="info-content" *ngIf="user.emergencyContact">
+          <div class="info-group">
+            <label>Nom</label>
+            <input
+              *ngIf="editMode"
+              type="text"
+              [(ngModel)]="editedUser.emergencyContact!.name"
+              placeholder="Nom du contact">
+            <span *ngIf="!editMode">{{ user.emergencyContact.name }}</span>
+          </div>
+
+          <div class="info-group">
+            <label>Téléphone</label>
+            <input
+              *ngIf="editMode"
+              type="tel"
+              [(ngModel)]="editedUser.emergencyContact!.phone"
+              placeholder="Numéro de téléphone">
+            <span *ngIf="!editMode">{{ user.emergencyContact.phone }}</span>
+          </div>
+
+          <div class="info-group">
+            <label>Relation</label>
+            <input
+              *ngIf="editMode"
+              type="text"
+              [(ngModel)]="editedUser.emergencyContact!.relationship"
+              placeholder="Lien de parenté">
+            <span *ngIf="!editMode">{{ user.emergencyContact.relationship }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Security -->
+      <div class="info-card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="icon lock-icon"></i>
+            Sécurité
+          </h3>
+        </div>
+
+        <div class="security-content">
+          <button class="btn-change-password" (click)="openPasswordModal()">
+            <i class="icon key-icon"></i>
+            <div>
+              <span class="btn-title">Changer le mot de passe</span>
+              <span class="btn-description">Modifiez votre mot de passe de connexion</span>
+            </div>
+            <i class="icon chevron-right-icon"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="right-column">
+
+      <!-- Statistics -->
+      <div class="stats-card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="icon bar-chart-icon"></i>
+            Mes statistiques
+          </h3>
+        </div>
+
+        <div class="stats-grid">
+          <div
+            *ngFor="let stat of statistics"
+            class="stat-item"
+            [class]="'stat-' + stat.color">
+            <div class="stat-icon">
+              <i class="icon" [class]="'icon-' + stat.icon"></i>
+            </div>
+            <div class="stat-content">
+              <span class="stat-value">{{ stat.value }}</span>
+              <span class="stat-label">{{ stat.label }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Achievements -->
+      <div class="achievements-card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="icon trophy-icon"></i>
+            Mes achievements
+          </h3>
+          <span class="achievement-count">{{ achievements.length }}</span>
+        </div>
+
+        <div class="achievements-list">
+          <div
+            *ngFor="let achievement of achievements"
+            class="achievement-item"
+            [class]="'rarity-' + achievement.rarity">
+
+            <div class="achievement-icon" [style.color]="getRarityColor(achievement.rarity)">
+              <i class="icon" [class]="'icon-' + achievement.icon"></i>
+            </div>
+
+            <div class="achievement-content">
+              <div class="achievement-header">
+                <h4 class="achievement-title">{{ achievement.title }}</h4>
+                <span
+                  class="rarity-badge"
+                  [style.background-color]="getRarityColor(achievement.rarity)">
+                  {{ getRarityLabel(achievement.rarity) }}
+                </span>
+              </div>
+              <p class="achievement-description">{{ achievement.description }}</p>
+              <span class="achievement-date">
+                <i class="icon calendar-icon"></i>
+                Obtenu le {{ formatDate(achievement.earnedDate) }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Password Modal -->
+<div class="modal-overlay" *ngIf="showPasswordModal" (click)="closePasswordModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">Changer le mot de passe</h2>
+      <button class="btn-close-modal" (click)="closePasswordModal()">
+        <i class="icon x-icon"></i>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <form class="password-form">
+        <div class="form-group">
+          <label>Mot de passe actuel</label>
+          <input
+            type="password"
+            [(ngModel)]="passwordForm.currentPassword"
+            name="currentPassword"
+            placeholder="Entrez votre mot de passe actuel"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label>Nouveau mot de passe</label>
+          <input
+            type="password"
+            [(ngModel)]="passwordForm.newPassword"
+            name="newPassword"
+            placeholder="Entrez un nouveau mot de passe"
+            required>
+          <span class="form-hint">Au moins 8 caractères</span>
+        </div>
+
+        <div class="form-group">
+          <label>Confirmer le mot de passe</label>
+          <input
+            type="password"
+            [(ngModel)]="passwordForm.confirmPassword"
+            name="confirmPassword"
+            placeholder="Confirmez votre nouveau mot de passe"
+            required>
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-modal-cancel" (click)="closePasswordModal()">
+        Annuler
+      </button>
+      <button class="btn-modal-confirm" (click)="changePassword()">
+        <i class="icon check-icon"></i>
+        Changer le mot de passe
+      </button>
+    </div>
+  </div>
+</div>

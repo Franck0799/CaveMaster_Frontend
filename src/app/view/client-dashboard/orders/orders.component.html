@@ -1,0 +1,75 @@
+<!-- ==========================================
+     FICHIER: src/app/client/orders/orders.component.html
+     DESCRIPTION: Template de la page des commandes
+     ========================================== -->
+
+<div class="orders-container">
+
+  <!-- Header -->
+  <div class="page-header">
+    <h1 class="page-title">
+      <span class="icon">🛒</span>
+      Mes Commandes
+    </h1>
+    <p class="page-subtitle">Suivez l'état de vos commandes en temps réel</p>
+  </div>
+
+  <!-- Liste des commandes -->
+  <div class="orders-list">
+    <div class="order-card"
+     *ngFor="let order of orders"
+     [routerLink]="['/client/order-detail', order.id]"
+     style="cursor: pointer;">
+
+      <!-- Icône du produit -->
+      <div class="order-icon">
+        <span class="product-emoji">{{ order.icon }}</span>
+      </div>
+
+      <!-- Informations de la commande -->
+      <div class="order-info">
+        <h3 class="order-name">{{ order.name }}</h3>
+        <p class="order-details">Commande #{{ order.id }} • {{ order.bottles }} bouteille{{ order.bottles > 1 ? 's' : '' }}</p>
+        <div class="order-meta">
+          <span class="order-date">
+            <span class="meta-icon">📅</span>
+            {{ order.date }}
+          </span>
+          <span class="order-status" [ngClass]="getStatusClass(order.status)">
+            {{ order.status }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Prix -->
+      <div class="order-price">
+        <span class="price-amount">{{ order.price }}</span>
+      </div>
+
+      <!-- Actions -->
+      <div class="order-actions">
+        <button class="btn-action btn-reorder"
+                *ngIf="order.status === 'LIVRÉ'"
+                (click)="reorder(order, $event)">
+          RACHETER
+        </button>
+        <button class="btn-action btn-track"
+                *ngIf="order.status === 'EN PRÉPARATION'"
+                (click)="trackOrder(order, $event)">
+          SUIVRE
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Message si aucune commande -->
+  <div class="empty-state" *ngIf="orders.length === 0">
+    <div class="empty-icon">🛍️</div>
+    <h3 class="empty-title">Aucune commande</h3>
+    <p class="empty-text">Vous n'avez pas encore passé de commande</p>
+    <button class="btn-primary" routerLink="/client/catalogue">
+      Découvrir nos vins
+    </button>
+  </div>
+
+</div>

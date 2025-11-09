@@ -1,0 +1,184 @@
+<!-- ==========================================
+FICHIER: src/app/server/home/home.component.html
+DESCRIPTION: Template du dashboard serveur
+VERSION: Complète avec toutes les fonctionnalités
+========================================== -->
+
+<div class="server-home">
+
+  <!-- Header -->
+  <div class="page-header">
+    <div class="header-content">
+      <h1 class="page-title">Bonjour, {{ serverName }} 👋</h1>
+      <p class="page-subtitle">{{ currentDate | date: 'EEEE d MMMM yyyy' }}</p>
+    </div>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="stats-grid">
+    <div
+      *ngFor="let stat of dailyStats"
+      class="stat-card"
+      [class]="'stat-' + stat.color">
+      <div class="stat-icon">
+        <i class="icon" [class]="'icon-' + stat.icon"></i>
+      </div>
+      <div class="stat-content">
+        <span class="stat-label">{{ stat.label }}</span>
+        <div class="stat-value-row">
+          <h3 class="stat-value">{{ stat.value }}</h3>
+          <span class="stat-change" *ngIf="stat.change" [class.positive]="stat.trend === 'up'">
+            <i class="icon" [class.arrow-up]="stat.trend === 'up'" [class.arrow-down]="stat.trend === 'down'"></i>
+            {{ stat.change }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-grid">
+
+    <!-- Left Column -->
+    <div class="left-column">
+
+      <!-- Objectives Section -->
+      <div class="section-card objectives-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <i class="icon target-icon"></i>
+            Mes Objectifs du Jour
+          </h2>
+        </div>
+        <div class="objectives-list">
+          <div *ngFor="let objective of objectives" class="objective-item">
+            <div class="objective-header">
+              <div class="objective-info">
+                <i class="icon" [class]="'icon-' + objective.icon"></i>
+                <span class="objective-title">{{ objective.title }}</span>
+              </div>
+              <span class="objective-values">
+                {{ objective.current }} / {{ objective.target }} {{ objective.unit }}
+              </span>
+            </div>
+            <div class="progress-bar">
+              <div
+                class="progress-fill"
+                [class]="'progress-' + objective.color"
+                [style.width.%]="getObjectivePercentage(objective)">
+              </div>
+            </div>
+            <span class="progress-percentage">
+              {{ getObjectivePercentage(objective) | number:'1.0-0' }}% atteint
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Active Tables -->
+      <div class="section-card tables-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <i class="icon grid-icon"></i>
+            Mes Tables Actives
+          </h2>
+          <span class="table-count">{{ activeTables.length }}</span>
+        </div>
+        <div class="tables-list">
+          <div
+            *ngFor="let table of activeTables"
+            class="table-item"
+            (click)="goToTable(table)">
+            <div class="table-header">
+              <div class="table-info">
+                <h3 class="table-number">{{ table.number }}</h3>
+                <span class="table-seats">{{ table.seats }} places</span>
+              </div>
+              <span class="table-status" [class]="'status-' + getStatusColor(table.status)">
+                {{ getStatusLabel(table.status) }}
+              </span>
+            </div>
+            <div class="table-details">
+              <div class="detail-item">
+                <i class="icon clock-icon"></i>
+                <span>{{ getElapsedTime(table.orderTime) }}</span>
+              </div>
+              <div class="detail-item" *ngIf="table.amount > 0">
+                <i class="icon dollar-sign-icon"></i>
+                <span>{{ table.amount | number:'1.2-2' }} €</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="btn-view-all">
+          Voir toutes les tables
+          <i class="icon arrow-right-icon"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Right Column -->
+    <div class="right-column">
+
+      <!-- Notifications -->
+      <div class="section-card notifications-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <i class="icon bell-icon"></i>
+            Notifications
+          </h2>
+          <span class="notification-badge">{{ notifications.length }}</span>
+        </div>
+        <div class="notifications-list">
+          <div
+            *ngFor="let notification of notifications"
+            class="notification-item"
+            [class]="'priority-' + notification.priority">
+            <div class="notification-icon" [class]="'icon-' + notification.type">
+              <i class="icon" [class]="'icon-' + getNotificationIcon(notification.type)"></i>
+            </div>
+            <div class="notification-content">
+              <p class="notification-message">{{ notification.message }}</p>
+              <span class="notification-time">Il y a {{ getElapsedTime(notification.time) }}</span>
+            </div>
+            <button
+              class="notification-dismiss"
+              (click)="dismissNotification(notification)"
+              title="Marquer comme lu">
+              <i class="icon x-icon"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="section-card quick-actions-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <i class="icon zap-icon"></i>
+            Actions Rapides
+          </h2>
+        </div>
+        <div class="actions-grid">
+          <button class="action-btn" routerLink="/server/tables">
+            <i class="icon grid-icon"></i>
+            <span>Nouvelle Table</span>
+          </button>
+          <button class="action-btn" routerLink="/server/orders">
+            <i class="icon clipboard-icon"></i>
+            <span>Prendre Commande</span>
+          </button>
+          <button class="action-btn" routerLink="/server/billing">
+            <i class="icon credit-card-icon"></i>
+            <span>Encaisser</span>
+          </button>
+          <button class="action-btn" routerLink="/server/wine-suggestions">
+            <i class="icon wine-icon"></i>
+            <span>Suggestions Vins</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

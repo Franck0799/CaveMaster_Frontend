@@ -1,0 +1,116 @@
+<!-- ==========================================
+     FICHIER: src/app/client/home/home.component.html
+     DESCRIPTION: Template de la page d'accueil client
+     ========================================== -->
+
+<div class="home-container">
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">Découvrez l'Excellence du Vin</h1>
+      <p class="hero-subtitle">Les meilleures caves et les meilleurs crus à portée de clic</p>
+      <button class="btn-primary btn-large" routerLink="/client/catalogue">
+        Explorer le Catalogue
+      </button>
+    </div>
+  </section>
+
+  <!-- Section Promotions -->
+  <section class="section-container">
+    <div class="section-header">
+      <h2 class="section-title">
+        <span class="icon">📈</span>
+        Promotions du Moment
+      </h2>
+    </div>
+
+    <div class="wines-grid">
+      <div class="wine-card"
+     *ngFor="let wine of promotions"
+     [routerLink]="['/client/wine-detail', wine.id]"
+     style="cursor: pointer;">
+        <div class="wine-image-container">
+          <span class="wine-emoji">{{ wine.image }}</span>
+          <button class="btn-favorite" (click)="toggleFavorite(wine, $event)">
+            <i class="icon-heart"></i>
+          </button>
+        </div>
+        <div class="wine-info">
+          <h3 class="wine-name">{{ wine.name }}</h3>
+          <p class="wine-details">{{ wine.region }} • {{ wine.year }}</p>
+          <div class="wine-footer">
+            <span class="wine-price">{{ wine.price }}€</span>
+            <div class="wine-rating">
+              <span class="star">⭐</span>
+              <span class="rating-value">{{ wine.rating }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Caves Partenaires -->
+  <section class="section-container">
+    <div class="section-header">
+      <h2 class="section-title">
+        <span class="icon">📍</span>
+        Caves Partenaires
+      </h2>
+    </div>
+
+    <div class="caves-grid">
+      <div class="cave-card"
+           *ngFor="let cave of caves"
+           [routerLink]="['/client/caves']"
+           style="cursor: pointer;">
+        <div class="cave-emoji">{{ cave.image }}</div>
+        <h3 class="cave-name">{{ cave.name }}</h3>
+        <p class="cave-location">{{ cave.location }}</p>
+        <p class="cave-specialty">{{ cave.specialty }}</p>
+        <div class="cave-stats">
+          <span class="icon">🍷</span>
+          <span>{{ cave.wines }} vins</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-footer">
+      <a class="btn-text" routerLink="/client/caves">
+        Voir toutes les caves
+        <span class="icon-arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Section Nouveautés -->
+  <section class="section-container section-highlight">
+    <div class="section-header">
+      <h2 class="section-title">
+        <span class="icon">🎁</span>
+        Nouveautés
+      </h2>
+    </div>
+
+    <div class="wines-grid-small">
+      <div class="wine-card-small"
+     *ngFor="let wine of newWines"
+     [routerLink]="['/client/wine-detail', wine.id]"
+     style="cursor: pointer;">
+        <div class="wine-emoji-small">{{ wine.image }}</div>
+        <div class="wine-info-small">
+          <h3 class="wine-name-small">{{ wine.name }}</h3>
+          <p class="wine-region-small">{{ wine.region }}</p>
+          <div class="wine-footer-small">
+            <span class="wine-price-small">{{ wine.price }}€</span>
+            <button class="btn-add" (click)="addToCart(wine, $event)">
+              Ajouter
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>

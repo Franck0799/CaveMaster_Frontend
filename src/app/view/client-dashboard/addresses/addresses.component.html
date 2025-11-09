@@ -1,0 +1,84 @@
+<!-- ==========================================
+     FICHIER: src/app/client/addresses/addresses.component.html
+     DESCRIPTION: Template de la page des adresses
+     ========================================== -->
+
+<div class="addresses-container">
+
+  <!-- Header -->
+  <div class="page-header">
+    <div class="header-content">
+      <h1 class="page-title">
+        <span class="icon">📍</span>
+        Mes Adresses
+      </h1>
+      <p class="page-subtitle">Gérez vos adresses de livraison</p>
+    </div>
+    <button class="btn-add-address" (click)="openAddModal()">
+      <span class="btn-icon">+</span>
+      AJOUTER UNE ADRESSE
+    </button>
+  </div>
+
+  <!-- Liste des adresses - Layout horizontal en grille -->
+  <div class="addresses-grid">
+    <div class="address-card"
+         *ngFor="let address of addresses"
+         [ngClass]="getCardClass(address)"
+         (click)="setAsDefault(address)">
+
+      <!-- Header de la carte -->
+      <div class="card-header">
+        <div class="address-type" [ngClass]="getTypeClass(address.type)">
+          <span class="type-icon">{{ address.icon }}</span>
+          <span class="type-label">{{ address.type }}</span>
+        </div>
+        <span class="default-badge" *ngIf="address.isDefault">Par défaut</span>
+      </div>
+
+      <!-- Contenu de l'adresse -->
+      <div class="address-content">
+        <h3 class="address-name">{{ address.name }}</h3>
+        <p class="address-line">{{ address.street }}</p>
+        <p class="address-line" *ngIf="address.complement">{{ address.complement }}</p>
+        <p class="address-line">{{ address.city }}</p>
+        <div class="address-contact">
+          <span class="contact-icon">📞</span>
+          <span class="contact-phone">{{ address.phone }}</span>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="card-actions">
+        <button class="btn-edit" (click)="editAddress(address, $event)">
+          <span class="action-icon">✏️</span>
+          MODIFIER
+        </button>
+        <button class="btn-delete" (click)="deleteAddress(address, $event)">
+          <span class="action-icon">🗑️</span>
+          SUPPRIMER
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Message si aucune adresse -->
+  <div class="empty-state" *ngIf="addresses.length === 0">
+    <div class="empty-icon">📍</div>
+    <h3 class="empty-title">Aucune adresse enregistrée</h3>
+    <p class="empty-text">Ajoutez votre première adresse de livraison</p>
+    <button class="btn-primary" (click)="openAddModal()">
+      Ajouter une adresse
+    </button>
+  </div>
+
+</div>
+
+<!-- Modal d'ajout (simplifié pour l'exemple) -->
+<div class="modal-overlay" *ngIf="showAddModal" (click)="closeAddModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2>Ajouter une adresse</h2>
+    <p>Formulaire d'ajout d'adresse...</p>
+    <button class="btn-primary" (click)="closeAddModal()">Fermer</button>
+  </div>
+</div>

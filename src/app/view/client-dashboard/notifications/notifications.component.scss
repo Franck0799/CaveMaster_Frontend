@@ -1,0 +1,330 @@
+// ==========================================
+// FICHIER: src/app/client/notifications/notifications.component.scss
+// DESCRIPTION: Styles de la page des notifications
+// ==========================================
+
+.notifications-container {
+  min-height: 100vh;
+  background: var(--dark-bg);
+  padding: 2rem;
+}
+
+// ========================================
+// PAGE HEADER
+// ========================================
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.header-content {
+  flex: 1;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+
+  .icon {
+    font-size: 2.5rem;
+  }
+
+  .badge {
+    background: #ef4444;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+}
+
+.page-subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+.btn-mark-all {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.875rem 1.75rem;
+  border-radius: 0.5rem;
+  font-weight: 700;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  .btn-icon {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  &:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+// ========================================
+// NOTIFICATIONS LIST
+// ========================================
+.notifications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 1000px;
+}
+
+.notification-card {
+  background: var(--card-bg);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-left: 4px solid transparent;
+
+  // Layout horizontal
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1.5rem;
+  align-items: start;
+
+  &:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateX(4px);
+  }
+
+  &.unread {
+    background: linear-gradient(90deg, rgba(99, 102, 241, 0.05) 0%, var(--card-bg) 100%);
+    border-left-color: var(--primary);
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+  }
+}
+
+// Types de notifications - Couleurs de bordure
+.notification-reward {
+  &.unread {
+    border-left-color: #8b5cf6;
+  }
+}
+
+.notification-delivery {
+  &.unread {
+    border-left-color: #10b981;
+  }
+}
+
+.notification-promo {
+  &.unread {
+    border-left-color: #f59e0b;
+  }
+}
+
+.notification-payment {
+  &.unread {
+    border-left-color: #3b82f6;
+  }
+}
+
+.notification-level {
+  &.unread {
+    border-left-color: #ec4899;
+  }
+}
+
+// ========================================
+// NOTIFICATION ICON
+// ========================================
+.notification-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  flex-shrink: 0;
+
+  .notif-emoji {
+    font-size: 2rem;
+  }
+}
+
+// ========================================
+// NOTIFICATION CONTENT
+// ========================================
+.notification-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.notification-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.notification-message {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+}
+
+.notification-time {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+// ========================================
+// NOTIFICATION STATUS
+// ========================================
+.notification-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+
+  @media (max-width: 640px) {
+    grid-column: 2;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+}
+
+.unread-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 8px rgba(99, 102, 241, 0.5);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.btn-delete {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .delete-icon {
+    font-size: 1.25rem;
+  }
+
+  &:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+  }
+}
+
+// ========================================
+// EMPTY STATE
+// ========================================
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--card-bg);
+  border-radius: 1rem;
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+.empty-icon {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.empty-text {
+  color: var(--text-muted);
+}
+
+// ========================================
+// RESPONSIVE
+// ========================================
+@media (max-width: 768px) {
+  .notifications-container {
+    padding: 1rem;
+  }
+
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .notification-card {
+    padding: 1rem;
+  }
+
+  .notification-icon {
+    width: 50px;
+    height: 50px;
+
+    .notif-emoji {
+      font-size: 1.5rem;
+    }
+  }
+
+  .notification-title {
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,267 @@
+<!-- ==========================================
+FICHIER: src/app/server/wine-suggestions/wine-suggestions.component.html
+DESCRIPTION: Aide aux suggestions de vins et accords mets-vins
+========================================== -->
+
+<div class="wine-suggestions-page">
+
+  <!-- Header -->
+  <div class="page-header">
+    <div class="header-left">
+      <h1 class="page-title">🍷 Suggestions de Vins</h1>
+      <p class="page-subtitle">Trouvez l'accord parfait pour vos clients</p>
+    </div>
+    <div class="header-right" *ngIf="selectedDish">
+      <div class="selected-dish-info">
+        <i class="icon utensils-icon"></i>
+        <span>Plat sélectionné: {{ selectedDish }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dish Categories -->
+  <div class="dish-categories-section">
+    <h3 class="section-title">
+      <i class="icon chef-hat-icon"></i>
+      Accords par type de plat
+    </h3>
+    <div class="categories-grid">
+      <button
+        *ngFor="let category of dishCategories"
+        class="category-card"
+        (click)="selectDishCategory(category)">
+        <div class="category-icon">{{ category.icon }}</div>
+        <span class="category-name">{{ category.name }}</span>
+        <div class="suggested-types">
+          <span
+            *ngFor="let type of category.suggestedTypes"
+            class="wine-type-tag"
+            [class]="'type-' + type">
+            {{ getWineTypeLabel(type) }}
+          </span>
+        </div>
+      </button>
+    </div>
+  </div>
+
+  <div class="wines-layout">
+
+    <!-- LEFT: Filters & Wine List -->
+    <div class="wines-section">
+
+      <!-- Search & Filters -->
+      <div class="filters-panel">
+        <div class="search-bar">
+          <i class="icon search-icon"></i>
+          <input
+            type="text"
+            placeholder="Rechercher un vin, région, cépage..."
+            [(ngModel)]="searchQuery"
+            (input)="filterWines()">
+        </div>
+
+        <div class="filter-groups">
+          <div class="filter-group">
+            <label>Type de vin</label>
+            <select [(ngModel)]="selectedWineType" (change)="filterWines()">
+              <option value="all">Tous les types</option>
+              <option value="red">Rouges</option>
+              <option value="white">Blancs</option>
+              <option value="rosé">Rosés</option>
+              <option value="sparkling">Effervescents</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Gamme de prix</label>
+            <select [(ngModel)]="selectedPriceRange" (change)="filterWines()">
+              <option value="all">Tous les prix</option>
+              <option value="low">Moins de 30€</option>
+              <option value="medium">30€ - 60€</option>
+              <option value="high">Plus de 60€</option>
+            </select>
+          </div>
+
+          <button class="btn-reset-filters" (click)="resetFilters()">
+            <i class="icon x-icon"></i>
+            Réinitialiser
+          </button>
+        </div>
+      </div>
+
+      <!-- Wines Grid -->
+      <div class="wines-grid">
+        <div
+          *ngFor="let wine of filteredWines"
+          class="wine-card"
+          [class.selected]="selectedWine?.id === wine.id"
+          [class.low-stock]="wine.stock < 5"
+          (click)="selectWine(wine)">
+
+          <div class="wine-header">
+            <div class="wine-type-badge" [class]="'type-' + wine.type">
+              {{ getWineTypeIcon(wine.type) }}
+            </div>
+            <div class="wine-rating">
+              <i class="icon star-icon"></i>
+              <span>{{ wine.rating }}</span>
+            </div>
+          </div>
+
+          <div class="wine-content">
+            <h3 class="wine-name">{{ wine.name }}</h3>
+            <p class="wine-region">
+              <i class="icon map-pin-icon"></i>
+              {{ wine.region }}
+            </p>
+            <p class="wine-grape" *ngIf="wine.year">
+              <i class="icon calendar-icon"></i>
+              {{ wine.year }} • {{ wine.grapeVariety }}
+            </p>
+            <p class="wine-grape" *ngIf="!wine.year">
+              <i class="icon grape-icon"></i>
+              {{ wine.grapeVariety }}
+            </p>
+          </div>
+
+          <div class="wine-footer">
+            <div class="wine-price">
+              <span class="price-value">{{ wine.price | number:'1.2-2' }} €</span>
+              <span class="price-label">la bouteille</span>
+            </div>
+            <div class="wine-stock" [class]="getStockColor(wine.stock)">
+              <i class="icon package-icon"></i>
+              <span>{{ getStockStatus(wine.stock) }}</span>
+            </div>
+          </div>
+
+          <button
+            class="btn-add-wine"
+            (click)="addToOrder(wine); $event.stopPropagation()"
+            *ngIf="wine.stock > 0">
+            <i class="icon plus-icon"></i>
+            Ajouter
+          </button>
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" *ngIf="filteredWines.length === 0">
+          <i class="icon wine-off-icon"></i>
+          <h3>Aucun vin trouvé</h3>
+          <p>Essayez de modifier vos filtres</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Wine Details -->
+    <div class="wine-details-panel" *ngIf="selectedWine">
+      <div class="details-card">
+
+        <div class="details-header">
+          <div class="wine-type-badge-lg" [class]="'type-' + selectedWine.type">
+            {{ getWineTypeIcon(selectedWine.type) }}
+          </div>
+          <button class="btn-close-details" (click)="selectedWine = undefined">
+            <i class="icon x-icon"></i>
+          </button>
+        </div>
+
+        <div class="details-content">
+          <h2 class="wine-name">{{ selectedWine.name }}</h2>
+
+          <div class="wine-meta">
+            <div class="meta-item">
+              <i class="icon map-pin-icon"></i>
+              <span>{{ selectedWine.region }}</span>
+            </div>
+            <div class="meta-item" *ngIf="selectedWine.year">
+              <i class="icon calendar-icon"></i>
+              <span>{{ selectedWine.year }}</span>
+            </div>
+            <div class="meta-item">
+              <i class="icon star-icon"></i>
+              <span>{{ selectedWine.rating }}/5</span>
+            </div>
+          </div>
+
+          <div class="wine-description">
+            <h4>Description</h4>
+            <p>{{ selectedWine.description }}</p>
+          </div>
+
+          <div class="wine-info-grid">
+            <div class="info-item">
+              <label>Cépage</label>
+              <span>{{ selectedWine.grapeVariety }}</span>
+            </div>
+            <div class="info-item">
+              <label>Température</label>
+              <span>{{ selectedWine.temperature }}</span>
+            </div>
+            <div class="info-item">
+              <label>Stock</label>
+              <span [class]="getStockColor(selectedWine.stock)">
+                {{ selectedWine.stock }} bouteilles
+              </span>
+            </div>
+          </div>
+
+          <div class="wine-pairings">
+            <h4>
+              <i class="icon utensils-icon"></i>
+              Accords mets-vins
+            </h4>
+            <div class="pairings-list">
+              <span
+                *ngFor="let pairing of selectedWine.pairings"
+                class="pairing-tag">
+                {{ pairing }}
+              </span>
+            </div>
+          </div>
+
+          <div class="wine-rating-stars">
+            <h4>Note</h4>
+            <div class="stars">
+              <i
+                *ngFor="let star of getRatingStars(selectedWine.rating)"
+                class="icon"
+                [class.star-icon]="star === 'full'"
+                [class.star-half-icon]="star === 'half'"
+                [class.star-empty-icon]="star === 'empty'">
+              </i>
+            </div>
+          </div>
+
+          <div class="wine-price-section">
+            <div class="price-display">
+              <span class="price-label">Prix</span>
+              <span class="price-value">{{ selectedWine.price | number:'1.2-2' }} €</span>
+            </div>
+          </div>
+
+          <div class="details-actions">
+            <button
+              class="btn-add-to-order"
+              (click)="addToOrder(selectedWine)"
+              [disabled]="selectedWine.stock === 0">
+              <i class="icon shopping-cart-icon"></i>
+              {{ selectedWine.stock === 0 ? 'Rupture de stock' : 'Ajouter à la commande' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty Details Panel -->
+    <div class="wine-details-panel empty" *ngIf="!selectedWine">
+      <div class="empty-details">
+        <i class="icon wine-icon"></i>
+        <h3>Sélectionnez un vin</h3>
+        <p>Cliquez sur un vin pour voir tous les détails et les accords mets-vins</p>
+      </div>
+    </div>
+
+  </div>
+
+</div>

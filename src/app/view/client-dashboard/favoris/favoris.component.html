@@ -1,0 +1,123 @@
+<!-- ==========================================
+     FICHIER: src/app/client/favorites/favorites.component.html
+     DESCRIPTION: Template de la page favoris
+     ========================================== -->
+
+<div class="favorites-container">
+
+  <!-- Header -->
+  <div class="page-header">
+    <h1 class="page-title">
+      <span class="icon">❤️</span>
+      Mes Favoris
+    </h1>
+    <p class="page-subtitle">Retrouvez tous vos vins et caves préférés</p>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs-container">
+    <button
+      class="tab-button"
+      [class.active]="activeTab === 'wines'"
+      (click)="setActiveTab('wines')">
+      <span class="tab-icon">🍷</span>
+      <span class="tab-label">Vins ({{ favoriteWines.length }})</span>
+    </button>
+    <button
+      class="tab-button"
+      [class.active]="activeTab === 'caves'"
+      (click)="setActiveTab('caves')">
+      <span class="tab-icon">🏛️</span>
+      <span class="tab-label">Caves ({{ favoriteCaves.length }})</span>
+    </button>
+  </div>
+
+  <!-- Tab Content: Vins -->
+  <div class="tab-content" *ngIf="activeTab === 'wines'">
+    <div class="wines-grid" *ngIf="favoriteWines.length > 0">
+      <div class="wine-card"
+     *ngFor="let wine of favoriteWines"
+     [routerLink]="['/client/wine-detail', wine.id]"
+     style="cursor: pointer;">
+
+        <div class="wine-image">
+          <span class="wine-emoji">{{ wine.image }}</span>
+          <button class="btn-remove" (click)="removeWine(wine, $event)">
+            <span class="remove-icon">✕</span>
+          </button>
+        </div>
+
+        <div class="wine-info">
+          <h3 class="wine-name">{{ wine.name }}</h3>
+          <p class="wine-details">{{ wine.region }} • {{ wine.year }}</p>
+
+          <div class="wine-rating">
+            <span class="star">⭐</span>
+            <span class="rating-value">{{ wine.rating }}</span>
+          </div>
+
+          <p class="wine-cave">{{ wine.cave }}</p>
+
+          <div class="wine-footer">
+            <span class="wine-price">{{ wine.price }}€</span>
+            <button class="btn-add" (click)="addToCart(wine, $event)">
+              Ajouter
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty state vins -->
+    <div class="empty-state" *ngIf="favoriteWines.length === 0">
+      <div class="empty-icon">💔</div>
+      <h3 class="empty-title">Aucun vin favori</h3>
+      <p class="empty-text">Ajoutez des vins à vos favoris pour les retrouver facilement</p>
+      <button class="btn-primary" routerLink="/client/catalogue">
+        Explorer le catalogue
+      </button>
+    </div>
+  </div>
+
+  <!-- Tab Content: Caves -->
+  <div class="tab-content" *ngIf="activeTab === 'caves'">
+    <div class="caves-grid" *ngIf="favoriteCaves.length > 0">
+      <div class="cave-card"
+     *ngFor="let cave of favoriteCaves"
+     [routerLink]="['/client/cave-detail', cave.id]"
+     style="cursor: pointer;">
+
+        <button class="btn-remove-cave" (click)="removeCave(cave, $event)">
+          <span class="remove-icon">✕</span>
+        </button>
+
+        <div class="cave-emoji">{{ cave.image }}</div>
+        <h3 class="cave-name">{{ cave.name }}</h3>
+        <p class="cave-location">📍 {{ cave.location }}</p>
+
+        <div class="cave-rating">
+          <span class="star">⭐</span>
+          <span class="rating-value">{{ cave.rating }}</span>
+        </div>
+
+        <p class="cave-specialty">{{ cave.specialty }}</p>
+
+        <div class="cave-stats">
+          <span class="stat-icon">🍷</span>
+          <span class="stat-value">{{ cave.wines }} vins</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty state caves -->
+    <div class="empty-state" *ngIf="favoriteCaves.length === 0">
+      <div class="empty-icon">💔</div>
+      <h3 class="empty-title">Aucune cave favorite</h3>
+      <p class="empty-text">Ajoutez des caves à vos favoris pour les retrouver facilement</p>
+      <button class="btn-primary" routerLink="/client/cave-list">
+        Découvrir les caves
+      </button>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,947 @@
+// ==========================================
+// FICHIER: src/app/server/billing/billing.component.scss
+// DESCRIPTION: Styles de la page de facturation
+// ==========================================
+
+.billing-page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+// ==========================================
+// PAGE HEADER
+// ==========================================
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .btn-back {
+      width: 40px;
+      height: 40px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text);
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: var(--primary);
+        border-color: var(--primary);
+        color: white;
+      }
+    }
+
+    .page-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0 0 0.25rem 0;
+    }
+
+    .page-subtitle {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+  }
+
+  .header-right {
+    display: flex;
+    gap: 0.75rem;
+
+    .btn-print,
+    .btn-email {
+      padding: 0.75rem 1.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: var(--primary);
+        border-color: var(--primary);
+        color: white;
+      }
+    }
+  }
+}
+
+// ==========================================
+// BILLING LAYOUT
+// ==========================================
+.billing-layout {
+  display: grid;
+  grid-template-columns: 1fr 450px;
+  gap: 2rem;
+  flex: 1;
+  overflow: hidden;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ==========================================
+// BILL SECTION
+// ==========================================
+.bill-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  overflow-y: auto;
+
+  .bill-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+
+    .card-header {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+
+      .card-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        .icon {
+          font-size: 1.5rem;
+          color: var(--primary);
+        }
+      }
+    }
+
+    .bill-items {
+      .bill-items-header {
+        display: grid;
+        grid-template-columns: 2fr 100px 100px 100px 50px;
+        gap: 1rem;
+        padding: 0.75rem 1rem;
+        background: var(--darker-bg);
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+        margin-bottom: 0.75rem;
+
+        @media (max-width: 768px) {
+          grid-template-columns: 1fr 60px 80px 80px 40px;
+          gap: 0.5rem;
+          font-size: 0.75rem;
+        }
+      }
+
+      .bill-item {
+        display: grid;
+        grid-template-columns: 2fr 100px 100px 100px 50px;
+        gap: 1rem;
+        padding: 1rem;
+        background: var(--darker-bg);
+        border-radius: 10px;
+        align-items: center;
+        margin-bottom: 0.75rem;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: var(--card-hover);
+        }
+
+        @media (max-width: 768px) {
+          grid-template-columns: 1fr 60px 80px 80px 40px;
+          gap: 0.5rem;
+          padding: 0.75rem;
+        }
+
+        .item-info {
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+
+          .item-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.9375rem;
+          }
+
+          .item-category {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+          }
+        }
+
+        .item-quantity {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: var(--card-bg);
+          border: 1px solid var(--border);
+          border-radius: 6px;
+          padding: 0.25rem;
+
+          .btn-qty-mini {
+            width: 24px;
+            height: 24px;
+            background: transparent;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+
+            &:hover {
+              background: var(--darker-bg);
+            }
+          }
+
+          span {
+            font-weight: 600;
+            color: var(--text-primary);
+            min-width: 20px;
+            text-align: center;
+          }
+        }
+
+        .item-unit-price {
+          font-size: 0.9375rem;
+          color: var(--text-secondary);
+          text-align: right;
+        }
+
+        .item-total-price {
+          font-size: 1rem;
+          font-weight: 700;
+          color: var(--text-primary);
+          text-align: right;
+        }
+
+        .btn-remove-item {
+          background: transparent;
+          border: none;
+          color: var(--danger);
+          cursor: pointer;
+          padding: 0.25rem;
+          transition: all 0.2s ease;
+
+          &:hover {
+            transform: scale(1.2);
+          }
+        }
+      }
+
+      .empty-bill {
+        text-align: center;
+        padding: 3rem 1rem;
+        color: var(--text-muted);
+
+        .icon {
+          font-size: 3rem;
+          margin-bottom: 1rem;
+          opacity: 0.3;
+        }
+
+        p {
+          font-size: 1rem;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  .discount-card,
+  .tip-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+
+    .card-header {
+      margin-bottom: 1rem;
+
+      .card-title {
+        font-size: 1.125rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        .icon {
+          font-size: 1.25rem;
+          color: var(--secondary);
+        }
+      }
+    }
+
+    .discount-options,
+    .tip-options {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+
+      @media (max-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .discount-btn,
+      .tip-btn {
+        padding: 0.875rem;
+        background: var(--darker-bg);
+        border: 2px solid var(--border);
+        border-radius: 8px;
+        color: var(--text);
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.25rem;
+
+        span {
+          font-size: 0.75rem;
+          color: var(--text-muted);
+          font-weight: 500;
+        }
+
+        &:hover {
+          background: var(--card-hover);
+          border-color: var(--primary);
+        }
+
+        &.active {
+          background: var(--primary);
+          border-color: var(--primary);
+          color: white;
+
+          span {
+            color: rgba(255, 255, 255, 0.8);
+          }
+        }
+      }
+    }
+
+    .custom-discount,
+    .custom-tip {
+      label {
+        display: block;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--text-secondary);
+        margin-bottom: 0.5rem;
+      }
+
+      .input-group {
+        display: flex;
+        gap: 0.5rem;
+
+        input {
+          flex: 1;
+          padding: 0.75rem;
+          background: var(--darker-bg);
+          border: 1px solid var(--border);
+          border-radius: 8px;
+          color: var(--text);
+          font-size: 1rem;
+          font-weight: 600;
+
+          &:focus {
+            outline: none;
+            border-color: var(--primary);
+          }
+        }
+
+        select,
+        .currency {
+          padding: 0.75rem 1rem;
+          background: var(--darker-bg);
+          border: 1px solid var(--border);
+          border-radius: 8px;
+          color: var(--text);
+          font-weight: 600;
+          cursor: pointer;
+
+          &:focus {
+            outline: none;
+            border-color: var(--primary);
+          }
+        }
+
+        .currency {
+          display: flex;
+          align-items: center;
+          cursor: default;
+        }
+      }
+    }
+  }
+}
+
+// ==========================================
+// PAYMENT SECTION
+// ==========================================
+.payment-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: sticky;
+  top: 0;
+  height: fit-content;
+  max-height: calc(100vh - 150px);
+  overflow-y: auto;
+
+  .summary-card,
+  .split-card,
+  .payment-methods-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+
+    .card-header {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+
+      .card-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        .icon {
+          font-size: 1.5rem;
+          color: var(--primary);
+        }
+      }
+    }
+  }
+
+  .summary-card {
+    .summary-details {
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem 0;
+
+        .label {
+          font-size: 0.9375rem;
+          color: var(--text-secondary);
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+
+          .icon {
+            font-size: 1rem;
+          }
+        }
+
+        .value {
+          font-size: 1rem;
+          font-weight: 600;
+          color: var(--text-primary);
+        }
+
+        &.discount .value {
+          color: var(--danger);
+        }
+
+        &.tip .value {
+          color: var(--success);
+        }
+
+        &.total {
+          padding-top: 1rem;
+
+          .label {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--text-primary);
+          }
+
+          .value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--success);
+          }
+        }
+      }
+
+      .summary-divider {
+        height: 1px;
+        background: var(--border);
+        margin: 0.5rem 0;
+      }
+    }
+  }
+
+  .split-card {
+    .split-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 1rem;
+
+      .btn-split {
+        width: 48px;
+        height: 48px;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: var(--primary-dark);
+          transform: scale(1.1);
+        }
+
+        .icon {
+          font-size: 1.25rem;
+        }
+      }
+
+      .split-info {
+        text-align: center;
+
+        .split-count {
+          display: block;
+          font-size: 3rem;
+          font-weight: 700;
+          color: var(--text-primary);
+          line-height: 1;
+          margin-bottom: 0.5rem;
+        }
+
+        .split-label {
+          font-size: 0.875rem;
+          color: var(--text-muted);
+        }
+      }
+    }
+
+    .split-amount {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+      border-radius: 10px;
+
+      .label {
+        font-size: 0.9375rem;
+        font-weight: 600;
+        color: var(--text-secondary);
+      }
+
+      .value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary);
+      }
+    }
+  }
+
+  .payment-methods-card {
+    .payment-methods {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+
+      .payment-method-btn {
+        padding: 1rem;
+        background: var(--darker-bg);
+        border: 2px solid var(--border);
+        border-radius: 10px;
+        color: var(--text);
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+
+        .icon {
+          font-size: 1.75rem;
+          color: var(--text-muted);
+        }
+
+        span {
+          font-size: 0.875rem;
+        }
+
+        &:hover {
+          background: var(--card-hover);
+          border-color: var(--primary);
+
+          .icon {
+            color: var(--primary);
+          }
+        }
+
+        &.active {
+          background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+          border-color: var(--primary);
+          color: var(--primary);
+
+          .icon {
+            color: var(--primary);
+          }
+        }
+      }
+    }
+  }
+
+  .action-buttons {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1rem;
+
+    .btn-cancel,
+    .btn-payment {
+      padding: 1.125rem;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1.0625rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+      }
+    }
+
+    .btn-cancel {
+      background: var(--danger);
+      color: white;
+
+      &:hover {
+        background: #dc2626;
+      }
+    }
+
+    .btn-payment {
+      background: var(--success);
+      color: white;
+
+      &:hover {
+        background: #059669;
+      }
+    }
+  }
+}
+
+// ==========================================
+// MODALS
+// ==========================================
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+
+  .modal-content {
+    background: var(--card-bg);
+    border-radius: 16px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-xl);
+
+    &.print-preview {
+      max-width: 800px;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border);
+
+      .modal-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin: 0;
+      }
+
+      .btn-close-modal {
+        width: 36px;
+        height: 36px;
+        background: transparent;
+        border: none;
+        color: var(--text-muted);
+        cursor: pointer;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: var(--danger);
+          color: white;
+        }
+      }
+    }
+
+    .modal-body {
+      padding: 2rem;
+      overflow-y: auto;
+      flex: 1;
+
+      .payment-summary,
+      .print-content {
+        .summary-item {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 1rem;
+          background: var(--darker-bg);
+          border-radius: 8px;
+          margin-bottom: 0.75rem;
+
+          .label {
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+          }
+
+          .value {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+          }
+
+          &.total {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(52, 211, 153, 0.1));
+            border: 2px solid var(--success);
+
+            .label {
+              font-size: 1.125rem;
+              color: var(--text-primary);
+            }
+
+            .value {
+              font-size: 1.75rem;
+              color: var(--success);
+            }
+          }
+        }
+
+        // Print specific styles
+        .restaurant-header {
+          text-align: center;
+          margin-bottom: 2rem;
+          padding-bottom: 1rem;
+          border-bottom: 2px solid var(--border);
+
+          h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0 0 0.5rem 0;
+          }
+
+          p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin: 0.25rem 0;
+          }
+        }
+
+        .bill-info {
+          margin-bottom: 1.5rem;
+
+          p {
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+            margin: 0.25rem 0;
+          }
+        }
+
+        .bill-table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-bottom: 2rem;
+
+          th,
+          td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+          }
+
+          thead {
+            background: var(--darker-bg);
+
+            th {
+              font-weight: 700;
+              color: var(--text-primary);
+              font-size: 0.875rem;
+            }
+          }
+
+          tbody {
+            td {
+              color: var(--text-secondary);
+              font-size: 0.9375rem;
+            }
+          }
+
+          tfoot {
+            td {
+              font-weight: 600;
+              color: var(--text-primary);
+              padding-top: 1rem;
+            }
+
+            .total-row td {
+              font-size: 1.125rem;
+              border-top: 2px solid var(--border);
+              padding-top: 1rem;
+            }
+          }
+        }
+
+        .bill-footer {
+          text-align: center;
+          padding-top: 2rem;
+          border-top: 2px solid var(--border);
+
+          p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin: 0.5rem 0;
+          }
+        }
+      }
+    }
+
+    .modal-footer {
+      display: flex;
+      gap: 1rem;
+      padding: 1.5rem;
+      border-top: 1px solid var(--border);
+
+      .btn-modal-cancel,
+      .btn-modal-confirm {
+        flex: 1;
+        padding: 0.875rem;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+
+        &:hover {
+          transform: translateY(-2px);
+        }
+      }
+
+      .btn-modal-cancel {
+        background: var(--darker-bg);
+        color: var(--text);
+
+        &:hover {
+          background: var(--card-hover);
+        }
+      }
+
+      .btn-modal-confirm {
+        background: var(--success);
+        color: white;
+
+        &:hover {
+          background: #059669;
+        }
+      }
+    }
+  }
+}
+
+// ==========================================
+// RESPONSIVE
+// ==========================================
+@media (max-width: 1200px) {
+  .billing-layout {
+    .payment-section {
+      position: relative;
+      max-height: none;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+
+    .header-right {
+      width: 100%;
+
+      button {
+        flex: 1;
+      }
+    }
+  }
+}

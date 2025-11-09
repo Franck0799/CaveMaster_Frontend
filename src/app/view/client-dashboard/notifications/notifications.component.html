@@ -1,0 +1,63 @@
+<!-- ==========================================
+     FICHIER: src/app/client/notifications/notifications.component.html
+     DESCRIPTION: Template de la page des notifications
+     ========================================== -->
+
+<div class="notifications-container">
+
+  <!-- Header -->
+  <div class="page-header">
+    <div class="header-content">
+      <h1 class="page-title">
+        <span class="icon">🔔</span>
+        Notifications
+        <span class="badge" *ngIf="unreadCount > 0">{{ unreadCount }}</span>
+      </h1>
+      <p class="page-subtitle">Restez informé de toutes vos activités</p>
+    </div>
+    <button class="btn-mark-all"
+            *ngIf="unreadCount > 0"
+            (click)="markAllAsRead()">
+      <span class="btn-icon">✓</span>
+      TOUT MARQUER COMME LU
+    </button>
+  </div>
+
+  <!-- Liste des notifications -->
+  <div class="notifications-list">
+    <div class="notification-card"
+         *ngFor="let notification of notifications"
+         [class.unread]="!notification.read"
+         [ngClass]="getTypeClass(notification.type)"
+         (click)="markAsRead(notification)">
+
+      <!-- Icône de la notification -->
+      <div class="notification-icon">
+        <span class="notif-emoji">{{ notification.icon }}</span>
+      </div>
+
+      <!-- Contenu de la notification -->
+      <div class="notification-content">
+        <h3 class="notification-title">{{ notification.title }}</h3>
+        <p class="notification-message">{{ notification.message }}</p>
+        <span class="notification-time">{{ notification.time }}</span>
+      </div>
+
+      <!-- Badge non lu -->
+      <div class="notification-status">
+        <span class="unread-dot" *ngIf="!notification.read"></span>
+        <button class="btn-delete" (click)="deleteNotification(notification, $event)">
+          <span class="delete-icon">✕</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Message si aucune notification -->
+  <div class="empty-state" *ngIf="notifications.length === 0">
+    <div class="empty-icon">🔔</div>
+    <h3 class="empty-title">Aucune notification</h3>
+    <p class="empty-text">Vous n'avez pas de notifications pour le moment</p>
+  </div>
+
+</div>

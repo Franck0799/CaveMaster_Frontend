@@ -1,0 +1,384 @@
+<!-- ==========================================
+FICHIER: src/app/server/billing/billing.component.html
+DESCRIPTION: Génération d'addition et encaissement
+========================================== -->
+
+<div class="billing-page">
+
+  <!-- Header -->
+  <div class="page-header">
+    <div class="header-left">
+      <button class="btn-back" routerLink="/server/active-orders">
+        <i class="icon arrow-left-icon"></i>
+      </button>
+      <div>
+        <h1 class="page-title">Facturation</h1>
+        <p class="page-subtitle" *ngIf="tableNumber">Table {{ tableNumber }}</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <button class="btn-print" (click)="openPrintPreview()">
+        <i class="icon printer-icon"></i>
+        Aperçu
+      </button>
+      <button class="btn-email" (click)="sendByEmail()">
+        <i class="icon mail-icon"></i>
+        Email
+      </button>
+    </div>
+  </div>
+
+  <div class="billing-layout">
+
+    <!-- LEFT: Bill Details -->
+    <div class="bill-section">
+
+      <!-- Bill Items -->
+      <div class="bill-card">
+        <div class="card-header">
+          <h2 class="card-title">
+            <i class="icon file-text-icon"></i>
+            Détails de l'addition
+          </h2>
+        </div>
+
+        <div class="bill-items">
+          <div class="bill-items-header">
+            <span class="col-item">Article</span>
+            <span class="col-qty">Qté</span>
+            <span class="col-price">P.U.</span>
+            <span class="col-total">Total</span>
+            <span class="col-actions"></span>
+          </div>
+
+          <div *ngFor="let item of billItems; let i = index" class="bill-item">
+            <div class="item-info">
+              <span class="item-name">{{ item.name }}</span>
+              <span class="item-category">{{ item.category }}</span>
+            </div>
+            <div class="item-quantity">
+              <button class="btn-qty-mini" (click)="updateQuantity(i, item.quantity - 1)">
+                <i class="icon minus-icon"></i>
+              </button>
+              <span>{{ item.quantity }}</span>
+              <button class="btn-qty-mini" (click)="updateQuantity(i, item.quantity + 1)">
+                <i class="icon plus-icon"></i>
+              </button>
+            </div>
+            <span class="item-unit-price">{{ item.unitPrice | number:'1.2-2' }} €</span>
+            <span class="item-total-price">{{ item.totalPrice | number:'1.2-2' }} €</span>
+            <button class="btn-remove-item" (click)="removeItem(i)">
+              <i class="icon trash-icon"></i>
+            </button>
+          </div>
+
+          <!-- Empty State -->
+          <div class="empty-bill" *ngIf="billItems.length === 0">
+            <i class="icon file-text-icon"></i>
+            <p>Aucun article</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Discount Section -->
+      <div class="discount-card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="icon tag-icon"></i>
+            Réduction
+          </h3>
+        </div>
+        <div class="discount-options">
+          <button
+            *ngFor="let option of discountOptions"
+            class="discount-btn"
+            [class.active]="selectedDiscount === option.id"
+            (click)="selectedDiscount = option.id">
+            {{ option.label }}
+          </button>
+        </div>
+        <div class="custom-discount" *ngIf="selectedDiscount === 'custom'">
+          <label>Montant personnalisé</label>
+          <div class="input-group">
+            <input
+              type="number"
+              [(ngModel)]="customDiscountValue"
+              placeholder="0"
+              min="0">
+            <select [(ngModel)]="discountOptions[5].type">
+              <option value="percentage">%</option>
+              <option value="fixed">€</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tip Section -->
+      <div class="tip-card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="icon gift-icon"></i>
+            Pourboire
+          </h3>
+        </div>
+        <div class="tip-options">
+          <button class="tip-btn" (click)="calculateTipPercentage(5)">
+            5%
+            <span>{{ (getTotalAfterDiscount() * 0.05) | number:'1.2-2' }} €</span>
+          </button>
+          <button class="tip-btn" (click)="calculateTipPercentage(10)">
+            10%
+            <span>{{ (getTotalAfterDiscount() * 0.10) | number:'1.2-2' }} €</span>
+          </button>
+          <button class="tip-btn" (click)="calculateTipPercentage(15)">
+            15%
+            <span>{{ (getTotalAfterDiscount() * 0.15) | number:'1.2-2' }} €</span>
+          </button>
+          <button class="tip-btn" (click)="addTip(0)">
+            Aucun
+          </button>
+        </div>
+        <div class="custom-tip">
+          <label>Montant personnalisé</label>
+          <div class="input-group">
+            <input
+              type="number"
+              [(ngModel)]="tipAmount"
+              placeholder="0.00"
+              min="0"
+              step="0.50">
+            <span class="currency">€</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: Payment & Summary -->
+    <div class="payment-section">
+
+      <!-- Summary Card -->
+      <div class="summary-card">
+        <div class="card-header">
+          <h2 class="card-title">
+            <i class="icon calculator-icon"></i>
+            Récapitulatif
+          </h2>
+        </div>
+
+        <div class="summary-details">
+          <div class="summary-row">
+            <span class="label">Sous-total</span>
+            <span class="value">{{ getSubtotal() | number:'1.2-2' }} €</span>
+          </div>
+
+          <div class="summary-row discount" *ngIf="getDiscountAmount() > 0">
+            <span class="label">
+              <i class="icon tag-icon"></i>
+              Réduction
+            </span>
+            <span class="value">- {{ getDiscountAmount() | number:'1.2-2' }} €</span>
+          </div>
+
+          <div class="summary-row tip" *ngIf="tipAmount > 0">
+            <span class="label">
+              <i class="icon gift-icon"></i>
+              Pourboire
+            </span>
+            <span class="value">+ {{ tipAmount | number:'1.2-2' }} €</span>
+          </div>
+
+          <div class="summary-divider"></div>
+
+          <div class="summary-row total">
+            <span class="label">Total à payer</span>
+            <span class="value">{{ getTotalWithTip() | number:'1.2-2' }} €</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Split Payment -->
+      <div class="split-card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="icon users-icon"></i>
+            Partage de l'addition
+          </h3>
+        </div>
+        <div class="split-controls">
+          <button class="btn-split" (click)="decrementSplit()">
+            <i class="icon minus-icon"></i>
+          </button>
+          <div class="split-info">
+            <span class="split-count">{{ splitCount }}</span>
+            <span class="split-label">{{ splitCount > 1 ? 'personnes' : 'personne' }}</span>
+          </div>
+          <button class="btn-split" (click)="incrementSplit()">
+            <i class="icon plus-icon"></i>
+          </button>
+        </div>
+        <div class="split-amount" *ngIf="splitCount > 1">
+          <span class="label">Montant par personne</span>
+          <span class="value">{{ getAmountPerPerson() | number:'1.2-2' }} €</span>
+        </div>
+      </div>
+
+      <!-- Payment Methods -->
+      <div class="payment-methods-card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="icon credit-card-icon"></i>
+            Mode de paiement
+          </h3>
+        </div>
+        <div class="payment-methods">
+          <button
+            *ngFor="let method of paymentMethods"
+            class="payment-method-btn"
+            [class.active]="selectedPaymentMethod === method.id"
+            (click)="selectedPaymentMethod = method.id">
+            <i class="icon" [class]="'icon-' + method.icon"></i>
+            <span>{{ method.name }}</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button class="btn-cancel" (click)="cancelBill()">
+          <i class="icon x-icon"></i>
+          Annuler
+        </button>
+        <button class="btn-payment" (click)="openPaymentModal()">
+          <i class="icon check-circle-icon"></i>
+          Encaisser
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Payment Modal -->
+<div class="modal-overlay" *ngIf="showPaymentModal" (click)="closePaymentModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">Confirmer le paiement</h2>
+      <button class="btn-close-modal" (click)="closePaymentModal()">
+        <i class="icon x-icon"></i>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <div class="payment-summary">
+        <div class="summary-item">
+          <span class="label">Table</span>
+          <span class="value">{{ tableNumber }}</span>
+        </div>
+        <div class="summary-item">
+          <span class="label">Mode de paiement</span>
+          <span class="value">{{ getSelectedPaymentMethodName() }}</span>
+        </div>
+        <div class="summary-item total">
+          <span class="label">Montant total</span>
+          <span class="value">{{ getTotalWithTip() | number:'1.2-2' }} €</span>
+        </div>
+        <div class="summary-item" *ngIf="splitCount > 1">
+          <span class="label">Par personne ({{ splitCount }})</span>
+          <span class="value">{{ getAmountPerPerson() | number:'1.2-2' }} €</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-modal-cancel" (click)="closePaymentModal()">
+        Annuler
+      </button>
+      <button class="btn-modal-confirm" (click)="processPayment()">
+        <i class="icon check-icon"></i>
+        Confirmer le paiement
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Print Preview Modal -->
+<div class="modal-overlay" *ngIf="showPrintPreview" (click)="closePrintPreview()">
+  <div class="modal-content print-preview" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">Aperçu avant impression</h2>
+      <button class="btn-close-modal" (click)="closePrintPreview()">
+        <i class="icon x-icon"></i>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <div class="print-content">
+        <div class="restaurant-header">
+          <h1>WineFlow Restaurant</h1>
+          <p>123 Rue de la Gastronomie, 75001 Paris</p>
+          <p>Tél: +33 1 23 45 67 89</p>
+        </div>
+
+        <div class="bill-info">
+          <p>Table: {{ tableNumber }}</p>
+          <p>Date: {{ currentDate | date:'dd/MM/yyyy HH:mm' }}</p>
+        </div>
+
+        <table class="bill-table">
+          <thead>
+            <tr>
+              <th>Article</th>
+              <th>Qté</th>
+              <th>P.U.</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of billItems">
+              <td>{{ item.name }}</td>
+              <td>{{ item.quantity }}</td>
+              <td>{{ item.unitPrice | number:'1.2-2' }} €</td>
+              <td>{{ item.totalPrice | number:'1.2-2' }} €</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="3">Sous-total</td>
+              <td>{{ getSubtotal() | number:'1.2-2' }} €</td>
+            </tr>
+            <tr *ngIf="getDiscountAmount() > 0">
+              <td colspan="3">Réduction</td>
+              <td>- {{ getDiscountAmount() | number:'1.2-2' }} €</td>
+            </tr>
+            <tr *ngIf="tipAmount > 0">
+              <td colspan="3">Pourboire</td>
+              <td>+ {{ tipAmount | number:'1.2-2' }} €</td>
+            </tr>
+            <tr class="total-row">
+              <td colspan="3"><strong>TOTAL</strong></td>
+              <td><strong>{{ getTotalWithTip() | number:'1.2-2' }} €</strong></td>
+            </tr>
+          </tfoot>
+        </table>
+
+        <div class="bill-footer">
+          <p>Merci de votre visite !</p>
+          <p>TVA incluse - Paiement: {{ getSelectedPaymentMethodName() }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-modal-cancel" (click)="closePrintPreview()">
+        Fermer
+      </button>
+      <button class="btn-modal-confirm" (click)="printBill()">
+        <i class="icon printer-icon"></i>
+        Imprimer
+      </button>
+    </div>
+  </div>
+</div>

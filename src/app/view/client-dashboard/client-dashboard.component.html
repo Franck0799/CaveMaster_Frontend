@@ -1,692 +1,99 @@
-<!-- Dashboard Principal -->
-<div class="dashboard">
-  <!-- ===== SIDEBAR ===== -->
-  <aside class="sidebar" [class.active]="sidebarOpen">
+<!-- ==========================================
+     FICHIER: src/app/client/client-layout/client-layout.component.html
+     DESCRIPTION: Template du layout principal client
+     ========================================== -->
+
+<div class="client-layout">
+
+  <!-- Sidebar - Menu à gauche -->
+  <aside class="sidebar" [class.sidebar-open]="sidebarOpen">
+
+    <!-- Header du sidebar avec logo -->
     <div class="sidebar-header">
-      <div class="logo">
-        <span class="logo-icon">🍾</span>
-        <span class="logo-text">DrinkStore</span>
+      <div class="logo" routerLink="/client/home" style="cursor: pointer;">
+       <span class="logo-icon">🍷</span>
+        <div class="logo-text">
+          <h1 class="logo-title">Vinothèque®</h1>
+          <p class="logo-subtitle">Votre destination pour les meilleurs vins de France</p>
+        </div>
+      </div>
+
+      <!-- Bouton fermer sur mobile -->
+      <button class="btn-close-sidebar" (click)="toggleSidebar()">
+        <span class="close-icon">✕</span>
+      </button>
+    </div>
+
+    <!-- Profil utilisateur -->
+    <div class="user-profile">
+      <div class="user-avatar">{{ user.avatar }}</div>
+      <div class="user-info">
+        <h3 class="user-name">{{ user.name }}</h3>
+        <p class="user-email">{{ user.email }}</p>
       </div>
     </div>
 
-    <!-- Section Navigation Principale -->
-    <nav class="nav-section">
-      <div class="nav-item"
-           [class.active]="currentPage === 'dashboard'"
-           (click)="navigateTo('dashboard')">
-        <span class="nav-icon">📊</span>
-        <span class="nav-text">Tableau de bord</span>
-      </div>
-      <div class="nav-item"
-           [class.active]="currentPage === 'orders'"
-           (click)="navigateTo('orders')">
-        <span class="nav-icon">🛒</span>
-        <span class="nav-text">Mes commandes</span>
-        <span class="nav-badge">3</span>
-      </div>
-      <div class="nav-item"
-           [class.active]="currentPage === 'products'"
-           (click)="navigateTo('products')">
-        <span class="nav-icon">🍷</span>
-        <span class="nav-text">Catalogue</span>
-      </div>
-      <div class="nav-item"
-           [class.active]="currentPage === 'favorites'"
-           (click)="navigateTo('favorites')">
-        <span class="nav-icon">❤️</span>
-        <span class="nav-text">Favoris</span>
+    <!-- Navigation principale -->
+    <nav class="sidebar-nav">
+      <div class="nav-section" *ngFor="let section of menuSections">
+        <h4 class="nav-section-title" *ngIf="section.title">{{ section.title }}</h4>
+        <ul class="nav-list">
+          <li *ngFor="let item of section.items">
+            <a class="nav-item"
+                [routerLink]="item.route"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: false}">
+              <span class="nav-icon">{{ item.icon }}</span>
+              <span class="nav-label">{{ item.label }}</span>
+              <span class="nav-badge" *ngIf="item.badge">{{ item.badge }}</span>
+            </a>
+          </li>
+        </ul>
       </div>
     </nav>
 
-    <div class="divider"></div>
+    <!-- Footer du sidebar -->
+    <div class="sidebar-footer">
+      <h4 class="footer-title">Contact</h4>
+      <div class="contact-info">
+        <p class="contact-item">
+          <span class="contact-icon">📧</span>
+          <span class="contact-text">contact@vinotheque.fr</span>
+        </p>
+        <p class="contact-item">
+          <span class="contact-icon">📞</span>
+          <span class="contact-text">+33 1 23 45 67 89</span>
+        </p>
+        <p class="contact-item">
+          <span class="contact-icon">📍</span>
+          <span class="contact-text">Paris, France</span>
+        </p>
+      </div>
+    </div>
 
-    <!-- Section Mon Compte -->
-    <nav class="nav-section">
-      <div class="section-label">MON COMPTE</div>
-      <div class="nav-item"
-           [class.active]="currentPage === 'loyalty'"
-           (click)="navigateTo('loyalty')">
-        <span class="nav-icon">🎁</span>
-        <span class="nav-text">Fidélité</span>
-      </div>
-      <div class="nav-item"
-           [class.active]="currentPage === 'payments'"
-           (click)="navigateTo('payments')">
-        <span class="nav-icon">💳</span>
-        <span class="nav-text">Paiements</span>
-      </div>
-      <div class="nav-item"
-           [class.active]="currentPage === 'addresses'"
-           (click)="navigateTo('addresses')">
-        <span class="nav-icon">📍</span>
-        <span class="nav-text">Adresses</span>
-      </div>
-      <div class="nav-item"
-           [class.active]="currentPage === 'notifications'"
-           (click)="navigateTo('notifications')">
-        <span class="nav-icon">🔔</span>
-        <span class="nav-text">Notifications</span>
-        <span class="nav-badge">5</span>
-      </div>
-    </nav>
-
-    <div class="divider"></div>
-
-    <!-- Section Support -->
-    <nav class="nav-section">
-      <div class="section-label">SUPPORT</div>
-      <div class="nav-item">
-        <span class="nav-icon">💬</span>
-        <span class="nav-text">Chat Support</span>
-      </div>
-      <div class="nav-item">
-        <span class="nav-icon">❓</span>
-        <span class="nav-text">FAQ</span>
-      </div>
-      <div class="nav-item">
-        <span class="nav-icon">⚙️</span>
-        <span class="nav-text">Paramètres</span>
-      </div>
-      <div class="nav-item">
-        <span class="nav-icon">🚪</span>
-        <span class="nav-text">Déconnexion</span>
-      </div>
-    </nav>
   </aside>
 
-  <!-- ===== MAIN CONTENT ===== -->
-  <main class="main-content">
-    <!-- ===== TOP HEADER ===== -->
-    <header class="top-header">
-      <div class="header-left">
-        <!-- Menu Burger Mobile -->
-        <div class="burger-menu"
-             [class.active]="sidebarOpen"
-             (click)="toggleSidebar()">
-          <div class="burger-line"></div>
-          <div class="burger-line"></div>
-          <div class="burger-line"></div>
-        </div>
+  <!-- Overlay pour fermer le sidebar sur mobile -->
+  <div class="sidebar-overlay"
+       *ngIf="sidebarOpen"
+       (click)="toggleSidebar()"></div>
 
-        <!-- Barre de recherche -->
-        <div class="search-wrapper">
-          <div class="search-bar">
-            <input type="text"
-                   placeholder="Rechercher un produit, une commande...">
-            <button class="search-btn">🔍</button>
-          </div>
-        </div>
-      </div>
+  <!-- Contenu principal -->
+  <div class="main-content">
 
-      <!-- Droite du header -->
-      <div class="header-right">
-        <div class="header-icon">
-          <span class="icon">🔔</span>
-          <span class="badge">{{ notificationCount }}</span>
-        </div>
-
-        <div class="user-profile">
-          <div class="avatar">👤</div>
-          <div class="user-info">
-            <div class="user-name">{{ userName }}</div>
-            <div class="user-status">{{ userStatus }}</div>
-          </div>
-        </div>
-      </div>
+    <!-- Header du contenu avec bouton menu mobile -->
+    <header class="content-header">
+      <button class="btn-menu-mobile" (click)="toggleSidebar()">
+        <span class="menu-icon">☰</span>
+      </button>
+      <div class="header-spacer"></div>
     </header>
 
-    <!-- ===== PAGE: TABLEAU DE BORD ===== -->
-    <div *ngIf="currentPage === 'dashboard'" class="page-section active">
-      <div class="content-wrapper">
-        <!-- En-tête de la page -->
-        <div class="page-header">
-          <h1 class="page-title">Bienvenue, {{ userName }} ! 👋</h1>
-          <p class="page-subtitle">Voici un aperçu de votre activité récente</p>
-        </div>
-
-        <!-- Cartes de statistiques -->
-        <div class="stats-grid">
-          <div *ngFor="let stat of stats"
-               [ngClass]="getStatCardClass(stat.color)"
-               class="stat-card">
-            <div class="stat-icon-wrapper">{{ stat.emoji }}</div>
-            <div class="stat-content">
-              <div class="stat-label">{{ stat.label }}</div>
-              <div class="stat-value">{{ stat.value }}</div>
-              <div class="stat-change" [class.positive]="stat.isPositive">
-                ↗ {{ stat.change }}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Actions rapides -->
-        <div class="section-header">
-          <h2 class="section-title">Actions rapides</h2>
-        </div>
-
-        <div class="quick-actions">
-          <div class="quick-action" (click)="navigateTo('orders')">
-            <div class="quick-action-icon">📦</div>
-            <div class="quick-action-text">Suivre commande</div>
-          </div>
-          <div class="quick-action" (click)="navigateTo('products')">
-            <div class="quick-action-icon">🛒</div>
-            <div class="quick-action-text">Commander</div>
-          </div>
-          <div class="quick-action" (click)="navigateTo('loyalty')">
-            <div class="quick-action-icon">🎁</div>
-            <div class="quick-action-text">Mes récompenses</div>
-          </div>
-          <div class="quick-action">
-            <div class="quick-action-icon">💬</div>
-            <div class="quick-action-text">Support</div>
-          </div>
-        </div>
-
-        <!-- Commandes récentes -->
-        <div class="section-header">
-          <h2 class="section-title">Commandes récentes</h2>
-          <button class="btn btn-secondary" (click)="navigateTo('orders')">
-            Voir tout →
-          </button>
-        </div>
-
-        <div class="orders-grid">
-          <div *ngFor="let order of orders.slice(0, 3)" class="order-card">
-            <div class="order-image">{{ order.emoji }}</div>
-            <div class="order-info">
-              <div class="order-title">{{ order.title }}</div>
-              <div class="order-details">
-                Commande {{ order.id }} • {{ order.quantity }}
-                {{ order.quantity === 1 ? 'bouteille' : 'bouteilles' }}
-              </div>
-              <div class="order-meta">
-                <span style="color: var(--text-muted);">📅 {{ order.date }}</span>
-                <span class="status-badge" [ngClass]="getStatusClass(order.status)">
-                  {{ getStatusText(order.status) }}
-                </span>
-              </div>
-            </div>
-            <div class="order-price-section">
-              <div class="order-price">{{ order.price | number }} FCFA</div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <!-- Zone de contenu dynamique (router-outlet) -->
+    <div class="content-area">
+      <router-outlet></router-outlet>
     </div>
 
-    <!-- ===== PAGE: MES COMMANDES ===== -->
-    <div *ngIf="currentPage === 'orders'" class="page-section active">
-      <div class="content-wrapper">
-        <div class="page-header">
-          <h1 class="page-title">Mes Commandes 🛒</h1>
-          <p class="page-subtitle">Suivez l'état de vos commandes en temps réel</p>
-        </div>
-
-        <div class="orders-grid">
-          <div *ngFor="let order of orders" class="order-card">
-            <div class="order-image">{{ order.emoji }}</div>
-            <div class="order-info">
-              <div class="order-title">{{ order.title }}</div>
-              <div class="order-details">
-                Commande {{ order.id }} • {{ order.quantity }}
-                {{ order.quantity === 1 ? 'bouteille' : 'bouteilles' }}
-              </div>
-              <div class="order-meta">
-                <span style="color: var(--text-muted);">📅 {{ order.date }}</span>
-                <span class="status-badge" [ngClass]="getStatusClass(order.status)">
-                  {{ getStatusText(order.status) }}
-                </span>
-              </div>
-            </div>
-            <div class="order-price-section">
-              <div class="order-price">{{ order.price | number }} FCFA</div>
-              <button *ngIf="order.status === 'delivered'" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
-                Racheter
-              </button>
-              <button *ngIf="order.status === 'processing'" class="btn btn-primary" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
-                Suivre
-              </button>
-              <button *ngIf="order.status === 'cancelled'" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
-                Racheter
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== PAGE: CATALOGUE ===== -->
-    <div *ngIf="currentPage === 'products'" class="page-section active">
-      <div class="content-wrapper">
-        <div class="page-header">
-          <h1 class="page-title">Catalogue Produits 🍷</h1>
-          <p class="page-subtitle">Découvrez notre sélection de boissons premium</p>
-        </div>
-
-        <div class="section-header">
-          <div></div>
-          <div style="display: flex; gap: 1rem;">
-            <button class="btn btn-secondary">🔍 Filtres</button>
-            <button class="btn btn-secondary">⬇ Trier</button>
-          </div>
-        </div>
-
-        <div class="products-grid">
-          <div *ngFor="let product of products" class="product-card" (click)="openProductModal(product)">
-            <div class="product-image">
-              {{ product.emoji }}
-              <span *ngIf="product.badge"
-                    [class]="'badge-' + product.badge.toLowerCase()"
-                    class="product-badge">
-                {{ product.badge }}
-              </span>
-              <button class="favorite-btn"
-                      (click)="toggleFavorite(product); $event.stopPropagation()"
-                      [class.active]="product.isFavorite">
-                {{ product.isFavorite ? '❤️' : '🤍' }}
-              </button>
-            </div>
-            <div class="product-info">
-              <h3 class="product-name">{{ product.name }}</h3>
-              <p class="product-category">{{ product.category }}</p>
-              <div class="product-footer">
-                <span class="product-price">{{ product.price | number }} FCFA</span>
-                <button class="add-to-cart" (click)="addToCart(product); $event.stopPropagation()">
-                  🛒
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== PAGE: FAVORIS ===== -->
-    <div *ngIf="currentPage === 'favorites'" class="page-section active">
-      <div class="content-wrapper">
-        <div class="page-header">
-          <h1 class="page-title">Mes Favoris ❤️</h1>
-          <p class="page-subtitle">Vos produits préférés en un coup d'œil</p>
-        </div>
-
-        <div *ngIf="getFavoriteProducts().length > 0; else noFavorites">
-          <div class="section-header">
-            <div></div>
-            <button class="btn btn-danger">🗑️ Tout supprimer</button>
-          </div>
-
-          <div class="products-grid">
-            <div *ngFor="let product of getFavoriteProducts()" class="product-card" (click)="openProductModal(product)">
-              <div class="product-image">
-                {{ product.emoji }}
-                <button class="favorite-btn active"
-                        (click)="toggleFavorite(product); $event.stopPropagation()">
-                  ❤️
-                </button>
-              </div>
-              <div class="product-info">
-                <h3 class="product-name">{{ product.name }}</h3>
-                <p class="product-category">{{ product.category }}</p>
-                <div class="product-footer">
-                  <span class="product-price">{{ product.price | number }} FCFA</span>
-                  <button class="add-to-cart" (click)="addToCart(product); $event.stopPropagation()">
-                    🛒
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <ng-template #noFavorites>
-          <div class="empty-state">
-            <div class="empty-icon">❤️</div>
-            <h2 class="empty-title">Aucun favori</h2>
-            <p class="empty-description">
-              Ajoutez des produits en favoris pour les retrouver ici
-            </p>
-            <button class="btn btn-primary" (click)="navigateTo('products')">
-              Découvrir les produits
-            </button>
-          </div>
-        </ng-template>
-      </div>
-    </div>
-
-    <!-- ===== PAGE: FIDÉLITÉ ===== -->
-    <div *ngIf="currentPage === 'loyalty'" class="page-section active">
-      <div class="content-wrapper">
-        <div class="page-header">
-          <h1 class="page-title">Programme de Fidélité 🎁</h1>
-          <p class="page-subtitle">Gagnez des points et débloquez des récompenses</p>
-        </div>
-
-        <div class="loyalty-card">
-          <div class="loyalty-header">
-            <div class="loyalty-title">Votre Statut</div>
-            <div class="loyalty-level">⭐ {{ loyaltyLevel }}</div>
-          </div>
-          <div class="loyalty-points">
-            <div class="points-value">{{ loyaltyPoints | number }}</div>
-            <div class="points-label">Points disponibles</div>
-          </div>
-          <div class="loyalty-progress">
-            <div class="progress-bar" [style.width]="'74%'"></div>
-          </div>
-          <div class="progress-text">
-            250 points pour atteindre le niveau PLATINUM 💎
-          </div>
-        </div>
-
-        <div class="section-header">
-          <h2 class="section-title">Récompenses disponibles</h2>
-        </div>
-
-        <div class="rewards-grid">
-          <div class="reward-card">
-            <div class="reward-icon">🎟️</div>
-            <div class="reward-title">Réduction 10%</div>
-            <div class="reward-description">Sur votre prochaine commande</div>
-            <div class="reward-cost">500 pts</div>
-            <button class="btn btn-primary" style="width: 100%;">Échanger</button>
-          </div>
-
-          <div class="reward-card">
-            <div class="reward-icon">🚚</div>
-            <div class="reward-title">Livraison Gratuite</div>
-            <div class="reward-description">Valable 30 jours</div>
-            <div class="reward-cost">300 pts</div>
-            <button class="btn btn-primary" style="width: 100%;">Échanger</button>
-          </div>
-
-          <div class="reward-card">
-            <div class="reward-icon">🍾</div>
-            <div class="reward-title">Bouteille Offerte</div>
-            <div class="reward-description">Au choix dans une sélection</div>
-            <div class="reward-cost">1,000 pts</div>
-            <button class="btn btn-primary" style="width: 100%;">Échanger</button>
-          </div>
-
-          <div class="reward-card">
-            <div class="reward-icon">⭐</div>
-            <div class="reward-title">Upgrade VIP</div>
-            <div class="reward-description">Accès zone VIP 3 mois</div>
-            <div class="reward-cost">2,000 pts</div>
-            <button class="btn btn-secondary" style="width: 100%;">Bientôt</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== PAGE: PAIEMENTS ===== -->
-    <div *ngIf="currentPage === 'payments'" class="page-section active">
-      <div class="content-wrapper">
-        <div class="page-header">
-          <h1 class="page-title">Moyens de Paiement 💳</h1>
-          <p class="page-subtitle">Gérez vos cartes bancaires</p>
-        </div>
-
-        <div class="section-header">
-          <div></div>
-          <button class="btn btn-primary">➕ Ajouter une carte</button>
-        </div>
-
-        <div class="payment-cards-grid">
-          <div class="credit-card visa">
-            <div class="card-chip"></div>
-            <div class="card-number">•••• •••• •••• 4532</div>
-            <div class="card-footer">
-              <div class="card-holder-section">
-                <div class="card-holder">Titulaire</div>
-                <div class="card-name">MARIE DUPONT</div>
-              </div>
-              <div class="card-expiry-section">
-                <div class="card-expiry-label">Expire</div>
-                <div class="card-expiry">12/26</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="credit-card mastercard">
-            <div class="card-chip"></div>
-            <div class="card-number">•••• •••• •••• 8901</div>
-            <div class="card-footer">
-              <div class="card-holder-section">
-                <div class="card-holder">Titulaire</div>
-                <div class="card-name">MARIE DUPONT</div>
-              </div>
-              <div class="card-expiry-section">
-                <div class="card-expiry-label">Expire</div>
-                <div class="card-expiry">09/25</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="credit-card amex">
-            <div class="card-chip"></div>
-            <div class="card-number">•••• •••• •••• 2345</div>
-            <div class="card-footer">
-              <div class="card-holder-section">
-                <div class="card-holder">Titulaire</div>
-                <div class="card-name">MARIE DUPONT</div>
-              </div>
-              <div class="card-expiry-section">
-                <div class="card-expiry-label">Expire</div>
-                <div class="card-expiry">03/27</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== PAGE: ADRESSES ===== -->
-    <div *ngIf="currentPage === 'addresses'" class="page-section active">
-      <div class="content-wrapper">
-        <div class="page-header">
-          <h1 class="page-title">Mes Adresses 📍</h1>
-          <p class="page-subtitle">Gérez vos adresses de livraison</p>
-        </div>
-
-        <div class="section-header">
-          <div></div>
-          <button class="btn btn-primary">➕ Ajouter une adresse</button>
-        </div>
-
-        <div class="addresses-grid">
-          <div class="address-card default">
-            <div class="address-header">
-              <div class="address-type">🏠 Domicile</div>
-              <div class="default-badge">Par défaut</div>
-            </div>
-            <div class="address-details">
-              Marie Dupont<br>
-              45 Avenue des Champs<br>
-              Lekki Phase 1<br>
-              Lagos, Nigeria<br>
-              📞 +234 801 234 5678
-            </div>
-            <div class="address-actions">
-              <button class="btn btn-secondary" style="flex: 1;">✏️ Modifier</button>
-              <button class="btn btn-danger" style="flex: 1;">🗑️ Supprimer</button>
-            </div>
-          </div>
-
-          <div class="address-card">
-            <div class="address-header">
-              <div class="address-type">🏢 Bureau</div>
-            </div>
-            <div class="address-details">
-              Marie Dupont<br>
-              DrinkStore HQ<br>
-              Victoria Island<br>
-              Lagos, Nigeria<br>
-              📞 +234 809 876 5432
-            </div>
-            <div class="address-actions">
-              <button class="btn btn-secondary" style="flex: 1;">✏️ Modifier</button>
-              <button class="btn btn-danger" style="flex: 1;">🗑️ Supprimer</button>
-            </div>
-          </div>
-
-          <div class="address-card">
-            <div class="address-header">
-              <div class="address-type">🎁 Autre</div>
-            </div>
-            <div class="address-details">
-              Jean Martin<br>
-              78 Banana Island<br>
-              Ikoyi<br>
-              Lagos, Nigeria<br>
-              📞 +234 812 345 6789
-            </div>
-            <div class="address-actions">
-              <button class="btn btn-secondary" style="flex: 1;">✏️ Modifier</button>
-              <button class="btn btn-danger" style="flex: 1;">🗑️ Supprimer</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== PAGE: NOTIFICATIONS ===== -->
-    <div *ngIf="currentPage === 'notifications'" class="page-section active">
-      <div class="content-wrapper">
-        <div class="page-header">
-          <h1 class="page-title">Notifications 🔔</h1>
-          <p class="page-subtitle">Restez informé de toutes vos activités</p>
-        </div>
-
-        <div class="section-header">
-          <div></div>
-          <button class="btn btn-secondary">✓ Tout marquer comme lu</button>
-        </div>
-
-        <div class="notifications-list">
-          <div class="notification-item unread">
-            <div class="notification-icon success">🎉</div>
-            <div class="notification-content">
-              <div class="notification-title">Récompense débloquée !</div>
-              <div class="notification-message">
-                Vous avez gagné 150 points de fidélité pour votre dernière commande.
-              </div>
-            </div>
-            <div class="notification-time">Il y a 2h</div>
-          </div>
-
-          <div class="notification-item unread">
-            <div class="notification-icon info">📦</div>
-            <div class="notification-content">
-              <div class="notification-title">Commande livrée</div>
-              <div class="notification-message">
-                Votre commande #12456 (Moët & Chandon) a été livrée avec succès.
-              </div>
-            </div>
-            <div class="notification-time">Hier</div>
-          </div>
-
-          <div class="notification-item">
-            <div class="notification-icon warning">🔥</div>
-            <div class="notification-content">
-              <div class="notification-title">Promotion spéciale</div>
-              <div class="notification-message">
-                -20% sur tous les champagnes premium ce week-end !
-              </div>
-            </div>
-            <div class="notification-time">Il y a 2 jours</div>
-          </div>
-
-          <div class="notification-item">
-            <div class="notification-icon success">💳</div>
-            <div class="notification-content">
-              <div class="notification-title">Paiement confirmé</div>
-              <div class="notification-message">
-                Votre paiement de 25 000 FCFA pour la commande #12457 a été confirmé.
-              </div>
-            </div>
-            <div class="notification-time">Il y a 3 jours</div>
-          </div>
-
-          <div class="notification-item">
-            <div class="notification-icon info">🎁</div>
-            <div class="notification-content">
-              <div class="notification-title">Nouveau niveau atteint</div>
-              <div class="notification-message">
-                Félicitations ! Vous êtes maintenant membre GOLD.
-              </div>
-            </div>
-            <div class="notification-time">Il y a 1 semaine</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <!-- ===== CHAT WIDGET ===== -->
-  <div class="chat-widget">
-    <button class="chat-button">
-      💬
-      <div class="chat-badge">2</div>
-    </button>
   </div>
 
-  <!-- ===== MODAL PRODUIT ===== -->
-  <div class="modal" [class.active]="showModal" (click)="closeModal()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-      <div class="modal-header">
-        <h2 class="modal-title">Détails du produit</h2>
-        <button class="close-btn" (click)="closeModal()">×</button>
-      </div>
-
-      <div *ngIf="selectedProduct" class="modal-body">
-        <div style="text-align: center; margin-bottom: 2rem;">
-          <div style="font-size: 8rem; margin-bottom: 1rem;">
-            {{ selectedProduct.emoji }}
-          </div>
-          <h3 style="font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem;">
-            {{ selectedProduct.name }}
-          </h3>
-          <p style="color: var(--text-muted); margin-bottom: 1rem;">
-            {{ selectedProduct.category }}
-          </p>
-          <div style="font-size: 2.5rem; font-weight: 800; color: var(--success); margin-bottom: 2rem;">
-            {{ selectedProduct.price | number }} FCFA
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Description</label>
-          <p style="color: var(--text-muted); line-height: 1.8;">
-            Produit premium sélectionné avec soin pour vous offrir la meilleure expérience.
-            Découvrez ses caractéristiques uniques et saveurs exceptionnelles qui en font un choix privilégié parmi nos clients.
-          </p>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Quantité</label>
-          <div style="display: flex; gap: 1rem; align-items: center;">
-            <button class="btn btn-secondary" (click)="decreaseQuantity()" style="width: 50px; padding: 0.75rem;">
-              −
-            </button>
-            <input type="number"
-                   class="form-input"
-                   [value]="modalQuantity"
-                   style="text-align: center; max-width: 100px;">
-            <button class="btn btn-secondary" (click)="increaseQuantity()" style="width: 50px; padding: 0.75rem;">
-              +
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="modal-footer">
-        <button class="btn btn-secondary" (click)="closeModal()">Annuler</button>
-        <button class="btn btn-primary" (click)="addProductFromModal()">
-          🛒 Ajouter au panier
-        </button>
-      </div>
-    </div>
-  </div>
 </div>

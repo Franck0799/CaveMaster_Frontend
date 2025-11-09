@@ -1,0 +1,137 @@
+<!-- ==========================================
+     FICHIER: src/app/client/payments/payments.component.html
+     DESCRIPTION: Template de la page paiements
+     ========================================== -->
+
+<div class="payments-container">
+
+  <!-- Header -->
+  <div class="page-header">
+    <div class="header-content">
+      <h1 class="page-title">
+        <span class="icon">💳</span>
+        Mes Paiements
+      </h1>
+      <p class="page-subtitle">Gérez vos moyens de paiement et consultez l'historique</p>
+    </div>
+    <button class="btn-add-method" (click)="openAddModal()">
+      <span class="btn-icon">+</span>
+      AJOUTER UN MOYEN
+    </button>
+  </div>
+
+  <!-- Méthodes de paiement -->
+  <section class="section">
+    <h2 class="section-title">
+      <span class="section-icon">💳</span>
+      Moyens de paiement
+    </h2>
+
+    <div class="methods-grid">
+      <div class="method-card"
+           *ngFor="let method of paymentMethods"
+           [ngClass]="getTypeClass(method.type)"
+           [class.default-method]="method.isDefault"
+           (click)="setAsDefault(method)">
+
+        <!-- Badge par défaut -->
+        <span class="default-badge" *ngIf="method.isDefault">Par défaut</span>
+
+        <!-- Icône -->
+        <div class="method-icon">{{ method.icon }}</div>
+
+        <!-- Informations -->
+        <div class="method-info">
+          <h3 class="method-name">{{ method.name }}</h3>
+          <p class="method-details">{{ method.details }}</p>
+          <p class="method-expiry" *ngIf="method.expiryDate">
+            Expire le {{ method.expiryDate }}
+          </p>
+        </div>
+
+        <!-- Actions -->
+        <div class="method-actions">
+          <button class="btn-edit" (click)="editMethod(method, $event)">
+            <span class="action-icon">✏️</span>
+          </button>
+          <button class="btn-delete" (click)="deleteMethod(method, $event)">
+            <span class="action-icon">🗑️</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Historique des transactions -->
+  <section class="section">
+    <h2 class="section-title">
+      <span class="section-icon">📊</span>
+      Historique des Transactions
+    </h2>
+
+    <div class="transactions-list">
+      <div class="transaction-item"
+           *ngFor="let transaction of transactions">
+
+        <!-- Icône du statut -->
+        <div class="transaction-icon">
+          <span class="status-emoji">{{ transaction.icon }}</span>
+        </div>
+
+        <!-- Informations -->
+        <div class="transaction-info">
+          <h4 class="transaction-id">Transaction {{ transaction.id }}</h4>
+          <p class="transaction-details">
+            Commande {{ transaction.orderId }} • {{ transaction.method }}
+          </p>
+          <p class="transaction-date">{{ transaction.date }}</p>
+        </div>
+
+        <!-- Statut -->
+        <div class="transaction-status">
+          <span class="status-badge" [ngClass]="getStatusClass(transaction.status)">
+            {{ transaction.status === 'success' ? 'Réussie' :
+               transaction.status === 'pending' ? 'En attente' : 'Échouée' }}
+          </span>
+        </div>
+
+        <!-- Montant -->
+        <div class="transaction-amount">
+          <span class="amount-value">{{ transaction.amount | number }} FCFA</span>
+        </div>
+
+        <!-- Action -->
+        <div class="transaction-action">
+          <button
+            class="btn-receipt"
+            *ngIf="transaction.status === 'success'"
+            (click)="downloadReceipt(transaction, $event)">
+            <span class="receipt-icon">📄</span>
+            Reçu
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Modal d'ajout (simplifié) -->
+<div class="modal-overlay" *ngIf="showAddModal" (click)="closeAddModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">Ajouter un moyen de paiement</h2>
+      <button class="btn-close" (click)="closeAddModal()">
+        <span class="close-icon">✕</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Formulaire d'ajout de moyen de paiement...</p>
+      <!-- Ajouter le formulaire ici -->
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" (click)="closeAddModal()">Annuler</button>
+      <button class="btn-primary">Ajouter</button>
+    </div>
+  </div>
+</div>

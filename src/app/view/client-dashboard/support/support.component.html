@@ -1,0 +1,124 @@
+<!-- ==========================================
+     FICHIER: src/app/client/support/support.component.html
+     DESCRIPTION: Template de la page support (chat)
+     ========================================== -->
+
+<div class="support-container">
+
+  <!-- Header -->
+  <div class="page-header">
+    <h1 class="page-title">
+      <span class="icon">💬</span>
+      Chat Support
+    </h1>
+    <p class="page-subtitle">Notre équipe est là pour vous aider</p>
+  </div>
+
+  <!-- Chat Interface -->
+  <div class="chat-container">
+
+    <!-- Sujets rapides (affichés au début) -->
+    <div class="quick-topics" *ngIf="messages.length <= 4">
+      <h3 class="topics-title">Comment pouvons-nous vous aider ?</h3>
+      <div class="topics-grid">
+        <button
+          class="topic-button"
+          *ngFor="let topic of quickTopics"
+          (click)="selectTopic(topic)">
+          <span class="topic-icon">{{ topic.icon }}</span>
+          <span class="topic-label">{{ topic.title }}</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Messages du chat -->
+    <div class="messages-area">
+      <div class="message"
+           *ngFor="let message of messages"
+           [class.message-user]="message.sender === 'user'"
+           [class.message-support]="message.sender === 'support'">
+
+        <div class="message-avatar" *ngIf="message.sender === 'support'">
+          <span class="avatar-emoji">{{ message.avatar }}</span>
+        </div>
+
+        <div class="message-content">
+          <div class="message-bubble">
+            <p class="message-text">{{ message.text }}</p>
+          </div>
+          <span class="message-time">{{ message.time }}</span>
+        </div>
+
+        <div class="message-avatar" *ngIf="message.sender === 'user'">
+          <span class="avatar-emoji">{{ message.avatar }}</span>
+        </div>
+      </div>
+
+      <!-- Indicateur "en train d'écrire" -->
+      <div class="message message-support" *ngIf="isTyping">
+        <div class="message-avatar">
+          <span class="avatar-emoji">👨‍💼</span>
+        </div>
+        <div class="message-content">
+          <div class="message-bubble typing-indicator">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Zone de saisie -->
+    <div class="chat-input-area">
+      <div class="input-container">
+        <input
+          type="text"
+          class="chat-input"
+          placeholder="Tapez votre message..."
+          [(ngModel)]="newMessage"
+          (keyup.enter)="sendMessage()"
+        />
+        <button
+          class="btn-send"
+          [disabled]="!newMessage.trim()"
+          (click)="sendMessage()">
+          <span class="send-icon">📤</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Informations de contact alternatives -->
+  <div class="contact-info">
+    <h3 class="contact-title">Autres moyens de nous contacter</h3>
+    <div class="contact-methods">
+      <div class="contact-method">
+        <span class="method-icon">📧</span>
+        <div class="method-info">
+          <h4 class="method-label">Email</h4>
+          <a href="mailto:contact@vinotheque.fr" class="method-value">
+            contact@vinotheque.fr
+          </a>
+      </div>
+     </div>
+      <div class="contact-method">
+        <span class="method-icon">📞</span>
+        <div class="method-info">
+          <h4 class="method-label">Téléphone</h4>
+          <a href="tel:+33123456789" class="method-value">
+            +33 1 23 45 67 89
+          </a>
+        </div>
+      </div>
+      <div class="contact-method">
+        <span class="method-icon">⏰</span>
+        <div class="method-info">
+          <h4 class="method-label">Horaires</h4>
+          <p class="method-value">Lun - Ven : 9h - 18h</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

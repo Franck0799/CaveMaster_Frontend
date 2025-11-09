@@ -1,0 +1,198 @@
+<!-- ==========================================
+FICHIER: src/app/server/active-orders/active-orders.component.html
+DESCRIPTION: Suivi des commandes actives en temps réel
+========================================== -->
+
+<div class="active-orders-page">
+
+  <!-- Header -->
+  <div class="page-header">
+    <div class="header-left">
+      <h1 class="page-title">Commandes Actives</h1>
+      <p class="page-subtitle">Suivi en temps réel</p>
+    </div>
+    <div class="header-right">
+      <button
+        class="btn-auto-refresh"
+        [class.active]="autoRefresh"
+        (click)="toggleAutoRefresh()">
+        <i class="icon refresh-cw-icon" [class.spinning]="autoRefresh"></i>
+        {{ autoRefresh ? 'Auto-refresh ON' : 'Auto-refresh OFF' }}
+      </button>
+      <button class="btn-refresh" (click)="loadOrders()">
+        <i class="icon refresh-cw-icon"></i>
+        Actualiser
+      </button>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters-bar">
+    <button
+      class="filter-btn"
+      [class.active]="selectedFilter === 'all'"
+      (click)="selectFilter('all')">
+      <span class="filter-label">Toutes</span>
+      <span class="filter-count">{{ getOrdersCount('all') }}</span>
+    </button>
+    <button
+      class="filter-btn status-pending"
+      [class.active]="selectedFilter === 'pending'"
+      (click)="selectFilter('pending')">
+      <span class="filter-label">En attente</span>
+      <span class="filter-count">{{ getOrdersCount('pending') }}</span>
+    </button>
+    <button
+      class="filter-btn status-preparing"
+      [class.active]="selectedFilter === 'preparing'"
+      (click)="selectFilter('preparing')">
+      <span class="filter-label">En préparation</span>
+      <span class="filter-count">{{ getOrdersCount('preparing') }}</span>
+    </button>
+    <button
+      class="filter-btn status-ready"
+      [class.active]="selectedFilter === 'ready'"
+      (click)="selectFilter('ready')">
+      <span class="filter-label">Prêt</span>
+      <span class="filter-count">{{ getOrdersCount('ready') }}</span>
+    </button>
+    <button
+      class="filter-btn status-served"
+      [class.active]="selectedFilter === 'served'"
+      (click)="selectFilter('served')">
+      <span class="filter-label">Servi</span>
+      <span class="filter-count">{{ getOrdersCount('served') }}</span>
+    </button>
+  </div>
+
+  <!-- Orders Grid -->
+  <div class="orders-grid">
+
+    <div
+      *ngFor="let order of filteredOrders"
+      class="order-card"
+      [class]="'order-' + order.status"
+      [class.priority-urgent]="order.priority === 'urgent'">
+
+      <!-- Card Header -->
+      <div class="order-header">
+        <div class="order-info">
+          <h3 class="table-number">{{ order.tableNumber }}</h3>
+          <span class="order-time">
+            <i class="icon clock-icon"></i>
+            {{ getElapsedTime(order.orderTime) }}
+          </span>
+        </div>
+        <div class="order-badges">
+          <span class="status-badge" [class]="'status-' + getStatusColor(order.status)">
+            {{ getStatusLabel(order.status) }}
+          </span>
+          <span class="priority-badge" *ngIf="order.priority === 'urgent'">
+            <i class="icon alert-circle-icon"></i>
+            Urgent
+          </span>
+        </div>
+      </div>
+
+      <!-- Items List -->
+      <div class="order-items">
+        <div
+          *ngFor="let item of order.items"
+          class="order-item"
+          [class]="'item-' + item.status">
+          <div class="item-info">
+            <i class="icon" [class]="'icon-' + getItemStatusIcon(item.status)"></i>
+            <div class="item-details">
+              <span class="item-name">{{ item.name }}</span>
+              <span class="item-notes" *ngIf="item.notes">{{ item.notes }}</span>
+            </div>
+          </div>
+          <div class="item-actions">
+            <span class="item-quantity">x{{ item.quantity }}</span>
+            <button
+              class="btn-mark-served"
+              *ngIf="item.status === 'ready' && order.serverId === 1"
+              (click)="markItemAsServed(order, item)"
+              title="Marquer comme servi">
+              <i class="icon check-icon"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card Footer -->
+      <div class="order-footer">
+        <div class="order-meta">
+          <span class="server-name">
+            <i class="icon user-icon"></i>
+            {{ order.serverName }}
+          </span>
+          <span class="order-amount">
+            <i class="icon dollar-sign-icon"></i>
+            {{ order.totalAmount | number:'1.2-2' }} €
+          </span>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="order-actions" *ngIf="order.serverId === 1">
+
+          <!-- En attente / En préparation -->
+          <button
+            *ngIf="order.status === 'pending' || order.status === 'preparing'"
+            class="btn-action btn-view"
+            (click)="goToTable(order)">
+            <i class="icon eye-icon"></i>
+            Voir table
+          </button>
+          <button
+            *ngIf="order.status === 'pending' || order.status === 'preparing'"
+            class="btn-action btn-add"
+            (click)="addItemsToOrder(order)">
+            <i class="icon plus-icon"></i>
+            Ajouter
+          </button>
+
+          <!-- Prêt -->
+          <button
+            *ngIf="order.status === 'ready'"
+            class="btn-action btn-serve"
+            (click)="markOrderAsServed(order)">
+            <i class="icon check-circle-icon"></i>
+            Servir
+          </button>
+          <button
+            *ngIf="order.status === 'ready'"
+            class="btn-action btn-bill"
+            (click)="generateBill(order)">
+            <i class="icon credit-card-icon"></i>
+            Facturer
+          </button>
+
+          <!-- Servi -->
+          <button
+            *ngIf="order.status === 'served'"
+            class="btn-action btn-bill"
+            (click)="generateBill(order)">
+            <i class="icon credit-card-icon"></i>
+            Addition
+          </button>
+        </div>
+
+        <!-- Other server's order -->
+        <div class="order-locked" *ngIf="order.serverId !== 1">
+          <i class="icon lock-icon"></i>
+          <span>Géré par {{ order.serverName }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="filteredOrders.length === 0">
+      <i class="icon clipboard-icon"></i>
+      <h3>Aucune commande active</h3>
+      <p>Les commandes apparaîtront ici en temps réel</p>
+    </div>
+
+  </div>
+
+</div>

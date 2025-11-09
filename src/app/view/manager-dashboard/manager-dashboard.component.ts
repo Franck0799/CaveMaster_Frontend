@@ -236,12 +236,12 @@ export class ManagerDashboardComponent implements OnInit, OnDestroy {
     const url = this.router.url;
     console.log('🔍 URL actuelle:', url);
 
-    // ⭐ CORRECTION: Liste des pages valides avec les bons noms de routes
+    // ⭐ CORRECTION: Liste des pages valides EXACTEMENT comme dans les routes
     const validPages = [
-      'home', 'my-cave', 'team', 'presence', 'schedule', 'performance',
-      'orders', 'sales', 'stock-requests', 'inventory',
-      'daily-report', 'cash-register', 'incidents', 'customers',
-      'messages', 'notifications', 'profile', 'settings', 'faq', 'contact'
+      'home', 'my-cave', 'mycave', 'team', 'presence', 'schedule', 'performance',
+      'orders', 'sales', 'stock-requests', 'stockrequest', 'inventory',
+      'daily-report', 'dailyreport', 'cash-register', 'incidents', 'incident',
+      'customers', 'profile', 'settings', 'faq', 'contact'
     ];
 
     let foundPage = 'home';

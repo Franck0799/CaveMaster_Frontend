@@ -1,0 +1,266 @@
+<!-- ==========================================
+     FICHIER: src/app/client/settings/settings.component.html
+     DESCRIPTION: Template de la page paramètres
+     ========================================== -->
+
+<div class="settings-container">
+
+  <!-- Header -->
+  <div class="page-header">
+    <h1 class="page-title">
+      <span class="icon">⚙️</span>
+      Paramètres
+    </h1>
+    <p class="page-subtitle">Personnalisez votre expérience</p>
+  </div>
+
+  <!-- Section: Informations personnelles -->
+  <section class="settings-section">
+    <div class="section-header">
+      <h2 class="section-title">
+        <span class="section-icon">👤</span>
+        Informations Personnelles
+      </h2>
+      <button class="btn-edit" *ngIf="!isEditing" (click)="isEditing = true">
+        <span class="btn-icon">✏️</span>
+        Modifier
+      </button>
+    </div>
+
+    <div class="settings-card">
+      <div class="form-group">
+        <label class="form-label">Nom complet</label>
+        <input
+          type="text"
+          class="form-input"
+          [(ngModel)]="userInfo.name"
+          [disabled]="!isEditing"
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input
+          type="email"
+          class="form-input"
+          [(ngModel)]="userInfo.email"
+          [disabled]="!isEditing"
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Téléphone</label>
+        <input
+          type="tel"
+          class="form-input"
+          [(ngModel)]="userInfo.phone"
+          [disabled]="!isEditing"
+        />
+      </div>
+
+      <div class="form-actions" *ngIf="isEditing">
+        <button class="btn-secondary" (click)="cancelEdit()">Annuler</button>
+        <button class="btn-primary" (click)="saveUserInfo()">Sauvegarder</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Apparence -->
+  <section class="settings-section">
+    <div class="section-header">
+      <h2 class="section-title">
+        <span class="section-icon">🎨</span>
+        Apparence
+      </h2>
+    </div>
+
+    <div class="settings-card">
+      <h3 class="card-subtitle">Thème de l'interface</h3>
+      <div class="theme-options">
+        <button
+          class="theme-button"
+          [class.active]="theme === 'light'"
+          (click)="changeTheme('light')">
+          <span class="theme-icon">☀️</span>
+          <span class="theme-label">Clair</span>
+        </button>
+        <button
+          class="theme-button"
+          [class.active]="theme === 'dark'"
+          (click)="changeTheme('dark')">
+          <span class="theme-icon">🌙</span>
+          <span class="theme-label">Sombre</span>
+        </button>
+        <button
+          class="theme-button"
+          [class.active]="theme === 'auto'"
+          (click)="changeTheme('auto')">
+          <span class="theme-icon">🔄</span>
+          <span class="theme-label">Auto</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Langue et Devise -->
+  <section class="settings-section">
+    <div class="section-header">
+      <h2 class="section-title">
+        <span class="section-icon">🌍</span>
+        Langue & Devise
+      </h2>
+    </div>
+
+    <div class="settings-card">
+      <div class="form-group">
+        <label class="form-label">Langue</label>
+        <select
+          class="form-select"
+          [(ngModel)]="userInfo.language"
+          (ngModelChange)="changeLanguage()">
+          <option *ngFor="let lang of languages" [value]="lang.code">
+            {{ lang.flag }} {{ lang.label }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Devise</label>
+        <select
+          class="form-select"
+          [(ngModel)]="userInfo.currency"
+          (ngModelChange)="changeCurrency()">
+          <option *ngFor="let currency of currencies" [value]="currency.code">
+            {{ currency.symbol }} {{ currency.label }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Notifications -->
+  <section class="settings-section">
+    <div class="section-header">
+      <h2 class="section-title">
+        <span class="section-icon">🔔</span>
+        Notifications
+      </h2>
+    </div>
+
+    <div class="settings-card">
+      <h3 class="card-subtitle">Canaux de notification</h3>
+      <div class="toggle-list">
+        <div class="toggle-item">
+          <div class="toggle-info">
+            <span class="toggle-label">Email</span>
+            <span class="toggle-description">Recevoir les notifications par email</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" [(ngModel)]="notifications.email" (ngModelChange)="saveNotifications()">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="toggle-item">
+          <div class="toggle-info">
+            <span class="toggle-label">SMS</span>
+            <span class="toggle-description">Recevoir les notifications par SMS</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" [(ngModel)]="notifications.sms" (ngModelChange)="saveNotifications()">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="toggle-item">
+          <div class="toggle-info">
+            <span class="toggle-label">Notifications push</span>
+            <span class="toggle-description">Recevoir les notifications sur votre appareil</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" [(ngModel)]="notifications.push" (ngModelChange)="saveNotifications()">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <h3 class="card-subtitle">Types de notifications</h3>
+      <div class="toggle-list">
+        <div class="toggle-item">
+          <div class="toggle-info">
+            <span class="toggle-label">Newsletter</span>
+            <span class="toggle-description">Actualités et nouveautés</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" [(ngModel)]="notifications.newsletter" (ngModelChange)="saveNotifications()">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="toggle-item">
+          <div class="toggle-info">
+            <span class="toggle-label">Promotions</span>
+            <span class="toggle-description">Offres spéciales et réductions</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" [(ngModel)]="notifications.promotions" (ngModelChange)="saveNotifications()">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="toggle-item">
+          <div class="toggle-info">
+            <span class="toggle-label">Commandes</span>
+            <span class="toggle-description">Suivi de vos commandes</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" [(ngModel)]="notifications.orders" (ngModelChange)="saveNotifications()">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="toggle-item">
+          <div class="toggle-info">
+            <span class="toggle-label">Recommandations</span>
+            <span class="toggle-description">Suggestions personnalisées</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" [(ngModel)]="notifications.recommendations" (ngModelChange)="saveNotifications()">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Confidentialité -->
+  <section class="settings-section">
+    <div class="section-header">
+      <h2 class="section-title">
+        <span class="section-icon">🔒</span>
+        Confidentialité & Sécurité
+      </h2>
+    </div>
+
+    <div class="settings-card">
+      <div class="privacy-actions">
+        <button class="privacy-button" (click)="downloadData()">
+          <span class="privacy-icon">📥</span>
+          <div class="privacy-info">
+            <span class="privacy-label">Télécharger mes données</span>
+            <span class="privacy-description">Exporter toutes vos données (RGPD)</span>
+          </div>
+        </button>
+
+        <button class="privacy-button danger" (click)="deleteAccount()">
+          <span class="privacy-icon">🗑️</span>
+          <div class="privacy-info">
+            <span class="privacy-label">Supprimer mon compte</span>
+            <span class="privacy-description">Action irréversible</span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </section>
+
+</div>

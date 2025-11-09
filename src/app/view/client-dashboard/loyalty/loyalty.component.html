@@ -1,0 +1,134 @@
+<!-- ==========================================
+     FICHIER: src/app/client/loyalty/loyalty.component.html
+     DESCRIPTION: Template de la page programme fidélité
+     ========================================== -->
+
+<div class="loyalty-container">
+
+  <!-- Header -->
+  <div class="page-header">
+    <h1 class="page-title">
+      <span class="icon">🏆</span>
+      Programme Fidélité
+    </h1>
+    <p class="page-subtitle">Cumulez des points et profitez d'avantages exclusifs</p>
+  </div>
+
+  <!-- Carte de points -->
+  <div class="points-card">
+    <div class="points-content">
+      <div class="points-info">
+        <p class="points-label">Vos points</p>
+        <h2 class="points-value">{{ userPoints }}</h2>
+      </div>
+      <div class="points-icon">
+        <span class="icon-emoji">🎁</span>
+      </div>
+    </div>
+
+    <!-- Niveau et progression -->
+    <div class="level-section">
+      <div class="level-info">
+        <span class="level-badge">Niveau: <strong>{{ currentLevel }}</strong></span>
+        <span class="next-level">→ {{ nextLevel }}</span>
+      </div>
+
+      <div class="progress-bar">
+        <div class="progress-fill" [style.width.%]="progressPercent"></div>
+      </div>
+
+      <p class="progress-text">
+        Plus que <strong>{{ pointsToNextLevel }} points</strong> pour atteindre le niveau {{ nextLevel }}
+      </p>
+    </div>
+  </div>
+
+  <!-- Section Récompenses -->
+  <section class="section">
+    <h2 class="section-title">
+      <span class="section-icon">🎁</span>
+      Récompenses Disponibles
+    </h2>
+
+    <div class="rewards-grid">
+      <div class="reward-card"
+           *ngFor="let reward of rewards"
+           [class.unavailable]="!reward.available">
+
+        <div class="reward-icon">{{ reward.icon }}</div>
+        <h3 class="reward-title">{{ reward.title }}</h3>
+        <p class="reward-description">{{ reward.description }}</p>
+        <div class="reward-footer">
+          <span class="reward-points">{{ reward.points }} points</span>
+          <button
+            class="btn-redeem"
+            [disabled]="!reward.available || userPoints < reward.points"
+            (click)="redeemReward(reward)">
+            {{ reward.available ? (userPoints >= reward.points ? 'Échanger' : 'Pas assez de points') : 'Indisponible' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Offres Exclusives -->
+  <section class="section">
+    <h2 class="section-title">
+      <span class="section-icon">✨</span>
+      Offres Exclusives
+    </h2>
+
+    <div class="offers-list">
+      <div class="offer-card" *ngFor="let offer of offers">
+        <div class="offer-content">
+          <h3 class="offer-title">{{ offer.title }}</h3>
+          <p class="offer-description">{{ offer.description }}</p>
+          <p class="offer-validity">Valable jusqu'au {{ offer.validUntil }}</p>
+        </div>
+        <div class="offer-action">
+          <button
+            class="btn-offer"
+            *ngIf="offer.code"
+            (click)="copyCode(offer.code, $event)">
+            <span class="code">{{ offer.code }}</span>
+            <span class="copy-icon">📋</span>
+          </button>
+          <button class="btn-offer" *ngIf="!offer.code">
+            En profiter
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Historique des points -->
+  <section class="section">
+    <h2 class="section-title">
+      <span class="section-icon">📊</span>
+      Historique des Points
+    </h2>
+
+    <div class="history-list">
+      <div class="history-item"
+           *ngFor="let item of pointHistory"
+           [ngClass]="getHistoryTypeClass(item.type)">
+
+        <div class="history-icon">
+          <span *ngIf="item.type === 'earned'">💰</span>
+          <span *ngIf="item.type === 'spent'">🎁</span>
+        </div>
+
+        <div class="history-info">
+          <h4 class="history-reason">{{ item.reason }}</h4>
+          <p class="history-date">{{ item.date }}</p>
+        </div>
+
+        <div class="history-amount" [class.negative]="item.type === 'spent'">
+          <span class="amount-value">{{ item.amount > 0 ? '+' : '' }}{{ item.amount }}</span>
+          <span class="amount-label">pts</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>

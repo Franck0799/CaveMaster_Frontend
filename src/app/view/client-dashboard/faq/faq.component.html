@@ -1,0 +1,90 @@
+<!-- ==========================================
+     FICHIER: src/app/client/faq/faq.component.html
+     DESCRIPTION: Template de la page FAQ
+     ========================================== -->
+
+<div class="faq-container">
+
+  <!-- Header -->
+  <div class="page-header">
+    <h1 class="page-title">
+      <span class="icon">❓</span>
+      Questions Fréquentes
+    </h1>
+    <p class="page-subtitle">Trouvez rapidement des réponses à vos questions</p>
+  </div>
+
+  <!-- Barre de recherche -->
+  <div class="search-section">
+    <div class="search-bar">
+      <span class="search-icon">🔍</span>
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Rechercher une question..."
+        [(ngModel)]="searchQuery"
+      />
+    </div>
+  </div>
+
+  <!-- Catégories -->
+  <div class="categories-section">
+    <button
+      class="category-button"
+      [class.active]="selectedCategory === 'Toutes'"
+      (click)="selectCategory('Toutes')">
+      <span class="category-icon">📋</span>
+      <span class="category-label">Toutes</span>
+      <span class="category-count">{{ faqs.length }}</span>
+    </button>
+    <button
+      class="category-button"
+      *ngFor="let category of categories"
+      [class.active]="selectedCategory === category.name"
+      (click)="selectCategory(category.name)">
+      <span class="category-icon">{{ category.icon }}</span>
+      <span class="category-label">{{ category.name }}</span>
+      <span class="category-count">{{ category.count }}</span>
+    </button>
+  </div>
+
+  <!-- Liste des FAQs -->
+  <div class="faqs-list">
+    <div class="faq-item"
+         *ngFor="let faq of filteredFaqs"
+         [class.open]="faq.isOpen">
+
+      <button class="faq-question" (click)="toggleFaq(faq)">
+        <span class="question-text">{{ faq.question }}</span>
+        <span class="toggle-icon">{{ faq.isOpen ? '−' : '+' }}</span>
+      </button>
+
+      <div class="faq-answer" *ngIf="faq.isOpen">
+        <p class="answer-text">{{ faq.answer }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Message si aucun résultat -->
+  <div class="empty-state" *ngIf="filteredFaqs.length === 0">
+    <div class="empty-icon">🔍</div>
+    <h3 class="empty-title">Aucune question trouvée</h3>
+    <p class="empty-text">Essayez de modifier votre recherche ou contactez notre support</p>
+    <button class="btn-primary" routerLink="/client/support">
+      Contacter le support
+    </button>
+  </div>
+
+  <!-- Section contact -->
+  <div class="contact-banner">
+    <div class="banner-content">
+      <h3 class="banner-title">Vous n'avez pas trouvé votre réponse ?</h3>
+      <p class="banner-text">Notre équipe est disponible pour vous aider</p>
+    </div>
+    <button class="btn-contact" routerLink="/client/support">
+      <span class="btn-icon">💬</span>
+      Contacter le support
+    </button>
+  </div>
+
+</div>
