@@ -2,19 +2,22 @@
 // FICHIER: src/app/client/client-layout/client-layout.component.ts
 // DESCRIPTION: Layout principal avec sidebar - ACTUALISÉ standalone
 // ==========================================
-
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { filter } from 'rxjs/operators';
+import { CartService } from '../../core/services/cart.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 // Interface pour un item du menu
 interface MenuItem {
   label: string;
   icon: string;
   route: string;
-  badge?: number;
+  badge?: number | Observable<number>; // Permettre Observable pour les badges dynamiques
 }
 
 // Interface pour une section du menu
@@ -35,44 +38,13 @@ export class ClientDashboardComponent implements OnInit {
   // État de la sidebar (ouverte/fermée sur mobile)
   sidebarOpen = false;
 
+  cartCount$!: Observable<number>; // Initialisé dans ngOnInit
+
   // Badge pour les notifications (nombre de notifications non lues)
   notificationCount = 3;
 
   // Sections du menu avec leurs items
-  menuSections: MenuSection[] = [
-    {
-      title: '',
-      items: [
-        { label: 'Tableau de bord', icon: '📊', route: '/client/home' }
-      ]
-    },
-    {
-      title: '',
-      items: [
-        { label: 'Mes commandes', icon: '🛒', route: '/client/orders', badge: 1 },
-        { label: 'Catalogue', icon: '🍷', route: '/client/catalogue' },
-        { label: 'Favoris', icon: '❤️', route: '/client/favorites' }
-      ]
-    },
-    {
-      title: 'MON COMPTE',
-      items: [
-        { label: 'Fidélité', icon: '🎁', route: '/client/loyalty' },
-        { label: 'Paiements', icon: '💳', route: '/client/payments' },
-        { label: 'Adresses', icon: '📍', route: '/client/addresses' },
-        { label: 'Notifications', icon: '🔔', route: '/client/notifications', badge: this.notificationCount }
-      ]
-    },
-    {
-      title: 'SUPPORT',
-      items: [
-        { label: 'Chat Support', icon: '💬', route: '/client/support' },
-        { label: 'FAQ', icon: '❓', route: '/client/faq' },
-        { label: 'Paramètres', icon: '⚙️', route: '/client/settings' },
-        { label: 'Déconnexion', icon: '🚪', route: '/logout' }
-      ]
-    }
-  ];
+  menuSections: MenuSection[] = [];
 
   // Informations de l'utilisateur connecté
   user = {
@@ -82,9 +54,48 @@ export class ClientDashboardComponent implements OnInit {
   };
 
   // Injection du Router pour la navigation
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private cartService: CartService
+  ) {}
 
   ngOnInit(): void {
+    // Initialiser les sections de menu avec badge dynamique
+    this.menuSections = [
+      {
+        title: '',
+        items: [
+          { label: 'Tableau de bord', icon: '📊', route: '/client/home' }
+        ]
+      },
+      {
+        title: '',
+        items: [
+          { label: 'Mes commandes', icon: '🛒', route: '/client/orders', badge: this.cartCount$ },
+          { label: 'Catalogue', icon: '🍷', route: '/client/catalogue' },
+          { label: 'Favoris', icon: '❤️', route: '/client/favorites' }
+        ]
+      },
+      {
+        title: 'MON COMPTE',
+        items: [
+          { label: 'Fidélité', icon: '🎁', route: '/client/loyalty' },
+          { label: 'Paiements', icon: '💳', route: '/client/payments' },
+          { label: 'Adresses', icon: '📍', route: '/client/addresses' },
+          { label: 'Notifications', icon: '🔔', route: '/client/notifications', badge: this.notificationCount }
+        ]
+      },
+      {
+        title: 'SUPPORT',
+        items: [
+          { label: 'Chat Support', icon: '💬', route: '/client/support' },
+          { label: 'FAQ', icon: '❓', route: '/client/faq' },
+          { label: 'Paramètres', icon: '⚙️', route: '/client/settings' },
+          { label: 'Déconnexion', icon: '🚪', route: '/logout' }
+        ]
+      }
+    ];
+
     // S'abonner aux événements de navigation pour fermer la sidebar automatiquement
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
@@ -94,14 +105,13 @@ export class ClientDashboardComponent implements OnInit {
       });
   }
 
-  // Toggle (ouvrir/fermer) la sidebar
+  // Basculer l'état de la sidebar
   toggleSidebar(): void {
     this.sidebarOpen = !this.sidebarOpen;
   }
 
-  // Fermer la sidebar (seulement sur mobile)
+  // Fermer la sidebar sur mobile
   closeSidebar(): void {
-    // Vérifier si on est sur mobile (largeur < 1024px)
     if (window.innerWidth < 1024) {
       this.sidebarOpen = false;
     }

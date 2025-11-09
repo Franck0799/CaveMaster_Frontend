@@ -1,0 +1,33 @@
+
+    <div class="caves-container">
+      <div class="page-header">
+        <h1 class="page-title">
+          <span class="icon">🏛️</span>
+          Caves Partenaires
+        </h1>
+        <p class="page-subtitle">Découvrez nos caves d'exception à travers toute la France</p>
+      </div>
+
+      <div class="caves-grid">
+        <div class="cave-card" *ngFor="let cave of caves" (click)="viewCave(cave.id)">
+          <div class="cave-header">
+            <span class="cave-emoji">{{ cave.image }}</span>
+          </div>
+          <div class="cave-body">
+            <h3 class="cave-name">{{ cave.name }}</h3>
+            <p class="cave-location">📍 {{ cave.location }}</p>
+            <div class="cave-rating">
+              <span class="star">⭐</span>
+              <span class="rating-value">{{ cave.rating }}</span>
+            </div>
+            <p class="cave-specialty">{{ cave.specialty }}</p>
+            <p class="cave-description">{{ cave.description }}</p>
+            <div class="cave-stats">
+              <span class="stat-icon">🍷</span>
+              <span class="stat-value">{{ cave.wines }} vins disponibles</span>
+            </div>
+          </div>
+          <button class="btn-view-wines">Voir les vins</button>
+        </div>
+      </div>
+    </div>

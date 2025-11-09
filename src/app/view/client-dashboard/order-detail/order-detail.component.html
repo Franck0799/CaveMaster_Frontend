@@ -1,0 +1,60 @@
+
+    <div class="order-detail-container" *ngIf="order">
+      <button class="btn-back" (click)="goBack()">
+        <span class="icon">←</span>
+        Retour aux commandes
+      </button>
+
+      <div class="order-header">
+        <div class="order-title-section">
+          <h1 class="order-title">Commande #{{ order.id }}</h1>
+          <span class="status-badge" [ngClass]="'status-' + order.status.toLowerCase()">
+            {{ order.status }}
+          </span>
+        </div>
+        <p class="order-date">Passée le {{ order.date }}</p>
+      </div>
+
+      <div class="order-grid">
+        <div class="order-items-section">
+          <h2 class="section-title">Articles</h2>
+          <div class="items-list">
+            <div class="item-card" *ngFor="let item of order.items">
+              <span class="item-emoji">{{ item.image }}</span>
+              <div class="item-info">
+                <h3 class="item-name">{{ item.name }}</h3>
+                <p class="item-details">{{ item.quantity }} x {{ item.price }}€</p>
+              </div>
+              <span class="item-total">{{ item.quantity * item.price }}€</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="order-summary-section">
+          <h2 class="section-title">Résumé</h2>
+          <div class="summary-card">
+            <div class="summary-line">
+              <span>Sous-total</span>
+              <span>{{ order.subtotal }}€</span>
+            </div>
+            <div class="summary-line">
+              <span>Livraison</span>
+              <span>{{ order.shipping }}€</span>
+            </div>
+            <div class="summary-line total">
+              <span>Total</span>
+              <span>{{ order.total }}€</span>
+            </div>
+          </div>
+
+          <div class="delivery-info">
+            <h3 class="info-title">Livraison</h3>
+            <p class="info-text">{{ order.address }}</p>
+          </div>
+
+          <button class="btn-track" *ngIf="order.status === 'EN PRÉPARATION'">
+            Suivre ma commande
+          </button>
+        </div>
+      </div>
+    </div>

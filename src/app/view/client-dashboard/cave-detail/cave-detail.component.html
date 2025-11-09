@@ -1,0 +1,32 @@
+
+    <div class="cave-detail-container" *ngIf="cave">
+      <button class="btn-back" (click)="goBack()">
+        <span class="icon">←</span>
+        Retour aux caves
+      </button>
+
+      <div class="cave-header-section">
+        <div class="cave-emoji-large">{{ cave.image }}</div>
+        <div class="cave-info">
+          <h1 class="cave-name">{{ cave.name }}</h1>
+          <p class="cave-location">📍 {{ cave.location }}</p>
+          <div class="cave-rating">
+            <span class="star">⭐</span>
+            <span class="rating-value">{{ cave.rating }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="wines-section">
+        <h2 class="section-title">Vins disponibles ({{ cave.wines }})</h2>
+        <p class="section-subtitle">Spécialité : {{ cave.specialty }}</p>
+
+        <div class="wines-grid">
+          <div class="wine-card" *ngFor="let wine of wines" (click)="viewWine(wine.id)">
+            <span class="wine-emoji">{{ wine.image }}</span>
+            <h3 class="wine-name">{{ wine.name }}</h3>
+            <p class="wine-price">{{ wine.price }}€</p>
+          </div>
+        </div>
+      </div>
+    </div>

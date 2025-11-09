@@ -1,0 +1,428 @@
+
+    .wine-detail-container {
+      min-height: 100vh;
+      background: var(--dark-bg);
+      padding: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .btn-back {
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      color: var(--text-primary);
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-back:hover {
+      background: var(--card-hover);
+      transform: translateX(-4px);
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .wine-image-section {
+      position: sticky;
+      top: 2rem;
+      height: fit-content;
+    }
+
+    .wine-image-card {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+      border-radius: 1.5rem;
+      padding: 4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: var(--shadow-xl);
+    }
+
+    .wine-emoji {
+      font-size: 15rem;
+      margin: 2rem 0;
+    }
+
+    .btn-favorite {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: white;
+      border: none;
+      border-radius: 50%;
+      width: 3.5rem;
+      height: 3.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow-lg);
+      transition: all 0.3s ease;
+    }
+
+    .btn-favorite:hover {
+      transform: scale(1.1);
+    }
+
+    .heart-icon {
+      font-size: 1.75rem;
+    }
+
+    .stock-badge {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      background: rgba(16, 185, 129, 0.9);
+      color: white;
+      padding: 0.5rem 1.25rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 700;
+    }
+
+    .stock-badge.low-stock {
+      background: rgba(245, 158, 11, 0.9);
+    }
+
+    .wine-info-section {
+      background: var(--card-bg);
+      border-radius: 1.5rem;
+      padding: 2.5rem;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .wine-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .wine-name {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+
+    .wine-rating {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.5rem;
+    }
+
+    .rating-value {
+      font-weight: 700;
+      color: #f59e0b;
+    }
+
+    .rating-total {
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .wine-badges {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .badge {
+      padding: 0.625rem 1.25rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 0.875rem;
+    }
+
+    .badge-type {
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--primary);
+    }
+
+    .badge-year {
+      background: rgba(245, 158, 11, 0.1);
+      color: #f59e0b;
+    }
+
+    .wine-specs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .spec-card {
+      background: var(--dark-bg);
+      padding: 1.25rem;
+      border-radius: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .spec-label {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .spec-value {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .cave-info {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(99, 102, 241, 0.1) 100%);
+      padding: 1.25rem;
+      border-radius: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .cave-label {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .cave-name {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: #8b5cf6;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+
+    .description-section {
+      margin-bottom: 2rem;
+    }
+
+    .description-text {
+      color: var(--text-muted);
+      line-height: 1.8;
+      font-size: 1rem;
+    }
+
+    .recommendations-section {
+      margin-bottom: 2rem;
+    }
+
+    .recommendations-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .recommendation-tag {
+      background: var(--dark-bg);
+      padding: 0.625rem 1.25rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .serving-info {
+      margin-bottom: 2rem;
+    }
+
+    .serving-text {
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      font-size: 0.9375rem;
+    }
+
+    .purchase-section {
+      padding-top: 2rem;
+      border-top: 2px solid var(--border);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .quantity-selector {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--dark-bg);
+      padding: 0.5rem;
+      border-radius: 0.75rem;
+    }
+
+    .qty-btn {
+      width: 2.5rem;
+      height: 2.5rem;
+      border: none;
+      background: var(--primary);
+      color: white;
+      border-radius: 0.5rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .qty-btn:hover {
+      background: var(--primary-dark);
+      transform: scale(1.05);
+    }
+
+    .qty-input {
+      width: 4rem;
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: 700;
+      border: none;
+      background: transparent;
+      color: var(--text-primary);
+    }
+
+    .price-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      justify-self: end;
+    }
+
+    .price-label {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .price-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .btn-add-cart {
+      grid-column: 1 / -1;
+      background: #10b981;
+      color: white;
+      border: none;
+      padding: 1.25rem 2rem;
+      border-radius: 0.75rem;
+      font-weight: 700;
+      font-size: 1.125rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .btn-add-cart:hover:not(:disabled) {
+      background: #059669;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-add-cart:disabled {
+      background: var(--border);
+      cursor: not-allowed;
+    }
+
+    .cart-icon {
+      font-size: 1.5rem;
+    }
+
+    .similar-wines-section {
+      margin-top: 3rem;
+    }
+
+    .similar-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+    }
+
+    .similar-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .similar-card {
+      background: var(--card-bg);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-md);
+    }
+
+    .similar-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .similar-emoji {
+      font-size: 4rem;
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .similar-name {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .similar-price {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 0;
+    }
+
+    @media (max-width: 968px) {
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .wine-image-section {
+        position: relative;
+        top: 0;
+      }
+
+      .wine-emoji {
+        font-size: 10rem;
+      }
+
+      .wine-specs {
+        grid-template-columns: 1fr;
+      }
+
+      .purchase-section {
+        grid-template-columns: 1fr;
+      }
+
+      .price-section {
+        justify-self: start;
+      }
+    }

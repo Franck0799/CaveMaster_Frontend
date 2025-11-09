@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ThemeToggleComponent } from '../../components/theme-toggle/theme-toggle.component';
 
+
 // Interface pour les éléments du menu
 interface MenuItem {
   path: string;

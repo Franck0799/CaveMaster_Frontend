@@ -1,0 +1,119 @@
+
+    <div class="wine-detail-container" *ngIf="wine">
+
+      <!-- Bouton retour -->
+      <button class="btn-back" (click)="goBack()">
+        <span class="icon">←</span>
+        Retour au catalogue
+      </button>
+
+      <!-- Grid principale -->
+      <div class="detail-grid">
+
+        <!-- Image du vin -->
+        <div class="wine-image-section">
+          <div class="wine-image-card">
+            <span class="wine-emoji">{{ wine.image }}</span>
+            <button class="btn-favorite" (click)="toggleFavorite()">
+              <span class="heart-icon">{{ isFavorite ? '❤️' : '🤍' }}</span>
+            </button>
+            <span class="stock-badge" [class.low-stock]="wine.stock < 10">
+              {{ wine.stock }} en stock
+            </span>
+          </div>
+        </div>
+
+        <!-- Informations du vin -->
+        <div class="wine-info-section">
+
+          <div class="wine-header">
+            <h1 class="wine-name">{{ wine.name }}</h1>
+            <div class="wine-rating">
+              <span class="star">⭐</span>
+              <span class="rating-value">{{ wine.rating }}</span>
+              <span class="rating-total">/5.0</span>
+            </div>
+          </div>
+
+          <div class="wine-badges">
+            <span class="badge badge-type">{{ wine.type }}</span>
+            <span class="badge badge-year">{{ wine.year }}</span>
+          </div>
+
+          <div class="wine-specs">
+            <div class="spec-card">
+              <span class="spec-label">Région</span>
+              <span class="spec-value">{{ wine.region }}</span>
+            </div>
+            <div class="spec-card">
+              <span class="spec-label">Cépage</span>
+              <span class="spec-value">{{ wine.grape }}</span>
+            </div>
+            <div class="spec-card">
+              <span class="spec-label">Alcool</span>
+              <span class="spec-value">{{ wine.alcohol }}%</span>
+            </div>
+            <div class="spec-card">
+              <span class="spec-label">Volume</span>
+              <span class="spec-value">{{ wine.volume }}ml</span>
+            </div>
+          </div>
+
+          <div class="cave-info">
+            <span class="cave-label">Disponible chez</span>
+            <span class="cave-name">{{ wine.cave }}</span>
+          </div>
+
+          <div class="description-section">
+            <h3 class="section-title">Description</h3>
+            <p class="description-text">{{ wine.description }}</p>
+          </div>
+
+          <div class="recommendations-section">
+            <h3 class="section-title">Accords Recommandés</h3>
+            <div class="recommendations-grid">
+              <span class="recommendation-tag">🥩 Viandes rouges</span>
+              <span class="recommendation-tag">🧀 Fromages affinés</span>
+              <span class="recommendation-tag">🍄 Gibier</span>
+              <span class="recommendation-tag">🍝 Plats en sauce</span>
+            </div>
+          </div>
+
+          <div class="serving-info">
+            <h3 class="section-title">Service</h3>
+            <p class="serving-text">🌡️ Température: {{ wine.temperature }}</p>
+            <p class="serving-text">🍷 Carafage: Recommandé 30 minutes avant</p>
+          </div>
+
+          <div class="purchase-section">
+            <div class="quantity-selector">
+              <button class="qty-btn" (click)="decreaseQuantity()">−</button>
+              <input type="number" class="qty-input" [(ngModel)]="quantity" min="1" [max]="wine.stock">
+              <button class="qty-btn" (click)="increaseQuantity()">+</button>
+            </div>
+
+            <div class="price-section">
+              <span class="price-label">Prix</span>
+              <span class="price-value">{{ wine.price * quantity }}€</span>
+            </div>
+
+            <button class="btn-add-cart" (click)="addToCart()" [disabled]="wine.stock < 1">
+              <span class="cart-icon">🛒</span>
+              {{ wine.stock > 0 ? 'Ajouter au panier' : 'Rupture de stock' }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vins similaires -->
+      <div class="similar-wines-section">
+        <h2 class="similar-title">Vins Similaires</h2>
+        <div class="similar-grid">
+          <div class="similar-card" *ngFor="let similar of similarWines" (click)="viewWine(similar.id)">
+            <span class="similar-emoji">{{ similar.image }}</span>
+            <h4 class="similar-name">{{ similar.name }}</h4>
+            <p class="similar-price">{{ similar.price }}€</p>
+          </div>
+        </div>
+      </div>
+    </div>

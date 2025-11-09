@@ -15,7 +15,10 @@ import { LoyaltyComponent } from '../../view/client-dashboard/loyalty/loyalty.co
 import { PaymentsComponent } from '../../view/client-dashboard/payments/payments.component';
 import { SettingsComponent } from '../../view/client-dashboard/settings/settings.component';
 import { SupportComponent } from '../../view/client-dashboard/support/support.component';
-
+import { CaveDetailComponent } from '../../view/client-dashboard/cave-detail/cave-detail.component';
+import { CaveComponent } from '../../view/client-dashboard/cave/cave.component';
+import { OrderDetailComponent } from '../../view/client-dashboard/order-detail/order-detail.component';
+import { WineDetailComponent} from '../../view/client-dashboard/wine-detail/wine-detail.component';
 //
 
 //
@@ -66,7 +69,7 @@ const routes: Routes = [
           component:AddressesComponent,
           data: { title:'Addresses'}
         },
-/////////////////////////////
+
         {
           path:'faq',
           component:FaqComponent,
@@ -95,6 +98,30 @@ const routes: Routes = [
           path:'support',
           component:SupportComponent,
           data: { title:'support'}
+        },
+////////////////////////////
+        {
+          path:'order-detail',
+          component:OrderDetailComponent,
+          data: { title:'detail commande'}
+        },
+
+        {
+          path:'wine-detail',
+          component:WineDetailComponent,
+          data: { title:'detail vin'}
+        },
+
+        {
+          path:'cave',
+          component:CaveComponent,
+          data: { title:'cave'}
+        },
+
+        {
+          path:'cave-detail',
+          component:CaveDetailComponent,
+          data: { title:'detail cave'}
         },
 
         {
