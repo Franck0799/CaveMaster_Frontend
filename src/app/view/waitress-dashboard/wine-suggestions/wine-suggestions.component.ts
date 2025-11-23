@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router'; // ← CORRECTION ICI
+import { NotificationService } from '../../../core/services/notification.service';
 
 interface Wine {
   id: number;
@@ -172,7 +173,9 @@ export class WineSuggestionsComponent implements OnInit {
   filteredWines: Wine[] = [];
   selectedWine?: Wine;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute,
+    private notificationService: NotificationService
+  ) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {

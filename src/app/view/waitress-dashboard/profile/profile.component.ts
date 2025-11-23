@@ -6,7 +6,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { NotificationService } from '../../../core/services/notification.service';
 
 interface UserProfile {
   id: number;
@@ -140,7 +140,7 @@ export class ProfileComponent implements OnInit {
     confirmPassword: ''
   };
 
-  constructor() {}
+  constructor(private notificationService: NotificationService) {}
 
   ngOnInit(): void {
     this.editedUser = { ...this.user };

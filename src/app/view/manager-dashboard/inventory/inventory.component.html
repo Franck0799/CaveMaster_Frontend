@@ -77,3 +77,62 @@
     </div>
   </div>
 </div>
+<!-- ===== INVENTORY - MODAL AJUSTEMENT STOCK ===== -->
+<div class="modal-overlay" *ngIf="showAdjustModal" (click)="closeAdjustModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">Ajuster le stock</h2>
+      <button class="btn-close" (click)="closeAdjustModal()">✕</button>
+    </div>
+
+    <div class="modal-body" *ngIf="selectedItem">
+      <div class="product-info-header">
+        <h3>{{ selectedItem.name }}</h3>
+        <span class="category-badge">{{ selectedItem.category }}</span>
+      </div>
+
+      <div class="stock-comparison">
+        <div class="stock-item">
+          <span class="stock-label">Stock actuel</span>
+          <span class="stock-value current">{{ selectedItem.stock }}</span>
+        </div>
+        <div class="stock-arrow">→</div>
+        <div class="stock-item">
+          <span class="stock-label">Nouveau stock</span>
+          <input type="number" [(ngModel)]="adjustForm.newStock" class="stock-input-large" min="0">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="adjust-reason">Raison de l'ajustement *</label>
+        <select id="adjust-reason" [(ngModel)]="adjustForm.reason" class="form-select">
+          <option value="">Sélectionner une raison</option>
+          <option value="Inventaire physique">Inventaire physique</option>
+          <option value="Erreur de saisie">Erreur de saisie</option>
+          <option value="Casse/Perte">Casse/Perte</option>
+          <option value="Vol">Vol</option>
+          <option value="Retour fournisseur">Retour fournisseur</option>
+          <option value="Autre">Autre</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="adjust-notes">Notes complémentaires</label>
+        <textarea id="adjust-notes" [(ngModel)]="adjustForm.notes" class="form-textarea" rows="3"></textarea>
+      </div>
+
+      <div class="alert-info" *ngIf="adjustForm.newStock !== selectedItem.stock">
+        <strong>Écart:</strong>
+        <span [class.text-success]="adjustForm.newStock > selectedItem.stock"
+              [class.text-danger]="adjustForm.newStock < selectedItem.stock">
+          {{ adjustForm.newStock > selectedItem.stock ? '+' : '' }}{{ adjustForm.newStock - selectedItem.stock }}
+        </span>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-secondary" (click)="closeAdjustModal()">Annuler</button>
+      <button class="btn-primary" (click)="performAdjustStock()">✅ Valider l'ajustement</button>
+    </div>
+  </div>
+</div>

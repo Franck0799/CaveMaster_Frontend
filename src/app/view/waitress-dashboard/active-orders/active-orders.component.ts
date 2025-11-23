@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterModule, NavigationEnd } from '@angular/router';
+import { NotificationService } from '../../../core/services/notification.service';
 
 interface OrderItem {
   id: number;
@@ -104,7 +105,7 @@ export class ActiveOrdersComponent implements OnInit, OnDestroy {
   refreshInterval: any;
   autoRefresh = true;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private notificationService: NotificationService) {}
 
   ngOnInit(): void {
     this.filterOrders();

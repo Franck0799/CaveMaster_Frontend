@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterModule, NavigationEnd } from '@angular/router';
+import { NotificationService } from '../../../core/services/notification.service';
 
 interface Table {
   id: number;
@@ -74,7 +75,7 @@ export class TablesComponent implements OnInit {
     myTables: 0
   };
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private notificationService: NotificationService) {}
 
   ngOnInit(): void {
     this.calculateStats();

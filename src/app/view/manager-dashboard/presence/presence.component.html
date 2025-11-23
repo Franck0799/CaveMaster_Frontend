@@ -125,3 +125,48 @@
     </div>
   </div>
 </div>
+<!-- ===== PRESENCE COMPONENT - MODAL MARQUER PRÉSENCE ===== -->
+<div class="modal-overlay" *ngIf="showMarkModal" (click)="closeMarkModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">Marquer une présence</h2>
+      <button class="btn-close" (click)="closeMarkModal()">✕</button>
+    </div>
+
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="mark-member">Membre *</label>
+        <select id="mark-member" [(ngModel)]="markForm.memberId" class="form-select">
+          <option value="">Sélectionner un membre</option>
+          <option *ngFor="let member of teamPresence" [value]="member.id">
+            {{ member.avatar }} {{ member.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="mark-status">Statut *</label>
+        <select id="mark-status" [(ngModel)]="markForm.status" class="form-select">
+          <option value="present">Présent</option>
+          <option value="absent">Absent</option>
+          <option value="leave">Congé</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="mark-time">Heure</label>
+        <input type="time" id="mark-time" [(ngModel)]="markForm.time" class="form-input">
+      </div>
+
+      <div class="form-group">
+        <label for="mark-notes">Notes</label>
+        <textarea id="mark-notes" [(ngModel)]="markForm.notes" class="form-textarea" rows="3" placeholder="Notes complémentaires..."></textarea>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-secondary" (click)="closeMarkModal()">Annuler</button>
+      <button class="btn-primary" (click)="performMarkPresence()">✅ Enregistrer</button>
+    </div>
+  </div>
+</div>

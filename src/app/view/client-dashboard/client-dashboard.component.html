@@ -48,6 +48,19 @@
               <span class="nav-badge" *ngIf="item.badge">{{ item.badge }}</span>
             </a>
           </li>
+          <!-- Dans la section navigation, ajouter après "Mes commandes" -->
+          <li>
+            <a class="nav-item"
+              routerLink="/client/cart"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact: false}">
+              <span class="nav-icon">🛒</span>
+              <span class="nav-label">Mon Panier</span>
+              <span class="nav-badge" *ngIf="(cartCount$ | async)! > 0">
+                {{ cartCount$ | async }}
+              </span>
+            </a>
+          </li>
         </ul>
       </div>
     </nav>

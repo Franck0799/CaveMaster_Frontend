@@ -1,26 +1,19 @@
-// ==========================================
-// FICHIER: src/app/client/client-layout/client-layout.component.ts
-// DESCRIPTION: Layout principal avec sidebar - ACTUALISÉ standalone
-// ==========================================
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs/operators';
 import { CartService } from '../../core/services/cart.service';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ThemeToggleComponent } from '../../components/theme-toggle/theme-toggle.component'; // ✅ Ajout
 
-
-// Interface pour un item du menu
 interface MenuItem {
   label: string;
   icon: string;
   route: string;
-  badge?: number | Observable<number>; // Permettre Observable pour les badges dynamiques
+  badge?: Observable<number>; // ✅ Observable pour les badges dynamiques
 }
 
-// Interface pour une section du menu
 interface MenuSection {
   title: string;
   items: MenuItem[];
@@ -29,37 +22,38 @@ interface MenuSection {
 @Component({
   selector: 'app-client',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    ThemeToggleComponent // ✅ Ajout
+  ],
   templateUrl: './client-dashboard.component.html',
   styleUrls: ['./client-dashboard.component.scss']
 })
 export class ClientDashboardComponent implements OnInit {
-
-  // État de la sidebar (ouverte/fermée sur mobile)
   sidebarOpen = false;
-
-  cartCount$!: Observable<number>; // Initialisé dans ngOnInit
-
-  // Badge pour les notifications (nombre de notifications non lues)
+  cartCount$!: Observable<number>; // ✅ Ajout
   notificationCount = 3;
 
-  // Sections du menu avec leurs items
   menuSections: MenuSection[] = [];
 
-  // Informations de l'utilisateur connecté
   user = {
     name: 'Marie Dupont',
     email: 'marie.dupont@email.com',
     avatar: '👤'
   };
 
-  // Injection du Router pour la navigation
   constructor(
     private router: Router,
-    private cartService: CartService
+    private cartService: CartService // ✅ Ajout
   ) {}
 
   ngOnInit(): void {
+    // ✅ Initialiser l'observable du compteur de panier
+    this.cartCount$ = this.cartService.cartCount$;
+
     // Initialiser les sections de menu avec badge dynamique
     this.menuSections = [
       {
@@ -71,9 +65,15 @@ export class ClientDashboardComponent implements OnInit {
       {
         title: '',
         items: [
-          { label: 'Mes commandes', icon: '🛒', route: '/client/orders', badge: this.cartCount$ },
+          { label: 'Mes commandes', icon: '🛒', route: '/client/orders' },
+          {
+            label: 'Mon Panier',
+            icon: '🛒',
+            route: '/client/cart',
+            badge: this.cartCount$ // ✅ Badge dynamique
+          },
           { label: 'Catalogue', icon: '🍷', route: '/client/catalogue' },
-          { label: 'Favoris', icon: '❤️', route: '/client/favorites' }
+          { label: 'Favoris', icon: '❤️', route: '/client/favoris' }
         ]
       },
       {
@@ -82,7 +82,12 @@ export class ClientDashboardComponent implements OnInit {
           { label: 'Fidélité', icon: '🎁', route: '/client/loyalty' },
           { label: 'Paiements', icon: '💳', route: '/client/payments' },
           { label: 'Adresses', icon: '📍', route: '/client/addresses' },
-          { label: 'Notifications', icon: '🔔', route: '/client/notifications', badge: this.notificationCount }
+          {
+            label: 'Notifications',
+            icon: '🔔',
+            route: '/client/notifications',
+            badge: this.notificationCount as any
+          }
         ]
       },
       {
@@ -96,50 +101,33 @@ export class ClientDashboardComponent implements OnInit {
       }
     ];
 
-    // S'abonner aux événements de navigation pour fermer la sidebar automatiquement
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
-        // Fermer la sidebar après navigation sur mobile
         this.closeSidebar();
       });
   }
 
-  // Basculer l'état de la sidebar
   toggleSidebar(): void {
     this.sidebarOpen = !this.sidebarOpen;
   }
 
-  // Fermer la sidebar sur mobile
   closeSidebar(): void {
     if (window.innerWidth < 1024) {
       this.sidebarOpen = false;
     }
   }
 
-  // Vérifier si une route est active
   isActive(route: string): boolean {
-    // Retourner true si l'URL actuelle correspond à la route
     return this.router.url === route;
   }
 
-  // Navigation vers une route
   navigate(route: string): void {
-    // Gérer la déconnexion
     if (route === '/logout') {
-      // Logique de déconnexion
       console.log('Déconnexion en cours...');
-
-      // TODO: Appeler le service d'authentification
-      // this.authService.logout();
-
-      // Rediriger vers la page de login
       this.router.navigate(['/login']);
     } else {
-      // Navigation normale vers la route demandée
       this.router.navigate([route]);
-
-      // Fermer la sidebar sur mobile après navigation
       this.closeSidebar();
     }
   }

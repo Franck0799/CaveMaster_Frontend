@@ -115,3 +115,49 @@
     </div>
   </div>
 </div>
+<!-- ===== INCIDENT - MODAL AJOUT ===== -->
+<div class="modal-overlay" *ngIf="showAddModal" (click)="closeAddModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">Signaler un incident</h2>
+      <button class="btn-close" (click)="closeAddModal()">✕</button>
+    </div>
+
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="incident-type">Type d'incident *</label>
+        <select id="incident-type" [(ngModel)]="newIncident.type" class="form-select">
+          <option value="equipment">🔧 Équipement</option>
+          <option value="customer">👤 Client</option>
+          <option value="stock">📦 Stock</option>
+          <option value="security">🔒 Sécurité</option>
+          <option value="other">📝 Autre</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="incident-severity">Gravité</label>
+        <select id="incident-severity" [(ngModel)]="newIncident.severity" class="form-select">
+          <option value="low">🟢 Faible</option>
+          <option value="medium">🟡 Moyen</option>
+          <option value="high">🔴 Élevé</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="incident-title">Titre *</label>
+        <input type="text" id="incident-title" [(ngModel)]="newIncident.title" class="form-input" placeholder="Résumé de l'incident">
+      </div>
+
+      <div class="form-group">
+        <label for="incident-description">Description *</label>
+        <textarea id="incident-description" [(ngModel)]="newIncident.description" class="form-textarea" rows="5" placeholder="Décrivez l'incident en détail..."></textarea>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-secondary" (click)="closeAddModal()">Annuler</button>
+      <button class="btn-danger" (click)="reportIncident()">⚠️ Signaler</button>
+    </div>
+  </div>
+</div>

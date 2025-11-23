@@ -1,0 +1,87 @@
+<div class="cart-container">
+  <div class="page-header">
+    <h1 class="page-title">
+      <span class="icon">🛒</span>
+      Mon Panier
+    </h1>
+    <button
+      class="btn-clear"
+      *ngIf="(cartCount$ | async)! > 0"
+      (click)="clearCart()">
+      <span class="btn-icon">🗑️</span>
+      Vider le panier
+    </button>
+  </div>
+
+  <div class="cart-content" *ngIf="(cartCount$ | async)! > 0; else emptyCart">
+    <div class="cart-items">
+      <div class="cart-item" *ngFor="let item of cartItems$ | async">
+        <div class="item-image">
+          <span class="item-emoji">{{ item.image }}</span>
+        </div>
+
+        <div class="item-info">
+          <h3 class="item-name">{{ item.name }}</h3>
+          <p class="item-region">{{ item.region }} • {{ item.year }}</p>
+          <p class="item-price">{{ item.price }}€ / bouteille</p>
+        </div>
+
+        <div class="item-quantity">
+          <button class="qty-btn" (click)="decreaseQuantity(item)">−</button>
+          <span class="qty-value">{{ item.quantity }}</span>
+          <button class="qty-btn" (click)="increaseQuantity(item)">+</button>
+        </div>
+
+        <div class="item-total">
+          <span class="total-value">{{ item.price * item.quantity }}€</span>
+        </div>
+
+        <button class="btn-remove" (click)="removeItem(item)">
+          <span class="remove-icon">✕</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="cart-summary">
+      <div class="summary-card">
+        <h3 class="summary-title">Résumé</h3>
+
+        <div class="summary-line">
+          <span>Sous-total</span>
+          <span>{{ cartTotal$ | async }}€</span>
+        </div>
+
+        <div class="summary-line">
+          <span>Livraison</span>
+          <span class="free-shipping">Gratuite</span>
+        </div>
+
+        <div class="summary-divider"></div>
+
+        <div class="summary-total">
+          <span>Total</span>
+          <span>{{ cartTotal$ | async }}€</span>
+        </div>
+
+        <button class="btn-checkout" (click)="proceedToCheckout()">
+          Procéder au paiement
+        </button>
+
+        <button class="btn-continue" (click)="continueShopping()">
+          Continuer mes achats
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #emptyCart>
+    <div class="empty-state">
+      <div class="empty-icon">🛒</div>
+      <h3 class="empty-title">Votre panier est vide</h3>
+      <p class="empty-text">Ajoutez des vins pour commencer vos achats</p>
+      <button class="btn-primary" (click)="continueShopping()">
+        Découvrir le catalogue
+      </button>
+    </div>
+  </ng-template>
+</div>

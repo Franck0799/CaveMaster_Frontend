@@ -2,6 +2,11 @@
 // FICHIER: src/app/server/tables/tables.component.scss
 // DESCRIPTION: Styles de la page de gestion des tables
 // ==========================================
+* {
+  transition: background-color 0.3s ease,
+              color 0.3s ease,
+              border-color 0.3s ease;
+}
 
 .tables-page {
   max-width: 1600px;

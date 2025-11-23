@@ -5,7 +5,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { NotificationService } from '../../../core/services/notification.service';
 
 
 interface Shift {
@@ -130,7 +130,7 @@ export class ScheduleComponent implements OnInit {
   showLeaveModal = false;
   newLeaveRequest: Partial<LeaveRequest> = {};
 
-  constructor() {}
+  constructor(private notificationService: NotificationService) {}
 
   ngOnInit(): void {
     this.generateMonthView();

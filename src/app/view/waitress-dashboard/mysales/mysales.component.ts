@@ -6,7 +6,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { NotificationService } from '../../../core/services/notification.service';
 
 interface Sale {
   id: number;
@@ -157,7 +157,7 @@ export class MySalesComponent implements OnInit {
     { label: '21h', value: 130 }
   ];
 
-  constructor() {}
+  constructor(private notificationService: NotificationService) {}
 
   ngOnInit(): void {
     this.loadSalesData();

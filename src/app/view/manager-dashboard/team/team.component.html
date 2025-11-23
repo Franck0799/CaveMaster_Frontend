@@ -132,3 +132,126 @@
     </div>
   </div>
 </div>
+<!-- ===== TEAM COMPONENT - MODAL AJOUT ===== -->
+<div class="modal-overlay" *ngIf="showAddModal" (click)="closeAddModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">Ajouter un membre</h2>
+      <button class="btn-close" (click)="closeAddModal()">✕</button>
+    </div>
+
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Avatar</label>
+        <div class="avatar-selector">
+          <div class="avatar-option"
+               *ngFor="let avatar of availableAvatars"
+               [class.selected]="newMember.avatar === avatar"
+               (click)="newMember.avatar = avatar">
+            {{ avatar }}
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="member-name">Nom complet *</label>
+        <input type="text" id="member-name" [(ngModel)]="newMember.name" class="form-input" placeholder="Jean Dupont">
+      </div>
+
+      <div class="form-group">
+        <label for="member-role">Rôle *</label>
+        <select id="member-role" [(ngModel)]="newMember.role" class="form-select">
+          <option value="Serveur">Serveur</option>
+          <option value="Serveuse">Serveuse</option>
+          <option value="Serveur Senior">Serveur Senior</option>
+          <option value="Serveuse Senior">Serveuse Senior</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="member-email">Email *</label>
+        <input type="email" id="member-email" [(ngModel)]="newMember.email" class="form-input" placeholder="jean@example.com">
+      </div>
+
+      <div class="form-group">
+        <label for="member-phone">Téléphone *</label>
+        <input type="tel" id="member-phone" [(ngModel)]="newMember.phone" class="form-input" placeholder="+33 6 12 34 56 78">
+      </div>
+
+      <div class="form-group">
+        <label for="member-status">Statut</label>
+        <select id="member-status" [(ngModel)]="newMember.status" class="form-select">
+          <option value="present">Présent</option>
+          <option value="absent">Absent</option>
+          <option value="leave">Congé</option>
+          <option value="off">Repos</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-secondary" (click)="closeAddModal()">Annuler</button>
+      <button class="btn-primary" (click)="performAddMember()">➕ Ajouter</button>
+    </div>
+  </div>
+</div>
+<!-- ===== TEAM COMPONENT - MODAL DÉTAILS ===== -->
+<div class="modal-overlay" *ngIf="showDetailsModal" (click)="closeDetailsModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">Détails du membre</h2>
+      <button class="btn-close" (click)="closeDetailsModal()">✕</button>
+    </div>
+
+    <div class="modal-body" *ngIf="selectedMember">
+      <div class="member-details-header">
+        <div class="member-avatar-xl">{{ selectedMember.avatar }}</div>
+        <div class="member-info-detailed">
+          <h3>{{ selectedMember.name }}</h3>
+          <p class="role">{{ selectedMember.role }}</p>
+          <span class="status-badge" [class]="'status-' + selectedMember.status">
+            {{ getStatusLabel(selectedMember.status) }}
+          </span>
+        </div>
+      </div>
+
+      <div class="details-grid">
+        <div class="detail-item">
+          <span class="detail-label">Email</span>
+          <span class="detail-value">{{ selectedMember.email }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Téléphone</span>
+          <span class="detail-value">{{ selectedMember.phone }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Date d'embauche</span>
+          <span class="detail-value">{{ selectedMember.joinDate | date:'dd/MM/yyyy' }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Note moyenne</span>
+          <span class="detail-value">{{ selectedMember.rating }} ⭐</span>
+        </div>
+      </div>
+
+      <div class="stats-section">
+        <h4>Performances du jour</h4>
+        <div class="stats-row">
+          <div class="stat">
+            <span class="stat-label">Ventes</span>
+            <span class="stat-value">{{ selectedMember.todaySales }}€</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Commandes</span>
+            <span class="stat-value">{{ selectedMember.ordersCompleted }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+   <!-- <div class="modal-footer">
+      <button class="btn-secondary" (click)="contactMember(selectedMember)">💬 Contacter</button>
+      <button class="btn-primary" (click)="editMember(selectedMember); closeDetailsModal()">✏️ Modifier</button>
+    </div> -->
+  </div>
+</div>

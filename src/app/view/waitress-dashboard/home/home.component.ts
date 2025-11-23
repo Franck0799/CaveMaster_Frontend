@@ -1,11 +1,12 @@
 // ==========================================
-// FICHIER: src/app/server/home/home.component.ts
-// DESCRIPTION: Dashboard Serveur - Vue d'ensemble
+// FICHIER CORRIGÉ : home.component.ts
 // ==========================================
-import { Component, OnInit } from '@angular/core';
+
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, RouterModule, NavigationEnd } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { interval, Subscription } from 'rxjs';
 
 interface DailyStat {
   label: string;
@@ -44,15 +45,16 @@ interface Notification {
 
 @Component({
   selector: 'app-home',
-    standalone: true,
-    // Import des modules nécessaires
-    imports: [CommonModule, FormsModule,RouterModule, ReactiveFormsModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterModule, ReactiveFormsModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   currentDate = new Date();
   serverName = 'Marie Dubois';
+
+  private refreshSubscription?: Subscription;
 
   dailyStats: DailyStat[] = [
     {
@@ -155,22 +157,40 @@ export class HomeComponent implements OnInit {
     }
   ];
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.loadDashboardData();
+    this.startAutoRefresh();
   }
 
+  ngOnDestroy(): void {
+    if (this.refreshSubscription) {
+      this.refreshSubscription.unsubscribe();
+    }
+  }
+
+  // ✅ Auto-refresh toutes les 30 secondes
+  private startAutoRefresh(): void {
+    this.refreshSubscription = interval(30000).subscribe(() => {
+      this.loadDashboardData();
+    });
+  }
+
+  // ✅ Charger les données du dashboard
   loadDashboardData(): void {
-    // TODO: Charger les données depuis le backend
+    // TODO: Implémenter avec les vrais services
+    console.log('Chargement des données du dashboard...');
   }
 
+  // ✅ Calculer le pourcentage d'objectif
   getObjectivePercentage(objective: Objective): number {
     return Math.min((objective.current / objective.target) * 100, 100);
   }
 
+  // ✅ Obtenir le label de statut
   getStatusLabel(status: string): string {
-    const labels: any = {
+    const labels: Record<string, string> = {
       'occupied': 'Installée',
       'ordering': 'Commande en cours',
       'eating': 'En repas',
@@ -179,8 +199,9 @@ export class HomeComponent implements OnInit {
     return labels[status] || status;
   }
 
+  // ✅ Obtenir la couleur de statut
   getStatusColor(status: string): string {
-    const colors: any = {
+    const colors: Record<string, string> = {
       'occupied': 'info',
       'ordering': 'warning',
       'eating': 'success',
@@ -189,6 +210,7 @@ export class HomeComponent implements OnInit {
     return colors[status] || 'info';
   }
 
+  // ✅ Obtenir le temps écoulé
   getElapsedTime(date: Date): string {
     const minutes = Math.floor((Date.now() - date.getTime()) / 60000);
     if (minutes < 60) {
@@ -199,8 +221,9 @@ export class HomeComponent implements OnInit {
     return `${hours}h ${remainingMinutes}min`;
   }
 
+  // ✅ Obtenir l'icône de notification
   getNotificationIcon(type: string): string {
-    const icons: any = {
+    const icons: Record<string, string> = {
       'order-ready': 'check-circle',
       'table-request': 'bell',
       'manager-message': 'message-circle',
@@ -209,11 +232,14 @@ export class HomeComponent implements OnInit {
     return icons[type] || 'info';
   }
 
+  // ✅ Aller à une table
   goToTable(table: ActiveTable): void {
-    // TODO: Naviguer vers la page de la table
-    console.log('Navigate to table:', table);
+    this.router.navigate(['/waitress/table'], {
+      queryParams: { tableId: table.id }
+    });
   }
 
+  // ✅ Ignorer une notification
   dismissNotification(notification: Notification): void {
     this.notifications = this.notifications.filter(n => n.id !== notification.id);
   }

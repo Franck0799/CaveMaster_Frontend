@@ -19,6 +19,7 @@ import { CaveDetailComponent } from '../../view/client-dashboard/cave-detail/cav
 import { CaveComponent } from '../../view/client-dashboard/cave/cave.component';
 import { OrderDetailComponent } from '../../view/client-dashboard/order-detail/order-detail.component';
 import { WineDetailComponent} from '../../view/client-dashboard/wine-detail/wine-detail.component';
+import { CartComponent } from '../../view/client-dashboard/cart/cart.component';
 //
 
 //
@@ -122,6 +123,12 @@ const routes: Routes = [
           path:'cave-detail',
           component:CaveDetailComponent,
           data: { title:'detail cave'}
+        },
+
+         {
+          path:'cart',
+          component:CartComponent,
+          data: { title:'panier'}
         },
 
         {

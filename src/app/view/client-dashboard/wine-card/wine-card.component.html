@@ -1,0 +1,32 @@
+
+    <div class="wine-card" [routerLink]="['/client/wine-detail', wine.id]">
+      <div class="wine-image">
+        <span class="wine-emoji">{{ wine.image }}</span>
+        <button
+          class="btn-favorite"
+          (click)="onToggleFavorite($event)"
+          [class.active]="isFavorite">
+          <span class="heart-icon">{{ isFavorite ? '❤️' : '🤍' }}</span>
+        </button>
+      </div>
+
+      <div class="wine-info">
+        <h3 class="wine-name">{{ wine.name }}</h3>
+        <p class="wine-details">{{ wine.region }} • {{ wine.year }}</p>
+
+        <div class="wine-rating">
+          <span class="star">⭐</span>
+          <span class="rating-value">{{ wine.rating }}</span>
+        </div>
+
+        <p class="wine-cave">{{ wine.cave }}</p>
+
+        <div class="wine-footer">
+          <span class="wine-price">{{ wine.price }}€</span>
+          <button class="btn-add" (click)="onAddToCart($event)">
+            <span class="cart-icon">🛒</span>
+            Ajouter
+          </button>
+        </div>
+      </div>
+    </div>

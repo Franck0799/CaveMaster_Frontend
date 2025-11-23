@@ -23,6 +23,7 @@ export class Users {
   photoSafeUrl?: SafeUrl | null;
   password?: string
   confirmPassword?: string;
+  avatar?: string;
 
   constructor(
     id: string = '',

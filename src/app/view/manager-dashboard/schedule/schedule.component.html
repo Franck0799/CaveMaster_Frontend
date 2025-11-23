@@ -81,3 +81,60 @@
     </div>
   </div>
 </div>
+<!-- ===== SCHEDULE - MODAL AJOUT SHIFT ===== -->
+<div class="modal-overlay" *ngIf="showAddModal" (click)="closeAddModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">Ajouter un shift</h2>
+      <button class="btn-close" (click)="closeAddModal()">✕</button>
+    </div>
+
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="shift-employee">Employé *</label>
+        <select id="shift-employee" [(ngModel)]="newShift.employeeId" class="form-select">
+          <option value="">Sélectionner un employé</option>
+          <option *ngFor="let emp of employees" [value]="emp.id">
+            {{ emp.avatar }} {{ emp.name }} - {{ emp.role }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group" *ngIf="selectedDate">
+        <label>Date</label>
+        <input type="text" [value]="selectedDate | date:'EEEE d MMMM y':'':'fr'" class="form-input" disabled>
+      </div>
+
+      <div class="form-group">
+        <label for="shift-type">Type de service</label>
+        <select id="shift-type" [(ngModel)]="newShift.type" class="form-select" (change)="onShiftTypeChange()">
+          <option *ngFor="let type of shiftTypes" [value]="type.value">
+            {{ type.label }} ({{ type.hours }})
+          </option>
+        </select>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="shift-start">Heure de début *</label>
+          <input type="time" id="shift-start" [(ngModel)]="newShift.startTime" class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label for="shift-end">Heure de fin *</label>
+          <input type="time" id="shift-end" [(ngModel)]="newShift.endTime" class="form-input">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="shift-notes">Notes</label>
+        <textarea id="shift-notes" [(ngModel)]="newShift.notes" class="form-textarea" rows="2"></textarea>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-secondary" (click)="closeAddModal()">Annuler</button>
+      <button class="btn-primary" (click)="performAddShift()">➕ Ajouter</button>
+    </div>
+  </div>
+</div>

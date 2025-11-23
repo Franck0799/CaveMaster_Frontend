@@ -1,11 +1,11 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ThemeService } from './core/services/theme.service';
-
+import { ToastNotificationComponent } from './core/components/toast-notification.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, ToastNotificationComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

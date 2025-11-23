@@ -1,6 +1,5 @@
 // ==========================================
-// FICHIER: src/app/server/server-layout/server-layout.component.ts
-// DESCRIPTION: Layout principal pour l'interface Serveuse/Serveur (ACTUALISÉ)
+// FICHIER CORRIGÉ ET OPTIMISÉ
 // ==========================================
 
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
@@ -10,9 +9,10 @@ import { filter } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ThemeToggleComponent } from '../../components/theme-toggle/theme-toggle.component';
+import { ThemeService } from '../../core/services/theme.service';
+import { NotificationService } from '../../core/services/notification.service';
+import { AuthService } from '../../core/services/auth/auth.service';
 
-
-// Interface pour les éléments du menu
 interface MenuItem {
   path: string;
   label: string;
@@ -28,99 +28,66 @@ interface MenuItem {
   styleUrls: ['./waitress-dashboard.component.scss']
 })
 export class WaitressComponent implements OnInit, OnDestroy {
-  // États du composant
-  sidebarCollapsed = false; // État de la sidebar (réduite ou non)
-  currentTheme = 'dark'; // Thème actuel (light/dark/auto)
-  currentUser: any; // Données de l'utilisateur connecté
-  isPresent = false; // Statut de présence (en service ou non)
-  isMobile = false; // Détection mobile
+  // ✅ États du composant
+  sidebarCollapsed = false;
+  currentTheme = 'dark';
+  currentUser: any = null;
+  isPresent = false;
+  isMobile = false;
 
-  // Subscription pour les changements de route
   private routerSubscription?: Subscription;
+  private themeSubscription?: Subscription;
 
-  // Menu de navigation avec toutes les pages
+  // ✅ Menu de navigation COMPLET avec icônes correctes
   menuItems: MenuItem[] = [
-    {
-      path: './home',
-      label: 'Tableau de bord',
-      icon: 'home'
-    },
-    {
-      path: './table',
-      label: 'Tables',
-      icon: 'grid',
-      badge: 0 // Nombre de tables actives
-    },
-    {
-      path: './orders',
-      label: 'Prendre Commande',
-      icon: 'clipboard'
-    },
-    {
-      path: './active-orders',
-      label: 'Commandes Actives',
-      icon: 'activity',
-      badge: 0 // Nombre de commandes actives
-    },
-    {
-      path: './billing',
-      label: 'Facturation',
-      icon: 'credit-card'
-    },
-    {
-      path: './wine-suggestions',
-      label: 'Suggestions Vins',
-      icon: 'wine'
-    },
-    {
-      path: './mysales',
-      label: 'Mes Ventes',
-      icon: 'trending-up'
-    },
-    {
-      path: './schedule',
-      label: 'Mon Planning',
-      icon: 'calendar'
-    },
-    {
-      path: './profile',
-      label: 'Mon Profil',
-      icon: 'user'
-    }
+    { path: './home', label: 'Tableau de bord', icon: 'layout-dashboard', badge: 0 },
+    { path: './table', label: 'Tables', icon: 'grid', badge: 0 },
+    { path: './orders', label: 'Prendre Commande', icon: 'clipboard', badge: 0 },
+    { path: './active-orders', label: 'Commandes Actives', icon: 'activity', badge: 0 },
+    { path: './billing', label: 'Facturation', icon: 'credit-card', badge: 0 },
+    { path: './wine-suggestions', label: 'Suggestions Vins', icon: 'wine', badge: 0 },
+    { path: './mysales', label: 'Mes Ventes', icon: 'trending-up', badge: 0 },
+    { path: './schedule', label: 'Mon Planning', icon: 'calendar', badge: 0 },
+    { path: './profile', label: 'Mon Profil', icon: 'user', badge: 0 }
   ];
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private themeService: ThemeService,
+    private notificationService: NotificationService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    // Initialisation au chargement du composant
+    this.initializeComponent();
+  }
+
+  ngOnDestroy(): void {
+    this.cleanupSubscriptions();
+  }
+
+  // ✅ Initialisation complète
+  private initializeComponent(): void {
     this.loadCurrentUser();
-    this.loadTheme();
+    this.subscribeToTheme();
     this.checkPresenceStatus();
     this.loadActiveTables();
     this.loadActiveOrders();
     this.checkMobile();
     this.subscribeToRouteChanges();
 
-    // Fermer la sidebar sur mobile après navigation
     if (this.isMobile) {
       this.sidebarCollapsed = true;
     }
   }
 
-  ngOnDestroy(): void {
-    // Nettoyage des subscriptions
-    if (this.routerSubscription) {
-      this.routerSubscription.unsubscribe();
-    }
-  }
-
-  // Écouter les changements de taille d'écran
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any): void {
+  // ✅ Gestion du redimensionnement
+  @HostListener('window:resize')
+  onResize(): void {
     this.checkMobile();
   }
 
-  // Vérifier si on est sur mobile
+  // ✅ Vérification mobile
   checkMobile(): void {
     this.isMobile = window.innerWidth < 768;
     if (this.isMobile) {
@@ -128,162 +95,153 @@ export class WaitressComponent implements OnInit, OnDestroy {
     }
   }
 
-  // S'abonner aux changements de route pour fermer la sidebar sur mobile
-  subscribeToRouteChanges(): void {
+  // ✅ Abonnement aux changements de route
+  private subscribeToRouteChanges(): void {
     this.routerSubscription = this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
         if (this.isMobile) {
           this.sidebarCollapsed = true;
         }
-        // Mettre à jour les badges après chaque navigation
         this.updateBadges();
       });
   }
 
-  // Charger les données de l'utilisateur connecté
-  loadCurrentUser(): void {
-    // TODO: Récupérer depuis AuthService
-    this.currentUser = {
-      id: 1,
-      name: 'Marie Dubois',
-      role: 'Serveuse',
-      avatar: null
-    };
+  // ✅ Charger l'utilisateur connecté
+  private loadCurrentUser(): void {
+    this.authService.currentUser$.subscribe(user => {
+      if (user) {
+        this.currentUser = {
+          id: user.id,
+          name: `${user.firstName} ${user.lastName}`,
+          role: user.roles,
+          avatar: user.avatar || null
+        };
+      }
+    });
   }
 
-  // Charger le thème depuis le localStorage
-  loadTheme(): void {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      this.currentTheme = savedTheme;
-      this.applyTheme(savedTheme);
-    }
+  // ✅ S'abonner au service de thème
+  private subscribeToTheme(): void {
+    this.themeSubscription = this.themeService.theme$.subscribe(theme => {
+      this.currentTheme = theme;
+    });
   }
 
-  // Basculer entre les thèmes (light/dark/auto)
+  // ✅ Basculer le thème
   toggleTheme(): void {
-    const themes = ['light', 'dark', 'auto'];
-    const currentIndex = themes.indexOf(this.currentTheme);
-    const nextIndex = (currentIndex + 1) % themes.length;
-    this.currentTheme = themes[nextIndex];
-
-    // Sauvegarder et appliquer le thème
-    localStorage.setItem('theme', this.currentTheme);
-    this.applyTheme(this.currentTheme);
+    this.themeService.toggleTheme();
+    this.notificationService.info(`Thème changé : ${this.getThemeLabel()}`);
   }
 
-  // Appliquer le thème au document
-  applyTheme(theme: string): void {
-    const body = document.body;
-    body.classList.remove('theme-light', 'theme-dark', 'theme-auto');
-    body.classList.add(`theme-${theme}`);
+  // ✅ Obtenir le label du thème
+  private getThemeLabel(): string {
+    const labels: Record<string, string> = {
+      'light': 'Clair',
+      'dark': 'Sombre',
+      'auto': 'Automatique'
+    };
+    return labels[this.currentTheme] || 'Inconnu';
   }
 
-  // Basculer l'état de la sidebar (réduite/étendue)
+  // ✅ Basculer la sidebar
   toggleSidebar(): void {
     this.sidebarCollapsed = !this.sidebarCollapsed;
   }
 
-  // Basculer le statut de présence (en service/hors service)
+  // ✅ Basculer le statut de présence
   togglePresence(): void {
     this.isPresent = !this.isPresent;
-    // TODO: Enregistrer le statut de présence dans le backend
-    console.log('Présence:', this.isPresent ? 'En Service' : 'Hors Service');
 
-    // TODO: Envoyer au serveur
-    // this.presenceService.updatePresence(this.isPresent).subscribe();
+    const message = this.isPresent
+      ? '✅ Vous êtes maintenant en service'
+      : '⏸️ Vous êtes hors service';
+
+    this.notificationService.success(message);
+
+    // TODO: Enregistrer dans le backend
+    console.log('Présence:', this.isPresent ? 'En Service' : 'Hors Service');
   }
 
-  // Vérifier le statut de présence initial
-  checkPresenceStatus(): void {
-    // TODO: Vérifier le statut de présence depuis le backend
-    // this.presenceService.getPresence().subscribe(status => {
-    //   this.isPresent = status;
-    // });
+  // ✅ Vérifier le statut de présence
+  private checkPresenceStatus(): void {
+    // TODO: Charger depuis le backend
     this.isPresent = false;
   }
 
-  // Charger le nombre de tables actives
-  loadActiveTables(): void {
-    // TODO: Charger les tables actives depuis le backend
-    // this.tableService.getActiveTables().subscribe(tables => {
-    //   const activeTablesCount = tables.length;
-    //   this.updateMenuBadge('/server/tables', activeTablesCount);
-    // });
-
-    // Données de test
+  // ✅ Charger les tables actives
+  private loadActiveTables(): void {
+    // TODO: Implémenter avec le service réel
     const activeTablesCount = 3;
-    this.updateMenuBadge('./tables', activeTablesCount);
+    this.updateMenuBadge('./table', activeTablesCount);
   }
 
-  // Charger le nombre de commandes actives
-  loadActiveOrders(): void {
-    // TODO: Charger les commandes actives depuis le backend
-    // this.orderService.getActiveOrders().subscribe(orders => {
-    //   const activeOrdersCount = orders.length;
-    //   this.updateMenuBadge('/server/active-orders', activeOrdersCount);
-    // });
-
-    // Données de test
+  // ✅ Charger les commandes actives
+  private loadActiveOrders(): void {
+    // TODO: Implémenter avec le service réel
     const activeOrdersCount = 5;
     this.updateMenuBadge('./active-orders', activeOrdersCount);
   }
 
-  // Mettre à jour le badge d'un élément du menu
-  updateMenuBadge(path: string, count: number): void {
+  // ✅ Mettre à jour le badge d'un menu
+  private updateMenuBadge(path: string, count: number): void {
     const menuItem = this.menuItems.find(item => item.path === path);
     if (menuItem) {
       menuItem.badge = count;
     }
   }
 
-  // Mettre à jour tous les badges
-  updateBadges(): void {
+  // ✅ Mettre à jour tous les badges
+  private updateBadges(): void {
     this.loadActiveTables();
     this.loadActiveOrders();
   }
 
-  // Vérifier si une route est active
+  // ✅ Vérifier si une route est active
   isActive(path: string): boolean {
-    return this.router.url.startsWith(path);
+    return this.router.url.includes(path);
   }
 
-  // Déconnexion de l'utilisateur
+  // ✅ Déconnexion
   logout(): void {
-    // TODO: Implémenter la déconnexion
-    // this.authService.logout().subscribe(() => {
-    //   this.router.navigate(['/login']);
-    // });
-
     if (confirm('Voulez-vous vraiment vous déconnecter ?')) {
-      localStorage.removeItem('token');
-      this.router.navigate(['../../features/auth/login']);
+      this.authService.logout();
+      this.notificationService.info('Vous avez été déconnecté');
+      this.router.navigate(['/auth/login']);
     }
   }
 
-  // Obtenir l'icône du thème actuel
+  // ✅ Obtenir l'icône du thème
   getThemeIcon(): string {
-    switch (this.currentTheme) {
-      case 'light': return 'sun';
-      case 'dark': return 'moon';
-      case 'auto': return 'monitor';
-      default: return 'monitor';
-    }
+    const icons: Record<string, string> = {
+      'light': 'sun',
+      'dark': 'moon',
+      'auto': 'monitor'
+    };
+    return icons[this.currentTheme] || 'monitor';
   }
 
-  // Navigation vers une page spécifique
+  // ✅ Navigation
   navigateTo(path: string): void {
     this.router.navigate([path]);
 
-    // Fermer la sidebar sur mobile après navigation
     if (this.isMobile) {
       this.sidebarCollapsed = true;
     }
   }
 
-  // Gérer le clic sur un élément du menu
+  // ✅ Gestion du clic sur un élément du menu
   onMenuItemClick(item: MenuItem): void {
     this.navigateTo(item.path);
+  }
+
+  // ✅ Nettoyage des subscriptions
+  private cleanupSubscriptions(): void {
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
+    if (this.themeSubscription) {
+      this.themeSubscription.unsubscribe();
+    }
   }
 }

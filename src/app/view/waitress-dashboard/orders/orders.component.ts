@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { NotificationService } from '../../../core/services/notification.service';
 
 interface MenuItem {
   id: number;
@@ -94,7 +95,8 @@ export class OrdersComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {

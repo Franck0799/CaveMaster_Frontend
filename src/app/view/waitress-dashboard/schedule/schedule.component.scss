@@ -2,6 +2,11 @@
 // FICHIER: src/app/server/schedule/schedule.component.scss
 // DESCRIPTION: Styles de la page Planning
 // ==========================================
+* {
+  transition: background-color 0.3s ease,
+              color 0.3s ease,
+              border-color 0.3s ease;
+}
 
 .schedule-page {
   max-width: 1600px;

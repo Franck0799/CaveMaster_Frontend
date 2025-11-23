@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { NotificationService } from '../../../core/services/notification.service';
 
 interface BillItem {
   id: number;
@@ -42,6 +43,20 @@ interface DiscountOption {
 export class BillingComponent implements OnInit {
   tableNumber?: string;
   orderId?: number;
+
+  validateBill(): boolean {
+  if (this.billItems.length === 0) {
+    this.notificationService.error('Le panier est vide');
+    return false;
+  }
+
+  if (!this.selectedPaymentMethod) {
+    this.notificationService.error('Veuillez sélectionner un mode de paiement');
+    return false;
+  }
+
+  return true;
+}
 
   // ✅ PROPRIÉTÉ AJOUTÉE : Date actuelle
   currentDate = new Date();
@@ -82,7 +97,8 @@ export class BillingComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -242,4 +258,6 @@ export class BillingComponent implements OnInit {
     }
   }
 }
+
+
 

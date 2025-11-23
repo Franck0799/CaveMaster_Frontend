@@ -105,3 +105,47 @@
     </div>
   </div>
 </div>
+<!-- ===== DAILY REPORT - MODAL HISTORIQUE ===== -->
+<div class="modal-overlay" *ngIf="showHistoryModal" (click)="closeHistoryModal()">
+  <div class="modal-content modal-large" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">Historique des rapports</h2>
+      <button class="btn-close" (click)="closeHistoryModal()">✕</button>
+    </div>
+
+    <div class="modal-body">
+      <div class="history-table">
+        <div class="history-row" *ngFor="let history of reportHistory">
+          <div class="history-date">
+            <span class="date">{{ history.date | date:'dd/MM/yyyy' }}</span>
+            <span class="day">{{ history.date | date:'EEEE':'':'fr' }}</span>
+          </div>
+          <div class="history-info">
+            <div class="info-item">
+              <span class="label">Ventes:</span>
+              <span class="value">{{ history.totalSales | number:'1.2-2' }}€</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Différence:</span>
+              <span class="value" [class.positive]="history.difference >= 0" [class.negative]="history.difference < 0">
+                {{ history.difference | number:'1.2-2' }}€
+              </span>
+            </div>
+          </div>
+          <div class="history-status">
+            <span class="status-badge" [class]="'status-' + history.status">
+              {{ getStatusLabel(history.status) }}
+            </span>
+          </div>
+          <div class="history-actions">
+            <button class="btn-link" (click)="loadHistoryReport(history)">Charger</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-secondary" (click)="closeHistoryModal()">Fermer</button>
+    </div>
+  </div>
+</div>
