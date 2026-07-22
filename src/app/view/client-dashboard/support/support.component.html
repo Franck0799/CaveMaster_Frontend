@@ -8,7 +8,7 @@
   <!-- Header -->
   <div class="page-header">
     <h1 class="page-title">
-      <span class="icon">💬</span>
+      <span class="icon"><i class="fas fa-comment"></i></span>
       Chat Support
     </h1>
     <p class="page-subtitle">Notre équipe est là pour vous aider</p>
@@ -57,7 +57,7 @@
       <!-- Indicateur "en train d'écrire" -->
       <div class="message message-support" *ngIf="isTyping">
         <div class="message-avatar">
-          <span class="avatar-emoji">👨‍💼</span>
+          <span class="avatar-emoji"><i class="fas fa-user"></i>‍<i class="fas fa-briefcase"></i></span>
         </div>
         <div class="message-content">
           <div class="message-bubble typing-indicator">
@@ -83,7 +83,7 @@
           class="btn-send"
           [disabled]="!newMessage.trim()"
           (click)="sendMessage()">
-          <span class="send-icon">📤</span>
+          <span class="send-icon"><i class="fas fa-upload"></i></span>
         </button>
       </div>
     </div>
@@ -94,7 +94,7 @@
     <h3 class="contact-title">Autres moyens de nous contacter</h3>
     <div class="contact-methods">
       <div class="contact-method">
-        <span class="method-icon">📧</span>
+        <span class="method-icon"><i class="fas fa-envelope"></i></span>
         <div class="method-info">
           <h4 class="method-label">Email</h4>
           <a href="mailto:contact@vinotheque.fr" class="method-value">
@@ -103,7 +103,7 @@
       </div>
      </div>
       <div class="contact-method">
-        <span class="method-icon">📞</span>
+        <span class="method-icon"><i class="fas fa-phone"></i></span>
         <div class="method-info">
           <h4 class="method-label">Téléphone</h4>
           <a href="tel:+33123456789" class="method-value">

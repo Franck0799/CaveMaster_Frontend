@@ -13,7 +13,7 @@
     <!-- Logo et bouton fermeture mobile -->
     <div class="sidebar-header">
       <div class="logo">
-        <span class="logo-icon">🍾</span>
+        <span class="logo-icon"><i class="fas fa-champagne-glasses"></i></span>
         <span class="logo-text">CaveViking Pro</span>
       </div>
     </div>
@@ -24,7 +24,7 @@
            [routerLink]="['/admin', 'home']"
            routerLinkActive="active"
            (click)="closeMobileSidebar()">
-        <span class="nav-icon">🏠</span>
+        <span class="nav-icon"><i class="fas fa-house"></i></span>
         <span class="nav-text">Accueil</span>
       </div>
 
@@ -32,7 +32,7 @@
            [routerLink]="['/admin', 'caves']"
            routerLinkActive="active"
            (click)="closeMobileSidebar()">
-        <span class="nav-icon">🍷</span>
+        <span class="nav-icon"><i class="fas fa-wine-glass"></i></span>
         <span class="nav-text">Mes caves</span>
       </div>
     </nav>
@@ -65,7 +65,7 @@
              [routerLink]="['/admin', 'managers']"
              routerLinkActive="active"
              (click)="closeMobileSidebar()">
-          <span class="nav-icon">👥</span>
+          <span class="nav-icon"><i class="fas fa-users"></i></span>
           <span class="nav-text">Mes managers</span>
         </div>
 
@@ -73,7 +73,7 @@
              [routerLink]="['/admin', 'employees']"
              routerLinkActive="active"
              (click)="closeMobileSidebar()">
-          <span class="nav-icon">👨‍💼</span>
+          <span class="nav-icon"><i class="fas fa-user"></i>‍<i class="fas fa-briefcase"></i></span>
           <span class="nav-text">Mes employés</span>
         </div>
 
@@ -81,7 +81,7 @@
              [routerLink]="['/admin', 'client']"
              routerLinkActive="active"
              (click)="closeMobileSidebar()">
-          <span class="nav-icon">🧑‍💼</span>
+          <span class="nav-icon"><i class="fas fa-user"></i>‍<i class="fas fa-briefcase"></i></span>
           <span class="nav-text">Clients</span>
         </div>
       </div>
@@ -107,7 +107,7 @@
              [routerLink]="['/admin', 'fournisseur']"
              routerLinkActive="active"
              (click)="closeMobileSidebar()">
-          <span class="nav-icon">🏭</span>
+          <span class="nav-icon"><i class="fas fa-industry"></i></span>
           <span class="nav-text">Fournisseurs</span>
         </div>
       </div>
@@ -133,7 +133,7 @@
         <div class="nav-item nav-item-with-submenu submenu-item"
              [class.open]="isDrinksSubmenuOpen"
              (click)="toggleDrinksSubmenu($event)">
-          <span class="nav-icon">🍾</span>
+          <span class="nav-icon"><i class="fas fa-champagne-glasses"></i></span>
           <span class="nav-text">Mes boissons</span>
           <span class="submenu-arrow" [class.rotated]="isDrinksSubmenuOpen">▶</span>
         </div>
@@ -144,61 +144,61 @@
                [routerLink]="['/admin', 'drinks', 'Bières']"
                routerLinkActive="active"
                (click)="closeMobileSidebar()">
-            🍺 Bières
+            <i class="fas fa-beer-mug-empty"></i> Bières
           </div>
           <div class="submenu-item"
                [routerLink]="['/admin', 'drinks', 'Sucreries']"
                routerLinkActive="active"
                (click)="closeMobileSidebar()">
-            🍬 Sucreries
+            <i class="fas fa-candy-cane"></i> Sucreries
           </div>
           <div class="submenu-item"
                [routerLink]="['/admin', 'drinks', 'Champagne']"
                routerLinkActive="active"
                (click)="closeMobileSidebar()">
-            🥂 Champagne
+            <i class="fas fa-wine-glass"></i> Champagne
           </div>
           <div class="submenu-item"
                [routerLink]="['/admin', 'drinks', 'Vin Blanc']"
                routerLinkActive="active"
                (click)="closeMobileSidebar()">
-            🍷 Vin Blanc
+            <i class="fas fa-wine-glass"></i> Vin Blanc
           </div>
           <div class="submenu-item"
                [routerLink]="['/admin', 'drinks', 'Vin Rouge']"
                routerLinkActive="active"
                (click)="closeMobileSidebar()">
-            🍷 Vin Rouge
+            <i class="fas fa-wine-glass"></i> Vin Rouge
           </div>
           <div class="submenu-item"
                [routerLink]="['/admin', 'drinks', 'Vin Rosé']"
                routerLinkActive="active"
                (click)="closeMobileSidebar()">
-            🍷 Vin Rosé
+            <i class="fas fa-wine-glass"></i> Vin Rosé
           </div>
           <div class="submenu-item"
                [routerLink]="['/admin', 'drinks', 'Vin Mousseux']"
                routerLinkActive="active"
                (click)="closeMobileSidebar()">
-            ✨ Vin Mousseux
+            <i class="fas fa-sparkles"></i> Vin Mousseux
           </div>
           <div class="submenu-item"
                [routerLink]="['/admin', 'drinks', 'Liqueurs']"
                routerLinkActive="active"
                (click)="closeMobileSidebar()">
-            🥃 Liqueurs
+            <i class="fas fa-whiskey-glass"></i> Liqueurs
           </div>
           <div class="submenu-item"
                [routerLink]="['/admin', 'drinks', 'Boissons Énergisantes']"
                routerLinkActive="active"
                (click)="closeMobileSidebar()">
-            ⚡ Boissons Énergisantes
+            <i class="fas fa-bolt"></i> Boissons Énergisantes
           </div>
           <div class="submenu-item"
                [routerLink]="['/admin', 'drinks', 'Boissons Locales']"
                routerLinkActive="active"
                (click)="closeMobileSidebar()">
-            🍹 Boissons Locales
+            <i class="fas fa-martini-glass-citrus"></i> Boissons Locales
           </div>
         </div>
 
@@ -206,7 +206,7 @@
              [routerLink]="['/admin', 'wine-pairing']"
              routerLinkActive="active"
              (click)="closeMobileSidebar()">
-          <span class="nav-icon">🍽️</span>
+          <span class="nav-icon"><i class="fas fa-utensils"></i></span>
           <span class="nav-text">Mets & Vins</span>
         </div>
 
@@ -214,7 +214,7 @@
              [routerLink]="['/admin', 'scan']"
              routerLinkActive="active"
              (click)="closeMobileSidebar()">
-          <span class="nav-icon">📷</span>
+          <span class="nav-icon"><i class="fas fa-camera"></i></span>
           <span class="nav-text">Scan</span>
         </div>
       </div>
@@ -240,7 +240,7 @@
              [routerLink]="['/admin', 'materiel']"
              routerLinkActive="active"
              (click)="closeMobileSidebar()">
-          <span class="nav-icon">🔧</span>
+          <span class="nav-icon"><i class="fas fa-wrench"></i></span>
           <span class="nav-text">Matériels</span>
         </div>
 
@@ -248,7 +248,7 @@
              [routerLink]="['/admin', 'stock']"
              routerLinkActive="active"
              (click)="closeMobileSidebar()">
-          <span class="nav-icon">📦</span>
+          <span class="nav-icon"><i class="fas fa-box"></i></span>
           <span class="nav-text">Stocks général</span>
         </div>
       </div>
@@ -274,7 +274,7 @@
              [routerLink]="['/admin', 'entries']"
              routerLinkActive="active"
              (click)="closeMobileSidebar()">
-          <span class="nav-icon">📥</span>
+          <span class="nav-icon"><i class="fas fa-download"></i></span>
           <span class="nav-text">Mes entrées</span>
         </div>
 
@@ -282,7 +282,7 @@
              [routerLink]="['/admin', 'exits']"
              routerLinkActive="active"
              (click)="closeMobileSidebar()">
-          <span class="nav-icon">📤</span>
+          <span class="nav-icon"><i class="fas fa-upload"></i></span>
           <span class="nav-text">Mes sorties</span>
         </div>
 
@@ -290,7 +290,7 @@
              [routerLink]="['/admin','caisse']"
              routerLinkActive="active"
              (click)="closeMobileSidebar()">
-          <span class="nav-icon">💵</span>
+          <span class="nav-icon"><i class="fas fa-money-bill-wave"></i></span>
           <span class="nav-text">Caisse</span>
         </div>
 
@@ -298,7 +298,7 @@
              [routerLink]="['/admin', 'depenses']"
              routerLinkActive="active"
              (click)="closeMobileSidebar()">
-          <span class="nav-icon">💳</span>
+          <span class="nav-icon"><i class="fas fa-credit-card"></i></span>
           <span class="nav-text">Dépenses</span>
         </div>
 
@@ -306,7 +306,7 @@
              [routerLink]="['/admin', 'profit']"
              routerLinkActive="active"
              (click)="closeMobileSidebar()">
-          <span class="nav-icon">💰</span>
+          <span class="nav-icon"><i class="fas fa-sack-dollar"></i></span>
           <span class="nav-text">Bénéfices</span>
         </div>
       </div>
@@ -332,7 +332,7 @@
              [routerLink]="['/admin', 'faq']"
              routerLinkActive="active"
              (click)="closeMobileSidebar()">
-          <span class="nav-icon">❓</span>
+          <span class="nav-icon"><i class="fas fa-circle-question"></i></span>
           <span class="nav-text">FAQ</span>
         </div>
 
@@ -340,7 +340,7 @@
              [routerLink]="['/admin', 'improvements']"
              routerLinkActive="active"
              (click)="closeMobileSidebar()">
-          <span class="nav-icon">📝</span>
+          <span class="nav-icon"><i class="fas fa-file-lines"></i></span>
           <span class="nav-text">Notes améliorations</span>
         </div>
 
@@ -348,7 +348,7 @@
              [routerLink]="['/admin', 'contact']"
              routerLinkActive="active"
              (click)="closeMobileSidebar()">
-          <span class="nav-icon">📧</span>
+          <span class="nav-icon"><i class="fas fa-envelope"></i></span>
           <span class="nav-text">Nous contacter</span>
         </div>
 
@@ -356,7 +356,7 @@
              [routerLink]="['/admin', 'about']"
              routerLinkActive="active"
              (click)="closeMobileSidebar()">
-          <span class="nav-icon">📚</span>
+          <span class="nav-icon"><i class="fas fa-book"></i></span>
           <span class="nav-text">En savoir plus</span>
         </div>
       </div>
@@ -370,7 +370,7 @@
            [routerLink]="['/admin', 'profile']"
            routerLinkActive="active"
            (click)="closeMobileSidebar()">
-        <span class="nav-icon">👤</span>
+        <span class="nav-icon"><i class="fas fa-user"></i></span>
         <span class="nav-text">Mon compte</span>
       </div>
     </nav>
@@ -421,7 +421,7 @@
             (keyup.enter)="onSearch()"
             aria-label="Recherche">
           <button class="search-btn" (click)="onSearch()" aria-label="Rechercher">
-            🔍
+            <i class="fas fa-magnifying-glass"></i>
           </button>
         </div>
       </div>
@@ -440,7 +440,7 @@
              role="button"
              tabindex="0"
              aria-label="Messages">
-          <span class="icon">💬</span>
+          <span class="icon"><i class="fas fa-comment"></i></span>
           <span class="badge" *ngIf="getUnreadMessagesCount() > 0">
             {{ getUnreadMessagesCount() }}
           </span>
@@ -452,7 +452,7 @@
              role="button"
              tabindex="0"
              aria-label="Notifications">
-          <span class="icon">🔔</span>
+          <span class="icon"><i class="fas fa-bell"></i></span>
           <span class="badge" *ngIf="getUnreadNotificationsCount() > 0">
             {{ getUnreadNotificationsCount() }}
           </span>
@@ -478,24 +478,24 @@
             <div class="dropdown-item"
                  [routerLink]="['/admin', 'profile']"
                  (click)="isUserDropdownOpen = false">
-              <span class="dropdown-icon">👤</span>
+              <span class="dropdown-icon"><i class="fas fa-user"></i></span>
               <span>Mon profil</span>
             </div>
             <div class="dropdown-item"
                  [routerLink]="['/admin', 'settings']"
                  (click)="isUserDropdownOpen = false">
-              <span class="dropdown-icon">⚙️</span>
+              <span class="dropdown-icon"><i class="fas fa-gear"></i></span>
               <span>Paramètres</span>
             </div>
             <div class="dropdown-divider"></div>
             <div class="dropdown-item"
                  [routerLink]="['/admin', 'support']"
                  (click)="isUserDropdownOpen = false">
-              <span class="dropdown-icon">💬</span>
+              <span class="dropdown-icon"><i class="fas fa-comment"></i></span>
               <span>Assistance</span>
             </div>
             <div class="dropdown-item logout-item" (click)="logout($event)">
-              <span class="dropdown-icon">🚪</span>
+              <span class="dropdown-icon"><i class="fas fa-right-from-bracket"></i></span>
               <span>Déconnexion</span>
             </div>
           </div>

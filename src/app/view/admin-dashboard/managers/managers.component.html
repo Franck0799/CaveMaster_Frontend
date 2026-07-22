@@ -5,9 +5,9 @@
 
     <!-- ===== En-tête avec titre et bouton d'ajout ===== -->
     <div class="section-header">
-      <h2 class="section-title-main">👥 Mes Managers</h2>
+      <h2 class="section-title-main"><i class="fas fa-users"></i> Mes Managers</h2>
       <button class="btn btn-primary" (click)="openAddManagerModal()">
-        ➕ Ajouter un manager
+        <i class="fas fa-plus"></i> Ajouter un manager
       </button>
     </div>
 
@@ -16,7 +16,7 @@
 
       <!-- Total Managers -->
       <div class="stat-card stat-card-blue">
-        <div class="stat-icon">👥</div>
+        <div class="stat-icon"><i class="fas fa-users"></i></div>
         <div class="stat-content">
           <div class="stat-label">Total Managers</div>
           <div class="stat-value">{{ getTotalManagersCount() }}</div>
@@ -26,7 +26,7 @@
 
       <!-- Managers Présents -->
       <div class="stat-card stat-card-green">
-        <div class="stat-icon">✅</div>
+        <div class="stat-icon"><i class="fas fa-circle-check"></i></div>
         <div class="stat-content">
           <div class="stat-label">Présents Aujourd'hui</div>
           <div class="stat-value">{{ getPresentManagersCount() }}</div>
@@ -36,7 +36,7 @@
 
       <!-- Managers Absents -->
       <div class="stat-card stat-card-red">
-        <div class="stat-icon">❌</div>
+        <div class="stat-icon"><i class="fas fa-xmark"></i></div>
         <div class="stat-content">
           <div class="stat-label">Absents</div>
           <div class="stat-value">{{ getAbsentManagersCount() }}</div>
@@ -46,7 +46,7 @@
 
       <!-- En Congé -->
       <div class="stat-card stat-card-orange">
-        <div class="stat-icon">🏖️</div>
+        <div class="stat-icon"><i class="fas fa-umbrella-beach"></i></div>
         <div class="stat-content">
           <div class="stat-label">En Congé</div>
           <div class="stat-value">{{ getOnLeaveManagersCount() }}</div>
@@ -81,11 +81,11 @@
         <div class="manager-schedule" *ngIf="manager.availability.status === 'présent'">
           <div class="schedule-item">
             <span class="schedule-label">Arrivée:</span>
-            <span class="schedule-time">🕐 {{ manager.availability.heureArrivee }}</span>
+            <span class="schedule-time"><i class="fas fa-clock"></i> {{ manager.availability.heureArrivee }}</span>
           </div>
           <div class="schedule-item" *ngIf="manager.availability.heureDepart">
             <span class="schedule-label">Départ:</span>
-            <span class="schedule-time">🕔 {{ manager.availability.heureDepart }}</span>
+            <span class="schedule-time"><i class="fas fa-clock"></i> {{ manager.availability.heureDepart }}</span>
           </div>
         </div>
 
@@ -93,19 +93,19 @@
         <div class="manager-performance-full">
 
           <div class="performance-item">
-            <div class="performance-icon">💰</div>
+            <div class="performance-icon"><i class="fas fa-sack-dollar"></i></div>
             <div class="performance-value">{{ manager.performance.ventes }}</div>
             <div class="performance-label">Ventes totales</div>
           </div>
 
           <div class="performance-item">
-            <div class="performance-icon">👥</div>
+            <div class="performance-icon"><i class="fas fa-users"></i></div>
             <div class="performance-value">{{ manager.performance.equipe }}</div>
             <div class="performance-label">Équipe</div>
           </div>
 
           <div class="performance-item">
-            <div class="performance-icon">⭐</div>
+            <div class="performance-icon"><i class="fas fa-star"></i></div>
             <div class="performance-value">{{ manager.performance.satisfaction }}</div>
             <div class="performance-label">Satisfaction</div>
           </div>
@@ -113,7 +113,7 @@
 
         <!-- Bouton pour afficher/masquer les employés -->
         <button class="toggle-employees" (click)="toggleEmployees(manager)">
-          👥 Employés ({{ manager.employees.length }})
+          <i class="fas fa-users"></i> Employés ({{ manager.employees.length }})
           <span>{{ manager.showEmployees ? '▲' : '▼' }}</span>
         </button>
 
@@ -129,7 +129,7 @@
             </div>
 
             <div class="employee-stats">
-              <span class="employee-stat">💰 {{ employee.ventes }}</span>
+              <span class="employee-stat"><i class="fas fa-sack-dollar"></i> {{ employee.ventes }}</span>
               <span class="employee-stat">⏱️ {{ employee.heures }}</span>
             </div>
           </div>
@@ -143,29 +143,29 @@
         <div class="manager-actions">
           <!-- Voir profil complet -->
           <button class="btn btn-sm btn-info" (click)="viewManagerStats(manager)">
-            👁️ Voir profil
+            <i class="fas fa-eye"></i> Voir profil
           </button>
 
           <!-- Voir historique -->
           <button class="btn btn-sm btn-secondary" (click)="viewAvailabilityHistory(manager)">
-            📊 Historique
+            <i class="fas fa-chart-line"></i> Historique
           </button>
 
           <!-- Modifier -->
           <button class="btn btn-sm btn-edit" (click)="editManager(manager)">
-            ✏️ Modifier
+            <i class="fas fa-pen"></i> Modifier
           </button>
 
           <!-- Supprimer -->
           <button class="btn btn-sm btn-danger" (click)="deleteManager(manager)">
-            🗑️ Supprimer
+            <i class="fas fa-trash"></i> Supprimer
           </button>
         </div>
       </div>
 
       <!-- État vide si aucun manager -->
       <div *ngIf="getAllManagers().length === 0" class="empty-state">
-        <div class="empty-icon">📭</div>
+        <div class="empty-icon"><i class="fas fa-envelope-open"></i></div>
         <p>Aucun manager pour le moment</p>
         <button class="btn btn-primary" (click)="openAddManagerModal()">
           Ajouter le premier manager
@@ -179,7 +179,7 @@
 <div *ngIf="isAddManagerModalOpen" class="modal" (click)="closeAddManagerModal()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <div class="modal-header">
-      <h2 class="modal-title">➕ Ajouter un nouveau manager</h2>
+      <h2 class="modal-title"><i class="fas fa-plus"></i> Ajouter un nouveau manager</h2>
       <button class="close-btn" (click)="closeAddManagerModal()">×</button>
     </div>
 
@@ -240,7 +240,7 @@
 <div *ngIf="isViewDetailsModalOpen && selectedManager" class="modal" (click)="closeDetailsModal()">
   <div class="modal-content modal-content-large" (click)="$event.stopPropagation()">
     <div class="modal-header">
-      <h2 class="modal-title">👤 Profil de {{ selectedManager.name }}</h2>
+      <h2 class="modal-title"><i class="fas fa-user"></i> Profil de {{ selectedManager.name }}</h2>
       <button class="close-btn" (click)="closeDetailsModal()">×</button>
     </div>
 
@@ -260,7 +260,7 @@
 
       <!-- Informations personnelles -->
       <div class="info-section">
-        <h4 class="section-subtitle">📋 Informations Personnelles</h4>
+        <h4 class="section-subtitle"><i class="fas fa-clipboard-list"></i> Informations Personnelles</h4>
         <div class="info-grid">
           <div class="info-item">
             <span class="info-label">Email:</span>
@@ -304,7 +304,7 @@
 
       <!-- Performance -->
       <div class="info-section">
-        <h4 class="section-subtitle">📊 Performance</h4>
+        <h4 class="section-subtitle"><i class="fas fa-chart-line"></i> Performance</h4>
         <div class="info-grid">
           <div class="info-item">
             <span class="info-label">Ventes totales:</span>
@@ -323,7 +323,7 @@
 
       <!-- Équipe -->
       <div class="info-section" *ngIf="selectedManager.employees.length > 0">
-        <h4 class="section-subtitle">👥 Équipe Supervisée ({{ selectedManager.employees.length }})</h4>
+        <h4 class="section-subtitle"><i class="fas fa-users"></i> Équipe Supervisée ({{ selectedManager.employees.length }})</h4>
         <div class="team-list">
           <div *ngFor="let employee of selectedManager.employees" class="team-member">
             <span class="member-avatar">{{ employee.avatar }}</span>
@@ -338,10 +338,10 @@
 
     <div class="modal-footer">
       <button class="btn btn-secondary" (click)="viewAvailabilityHistory(selectedManager)">
-        📊 Voir l'historique
+        <i class="fas fa-chart-line"></i> Voir l'historique
       </button>
       <button class="btn btn-primary" (click)="editManager(selectedManager); closeDetailsModal()">
-        ✏️ Modifier le profil
+        <i class="fas fa-pen"></i> Modifier le profil
       </button>
     </div>
   </div>
@@ -351,7 +351,7 @@
 <div *ngIf="isEditManagerModalOpen && editManagerForm" class="modal" (click)="closeEditManagerModal()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <div class="modal-header">
-      <h2 class="modal-title">✏️ Modifier le manager</h2>
+      <h2 class="modal-title"><i class="fas fa-pen"></i> Modifier le manager</h2>
       <button class="close-btn" (click)="closeEditManagerModal()">×</button>
     </div>
 
@@ -394,9 +394,9 @@
         <div class="form-group">
           <label class="form-label">Statut de disponibilité</label>
           <select class="form-input" [(ngModel)]="editManagerForm.availability.status" name="status">
-            <option value="présent">✅ Présent</option>
-            <option value="absent">❌ Absent</option>
-            <option value="congé">🏖️ En Congé</option>
+            <option value="présent"><i class="fas fa-circle-check"></i> Présent</option>
+            <option value="absent"><i class="fas fa-xmark"></i> Absent</option>
+            <option value="congé"><i class="fas fa-umbrella-beach"></i> En Congé</option>
           </select>
         </div>
 
@@ -417,7 +417,7 @@
     <div class="modal-footer">
       <button class="btn btn-cancel" (click)="closeEditManagerModal()">Annuler</button>
       <button class="btn btn-primary" (click)="saveManagerChanges()">
-        💾 Enregistrer les modifications
+        <i class="fas fa-floppy-disk"></i> Enregistrer les modifications
       </button>
     </div>
   </div>
@@ -427,7 +427,7 @@
 <div *ngIf="isViewHistoryModalOpen && selectedManager" class="modal" (click)="closeHistoryModal()">
   <div class="modal-content modal-content-large" (click)="$event.stopPropagation()">
     <div class="modal-header">
-      <h2 class="modal-title">📊 Historique de {{ selectedManager.name }}</h2>
+      <h2 class="modal-title"><i class="fas fa-chart-line"></i> Historique de {{ selectedManager.name }}</h2>
       <button class="close-btn" (click)="closeHistoryModal()">×</button>
     </div>
 
@@ -435,7 +435,7 @@
       <!-- Statistiques résumées -->
       <div class="history-stats">
         <div class="history-stat-card">
-          <div class="stat-icon-small">✅</div>
+          <div class="stat-icon-small"><i class="fas fa-circle-check"></i></div>
           <div class="stat-content-small">
             <div class="stat-value-small">
               {{ getHistoryPresentDays(selectedManager) }}
@@ -445,7 +445,7 @@
         </div>
 
         <div class="history-stat-card">
-          <div class="stat-icon-small">❌</div>
+          <div class="stat-icon-small"><i class="fas fa-xmark"></i></div>
           <div class="stat-content-small">
             <div class="stat-value-small">
               {{ getHistoryAbsentDays(selectedManager) }}
@@ -455,7 +455,7 @@
         </div>
 
         <div class="history-stat-card">
-          <div class="stat-icon-small">🏖️</div>
+          <div class="stat-icon-small"><i class="fas fa-umbrella-beach"></i></div>
           <div class="stat-content-small">
             <div class="stat-value-small">
              {{ getHistoryLeaveDays(selectedManager) }}
@@ -508,7 +508,7 @@
     <div class="modal-footer">
       <button class="btn btn-secondary" (click)="closeHistoryModal()">Fermer</button>
       <button class="btn btn-primary" (click)="closeHistoryModal(); editManager(selectedManager)">
-        ✏️ Modifier le profil
+        <i class="fas fa-pen"></i> Modifier le profil
       </button>
     </div>
   </div>

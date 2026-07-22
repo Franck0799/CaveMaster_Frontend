@@ -8,7 +8,7 @@
   <!-- Header -->
   <div class="page-header">
     <h1 class="page-title">
-      <span class="icon">🏆</span>
+      <span class="icon"><i class="fas fa-trophy"></i></span>
       Programme Fidélité
     </h1>
     <p class="page-subtitle">Cumulez des points et profitez d'avantages exclusifs</p>
@@ -22,7 +22,7 @@
         <h2 class="points-value">{{ userPoints }}</h2>
       </div>
       <div class="points-icon">
-        <span class="icon-emoji">🎁</span>
+        <span class="icon-emoji"><i class="fas fa-gift"></i></span>
       </div>
     </div>
 
@@ -46,7 +46,7 @@
   <!-- Section Récompenses -->
   <section class="section">
     <h2 class="section-title">
-      <span class="section-icon">🎁</span>
+      <span class="section-icon"><i class="fas fa-gift"></i></span>
       Récompenses Disponibles
     </h2>
 
@@ -74,7 +74,7 @@
   <!-- Section Offres Exclusives -->
   <section class="section">
     <h2 class="section-title">
-      <span class="section-icon">✨</span>
+      <span class="section-icon"><i class="fas fa-sparkles"></i></span>
       Offres Exclusives
     </h2>
 
@@ -91,7 +91,7 @@
             *ngIf="offer.code"
             (click)="copyCode(offer.code, $event)">
             <span class="code">{{ offer.code }}</span>
-            <span class="copy-icon">📋</span>
+            <span class="copy-icon"><i class="fas fa-clipboard-list"></i></span>
           </button>
           <button class="btn-offer" *ngIf="!offer.code">
             En profiter
@@ -104,7 +104,7 @@
   <!-- Section Historique des points -->
   <section class="section">
     <h2 class="section-title">
-      <span class="section-icon">📊</span>
+      <span class="section-icon"><i class="fas fa-chart-line"></i></span>
       Historique des Points
     </h2>
 
@@ -114,8 +114,8 @@
            [ngClass]="getHistoryTypeClass(item.type)">
 
         <div class="history-icon">
-          <span *ngIf="item.type === 'earned'">💰</span>
-          <span *ngIf="item.type === 'spent'">🎁</span>
+          <span *ngIf="item.type === 'earned'"><i class="fas fa-sack-dollar"></i></span>
+          <span *ngIf="item.type === 'spent'"><i class="fas fa-gift"></i></span>
         </div>
 
         <div class="history-info">

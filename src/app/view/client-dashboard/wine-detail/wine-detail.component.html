@@ -15,7 +15,7 @@
           <div class="wine-image-card">
             <span class="wine-emoji">{{ wine.image }}</span>
             <button class="btn-favorite" (click)="toggleFavorite()">
-              <span class="heart-icon">{{ isFavorite ? '❤️' : '🤍' }}</span>
+              <span class="heart-icon">{{ isFavorite ? '' : '' }}</span>
             </button>
             <span class="stock-badge" [class.low-stock]="wine.stock < 10">
               {{ wine.stock }} en stock
@@ -29,7 +29,7 @@
           <div class="wine-header">
             <h1 class="wine-name">{{ wine.name }}</h1>
             <div class="wine-rating">
-              <span class="star">⭐</span>
+              <span class="star"><i class="fas fa-star"></i></span>
               <span class="rating-value">{{ wine.rating }}</span>
               <span class="rating-total">/5.0</span>
             </div>
@@ -72,17 +72,17 @@
           <div class="recommendations-section">
             <h3 class="section-title">Accords Recommandés</h3>
             <div class="recommendations-grid">
-              <span class="recommendation-tag">🥩 Viandes rouges</span>
-              <span class="recommendation-tag">🧀 Fromages affinés</span>
-              <span class="recommendation-tag">🍄 Gibier</span>
-              <span class="recommendation-tag">🍝 Plats en sauce</span>
+              <span class="recommendation-tag">Viandes rouges</span>
+              <span class="recommendation-tag">Fromages affinés</span>
+              <span class="recommendation-tag">Gibier</span>
+              <span class="recommendation-tag">Plats en sauce</span>
             </div>
           </div>
 
           <div class="serving-info">
             <h3 class="section-title">Service</h3>
-            <p class="serving-text">🌡️ Température: {{ wine.temperature }}</p>
-            <p class="serving-text">🍷 Carafage: Recommandé 30 minutes avant</p>
+            <p class="serving-text"><i class="fas fa-temperature-half"></i> Température: {{ wine.temperature }}</p>
+            <p class="serving-text"><i class="fas fa-wine-glass"></i> Carafage: Recommandé 30 minutes avant</p>
           </div>
 
           <div class="purchase-section">
@@ -98,7 +98,7 @@
             </div>
 
             <button class="btn-add-cart" (click)="addToCart()" [disabled]="wine.stock < 1">
-              <span class="cart-icon">🛒</span>
+              <span class="cart-icon"><i class="fas fa-cart-shopping"></i></span>
               {{ wine.stock > 0 ? 'Ajouter au panier' : 'Rupture de stock' }}
             </button>
           </div>

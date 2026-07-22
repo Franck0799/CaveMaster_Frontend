@@ -7,10 +7,10 @@
     </div>
     <div class="header-actions">
       <button class="btn-secondary" (click)="viewHistory()">
-        📅 Historique
+        <i class="fas fa-calendar-days"></i> Historique
       </button>
       <button class="btn-primary" (click)="submitReport()" [disabled]="!canSubmit">
-        💾 Enregistrer le rapport
+        <i class="fas fa-floppy-disk"></i> Enregistrer le rapport
       </button>
     </div>
   </div>
@@ -18,28 +18,28 @@
   <!-- Résumé rapide -->
   <div class="quick-summary">
     <div class="summary-card">
-      <div class="summary-icon">💰</div>
+      <div class="summary-icon"><i class="fas fa-sack-dollar"></i></div>
       <div class="summary-content">
         <div class="summary-label">Ventes totales</div>
         <div class="summary-value">{{ report.totalSales | number:'1.2-2' }} €</div>
       </div>
     </div>
     <div class="summary-card">
-      <div class="summary-icon">🛒</div>
+      <div class="summary-icon"><i class="fas fa-cart-shopping"></i></div>
       <div class="summary-content">
         <div class="summary-label">Commandes</div>
         <div class="summary-value">{{ report.totalOrders }}</div>
       </div>
     </div>
     <div class="summary-card">
-      <div class="summary-icon">👥</div>
+      <div class="summary-icon"><i class="fas fa-users"></i></div>
       <div class="summary-content">
         <div class="summary-label">Équipe présente</div>
         <div class="summary-value">{{ report.teamPresent }}</div>
       </div>
     </div>
     <div class="summary-card">
-      <div class="summary-icon">⚖️</div>
+      <div class="summary-icon"></div>
       <div class="summary-content">
         <div class="summary-label">Différence caisse</div>
         <div class="summary-value" [class.positive]="cashDifference >= 0" [class.negative]="cashDifference < 0">
@@ -53,7 +53,7 @@
   <div class="report-form">
     <!-- Section Caisse -->
     <div class="form-section">
-      <h3 class="section-title">💵 Caisse</h3>
+      <h3 class="section-title"><i class="fas fa-money-bill-wave"></i> Caisse</h3>
       <div class="form-grid">
         <div class="form-group">
           <label>Ouverture de caisse</label>
@@ -68,7 +68,7 @@
 
     <!-- Section Ventes -->
     <div class="form-section">
-      <h3 class="section-title">📊 Ventes</h3>
+      <h3 class="section-title"><i class="fas fa-chart-line"></i> Ventes</h3>
       <div class="form-grid">
         <div class="form-group">
           <label>Paiements espèces</label>
@@ -83,21 +83,21 @@
 
     <!-- Section Incidents -->
     <div class="form-section">
-      <h3 class="section-title">⚠️ Incidents</h3>
+      <h3 class="section-title"><i class="fas fa-triangle-exclamation"></i> Incidents</h3>
       <div class="incidents-list">
         <div class="incident-item" *ngFor="let incident of report.incidents; let i = index">
           <input type="text" [(ngModel)]="report.incidents[i]" class="form-input" placeholder="Décrire l'incident...">
-          <button class="btn-remove" (click)="removeIncident(i)">🗑️</button>
+          <button class="btn-remove" (click)="removeIncident(i)"><i class="fas fa-trash"></i></button>
         </div>
       </div>
       <button class="btn-add" (click)="addIncident()">
-        ➕ Ajouter un incident
+        <i class="fas fa-plus"></i> Ajouter un incident
       </button>
     </div>
 
     <!-- Section Notes -->
     <div class="form-section">
-      <h3 class="section-title">📝 Notes et observations</h3>
+      <h3 class="section-title"><i class="fas fa-file-lines"></i> Notes et observations</h3>
       <textarea [(ngModel)]="report.notes"
                 class="form-textarea"
                 rows="6"
@@ -110,7 +110,7 @@
   <div class="modal-content modal-large" (click)="$event.stopPropagation()">
     <div class="modal-header">
       <h2 class="modal-title">Historique des rapports</h2>
-      <button class="btn-close" (click)="closeHistoryModal()">✕</button>
+      <button class="btn-close" (click)="closeHistoryModal()"><i class="fas fa-xmark"></i></button>
     </div>
 
     <div class="modal-body">

@@ -9,9 +9,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CartService } from '../../../core/services/cart.service';
 import { FavorisService } from '../../../core/services/favoris.service';
 import { NotificationService } from '../../../core/services/notification.service';
+import { DrinksService } from '../../../core/services/catalogue/drinks.service';
+import { Drink } from '../../../core/models/Catalogue/Drink';
 
 interface Wine {
-  id: number;
+  id: string;
   name: string;
   region: string;
   price: number;
@@ -32,17 +34,9 @@ interface Wine {
 })
 export class HomeComponent implements OnInit {
 
-  promotions: Wine[] = [
-    { id: 1, name: 'Château Margaux 2015', region: 'Bordeaux', price: 450, image: '🍷', rating: 4.8, type: 'Rouge', grape: 'Cabernet Sauvignon', year: 2015, cave: 'Cave Prestige Paris' },
-    { id: 2, name: 'Domaine de la Romanée-Conti', region: 'Bourgogne', price: 1200, image: '🍷', rating: 5.0, type: 'Rouge', grape: 'Pinot Noir', year: 2016, cave: 'Cave d\'Excellence' },
-    { id: 3, name: 'Champagne Dom Pérignon', region: 'Champagne', price: 180, image: '🥂', rating: 4.9, type: 'Pétillant', grape: 'Chardonnay', year: 2012, cave: 'Cave Prestige Paris' }
-  ];
+  promotions: Wine[] = [];
 
-  newWines: Wine[] = [
-    { id: 4, name: 'Châteauneuf-du-Pape', region: 'Rhône', price: 85, image: '🍷', rating: 4.6, type: 'Rouge', grape: 'Grenache', year: 2018, cave: 'Cave du Sud' },
-    { id: 5, name: 'Sancerre Blanc', region: 'Loire', price: 32, image: '🍾', rating: 4.4, type: 'Blanc', grape: 'Sauvignon Blanc', year: 2020, cave: 'Cave de Loire' },
-    { id: 6, name: 'Pouilly-Fuissé', region: 'Bourgogne', price: 45, image: '🍾', rating: 4.5, type: 'Blanc', grape: 'Chardonnay', year: 2019, cave: 'Cave d\'Excellence' }
-  ];
+  newWines: Wine[] = [];
 
   caves = [
     { id: 1, name: 'Cave Prestige Paris', location: 'Paris 8ème', wines: 250, rating: 4.7, image: '🏛️', specialty: 'Grands Crus' },
@@ -55,10 +49,37 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private cartService: CartService,
     private favorisService: FavorisService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private drinksService: DrinksService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.drinksService.getAll().subscribe({
+      next: (drinks) => {
+        this.promotions = drinks.filter(d => d.isFeatured).slice(0, 3).map(d => this.mapDrinkToWine(d));
+        this.newWines = drinks.filter(d => d.badge === 'new' || d.isPopular).slice(0, 3).map(d => this.mapDrinkToWine(d));
+      },
+      error: (error) => {
+        console.error('Erreur lors du chargement du catalogue (page d\'accueil) :', error);
+      }
+    });
+  }
+
+  /** Convertit une boisson de l'API (modèle unifié) vers le modèle Wine local de cet écran. */
+  private mapDrinkToWine(d: Drink): Wine {
+    return {
+      id: d.id,
+      name: d.name,
+      region: d.region || '',
+      price: d.sellingPrice,
+      image: d.image || d.icon || '🍷',
+      rating: d.rating,
+      type: d.category,
+      grape: d.grapeVariety || '',
+      year: d.vintage ? parseInt(d.vintage, 10) || 0 : 0,
+      cave: ''
+    };
+  }
 
   addToCart(wine: Wine, event: Event): void {
     event.stopPropagation();

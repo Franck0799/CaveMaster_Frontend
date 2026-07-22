@@ -4,6 +4,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UsersService } from '../../../core/services/users/users.service';
+import { UserDto } from '../../../core/models/Users/UserDto';
 
 // Interface pour représenter un utilisateur (employé ou manager)
 interface User {
@@ -98,7 +100,7 @@ export class UserListComponent implements OnInit {
   totalPages: number = 1;       // Nombre total de pages
 
   // ===== CONSTRUCTEUR =====
-  constructor() {}
+  constructor(private usersService: UsersService) {}
 
   // ===== MÉTHODE D'INITIALISATION =====
   ngOnInit(): void {
@@ -115,113 +117,40 @@ export class UserListComponent implements OnInit {
    * À remplacer par un appel API backend
    */
   loadUsers(): void {
-    // Données mockées des utilisateurs
-    this.users = [
-      {
-        id: 'user_1',
-        firstName: 'Jean',
-        lastName: 'Kouassi',
-        email: 'jean.kouassi@caveviking.com',
-        phone: '+234 801 234 5678',
-        role: 'Manager Principal',
-        avatar: '👨‍💼',
-        cave: 'Cave Principale',
-        status: 'active',
-        joinDate: '2023-01-15',
-        performance: { sales: 2500000, hours: 160, satisfaction: '96%' }
+    this.usersService.getAll().subscribe({
+      next: (apiUsers) => {
+        this.users = apiUsers.map(u => this.mapApiUserToLocal(u));
+        this.applyFilters();
+        console.log('Utilisateurs chargés depuis le backend :', this.users.length);
       },
-      {
-        id: 'user_2',
-        firstName: 'Marie',
-        lastName: 'Diabate',
-        email: 'marie.diabate@caveviking.com',
-        phone: '+234 802 345 6789',
-        role: 'Manager Adjoint',
-        avatar: '👩‍💼',
-        cave: 'Cave Principale',
-        status: 'active',
-        joinDate: '2023-03-20',
-        performance: { sales: 1800000, hours: 158, satisfaction: '94%' }
-      },
-      {
-        id: 'user_3',
-        firstName: 'Alice',
-        lastName: 'Martin',
-        email: 'alice.martin@caveviking.com',
-        phone: '+234 803 456 7890',
-        role: 'Caissière',
-        avatar: '👩',
-        cave: 'Cave Principale',
-        status: 'active',
-        joinDate: '2023-02-10',
-        performance: { sales: 450000, hours: 160, satisfaction: '92%' }
-      },
-      {
-        id: 'user_4',
-        firstName: 'Bob',
-        lastName: 'Traore',
-        email: 'bob.traore@caveviking.com',
-        phone: '+234 804 567 8901',
-        role: 'Magasinier',
-        avatar: '👨',
-        cave: 'Cave Principale',
-        status: 'active',
-        joinDate: '2023-04-05',
-        performance: { sales: 380000, hours: 158, satisfaction: '88%' }
-      },
-      {
-        id: 'user_5',
-        firstName: 'Sophie',
-        lastName: 'Bakayoko',
-        email: 'sophie.bakayoko@caveviking.com',
-        phone: '+234 805 678 9012',
-        role: 'Manager Principal',
-        avatar: '👩‍💼',
-        cave: 'Cave Secondaire',
-        status: 'active',
-        joinDate: '2023-05-18',
-        performance: { sales: 1900000, hours: 160, satisfaction: '93%' }
-      },
-      {
-        id: 'user_6',
-        firstName: 'Thomas',
-        lastName: 'Diarra',
-        email: 'thomas.diarra@caveviking.com',
-        phone: '+234 806 789 0123',
-        role: 'Manager Adjoint',
-        avatar: '👨‍💼',
-        cave: 'Cave Secondaire',
-        status: 'inactive',
-        joinDate: '2023-06-22',
-        performance: { sales: 1500000, hours: 155, satisfaction: '90%' }
-      },
-      {
-        id: 'user_7',
-        firstName: 'Claire',
-        lastName: 'Diop',
-        email: 'claire.diop@caveviking.com',
-        phone: '+234 807 890 1234',
-        role: 'Vendeuse',
-        avatar: '👩',
-        cave: 'Cave Principale',
-        status: 'on-leave',
-        joinDate: '2023-07-14',
-        performance: { sales: 520000, hours: 140, satisfaction: '95%' }
-      },
-      {
-        id: 'user_8',
-        firstName: 'David',
-        lastName: 'Kone',
-        email: 'david.kone@caveviking.com',
-        phone: '+234 808 901 2345',
-        role: 'Livreur',
-        avatar: '👨',
-        cave: 'Cave Principale',
-        status: 'active',
-        joinDate: '2023-08-25',
-        performance: { sales: 290000, hours: 155, satisfaction: '87%' }
+      error: (error) => {
+        console.error('Erreur lors du chargement des utilisateurs depuis le backend :', error);
+        this.users = [];
+        this.applyFilters();
       }
-    ];
+    });
+  }
+
+  /**
+   * Convertit un utilisateur reçu de l'API vers le modèle local utilisé par
+   * cet écran. Le statut "on-leave" et les métriques de performance viennent
+   * respectivement de LeaveRequestsController et PerformanceRecordsController
+   * (non joints ici) ; on affiche donc des valeurs par défaut en attendant.
+   */
+  private mapApiUserToLocal(u: UserDto): User {
+    return {
+      id: u.id,
+      firstName: u.firstName || '',
+      lastName: u.lastName || '',
+      email: u.email,
+      phone: u.phoneNumber || '',
+      role: u.roles?.[0] || 'Employé',
+      avatar: u.avatar || '👤',
+      cave: u.caveId || 'Non assignée',
+      status: u.isEnabled ? 'active' : 'inactive',
+      joinDate: u.hireDate || '',
+      performance: { sales: 0, hours: u.workingHours || 0, satisfaction: 'N/A' }
+    };
   }
 
   // ===== MÉTHODE D'APPLICATION DES FILTRES =====

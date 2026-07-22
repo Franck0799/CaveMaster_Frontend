@@ -2,17 +2,17 @@
   <!-- ========== HEADER ========== -->
   <div class="dashboard-header">
     <h1 class="dashboard-title">
-      <span class="icon">📦</span>
+      <span class="icon"><i class="fas fa-box"></i></span>
       Gestion des Stocks
     </h1>
 
     <div class="header-actions">
       <button class="btn-view" (click)="toggleViewMode()">
-        <span class="icon">{{ viewMode === 'grid' ? '📋' : '⊞' }}</span>
+        <span class="icon">{{ viewMode === 'grid' ? '' : '⊞' }}</span>
         {{ viewMode === 'grid' ? 'Liste' : 'Grille' }}
       </button>
       <button class="btn-export" (click)="exportStock()">
-        <span class="icon">⬇️</span>
+        <span class="icon"><i class="fas fa-arrow-down"></i></span>
         Exporter
       </button>
     </div>
@@ -21,15 +21,15 @@
   <!-- ========== ALERTES ========== -->
   <div class="alerts-section" *ngIf="showAlerts && stockAlerts.length > 0">
     <div class="alerts-header">
-      <h3>⚠️ Alertes Stock ({{ stockAlerts.length }})</h3>
-      <button class="btn-close-alerts" (click)="showAlerts = false">✕</button>
+      <h3><i class="fas fa-triangle-exclamation"></i> Alertes Stock ({{ stockAlerts.length }})</h3>
+      <button class="btn-close-alerts" (click)="showAlerts = false"><i class="fas fa-xmark"></i></button>
     </div>
     <div class="alerts-grid">
       <div *ngFor="let alert of stockAlerts"
            class="alert-card"
            [ngClass]="'alert-' + alert.type">
         <div class="alert-icon">
-          {{ alert.type === 'critique' ? '🔴' : alert.type === 'faible' ? '🟡' : '🔵' }}
+          {{ alert.type === 'critique' ? '' : alert.type === 'faible' ? '' : '' }}
         </div>
         <div class="alert-content">
           <div class="alert-title">{{ alert.itemNom }}</div>
@@ -45,7 +45,7 @@
   <!-- ========== STATISTIQUES ========== -->
   <div class="stats-grid">
     <div class="stat-card stat-card--primary">
-      <div class="stat-icon">📊</div>
+      <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
       <div class="stat-content">
         <div class="stat-label">Total Articles</div>
         <div class="stat-value">{{ totalArticles | number:'1.0-0' }}</div>
@@ -53,7 +53,7 @@
     </div>
 
     <div class="stat-card stat-card--success">
-      <div class="stat-icon">💰</div>
+      <div class="stat-icon"><i class="fas fa-sack-dollar"></i></div>
       <div class="stat-content">
         <div class="stat-label">Valeur Stock</div>
         <div class="stat-value">{{ valeurTotaleStock | number:'1.0-0' }} FCFA</div>
@@ -61,7 +61,7 @@
     </div>
 
     <div class="stat-card stat-card--danger">
-      <div class="stat-icon">🔴</div>
+      <div class="stat-icon"><i class="fas fa-circle"></i></div>
       <div class="stat-content">
         <div class="stat-label">Ruptures</div>
         <div class="stat-value">{{ articlesEnRupture }}</div>
@@ -69,7 +69,7 @@
     </div>
 
     <div class="stat-card stat-card--warning">
-      <div class="stat-icon">⚠️</div>
+      <div class="stat-icon"><i class="fas fa-triangle-exclamation"></i></div>
       <div class="stat-content">
         <div class="stat-label">Stock Faible</div>
         <div class="stat-value">{{ articlesAlerteFaible }}</div>
@@ -80,7 +80,7 @@
   <!-- ========== FILTRES ========== -->
   <div class="filters-section">
     <div class="filter-group">
-      <label>🔍 Recherche</label>
+      <label><i class="fas fa-magnifying-glass"></i> Recherche</label>
       <input
         type="text"
         [formControl]="searchControl"
@@ -89,7 +89,7 @@
     </div>
 
     <div class="filter-group">
-      <label>📦 Type</label>
+      <label><i class="fas fa-box"></i> Type</label>
       <select [formControl]="typeControl" class="filter-select">
         <option value="tous">Tous les types</option>
         <option *ngFor="let type of types" [value]="type.value">
@@ -99,7 +99,7 @@
     </div>
 
     <div class="filter-group">
-      <label>🏷️ Catégorie</label>
+      <label>Catégorie</label>
       <select [formControl]="categorieControl" class="filter-select">
         <option value="toutes">Toutes les catégories</option>
         <option *ngFor="let cat of getCategoriesForType()" [value]="cat">
@@ -109,7 +109,7 @@
     </div>
 
     <div class="filter-group" *ngIf="typeControl.value === 'tous' || typeControl.value === 'boisson'">
-      <label>🏛️ Cave</label>
+      <label><i class="fas fa-landmark"></i> Cave</label>
       <select [formControl]="caveControl" class="filter-select">
         <option value="toutes">Toutes les caves</option>
         <option *ngFor="let cave of caves" [value]="cave.id">
@@ -119,7 +119,7 @@
     </div>
 
     <div class="filter-group" *ngIf="typeControl.value === 'materiel'">
-      <label>⚙️ État</label>
+      <label><i class="fas fa-gear"></i> État</label>
       <select [formControl]="etatControl" class="filter-select">
         <option value="tous">Tous les états</option>
         <option *ngFor="let etat of etats" [value]="etat">
@@ -130,7 +130,7 @@
 
     <div class="filter-group">
       <button class="btn-reset" (click)="resetFilters()">
-        🔄 Réinitialiser
+        <i class="fas fa-arrow-rotate-right"></i> Réinitialiser
       </button>
     </div>
   </div>
@@ -190,39 +190,39 @@
         <div class="stock-info">
           <!-- Pour boissons -->
           <div class="info-item" *ngIf="item.type === 'boisson'">
-            <span class="label">📍</span>
+            <span class="label"><i class="fas fa-location-dot"></i></span>
             <span class="value">{{ item.cave }}</span>
           </div>
           <div class="info-item" *ngIf="item.type === 'boisson' && item.format">
-            <span class="label">📏</span>
+            <span class="label"></span>
             <span class="value">{{ item.format }}</span>
           </div>
           <div class="info-item" *ngIf="item.type === 'boisson' && item.supplier">
-            <span class="label">🏭</span>
+            <span class="label"><i class="fas fa-industry"></i></span>
             <span class="value">{{ item.supplier }}</span>
           </div>
 
           <!-- Pour vins -->
           <div class="info-item" *ngIf="item.type === 'vin' && item.wineType">
-            <span class="label">🍷</span>
+            <span class="label"><i class="fas fa-wine-glass"></i></span>
             <span class="value">{{ item.wineType }}</span>
           </div>
           <div class="info-item" *ngIf="item.type === 'vin' && item.region">
-            <span class="label">🌍</span>
+            <span class="label"><i class="fas fa-earth-europe"></i></span>
             <span class="value">{{ item.region }}</span>
           </div>
           <div class="info-item" *ngIf="item.type === 'vin' && item.vintage">
-            <span class="label">📅</span>
+            <span class="label"><i class="fas fa-calendar-days"></i></span>
             <span class="value">{{ item.vintage }}</span>
           </div>
           <div class="info-item" *ngIf="item.type === 'vin' && item.temperature">
-            <span class="label">🌡️</span>
+            <span class="label"><i class="fas fa-temperature-half"></i></span>
             <span class="value">{{ item.temperature }}</span>
           </div>
 
           <!-- Pour matériel -->
           <div class="info-item" *ngIf="item.type === 'materiel'">
-            <span class="label">📍</span>
+            <span class="label"><i class="fas fa-location-dot"></i></span>
             <span class="value">{{ item.emplacement }}</span>
           </div>
         </div>
@@ -265,10 +265,10 @@
 
       <div class="stock-card-footer">
         <button class="btn-action btn-details" (click)="openDetailsModal(item)">
-          👁️ Détails
+          <i class="fas fa-eye"></i> Détails
         </button>
         <button class="btn-action btn-movement" (click)="openMovementModal(item)">
-          📝 Mouvements
+          <i class="fas fa-file-lines"></i> Mouvements
         </button>
       </div>
     </div>
@@ -326,10 +326,10 @@
               </td>
               <td class="text-center">
                 <button class="btn-action-small btn-info" (click)="openDetailsModal(item)" title="Détails">
-                  👁️
+                  <i class="fas fa-eye"></i>
                 </button>
                 <button class="btn-action-small btn-primary" (click)="openMovementModal(item)" title="Mouvements">
-                  📝
+                  <i class="fas fa-file-lines"></i>
                 </button>
               </td>
             </tr>
@@ -341,7 +341,7 @@
 
   <!-- ========== MESSAGE SI AUCUN RÉSULTAT ========== -->
   <div *ngIf="!isLoading && filteredStockItems.length === 0" class="no-results">
-    <div class="no-results-icon">📭</div>
+    <div class="no-results-icon"><i class="fas fa-envelope-open"></i></div>
     <h3>Aucun article trouvé</h3>
     <p>Essayez de modifier vos filtres de recherche</p>
     <button class="btn-reset" (click)="resetFilters()">Réinitialiser les filtres</button>
@@ -351,8 +351,8 @@
   <div class="modal-overlay" *ngIf="isMovementModalOpen" (click)="closeMovementModal()">
     <div class="modal-content" (click)="$event.stopPropagation()">
       <div class="modal-header">
-        <h2>📝 Mouvements de Stock</h2>
-        <button class="btn-close" (click)="closeMovementModal()">✕</button>
+        <h2><i class="fas fa-file-lines"></i> Mouvements de Stock</h2>
+        <button class="btn-close" (click)="closeMovementModal()"><i class="fas fa-xmark"></i></button>
       </div>
 
       <div class="modal-body" *ngIf="selectedItem">
@@ -366,24 +366,24 @@
 
         <div class="movement-forms">
           <div class="movement-form">
-            <h4>➕ Entrée de stock</h4>
+            <h4><i class="fas fa-plus"></i> Entrée de stock</h4>
             <input type="number" #entreeQty placeholder="Quantité" min="1" class="form-input">
             <input type="text" #entreeMotif placeholder="Motif (ex: Réapprovisionnement)" class="form-input">
             <button
               class="btn-submit btn-success"
               (click)="addStockEntry(selectedItem, +entreeQty.value, entreeMotif.value); entreeQty.value=''; entreeMotif.value=''">
-              ➕ Ajouter
+              <i class="fas fa-plus"></i> Ajouter
             </button>
           </div>
 
           <div class="movement-form">
-            <h4>➖ Sortie de stock</h4>
+            <h4><i class="fas fa-minus"></i> Sortie de stock</h4>
             <input type="number" #sortieQty placeholder="Quantité" min="1" [max]="selectedItem.stockActuel" class="form-input">
             <input type="text" #sortieMotif placeholder="Motif (ex: Vente, Casse)" class="form-input">
             <button
               class="btn-submit btn-danger"
               (click)="addStockExit(selectedItem, +sortieQty.value, sortieMotif.value); sortieQty.value=''; sortieMotif.value=''">
-              ➖ Retirer
+              <i class="fas fa-minus"></i> Retirer
             </button>
           </div>
         </div>
@@ -395,8 +395,8 @@
   <div class="modal-overlay" *ngIf="isDetailsModalOpen" (click)="closeDetailsModal()">
     <div class="modal-content modal-content-large" (click)="$event.stopPropagation()">
       <div class="modal-header">
-        <h2>👁️ Détails de l'Article</h2>
-        <button class="btn-close" (click)="closeDetailsModal()">✕</button>
+        <h2><i class="fas fa-eye"></i> Détails de l'Article</h2>
+        <button class="btn-close" (click)="closeDetailsModal()"><i class="fas fa-xmark"></i></button>
       </div>
 
       <div class="modal-body" *ngIf="selectedItem">
@@ -417,7 +417,7 @@
 
         <!-- SECTION: Informations générales -->
         <div class="details-section">
-          <h4 class="details-section-title">📊 Informations Stock</h4>
+          <h4 class="details-section-title"><i class="fas fa-chart-line"></i> Informations Stock</h4>
           <div class="details-grid">
             <div class="detail-item">
               <label>Stock Actuel</label>
@@ -440,7 +440,7 @@
 
         <!-- SECTION: Prix et Valeur -->
         <div class="details-section">
-          <h4 class="details-section-title">💰 Prix et Valeur</h4>
+          <h4 class="details-section-title"><i class="fas fa-sack-dollar"></i> Prix et Valeur</h4>
           <div class="details-grid">
             <div class="detail-item">
               <label>Prix d'Achat</label>
@@ -463,7 +463,7 @@
 
         <!-- SECTION SPÉCIFIQUE: Boissons (Drinks) -->
         <div class="details-section" *ngIf="selectedItem.type === 'boisson'">
-          <h4 class="details-section-title">🍷 Informations Boisson</h4>
+          <h4 class="details-section-title"><i class="fas fa-wine-glass"></i> Informations Boisson</h4>
           <div class="details-grid">
             <div class="detail-item" *ngIf="selectedItem.format">
               <label>Format</label>
@@ -514,7 +514,7 @@
 
         <!-- SECTION SPÉCIFIQUE: Vins (Wine-Pairing) -->
         <div class="details-section" *ngIf="selectedItem.type === 'vin'">
-          <h4 class="details-section-title">🍾 Informations Vin</h4>
+          <h4 class="details-section-title"><i class="fas fa-champagne-glasses"></i> Informations Vin</h4>
           <div class="details-grid">
             <div class="detail-item" *ngIf="selectedItem.wineType">
               <label>Type de Vin</label>
@@ -540,7 +540,7 @@
 
           <!-- Accords Mets & Vins -->
           <div class="pairing-section" *ngIf="selectedItem.pairingWith && selectedItem.pairingWith.length > 0">
-            <label class="pairing-label">🍽️ Accords Mets & Vins Recommandés</label>
+            <label class="pairing-label"><i class="fas fa-utensils"></i> Accords Mets & Vins Recommandés</label>
             <div class="pairing-tags">
               <span class="pairing-tag" *ngFor="let pairing of selectedItem.pairingWith">
                 {{ pairing }}
@@ -551,7 +551,7 @@
 
         <!-- SECTION SPÉCIFIQUE: Matériel -->
         <div class="details-section" *ngIf="selectedItem.type === 'materiel'">
-          <h4 class="details-section-title">🍴 Informations Matériel</h4>
+          <h4 class="details-section-title">Informations Matériel</h4>
           <div class="details-grid">
             <div class="detail-item" *ngIf="selectedItem.emplacement">
               <label>Emplacement</label>
@@ -568,7 +568,7 @@
 
         <!-- SECTION: Dates -->
         <div class="details-section">
-          <h4 class="details-section-title">📅 Historique</h4>
+          <h4 class="details-section-title"><i class="fas fa-calendar-days"></i> Historique</h4>
           <div class="details-grid">
             <div class="detail-item">
               <label>Date d'Acquisition</label>
@@ -587,7 +587,7 @@
 
         <!-- SECTION: Notes -->
         <div class="details-section" *ngIf="selectedItem.notes">
-          <h4 class="details-section-title">📝 Notes</h4>
+          <h4 class="details-section-title"><i class="fas fa-file-lines"></i> Notes</h4>
           <p class="notes-content">{{ selectedItem.notes }}</p>
         </div>
       </div>
@@ -597,7 +597,7 @@
           Fermer
         </button>
         <button class="btn-primary" (click)="openMovementModal(selectedItem!); closeDetailsModal()">
-          📝 Gérer les Mouvements
+          <i class="fas fa-file-lines"></i> Gérer les Mouvements
         </button>
       </div>
     </div>

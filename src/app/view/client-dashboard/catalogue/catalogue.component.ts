@@ -10,9 +10,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CartService } from '../../../core/services/cart.service';
 import { FavorisService } from '../../../core/services/favoris.service';
 import { NotificationService } from '../../../core/services/notification.service';
+import { DrinksService } from '../../../core/services/catalogue/drinks.service';
+import { Drink } from '../../../core/models/Catalogue/Drink';
 
 interface Wine {
-  id: number;
+  id: string;
   name: string;
   region: string;
   price: number;
@@ -24,7 +26,6 @@ interface Wine {
   cave: string;
   stock: number;
 }
-
 @Component({
   selector: 'app-catalogue',
   standalone: true,
@@ -33,14 +34,7 @@ interface Wine {
   styleUrls: ['./catalogue.component.scss']
 })
 export class CatalogueComponent implements OnInit {
-  wines: Wine[] = [
-    { id: 1, name: 'Château Margaux 2015', region: 'Bordeaux', price: 450, image: '🍷', rating: 4.8, type: 'Rouge', grape: 'Cabernet Sauvignon', year: 2015, cave: 'Cave Prestige Paris', stock: 12 },
-    { id: 2, name: 'Domaine de la Romanée-Conti', region: 'Bourgogne', price: 1200, image: '🍷', rating: 5.0, type: 'Rouge', grape: 'Pinot Noir', year: 2016, cave: 'Cave d\'Excellence', stock: 3 },
-    { id: 3, name: 'Champagne Dom Pérignon', region: 'Champagne', price: 180, image: '🥂', rating: 4.9, type: 'Pétillant', grape: 'Chardonnay', year: 2012, cave: 'Cave Prestige Paris', stock: 25 },
-    { id: 4, name: 'Châteauneuf-du-Pape', region: 'Rhône', price: 85, image: '🍷', rating: 4.6, type: 'Rouge', grape: 'Grenache', year: 2018, cave: 'Cave du Sud', stock: 18 },
-    { id: 5, name: 'Sancerre Blanc', region: 'Loire', price: 32, image: '🍾', rating: 4.4, type: 'Blanc', grape: 'Sauvignon Blanc', year: 2020, cave: 'Cave de Loire', stock: 45 },
-    { id: 6, name: 'Pouilly-Fuissé', region: 'Bourgogne', price: 45, image: '🍾', rating: 4.5, type: 'Blanc', grape: 'Chardonnay', year: 2019, cave: 'Cave d\'Excellence', stock: 32 },
-  ];
+  wines: Wine[] = [];
 
   filteredWines: Wine[] = [];
   searchQuery = '';
@@ -73,11 +67,44 @@ export class CatalogueComponent implements OnInit {
     private router: Router,
     private cartService: CartService,
     private favorisService: FavorisService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private drinksService: DrinksService
   ) {}
 
   ngOnInit(): void {
-    this.applyFilters();
+    this.loadWines();
+  }
+
+  loadWines(): void {
+    this.drinksService.getAll().subscribe({
+      next: (drinks) => {
+        this.wines = drinks.map(d => this.mapDrinkToWine(d));
+        this.applyFilters();
+        console.log('Catalogue chargé depuis le backend :', this.wines.length);
+      },
+      error: (error) => {
+        console.error('Erreur lors du chargement du catalogue depuis le backend :', error);
+        this.wines = [];
+        this.applyFilters();
+      }
+    });
+  }
+
+  /** Convertit une boisson de l'API (modèle unifié) vers le modèle Wine local de cet écran. */
+  private mapDrinkToWine(d: Drink): Wine {
+    return {
+      id: d.id,
+      name: d.name,
+      region: d.region || '',
+      price: d.sellingPrice,
+      image: d.image || d.icon || '🍷',
+      rating: d.rating,
+      type: d.category,
+      grape: d.grapeVariety || '',
+      year: d.vintage ? parseInt(d.vintage, 10) || 0 : 0,
+      cave: '', // Le rattachement à une cave précise se fait via StockLevelsController, non joint ici.
+      stock: 0  // Idem : le stock réel vient de StockLevelsController par cave.
+    };
   }
 
   applyFilters(): void {

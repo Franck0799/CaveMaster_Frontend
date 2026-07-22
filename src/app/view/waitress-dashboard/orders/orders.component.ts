@@ -50,11 +50,11 @@ export class OrdersComponent implements OnInit {
   tableNumber?: string;
 
   categories: Category[] = [
-    { id: 'all', name: 'Tout', icon: 'grid', count: 0 },
-    { id: 'starters', name: 'Entrées', icon: 'coffee', count: 8 },
+    { id: 'all', name: 'Tout', icon: 'table-cells', count: 0 },
+    { id: 'starters', name: 'Entrées', icon: 'mug-hot', count: 8 },
     { id: 'mains', name: 'Plats', icon: 'utensils', count: 12 },
-    { id: 'desserts', name: 'Desserts', icon: 'cake', count: 6 },
-    { id: 'wines', name: 'Vins', icon: 'wine', count: 25 },
+    { id: 'desserts', name: 'Desserts', icon: 'cake-candles', count: 6 },
+    { id: 'wines', name: 'Vins', icon: 'wine-glass', count: 25 },
     { id: 'drinks', name: 'Boissons', icon: 'droplet', count: 10 }
   ];
 
@@ -232,12 +232,12 @@ export class OrdersComponent implements OnInit {
 
   getWineTypeIcon(wineType?: string): string {
   const icons: any = {
-    'red': '🍷',      // Rouge
-    'white': '🥂',    // Blanc
-    'rosé': '🌸',     // Rosé
-    'sparkling': '🍾' // Effervescent
+    'red': 'wine-glass',      // Rouge
+    'white': 'wine-glass',    // Blanc
+    'rosé': 'wine-glass',     // Rosé
+    'sparkling': 'wine-bottle' // Effervescent
   };
-  return icons[wineType || ''] || '🍷';
+  return icons[wineType || ''] || 'wine-glass';
 }
 }
 

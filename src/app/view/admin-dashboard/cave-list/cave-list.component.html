@@ -12,9 +12,9 @@
 
   <!-- En-tête avec titre et boutons -->
   <div class="header-section">
-    <h2>🍷 Mes Caves</h2>
+    <h2><i class="fas fa-wine-glass"></i> Mes Caves</h2>
     <button class="btn btn-primary" (click)="openAddCaveModal()">
-      ➕ Ajouter une cave
+      <i class="fas fa-plus"></i> Ajouter une cave
     </button>
   </div>
 
@@ -23,7 +23,7 @@
     <div class="search-bar">
       <input
         type="text"
-        placeholder="🔍 Rechercher une cave par nom ou localisation..."
+        placeholder="Rechercher une cave par nom ou localisation..."
         [value]="filters.searchTerm"
         (input)="onSearch($any($event.target).value)"
         class="search-input">
@@ -37,7 +37,7 @@
             [value]="filters.location"
             (change)="onFilterChange('location', $any($event.target).value)">
       <option value="">Toutes les régions</option>
-      <option *ngFor="let region of regions" [value]="region">📍 {{ region }}</option>
+      <option *ngFor="let region of regions" [value]="region"><i class="fas fa-location-dot"></i> {{ region }}</option>
     </select>
 
     <!-- Filtre par capacité -->
@@ -59,7 +59,7 @@
   <!-- Statistiques globales des caves -->
   <div class="caves-stats" *ngIf="filteredCaves.length > 0">
     <div class="stat-box">
-      <span class="stat-icon">🏢</span>
+      <span class="stat-icon"><i class="fas fa-building"></i></span>
       <div class="stat-info">
         <span class="stat-label">Total de caves</span>
         <span class="stat-value">{{ filteredCaves.length }}</span>
@@ -67,7 +67,7 @@
     </div>
 
     <div class="stat-box">
-      <span class="stat-icon">🍾</span>
+      <span class="stat-icon"><i class="fas fa-champagne-glasses"></i></span>
       <div class="stat-info">
         <span class="stat-label">Total de bouteilles</span>
         <span class="stat-value">{{ getTotalBottles() }}</span>
@@ -75,7 +75,7 @@
     </div>
 
     <div class="stat-box">
-      <span class="stat-icon">👥</span>
+      <span class="stat-icon"><i class="fas fa-users"></i></span>
       <div class="stat-info">
         <span class="stat-label">Total de managers</span>
         <span class="stat-value">{{ getTotalManagers() }}</span>
@@ -83,7 +83,7 @@
     </div>
 
     <div class="stat-box">
-      <span class="stat-icon">👨‍💼</span>
+      <span class="stat-icon"><i class="fas fa-user"></i>‍<i class="fas fa-briefcase"></i></span>
       <div class="stat-info">
         <span class="stat-label">Total d'employés</span>
         <span class="stat-value">{{ getTotalEmployees() }}</span>
@@ -100,7 +100,7 @@
       <div class="cave-card-header">
         <div class="cave-title">
           <h3>{{ cave.name }}</h3>
-          <p class="cave-location">📍 {{ cave.location }}</p>
+          <p class="cave-location"><i class="fas fa-location-dot"></i> {{ cave.location }}</p>
         </div>
         <!-- Badge de statut -->
         <span class="productivity-badge" [ngClass]="'badge-' + getProductivityLevel(cave.productivity)">
@@ -115,22 +115,22 @@
       <div class="stats-grid">
         <!-- Bouteilles -->
         <div class="stat-item">
-          <span class="stat-label">🍾 Bouteilles</span>
+          <span class="stat-label"><i class="fas fa-champagne-glasses"></i> Bouteilles</span>
           <span class="stat-value">{{ cave.bottles }}</span>
         </div>
         <!-- Capacité -->
         <div class="stat-item">
-          <span class="stat-label">📦 Capacité</span>
+          <span class="stat-label"><i class="fas fa-box"></i> Capacité</span>
           <span class="stat-value">{{ cave.capacity }}</span>
         </div>
         <!-- Managers -->
         <div class="stat-item">
-          <span class="stat-label">👥 Managers</span>
+          <span class="stat-label"><i class="fas fa-users"></i> Managers</span>
           <span class="stat-value">{{ cave.managersCount }}</span>
         </div>
         <!-- Employés -->
         <div class="stat-item">
-          <span class="stat-label">👨‍💼 Employés</span>
+          <span class="stat-label"><i class="fas fa-user"></i>‍<i class="fas fa-briefcase"></i> Employés</span>
           <span class="stat-value">{{ cave.employeesCount }}</span>
         </div>
       </div>
@@ -150,26 +150,26 @@
       <div class="cave-card-actions">
         <!-- Bouton voir détails -->
         <button (click)="viewCaveDetails(cave)" class="btn btn-secondary btn-sm">
-          👁️ Détails
+          <i class="fas fa-eye"></i> Détails
         </button>
         <!-- Bouton statistiques -->
         <button (click)="viewCaveStats(cave)" class="btn btn-secondary btn-sm">
-          📊 Stats
+          <i class="fas fa-chart-line"></i> Stats
         </button>
         <!-- Bouton éditer -->
         <button (click)="editCave(cave)" class="btn btn-primary btn-sm">
-          ✏️ Éditer
+          <i class="fas fa-pen"></i> Éditer
         </button>
         <!-- Bouton supprimer -->
         <button (click)="deleteCave(cave.id)" class="btn btn-danger btn-sm">
-          🗑️ Supprimer
+          <i class="fas fa-trash"></i> Supprimer
         </button>
       </div>
     </div>
 
     <!-- Message si aucune cave trouvée -->
     <div *ngIf="filteredCaves.length === 0" class="empty-state">
-      <p>🏜️ Aucune cave trouvée. Créez-en une pour commencer !</p>
+      <p><i class="fas fa-sun"></i> Aucune cave trouvée. Créez-en une pour commencer !</p>
     </div>
   </div>
 
@@ -212,7 +212,7 @@
     <div class="modal-content" (click)="$event.stopPropagation()">
       <!-- En-tête du modal -->
       <div class="modal-header">
-        <h3>➕ Ajouter une nouvelle cave</h3>
+        <h3><i class="fas fa-plus"></i> Ajouter une nouvelle cave</h3>
         <button (click)="closeAddModal()" class="close-btn">×</button>
       </div>
 
@@ -228,7 +228,7 @@
                    placeholder="Ex: Cave Principale"
                    [class.input-error]="isFieldInvalid('name')">
             <small *ngIf="isFieldInvalid('name')" class="error-text">
-              ⚠️ Minimum 3 caractères requis
+              <i class="fas fa-triangle-exclamation"></i> Minimum 3 caractères requis
             </small>
           </div>
 
@@ -240,11 +240,11 @@
                     [class.input-error]="isFieldInvalid('location')">
               <option value="">Sélectionner une région...</option>
               <option *ngFor="let region of regions" [value]="region">
-                📍 {{ region }}
+                <i class="fas fa-location-dot"></i> {{ region }}
               </option>
             </select>
             <small *ngIf="isFieldInvalid('location')" class="error-text">
-              ⚠️ Veuillez sélectionner une localisation
+              <i class="fas fa-triangle-exclamation"></i> Veuillez sélectionner une localisation
             </small>
           </div>
 
@@ -258,7 +258,7 @@
                    min="1"
                    [class.input-error]="isFieldInvalid('capacity')">
             <small *ngIf="isFieldInvalid('capacity')" class="error-text">
-              ⚠️ La capacité doit être supérieure à 0
+              <i class="fas fa-triangle-exclamation"></i> La capacité doit être supérieure à 0
             </small>
           </div>
 
@@ -274,10 +274,10 @@
            <!-- Boutons -->
           <div class="form-actions">
             <button type="button" (click)="closeAddModal()" class="btn btn-secondary">
-              ✕ Annuler
+              <i class="fas fa-xmark"></i> Annuler
             </button>
             <button type="submit" class="btn btn-primary">
-              ➕ Créer cave
+              <i class="fas fa-plus"></i> Créer cave
             </button>
           </div>
 
@@ -293,7 +293,7 @@
     <div class="modal-content" (click)="$event.stopPropagation()">
       <!-- En-tête du modal -->
       <div class="modal-header">
-        <h3>🍷 {{ selectedCave.name }}</h3>
+        <h3><i class="fas fa-wine-glass"></i> {{ selectedCave.name }}</h3>
         <button (click)="closeDetailModal()" class="close-btn">×</button>
       </div>
 
@@ -303,44 +303,44 @@
         <div class="cave-details">
           <!-- Localisation -->
           <div class="detail-row">
-            <span class="label">📍 Localisation:</span>
+            <span class="label"><i class="fas fa-location-dot"></i> Localisation:</span>
             <span class="value">{{ selectedCave.location }}</span>
           </div>
           <!-- Description -->
           <div class="detail-row">
-            <span class="label">📝 Description:</span>
+            <span class="label"><i class="fas fa-file-lines"></i> Description:</span>
             <span class="value">{{ selectedCave.description }}</span>
           </div>
           <!-- Capacité -->
           <div class="detail-row">
-            <span class="label">📦 Capacité:</span>
+            <span class="label"><i class="fas fa-box"></i> Capacité:</span>
             <span class="value">{{ selectedCave.capacity }} bouteilles</span>
           </div>
           <!-- Bouteilles actuelles -->
           <div class="detail-row">
-            <span class="label">🍾 Bouteilles actuelles:</span>
+            <span class="label"><i class="fas fa-champagne-glasses"></i> Bouteilles actuelles:</span>
             <span class="value">{{ selectedCave.bottles }}</span>
           </div>
           <!-- Managers -->
           <div class="detail-row">
-            <span class="label">👥 Managers:</span>
+            <span class="label"><i class="fas fa-users"></i> Managers:</span>
             <span class="value">{{ selectedCave.managersCount }}</span>
           </div>
           <!-- Employés -->
           <div class="detail-row">
-            <span class="label">👨‍💼 Employés:</span>
+            <span class="label"><i class="fas fa-user"></i>‍<i class="fas fa-briefcase"></i> Employés:</span>
             <span class="value">{{ selectedCave.employeesCount }}</span>
           </div>
           <!-- Productivité -->
           <div class="detail-row">
-            <span class="label">📈 Productivité:</span>
+            <span class="label"><i class="fas fa-arrow-trend-up"></i> Productivité:</span>
             <span class="value" [ngClass]="'value-' + getProductivityLevel(selectedCave.productivity)">
               {{ selectedCave.productivity }}%
             </span>
           </div>
           <!-- Date de création -->
           <div class="detail-row">
-            <span class="label">📅 Date de création:</span>
+            <span class="label"><i class="fas fa-calendar-days"></i> Date de création:</span>
             <span class="value">{{ selectedCave.createdDate | date: 'dd/MM/yyyy' }}</span>
           </div>
         </div>
@@ -355,7 +355,7 @@
     <div class="modal-content" (click)="$event.stopPropagation()">
       <!-- En-tête du modal -->
       <div class="modal-header">
-        <h3>✏️ Modifier {{ selectedCave.name }}</h3>
+        <h3><i class="fas fa-pen"></i> Modifier {{ selectedCave.name }}</h3>
         <button (click)="closeEditModal()" class="close-btn">×</button>
       </div>
 
@@ -406,10 +406,10 @@
           <!-- Boutons -->
           <div class="form-actions">
             <button type="button" (click)="closeEditModal()" class="btn btn-secondary">
-              ✕ Annuler
+              <i class="fas fa-xmark"></i> Annuler
             </button>
             <button type="submit" class="btn btn-primary">
-              💾 Enregistrer
+              <i class="fas fa-floppy-disk"></i> Enregistrer
             </button>
           </div>
         </form>

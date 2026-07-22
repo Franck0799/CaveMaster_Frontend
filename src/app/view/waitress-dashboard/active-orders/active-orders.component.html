@@ -16,11 +16,11 @@ DESCRIPTION: Suivi des commandes actives en temps réel
         class="btn-auto-refresh"
         [class.active]="autoRefresh"
         (click)="toggleAutoRefresh()">
-        <i class="icon refresh-cw-icon" [class.spinning]="autoRefresh"></i>
+        <i class="icon fas fa-arrow-rotate-right" [class.spinning]="autoRefresh"></i>
         {{ autoRefresh ? 'Auto-refresh ON' : 'Auto-refresh OFF' }}
       </button>
       <button class="btn-refresh" (click)="loadOrders()">
-        <i class="icon refresh-cw-icon"></i>
+        <i class="icon fas fa-arrow-rotate-right"></i>
         Actualiser
       </button>
     </div>
@@ -79,7 +79,7 @@ DESCRIPTION: Suivi des commandes actives en temps réel
         <div class="order-info">
           <h3 class="table-number">{{ order.tableNumber }}</h3>
           <span class="order-time">
-            <i class="icon clock-icon"></i>
+            <i class="icon fas fa-clock"></i>
             {{ getElapsedTime(order.orderTime) }}
           </span>
         </div>
@@ -88,7 +88,7 @@ DESCRIPTION: Suivi des commandes actives en temps réel
             {{ getStatusLabel(order.status) }}
           </span>
           <span class="priority-badge" *ngIf="order.priority === 'urgent'">
-            <i class="icon alert-circle-icon"></i>
+            <i class="icon fas fa-circle-exclamation"></i>
             Urgent
           </span>
         </div>
@@ -101,7 +101,7 @@ DESCRIPTION: Suivi des commandes actives en temps réel
           class="order-item"
           [class]="'item-' + item.status">
           <div class="item-info">
-            <i class="icon" [class]="'icon-' + getItemStatusIcon(item.status)"></i>
+            <i class="icon fas" [ngClass]="'fa-' + (getItemStatusIcon(item.status))"></i>
             <div class="item-details">
               <span class="item-name">{{ item.name }}</span>
               <span class="item-notes" *ngIf="item.notes">{{ item.notes }}</span>
@@ -114,7 +114,7 @@ DESCRIPTION: Suivi des commandes actives en temps réel
               *ngIf="item.status === 'ready' && order.serverId === 1"
               (click)="markItemAsServed(order, item)"
               title="Marquer comme servi">
-              <i class="icon check-icon"></i>
+              <i class="icon fas fa-check"></i>
             </button>
           </div>
         </div>
@@ -124,11 +124,11 @@ DESCRIPTION: Suivi des commandes actives en temps réel
       <div class="order-footer">
         <div class="order-meta">
           <span class="server-name">
-            <i class="icon user-icon"></i>
+            <i class="icon fas fa-user"></i>
             {{ order.serverName }}
           </span>
           <span class="order-amount">
-            <i class="icon dollar-sign-icon"></i>
+            <i class="icon fas fa-dollar-sign"></i>
             {{ order.totalAmount | number:'1.2-2' }} €
           </span>
         </div>
@@ -141,14 +141,14 @@ DESCRIPTION: Suivi des commandes actives en temps réel
             *ngIf="order.status === 'pending' || order.status === 'preparing'"
             class="btn-action btn-view"
             (click)="goToTable(order)">
-            <i class="icon eye-icon"></i>
+            <i class="icon fas fa-eye"></i>
             Voir table
           </button>
           <button
             *ngIf="order.status === 'pending' || order.status === 'preparing'"
             class="btn-action btn-add"
             (click)="addItemsToOrder(order)">
-            <i class="icon plus-icon"></i>
+            <i class="icon fas fa-plus"></i>
             Ajouter
           </button>
 
@@ -157,14 +157,14 @@ DESCRIPTION: Suivi des commandes actives en temps réel
             *ngIf="order.status === 'ready'"
             class="btn-action btn-serve"
             (click)="markOrderAsServed(order)">
-            <i class="icon check-circle-icon"></i>
+            <i class="icon fas fa-circle-check"></i>
             Servir
           </button>
           <button
             *ngIf="order.status === 'ready'"
             class="btn-action btn-bill"
             (click)="generateBill(order)">
-            <i class="icon credit-card-icon"></i>
+            <i class="icon fas fa-credit-card"></i>
             Facturer
           </button>
 
@@ -173,14 +173,14 @@ DESCRIPTION: Suivi des commandes actives en temps réel
             *ngIf="order.status === 'served'"
             class="btn-action btn-bill"
             (click)="generateBill(order)">
-            <i class="icon credit-card-icon"></i>
+            <i class="icon fas fa-credit-card"></i>
             Addition
           </button>
         </div>
 
         <!-- Other server's order -->
         <div class="order-locked" *ngIf="order.serverId !== 1">
-          <i class="icon lock-icon"></i>
+          <i class="icon fas fa-lock"></i>
           <span>Géré par {{ order.serverName }}</span>
         </div>
       </div>
@@ -188,7 +188,7 @@ DESCRIPTION: Suivi des commandes actives en temps réel
 
     <!-- Empty State -->
     <div class="empty-state" *ngIf="filteredOrders.length === 0">
-      <i class="icon clipboard-icon"></i>
+      <i class="icon fas fa-clipboard-list"></i>
       <h3>Aucune commande active</h3>
       <p>Les commandes apparaîtront ici en temps réel</p>
     </div>

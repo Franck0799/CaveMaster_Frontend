@@ -7,10 +7,10 @@
     </div>
     <div class="header-actions">
       <button class="btn-secondary" (click)="exportInventory()">
-        📥 Exporter
+        <i class="fas fa-download"></i> Exporter
       </button>
       <button class="btn-primary" (click)="startInventory()">
-        📋 Nouvel inventaire
+        <i class="fas fa-clipboard-list"></i> Nouvel inventaire
       </button>
     </div>
   </div>
@@ -71,8 +71,8 @@
         </span>
       </div>
       <div class="col-actions">
-        <button class="icon-btn" (click)="viewHistory(item)" title="Historique">📊</button>
-        <button class="icon-btn" (click)="adjustStock(item)" title="Ajuster">✏️</button>
+        <button class="icon-btn" (click)="viewHistory(item)" title="Historique"><i class="fas fa-chart-line"></i></button>
+        <button class="icon-btn" (click)="adjustStock(item)" title="Ajuster"><i class="fas fa-pen"></i></button>
       </div>
     </div>
   </div>
@@ -82,7 +82,7 @@
   <div class="modal-content" (click)="$event.stopPropagation()">
     <div class="modal-header">
       <h2 class="modal-title">Ajuster le stock</h2>
-      <button class="btn-close" (click)="closeAdjustModal()">✕</button>
+      <button class="btn-close" (click)="closeAdjustModal()"><i class="fas fa-xmark"></i></button>
     </div>
 
     <div class="modal-body" *ngIf="selectedItem">
@@ -132,7 +132,7 @@
 
     <div class="modal-footer">
       <button class="btn-secondary" (click)="closeAdjustModal()">Annuler</button>
-      <button class="btn-primary" (click)="performAdjustStock()">✅ Valider l'ajustement</button>
+      <button class="btn-primary" (click)="performAdjustStock()"><i class="fas fa-circle-check"></i> Valider l'ajustement</button>
     </div>
   </div>
 </div>

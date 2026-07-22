@@ -6,7 +6,7 @@
     <!-- ===== En-tête avec titre et actions ===== -->
     <div class="section-header">
       <div class="header-left">
-        <h2 class="section-title-main">🍽️ Accords Mets & Vins</h2>
+        <h2 class="section-title-main"><i class="fas fa-utensils"></i> Accords Mets & Vins</h2>
         <p class="section-subtitle">
           {{ filteredPairings.length }} accord{{ filteredPairings.length > 1 ? 's' : '' }} trouvé{{ filteredPairings.length > 1 ? 's' : '' }}
         </p>
@@ -109,7 +109,7 @@
           <!-- Notation -->
           <div class="pairing-rating" *ngIf="pairing.rating">
             <span *ngFor="let star of getStars(pairing.rating)" class="star">
-              {{ star ? '⭐' : '☆' }}
+              {{ star ? '' : '' }}
             </span>
           </div>
         </div>
@@ -190,7 +190,7 @@
 
       <!-- État vide (aucun accord trouvé) -->
       <div *ngIf="filteredPairings.length === 0" class="empty-state">
-        <div class="empty-icon">🍽️</div>
+        <div class="empty-icon"><i class="fas fa-utensils"></i></div>
         <h3>Aucun accord trouvé</h3>
         <p *ngIf="searchQuery || selectedCategory !== 'all' || selectedWineType !== 'all'">
           Essayez de modifier vos critères de recherche

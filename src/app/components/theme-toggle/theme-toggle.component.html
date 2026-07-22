@@ -5,9 +5,9 @@
   type="button">
   <span class="icon">
     <ng-container [ngSwitch]="currentTheme">
-      <span *ngSwitchCase="'light'">☀️</span>
-      <span *ngSwitchCase="'dark'">🌙</span>
-      <span *ngSwitchCase="'auto'">🔄</span>
+      <span *ngSwitchCase="'light'"><i class="fas fa-sun"></i></span>
+      <span *ngSwitchCase="'dark'"><i class="fas fa-moon"></i></span>
+      <span *ngSwitchCase="'auto'"><i class="fas fa-arrow-rotate-right"></i></span>
     </ng-container>
   </span>
 </button>

@@ -8,7 +8,7 @@ DESCRIPTION: Planning de travail et demandes de congés
   <!-- Header -->
   <div class="page-header">
     <div class="header-left">
-      <h1 class="page-title">📅 Mon Planning</h1>
+      <h1 class="page-title"><i class="fas fa-calendar-days"></i> Mon Planning</h1>
       <p class="page-subtitle">Horaires de travail et demandes de congés</p>
     </div>
     <div class="header-right">
@@ -17,7 +17,7 @@ DESCRIPTION: Planning de travail et demandes de congés
         {{ viewMode === 'calendar' ? 'Vue Liste' : 'Vue Calendrier' }}
       </button>
       <button class="btn-request-leave" (click)="openLeaveModal()">
-        <i class="icon plus-icon"></i>
+        <i class="icon fas fa-plus"></i>
         Demander un congé
       </button>
     </div>
@@ -27,7 +27,7 @@ DESCRIPTION: Planning de travail et demandes de congés
   <div class="stats-row">
     <div class="stat-item">
       <div class="stat-icon hours">
-        <i class="icon clock-icon"></i>
+        <i class="icon fas fa-clock"></i>
       </div>
       <div class="stat-content">
         <span class="stat-value">{{ getTotalHoursThisMonth() }}h</span>
@@ -36,7 +36,7 @@ DESCRIPTION: Planning de travail et demandes de congés
     </div>
     <div class="stat-item">
       <div class="stat-icon days">
-        <i class="icon calendar-icon"></i>
+        <i class="icon fas fa-calendar-days"></i>
       </div>
       <div class="stat-content">
         <span class="stat-value">{{ getScheduledDaysThisMonth() }}</span>
@@ -45,7 +45,7 @@ DESCRIPTION: Planning de travail et demandes de congés
     </div>
     <div class="stat-item">
       <div class="stat-icon leaves">
-        <i class="icon briefcase-icon"></i>
+        <i class="icon fas fa-briefcase"></i>
       </div>
       <div class="stat-content">
         <span class="stat-value">{{ leaveRequests.length }}</span>
@@ -60,11 +60,11 @@ DESCRIPTION: Planning de travail et demandes de congés
     <!-- Calendar Header -->
     <div class="calendar-header">
       <button class="btn-nav" (click)="previousMonth()">
-        <i class="icon chevron-left-icon"></i>
+        <i class="icon fas fa-chevron-left"></i>
       </button>
       <h2 class="month-title">{{ getMonthName() }}</h2>
       <button class="btn-nav" (click)="nextMonth()">
-        <i class="icon chevron-right-icon"></i>
+        <i class="icon fas fa-chevron-right"></i>
       </button>
       <button class="btn-today" (click)="goToToday()">
         Aujourd'hui
@@ -97,7 +97,7 @@ DESCRIPTION: Planning de travail et demandes de congés
             <div
               class="shift-badge"
               [class]="'shift-' + getShiftTypeColor(dayCell.shift.type)">
-              <i class="icon clock-icon"></i>
+              <i class="icon fas fa-clock"></i>
               <span>{{ dayCell.shift.startTime }} - {{ dayCell.shift.endTime }}</span>
               <span class="shift-type">{{ getShiftTypeLabel(dayCell.shift.type) }}</span>
             </div>
@@ -108,7 +108,7 @@ DESCRIPTION: Planning de travail et demandes de congés
             <div
               class="leave-badge"
               [class]="'leave-' + getLeaveStatusColor(dayCell.leaveRequest.status)">
-              <i class="icon briefcase-icon"></i>
+              <i class="icon fas fa-briefcase"></i>
               <span>{{ getLeaveTypeLabel(dayCell.leaveRequest.type) }}</span>
               <span class="leave-status">{{ getLeaveStatusLabel(dayCell.leaveRequest.status) }}</span>
             </div>
@@ -148,7 +148,7 @@ DESCRIPTION: Planning de travail et demandes de congés
     <!-- Upcoming Shifts -->
     <div class="list-section">
       <h2 class="section-title">
-        <i class="icon calendar-icon"></i>
+        <i class="icon fas fa-calendar-days"></i>
         Prochains services
       </h2>
       <div class="shifts-list">
@@ -172,7 +172,7 @@ DESCRIPTION: Planning de travail et demandes de congés
               </span>
             </div>
             <div class="shift-time">
-              <i class="icon clock-icon"></i>
+              <i class="icon fas fa-clock"></i>
               <span>{{ shift.startTime }} - {{ shift.endTime }}</span>
               <span class="shift-duration">({{ shift.duration }}h)</span>
             </div>
@@ -181,7 +181,7 @@ DESCRIPTION: Planning de travail et demandes de congés
 
         <!-- Empty State -->
         <div class="empty-shifts" *ngIf="shifts.length === 0">
-          <i class="icon calendar-x-icon"></i>
+          <i class="icon fas fa-calendar-xmark"></i>
           <p>Aucun service planifié</p>
         </div>
       </div>
@@ -190,7 +190,7 @@ DESCRIPTION: Planning de travail et demandes de congés
     <!-- Leave Requests -->
     <div class="list-section">
       <h2 class="section-title">
-        <i class="icon briefcase-icon"></i>
+        <i class="icon fas fa-briefcase"></i>
         Demandes de congés
       </h2>
       <div class="leaves-list">
@@ -213,11 +213,11 @@ DESCRIPTION: Planning de travail et demandes de congés
               </span>
             </div>
             <div class="leave-dates">
-              <i class="icon calendar-icon"></i>
+              <i class="icon fas fa-calendar-days"></i>
               <span>Du {{ leave.startDate | date:'dd/MM/yyyy' }} au {{ leave.endDate | date:'dd/MM/yyyy' }}</span>
             </div>
             <div class="leave-reason" *ngIf="leave.reason">
-              <i class="icon message-circle-icon"></i>
+              <i class="icon fas fa-comment"></i>
               <span>{{ leave.reason }}</span>
             </div>
             <div class="leave-submitted">
@@ -227,7 +227,7 @@ DESCRIPTION: Planning de travail et demandes de congés
 
           <div class="leave-actions" *ngIf="leave.status === 'pending'">
             <button class="btn-cancel-leave" (click)="cancelLeaveRequest(leave)">
-              <i class="icon x-icon"></i>
+              <i class="icon fas fa-xmark"></i>
               Annuler
             </button>
           </div>
@@ -235,7 +235,7 @@ DESCRIPTION: Planning de travail et demandes de congés
 
         <!-- Empty State -->
         <div class="empty-leaves" *ngIf="leaveRequests.length === 0">
-          <i class="icon inbox-icon"></i>
+          <i class="icon fas fa-inbox"></i>
           <p>Aucune demande de congé</p>
         </div>
       </div>
@@ -251,7 +251,7 @@ DESCRIPTION: Planning de travail et demandes de congés
     <div class="modal-header">
       <h2 class="modal-title">Nouvelle demande de congé</h2>
       <button class="btn-close-modal" (click)="closeLeaveModal()">
-        <i class="icon x-icon"></i>
+        <i class="icon fas fa-xmark"></i>
       </button>
     </div>
 
@@ -301,7 +301,7 @@ DESCRIPTION: Planning de travail et demandes de congés
         Annuler
       </button>
       <button class="btn-modal-submit" (click)="submitLeaveRequest()">
-        <i class="icon send-icon"></i>
+        <i class="icon fas fa-paper-plane"></i>
         Envoyer la demande
       </button>
     </div>

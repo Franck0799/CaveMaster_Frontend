@@ -7,10 +7,10 @@
     </div>
     <div class="header-actions">
       <button class="btn-secondary" (click)="exportInventory()">
-        📥 Exporter
+        <i class="fas fa-download"></i> Exporter
       </button>
       <button class="btn-primary" [routerLink]="['/manager', 'stockrequest']">
-        📦 Commander du stock
+        <i class="fas fa-box"></i> Commander du stock
       </button>
     </div>
   </div>
@@ -18,28 +18,28 @@
   <!-- Statistiques rapides -->
   <div class="stats-grid">
     <div class="stat-card">
-      <div class="stat-icon">🍷</div>
+      <div class="stat-icon"><i class="fas fa-wine-glass"></i></div>
       <div class="stat-content">
         <div class="stat-label">Total produits</div>
         <div class="stat-value">{{ products.length }}</div>
       </div>
     </div>
     <div class="stat-card warning">
-      <div class="stat-icon">⚠️</div>
+      <div class="stat-icon"><i class="fas fa-triangle-exclamation"></i></div>
       <div class="stat-content">
         <div class="stat-label">Stock faible</div>
         <div class="stat-value">{{ getLowStockCount() }}</div>
       </div>
     </div>
     <div class="stat-card success">
-      <div class="stat-icon">💰</div>
+      <div class="stat-icon"><i class="fas fa-sack-dollar"></i></div>
       <div class="stat-content">
         <div class="stat-label">Valeur totale</div>
         <div class="stat-value">{{ getTotalValue() | number:'1.0-0' }} €</div>
       </div>
     </div>
     <div class="stat-card info">
-      <div class="stat-icon">📊</div>
+      <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
       <div class="stat-content">
         <div class="stat-label">Catégories</div>
         <div class="stat-value">{{ getUniqueCategories() }}</div>
@@ -77,7 +77,7 @@
   <div class="products-grid">
     <div class="product-card" *ngFor="let product of filteredProducts">
       <div class="product-image">
-        <div class="product-placeholder">🍷</div>
+        <div class="product-placeholder"><i class="fas fa-wine-glass"></i></div>
         <div class="stock-badge" [class.low]="isLowStock(product)" [class.out]="product.stock === 0">
           {{ product.stock === 0 ? 'Rupture' : product.stock }}
         </div>
@@ -117,10 +117,10 @@
 
       <div class="product-actions">
         <button class="action-btn" (click)="adjustStock(product)">
-          📝 Ajuster
+          <i class="fas fa-file-lines"></i> Ajuster
         </button>
         <button class="action-btn" (click)="viewDetails(product)">
-          👁️ Détails
+          <i class="fas fa-eye"></i> Détails
         </button>
       </div>
     </div>

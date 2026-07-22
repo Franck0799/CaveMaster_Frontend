@@ -9,7 +9,7 @@
   <div class="page-header">
     <div class="header-content">
       <h1 class="page-title">
-        <span class="icon">📍</span>
+        <span class="icon"><i class="fas fa-location-dot"></i></span>
         Mes Adresses
       </h1>
       <p class="page-subtitle">Gérez vos adresses de livraison</p>
@@ -43,7 +43,7 @@
         <p class="address-line" *ngIf="address.complement">{{ address.complement }}</p>
         <p class="address-line">{{ address.city }}</p>
         <div class="address-contact">
-          <span class="contact-icon">📞</span>
+          <span class="contact-icon"><i class="fas fa-phone"></i></span>
           <span class="contact-phone">{{ address.phone }}</span>
         </div>
       </div>
@@ -51,11 +51,11 @@
       <!-- Actions -->
       <div class="card-actions">
         <button class="btn-edit" (click)="editAddress(address, $event)">
-          <span class="action-icon">✏️</span>
+          <span class="action-icon"><i class="fas fa-pen"></i></span>
           MODIFIER
         </button>
         <button class="btn-delete" (click)="deleteAddress(address, $event)">
-          <span class="action-icon">🗑️</span>
+          <span class="action-icon"><i class="fas fa-trash"></i></span>
           SUPPRIMER
         </button>
       </div>
@@ -64,7 +64,7 @@
 
   <!-- Message si aucune adresse -->
   <div class="empty-state" *ngIf="addresses.length === 0">
-    <div class="empty-icon">📍</div>
+    <div class="empty-icon"><i class="fas fa-location-dot"></i></div>
     <h3 class="empty-title">Aucune adresse enregistrée</h3>
     <p class="empty-text">Ajoutez votre première adresse de livraison</p>
     <button class="btn-primary" (click)="openAddModal()">

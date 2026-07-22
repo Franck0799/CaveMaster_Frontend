@@ -9,7 +9,7 @@ VERSION: Complète avec toutes les fonctionnalités
   <!-- Header -->
   <div class="page-header">
     <div class="header-content">
-      <h1 class="page-title">Bonjour, {{ serverName }} 👋</h1>
+      <h1 class="page-title">Bonjour, {{ serverName }} <i class="fas fa-hand"></i></h1>
       <p class="page-subtitle">{{ currentDate | date: 'EEEE d MMMM yyyy' }}</p>
     </div>
   </div>
@@ -21,7 +21,7 @@ VERSION: Complète avec toutes les fonctionnalités
       class="stat-card"
       [class]="'stat-' + stat.color">
       <div class="stat-icon">
-        <i class="icon" [class]="'icon-' + stat.icon"></i>
+        <i class="icon fas" [ngClass]="'fa-' + (stat.icon)"></i>
       </div>
       <div class="stat-content">
         <span class="stat-label">{{ stat.label }}</span>
@@ -45,7 +45,7 @@ VERSION: Complète avec toutes les fonctionnalités
       <div class="section-card objectives-section">
         <div class="section-header">
           <h2 class="section-title">
-            <i class="icon target-icon"></i>
+            <i class="icon fas fa-bullseye"></i>
             Mes Objectifs du Jour
           </h2>
         </div>
@@ -53,7 +53,7 @@ VERSION: Complète avec toutes les fonctionnalités
           <div *ngFor="let objective of objectives" class="objective-item">
             <div class="objective-header">
               <div class="objective-info">
-                <i class="icon" [class]="'icon-' + objective.icon"></i>
+                <i class="icon fas" [ngClass]="'fa-' + (objective.icon)"></i>
                 <span class="objective-title">{{ objective.title }}</span>
               </div>
               <span class="objective-values">
@@ -78,7 +78,7 @@ VERSION: Complète avec toutes les fonctionnalités
       <div class="section-card tables-section">
         <div class="section-header">
           <h2 class="section-title">
-            <i class="icon grid-icon"></i>
+            <i class="icon fas fa-table-cells"></i>
             Mes Tables Actives
           </h2>
           <span class="table-count">{{ activeTables.length }}</span>
@@ -99,11 +99,11 @@ VERSION: Complète avec toutes les fonctionnalités
             </div>
             <div class="table-details">
               <div class="detail-item">
-                <i class="icon clock-icon"></i>
+                <i class="icon fas fa-clock"></i>
                 <span>{{ getElapsedTime(table.orderTime) }}</span>
               </div>
               <div class="detail-item" *ngIf="table.amount > 0">
-                <i class="icon dollar-sign-icon"></i>
+                <i class="icon fas fa-dollar-sign"></i>
                 <span>{{ table.amount | number:'1.2-2' }} €</span>
               </div>
             </div>
@@ -111,7 +111,7 @@ VERSION: Complète avec toutes les fonctionnalités
         </div>
         <button class="btn-view-all">
           Voir toutes les tables
-          <i class="icon arrow-right-icon"></i>
+          <i class="icon fas fa-arrow-right"></i>
         </button>
       </div>
     </div>
@@ -123,7 +123,7 @@ VERSION: Complète avec toutes les fonctionnalités
       <div class="section-card notifications-section">
         <div class="section-header">
           <h2 class="section-title">
-            <i class="icon bell-icon"></i>
+            <i class="icon fas fa-bell"></i>
             Notifications
           </h2>
           <span class="notification-badge">{{ notifications.length }}</span>
@@ -134,7 +134,7 @@ VERSION: Complète avec toutes les fonctionnalités
             class="notification-item"
             [class]="'priority-' + notification.priority">
             <div class="notification-icon" [class]="'icon-' + notification.type">
-              <i class="icon" [class]="'icon-' + getNotificationIcon(notification.type)"></i>
+              <i class="icon fas" [ngClass]="'fa-' + (getNotificationIcon(notification.type))"></i>
             </div>
             <div class="notification-content">
               <p class="notification-message">{{ notification.message }}</p>
@@ -144,7 +144,7 @@ VERSION: Complète avec toutes les fonctionnalités
               class="notification-dismiss"
               (click)="dismissNotification(notification)"
               title="Marquer comme lu">
-              <i class="icon x-icon"></i>
+              <i class="icon fas fa-xmark"></i>
             </button>
           </div>
         </div>
@@ -154,25 +154,25 @@ VERSION: Complète avec toutes les fonctionnalités
       <div class="section-card quick-actions-section">
         <div class="section-header">
           <h2 class="section-title">
-            <i class="icon zap-icon"></i>
+            <i class="icon fas fa-bolt"></i>
             Actions Rapides
           </h2>
         </div>
         <div class="actions-grid">
           <button class="action-btn" routerLink="/server/tables">
-            <i class="icon grid-icon"></i>
+            <i class="icon fas fa-table-cells"></i>
             <span>Nouvelle Table</span>
           </button>
           <button class="action-btn" routerLink="/server/orders">
-            <i class="icon clipboard-icon"></i>
+            <i class="icon fas fa-clipboard-list"></i>
             <span>Prendre Commande</span>
           </button>
           <button class="action-btn" routerLink="/server/billing">
-            <i class="icon credit-card-icon"></i>
+            <i class="icon fas fa-credit-card"></i>
             <span>Encaisser</span>
           </button>
           <button class="action-btn" routerLink="/server/wine-suggestions">
-            <i class="icon wine-icon"></i>
+            <i class="icon fas fa-wine-glass"></i>
             <span>Suggestions Vins</span>
           </button>
         </div>

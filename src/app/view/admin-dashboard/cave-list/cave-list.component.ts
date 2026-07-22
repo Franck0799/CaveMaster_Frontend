@@ -4,6 +4,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CavesService } from '../../../core/services/cave/caves.service';
+import { ApiCave } from '../../../core/models/Cave/Cave';
 
 // Interface pour une cave
 interface Cave {
@@ -100,7 +102,7 @@ export class CaveListComponent implements OnInit {
   // Formulaire pour ajouter une cave
   caveForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private cavesService: CavesService) {
     // Initialise le formulaire réactif
     this.caveForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
@@ -120,182 +122,42 @@ export class CaveListComponent implements OnInit {
 
   // ===== CHARGEMENT DES DONNÉES ACTUALISÉES =====
   loadCaves(): void {
-    // Données cohérentes avec entries, exits, stock et profit components
-    this.caves = [
-      {
-        id: 'cave_1',
-        name: 'Cave Principale',
-        location: 'Lekki Phase 1, Abidjan',
-        description: 'Cave principale de stockage avec température et humidité contrôlées',
-        buildingInfo: 'Bâtiment A - Sous-sol',
-        storageType: 'principale',
-        capacity: 1000,
-        bottles: 650,
-        currentStock: 650,
-        managersCount: 3,
-        employeesCount: 12,
-        productivity: 87,
-        temperature: '12-14°C',
-        humidity: '70-75%',
-        createdDate: new Date('2023-01-15')
+    this.cavesService.getAll().subscribe({
+      next: (apiCaves) => {
+        this.caves = apiCaves.map(c => this.mapApiCaveToLocal(c));
+        this.applyFilters();
+        console.log('Caves chargées depuis le backend :', this.caves.length);
       },
-      {
-        id: 'cave_2',
-        name: 'Cave Secondaire',
-        location: 'Grand Maitre, Abidjan',
-        description: 'Cave secondaire pour rotation rapide et stocks additionnels',
-        buildingInfo: 'Bâtiment B - RDC',
-        storageType: 'secondaire',
-        capacity: 500,
-        bottles: 320,
-        currentStock: 320,
-        managersCount: 2,
-        employeesCount: 8,
-        productivity: 92,
-        temperature: '14-16°C',
-        humidity: '65-70%',
-        createdDate: new Date('2023-03-20')
-      },
-      {
-        id: 'cave_3',
-        name: 'Cave de Vieillissement',
-        location: 'Temple du repos, Abidjan',
-        description: 'Cave climatisée pour vins de garde et millésimes rares',
-        buildingInfo: 'Bâtiment A - Niveau -2',
-        storageType: 'vieillissement',
-        capacity: 300,
-        bottles: 180,
-        currentStock: 180,
-        managersCount: 1,
-        employeesCount: 5,
-        productivity: 95,
-        temperature: '10-12°C',
-        humidity: '75-80%',
-        createdDate: new Date('2023-05-10')
-      },
-      {
-        id: 'cave_4',
-        name: 'Cave Mood',
-        location: 'Mood, Abidjan',
-        description: 'Cave dédiée à l\'espace Mood avec zone de service rapide',
-        buildingInfo: 'Complexe Mood - Rez-de-chaussée',
-        storageType: 'restaurant',
-        capacity: 400,
-        bottles: 280,
-        currentStock: 280,
-        managersCount: 2,
-        employeesCount: 7,
-        productivity: 78,
-        temperature: '14-16°C',
-        humidity: '65-70%',
-        createdDate: new Date('2023-07-22')
-      },
-      {
-        id: 'cave_5',
-        name: 'Cave FunHouse',
-        location: 'FunHouse, Abidjan',
-        description: 'Cave FunHouse avec zone de dégustation et service événementiel',
-        buildingInfo: 'Complexe FunHouse - Sous-sol',
-        storageType: 'restaurant',
-        capacity: 350,
-        bottles: 245,
-        currentStock: 245,
-        managersCount: 1,
-        employeesCount: 6,
-        productivity: 85,
-        temperature: '12-14°C',
-        humidity: '70-75%',
-        createdDate: new Date('2023-08-15')
-      },
-      {
-        id: 'cave_6',
-        name: 'Cave La Cachette',
-        location: 'La cachette, Abidjan',
-        description: 'Cave de distribution pour approvisionnement des points de vente',
-        buildingInfo: 'Entrepôt La Cachette',
-        storageType: 'secondaire',
-        capacity: 600,
-        bottles: 420,
-        currentStock: 420,
-        managersCount: 2,
-        employeesCount: 9,
-        productivity: 82,
-        temperature: '14-16°C',
-        humidity: '65-70%',
-        createdDate: new Date('2023-09-01')
-      },
-      {
-        id: 'cave_7',
-        name: 'Cave Viking',
-        location: 'Viking, Abidjan',
-        description: 'Cave Viking - Point de vente principal avec stockage intégré',
-        buildingInfo: 'Complexe Viking - Niveau -1',
-        storageType: 'principale',
-        capacity: 450,
-        bottles: 310,
-        currentStock: 310,
-        managersCount: 2,
-        employeesCount: 8,
-        productivity: 88,
-        temperature: '12-14°C',
-        humidity: '70-75%',
-        createdDate: new Date('2023-10-05')
-      },
-      {
-        id: 'cave_8',
-        name: 'Cave Cocody Premium',
-        location: 'Cocody, Abidjan',
-        description: 'Cave premium pour clientèle haut de gamme',
-        buildingInfo: 'Résidence Cocody - Cave privée',
-        storageType: 'vieillissement',
-        capacity: 250,
-        bottles: 185,
-        currentStock: 185,
-        managersCount: 1,
-        employeesCount: 4,
-        productivity: 93,
-        temperature: '10-12°C',
-        humidity: '75-80%',
-        createdDate: new Date('2023-11-10')
-      },
-      {
-        id: 'cave_9',
-        name: 'Cave Yopougon Distribution',
-        location: 'Yopougon, Abidjan',
-        description: 'Centre de distribution pour la zone ouest d\'Abidjan',
-        buildingInfo: 'Zone Industrielle Yopougon',
-        storageType: 'secondaire',
-        capacity: 800,
-        bottles: 560,
-        currentStock: 560,
-        managersCount: 3,
-        employeesCount: 15,
-        productivity: 84,
-        temperature: '14-16°C',
-        humidity: '65-70%',
-        createdDate: new Date('2024-01-15')
-      },
-      {
-        id: 'cave_10',
-        name: 'Cave Plateau Business',
-        location: 'Plateau, Abidjan',
-        description: 'Cave dédiée aux entreprises et événements corporates',
-        buildingInfo: 'Tour Plateau - Sous-sol 2',
-        storageType: 'restaurant',
-        capacity: 300,
-        bottles: 220,
-        currentStock: 220,
-        managersCount: 1,
-        employeesCount: 6,
-        productivity: 90,
-        temperature: '12-14°C',
-        humidity: '70-75%',
-        createdDate: new Date('2024-02-01')
+      error: (error) => {
+        console.error('Erreur lors du chargement des caves depuis le backend :', error);
+        this.caves = [];
+        this.applyFilters();
       }
-    ];
-
-    console.log('✅ Caves chargées:', this.caves.length);
+    });
   }
+
+  /** Convertit une cave reçue de l'API vers le modèle local utilisé par cet écran. */
+  private mapApiCaveToLocal(c: ApiCave): Cave {
+    const validTypes = ['principale', 'secondaire', 'vieillissement', 'restaurant'];
+    return {
+      id: c.id,
+      name: c.name,
+      location: c.location,
+      description: c.description || '',
+      capacity: c.capacity,
+      bottles: c.currentStock,
+      currentStock: c.currentStock,
+      managersCount: c.managersCount,
+      employeesCount: c.employeesCount,
+      productivity: c.productivity,
+      createdDate: c.createdAt ? new Date(c.createdAt) : new Date(),
+      buildingInfo: c.buildingInfo,
+      storageType: validTypes.includes(c.storageType || '') ? (c.storageType as Cave['storageType']) : 'principale',
+      temperature: c.condition ? `${c.condition.temperature}°C` : undefined,
+      humidity: c.condition ? `${c.condition.humidity}%` : undefined
+    };
+  }
+
 
   // ===== FILTRAGE =====
   applyFilters(): void {
@@ -424,23 +286,61 @@ export class CaveListComponent implements OnInit {
       return;
     }
 
-    const index = this.caves.findIndex(c => c.id === this.selectedCave?.id);
+    const parseLeadingNumber = (value: string | undefined, fallback: number): number => {
+      const match = /-?\d+(\.\d+)?/.exec(value || '');
+      return match ? parseFloat(match[0]) : fallback;
+    };
 
-    if (index !== -1) {
-      this.caves[index] = { ...this.selectedCave };
-      this.showMessage('✓ Cave mise à jour avec succès !', 'success');
-    }
+    const payload: Partial<ApiCave> = {
+      name: this.selectedCave.name,
+      location: this.selectedCave.location,
+      description: this.selectedCave.description,
+      capacity: this.selectedCave.capacity,
+      buildingInfo: this.selectedCave.buildingInfo,
+      storageType: this.selectedCave.storageType,
+      currentStock: this.selectedCave.currentStock,
+      managersCount: this.selectedCave.managersCount,
+      employeesCount: this.selectedCave.employeesCount,
+      productivity: this.selectedCave.productivity,
+      condition: {
+        temperature: parseLeadingNumber(this.selectedCave.temperature, 12),
+        humidity: parseLeadingNumber(this.selectedCave.humidity, 70)
+      }
+    };
 
-    this.applyFilters();
-    this.closeEditModal();
+    this.cavesService.update(this.selectedCave.id, payload).subscribe({
+      next: (updated) => {
+        const index = this.caves.findIndex(c => c.id === this.selectedCave?.id);
+        if (index !== -1) {
+          this.caves[index] = updated ? this.mapApiCaveToLocal(updated) : { ...this.selectedCave! };
+          this.showMessage('✓ Cave mise à jour avec succès !', 'success');
+        }
+        this.applyFilters();
+        this.closeEditModal();
+      },
+      error: (error) => {
+        console.error('Erreur lors de la mise à jour de la cave :', error);
+        this.showMessage('❌ Erreur lors de la mise à jour de la cave', 'error');
+      }
+    });
   }
 
   deleteCave(caveId: string): void {
     const cave = this.caves.find(c => c.id === caveId);
     if (confirm(`⚠️ Êtes-vous sûr de vouloir supprimer la cave "${cave?.name}" ?\n\nCette action est irréversible.`)) {
-      this.caves = this.caves.filter(c => c.id !== caveId);
-      this.showMessage('✓ Cave supprimée avec succès !', 'success');
-      this.applyFilters();
+      this.cavesService.delete(caveId).subscribe({
+        next: (success) => {
+          if (success) {
+            this.caves = this.caves.filter(c => c.id !== caveId);
+            this.showMessage('✓ Cave supprimée avec succès !', 'success');
+            this.applyFilters();
+          }
+        },
+        error: (error) => {
+          console.error('Erreur lors de la suppression de la cave :', error);
+          this.showMessage('❌ Erreur lors de la suppression de la cave', 'error');
+        }
+      });
     }
   }
 
@@ -486,27 +386,41 @@ export class CaveListComponent implements OnInit {
       return;
     }
 
-    const newCave: Cave = {
-      id: 'cave_' + Date.now(),
+    const parseLeadingNumber = (value: string, fallback: number): number => {
+      const match = /-?\d+(\.\d+)?/.exec(value || '');
+      return match ? parseFloat(match[0]) : fallback;
+    };
+
+    const payload: Partial<ApiCave> = {
       name: this.caveForm.get('name')?.value,
       location: this.caveForm.get('location')?.value,
-      capacity: parseInt(this.caveForm.get('capacity')?.value),
+      capacity: parseInt(this.caveForm.get('capacity')?.value, 10),
       description: this.caveForm.get('description')?.value || '',
-      temperature: this.caveForm.get('temperature')?.value,
-      humidity: this.caveForm.get('humidity')?.value,
       storageType: this.caveForm.get('storageType')?.value,
-      createdDate: new Date(),
-      bottles: 0,
+      condition: {
+        temperature: parseLeadingNumber(this.caveForm.get('temperature')?.value, 12),
+        humidity: parseLeadingNumber(this.caveForm.get('humidity')?.value, 70)
+      },
       currentStock: 0,
       managersCount: 0,
       employeesCount: 0,
       productivity: 0
     };
 
-    this.caves.push(newCave);
-    this.showMessage('✓ Cave créée avec succès !', 'success');
-    this.closeAddModal();
-    this.applyFilters();
+    this.cavesService.create(payload).subscribe({
+      next: (created) => {
+        if (created) {
+          this.caves.push(this.mapApiCaveToLocal(created));
+          this.showMessage('✓ Cave créée avec succès !', 'success');
+          this.closeAddModal();
+          this.applyFilters();
+        }
+      },
+      error: (error) => {
+        console.error('Erreur lors de la création de la cave :', error);
+        this.showMessage('❌ Erreur lors de la création de la cave', 'error');
+      }
+    });
   }
 
   // ===== STATISTIQUES =====

@@ -40,14 +40,14 @@ export class WaitressComponent implements OnInit, OnDestroy {
 
   // ✅ Menu de navigation COMPLET avec icônes correctes
   menuItems: MenuItem[] = [
-    { path: './home', label: 'Tableau de bord', icon: 'layout-dashboard', badge: 0 },
-    { path: './table', label: 'Tables', icon: 'grid', badge: 0 },
-    { path: './orders', label: 'Prendre Commande', icon: 'clipboard', badge: 0 },
-    { path: './active-orders', label: 'Commandes Actives', icon: 'activity', badge: 0 },
+    { path: './home', label: 'Tableau de bord', icon: 'gauge-high', badge: 0 },
+    { path: './table', label: 'Tables', icon: 'table-cells', badge: 0 },
+    { path: './orders', label: 'Prendre Commande', icon: 'clipboard-list', badge: 0 },
+    { path: './active-orders', label: 'Commandes Actives', icon: 'chart-line', badge: 0 },
     { path: './billing', label: 'Facturation', icon: 'credit-card', badge: 0 },
-    { path: './wine-suggestions', label: 'Suggestions Vins', icon: 'wine', badge: 0 },
-    { path: './mysales', label: 'Mes Ventes', icon: 'trending-up', badge: 0 },
-    { path: './schedule', label: 'Mon Planning', icon: 'calendar', badge: 0 },
+    { path: './wine-suggestions', label: 'Suggestions Vins', icon: 'wine-glass', badge: 0 },
+    { path: './mysales', label: 'Mes Ventes', icon: 'arrow-trend-up', badge: 0 },
+    { path: './schedule', label: 'Mon Planning', icon: 'calendar-days', badge: 0 },
     { path: './profile', label: 'Mon Profil', icon: 'user', badge: 0 }
   ];
 
@@ -216,9 +216,9 @@ export class WaitressComponent implements OnInit, OnDestroy {
     const icons: Record<string, string> = {
       'light': 'sun',
       'dark': 'moon',
-      'auto': 'monitor'
+      'auto': 'desktop'
     };
-    return icons[this.currentTheme] || 'monitor';
+    return icons[this.currentTheme] || 'desktop';
   }
 
   // ✅ Navigation

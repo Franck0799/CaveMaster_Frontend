@@ -9,7 +9,7 @@
   <div class="page-header">
     <div class="header-content">
       <h1 class="page-title">
-        <span class="icon">🔔</span>
+        <span class="icon"><i class="fas fa-bell"></i></span>
         Notifications
         <span class="badge" *ngIf="unreadCount > 0">{{ unreadCount }}</span>
       </h1>
@@ -18,7 +18,7 @@
     <button class="btn-mark-all"
             *ngIf="unreadCount > 0"
             (click)="markAllAsRead()">
-      <span class="btn-icon">✓</span>
+      <span class="btn-icon"><i class="fas fa-check"></i></span>
       TOUT MARQUER COMME LU
     </button>
   </div>
@@ -47,7 +47,7 @@
       <div class="notification-status">
         <span class="unread-dot" *ngIf="!notification.read"></span>
         <button class="btn-delete" (click)="deleteNotification(notification, $event)">
-          <span class="delete-icon">✕</span>
+          <span class="delete-icon"><i class="fas fa-xmark"></i></span>
         </button>
       </div>
     </div>
@@ -55,7 +55,7 @@
 
   <!-- Message si aucune notification -->
   <div class="empty-state" *ngIf="notifications.length === 0">
-    <div class="empty-icon">🔔</div>
+    <div class="empty-icon"><i class="fas fa-bell"></i></div>
     <h3 class="empty-title">Aucune notification</h3>
     <p class="empty-text">Vous n'avez pas de notifications pour le moment</p>
   </div>

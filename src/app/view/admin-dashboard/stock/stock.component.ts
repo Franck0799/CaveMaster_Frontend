@@ -7,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { forkJoin } from 'rxjs';
+import { StockLevelsService } from '../../../core/services/stock/stock-levels.service';
+import { DrinksService } from '../../../core/services/catalogue/drinks.service';
+import { CavesService } from '../../../core/services/cave/caves.service';
+import { ApiStockLevel } from '../../../core/models/Stock/StockLevel';
+import { Drink as ApiDrink } from '../../../core/models/Catalogue/Drink';
 
 // ========== INTERFACES ==========
 
@@ -146,11 +152,14 @@ export class StockComponent implements OnInit {
   // Vue
   viewMode: 'grid' | 'list' = 'grid';
 
+  constructor(
+    private stockLevelsService: StockLevelsService,
+    private drinksService: DrinksService,
+    private cavesService: CavesService
+  ) {}
+
   ngOnInit(): void {
     this.loadStockData();
-    this.setupFilters();
-    this.calculateStats();
-    this.generateAlerts();
   }
 
   // ========== CHARGEMENT DES DONNÉES ==========
@@ -158,293 +167,67 @@ export class StockComponent implements OnInit {
   loadStockData(): void {
     this.isLoading = true;
 
-    this.stockItems = [
-      // ========== BOISSONS (Drinks) ==========
-      {
-        id: 'drink_1',
-        nom: 'Heineken 33cl',
-        categorie: 'Bières',
-        type: 'boisson',
-        format: '33cl',
-        supplier: 'Solibra',
-        cave: 'Cave Principale',
-        depot: 'Dépôt Abidjan Zone 4',
-        commercialName: 'Kouadio Jean',
-        commercialContact: '+225 07 00 00 00 01',
-        packagingType: 'Bouteille',
-        bulkUnit: 'Carton',
-        bulkQuantity: 3,
-        unitsPerBulk: 12,
-        totalBottles: 36,
-        stockInitial: 500,
-        stockActuel: 320,
-        stockMinimum: 100,
-        stockMaximum: 600,
-        unitesMesure: 'bouteilles',
-        prixAchat: 650,
-        prixVente: 800,
-        dateAcquisition: new Date('2024-10-15'),
-        dateDerniereEntree: new Date('2024-10-28'),
-        icon: '🍺',
-        notes: 'Bière blonde populaire'
-      },
-      {
-        id: 'drink_2',
-        nom: 'Guinness 33cl',
-        categorie: 'Bières',
-        type: 'boisson',
-        format: '33cl',
-        supplier: 'Brassivoire',
-        cave: 'Cave Secondaire',
-        depot: 'Dépôt Yopougon',
-        commercialName: 'Koné Moussa',
-        commercialContact: '+225 05 00 00 00 02',
-        packagingType: 'Canette',
-        bulkUnit: 'Pack',
-        bulkQuantity: 2,
-        unitsPerBulk: 24,
-        totalBottles: 48,
-        stockInitial: 200,
-        stockActuel: 100,
-        stockMinimum: 100,
-        stockMaximum: 300,
-        unitesMesure: 'bouteilles',
-        prixAchat: 850,
-        prixVente: 1000,
-        dateAcquisition: new Date('2024-10-20'),
-        icon: '🍺',
-        notes: 'Bière brune irlandaise'
-      },
-      {
-        id: 'drink_3',
-        nom: 'Moët & Chandon',
-        categorie: 'Champagnes',
-        type: 'boisson',
-        format: '75cl',
-        supplier: 'Importateur Premium',
-        cave: 'Cave Principale',
-        packagingType: 'Bouteille',
-        bulkUnit: 'Caisse',
-        bulkQuantity: 2,
-        unitsPerBulk: 6,
-        totalBottles: 12,
-        stockInitial: 100,
-        stockActuel: 45,
-        stockMinimum: 20,
-        stockMaximum: 150,
-        unitesMesure: 'bouteilles',
-        prixAchat: 35000,
-        prixVente: 60000,
-        dateAcquisition: new Date('2024-09-20'),
-        icon: '🍾',
-        notes: 'Champagne prestige'
-      },
-      {
-        id: 'drink_4',
-        nom: 'Coca-Cola',
-        categorie: 'Sucreries',
-        type: 'boisson',
-        format: '50cl',
-        supplier: 'SICOBRA',
-        cave: 'Cave Restaurant',
-        depot: 'Dépôt Central',
-        packagingType: 'Bouteille',
-        bulkUnit: 'Casier',
-        bulkQuantity: 5,
-        unitsPerBulk: 12,
-        totalBottles: 60,
-        stockInitial: 400,
-        stockActuel: 280,
-        stockMinimum: 150,
-        stockMaximum: 500,
-        unitesMesure: 'bouteilles',
-        prixAchat: 400,
-        prixVente: 600,
-        dateAcquisition: new Date('2024-10-25'),
-        icon: '🥤',
-        notes: 'Boisson gazeuse classique'
-      },
+    // Jointure StockLevels (quantités par cave) + Drinks (infos produit) :
+    // le backend sépare volontairement les deux (un Drink peut exister dans
+    // plusieurs caves, chacune avec son propre niveau de stock).
+    forkJoin({
+      levels: this.stockLevelsService.getAll(),
+      drinks: this.drinksService.getAll(),
+      caves: this.cavesService.getAll()
+    }).subscribe({
+      next: ({ levels, drinks, caves }) => {
+        const drinkById = new Map(drinks.map(d => [d.id, d]));
+        const caveById = new Map(caves.map(c => [c.id, c]));
 
-      // ========== VINS & ACCORDS ==========
-      {
-        id: 'wine_1',
-        nom: 'Bordeaux Supérieur',
-        categorie: 'Bordeaux',
-        type: 'vin',
-        wineType: 'Vin Rouge',
-        region: 'Bordeaux',
-        vintage: '2018',
-        temperature: '16-18°C',
-        pairingWith: ['Steak grillé', 'Gigot d\'agneau', 'Fromages affinés'],
-        cave: 'Cave Restaurant',
-        stockInitial: 200,
-        stockActuel: 145,
-        stockMinimum: 50,
-        stockMaximum: 250,
-        unitesMesure: 'bouteilles',
-        prixAchat: 8500,
-        prixVente: 15000,
-        dateAcquisition: new Date('2024-10-01'),
-        icon: '🍷',
-        notes: 'Excellent avec viandes rouges'
-      },
-      {
-        id: 'wine_2',
-        nom: 'Chablis Premier Cru',
-        categorie: 'Bourgogne',
-        type: 'vin',
-        wineType: 'Vin Blanc',
-        region: 'Bourgogne',
-        vintage: '2020',
-        temperature: '10-12°C',
-        pairingWith: ['Saumon grillé', 'Fruits de mer', 'Huîtres'],
-        cave: 'Cave Principale',
-        stockInitial: 80,
-        stockActuel: 52,
-        stockMinimum: 20,
-        stockMaximum: 100,
-        unitesMesure: 'bouteilles',
-        prixAchat: 12000,
-        prixVente: 22000,
-        dateAcquisition: new Date('2024-09-15'),
-        icon: '🍷',
-        notes: 'Fraîcheur minérale exceptionnelle'
-      },
-      {
-        id: 'wine_3',
-        nom: 'Château Margaux 2015',
-        categorie: 'Bordeaux',
-        type: 'vin',
-        wineType: 'Vin Rouge',
-        region: 'Bordeaux',
-        vintage: '2015',
-        temperature: '16-18°C',
-        pairingWith: ['Filet de bœuf', 'Gibier', 'Fromages à pâte dure'],
-        cave: 'Cave Secondaire',
-        stockInitial: 50,
-        stockActuel: 8,
-        stockMinimum: 10,
-        stockMaximum: 60,
-        unitesMesure: 'bouteilles',
-        prixAchat: 45000,
-        prixVente: 85000,
-        dateAcquisition: new Date('2024-08-10'),
-        icon: '🍷',
-        notes: 'Grand cru classé - millésime exceptionnel'
-      },
-      {
-        id: 'wine_4',
-        nom: 'Porto Tawny 10 ans',
-        categorie: 'Porto',
-        type: 'vin',
-        wineType: 'Porto',
-        region: 'Porto',
-        vintage: '10 ans',
-        temperature: '14-16°C',
-        pairingWith: ['Fromages affinés', 'Desserts au chocolat', 'Foie gras'],
-        cave: 'Cave Principale',
-        stockInitial: 60,
-        stockActuel: 38,
-        stockMinimum: 15,
-        stockMaximum: 80,
-        unitesMesure: 'bouteilles',
-        prixAchat: 18000,
-        prixVente: 32000,
-        dateAcquisition: new Date('2024-09-05'),
-        icon: '🥃',
-        notes: 'Notes de fruits secs et caramel'
-      },
+        this.stockItems = levels
+          .filter(level => drinkById.has(level.drinkId))
+          .map(level => this.mapStockLevelToLocal(level, drinkById.get(level.drinkId)!, caveById.get(level.caveId)?.name));
 
-      // ========== MATÉRIEL ==========
-      {
-        id: 'mat_1',
-        nom: 'Verres à vin rouge',
-        categorie: 'Verrerie',
-        type: 'materiel',
-        emplacement: 'Salle principale',
-        etat: 'Bon',
-        stockInitial: 200,
-        stockActuel: 165,
-        stockMinimum: 100,
-        stockMaximum: 250,
-        unitesMesure: 'unités',
-        prixAchat: 2500,
-        dateAcquisition: new Date('2024-07-01'),
-        icon: '🍷',
-        notes: 'Cristallin haute qualité'
+        this.filteredStockItems = [...this.stockItems];
+        this.isLoading = false;
+        this.setupFilters();
+        this.calculateStats();
+        this.generateAlerts();
       },
-      {
-        id: 'mat_2',
-        nom: 'Assiettes plates 28cm',
-        categorie: 'Vaisselle',
-        type: 'materiel',
-        emplacement: 'Réserve cuisine',
-        etat: 'Bon',
-        stockInitial: 150,
-        stockActuel: 138,
-        stockMinimum: 100,
-        stockMaximum: 200,
-        unitesMesure: 'unités',
-        prixAchat: 1800,
-        dateAcquisition: new Date('2024-06-15'),
-        icon: '🍽️',
-        notes: 'Porcelaine blanche'
-      },
-      {
-        id: 'mat_3',
-        nom: 'Couverts inox (set)',
-        categorie: 'Couverts',
-        type: 'materiel',
-        emplacement: 'Cuisine',
-        etat: 'Usé',
-        stockInitial: 100,
-        stockActuel: 5,
-        stockMinimum: 50,
-        stockMaximum: 150,
-        unitesMesure: 'sets',
-        prixAchat: 4500,
-        dateAcquisition: new Date('2024-05-20'),
-        icon: '🍴',
-        notes: 'Nécessite réapprovisionnement urgent'
-      },
-      {
-        id: 'mat_4',
-        nom: 'Chaises restaurant',
-        categorie: 'Mobilier',
-        type: 'materiel',
-        emplacement: 'Salle',
-        etat: 'Bon',
-        stockInitial: 50,
-        stockActuel: 48,
-        stockMinimum: 40,
-        stockMaximum: 60,
-        unitesMesure: 'unités',
-        prixAchat: 25000,
-        dateAcquisition: new Date('2024-03-10'),
-        icon: '🪑',
-        notes: 'Design moderne et confortable'
-      },
-      {
-        id: 'mat_5',
-        nom: 'Tire-bouchons professionnels',
-        categorie: 'Équipement cuisine',
-        type: 'materiel',
-        emplacement: 'Bar',
-        etat: 'Neuf',
-        stockInitial: 20,
-        stockActuel: 15,
-        stockMinimum: 10,
-        stockMaximum: 25,
-        unitesMesure: 'unités',
-        prixAchat: 8500,
-        dateAcquisition: new Date('2024-08-05'),
-        icon: '🍾',
-        notes: 'Modèle sommelier professionnel'
+      error: (error) => {
+        console.error('Erreur lors du chargement du stock depuis le backend :', error);
+        this.stockItems = [];
+        this.filteredStockItems = [];
+        this.isLoading = false;
       }
-    ];
+    });
+  }
 
-    this.filteredStockItems = [...this.stockItems];
-    this.isLoading = false;
+  /** Convertit un niveau de stock + la boisson associée vers le modèle local de cet écran. */
+  private mapStockLevelToLocal(level: ApiStockLevel, drink: ApiDrink, caveName?: string): StockItem {
+    return {
+      id: level.id,
+      nom: drink.name,
+      categorie: drink.category,
+      type: 'boisson',
+      stockInitial: level.currentQuantity,
+      stockActuel: level.currentQuantity,
+      stockMinimum: level.minThreshold,
+      stockMaximum: level.maxThreshold,
+      unitesMesure: 'bouteille(s)',
+      format: drink.format,
+      cave: caveName || level.caveId,
+      depot: drink.depot,
+      commercialName: drink.commercialName,
+      commercialContact: drink.commercialContact,
+      packagingType: drink.packagingType,
+      bulkUnit: drink.bulkUnit,
+      bulkQuantity: drink.bulkQuantity,
+      unitsPerBulk: drink.unitsPerBulk,
+      totalBottles: drink.bulkQuantity * drink.unitsPerBulk,
+      prixAchat: drink.purchasePrice,
+      prixVente: drink.sellingPrice,
+      dateAcquisition: level.lastEntryDate ? new Date(level.lastEntryDate) : new Date(),
+      dateDerniereEntree: level.lastEntryDate ? new Date(level.lastEntryDate) : undefined,
+      dateDerniereSortie: level.lastExitDate ? new Date(level.lastExitDate) : undefined,
+      icon: drink.icon || '🍷',
+      notes: drink.description
+    };
   }
 
   // ========== FILTRAGE ==========

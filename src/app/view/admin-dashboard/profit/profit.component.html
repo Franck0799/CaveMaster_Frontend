@@ -10,7 +10,7 @@ DESCRIPTION: Template du composant de gestion des bénéfices
     <div class="header-content">
       <div class="header-left">
         <h1 class="page-title">
-          <span class="icon">💰</span>
+          <span class="icon"><i class="fas fa-sack-dollar"></i></span>
           Analyse des Bénéfices
         </h1>
         <p class="page-subtitle">
@@ -19,15 +19,15 @@ DESCRIPTION: Template du composant de gestion des bénéfices
       </div>
       <div class="header-right">
         <button class="btn btn-secondary" (click)="toggleFilters()">
-          <span class="icon">🔍</span>
+          <span class="icon"><i class="fas fa-magnifying-glass"></i></span>
           {{ showFilters ? 'Masquer' : 'Afficher' }} Filtres
         </button>
         <button class="btn btn-primary" (click)="exportToCSV()">
-          <span class="icon">📊</span>
+          <span class="icon"><i class="fas fa-chart-line"></i></span>
           Exporter CSV
         </button>
         <button class="btn btn-primary" (click)="exportToPDF()">
-          <span class="icon">📄</span>
+          <span class="icon"><i class="fas fa-file-lines"></i></span>
           Imprimer
         </button>
       </div>
@@ -37,11 +37,11 @@ DESCRIPTION: Template du composant de gestion des bénéfices
   <!-- ========== FILTRES ========== -->
   <div class="filters-section" *ngIf="showFilters">
     <div class="filters-card">
-      <h3 class="filters-title">🔍 Filtres</h3>
+      <h3 class="filters-title"><i class="fas fa-magnifying-glass"></i> Filtres</h3>
 
       <!-- Période -->
       <div class="filter-group">
-        <h4 class="filter-label">📅 Période</h4>
+        <h4 class="filter-label"><i class="fas fa-calendar-days"></i> Période</h4>
         <div class="filter-row">
           <div class="form-group">
             <label>Type de période</label>
@@ -118,7 +118,7 @@ DESCRIPTION: Template du composant de gestion des bénéfices
 
       <!-- Filtres de critères -->
       <div class="filter-group">
-        <h4 class="filter-label">🎯 Critères</h4>
+        <h4 class="filter-label"><i class="fas fa-bullseye"></i> Critères</h4>
         <div class="filter-grid">
           <!-- Cave -->
           <div class="form-group">
@@ -234,11 +234,11 @@ DESCRIPTION: Template du composant de gestion des bénéfices
       <!-- Boutons d'action -->
       <div class="filter-actions">
         <button class="btn btn-secondary" (click)="resetFilters()">
-          <span class="icon">🔄</span>
+          <span class="icon"><i class="fas fa-arrow-rotate-right"></i></span>
           Réinitialiser
         </button>
         <button class="btn btn-primary" (click)="applyFilters()">
-          <span class="icon">✅</span>
+          <span class="icon"><i class="fas fa-circle-check"></i></span>
           Appliquer
         </button>
       </div>
@@ -255,7 +255,7 @@ DESCRIPTION: Template du composant de gestion des bénéfices
   <!-- ========== RECOMMANDATIONS ========== -->
   <div class="recommendations-section" *ngIf="getRecommendations().length > 0">
     <div class="recommendations-card">
-      <h3 class="card-title">💡 Recommandations</h3>
+      <h3 class="card-title"><i class="fas fa-lightbulb"></i> Recommandations</h3>
       <ul class="recommendations-list">
         <li *ngFor="let rec of getRecommendations()">{{ rec }}</li>
       </ul>
@@ -268,14 +268,14 @@ DESCRIPTION: Template du composant de gestion des bénéfices
       class="tab-btn"
       [class.active]="viewMode === 'global'"
       (click)="switchView('global')">
-      <span class="icon">📊</span>
+      <span class="icon"><i class="fas fa-chart-line"></i></span>
       Vue Globale
     </button>
     <button
       class="tab-btn"
       [class.active]="viewMode === 'details'"
       (click)="switchView('details')">
-      <span class="icon">📋</span>
+      <span class="icon"><i class="fas fa-clipboard-list"></i></span>
       Détails par Produit
     </button>
   </div>
@@ -287,7 +287,7 @@ DESCRIPTION: Template du composant de gestion des bénéfices
     <div class="stats-grid">
       <!-- Chiffre d'affaires -->
       <div class="stat-card stat-primary">
-        <div class="stat-icon">💵</div>
+        <div class="stat-icon"><i class="fas fa-money-bill-wave"></i></div>
         <div class="stat-content">
           <div class="stat-label">Chiffre d'Affaires</div>
           <div class="stat-value">{{ formatCurrency(globalStats.chiffreAffaires) }}</div>
@@ -309,7 +309,7 @@ DESCRIPTION: Template du composant de gestion des bénéfices
 
       <!-- Total Coûts -->
       <div class="stat-card stat-danger">
-        <div class="stat-icon">💸</div>
+        <div class="stat-icon"><i class="fas fa-money-bill-transfer"></i></div>
         <div class="stat-content">
           <div class="stat-label">Coûts Totaux</div>
           <div class="stat-value">{{ formatCurrency(globalStats.coutTotal) }}</div>
@@ -321,7 +321,7 @@ DESCRIPTION: Template du composant de gestion des bénéfices
 
       <!-- Marge Nette -->
       <div class="stat-card stat-info">
-        <div class="stat-icon">📈</div>
+        <div class="stat-icon"><i class="fas fa-arrow-trend-up"></i></div>
         <div class="stat-content">
           <div class="stat-label">Marge Nette</div>
           <div class="stat-value" [class]="getStatusClass(globalStats.margeNette)">
@@ -336,7 +336,7 @@ DESCRIPTION: Template du composant de gestion des bénéfices
     <div class="details-grid">
       <!-- Revenus -->
       <div class="detail-card">
-        <h3 class="card-title">💰 Revenus</h3>
+        <h3 class="card-title"><i class="fas fa-sack-dollar"></i> Revenus</h3>
         <div class="detail-list">
           <div class="detail-item">
             <span class="detail-label">Ventes totales</span>
@@ -359,7 +359,7 @@ DESCRIPTION: Template du composant de gestion des bénéfices
 
       <!-- Coûts -->
       <div class="detail-card">
-        <h3 class="card-title">💸 Coûts</h3>
+        <h3 class="card-title"><i class="fas fa-money-bill-transfer"></i> Coûts</h3>
         <div class="detail-list">
           <div class="detail-item">
             <span class="detail-label">Achats (marchandises)</span>
@@ -382,7 +382,7 @@ DESCRIPTION: Template du composant de gestion des bénéfices
 
       <!-- Stock -->
       <div class="detail-card">
-        <h3 class="card-title">📦 Stock</h3>
+        <h3 class="card-title"><i class="fas fa-box"></i> Stock</h3>
         <div class="detail-list">
           <div class="detail-item">
             <span class="detail-label">Stock de départ (valeur)</span>
@@ -409,7 +409,7 @@ DESCRIPTION: Template du composant de gestion des bénéfices
 
       <!-- Marges -->
       <div class="detail-card">
-        <h3 class="card-title">📊 Marges</h3>
+        <h3 class="card-title"><i class="fas fa-chart-line"></i> Marges</h3>
         <div class="detail-list">
           <div class="detail-item">
             <span class="detail-label">Bénéfice brut</span>
@@ -443,7 +443,7 @@ DESCRIPTION: Template du composant de gestion des bénéfices
     <div class="analysis-grid">
       <!-- Top performeurs -->
       <div class="analysis-card">
-        <h3 class="card-title">🏆 Top 5 - Meilleurs bénéfices</h3>
+        <h3 class="card-title"><i class="fas fa-trophy"></i> Top 5 - Meilleurs bénéfices</h3>
         <div class="ranking-list">
           <div class="ranking-item" *ngFor="let item of getTopPerformers(5); let i = index">
             <span class="rank">{{ i + 1 }}</span>
@@ -459,7 +459,7 @@ DESCRIPTION: Template du composant de gestion des bénéfices
 
       <!-- Plus vendus -->
       <div class="analysis-card">
-        <h3 class="card-title">🔥 Top 5 - Plus vendus</h3>
+        <h3 class="card-title"><i class="fas fa-fire"></i> Top 5 - Plus vendus</h3>
         <div class="ranking-list">
           <div class="ranking-item" *ngFor="let item of getMostSoldDrinks(5); let i = index">
             <span class="rank">{{ i + 1 }}</span>
@@ -475,7 +475,7 @@ DESCRIPTION: Template du composant de gestion des bénéfices
 
       <!-- Meilleures marges -->
       <div class="analysis-card">
-        <h3 class="card-title">💎 Top 5 - Meilleures marges</h3>
+        <h3 class="card-title"><i class="fas fa-gem"></i> Top 5 - Meilleures marges</h3>
         <div class="ranking-list">
           <div class="ranking-item" *ngFor="let item of getHighestMarginDrinks(5); let i = index">
             <span class="rank">{{ i + 1 }}</span>
@@ -491,7 +491,7 @@ DESCRIPTION: Template du composant de gestion des bénéfices
 
       <!-- Moins performants -->
       <div class="analysis-card">
-        <h3 class="card-title">⚠️ Top 5 - Moins performants</h3>
+        <h3 class="card-title"><i class="fas fa-triangle-exclamation"></i> Top 5 - Moins performants</h3>
         <div class="ranking-list">
           <div class="ranking-item" *ngFor="let item of getLowPerformers(5); let i = index">
             <span class="rank">{{ i + 1 }}</span>

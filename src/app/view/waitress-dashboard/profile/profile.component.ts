@@ -72,19 +72,19 @@ export class ProfileComponent implements OnInit {
     {
       label: 'Jours travaillés',
       value: 245,
-      icon: 'calendar',
+      icon: 'calendar-days',
       color: 'primary'
     },
     {
       label: 'Ventes totales',
       value: '45,780 €',
-      icon: 'trending-up',
+      icon: 'arrow-trend-up',
       color: 'success'
     },
     {
       label: 'Tables servies',
       value: 1250,
-      icon: 'grid',
+      icon: 'table-cells',
       color: 'info'
     },
     {
@@ -108,7 +108,7 @@ export class ProfileComponent implements OnInit {
       id: 2,
       title: 'Expert en Vins',
       description: 'Suggérer 50 accords mets-vins',
-      icon: 'wine',
+      icon: 'wine-glass',
       earnedDate: new Date(2023, 10, 5),
       rarity: 'rare'
     },

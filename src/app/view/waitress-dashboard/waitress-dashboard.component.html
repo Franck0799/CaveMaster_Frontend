@@ -9,7 +9,7 @@ DESCRIPTION: Template du layout Serveuse/Serveur
   <aside class="sidebar">
     <div class="sidebar-header">
       <div class="logo-container">
-        <i class="icon wine-icon"></i>
+        <i class="icon wine-icon fas fa-wine-glass"></i>
         <span class="logo-text" *ngIf="!sidebarCollapsed">WineFlow</span>
       </div>
       <span class="user-role" *ngIf="!sidebarCollapsed">Serveur</span>
@@ -21,7 +21,7 @@ DESCRIPTION: Template du layout Serveuse/Serveur
         class="presence-btn"
         [class.active]="isPresent"
         (click)="togglePresence()">
-        <i class="icon" [class.check-circle]="isPresent" [class.x-circle]="!isPresent"></i>
+        <i class="icon fas" [ngClass]="isPresent ? 'fa-circle-check' : 'fa-circle-xmark'"></i>
         <span>{{ isPresent ? 'En Service' : 'Hors Service' }}</span>
       </button>
     </div>
@@ -34,7 +34,7 @@ DESCRIPTION: Template du layout Serveuse/Serveur
         class="nav-item"
         [class.active]="isActive(item.path)"
         [title]="item.label">
-        <i class="icon" [class]="'icon-' + item.icon"></i>
+        <i class="icon fas" [ngClass]="'fa-' + (item.icon)"></i>
         <span class="nav-label" *ngIf="!sidebarCollapsed">{{ item.label }}</span>
         <span class="badge" *ngIf="item.badge && item.badge > 0">{{ item.badge }}</span>
       </a>
@@ -43,7 +43,7 @@ DESCRIPTION: Template du layout Serveuse/Serveur
     <!-- Footer Sidebar -->
     <div class="sidebar-footer">
       <button class="sidebar-toggle" (click)="toggleSidebar()" title="Réduire/Agrandir">
-        <i class="icon" [class.chevron-left]="!sidebarCollapsed" [class.chevron-right]="sidebarCollapsed"></i>
+        <i class="icon fas" [ngClass]="!sidebarCollapsed ? 'fa-chevron-left' : 'fa-chevron-right'"></i>
       </button>
     </div>
   </aside>
@@ -55,7 +55,7 @@ DESCRIPTION: Template du layout Serveuse/Serveur
     <header class="top-header">
       <div class="header-left">
         <button class="menu-toggle" (click)="toggleSidebar()">
-          <i class="icon menu-icon"></i>
+          <i class="icon fas fa-bars"></i>
         </button>
         <h1 class="page-title">{{ currentUser?.name || 'Serveur' }}</h1>
       </div>
@@ -63,13 +63,13 @@ DESCRIPTION: Template du layout Serveuse/Serveur
       <div class="header-right">
         <!-- Notifications -->
         <button class="icon-btn notification-btn">
-          <i class="icon bell-icon"></i>
+          <i class="icon fas fa-bell"></i>
           <span class="notification-badge">3</span>
         </button>
 
         <!-- Theme Toggle -->
         <button class="icon-btn theme-btn" (click)="toggleTheme()" [title]="'Thème: ' + currentTheme">
-          <i class="icon" [class]="'icon-' + getThemeIcon()"></i>
+          <i class="icon fas" [ngClass]="'fa-' + (getThemeIcon())"></i>
         </button>
 
         <!-- User Menu -->
@@ -84,7 +84,7 @@ DESCRIPTION: Template du layout Serveuse/Serveur
             </span>
           </div>
           <!--<button class="logout-btn" (click)="logout()" title="Déconnexion">
-            <i class="icon log-out-icon"></i>
+            <i class="icon fas fa-right-from-bracket"></i>
           </button> -->
         </div>
       </div>

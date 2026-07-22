@@ -57,7 +57,7 @@ export class MySalesComponent implements OnInit {
     {
       label: 'Ventes Totales',
       value: '1,245 €',
-      icon: 'trending-up',
+      icon: 'arrow-trend-up',
       color: 'success',
       change: '+15%',
       trend: 'up'
@@ -65,7 +65,7 @@ export class MySalesComponent implements OnInit {
     {
       label: 'Nombre de Ventes',
       value: 18,
-      icon: 'shopping-cart',
+      icon: 'cart-shopping',
       color: 'info',
       change: '+3',
       trend: 'up'
@@ -208,7 +208,7 @@ export class MySalesComponent implements OnInit {
     const icons: any = {
       'Carte': 'credit-card',
       'Espèces': 'dollar-sign',
-      'Mobile': 'smartphone',
+      'Mobile': 'mobile-screen',
       'Chèque': 'file-text'
     };
     return icons[method] || 'dollar-sign';

@@ -3,7 +3,7 @@
 
   <!-- Tab Content: Vins -->
   <div class="tab-content" *ngIf="activeTab === 'wines'">
-    <!-- ✅ Utiliser async pipe -->
+    <!-- <i class="fas fa-circle-check"></i> Utiliser async pipe -->
     <div class="wines-grid" *ngIf="(favoriteWines$ | async)?.length! > 0">
       <div class="wine-card"
            *ngFor="let wine of favoriteWines$ | async"
@@ -13,7 +13,7 @@
       </div>
     </div>
 
-    <!-- ✅ Empty state corrigé -->
+    <!-- <i class="fas fa-circle-check"></i> Empty state corrigé -->
     <div class="empty-state" *ngIf="(favoriteWines$ | async)?.length === 0">
       <!-- Contenu reste identique -->
     </div>
@@ -21,7 +21,7 @@
 
   <!-- Tab Content: Caves -->
   <div class="tab-content" *ngIf="activeTab === 'caves'">
-    <!-- ✅ Utiliser async pipe -->
+    <!-- <i class="fas fa-circle-check"></i> Utiliser async pipe -->
     <div class="caves-grid" *ngIf="(favoriteCaves$ | async)?.length! > 0">
       <div class="cave-card"
            *ngFor="let cave of favoriteCaves$ | async"
@@ -31,7 +31,7 @@
       </div>
     </div>
 
-    <!-- ✅ Empty state corrigé -->
+    <!-- <i class="fas fa-circle-check"></i> Empty state corrigé -->
     <div class="empty-state" *ngIf="(favoriteCaves$ | async)?.length === 0">
       <!-- Contenu reste identique -->
     </div>

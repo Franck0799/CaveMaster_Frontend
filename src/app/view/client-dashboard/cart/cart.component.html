@@ -1,14 +1,14 @@
 <div class="cart-container">
   <div class="page-header">
     <h1 class="page-title">
-      <span class="icon">🛒</span>
+      <span class="icon"><i class="fas fa-cart-shopping"></i></span>
       Mon Panier
     </h1>
     <button
       class="btn-clear"
       *ngIf="(cartCount$ | async)! > 0"
       (click)="clearCart()">
-      <span class="btn-icon">🗑️</span>
+      <span class="btn-icon"><i class="fas fa-trash"></i></span>
       Vider le panier
     </button>
   </div>
@@ -37,7 +37,7 @@
         </div>
 
         <button class="btn-remove" (click)="removeItem(item)">
-          <span class="remove-icon">✕</span>
+          <span class="remove-icon"><i class="fas fa-xmark"></i></span>
         </button>
       </div>
     </div>
@@ -76,7 +76,7 @@
 
   <ng-template #emptyCart>
     <div class="empty-state">
-      <div class="empty-icon">🛒</div>
+      <div class="empty-icon"><i class="fas fa-cart-shopping"></i></div>
       <h3 class="empty-title">Votre panier est vide</h3>
       <p class="empty-text">Ajoutez des vins pour commencer vos achats</p>
       <button class="btn-primary" (click)="continueShopping()">

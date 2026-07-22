@@ -8,7 +8,7 @@ DESCRIPTION: Template HTML pour la gestion des boissons - FORMULAIRE COMPLET
   <!-- ===== EN-TÊTE DE LA PAGE ===== -->
   <header class="page-header">
     <div class="header-content">
-      <h1 class="page-title">🍾 Mes Boissons</h1>
+      <h1 class="page-title"><i class="fas fa-champagne-glasses"></i> Mes Boissons</h1>
       <p class="page-subtitle">
         <span *ngIf="selectedCategory" class="active-filter">
           Catégorie : <strong>{{ selectedCategory }}</strong> -
@@ -17,7 +17,7 @@ DESCRIPTION: Template HTML pour la gestion des boissons - FORMULAIRE COMPLET
       </p>
     </div>
     <button class="btn btn-primary" (click)="openAddModal()">
-      ➕ Ajouter une boisson
+      <i class="fas fa-plus"></i> Ajouter une boisson
     </button>
   </header>
 
@@ -27,7 +27,7 @@ DESCRIPTION: Template HTML pour la gestion des boissons - FORMULAIRE COMPLET
       <input
         type="text"
         class="search-input"
-        placeholder="🔍 Rechercher une boisson..."
+        placeholder="Rechercher une boisson..."
         [(ngModel)]="searchTerm"
         (ngModelChange)="onSearchChange()">
       <button
@@ -35,7 +35,7 @@ DESCRIPTION: Template HTML pour la gestion des boissons - FORMULAIRE COMPLET
         class="clear-search-btn"
         (click)="searchTerm = ''; onSearchChange()"
         title="Effacer la recherche">
-        ✕
+        <i class="fas fa-xmark"></i>
       </button>
     </div>
 
@@ -58,7 +58,7 @@ DESCRIPTION: Template HTML pour la gestion des boissons - FORMULAIRE COMPLET
       class="btn btn-secondary"
       (click)="resetFilters()"
       *ngIf="selectedCategory || searchTerm">
-      🔄 Réinitialiser
+      <i class="fas fa-arrow-rotate-right"></i> Réinitialiser
     </button>
 
     <div class="sort-options">
@@ -94,13 +94,13 @@ DESCRIPTION: Template HTML pour la gestion des boissons - FORMULAIRE COMPLET
 
   <!-- ===== MESSAGE SI AUCUN RÉSULTAT ===== -->
   <div *ngIf="!isLoading && filteredDrinks.length === 0" class="no-results">
-    <div class="no-results-icon">🔍</div>
+    <div class="no-results-icon"><i class="fas fa-magnifying-glass"></i></div>
     <h3>Aucune boisson trouvée</h3>
     <p *ngIf="searchTerm || selectedCategory">
       Essayez de modifier vos critères de recherche
     </p>
     <button class="btn btn-primary" (click)="openAddModal()">
-      ➕ Ajouter une boisson
+      <i class="fas fa-plus"></i> Ajouter une boisson
     </button>
   </div>
 
@@ -115,13 +115,13 @@ DESCRIPTION: Template HTML pour la gestion des boissons - FORMULAIRE COMPLET
         *ngIf="drink.badge"
         class="drink-badge"
         [ngClass]="'badge-' + drink.badge">
-        {{ drink.badge === 'hot' ? '🔥 HOT' : '✨ NEW' }}
+        {{ drink.badge === 'hot' ? 'HOT' : 'NEW' }}
       </span>
 
       <span
         *ngIf="isCriticalStock(drink.stock)"
         class="stock-alert-badge">
-        ⚠️ Stock faible
+        <i class="fas fa-triangle-exclamation"></i> Stock faible
       </span>
 
       <div class="drink-image">
@@ -141,12 +141,12 @@ DESCRIPTION: Template HTML pour la gestion des boissons - FORMULAIRE COMPLET
 
         <div class="drink-stats">
           <div class="stat-item">
-            <span class="stat-icon">💰</span>
+            <span class="stat-icon"><i class="fas fa-sack-dollar"></i></span>
             <span class="stat-value">{{ formatNumber(drink.sellingPrice) }} FCFA/unité</span>
           </div>
 
           <div class="stat-item">
-            <span class="stat-icon">📦</span>
+            <span class="stat-icon"><i class="fas fa-box"></i></span>
             <span class="stat-value">
               {{ drink.totalBottles }} bouteilles
               <span [ngClass]="getStockBadge(drink.stock).class" class="stock-badge">
@@ -156,7 +156,7 @@ DESCRIPTION: Template HTML pour la gestion des boissons - FORMULAIRE COMPLET
           </div>
 
           <div class="stat-item">
-            <span class="stat-icon">🏭</span>
+            <span class="stat-icon"><i class="fas fa-industry"></i></span>
             <span class="stat-value">{{ drink.supplier }}</span>
           </div>
         </div>
@@ -167,13 +167,13 @@ DESCRIPTION: Template HTML pour la gestion des boissons - FORMULAIRE COMPLET
           class="btn-icon btn-edit"
           (click)="openEditModal(drink)"
           title="Modifier">
-          ✏️
+          <i class="fas fa-pen"></i>
         </button>
         <button
           class="btn-icon btn-delete"
           (click)="deleteDrink(drink)"
           title="Supprimer">
-          🗑️
+          <i class="fas fa-trash"></i>
         </button>
       </div>
     </article>
@@ -185,9 +185,9 @@ DESCRIPTION: Template HTML pour la gestion des boissons - FORMULAIRE COMPLET
 
       <header class="modal-header">
         <h2 class="modal-title">
-          {{ selectedDrink ? '✏️ Modifier une boisson' : '➕ Ajouter une boisson' }}
+          {{ selectedDrink ? 'Modifier une boisson' : 'Ajouter une boisson' }}
         </h2>
-        <button class="modal-close-btn" (click)="closeModal()">✕</button>
+        <button class="modal-close-btn" (click)="closeModal()"><i class="fas fa-xmark"></i></button>
       </header>
 
       <div class="modal-body">
@@ -195,7 +195,7 @@ DESCRIPTION: Template HTML pour la gestion des boissons - FORMULAIRE COMPLET
 
           <!-- SECTION 1: INFORMATIONS GÉNÉRALES -->
           <div class="form-section">
-            <h3 class="section-title">📋 Informations générales</h3>
+            <h3 class="section-title"><i class="fas fa-clipboard-list"></i> Informations générales</h3>
 
             <div class="form-row">
               <!-- Nom de la boisson -->
@@ -278,7 +278,7 @@ DESCRIPTION: Template HTML pour la gestion des boissons - FORMULAIRE COMPLET
                 class="form-input"
                 [(ngModel)]="drinkForm.icon"
                 name="icon"
-                placeholder="Ex: 🍷"
+                placeholder="Ex: "
                 maxlength="2"
                 required>
               <small class="form-hint">
@@ -303,7 +303,7 @@ DESCRIPTION: Template HTML pour la gestion des boissons - FORMULAIRE COMPLET
 
           <!-- SECTION 2: FOURNISSEUR ET DÉPÔT -->
           <div class="form-section">
-            <h3 class="section-title">🏭 Fournisseur et dépôt</h3>
+            <h3 class="section-title"><i class="fas fa-industry"></i> Fournisseur et dépôt</h3>
 
             <div class="form-row">
               <!-- Fournisseur -->
@@ -374,7 +374,7 @@ DESCRIPTION: Template HTML pour la gestion des boissons - FORMULAIRE COMPLET
 
           <!-- SECTION 3: QUANTITÉS -->
           <div class="form-section">
-            <h3 class="section-title">📦 Quantités et conditionnement</h3>
+            <h3 class="section-title"><i class="fas fa-box"></i> Quantités et conditionnement</h3>
 
             <div class="form-row">
               <!-- Unité de gros -->
@@ -453,7 +453,7 @@ DESCRIPTION: Template HTML pour la gestion des boissons - FORMULAIRE COMPLET
                   name="totalBottles"
                   readonly>
                 <small class="form-hint calculation-hint">
-                  ✓ Calculé automatiquement : {{ drinkForm.bulkQuantity }} × {{ drinkForm.unitsPerBulk }} = {{ drinkForm.totalBottles }}
+                  <i class="fas fa-check"></i> Calculé automatiquement : {{ drinkForm.bulkQuantity }} × {{ drinkForm.unitsPerBulk }} = {{ drinkForm.totalBottles }}
                 </small>
               </div>
             </div>
@@ -461,7 +461,7 @@ DESCRIPTION: Template HTML pour la gestion des boissons - FORMULAIRE COMPLET
 
           <!-- SECTION 4: PRIX -->
           <div class="form-section">
-            <h3 class="section-title">💰 Prix et tarification</h3>
+            <h3 class="section-title"><i class="fas fa-sack-dollar"></i> Prix et tarification</h3>
 
             <div class="form-row">
               <!-- Prix d'achat -->
@@ -551,7 +551,7 @@ DESCRIPTION: Template HTML pour la gestion des boissons - FORMULAIRE COMPLET
           Annuler
         </button>
         <button class="btn btn-primary" (click)="saveDrink()">
-          {{ selectedDrink ? '💾 Enregistrer' : '➕ Ajouter' }}
+          {{ selectedDrink ? 'Enregistrer' : 'Ajouter' }}
         </button>
       </footer>
 

@@ -9,20 +9,20 @@ VERSION ACTUALISÉE
   <!-- ===== EN-TÊTE ===== -->
   <header class="page-header">
     <div class="header-content">
-      <h1 class="page-title">📤 Mes Sorties de Stock</h1>
+      <h1 class="page-title"><i class="fas fa-upload"></i> Mes Sorties de Stock</h1>
       <p class="page-subtitle">
         Gestion des ventes, transferts et pertes - {{ filteredExits.length }} sortie(s)
       </p>
     </div>
     <div class="header-actions">
       <button class="btn btn-secondary" (click)="exportToCSV()">
-        📊 Exporter
+        <i class="fas fa-chart-line"></i> Exporter
       </button>
       <button class="btn btn-secondary" (click)="printExits()">
-        🖨️ Imprimer
+        <i class="fas fa-print"></i> Imprimer
       </button>
       <button class="btn btn-primary" (click)="openAddModal()">
-        ➕ Nouvelle sortie
+        <i class="fas fa-plus"></i> Nouvelle sortie
       </button>
     </div>
   </header>
@@ -30,7 +30,7 @@ VERSION ACTUALISÉE
   <!-- ===== STATISTIQUES ENRICHIES ===== -->
   <section class="stats-section">
     <div class="stat-card stat-primary">
-      <div class="stat-icon">📤</div>
+      <div class="stat-icon"><i class="fas fa-upload"></i></div>
       <div class="stat-content">
         <div class="stat-value">{{ stats.totalExits }}</div>
         <div class="stat-label">Sorties totales</div>
@@ -38,7 +38,7 @@ VERSION ACTUALISÉE
     </div>
 
     <div class="stat-card stat-warning">
-      <div class="stat-icon">📉</div>
+      <div class="stat-icon"><i class="fas fa-arrow-trend-down"></i></div>
       <div class="stat-content">
         <div class="stat-value">{{ formatNumber(stats.totalQuantity) }}</div>
         <div class="stat-label">Unités sorties</div>
@@ -46,7 +46,7 @@ VERSION ACTUALISÉE
     </div>
 
     <div class="stat-card stat-success">
-      <div class="stat-icon">💰</div>
+      <div class="stat-icon"><i class="fas fa-sack-dollar"></i></div>
       <div class="stat-content">
         <div class="stat-value">{{ formatNumber(stats.totalRevenue) }} F</div>
         <div class="stat-label">Revenus (ventes)</div>
@@ -54,7 +54,7 @@ VERSION ACTUALISÉE
     </div>
 
     <div class="stat-card stat-danger">
-      <div class="stat-icon">❌</div>
+      <div class="stat-icon"><i class="fas fa-xmark"></i></div>
       <div class="stat-content">
         <div class="stat-value">{{ formatNumber(stats.totalLoss) }} F</div>
         <div class="stat-label">Pertes totales</div>
@@ -62,7 +62,7 @@ VERSION ACTUALISÉE
     </div>
 
     <div class="stat-card stat-info">
-      <div class="stat-icon">💵</div>
+      <div class="stat-icon"><i class="fas fa-money-bill-wave"></i></div>
       <div class="stat-content">
         <div class="stat-value">{{ stats.averageMargin }}%</div>
         <div class="stat-label">Marge moyenne</div>
@@ -70,7 +70,7 @@ VERSION ACTUALISÉE
     </div>
 
     <div class="stat-card stat-success">
-      <div class="stat-icon">🛒</div>
+      <div class="stat-icon"><i class="fas fa-cart-shopping"></i></div>
       <div class="stat-content">
         <div class="stat-value">{{ stats.salesCount }}</div>
         <div class="stat-label">Nombre de ventes</div>
@@ -78,7 +78,7 @@ VERSION ACTUALISÉE
     </div>
 
     <div class="stat-card stat-info">
-      <div class="stat-icon">🔄</div>
+      <div class="stat-icon"><i class="fas fa-arrow-rotate-right"></i></div>
       <div class="stat-content">
         <div class="stat-value">{{ stats.transfersCount }}</div>
         <div class="stat-label">Transferts</div>
@@ -86,7 +86,7 @@ VERSION ACTUALISÉE
     </div>
 
     <div class="stat-card stat-warning" *ngIf="stats.topCustomer">
-      <div class="stat-icon">👤</div>
+      <div class="stat-icon"><i class="fas fa-user"></i></div>
       <div class="stat-content">
         <div class="stat-value">{{ stats.topCustomer }}</div>
         <div class="stat-label">Meilleur client</div>
@@ -101,13 +101,13 @@ VERSION ACTUALISÉE
       <input
         type="text"
         class="search-input"
-        placeholder="🔍 Rechercher par boisson, client, facture..."
+        placeholder="Rechercher par boisson, client, facture..."
         [(ngModel)]="searchTerm"
         (ngModelChange)="onSearchChange()">
       <button
         *ngIf="searchTerm"
         class="clear-btn"
-        (click)="searchTerm = ''; onSearchChange()">✕</button>
+        (click)="searchTerm = ''; onSearchChange()"><i class="fas fa-xmark"></i></button>
     </div>
 
     <!-- Filtre par cave -->
@@ -119,7 +119,7 @@ VERSION ACTUALISÉE
         (ngModelChange)="onCaveFilterChange()">
         <option [ngValue]="null">Toutes les caves</option>
         <option *ngFor="let cave of caves" [ngValue]="cave.id">
-          📍 {{ cave.name }}
+          <i class="fas fa-location-dot"></i> {{ cave.name }}
         </option>
       </select>
     </div>
@@ -171,7 +171,7 @@ VERSION ACTUALISÉE
       class="btn btn-secondary"
       (click)="resetFilters()"
       *ngIf="selectedCaveFilter || selectedTypeFilter || selectedCategoryFilter || searchTerm">
-      🔄 Réinitialiser
+      <i class="fas fa-arrow-rotate-right"></i> Réinitialiser
     </button>
   </section>
 
@@ -183,7 +183,7 @@ VERSION ACTUALISÉE
 
   <!-- ===== AUCUN RÉSULTAT ===== -->
   <div *ngIf="!isLoading && filteredExits.length === 0" class="no-results">
-    <div class="no-results-icon">📤</div>
+    <div class="no-results-icon"><i class="fas fa-upload"></i></div>
     <h3>Aucune sortie trouvée</h3>
     <p *ngIf="searchTerm || selectedCaveFilter || selectedTypeFilter || selectedCategoryFilter">
       Aucune sortie ne correspond à vos critères
@@ -192,7 +192,7 @@ VERSION ACTUALISÉE
       Commencez par enregistrer votre première sortie de stock
     </p>
     <button class="btn btn-primary" (click)="openAddModal()">
-      ➕ Nouvelle sortie
+      <i class="fas fa-plus"></i> Nouvelle sortie
     </button>
   </div>
 
@@ -280,13 +280,13 @@ VERSION ACTUALISÉE
             <!-- Client/Destination -->
             <td class="destination-cell">
               <div class="destination-info">
-                <div class="destination-main" *ngIf="exit.customer">👤 {{ exit.customer }}
+                <div class="destination-main" *ngIf="exit.customer"><i class="fas fa-user"></i> {{ exit.customer }}
                 </div>
                 <div class="destination-secondary" *ngIf="!exit.customer && exit.destination">
                   {{ exit.destination }}
                 </div>
                 <div class="destination-secondary" *ngIf="exit.transferToCaveId">
-                  🔄 {{ getCaveName(exit.transferToCaveId) }}
+                  <i class="fas fa-arrow-rotate-right"></i> {{ getCaveName(exit.transferToCaveId) }}
                 </div>
               </div>
             </td>
@@ -294,7 +294,7 @@ VERSION ACTUALISÉE
             <!-- Cave source -->
             <td class="cave-cell">
               <span class="cave-badge">
-                📍 {{ getCaveName(exit.caveId) }}
+                <i class="fas fa-location-dot"></i> {{ getCaveName(exit.caveId) }}
               </span>
             </td>
 
@@ -320,13 +320,13 @@ VERSION ACTUALISÉE
                 class="btn-icon"
                 title="Voir les détails"
                 (click)="viewExitDetails(exit)">
-                👁️
+                <i class="fas fa-eye"></i>
               </button>
               <button
                 class="btn-icon btn-danger"
                 title="Supprimer"
                 (click)="deleteExit(exit)">
-                🗑️
+                <i class="fas fa-trash"></i>
               </button>
             </td>
           </tr>
@@ -341,8 +341,8 @@ VERSION ACTUALISÉE
 
       <!-- En-tête -->
       <header class="modal-header">
-        <h2 class="modal-title">➕ Nouvelle Sortie de Stock</h2>
-        <button class="modal-close-btn" (click)="closeAddModal()">✕</button>
+        <h2 class="modal-title"><i class="fas fa-plus"></i> Nouvelle Sortie de Stock</h2>
+        <button class="modal-close-btn" (click)="closeAddModal()"><i class="fas fa-xmark"></i></button>
       </header>
 
       <!-- Corps -->
@@ -351,7 +351,7 @@ VERSION ACTUALISÉE
 
           <!-- SECTION 1: SÉLECTION BOISSON ET TYPE -->
           <div class="form-section">
-            <h3 class="section-title">📦 Produit et type de sortie</h3>
+            <h3 class="section-title"><i class="fas fa-box"></i> Produit et type de sortie</h3>
 
             <div class="form-group">
               <label class="form-label" for="exit-drink">
@@ -387,19 +387,19 @@ VERSION ACTUALISÉE
                 </option>
               </select>
               <small class="helper-text">
-                <span *ngIf="exitForm.type === 'vente'">💡 Pour une vente à un client</span>
-                <span *ngIf="exitForm.type === 'transfert'">💡 Pour un transfert vers une autre cave</span>
-                <span *ngIf="exitForm.type === 'perte'">💡 Pour une perte de stock</span>
-                <span *ngIf="exitForm.type === 'casse'">💡 Pour des produits cassés</span>
-                <span *ngIf="exitForm.type === 'peremption'">💡 Pour des produits périmés</span>
-                <span *ngIf="exitForm.type === 'degustation'">💡 Pour une dégustation</span>
+                <span *ngIf="exitForm.type === 'vente'"><i class="fas fa-lightbulb"></i> Pour une vente à un client</span>
+                <span *ngIf="exitForm.type === 'transfert'"><i class="fas fa-lightbulb"></i> Pour un transfert vers une autre cave</span>
+                <span *ngIf="exitForm.type === 'perte'"><i class="fas fa-lightbulb"></i> Pour une perte de stock</span>
+                <span *ngIf="exitForm.type === 'casse'"><i class="fas fa-lightbulb"></i> Pour des produits cassés</span>
+                <span *ngIf="exitForm.type === 'peremption'"><i class="fas fa-lightbulb"></i> Pour des produits périmés</span>
+                <span *ngIf="exitForm.type === 'degustation'"><i class="fas fa-lightbulb"></i> Pour une dégustation</span>
               </small>
             </div>
           </div>
 
           <!-- SECTION 2: QUANTITÉ ET TARIFICATION -->
           <div class="form-section" *ngIf="exitForm.drinkId">
-            <h3 class="section-title">🔢 Quantité et tarification</h3>
+            <h3 class="section-title"><i class="fas fa-hashtag"></i> Quantité et tarification</h3>
 
             <div class="form-row">
               <div class="form-group">
@@ -438,7 +438,7 @@ VERSION ACTUALISÉE
             <!-- Montant total calculé -->
             <div class="total-amount-display" [class.revenue-display]="exitForm.type === 'vente'">
               <span class="total-label">
-                {{ exitForm.type === 'vente' ? '💵 Montant de la vente' : '💰 Montant total' }} :
+                {{ exitForm.type === 'vente' ? 'Montant de la vente' : 'Montant total' }} :
               </span>
               <span class="total-value">
                 {{ formatNumber(exitForm.totalAmount) }} FCFA
@@ -448,7 +448,7 @@ VERSION ACTUALISÉE
 
           <!-- SECTION 3: CAVE SOURCE -->
           <div class="form-section">
-            <h3 class="section-title">📍 Cave source</h3>
+            <h3 class="section-title"><i class="fas fa-location-dot"></i> Cave source</h3>
 
             <div class="form-group">
               <label class="form-label" for="exit-cave">
@@ -462,7 +462,7 @@ VERSION ACTUALISÉE
                 required>
                 <option value="">Sélectionner une cave...</option>
                 <option *ngFor="let cave of caves" [value]="cave.id">
-                  📍 {{ cave.name }} - {{ cave.location }}
+                  <i class="fas fa-location-dot"></i> {{ cave.name }} - {{ cave.location }}
                 </option>
               </select>
             </div>
@@ -472,7 +472,7 @@ VERSION ACTUALISÉE
 
           <!-- Pour VENTE : Client -->
           <div class="form-section" *ngIf="exitForm.type === 'vente'">
-            <h3 class="section-title">👤 Informations client</h3>
+            <h3 class="section-title"><i class="fas fa-user"></i> Informations client</h3>
 
             <div class="form-group">
               <label class="form-label" for="exit-customer">
@@ -545,7 +545,7 @@ VERSION ACTUALISÉE
 
           <!-- Pour TRANSFERT : Cave destination -->
           <div class="form-section" *ngIf="exitForm.type === 'transfert'">
-            <h3 class="section-title">🔄 Cave de destination</h3>
+            <h3 class="section-title"><i class="fas fa-arrow-rotate-right"></i> Cave de destination</h3>
 
             <div class="form-group">
               <label class="form-label" for="exit-transfer-cave">
@@ -561,18 +561,18 @@ VERSION ACTUALISÉE
                 <option *ngFor="let cave of caves"
                         [value]="cave.id"
                         [disabled]="cave.id === exitForm.caveId">
-                  📍 {{ cave.name }} - {{ cave.location }}
+                  <i class="fas fa-location-dot"></i> {{ cave.name }} - {{ cave.location }}
                 </option>
               </select>
               <small class="helper-text">
-                💡 La cave de destination doit être différente de la cave source
+                <i class="fas fa-lightbulb"></i> La cave de destination doit être différente de la cave source
               </small>
             </div>
           </div>
 
           <!-- Pour PERTE/CASSE/PÉREMPTION : Motif -->
           <div class="form-section" *ngIf="['perte', 'casse', 'peremption'].includes(exitForm.type)">
-            <h3 class="section-title">⚠️ Informations sur la {{ exitForm.type }}</h3>
+            <h3 class="section-title"><i class="fas fa-triangle-exclamation"></i> Informations sur la {{ exitForm.type }}</h3>
 
             <div class="form-group">
               <label class="form-label" for="exit-loss-reason">
@@ -604,7 +604,7 @@ VERSION ACTUALISÉE
 
           <!-- Pour DÉGUSTATION : Détails -->
           <div class="form-section" *ngIf="exitForm.type === 'degustation'">
-            <h3 class="section-title">🍷 Informations sur la dégustation</h3>
+            <h3 class="section-title"><i class="fas fa-wine-glass"></i> Informations sur la dégustation</h3>
 
             <div class="form-group">
               <label class="form-label" for="exit-tasting-destination">
@@ -635,7 +635,7 @@ VERSION ACTUALISÉE
 
           <!-- SECTION 5: NOTES -->
           <div class="form-section">
-            <h3 class="section-title">📝 Notes et commentaires</h3>
+            <h3 class="section-title"><i class="fas fa-file-lines"></i> Notes et commentaires</h3>
 
             <div class="form-group">
               <label class="form-label" for="exit-notes">
@@ -653,7 +653,7 @@ VERSION ACTUALISÉE
 
           <!-- SECTION 6: SUGGESTIONS D'ACCORDS (pour ventes) -->
           <div class="form-section" *ngIf="exitForm.type === 'vente' && winePairingSuggestions.length > 0">
-            <h3 class="section-title">🍽️ Suggestions pour votre client</h3>
+            <h3 class="section-title"><i class="fas fa-utensils"></i> Suggestions pour votre client</h3>
             <p class="section-description">
               Recommandations d'accords mets-vins à partager avec votre client :
             </p>
@@ -665,7 +665,7 @@ VERSION ACTUALISÉE
                   <h4 class="pairing-dish">{{ suggestion.dish }}</h4>
                   <p class="pairing-description">{{ suggestion.description }}</p>
                   <div class="pairing-temperature">
-                    🌡️ Servir à {{ suggestion.temperature }}
+                    <i class="fas fa-temperature-half"></i> Servir à {{ suggestion.temperature }}
                   </div>
                 </div>
               </div>
@@ -681,7 +681,7 @@ VERSION ACTUALISÉE
           Annuler
         </button>
         <button class="btn btn-primary" (click)="saveExit()">
-          💾 Enregistrer la sortie
+          <i class="fas fa-floppy-disk"></i> Enregistrer la sortie
         </button>
       </footer>
 
@@ -697,7 +697,7 @@ VERSION ACTUALISÉE
         <h2 class="modal-title">
           {{ selectedExit.drinkIcon }} Détails de la sortie - {{ selectedExit.drinkName }}
         </h2>
-        <button class="modal-close-btn" (click)="closeDetailModal()">✕</button>
+        <button class="modal-close-btn" (click)="closeDetailModal()"><i class="fas fa-xmark"></i></button>
       </header>
 
       <!-- Corps -->
@@ -706,7 +706,7 @@ VERSION ACTUALISÉE
 
           <!-- Informations générales -->
           <div class="detail-section">
-            <h3 class="detail-section-title">📦 Informations générales</h3>
+            <h3 class="detail-section-title"><i class="fas fa-box"></i> Informations générales</h3>
             <div class="detail-grid">
               <div class="detail-item">
                 <span class="detail-label">Date de sortie :</span>
@@ -736,14 +736,14 @@ VERSION ACTUALISÉE
               </div>
               <div class="detail-item">
                 <span class="detail-label">Cave source :</span>
-                <span class="detail-value">📍 {{ getCaveName(selectedExit.caveId) }}</span>
+                <span class="detail-value"><i class="fas fa-location-dot"></i> {{ getCaveName(selectedExit.caveId) }}</span>
               </div>
             </div>
           </div>
 
           <!-- Quantité et tarification -->
           <div class="detail-section">
-            <h3 class="detail-section-title">💰 Quantité et tarification</h3>
+            <h3 class="detail-section-title"><i class="fas fa-sack-dollar"></i> Quantité et tarification</h3>
             <div class="detail-grid">
               <div class="detail-item">
                 <span class="detail-label">Quantité :</span>
@@ -770,7 +770,7 @@ VERSION ACTUALISÉE
 
           <!-- Client (vente) -->
           <div class="detail-section" *ngIf="selectedExit.type === 'vente' && selectedExit.customer">
-            <h3 class="detail-section-title">👤 Informations client</h3>
+            <h3 class="detail-section-title"><i class="fas fa-user"></i> Informations client</h3>
             <div class="detail-grid">
               <div class="detail-item">
                 <span class="detail-label">Client :</span>
@@ -786,33 +786,33 @@ VERSION ACTUALISÉE
               </div>
               <div class="detail-item" *ngIf="selectedExit.invoiceNumber">
                 <span class="detail-label">Facture :</span>
-                <span class="detail-value">📄 {{ selectedExit.invoiceNumber }}</span>
+                <span class="detail-value"><i class="fas fa-file-lines"></i> {{ selectedExit.invoiceNumber }}</span>
               </div>
               <div class="detail-item" *ngIf="selectedExit.deliveryNote">
                 <span class="detail-label">Bon de livraison :</span>
-                <span class="detail-value">📋 {{ selectedExit.deliveryNote }}</span>
+                <span class="detail-value"><i class="fas fa-clipboard-list"></i> {{ selectedExit.deliveryNote }}</span>
               </div>
             </div>
           </div>
 
           <!-- Transfert -->
           <div class="detail-section" *ngIf="selectedExit.type === 'transfert' && selectedExit.transferToCaveId">
-            <h3 class="detail-section-title">🔄 Informations de transfert</h3>
+            <h3 class="detail-section-title"><i class="fas fa-arrow-rotate-right"></i> Informations de transfert</h3>
             <div class="detail-grid">
               <div class="detail-item">
                 <span class="detail-label">Cave source :</span>
-                <span class="detail-value">📍 {{ getCaveName(selectedExit.caveId) }}</span>
+                <span class="detail-value"><i class="fas fa-location-dot"></i> {{ getCaveName(selectedExit.caveId) }}</span>
               </div>
               <div class="detail-item">
                 <span class="detail-label">Cave destination :</span>
-                <span class="detail-value">📍 {{ getCaveName(selectedExit.transferToCaveId) }}</span>
+                <span class="detail-value"><i class="fas fa-location-dot"></i> {{ getCaveName(selectedExit.transferToCaveId) }}</span>
               </div>
             </div>
           </div>
 
           <!-- Perte/Casse/Péremption -->
           <div class="detail-section" *ngIf="isLoss(selectedExit)">
-            <h3 class="detail-section-title">⚠️ Informations sur la {{ selectedExit.type }}</h3>
+            <h3 class="detail-section-title"><i class="fas fa-triangle-exclamation"></i> Informations sur la {{ selectedExit.type }}</h3>
             <div class="detail-grid">
               <div class="detail-item full-width" *ngIf="selectedExit.lossReason">
                 <span class="detail-label">Motif :</span>
@@ -833,7 +833,7 @@ VERSION ACTUALISÉE
 
           <!-- Traité par -->
           <div class="detail-section">
-            <h3 class="detail-section-title">👨‍💼 Traitement</h3>
+            <h3 class="detail-section-title"><i class="fas fa-user"></i>‍<i class="fas fa-briefcase"></i> Traitement</h3>
             <div class="detail-grid">
               <div class="detail-item">
                 <span class="detail-label">Traité par :</span>
@@ -844,7 +844,7 @@ VERSION ACTUALISÉE
 
           <!-- Notes -->
           <div class="detail-section" *ngIf="selectedExit.notes">
-            <h3 class="detail-section-title">📝 Notes</h3>
+            <h3 class="detail-section-title"><i class="fas fa-file-lines"></i> Notes</h3>
             <div class="detail-notes">
               {{ selectedExit.notes }}
             </div>
@@ -852,7 +852,7 @@ VERSION ACTUALISÉE
 
           <!-- Suggestions d'accords (ventes) -->
           <div class="detail-section" *ngIf="selectedExit.type === 'vente' && winePairingSuggestions.length > 0">
-            <h3 class="detail-section-title">🍽️ Suggestions d'accords mets-vins</h3>
+            <h3 class="detail-section-title"><i class="fas fa-utensils"></i> Suggestions d'accords mets-vins</h3>
             <div class="wine-pairing-suggestions">
               <div class="pairing-card" *ngFor="let suggestion of winePairingSuggestions">
                 <div class="pairing-icon">{{ suggestion.dishIcon }}</div>
@@ -860,7 +860,7 @@ VERSION ACTUALISÉE
                   <h4 class="pairing-dish">{{ suggestion.dish }}</h4>
                   <p class="pairing-description">{{ suggestion.description }}</p>
                   <div class="pairing-temperature">
-                    🌡️ Servir à {{ suggestion.temperature }}
+                    <i class="fas fa-temperature-half"></i> Servir à {{ suggestion.temperature }}
                   </div>
                 </div>
               </div>

@@ -9,7 +9,7 @@ DESCRIPTION: Prise de commande avec carte interactive
   <div class="page-header">
     <div class="header-left">
       <button class="btn-back" routerLink="/server/tables">
-        <i class="icon arrow-left-icon"></i>
+        <i class="icon fas fa-arrow-left"></i>
       </button>
       <div>
         <h1 class="page-title">Prendre une Commande</h1>
@@ -18,7 +18,7 @@ DESCRIPTION: Prise de commande avec carte interactive
     </div>
     <div class="header-right">
       <button class="btn-wine-help" (click)="goToWineSuggestions()" *ngIf="cart.length > 0">
-        <i class="icon wine-icon"></i>
+        <i class="icon fas fa-wine-glass"></i>
         Suggestions Vins
       </button>
     </div>
@@ -31,7 +31,7 @@ DESCRIPTION: Prise de commande avec carte interactive
 
       <!-- Search Bar -->
       <div class="search-bar">
-        <i class="icon search-icon"></i>
+        <i class="icon fas fa-magnifying-glass"></i>
         <input
           type="text"
           placeholder="Rechercher un plat, un vin..."
@@ -46,7 +46,7 @@ DESCRIPTION: Prise de commande avec carte interactive
           class="category-btn"
           [class.active]="selectedCategory === category.id"
           (click)="selectCategory(category.id)">
-          <i class="icon" [class]="'icon-' + category.icon"></i>
+          <i class="icon fas" [ngClass]="'fa-' + (category.icon)"></i>
           <span>{{ category.name }}</span>
           <span class="category-count">{{ category.count }}</span>
         </button>
@@ -64,7 +64,7 @@ DESCRIPTION: Prise de commande avec carte interactive
             <img [src]="item.image" [alt]="item.name">
           </div>
           <div class="item-image placeholder" *ngIf="!item.image">
-            <i class="icon" [class]="item.isWine ? 'wine-icon' : 'utensils-icon'"></i>
+            <i class="icon fas" [ngClass]="item.isWine ? 'fa-wine-glass' : 'fa-utensils'"></i>
           </div>
 
           <div class="item-content">
@@ -74,21 +74,21 @@ DESCRIPTION: Prise de commande avec carte interactive
             <div class="item-footer">
               <span class="item-price">{{ item.price | number:'1.2-2' }} €</span>
               <button class="btn-add-item" *ngIf="item.available">
-                <i class="icon plus-icon"></i>
+                <i class="icon fas fa-plus"></i>
               </button>
               <span class="badge-unavailable" *ngIf="!item.available">Indisponible</span>
             </div>
 
             <!-- Wine specific info -->
             <div class="wine-info" *ngIf="item.isWine">
-              <span class="wine-type">{{ getWineTypeIcon(item.wineType) }} {{ item.year }}</span>
+              <span class="wine-type"><i class="fas" [ngClass]="'fa-' + getWineTypeIcon(item.wineType)"></i> {{ item.year }}</span>
             </div>
           </div>
         </div>
 
         <!-- Empty State -->
         <div class="empty-state" *ngIf="filteredItems.length === 0">
-          <i class="icon search-x-icon"></i>
+          <i class="icon fas fa-magnifying-glass-minus"></i>
           <p>Aucun article trouvé</p>
         </div>
       </div>
@@ -98,11 +98,11 @@ DESCRIPTION: Prise de commande avec carte interactive
     <div class="cart-section">
       <div class="cart-header">
         <h2 class="cart-title">
-          <i class="icon shopping-cart-icon"></i>
+          <i class="icon fas fa-cart-shopping"></i>
           Panier ({{ getCartItemsCount() }})
         </h2>
         <button class="btn-clear-cart" (click)="clearCart()" *ngIf="cart.length > 0">
-          <i class="icon trash-icon"></i>
+          <i class="icon fas fa-trash"></i>
         </button>
       </div>
 
@@ -112,7 +112,7 @@ DESCRIPTION: Prise de commande avec carte interactive
           <div class="cart-item-header">
             <h4 class="cart-item-name">{{ item.menuItem.name }}</h4>
             <button class="btn-remove-item" (click)="removeFromCart(i)">
-              <i class="icon x-icon"></i>
+              <i class="icon fas fa-xmark"></i>
             </button>
           </div>
 
@@ -121,11 +121,11 @@ DESCRIPTION: Prise de commande avec carte interactive
 
             <div class="quantity-controls">
               <button class="btn-qty" (click)="updateQuantity(i, -1)">
-                <i class="icon minus-icon"></i>
+                <i class="icon fas fa-minus"></i>
               </button>
               <span class="quantity">{{ item.quantity }}</span>
               <button class="btn-qty" (click)="updateQuantity(i, 1)">
-                <i class="icon plus-icon"></i>
+                <i class="icon fas fa-plus"></i>
               </button>
             </div>
 
@@ -134,11 +134,11 @@ DESCRIPTION: Prise de commande avec carte interactive
 
           <!-- Notes -->
           <div class="cart-item-notes" *ngIf="item.notes">
-            <i class="icon message-circle-icon"></i>
+            <i class="icon fas fa-comment"></i>
             <span>{{ item.notes }}</span>
           </div>
           <button class="btn-add-note" (click)="addNoteToItem(i)" *ngIf="!item.notes">
-            <i class="icon edit-icon"></i>
+            <i class="icon fas fa-pen"></i>
             Ajouter une note
           </button>
         </div>
@@ -146,7 +146,7 @@ DESCRIPTION: Prise de commande avec carte interactive
 
       <!-- Empty Cart State -->
       <div class="cart-empty" *ngIf="cart.length === 0">
-        <i class="icon shopping-cart-icon"></i>
+        <i class="icon fas fa-cart-shopping"></i>
         <p>Le panier est vide</p>
         <span>Ajoutez des articles pour commencer</span>
       </div>
@@ -154,7 +154,7 @@ DESCRIPTION: Prise de commande avec carte interactive
       <!-- Wine Suggestion Alert -->
       <div class="wine-suggestion-alert" *ngIf="showWineSuggestions">
         <div class="alert-content">
-          <i class="icon wine-icon"></i>
+          <i class="icon fas fa-wine-glass"></i>
           <div>
             <strong>Suggestion de vins</strong>
             <p>Proposez un accord mets-vins à vos clients</p>
@@ -164,7 +164,7 @@ DESCRIPTION: Prise de commande avec carte interactive
           Voir les vins
         </button>
         <button class="btn-dismiss" (click)="showWineSuggestions = false">
-          <i class="icon x-icon"></i>
+          <i class="icon fas fa-xmark"></i>
         </button>
       </div>
 
@@ -186,7 +186,7 @@ DESCRIPTION: Prise de commande avec carte interactive
           class="btn-send-order"
           (click)="sendToKitchen()"
           [disabled]="cart.length === 0">
-          <i class="icon send-icon"></i>
+          <i class="icon fas fa-paper-plane"></i>
           Envoyer en Cuisine
         </button>
       </div>

@@ -5,11 +5,11 @@
     
     <!-- En-tête avec titre et actions -->
     <div class="section-header">
-      <h2 class="section-title-main">⚙️ Paramètres</h2>
+      <h2 class="section-title-main"><i class="fas fa-gear"></i> Paramètres</h2>
       
       <!-- Indicateur de modifications non sauvegardées -->
       <div class="unsaved-indicator" *ngIf="hasUnsavedChanges">
-        ⚠️ Modifications non sauvegardées
+        <i class="fas fa-triangle-exclamation"></i> Modifications non sauvegardées
       </div>
     </div>
 
@@ -23,35 +23,35 @@
         <button class="settings-tab"
                 [class.active]="activeTab === 'general'"
                 (click)="switchTab('general')">
-          🌐 Général
+          <i class="fas fa-globe"></i> Général
         </button>
         
         <!-- Onglet: Notifications -->
         <button class="settings-tab"
                 [class.active]="activeTab === 'notifications'"
                 (click)="switchTab('notifications')">
-          🔔 Notifications
+          <i class="fas fa-bell"></i> Notifications
         </button>
         
         <!-- Onglet: Affichage -->
         <button class="settings-tab"
                 [class.active]="activeTab === 'display'"
                 (click)="switchTab('display')">
-          🎨 Affichage
+          <i class="fas fa-palette"></i> Affichage
         </button>
         
         <!-- Onglet: Sécurité -->
         <button class="settings-tab"
                 [class.active]="activeTab === 'security'"
                 (click)="switchTab('security')">
-          🔒 Sécurité
+          <i class="fas fa-lock"></i> Sécurité
         </button>
         
         <!-- Onglet: Business -->
         <button class="settings-tab"
                 [class.active]="activeTab === 'business'"
                 (click)="switchTab('business')">
-          💼 Business
+          <i class="fas fa-briefcase"></i> Business
         </button>
       </div>
 
@@ -143,7 +143,7 @@
               <button class="btn btn-sm btn-secondary" 
                       (click)="testEmailNotification()"
                       [disabled]="!settings.notifications.email">
-                📧 Tester
+                <i class="fas fa-envelope"></i> Tester
               </button>
             </div>
           </div>
@@ -164,7 +164,7 @@
               <button class="btn btn-sm btn-secondary" 
                       (click)="testSMSNotification()"
                       [disabled]="!settings.notifications.sms">
-                📱 Tester
+                <i class="fas fa-mobile-screen"></i> Tester
               </button>
             </div>
           </div>
@@ -244,17 +244,17 @@
               <button class="theme-option"
                       [class.active]="settings.display.theme === 'light'"
                       (click)="changeTheme('light')">
-                ☀️ Clair
+                <i class="fas fa-sun"></i> Clair
               </button>
               <button class="theme-option"
                       [class.active]="settings.display.theme === 'dark'"
                       (click)="changeTheme('dark')">
-                🌙 Sombre
+                <i class="fas fa-moon"></i> Sombre
               </button>
               <button class="theme-option"
                       [class.active]="settings.display.theme === 'auto'"
                       (click)="changeTheme('auto')">
-                🔄 Auto
+                <i class="fas fa-arrow-rotate-right"></i> Auto
               </button>
             </div>
           </div>
@@ -425,7 +425,7 @@
               <span class="setting-description">Effectuer une sauvegarde immédiate</span>
             </div>
             <button class="btn btn-secondary" (click)="performManualBackup()">
-              💾 Sauvegarder maintenant
+              <i class="fas fa-floppy-disk"></i> Sauvegarder maintenant
             </button>
           </div>
         </div>
@@ -437,15 +437,15 @@
         <!-- Actions secondaires -->
         <div class="footer-left">
           <button class="btn btn-outline" (click)="resetToDefaults()">
-            🔄 Réinitialiser
+            <i class="fas fa-arrow-rotate-right"></i> Réinitialiser
           </button>
           
           <button class="btn btn-outline" (click)="importSettings()">
-            📥 Importer
+            <i class="fas fa-download"></i> Importer
           </button>
           
           <button class="btn btn-outline" (click)="exportSettings()">
-            📤 Exporter
+            <i class="fas fa-upload"></i> Exporter
           </button>
         </div>
 
@@ -460,7 +460,7 @@
           <button class="btn btn-primary" 
                   (click)="saveSettings()"
                   [disabled]="!hasUnsavedChanges">
-            💾 Enregistrer les modifications
+            <i class="fas fa-floppy-disk"></i> Enregistrer les modifications
           </button>
         </div>
       </div>

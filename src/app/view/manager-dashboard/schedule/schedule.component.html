@@ -13,7 +13,7 @@
         Semaine suivante ▶
       </button>
       <button class="btn-primary" (click)="addShift()">
-        ➕ Ajouter un shift
+        <i class="fas fa-plus"></i> Ajouter un shift
       </button>
     </div>
   </div>
@@ -40,18 +40,18 @@
             <span class="status-dot" [class]="'status-' + shift.status"></span>
           </div>
           <div class="shift-time">
-            <span class="time-icon">🕐</span>
+            <span class="time-icon"><i class="fas fa-clock"></i></span>
             <span class="time-text">{{ shift.startTime }} - {{ shift.endTime }}</span>
           </div>
           <div class="shift-actions">
-            <button class="action-icon" (click)="editShift(shift)">✏️</button>
-            <button class="action-icon" (click)="deleteShift(shift)">🗑️</button>
+            <button class="action-icon" (click)="editShift(shift)"><i class="fas fa-pen"></i></button>
+            <button class="action-icon" (click)="deleteShift(shift)"><i class="fas fa-trash"></i></button>
           </div>
         </div>
 
         <!-- Zone vide pour ajouter un shift -->
         <div class="add-shift-zone" (click)="addShiftForDay(day.date)">
-          <span class="add-icon">➕</span>
+          <span class="add-icon"><i class="fas fa-plus"></i></span>
           <span class="add-text">Ajouter</span>
         </div>
       </div>
@@ -86,7 +86,7 @@
   <div class="modal-content" (click)="$event.stopPropagation()">
     <div class="modal-header">
       <h2 class="modal-title">Ajouter un shift</h2>
-      <button class="btn-close" (click)="closeAddModal()">✕</button>
+      <button class="btn-close" (click)="closeAddModal()"><i class="fas fa-xmark"></i></button>
     </div>
 
     <div class="modal-body">
@@ -134,7 +134,7 @@
 
     <div class="modal-footer">
       <button class="btn-secondary" (click)="closeAddModal()">Annuler</button>
-      <button class="btn-primary" (click)="performAddShift()">➕ Ajouter</button>
+      <button class="btn-primary" (click)="performAddShift()"><i class="fas fa-plus"></i> Ajouter</button>
     </div>
   </div>
 </div>

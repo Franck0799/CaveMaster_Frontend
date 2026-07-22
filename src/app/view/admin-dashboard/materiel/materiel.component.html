@@ -14,28 +14,28 @@
   <!-- Statistiques rapides -->
   <div class="stats-grid">
     <div class="stat-card">
-      <div class="stat-icon">📦</div>
+      <div class="stat-icon"><i class="fas fa-box"></i></div>
       <div class="stat-content">
         <div class="stat-value">{{ materials.length }}</div>
         <div class="stat-label">Articles</div>
       </div>
     </div>
     <div class="stat-card">
-      <div class="stat-icon">💰</div>
+      <div class="stat-icon"><i class="fas fa-sack-dollar"></i></div>
       <div class="stat-content">
         <div class="stat-value">{{ getTotalValue() | number:'1.0-0' }} FCFA</div>
         <div class="stat-label">Valeur totale</div>
       </div>
     </div>
     <div class="stat-card">
-      <div class="stat-icon">📄</div>
+      <div class="stat-icon"><i class="fas fa-file-lines"></i></div>
       <div class="stat-content">
         <div class="stat-value">{{ invoices.length }}</div>
         <div class="stat-label">Factures</div>
       </div>
     </div>
     <div class="stat-card">
-      <div class="stat-icon">📊</div>
+      <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
       <div class="stat-content">
         <div class="stat-value">{{ categories.length }}</div>
         <div class="stat-label">Catégories</div>
@@ -66,7 +66,7 @@
         <input
           type="text"
           class="search-input"
-          placeholder="🔍 Rechercher un article..."
+          placeholder="Rechercher un article..."
           [(ngModel)]="searchTerm">
 
         <select class="filter-select" [(ngModel)]="selectedCategory">
@@ -215,7 +215,7 @@
       </div>
 
       <div class="empty-state" *ngIf="getFilteredMaterials().length === 0">
-        <div class="empty-icon">📦</div>
+        <div class="empty-icon"><i class="fas fa-box"></i></div>
         <p>Aucun matériel trouvé</p>
         <button class="btn btn-primary" (click)="showMaterialForm = true">
           Ajouter du matériel
@@ -313,7 +313,7 @@
       </div>
 
       <div class="empty-state" *ngIf="invoices.length === 0">
-        <div class="empty-icon">📄</div>
+        <div class="empty-icon"><i class="fas fa-file-lines"></i></div>
         <p>Aucune facture enregistrée</p>
         <button class="btn btn-primary" (click)="showInvoiceForm = true">
           Ajouter une facture

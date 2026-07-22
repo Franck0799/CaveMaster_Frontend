@@ -9,7 +9,7 @@
         <p class="page-subtitle">{{ caveAssigned }} - {{ currentDate | date:'EEEE d MMMM y':'':'fr' }}</p>
       </div>
       <button class="btn-refresh" (click)="refreshData()">
-        <span class="icon">🔄</span>
+        <span class="icon"><i class="fas fa-arrow-rotate-right"></i></span>
         Actualiser
       </button>
     </div>
@@ -20,7 +20,7 @@
 
     <!-- Ventes du jour -->
     <div class="stat-card primary">
-      <div class="stat-icon">💰</div>
+      <div class="stat-icon"><i class="fas fa-sack-dollar"></i></div>
       <div class="stat-content">
         <div class="stat-label">Ventes du jour</div>
         <div class="stat-value">{{ stats.todaySales | number:'1.2-2' }} €</div>
@@ -33,7 +33,7 @@
 
     <!-- Commandes en cours -->
     <div class="stat-card info">
-      <div class="stat-icon">🛒</div>
+      <div class="stat-icon"><i class="fas fa-cart-shopping"></i></div>
       <div class="stat-content">
         <div class="stat-label">Commandes en cours</div>
         <div class="stat-value">{{ stats.ordersInProgress }}</div>
@@ -43,7 +43,7 @@
 
     <!-- Équipe présente -->
     <div class="stat-card success">
-      <div class="stat-icon">👥</div>
+      <div class="stat-icon"><i class="fas fa-users"></i></div>
       <div class="stat-content">
         <div class="stat-label">Équipe présente</div>
         <div class="stat-value">{{ stats.teamPresent }}/{{ stats.totalTeam }}</div>
@@ -53,7 +53,7 @@
 
     <!-- Alertes stock -->
     <div class="stat-card warning">
-      <div class="stat-icon">⚠️</div>
+      <div class="stat-icon"><i class="fas fa-triangle-exclamation"></i></div>
       <div class="stat-content">
         <div class="stat-label">Alertes stock</div>
         <div class="stat-value">{{ stats.stockAlerts }}</div>
@@ -63,7 +63,7 @@
 
     <!-- Ticket moyen -->
     <div class="stat-card secondary">
-      <div class="stat-icon">🧾</div>
+      <div class="stat-icon"><i class="fas fa-receipt"></i></div>
       <div class="stat-content">
         <div class="stat-label">Ticket moyen</div>
         <div class="stat-value">{{ stats.averageTicket | number:'1.2-2' }} €</div>
@@ -76,7 +76,7 @@
 
     <!-- Satisfaction client -->
     <div class="stat-card accent">
-      <div class="stat-icon">⭐</div>
+      <div class="stat-icon"><i class="fas fa-star"></i></div>
       <div class="stat-content">
         <div class="stat-label">Satisfaction</div>
         <div class="stat-value">{{ stats.customerSatisfaction }}/5</div>
@@ -95,7 +95,7 @@
       <div class="card">
         <div class="card-header">
           <h3 class="card-title">
-            <span class="title-icon">🛒</span>
+            <span class="title-icon"><i class="fas fa-cart-shopping"></i></span>
             Commandes récentes
           </h3>
           <button class="btn-link" (click)="viewAllOrders()">
@@ -131,7 +131,7 @@
       <div class="card">
         <div class="card-header">
           <h3 class="card-title">
-            <span class="title-icon">📊</span>
+            <span class="title-icon"><i class="fas fa-chart-line"></i></span>
             Ventes de la semaine
           </h3>
         </div>
@@ -157,7 +157,7 @@
       <div class="card">
         <div class="card-header">
           <h3 class="card-title">
-            <span class="title-icon">👥</span>
+            <span class="title-icon"><i class="fas fa-users"></i></span>
             Équipe active
           </h3>
           <button class="btn-link" (click)="viewTeam()">
@@ -190,7 +190,7 @@
       <div class="card alert-card">
         <div class="card-header">
           <h3 class="card-title">
-            <span class="title-icon">⚠️</span>
+            <span class="title-icon"><i class="fas fa-triangle-exclamation"></i></span>
             Alertes de stock
           </h3>
           <button class="btn-link" (click)="viewAllStock()">
@@ -200,7 +200,7 @@
         <div class="card-body">
           <div class="alerts-list">
             <div class="alert-item" *ngFor="let alert of stockAlerts">
-              <div class="alert-icon">📦</div>
+              <div class="alert-icon"><i class="fas fa-box"></i></div>
               <div class="alert-content">
                 <div class="alert-product">{{ alert.productName }}</div>
                 <div class="alert-details">
@@ -220,26 +220,26 @@
       <div class="card">
         <div class="card-header">
           <h3 class="card-title">
-            <span class="title-icon">⚡</span>
+            <span class="title-icon"><i class="fas fa-bolt"></i></span>
             Actions rapides
           </h3>
         </div>
         <div class="card-body">
           <div class="quick-actions">
             <button class="action-btn" [routerLink]="['/manager', 'stockrequest']">
-              <span class="action-icon">📦</span>
+              <span class="action-icon"><i class="fas fa-box"></i></span>
               <span class="action-label">Commander du stock</span>
             </button>
             <button class="action-btn" [routerLink]="['/manager', 'dailyreport']">
-              <span class="action-icon">📝</span>
+              <span class="action-icon"><i class="fas fa-file-lines"></i></span>
               <span class="action-label">Rapport journalier</span>
             </button>
             <button class="action-btn" [routerLink]="['/manager', 'incidents']">
-              <span class="action-icon">⚠️</span>
+              <span class="action-icon"><i class="fas fa-triangle-exclamation"></i></span>
               <span class="action-label">Signaler un incident</span>
             </button>
             <button class="action-btn" [routerLink]="['/manager', 'cashregister']">
-              <span class="action-icon">💵</span>
+              <span class="action-icon"><i class="fas fa-money-bill-wave"></i></span>
               <span class="action-label">Clôture de caisse</span>
             </button>
           </div>

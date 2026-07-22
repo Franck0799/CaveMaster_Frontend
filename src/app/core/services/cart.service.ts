@@ -1,14 +1,19 @@
 // ==========================================
 // FICHIER: src/app/services/cart.service.ts
-// VERSION COMPLÈTE ET AMÉLIORÉE
+// Panier synchronisé avec le backend (/api/Cart), avec cache local
+// localStorage pour un affichage instantané pendant le chargement.
 // ==========================================
 
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
+import { ApiResponseData } from '../models/ApiResponseData';
+import { DrinksService } from './catalogue/drinks.service';
 
 export interface CartItem {
-  id: number;
+  id: string; // Correspond au drinkId réel côté backend.
   name: string;
   price: number;
   quantity: number;
@@ -18,11 +23,19 @@ export interface CartItem {
   year?: number;
 }
 
+interface ApiCartItem {
+  id: string;
+  userId: string;
+  drinkId: string;
+  quantity: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
   private readonly STORAGE_KEY = 'vinotheque_cart';
+  private readonly baseUrl = `${environment.apiUrl}/api/Cart`;
   private cartItems = new BehaviorSubject<CartItem[]>([]);
 
   // Observables publics
@@ -34,8 +47,44 @@ export class CartService {
     map(items => items.reduce((sum, item) => sum + (item.price * item.quantity), 0))
   );
 
-  constructor() {
+  constructor(private http: HttpClient, private drinksService: DrinksService) {
     this.loadCart();
+    this.refreshFromServer();
+  }
+
+  /** Recharge le panier depuis le backend et le fusionne avec les infos produit (nom/prix/image). */
+  refreshFromServer(): void {
+    this.http.get<ApiResponseData<ApiCartItem[]>>(this.baseUrl).subscribe({
+      next: (res) => {
+        const apiItems = res.data ?? [];
+        if (apiItems.length === 0) {
+          this.cartItems.next([]);
+          this.saveCart();
+          return;
+        }
+        this.drinksService.getAll().subscribe(drinks => {
+          const drinkById = new Map(drinks.map(d => [d.id, d]));
+          const items: CartItem[] = apiItems
+            .filter(ci => drinkById.has(ci.drinkId))
+            .map(ci => {
+              const d = drinkById.get(ci.drinkId)!;
+              return {
+                id: ci.drinkId,
+                name: d.name,
+                price: d.sellingPrice,
+                quantity: ci.quantity,
+                image: d.image || d.icon || '🍷',
+                maxStock: 999
+              };
+            });
+          this.cartItems.next(items);
+          this.saveCart();
+        });
+      },
+      error: (error) => {
+        console.error('Erreur lors du chargement du panier depuis le backend :', error);
+      }
+    });
   }
 
   private loadCart(): void {
@@ -65,33 +114,40 @@ export class CartService {
   addToCart(item: Omit<CartItem, 'quantity'>): boolean {
     const items = [...this.cartItems.value];
     const existingIndex = items.findIndex(i => i.id === item.id);
+    const newQuantity = existingIndex !== -1 ? items[existingIndex].quantity + 1 : 1;
 
+    if (existingIndex !== -1 && items[existingIndex].quantity >= item.maxStock) {
+      console.warn('Stock maximum atteint pour cet article');
+      return false;
+    }
+
+    // Mise à jour optimiste immédiate de l'UI, puis persistance côté backend.
     if (existingIndex !== -1) {
-      // Vérifier le stock avant d'ajouter
-      if (items[existingIndex].quantity < item.maxStock) {
-        items[existingIndex].quantity++;
-        this.cartItems.next(items);
-        this.saveCart();
-        return true;
-      } else {
-        console.warn('Stock maximum atteint pour cet article');
-        return false;
-      }
+      items[existingIndex].quantity = newQuantity;
     } else {
       items.push({ ...item, quantity: 1 });
-      this.cartItems.next(items);
-      this.saveCart();
-      return true;
     }
+    this.cartItems.next(items);
+    this.saveCart();
+
+    this.http.post<ApiResponseData<unknown>>(`${this.baseUrl}/items?drinkId=${item.id}&quantity=1`, {}).subscribe({
+      error: (error) => console.error('Erreur lors de l\'ajout au panier (backend) :', error)
+    });
+
+    return true;
   }
 
-  removeFromCart(id: number): void {
+  removeFromCart(id: string): void {
     const items = this.cartItems.value.filter(item => item.id !== id);
     this.cartItems.next(items);
     this.saveCart();
+
+    this.http.delete<ApiResponseData<unknown>>(`${this.baseUrl}/items/${id}`).subscribe({
+      error: (error) => console.error('Erreur lors de la suppression de l\'article (backend) :', error)
+    });
   }
 
-  updateQuantity(id: number, quantity: number): boolean {
+  updateQuantity(id: string, quantity: number): boolean {
     const items = [...this.cartItems.value];
     const itemIndex = items.findIndex(i => i.id === id);
 
@@ -112,13 +168,18 @@ export class CartService {
       items[itemIndex].quantity = quantity;
       this.cartItems.next(items);
       this.saveCart();
+
+      this.http.put<ApiResponseData<unknown>>(`${this.baseUrl}/items/${id}?quantity=${quantity}`, {}).subscribe({
+        error: (error) => console.error('Erreur lors de la mise à jour de la quantité (backend) :', error)
+      });
+
       return true;
     }
 
     return false;
   }
 
-  increaseQuantity(id: number): boolean {
+  increaseQuantity(id: string): boolean {
     const item = this.cartItems.value.find(i => i.id === id);
     if (item) {
       return this.updateQuantity(id, item.quantity + 1);
@@ -126,7 +187,7 @@ export class CartService {
     return false;
   }
 
-  decreaseQuantity(id: number): boolean {
+  decreaseQuantity(id: string): boolean {
     const item = this.cartItems.value.find(i => i.id === id);
     if (item) {
       return this.updateQuantity(id, item.quantity - 1);
@@ -134,11 +195,11 @@ export class CartService {
     return false;
   }
 
-  isInCart(id: number): boolean {
+  isInCart(id: string): boolean {
     return this.cartItems.value.some(item => item.id === id);
   }
 
-  getItemQuantity(id: number): number {
+  getItemQuantity(id: string): number {
     const item = this.cartItems.value.find(i => i.id === id);
     return item ? item.quantity : 0;
   }
@@ -146,6 +207,10 @@ export class CartService {
   clearCart(): void {
     this.cartItems.next([]);
     this.saveCart();
+
+    this.http.delete<ApiResponseData<unknown>>(this.baseUrl).subscribe({
+      error: (error) => console.error('Erreur lors du vidage du panier (backend) :', error)
+    });
   }
 
   getTotal(): number {

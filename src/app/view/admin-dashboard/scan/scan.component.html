@@ -5,7 +5,7 @@
 
     <!-- En-tête de la page -->
     <div class="section-header">
-      <h2 class="section-title-main">📷 Scanner un Produit</h2>
+      <h2 class="section-title-main"><i class="fas fa-camera"></i> Scanner un Produit</h2>
     </div>
 
     <!-- Conteneur principal du scan -->
@@ -18,7 +18,7 @@
         <div class="scan-frame" [class.scanning]="isScanActive">
 
           <!-- Icône de caméra -->
-          <div class="scan-icon">📷</div>
+          <div class="scan-icon"><i class="fas fa-camera"></i></div>
 
           <!-- Texte d'instruction dynamique -->
           <div class="scan-text">
@@ -34,7 +34,7 @@
 
             <!-- Message après le scan -->
             <ng-container *ngIf="scanResult && !isScanActive">
-              ✓ Scan terminé
+              <i class="fas fa-check"></i> Scan terminé
             </ng-container>
           </div>
 
@@ -49,7 +49,7 @@
           <button class="btn btn-primary"
                   *ngIf="!isScanActive && !scanResult"
                   (click)="startScan()">
-            🎬 Démarrer le scan
+            <i class="fas fa-clapperboard"></i> Démarrer le scan
           </button>
 
           <!-- Bouton pour arrêter le scan en cours -->
@@ -63,7 +63,7 @@
           <button class="btn btn-secondary"
                   *ngIf="scanResult"
                   (click)="resetScan()">
-            🔄 Nouveau scan
+            <i class="fas fa-arrow-rotate-right"></i> Nouveau scan
           </button>
         </div>
       </div>
@@ -73,7 +73,7 @@
 
         <!-- En-tête du résultat -->
         <div class="result-header">
-          <h3>✓ Produit détecté</h3>
+          <h3><i class="fas fa-check"></i> Produit détecté</h3>
         </div>
 
         <!-- Contenu du résultat (informations formatées en JSON) -->
@@ -86,17 +86,17 @@
 
           <!-- Bouton: Ajouter au stock -->
           <button class="btn btn-primary" (click)="addToStock()">
-            ➕ Ajouter au stock
+            <i class="fas fa-plus"></i> Ajouter au stock
           </button>
 
           <!-- Bouton: Modifier les infos -->
           <button class="btn btn-secondary" (click)="editProductInfo()">
-            📝 Modifier les infos
+            <i class="fas fa-file-lines"></i> Modifier les infos
           </button>
 
           <!-- Bouton: Voir l'historique -->
           <button class="btn btn-info" (click)="viewProductHistory()">
-            📊 Voir l'historique
+            <i class="fas fa-chart-line"></i> Voir l'historique
           </button>
         </div>
       </div>
@@ -104,7 +104,7 @@
 
     <!-- ===== Instructions d'utilisation ===== -->
     <div class="scan-instructions">
-      <h3>💡 Instructions</h3>
+      <h3><i class="fas fa-lightbulb"></i> Instructions</h3>
 
       <ul>
         <!-- Liste des bonnes pratiques pour scanner -->
@@ -130,8 +130,8 @@
 
     <!-- En-tête du modal -->
     <div class="modal-header">
-      <h2>📝 Modifier les informations</h2>
-      <button class="modal-close" (click)="closeEditModal()">✕</button>
+      <h2><i class="fas fa-file-lines"></i> Modifier les informations</h2>
+      <button class="modal-close" (click)="closeEditModal()"><i class="fas fa-xmark"></i></button>
     </div>
 
     <!-- Corps du modal -->
@@ -221,7 +221,7 @@
         class="btn btn-primary"
         [disabled]="editForm.invalid"
         (click)="saveProductEdits()">
-        💾 Enregistrer
+        <i class="fas fa-floppy-disk"></i> Enregistrer
       </button>
     </div>
   </div>
@@ -233,8 +233,8 @@
 
     <!-- En-tête du modal -->
     <div class="modal-header">
-      <h2>➕ Ajouter au stock</h2>
-      <button class="modal-close" (click)="closeStockModal()">✕</button>
+      <h2><i class="fas fa-plus"></i> Ajouter au stock</h2>
+      <button class="modal-close" (click)="closeStockModal()"><i class="fas fa-xmark"></i></button>
     </div>
 
     <!-- Corps du modal -->
@@ -295,7 +295,7 @@
         class="btn btn-primary"
         [disabled]="stockForm.invalid"
         (click)="confirmAddToStock()">
-        ✓ Confirmer
+        <i class="fas fa-check"></i> Confirmer
       </button>
     </div>
   </div>
@@ -307,8 +307,8 @@
 
     <!-- En-tête du modal -->
     <div class="modal-header">
-      <h2>📊 Historique des scans</h2>
-      <button class="modal-close" (click)="closeHistoryModal()">✕</button>
+      <h2><i class="fas fa-chart-line"></i> Historique des scans</h2>
+      <button class="modal-close" (click)="closeHistoryModal()"><i class="fas fa-xmark"></i></button>
     </div>
 
     <!-- Corps du modal -->
@@ -316,7 +316,7 @@
 
       <!-- Aucun historique -->
       <div *ngIf="scanHistory.length === 0" class="empty-state">
-        <div class="empty-icon">📭</div>
+        <div class="empty-icon"><i class="fas fa-envelope-open"></i></div>
         <p>Aucun scan dans l'historique</p>
       </div>
 
@@ -326,7 +326,7 @@
         <!-- Bouton pour effacer l'historique -->
         <div class="history-actions">
           <button class="btn btn-danger btn-sm" (click)="clearHistory()">
-            🗑️ Effacer l'historique
+            <i class="fas fa-trash"></i> Effacer l'historique
           </button>
           <span class="history-count">{{ scanHistory.length }} scan(s)</span>
         </div>

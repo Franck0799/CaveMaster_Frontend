@@ -46,13 +46,13 @@ export class WineSuggestionsComponent implements OnInit {
   searchQuery = '';
 
   dishCategories: DishCategory[] = [
-    { id: 'red-meat', name: 'Viandes Rouges', icon: 'meat', suggestedTypes: ['red'] },
-    { id: 'white-meat', name: 'Viandes Blanches', icon: 'chicken', suggestedTypes: ['white', 'rosé'] },
+    { id: 'red-meat', name: 'Viandes Rouges', icon: 'drumstick-bite', suggestedTypes: ['red'] },
+    { id: 'white-meat', name: 'Viandes Blanches', icon: 'drumstick-bite', suggestedTypes: ['white', 'rosé'] },
     { id: 'fish', name: 'Poissons', icon: 'fish', suggestedTypes: ['white'] },
-    { id: 'seafood', name: 'Fruits de Mer', icon: 'shell', suggestedTypes: ['white', 'sparkling'] },
-    { id: 'pasta', name: 'Pâtes', icon: 'pasta', suggestedTypes: ['red', 'white'] },
+    { id: 'seafood', name: 'Fruits de Mer', icon: 'shrimp', suggestedTypes: ['white', 'sparkling'] },
+    { id: 'pasta', name: 'Pâtes', icon: 'bowl-food', suggestedTypes: ['red', 'white'] },
     { id: 'cheese', name: 'Fromages', icon: 'cheese', suggestedTypes: ['red', 'white'] },
-    { id: 'dessert', name: 'Desserts', icon: 'cake', suggestedTypes: ['sparkling', 'white'] }
+    { id: 'dessert', name: 'Desserts', icon: 'cake-candles', suggestedTypes: ['sparkling', 'white'] }
   ];
 
   wines: Wine[] = [
@@ -242,12 +242,12 @@ export class WineSuggestionsComponent implements OnInit {
 
   getWineTypeIcon(type: string): string {
     const icons: any = {
-      'red': '🍷',
-      'white': '🥂',
-      'rosé': '🌸',
-      'sparkling': '🍾'
+      'red': 'wine-glass',
+      'white': 'wine-glass',
+      'rosé': 'wine-glass',
+      'sparkling': 'wine-bottle'
     };
-    return icons[type] || '🍷';
+    return icons[type] || 'wine-glass';
   }
 
   getStockStatus(stock: number): string {

@@ -5,7 +5,7 @@
 
   <!-- En-tête avec titre -->
   <div class="header-section">
-    <h2>👥 Liste des Utilisateurs</h2>
+    <h2><i class="fas fa-users"></i> Liste des Utilisateurs</h2>
   </div>
 
   <!-- Barre de recherche -->
@@ -13,7 +13,7 @@
     <div class="search-bar">
       <input
         type="text"
-        placeholder="🔍 Rechercher par nom, prénom, email..."
+        placeholder="Rechercher par nom, prénom, email..."
         (input)="onSearch($any($event.target).value)"
         class="search-input">
     </div>
@@ -39,9 +39,9 @@
     <select class="filter-select"
             (change)="onFilterChange('status', $any($event.target).value)">
       <option value="">Tous les statuts</option>
-      <option value="active">🟢 Actif</option>
-      <option value="inactive">🔴 Inactif</option>
-      <option value="on-leave">🟡 En congé</option>
+      <option value="active"><i class="fas fa-circle"></i> Actif</option>
+      <option value="inactive"><i class="fas fa-circle"></i> Inactif</option>
+      <option value="on-leave"><i class="fas fa-circle"></i> En congé</option>
     </select>
 
     <!-- Bouton réinitialiser les filtres -->
@@ -53,7 +53,7 @@
   <!-- Statistiques globales (affichées si résultats) -->
   <div class="stats-summary" *ngIf="filteredUsers.length > 0">
     <div class="stat-item">
-      <span class="stat-label">💰 Ventes totales:</span>
+      <span class="stat-label"><i class="fas fa-sack-dollar"></i> Ventes totales:</span>
       <span class="stat-value">{{ formatCurrency(getStatistics().totalSales) }}</span>
     </div>
     <div class="stat-item">
@@ -61,7 +61,7 @@
       <span class="stat-value">{{ getStatistics().totalHours }}h</span>
     </div>
     <div class="stat-item">
-      <span class="stat-label">⭐ Satisfaction moyenne:</span>
+      <span class="stat-label"><i class="fas fa-star"></i> Satisfaction moyenne:</span>
       <span class="stat-value">{{ getStatistics().averageSatisfaction }}</span>
     </div>
   </div>
@@ -74,7 +74,7 @@
         <tr>
           <!-- Colonne Prénom (triable) -->
           <th (click)="changeSortField('firstName')" class="sortable">
-            👤 Prénom
+            <i class="fas fa-user"></i> Prénom
             <span *ngIf="sortField === 'firstName'" class="sort-indicator">
               {{ sortDirection === 'asc' ? '▲' : '▼' }}
             </span>
@@ -87,7 +87,7 @@
             </span>
           </th>
           <!-- Colonne Email -->
-          <th>📧 Email</th>
+          <th><i class="fas fa-envelope"></i> Email</th>
           <!-- Colonne Rôle (triable) -->
           <th (click)="changeSortField('role')" class="sortable">
             Rôle
@@ -96,15 +96,15 @@
             </span>
           </th>
           <!-- Colonne Cave -->
-          <th>🏢 Cave</th>
+          <th><i class="fas fa-building"></i> Cave</th>
           <!-- Colonne Statut -->
-          <th>📊 Statut</th>
+          <th><i class="fas fa-chart-line"></i> Statut</th>
           <!-- Colonne Ventes -->
-          <th class="text-right">💰 Ventes</th>
+          <th class="text-right"><i class="fas fa-sack-dollar"></i> Ventes</th>
           <!-- Colonne Heures -->
           <th class="text-right">⏱️ Heures</th>
           <!-- Colonne Actions -->
-          <th>⚙️ Actions</th>
+          <th><i class="fas fa-gear"></i> Actions</th>
         </tr>
       </thead>
 
@@ -140,7 +140,7 @@
           <!-- Colonne Actions -->
           <td>
             <button (click)="viewUserDetails(user)" class="btn-icon" title="Voir détails">
-              👁️
+              <i class="fas fa-eye"></i>
             </button>
           </td>
         </tr>
@@ -148,7 +148,7 @@
         <!-- Message si aucun résultat -->
         <tr *ngIf="filteredUsers.length === 0">
           <td colspan="9" class="empty-message">
-            📭 Aucun utilisateur trouvé
+            <i class="fas fa-envelope-open"></i> Aucun utilisateur trouvé
           </td>
         </tr>
       </tbody>
@@ -195,7 +195,7 @@
     <div class="modal-content" (click)="$event.stopPropagation()">
       <!-- En-tête du modal -->
       <div class="modal-header">
-        <h3>👤 Détails de {{ selectedUser.firstName }} {{ selectedUser.lastName }}</h3>
+        <h3><i class="fas fa-user"></i> Détails de {{ selectedUser.firstName }} {{ selectedUser.lastName }}</h3>
         <!-- Bouton fermer -->
         <button (click)="closeDetailModal()" class="close-btn">×</button>
       </div>
@@ -206,32 +206,32 @@
         <div class="user-details">
           <!-- Ligne Email -->
           <div class="detail-row">
-            <span class="label">📧 Email:</span>
+            <span class="label"><i class="fas fa-envelope"></i> Email:</span>
             <span>{{ selectedUser.email }}</span>
           </div>
           <!-- Ligne Téléphone -->
           <div class="detail-row">
-            <span class="label">📱 Téléphone:</span>
+            <span class="label"><i class="fas fa-mobile-screen"></i> Téléphone:</span>
             <span>{{ selectedUser.phone }}</span>
           </div>
           <!-- Ligne Rôle -->
           <div class="detail-row">
-            <span class="label">👔 Rôle:</span>
+            <span class="label"><i class="fas fa-user-tie"></i> Rôle:</span>
             <span>{{ selectedUser.role }}</span>
           </div>
           <!-- Ligne Cave -->
           <div class="detail-row">
-            <span class="label">🏢 Cave:</span>
+            <span class="label"><i class="fas fa-building"></i> Cave:</span>
             <span>{{ selectedUser.cave }}</span>
           </div>
           <!-- Ligne Date d'embauche -->
           <div class="detail-row">
-            <span class="label">📅 Date d'embauche:</span>
+            <span class="label"><i class="fas fa-calendar-days"></i> Date d'embauche:</span>
             <span>{{ selectedUser.joinDate }}</span>
           </div>
           <!-- Ligne Ventes -->
           <div class="detail-row">
-            <span class="label">💰 Ventes totales:</span>
+            <span class="label"><i class="fas fa-sack-dollar"></i> Ventes totales:</span>
             <span>{{ formatCurrency(selectedUser.performance.sales) }}</span>
           </div>
           <!-- Ligne Heures -->
@@ -241,7 +241,7 @@
           </div>
           <!-- Ligne Satisfaction -->
           <div class="detail-row">
-            <span class="label">⭐ Satisfaction:</span>
+            <span class="label"><i class="fas fa-star"></i> Satisfaction:</span>
             <span>{{ selectedUser.performance.satisfaction }}</span>
           </div>
         </div>

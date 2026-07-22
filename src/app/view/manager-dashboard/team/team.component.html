@@ -8,13 +8,13 @@
     </div>
     <div class="header-actions">
       <button class="btn-secondary" [routerLink]="['/manager', 'schedule']">
-        📅 Planning
+        <i class="fas fa-calendar-days"></i> Planning
       </button>
       <button class="btn-secondary" [routerLink]="['/manager', 'presence']">
-        📋 Présences
+        <i class="fas fa-clipboard-list"></i> Présences
       </button>
       <button class="btn-primary" (click)="addMember()">
-        ➕ Ajouter
+        <i class="fas fa-plus"></i> Ajouter
       </button>
     </div>
   </div>
@@ -30,7 +30,7 @@
     <button class="view-btn"
             [class.active]="viewMode === 'list'"
             (click)="viewMode = 'list'">
-      <span class="icon">☰</span>
+      <span class="icon"><i class="fas fa-bars"></i></span>
       Liste
     </button>
   </div>
@@ -65,11 +65,11 @@
 
         <div class="member-contact">
           <div class="contact-item">
-            <span class="icon">📞</span>
+            <span class="icon"><i class="fas fa-phone"></i></span>
             <span class="text">{{ member.phone }}</span>
           </div>
           <div class="contact-item">
-            <span class="icon">📧</span>
+            <span class="icon"><i class="fas fa-envelope"></i></span>
             <span class="text">{{ member.email }}</span>
           </div>
         </div>
@@ -77,10 +77,10 @@
 
       <div class="card-footer">
         <button class="action-btn" (click)="viewMember(member)">
-          👁️ Voir
+          <i class="fas fa-eye"></i> Voir
         </button>
         <button class="action-btn" (click)="contactMember(member)">
-          💬 Contacter
+          <i class="fas fa-comment"></i> Contacter
         </button>
       </div>
     </div>
@@ -121,13 +121,13 @@
       </div>
 
       <div class="col-rating">
-        <span class="rating">{{ member.rating }} ⭐</span>
+        <span class="rating">{{ member.rating }} <i class="fas fa-star"></i></span>
       </div>
 
       <div class="col-actions">
-        <button class="icon-btn" (click)="viewMember(member)" title="Voir">👁️</button>
-        <button class="icon-btn" (click)="editMember(member)" title="Modifier">✏️</button>
-        <button class="icon-btn" (click)="contactMember(member)" title="Contacter">💬</button>
+        <button class="icon-btn" (click)="viewMember(member)" title="Voir"><i class="fas fa-eye"></i></button>
+        <button class="icon-btn" (click)="editMember(member)" title="Modifier"><i class="fas fa-pen"></i></button>
+        <button class="icon-btn" (click)="contactMember(member)" title="Contacter"><i class="fas fa-comment"></i></button>
       </div>
     </div>
   </div>
@@ -137,7 +137,7 @@
   <div class="modal-content" (click)="$event.stopPropagation()">
     <div class="modal-header">
       <h2 class="modal-title">Ajouter un membre</h2>
-      <button class="btn-close" (click)="closeAddModal()">✕</button>
+      <button class="btn-close" (click)="closeAddModal()"><i class="fas fa-xmark"></i></button>
     </div>
 
     <div class="modal-body">
@@ -191,7 +191,7 @@
 
     <div class="modal-footer">
       <button class="btn-secondary" (click)="closeAddModal()">Annuler</button>
-      <button class="btn-primary" (click)="performAddMember()">➕ Ajouter</button>
+      <button class="btn-primary" (click)="performAddMember()"><i class="fas fa-plus"></i> Ajouter</button>
     </div>
   </div>
 </div>
@@ -200,7 +200,7 @@
   <div class="modal-content" (click)="$event.stopPropagation()">
     <div class="modal-header">
       <h2 class="modal-title">Détails du membre</h2>
-      <button class="btn-close" (click)="closeDetailsModal()">✕</button>
+      <button class="btn-close" (click)="closeDetailsModal()"><i class="fas fa-xmark"></i></button>
     </div>
 
     <div class="modal-body" *ngIf="selectedMember">
@@ -230,7 +230,7 @@
         </div>
         <div class="detail-item">
           <span class="detail-label">Note moyenne</span>
-          <span class="detail-value">{{ selectedMember.rating }} ⭐</span>
+          <span class="detail-value">{{ selectedMember.rating }} <i class="fas fa-star"></i></span>
         </div>
       </div>
 
@@ -250,8 +250,8 @@
     </div>
 
    <!-- <div class="modal-footer">
-      <button class="btn-secondary" (click)="contactMember(selectedMember)">💬 Contacter</button>
-      <button class="btn-primary" (click)="editMember(selectedMember); closeDetailsModal()">✏️ Modifier</button>
+      <button class="btn-secondary" (click)="contactMember(selectedMember)"><i class="fas fa-comment"></i> Contacter</button>
+      <button class="btn-primary" (click)="editMember(selectedMember); closeDetailsModal()"><i class="fas fa-pen"></i> Modifier</button>
     </div> -->
   </div>
 </div>

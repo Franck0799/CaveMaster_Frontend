@@ -16,24 +16,24 @@
 
   <!-- Top performers -->
   <div class="top-performers">
-    <h3 class="section-title">🏆 Top Performers</h3>
+    <h3 class="section-title"><i class="fas fa-trophy"></i> Top Performers</h3>
     <div class="performers-grid">
       <div class="performer-card podium-1" *ngIf="topPerformers[0]">
-        <div class="rank-badge gold">🥇</div>
+        <div class="rank-badge gold"></div>
         <div class="performer-avatar">{{ topPerformers[0].avatar }}</div>
         <div class="performer-name">{{ topPerformers[0].name }}</div>
         <div class="performer-sales">{{ topPerformers[0].totalSales | number:'1.0-0' }} €</div>
       </div>
 
       <div class="performer-card podium-2" *ngIf="topPerformers[1]">
-        <div class="rank-badge silver">🥈</div>
+        <div class="rank-badge silver"></div>
         <div class="performer-avatar">{{ topPerformers[1].avatar }}</div>
         <div class="performer-name">{{ topPerformers[1].name }}</div>
         <div class="performer-sales">{{ topPerformers[1].totalSales | number:'1.0-0' }} €</div>
       </div>
 
       <div class="performer-card podium-3" *ngIf="topPerformers[2]">
-        <div class="rank-badge bronze">🥉</div>
+        <div class="rank-badge bronze"></div>
         <div class="performer-avatar">{{ topPerformers[2].avatar }}</div>
         <div class="performer-name">{{ topPerformers[2].name }}</div>
         <div class="performer-sales">{{ topPerformers[2].totalSales | number:'1.0-0' }} €</div>
@@ -60,7 +60,7 @@
       <div class="perf-body">
         <div class="metrics-grid">
           <div class="metric">
-            <div class="metric-icon">💰</div>
+            <div class="metric-icon"><i class="fas fa-sack-dollar"></i></div>
             <div class="metric-content">
               <div class="metric-label">Ventes</div>
               <div class="metric-value">{{ employee.totalSales | number:'1.0-0' }} €</div>
@@ -68,7 +68,7 @@
           </div>
 
           <div class="metric">
-            <div class="metric-icon">🛒</div>
+            <div class="metric-icon"><i class="fas fa-cart-shopping"></i></div>
             <div class="metric-content">
               <div class="metric-label">Commandes</div>
               <div class="metric-value">{{ employee.ordersCompleted }}</div>
@@ -76,7 +76,7 @@
           </div>
 
           <div class="metric">
-            <div class="metric-icon">🧾</div>
+            <div class="metric-icon"><i class="fas fa-receipt"></i></div>
             <div class="metric-content">
               <div class="metric-label">Ticket moyen</div>
               <div class="metric-value">{{ employee.averageTicket | number:'1.2-2' }} €</div>
@@ -84,7 +84,7 @@
           </div>
 
           <div class="metric">
-            <div class="metric-icon">⭐</div>
+            <div class="metric-icon"><i class="fas fa-star"></i></div>
             <div class="metric-content">
               <div class="metric-label">Avis clients</div>
               <div class="metric-value">{{ employee.customerReviews }}</div>
@@ -118,7 +118,7 @@
 
       <div class="perf-footer">
         <button class="btn-view" (click)="viewDetails(employee)">
-          📊 Voir détails
+          <i class="fas fa-chart-line"></i> Voir détails
         </button>
       </div>
     </div>

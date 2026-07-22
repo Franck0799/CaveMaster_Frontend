@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     {
       label: 'Ventes du jour',
       value: '1 245 €',
-      icon: 'trending-up',
+      icon: 'arrow-trend-up',
       color: 'success',
       change: '+12%',
       trend: 'up'
@@ -68,7 +68,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     {
       label: 'Tables servies',
       value: 18,
-      icon: 'grid',
+      icon: 'table-cells',
       color: 'info',
       change: '+3',
       trend: 'up'
@@ -76,7 +76,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     {
       label: 'Commandes',
       value: 34,
-      icon: 'clipboard',
+      icon: 'clipboard-list',
       color: 'warning'
     },
     {
@@ -93,7 +93,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       current: 1245,
       target: 1500,
       unit: '€',
-      icon: 'target',
+      icon: 'bullseye',
       color: 'primary'
     },
     {
@@ -101,7 +101,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       current: 18,
       target: 25,
       unit: 'tables',
-      icon: 'grid',
+      icon: 'table-cells',
       color: 'info'
     }
   ];
@@ -224,12 +224,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   // ✅ Obtenir l'icône de notification
   getNotificationIcon(type: string): string {
     const icons: Record<string, string> = {
-      'order-ready': 'check-circle',
+      'order-ready': 'circle-check',
       'table-request': 'bell',
-      'manager-message': 'message-circle',
-      'info': 'info'
+      'manager-message': 'comment',
+      'info': 'circle-info'
     };
-    return icons[type] || 'info';
+    return icons[type] || 'circle-info';
   }
 
   // ✅ Aller à une table

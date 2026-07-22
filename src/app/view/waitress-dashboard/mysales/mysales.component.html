@@ -8,7 +8,7 @@ DESCRIPTION: Statistiques et historique des ventes personnelles
   <!-- Header -->
   <div class="page-header">
     <div class="header-left">
-      <h1 class="page-title">📊 Mes Ventes</h1>
+      <h1 class="page-title"><i class="fas fa-chart-bar"></i> Mes Ventes</h1>
       <p class="page-subtitle">Suivez vos performances et statistiques</p>
     </div>
     <div class="header-right">
@@ -33,7 +33,7 @@ DESCRIPTION: Statistiques et historique des ventes personnelles
         </button>
       </div>
       <button class="btn-export" (click)="exportData()">
-        <i class="icon download-icon"></i>
+        <i class="icon fas fa-download"></i>
         Exporter
       </button>
     </div>
@@ -46,7 +46,7 @@ DESCRIPTION: Statistiques et historique des ventes personnelles
       class="stat-card"
       [class]="'stat-' + stat.color">
       <div class="stat-icon">
-        <i class="icon" [class]="'icon-' + stat.icon"></i>
+        <i class="icon fas" [ngClass]="'fa-' + (stat.icon)"></i>
       </div>
       <div class="stat-content">
         <span class="stat-label">{{ stat.label }}</span>
@@ -70,7 +70,7 @@ DESCRIPTION: Statistiques et historique des ventes personnelles
       <div class="chart-card">
         <div class="card-header">
           <h2 class="card-title">
-            <i class="icon bar-chart-icon"></i>
+            <i class="icon fas fa-chart-bar"></i>
             Ventes par heure
           </h2>
         </div>
@@ -96,7 +96,7 @@ DESCRIPTION: Statistiques et historique des ventes personnelles
       <div class="history-card">
         <div class="card-header">
           <h2 class="card-title">
-            <i class="icon clock-icon"></i>
+            <i class="icon fas fa-clock"></i>
             Historique des ventes
           </h2>
           <span class="total-count">{{ salesHistory.length }} ventes</span>
@@ -118,19 +118,19 @@ DESCRIPTION: Statistiques et historique des ventes personnelles
 
             <div class="item-details">
               <div class="detail-item">
-                <i class="icon shopping-bag-icon"></i>
+                <i class="icon fas fa-bag-shopping"></i>
                 <span>{{ sale.items }} articles</span>
               </div>
               <div class="detail-item">
-                <i class="icon credit-card-icon"></i>
+                <i class="icon fas fa-credit-card"></i>
                 <span>{{ sale.paymentMethod }}</span>
               </div>
               <div class="detail-item">
-                <i class="icon clock-icon"></i>
+                <i class="icon fas fa-clock"></i>
                 <span>{{ formatDuration(sale.duration) }}</span>
               </div>
               <div class="detail-item tip" *ngIf="sale.tip > 0">
-                <i class="icon gift-icon"></i>
+                <i class="icon fas fa-gift"></i>
                 <span>{{ sale.tip | number:'1.2-2' }} €</span>
               </div>
             </div>
@@ -138,7 +138,7 @@ DESCRIPTION: Statistiques et historique des ventes personnelles
 
           <!-- Empty State -->
           <div class="empty-history" *ngIf="salesHistory.length === 0">
-            <i class="icon inbox-icon"></i>
+            <i class="icon fas fa-inbox"></i>
             <p>Aucune vente enregistrée</p>
           </div>
         </div>
@@ -152,7 +152,7 @@ DESCRIPTION: Statistiques et historique des ventes personnelles
       <div class="summary-card">
         <div class="card-header">
           <h2 class="card-title">
-            <i class="icon pie-chart-icon"></i>
+            <i class="icon fas fa-chart-pie"></i>
             Résumé
           </h2>
         </div>
@@ -160,7 +160,7 @@ DESCRIPTION: Statistiques et historique des ventes personnelles
         <div class="summary-items">
           <div class="summary-item">
             <div class="summary-icon total">
-              <i class="icon dollar-sign-icon"></i>
+              <i class="icon fas fa-dollar-sign"></i>
             </div>
             <div class="summary-content">
               <span class="summary-label">Total des ventes</span>
@@ -170,7 +170,7 @@ DESCRIPTION: Statistiques et historique des ventes personnelles
 
           <div class="summary-item">
             <div class="summary-icon average">
-              <i class="icon trending-up-icon"></i>
+              <i class="icon fas fa-arrow-trend-up"></i>
             </div>
             <div class="summary-content">
               <span class="summary-label">Panier moyen</span>
@@ -180,7 +180,7 @@ DESCRIPTION: Statistiques et historique des ventes personnelles
 
           <div class="summary-item">
             <div class="summary-icon tips">
-              <i class="icon gift-icon"></i>
+              <i class="icon fas fa-gift"></i>
             </div>
             <div class="summary-content">
               <span class="summary-label">Total pourboires</span>
@@ -190,7 +190,7 @@ DESCRIPTION: Statistiques et historique des ventes personnelles
 
           <div class="summary-item">
             <div class="summary-icon duration">
-              <i class="icon clock-icon"></i>
+              <i class="icon fas fa-clock"></i>
             </div>
             <div class="summary-content">
               <span class="summary-label">Durée moyenne</span>
@@ -204,7 +204,7 @@ DESCRIPTION: Statistiques et historique des ventes personnelles
       <div class="leaderboard-card">
         <div class="card-header">
           <h2 class="card-title">
-            <i class="icon trophy-icon"></i>
+            <i class="icon fas fa-trophy"></i>
             Classement du jour
           </h2>
         </div>
@@ -216,7 +216,7 @@ DESCRIPTION: Statistiques et historique des ventes personnelles
             [class.current-user]="entry.isCurrentUser">
 
             <div class="rank-badge" [class]="'rank-' + entry.rank">
-              <span class="medal" *ngIf="entry.rank <= 3">{{ getMedalIcon(entry.rank) }}</span>
+              <span class="medal" *ngIf="entry.rank <= 3"><i class="fas fa-medal"></i></span>
               <span class="rank-number" *ngIf="entry.rank > 3">{{ entry.rank }}</span>
             </div>
 
@@ -227,15 +227,15 @@ DESCRIPTION: Statistiques et historique des ventes personnelles
               </span>
               <div class="player-stats">
                 <span class="stat">
-                  <i class="icon dollar-sign-icon"></i>
+                  <i class="icon fas fa-dollar-sign"></i>
                   {{ entry.sales | number:'1.0-0' }} €
                 </span>
                 <span class="stat">
-                  <i class="icon shopping-cart-icon"></i>
+                  <i class="icon fas fa-cart-shopping"></i>
                   {{ entry.orders }}
                 </span>
                 <span class="stat">
-                  <i class="icon gift-icon"></i>
+                  <i class="icon fas fa-gift"></i>
                   {{ entry.tips | number:'1.0-0' }} €
                 </span>
               </div>
@@ -248,7 +248,7 @@ DESCRIPTION: Statistiques et historique des ventes personnelles
       <div class="payment-methods-card">
         <div class="card-header">
           <h2 class="card-title">
-            <i class="icon credit-card-icon"></i>
+            <i class="icon fas fa-credit-card"></i>
             Modes de paiement
           </h2>
         </div>
@@ -258,7 +258,7 @@ DESCRIPTION: Statistiques et historique des ventes personnelles
             *ngFor="let sale of salesHistory"
             class="payment-item">
             <div class="payment-icon">
-              <i class="icon" [class]="'icon-' + getPaymentMethodIcon(sale.paymentMethod)"></i>
+              <i class="icon fas" [ngClass]="'fa-' + (getPaymentMethodIcon(sale.paymentMethod))"></i>
             </div>
             <span class="payment-method">{{ sale.paymentMethod }}</span>
             <span class="payment-count">1</span>

@@ -9,7 +9,7 @@ DESCRIPTION: Génération d'addition et encaissement
   <div class="page-header">
     <div class="header-left">
       <button class="btn-back" routerLink="/server/active-orders">
-        <i class="icon arrow-left-icon"></i>
+        <i class="icon fas fa-arrow-left"></i>
       </button>
       <div>
         <h1 class="page-title">Facturation</h1>
@@ -18,11 +18,11 @@ DESCRIPTION: Génération d'addition et encaissement
     </div>
     <div class="header-right">
       <button class="btn-print" (click)="openPrintPreview()">
-        <i class="icon printer-icon"></i>
+        <i class="icon fas fa-print"></i>
         Aperçu
       </button>
       <button class="btn-email" (click)="sendByEmail()">
-        <i class="icon mail-icon"></i>
+        <i class="icon fas fa-envelope"></i>
         Email
       </button>
     </div>
@@ -37,7 +37,7 @@ DESCRIPTION: Génération d'addition et encaissement
       <div class="bill-card">
         <div class="card-header">
           <h2 class="card-title">
-            <i class="icon file-text-icon"></i>
+            <i class="icon fas fa-file-lines"></i>
             Détails de l'addition
           </h2>
         </div>
@@ -58,23 +58,23 @@ DESCRIPTION: Génération d'addition et encaissement
             </div>
             <div class="item-quantity">
               <button class="btn-qty-mini" (click)="updateQuantity(i, item.quantity - 1)">
-                <i class="icon minus-icon"></i>
+                <i class="icon fas fa-minus"></i>
               </button>
               <span>{{ item.quantity }}</span>
               <button class="btn-qty-mini" (click)="updateQuantity(i, item.quantity + 1)">
-                <i class="icon plus-icon"></i>
+                <i class="icon fas fa-plus"></i>
               </button>
             </div>
             <span class="item-unit-price">{{ item.unitPrice | number:'1.2-2' }} €</span>
             <span class="item-total-price">{{ item.totalPrice | number:'1.2-2' }} €</span>
             <button class="btn-remove-item" (click)="removeItem(i)">
-              <i class="icon trash-icon"></i>
+              <i class="icon fas fa-trash"></i>
             </button>
           </div>
 
           <!-- Empty State -->
           <div class="empty-bill" *ngIf="billItems.length === 0">
-            <i class="icon file-text-icon"></i>
+            <i class="icon fas fa-file-lines"></i>
             <p>Aucun article</p>
           </div>
         </div>
@@ -84,7 +84,7 @@ DESCRIPTION: Génération d'addition et encaissement
       <div class="discount-card">
         <div class="card-header">
           <h3 class="card-title">
-            <i class="icon tag-icon"></i>
+            <i class="icon fas fa-tag"></i>
             Réduction
           </h3>
         </div>
@@ -117,7 +117,7 @@ DESCRIPTION: Génération d'addition et encaissement
       <div class="tip-card">
         <div class="card-header">
           <h3 class="card-title">
-            <i class="icon gift-icon"></i>
+            <i class="icon fas fa-gift"></i>
             Pourboire
           </h3>
         </div>
@@ -161,7 +161,7 @@ DESCRIPTION: Génération d'addition et encaissement
       <div class="summary-card">
         <div class="card-header">
           <h2 class="card-title">
-            <i class="icon calculator-icon"></i>
+            <i class="icon fas fa-calculator"></i>
             Récapitulatif
           </h2>
         </div>
@@ -174,7 +174,7 @@ DESCRIPTION: Génération d'addition et encaissement
 
           <div class="summary-row discount" *ngIf="getDiscountAmount() > 0">
             <span class="label">
-              <i class="icon tag-icon"></i>
+              <i class="icon fas fa-tag"></i>
               Réduction
             </span>
             <span class="value">- {{ getDiscountAmount() | number:'1.2-2' }} €</span>
@@ -182,7 +182,7 @@ DESCRIPTION: Génération d'addition et encaissement
 
           <div class="summary-row tip" *ngIf="tipAmount > 0">
             <span class="label">
-              <i class="icon gift-icon"></i>
+              <i class="icon fas fa-gift"></i>
               Pourboire
             </span>
             <span class="value">+ {{ tipAmount | number:'1.2-2' }} €</span>
@@ -201,20 +201,20 @@ DESCRIPTION: Génération d'addition et encaissement
       <div class="split-card">
         <div class="card-header">
           <h3 class="card-title">
-            <i class="icon users-icon"></i>
+            <i class="icon fas fa-users"></i>
             Partage de l'addition
           </h3>
         </div>
         <div class="split-controls">
           <button class="btn-split" (click)="decrementSplit()">
-            <i class="icon minus-icon"></i>
+            <i class="icon fas fa-minus"></i>
           </button>
           <div class="split-info">
             <span class="split-count">{{ splitCount }}</span>
             <span class="split-label">{{ splitCount > 1 ? 'personnes' : 'personne' }}</span>
           </div>
           <button class="btn-split" (click)="incrementSplit()">
-            <i class="icon plus-icon"></i>
+            <i class="icon fas fa-plus"></i>
           </button>
         </div>
         <div class="split-amount" *ngIf="splitCount > 1">
@@ -227,7 +227,7 @@ DESCRIPTION: Génération d'addition et encaissement
       <div class="payment-methods-card">
         <div class="card-header">
           <h3 class="card-title">
-            <i class="icon credit-card-icon"></i>
+            <i class="icon fas fa-credit-card"></i>
             Mode de paiement
           </h3>
         </div>
@@ -237,7 +237,7 @@ DESCRIPTION: Génération d'addition et encaissement
             class="payment-method-btn"
             [class.active]="selectedPaymentMethod === method.id"
             (click)="selectedPaymentMethod = method.id">
-            <i class="icon" [class]="'icon-' + method.icon"></i>
+            <i class="icon fas" [ngClass]="'fa-' + (method.icon)"></i>
             <span>{{ method.name }}</span>
           </button>
         </div>
@@ -246,11 +246,11 @@ DESCRIPTION: Génération d'addition et encaissement
       <!-- Action Buttons -->
       <div class="action-buttons">
         <button class="btn-cancel" (click)="cancelBill()">
-          <i class="icon x-icon"></i>
+          <i class="icon fas fa-xmark"></i>
           Annuler
         </button>
         <button class="btn-payment" (click)="openPaymentModal()">
-          <i class="icon check-circle-icon"></i>
+          <i class="icon fas fa-circle-check"></i>
           Encaisser
         </button>
       </div>
@@ -267,7 +267,7 @@ DESCRIPTION: Génération d'addition et encaissement
     <div class="modal-header">
       <h2 class="modal-title">Confirmer le paiement</h2>
       <button class="btn-close-modal" (click)="closePaymentModal()">
-        <i class="icon x-icon"></i>
+        <i class="icon fas fa-xmark"></i>
       </button>
     </div>
 
@@ -297,7 +297,7 @@ DESCRIPTION: Génération d'addition et encaissement
         Annuler
       </button>
       <button class="btn-modal-confirm" (click)="processPayment()">
-        <i class="icon check-icon"></i>
+        <i class="icon fas fa-check"></i>
         Confirmer le paiement
       </button>
     </div>
@@ -310,7 +310,7 @@ DESCRIPTION: Génération d'addition et encaissement
     <div class="modal-header">
       <h2 class="modal-title">Aperçu avant impression</h2>
       <button class="btn-close-modal" (click)="closePrintPreview()">
-        <i class="icon x-icon"></i>
+        <i class="icon fas fa-xmark"></i>
       </button>
     </div>
 
@@ -376,7 +376,7 @@ DESCRIPTION: Génération d'addition et encaissement
         Fermer
       </button>
       <button class="btn-modal-confirm" (click)="printBill()">
-        <i class="icon printer-icon"></i>
+        <i class="icon fas fa-print"></i>
         Imprimer
       </button>
     </div>

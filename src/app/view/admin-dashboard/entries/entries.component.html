@@ -9,20 +9,20 @@ VERSION ACTUALISÉE
   <!-- ===== EN-TÊTE ===== -->
   <header class="page-header">
     <div class="header-content">
-      <h1 class="page-title">📥 Mes Entrées de Stock</h1>
+      <h1 class="page-title"><i class="fas fa-download"></i> Mes Entrées de Stock</h1>
       <p class="page-subtitle">
         Gestion complète des réceptions - {{ filteredEntries.length }} entrée(s) affichée(s)
       </p>
     </div>
     <div class="header-actions">
       <button class="btn btn-secondary" (click)="exportToCSV()" title="Exporter en CSV">
-        📊 Exporter
+        <i class="fas fa-chart-line"></i> Exporter
       </button>
       <button class="btn btn-secondary" (click)="printEntries()" title="Imprimer">
-        🖨️ Imprimer
+        <i class="fas fa-print"></i> Imprimer
       </button>
       <button class="btn btn-primary" (click)="openAddModal()">
-        ➕ Nouvelle entrée
+        <i class="fas fa-plus"></i> Nouvelle entrée
       </button>
     </div>
   </header>
@@ -30,7 +30,7 @@ VERSION ACTUALISÉE
   <!-- ===== STATISTIQUES ENRICHIES ===== -->
   <section class="stats-section">
     <div class="stat-card stat-primary">
-      <div class="stat-icon">📦</div>
+      <div class="stat-icon"><i class="fas fa-box"></i></div>
       <div class="stat-content">
         <div class="stat-value">{{ stats.totalEntries }}</div>
         <div class="stat-label">Entrées totales</div>
@@ -38,7 +38,7 @@ VERSION ACTUALISÉE
     </div>
 
     <div class="stat-card stat-success">
-      <div class="stat-icon">📈</div>
+      <div class="stat-icon"><i class="fas fa-arrow-trend-up"></i></div>
       <div class="stat-content">
         <div class="stat-value">{{ formatNumber(stats.totalQuantity) }}</div>
         <div class="stat-label">Unités reçues</div>
@@ -46,7 +46,7 @@ VERSION ACTUALISÉE
     </div>
 
     <div class="stat-card stat-warning">
-      <div class="stat-icon">💰</div>
+      <div class="stat-icon"><i class="fas fa-sack-dollar"></i></div>
       <div class="stat-content">
         <div class="stat-value">{{ formatNumber(stats.totalCost) }} F</div>
         <div class="stat-label">Coût total</div>
@@ -54,7 +54,7 @@ VERSION ACTUALISÉE
     </div>
 
     <div class="stat-card stat-info">
-      <div class="stat-icon">📊</div>
+      <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
       <div class="stat-content">
         <div class="stat-value">{{ formatNumber(stats.averageUnitPrice) }} F</div>
         <div class="stat-label">Prix moyen unitaire</div>
@@ -62,7 +62,7 @@ VERSION ACTUALISÉE
     </div>
 
     <div class="stat-card stat-success">
-      <div class="stat-icon">📦</div>
+      <div class="stat-icon"><i class="fas fa-box"></i></div>
       <div class="stat-content">
         <div class="stat-value">{{ stats.totalBulkUnits }}</div>
         <div class="stat-label">Conditionnements reçus</div>
@@ -70,7 +70,7 @@ VERSION ACTUALISÉE
     </div>
 
     <div class="stat-card stat-primary">
-      <div class="stat-icon">✅</div>
+      <div class="stat-icon"><i class="fas fa-circle-check"></i></div>
       <div class="stat-content">
         <div class="stat-value">{{ stats.conformityRate }}%</div>
         <div class="stat-label">Taux de conformité</div>
@@ -78,7 +78,7 @@ VERSION ACTUALISÉE
     </div>
 
     <div class="stat-card stat-info" *ngIf="stats.topSupplier">
-      <div class="stat-icon">🚚</div>
+      <div class="stat-icon"><i class="fas fa-truck"></i></div>
       <div class="stat-content">
         <div class="stat-value">{{ stats.topSupplier }}</div>
         <div class="stat-label">Fournisseur principal</div>
@@ -86,7 +86,7 @@ VERSION ACTUALISÉE
     </div>
 
     <div class="stat-card stat-warning" *ngIf="stats.topCategory">
-      <div class="stat-icon">🏆</div>
+      <div class="stat-icon"><i class="fas fa-trophy"></i></div>
       <div class="stat-content">
         <div class="stat-value">{{ stats.topCategory }}</div>
         <div class="stat-label">Catégorie la plus reçue</div>
@@ -101,13 +101,13 @@ VERSION ACTUALISÉE
       <input
         type="text"
         class="search-input"
-        placeholder="🔍 Rechercher par boisson, fournisseur, commercial, facture..."
+        placeholder="Rechercher par boisson, fournisseur, commercial, facture..."
         [(ngModel)]="searchTerm"
         (ngModelChange)="onSearchChange()">
       <button
         *ngIf="searchTerm"
         class="clear-btn"
-        (click)="searchTerm = ''; onSearchChange()">✕</button>
+        (click)="searchTerm = ''; onSearchChange()"><i class="fas fa-xmark"></i></button>
     </div>
 
     <!-- Filtre par cave -->
@@ -119,7 +119,7 @@ VERSION ACTUALISÉE
         (ngModelChange)="onCaveFilterChange()">
         <option [ngValue]="null">Toutes les caves</option>
         <option *ngFor="let cave of caves" [ngValue]="cave.id">
-          📍 {{ cave.name }}
+          <i class="fas fa-location-dot"></i> {{ cave.name }}
         </option>
       </select>
     </div>
@@ -147,7 +147,7 @@ VERSION ACTUALISÉE
         (ngModelChange)="onSupplierFilterChange()">
         <option [ngValue]="null">Tous les fournisseurs</option>
         <option *ngFor="let supplier of suppliers" [ngValue]="supplier">
-          🚚 {{ supplier }}
+          <i class="fas fa-truck"></i> {{ supplier }}
         </option>
       </select>
     </div>
@@ -172,7 +172,7 @@ VERSION ACTUALISÉE
       class="btn btn-secondary"
       (click)="resetFilters()"
       *ngIf="selectedCaveFilter || selectedCategoryFilter || selectedSupplierFilter || searchTerm || periodFilter !== 30">
-      🔄 Réinitialiser
+      <i class="fas fa-arrow-rotate-right"></i> Réinitialiser
     </button>
   </section>
 
@@ -184,7 +184,7 @@ VERSION ACTUALISÉE
 
   <!-- ===== AUCUN RÉSULTAT ===== -->
   <div *ngIf="!isLoading && filteredEntries.length === 0" class="no-results">
-    <div class="no-results-icon">📦</div>
+    <div class="no-results-icon"><i class="fas fa-box"></i></div>
     <h3>Aucune entrée trouvée</h3>
     <p *ngIf="searchTerm || selectedCaveFilter || selectedCategoryFilter || selectedSupplierFilter">
       Aucune entrée ne correspond à vos critères de recherche
@@ -193,7 +193,7 @@ VERSION ACTUALISÉE
       Commencez par enregistrer votre première entrée de stock
     </p>
     <button class="btn btn-primary" (click)="openAddModal()">
-      ➕ Nouvelle entrée
+      <i class="fas fa-plus"></i> Nouvelle entrée
     </button>
   </div>
 
@@ -285,7 +285,7 @@ VERSION ACTUALISÉE
               <div class="supplier-info">
                 <div class="supplier-name">{{ entry.supplier }}</div>
                 <div class="supplier-invoice" *ngIf="entry.supplierInvoice">
-                  📄 {{ entry.supplierInvoice }}
+                  <i class="fas fa-file-lines"></i> {{ entry.supplierInvoice }}
                 </div>
               </div>
             </td>
@@ -301,7 +301,7 @@ VERSION ACTUALISÉE
             <!-- Cave -->
             <td class="cave-cell">
               <span class="cave-badge">
-                📍 {{ getCaveName(entry.caveId) }}
+                <i class="fas fa-location-dot"></i> {{ getCaveName(entry.caveId) }}
               </span>
             </td>
 
@@ -318,13 +318,13 @@ VERSION ACTUALISÉE
                 class="btn-icon"
                 title="Voir les détails"
                 (click)="viewEntryDetails(entry)">
-                👁️
+                <i class="fas fa-eye"></i>
               </button>
               <button
                 class="btn-icon btn-danger"
                 title="Supprimer"
                 (click)="deleteEntry(entry)">
-                🗑️
+                <i class="fas fa-trash"></i>
               </button>
             </td>
           </tr>
@@ -339,8 +339,8 @@ VERSION ACTUALISÉE
 
       <!-- En-tête -->
       <header class="modal-header">
-        <h2 class="modal-title">➕ Nouvelle Entrée de Stock</h2>
-        <button class="modal-close-btn" (click)="closeAddModal()">✕</button>
+        <h2 class="modal-title"><i class="fas fa-plus"></i> Nouvelle Entrée de Stock</h2>
+        <button class="modal-close-btn" (click)="closeAddModal()"><i class="fas fa-xmark"></i></button>
       </header>
 
       <!-- Corps -->
@@ -349,7 +349,7 @@ VERSION ACTUALISÉE
 
           <!-- SECTION 1: SÉLECTION BOISSON -->
           <div class="form-section">
-            <h3 class="section-title">📦 Sélection du produit</h3>
+            <h3 class="section-title"><i class="fas fa-box"></i> Sélection du produit</h3>
 
             <div class="form-group">
               <label class="form-label" for="entry-drink">
@@ -372,7 +372,7 @@ VERSION ACTUALISÉE
 
           <!-- SECTION 2: CONDITIONNEMENT -->
           <div class="form-section" *ngIf="entryForm.drinkId">
-            <h3 class="section-title">📦 Conditionnement reçu</h3>
+            <h3 class="section-title"><i class="fas fa-box"></i> Conditionnement reçu</h3>
 
             <div class="form-row">
               <div class="form-group">
@@ -426,7 +426,7 @@ VERSION ACTUALISÉE
 
             <!-- Total calculé automatiquement -->
             <div class="calculation-display">
-              <div class="calc-icon">🔢</div>
+              <div class="calc-icon"><i class="fas fa-hashtag"></i></div>
               <div class="calc-content">
                 <div class="calc-label">Quantité totale d'unités :</div>
                 <div class="calc-value">{{ entryForm.totalUnits }} unités</div>
@@ -436,7 +436,7 @@ VERSION ACTUALISÉE
 
           <!-- SECTION 3: TARIFICATION -->
           <div class="form-section" *ngIf="entryForm.drinkId">
-            <h3 class="section-title">💰 Tarification</h3>
+            <h3 class="section-title"><i class="fas fa-sack-dollar"></i> Tarification</h3>
 
             <div class="form-row">
               <div class="form-group">
@@ -473,7 +473,7 @@ VERSION ACTUALISÉE
 
             <!-- Coût total calculé -->
             <div class="total-cost-display">
-              <span class="total-label">💵 Coût total de l'entrée :</span>
+              <span class="total-label"><i class="fas fa-money-bill-wave"></i> Coût total de l'entrée :</span>
               <span class="total-value">
                 {{ formatNumber(entryForm.totalCost) }} FCFA
               </span>
@@ -482,7 +482,7 @@ VERSION ACTUALISÉE
 
           <!-- SECTION 4: FOURNISSEUR ET DOCUMENTS -->
           <div class="form-section">
-            <h3 class="section-title">🚚 Fournisseur et documents</h3>
+            <h3 class="section-title"><i class="fas fa-truck"></i> Fournisseur et documents</h3>
 
             <div class="form-group">
               <label class="form-label" for="entry-supplier">
@@ -531,7 +531,7 @@ VERSION ACTUALISÉE
 
           <!-- SECTION 5: DESTINATION ET QUALITÉ -->
           <div class="form-section">
-            <h3 class="section-title">📍 Destination et contrôle qualité</h3>
+            <h3 class="section-title"><i class="fas fa-location-dot"></i> Destination et contrôle qualité</h3>
 
             <div class="form-group">
               <label class="form-label" for="entry-cave">
@@ -545,7 +545,7 @@ VERSION ACTUALISÉE
                 required>
                 <option value="">Sélectionner une cave...</option>
                 <option *ngFor="let cave of caves" [value]="cave.id">
-                  📍 {{ cave.name }} - {{ cave.location }}
+                  <i class="fas fa-location-dot"></i> {{ cave.name }} - {{ cave.location }}
                   <span *ngIf="cave.temperature">({{ cave.temperature }})</span>
                 </option>
               </select>
@@ -562,9 +562,9 @@ VERSION ACTUALISÉE
                   [(ngModel)]="entryForm.qualityCheck"
                   name="qualityCheck"
                   required>
-                  <option value="conforme">✅ Conforme</option>
-                  <option value="avec-reserve">⚠️ Avec réserve</option>
-                  <option value="non-conforme">❌ Non conforme</option>
+                  <option value="conforme"><i class="fas fa-circle-check"></i> Conforme</option>
+                  <option value="avec-reserve"><i class="fas fa-triangle-exclamation"></i> Avec réserve</option>
+                  <option value="non-conforme"><i class="fas fa-xmark"></i> Non conforme</option>
                 </select>
               </div>
 
@@ -585,7 +585,7 @@ VERSION ACTUALISÉE
 
           <!-- SECTION 6: TRAÇABILITÉ -->
           <div class="form-section">
-            <h3 class="section-title">🔍 Traçabilité</h3>
+            <h3 class="section-title"><i class="fas fa-magnifying-glass"></i> Traçabilité</h3>
 
             <div class="form-row">
               <div class="form-group">
@@ -617,7 +617,7 @@ VERSION ACTUALISÉE
 
           <!-- SECTION 7: NOTES -->
           <div class="form-section">
-            <h3 class="section-title">📝 Notes et commentaires</h3>
+            <h3 class="section-title"><i class="fas fa-file-lines"></i> Notes et commentaires</h3>
 
             <div class="form-group">
               <label class="form-label" for="entry-notes">
@@ -635,7 +635,7 @@ VERSION ACTUALISÉE
 
           <!-- SECTION 8: SUGGESTIONS D'ACCORDS METS-VINS -->
           <div class="form-section" *ngIf="winePairingSuggestions.length > 0">
-            <h3 class="section-title">🍽️ Suggestions d'accords mets-vins</h3>
+            <h3 class="section-title"><i class="fas fa-utensils"></i> Suggestions d'accords mets-vins</h3>
             <p class="section-description">
               Voici quelques suggestions pour accompagner ce produit :
             </p>
@@ -647,7 +647,7 @@ VERSION ACTUALISÉE
                   <h4 class="pairing-dish">{{ suggestion.dish }}</h4>
                   <p class="pairing-description">{{ suggestion.description }}</p>
                   <div class="pairing-temperature">
-                    🌡️ Servir à {{ suggestion.temperature }}
+                    <i class="fas fa-temperature-half"></i> Servir à {{ suggestion.temperature }}
                   </div>
                 </div>
               </div>
@@ -663,7 +663,7 @@ VERSION ACTUALISÉE
           Annuler
         </button>
         <button class="btn btn-primary" (click)="saveEntry()">
-          💾 Enregistrer l'entrée
+          <i class="fas fa-floppy-disk"></i> Enregistrer l'entrée
         </button>
       </footer>
 
@@ -679,7 +679,7 @@ VERSION ACTUALISÉE
         <h2 class="modal-title">
           {{ selectedEntry.drinkIcon }} Détails de l'entrée - {{ selectedEntry.drinkName }}
         </h2>
-        <button class="modal-close-btn" (click)="closeDetailModal()">✕</button>
+        <button class="modal-close-btn" (click)="closeDetailModal()"><i class="fas fa-xmark"></i></button>
       </header>
 
       <!-- Corps -->
@@ -688,7 +688,7 @@ VERSION ACTUALISÉE
 
           <!-- Informations générales -->
           <div class="detail-section">
-            <h3 class="detail-section-title">📦 Informations générales</h3>
+            <h3 class="detail-section-title"><i class="fas fa-box"></i> Informations générales</h3>
             <div class="detail-grid">
               <div class="detail-item">
                 <span class="detail-label">Date de réception :</span>
@@ -715,7 +715,7 @@ VERSION ACTUALISÉE
 
           <!-- Conditionnement -->
           <div class="detail-section">
-            <h3 class="detail-section-title">📦 Conditionnement</h3>
+            <h3 class="detail-section-title"><i class="fas fa-box"></i> Conditionnement</h3>
             <div class="detail-grid">
               <div class="detail-item">
                 <span class="detail-label">Type :</span>
@@ -740,7 +740,7 @@ VERSION ACTUALISÉE
 
           <!-- Tarification -->
           <div class="detail-section">
-            <h3 class="detail-section-title">💰 Tarification</h3>
+            <h3 class="detail-section-title"><i class="fas fa-sack-dollar"></i> Tarification</h3>
             <div class="detail-grid">
               <div class="detail-item">
                 <span class="detail-label">Prix unitaire :</span>
@@ -765,7 +765,7 @@ VERSION ACTUALISÉE
 
           <!-- Fournisseur -->
           <div class="detail-section">
-            <h3 class="detail-section-title">🚚 Fournisseur et commercial</h3>
+            <h3 class="detail-section-title"><i class="fas fa-truck"></i> Fournisseur et commercial</h3>
             <div class="detail-grid">
               <div class="detail-item">
                 <span class="detail-label">Fournisseur :</span>
@@ -781,22 +781,22 @@ VERSION ACTUALISÉE
               </div>
               <div class="detail-item" *ngIf="selectedEntry.supplierInvoice">
                 <span class="detail-label">Facture :</span>
-                <span class="detail-value">📄 {{ selectedEntry.supplierInvoice }}</span>
+                <span class="detail-value"><i class="fas fa-file-lines"></i> {{ selectedEntry.supplierInvoice }}</span>
               </div>
               <div class="detail-item" *ngIf="selectedEntry.deliveryNote">
                 <span class="detail-label">Bon de livraison :</span>
-                <span class="detail-value">📋 {{ selectedEntry.deliveryNote }}</span>
+                <span class="detail-value"><i class="fas fa-clipboard-list"></i> {{ selectedEntry.deliveryNote }}</span>
               </div>
             </div>
           </div>
 
           <!-- Destination et qualité -->
           <div class="detail-section">
-            <h3 class="detail-section-title">📍 Destination et qualité</h3>
+            <h3 class="detail-section-title"><i class="fas fa-location-dot"></i> Destination et qualité</h3>
             <div class="detail-grid">
               <div class="detail-item">
                 <span class="detail-label">Cave :</span>
-                <span class="detail-value">📍 {{ getCaveName(selectedEntry.caveId) }}</span>
+                <span class="detail-value"><i class="fas fa-location-dot"></i> {{ getCaveName(selectedEntry.caveId) }}</span>
               </div>
               <div class="detail-item">
                 <span class="detail-label">Contrôle qualité :</span>
@@ -813,7 +813,7 @@ VERSION ACTUALISÉE
 
           <!-- Traçabilité -->
           <div class="detail-section">
-            <h3 class="detail-section-title">🔍 Traçabilité</h3>
+            <h3 class="detail-section-title"><i class="fas fa-magnifying-glass"></i> Traçabilité</h3>
             <div class="detail-grid">
               <div class="detail-item" *ngIf="selectedEntry.batchNumber">
                 <span class="detail-label">Numéro de lot :</span>
@@ -824,7 +824,7 @@ VERSION ACTUALISÉE
                 <span class="detail-value" [class.expiry-warning]="isExpiryApproaching(selectedEntry)">
                   {{ formatDate(selectedEntry.expiryDate).split(' à ')[0] }}
                   <span *ngIf="isExpiryApproaching(selectedEntry)">
-                    ⚠️ ({{ getDaysUntilExpiry(selectedEntry.expiryDate) }} jours restants)
+                    <i class="fas fa-triangle-exclamation"></i> ({{ getDaysUntilExpiry(selectedEntry.expiryDate) }} jours restants)
                   </span>
                 </span>
               </div>
@@ -837,7 +837,7 @@ VERSION ACTUALISÉE
 
           <!-- Notes -->
           <div class="detail-section" *ngIf="selectedEntry.notes">
-            <h3 class="detail-section-title">📝 Notes</h3>
+            <h3 class="detail-section-title"><i class="fas fa-file-lines"></i> Notes</h3>
             <div class="detail-notes">
               {{ selectedEntry.notes }}
             </div>
@@ -845,7 +845,7 @@ VERSION ACTUALISÉE
 
           <!-- Suggestions d'accords -->
           <div class="detail-section" *ngIf="winePairingSuggestions.length > 0">
-            <h3 class="detail-section-title">🍽️ Suggestions d'accords mets-vins</h3>
+            <h3 class="detail-section-title"><i class="fas fa-utensils"></i> Suggestions d'accords mets-vins</h3>
             <div class="wine-pairing-suggestions">
               <div class="pairing-card" *ngFor="let suggestion of winePairingSuggestions">
                 <div class="pairing-icon">{{ suggestion.dishIcon }}</div>
@@ -853,7 +853,7 @@ VERSION ACTUALISÉE
                   <h4 class="pairing-dish">{{ suggestion.dish }}</h4>
                   <p class="pairing-description">{{ suggestion.description }}</p>
                   <div class="pairing-temperature">
-                    🌡️ Servir à {{ suggestion.temperature }}
+                    <i class="fas fa-temperature-half"></i> Servir à {{ suggestion.temperature }}
                   </div>
                 </div>
               </div>

@@ -8,7 +8,7 @@
   <!-- Header -->
   <div class="page-header">
     <h1 class="page-title">
-      <span class="icon">❓</span>
+      <span class="icon"><i class="fas fa-circle-question"></i></span>
       Questions Fréquentes
     </h1>
     <p class="page-subtitle">Trouvez rapidement des réponses à vos questions</p>
@@ -17,7 +17,7 @@
   <!-- Barre de recherche -->
   <div class="search-section">
     <div class="search-bar">
-      <span class="search-icon">🔍</span>
+      <span class="search-icon"><i class="fas fa-magnifying-glass"></i></span>
       <input
         type="text"
         class="search-input"
@@ -33,7 +33,7 @@
       class="category-button"
       [class.active]="selectedCategory === 'Toutes'"
       (click)="selectCategory('Toutes')">
-      <span class="category-icon">📋</span>
+      <span class="category-icon"><i class="fas fa-clipboard-list"></i></span>
       <span class="category-label">Toutes</span>
       <span class="category-count">{{ faqs.length }}</span>
     </button>
@@ -67,7 +67,7 @@
 
   <!-- Message si aucun résultat -->
   <div class="empty-state" *ngIf="filteredFaqs.length === 0">
-    <div class="empty-icon">🔍</div>
+    <div class="empty-icon"><i class="fas fa-magnifying-glass"></i></div>
     <h3 class="empty-title">Aucune question trouvée</h3>
     <p class="empty-text">Essayez de modifier votre recherche ou contactez notre support</p>
     <button class="btn-primary" routerLink="/client/support">
@@ -82,7 +82,7 @@
       <p class="banner-text">Notre équipe est disponible pour vous aider</p>
     </div>
     <button class="btn-contact" routerLink="/client/support">
-      <span class="btn-icon">💬</span>
+      <span class="btn-icon"><i class="fas fa-comment"></i></span>
       Contacter le support
     </button>
   </div>

@@ -3,7 +3,7 @@
   
   <!-- En-tête avec titre et actions -->
   <div class="actions-header">
-    <h3 class="actions-title">📋 Actions Récentes</h3>
+    <h3 class="actions-title"><i class="fas fa-clipboard-list"></i> Actions Récentes</h3>
     
     <!-- Boutons d'action -->
     <div class="actions-controls">
@@ -11,21 +11,21 @@
       <button class="btn-icon" 
               (click)="refreshActions()"
               title="Rafraîchir">
-        🔄
+        <i class="fas fa-arrow-rotate-right"></i>
       </button>
       
       <!-- Bouton exporter -->
       <button class="btn-icon" 
               (click)="exportActions()"
               title="Exporter">
-        📥
+        <i class="fas fa-download"></i>
       </button>
       
       <!-- Bouton effacer tout -->
       <button class="btn-icon btn-danger" 
               (click)="clearAllActions()"
               title="Effacer tout">
-        🗑️
+        <i class="fas fa-trash"></i>
       </button>
     </div>
   </div>
@@ -59,7 +59,7 @@
         
         <!-- Nom de l'utilisateur si disponible -->
         <div class="action-user" *ngIf="action.userName">
-          👤 {{ action.userName }}
+          <i class="fas fa-user"></i> {{ action.userName }}
         </div>
       </div>
       
@@ -78,7 +78,7 @@
 
     <!-- Message si aucune action -->
     <div *ngIf="recentActions.length === 0" class="empty-state">
-      <div class="empty-icon">📭</div>
+      <div class="empty-icon"><i class="fas fa-envelope-open"></i></div>
       <p>Aucune action récente</p>
     </div>
   </div>
@@ -86,7 +86,7 @@
   <!-- Bouton "Charger plus" -->
   <div class="actions-footer" *ngIf="hasMore() && !isLoading">
     <button class="btn btn-secondary btn-block" (click)="loadMore()">
-      ⬇️ Charger plus d'actions
+      <i class="fas fa-arrow-down"></i> Charger plus d'actions
     </button>
   </div>
 </div>

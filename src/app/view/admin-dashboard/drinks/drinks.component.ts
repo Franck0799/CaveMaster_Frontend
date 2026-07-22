@@ -9,6 +9,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { DrinksService } from '../../../core/services/catalogue/drinks.service';
+import { Drink as ApiDrink } from '../../../core/models/Catalogue/Drink';
 
 /**
  * Énumération des catégories de boissons
@@ -187,7 +189,8 @@ export class DrinksComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private drinksService: DrinksService
   ) {}
 
   // ========================================
@@ -224,10 +227,81 @@ export class DrinksComponent implements OnInit, OnDestroy {
 
   loadDrinks(): void {
     this.isLoading = true;
-    this.drinks = this.generateMockDrinks();
-    this.filteredDrinks = [...this.drinks];
-    this.isLoading = false;
-    console.log('✅ Boissons chargées:', this.drinks.length);
+    this.drinksService.getAll().subscribe({
+      next: (apiDrinks) => {
+        this.drinks = apiDrinks.map(d => this.mapApiDrinkToLocal(d));
+        this.filteredDrinks = [...this.drinks];
+        this.isLoading = false;
+        console.log('Boissons chargées depuis le backend :', this.drinks.length);
+      },
+      error: (error) => {
+        console.error('Erreur lors du chargement des boissons depuis le backend :', error);
+        this.drinks = [];
+        this.filteredDrinks = [];
+        this.isLoading = false;
+      }
+    });
+  }
+
+  /**
+   * Convertit une boisson reçue de l'API (champs libres, non contraints à
+   * une énumération) vers le modèle local strictement typé utilisé par
+   * cet écran. Les valeurs inconnues retombent sur une valeur par défaut
+   * plutôt que de faire planter l'affichage.
+   */
+  private mapApiDrinkToLocal(d: ApiDrink): Drink {
+    return {
+      id: d.id,
+      name: d.name,
+      format: (Object.values(DrinkFormat) as string[]).includes(d.format ?? '')
+        ? (d.format as DrinkFormat) : DrinkFormat.CL_75,
+      supplier: Supplier.AUTRES, // Le nom du fournisseur vient de SuppliersController via supplierId (non résolu ici).
+      category: (Object.values(DrinkCategory) as string[]).includes(d.category)
+        ? (d.category as DrinkCategory) : DrinkCategory.BOISSONS_LOCALES,
+      depot: d.depot || '',
+      commercialName: d.commercialName || '',
+      commercialContact: d.commercialContact || '',
+      packagingType: (Object.values(PackagingType) as string[]).includes(d.packagingType ?? '')
+        ? (d.packagingType as PackagingType) : PackagingType.BOUTEILLE,
+      bulkUnit: (Object.values(BulkUnit) as string[]).includes(d.bulkUnit ?? '')
+        ? (d.bulkUnit as BulkUnit) : BulkUnit.CARTON,
+      bulkQuantity: d.bulkQuantity,
+      unitsPerBulk: d.unitsPerBulk,
+      totalBottles: d.bulkQuantity * d.unitsPerBulk,
+      purchasePrice: d.purchasePrice,
+      sellingPrice: d.sellingPrice,
+      icon: d.icon || '🍷',
+      stock: 0, // Le stock réel provient de StockLevelsController (à relier séparément par cave).
+      description: d.description,
+      sales: d.salesCount,
+      createdAt: d.createdAt ? new Date(d.createdAt) : undefined,
+      badge: d.badge as ('hot' | 'new' | undefined)
+    };
+  }
+
+  /** Convertit le formulaire local vers le format attendu par l'API (POST/PUT /api/Drinks). */
+  private mapLocalFormToApiPayload(): Partial<ApiDrink> {
+    return {
+      name: this.drinkForm.name,
+      category: this.drinkForm.category,
+      format: this.drinkForm.format,
+      packagingType: this.drinkForm.packagingType,
+      commercialName: this.drinkForm.commercialName,
+      commercialContact: this.drinkForm.commercialContact,
+      depot: this.drinkForm.depot,
+      bulkUnit: this.drinkForm.bulkUnit,
+      bulkQuantity: this.drinkForm.bulkQuantity,
+      unitsPerBulk: this.drinkForm.unitsPerBulk,
+      purchasePrice: this.drinkForm.purchasePrice,
+      sellingPrice: this.drinkForm.sellingPrice,
+      icon: this.drinkForm.icon,
+      description: this.drinkForm.description,
+      pairings: [],
+      rating: 0,
+      isFeatured: false,
+      isPopular: false,
+      salesCount: 0
+    };
   }
 
   private generateMockDrinks(): Drink[] {
@@ -446,36 +520,43 @@ export class DrinksComponent implements OnInit, OnDestroy {
   }
 
   private addDrink(): void {
-    const newDrink: Drink = {
-      id: this.generateId(),
-      ...this.drinkForm,
-      sales: 0,
-      createdAt: new Date()
-    };
-
-    this.drinks.unshift(newDrink);
-    this.applyFilters();
-
-    console.log('✅ Boisson ajoutée:', newDrink);
-    alert('✅ Boisson ajoutée avec succès !');
-    this.closeModal();
+    const payload = this.mapLocalFormToApiPayload();
+    this.drinksService.create(payload).subscribe({
+      next: (created) => {
+        if (created) {
+          this.drinks.unshift(this.mapApiDrinkToLocal(created));
+          this.applyFilters();
+          alert('✅ Boisson ajoutée avec succès !');
+          this.closeModal();
+        }
+      },
+      error: (error) => {
+        console.error('Erreur lors de la création de la boisson :', error);
+        alert('❌ Erreur lors de l\'ajout de la boisson');
+      }
+    });
   }
 
   private updateDrink(): void {
     if (!this.selectedDrink) return;
+    const id = this.selectedDrink.id;
+    const payload = this.mapLocalFormToApiPayload();
 
-    const index = this.drinks.findIndex(d => d.id === this.selectedDrink!.id);
-    if (index !== -1) {
-      this.drinks[index] = {
-        ...this.selectedDrink,
-        ...this.drinkForm
-      };
-
-      this.applyFilters();
-      console.log('✅ Boisson mise à jour:', this.drinks[index]);
-      alert('✅ Boisson mise à jour avec succès !');
-      this.closeModal();
-    }
+    this.drinksService.update(id, payload).subscribe({
+      next: (updated) => {
+        const index = this.drinks.findIndex(d => d.id === id);
+        if (index !== -1) {
+          this.drinks[index] = updated ? this.mapApiDrinkToLocal(updated) : { ...this.selectedDrink!, ...this.drinkForm };
+          this.applyFilters();
+          alert('✅ Boisson mise à jour avec succès !');
+          this.closeModal();
+        }
+      },
+      error: (error) => {
+        console.error('Erreur lors de la mise à jour de la boisson :', error);
+        alert('❌ Erreur lors de la mise à jour de la boisson');
+      }
+    });
   }
 
   // ========================================
@@ -484,10 +565,19 @@ export class DrinksComponent implements OnInit, OnDestroy {
 
   deleteDrink(drink: Drink): void {
     if (confirm(`❌ Êtes-vous sûr de vouloir supprimer "${drink.name}" ?`)) {
-      this.drinks = this.drinks.filter(d => d.id !== drink.id);
-      this.applyFilters();
-      console.log('🗑️ Boisson supprimée:', drink.id);
-      alert('✅ Boisson supprimée avec succès');
+      this.drinksService.delete(drink.id).subscribe({
+        next: (success) => {
+          if (success) {
+            this.drinks = this.drinks.filter(d => d.id !== drink.id);
+            this.applyFilters();
+            alert('✅ Boisson supprimée avec succès');
+          }
+        },
+        error: (error) => {
+          console.error('Erreur lors de la suppression de la boisson :', error);
+          alert('❌ Erreur lors de la suppression de la boisson');
+        }
+      });
     }
   }
 

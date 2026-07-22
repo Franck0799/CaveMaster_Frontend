@@ -6,14 +6,14 @@
       <p class="page-subtitle">Signaler et suivre les incidents</p>
     </div>
     <button class="btn-primary" (click)="reportIncident()">
-      ⚠️ Signaler un incident
+      <i class="fas fa-triangle-exclamation"></i> Signaler un incident
     </button>
   </div>
 
   <!-- Statistiques -->
   <div class="stats-grid">
     <div class="stat-card open">
-      <div class="stat-icon">🔴</div>
+      <div class="stat-icon"><i class="fas fa-circle"></i></div>
       <div class="stat-content">
         <div class="stat-label">Ouverts</div>
         <div class="stat-value">{{ getCountByStatus('open') }}</div>
@@ -21,7 +21,7 @@
     </div>
 
     <div class="stat-card progress">
-      <div class="stat-icon">🟡</div>
+      <div class="stat-icon"><i class="fas fa-circle"></i></div>
       <div class="stat-content">
         <div class="stat-label">En cours</div>
         <div class="stat-value">{{ getCountByStatus('in-progress') }}</div>
@@ -29,7 +29,7 @@
     </div>
 
     <div class="stat-card resolved">
-      <div class="stat-icon">🟢</div>
+      <div class="stat-icon"><i class="fas fa-circle"></i></div>
       <div class="stat-content">
         <div class="stat-label">Résolus</div>
         <div class="stat-value">{{ getCountByStatus('resolved') }}</div>
@@ -83,15 +83,15 @@
 
         <div class="incident-meta">
           <div class="meta-item">
-            <span class="meta-icon">👤</span>
+            <span class="meta-icon"><i class="fas fa-user"></i></span>
             <span class="meta-text">Signalé par {{ incident.reportedBy }}</span>
           </div>
           <div class="meta-item">
-            <span class="meta-icon">📅</span>
+            <span class="meta-icon"><i class="fas fa-calendar-days"></i></span>
             <span class="meta-text">{{ incident.reportedAt | date:'dd/MM/yyyy HH:mm' }}</span>
           </div>
           <div class="meta-item" *ngIf="incident.assignedTo">
-            <span class="meta-icon">👨‍🔧</span>
+            <span class="meta-icon"><i class="fas fa-user"></i>‍<i class="fas fa-wrench"></i></span>
             <span class="meta-text">Assigné à {{ incident.assignedTo }}</span>
           </div>
         </div>
@@ -99,17 +99,17 @@
 
       <div class="incident-actions">
         <button class="action-btn" (click)="viewIncident(incident)">
-          👁️ Détails
+          <i class="fas fa-eye"></i> Détails
         </button>
         <button class="action-btn"
                 *ngIf="incident.status !== 'resolved'"
                 (click)="updateStatus(incident)">
-          🔄 Mettre à jour
+          <i class="fas fa-arrow-rotate-right"></i> Mettre à jour
         </button>
         <button class="action-btn success"
                 *ngIf="incident.status !== 'resolved'"
                 (click)="resolveIncident(incident)">
-          ✅ Résoudre
+          <i class="fas fa-circle-check"></i> Résoudre
         </button>
       </div>
     </div>
@@ -120,27 +120,27 @@
   <div class="modal-content" (click)="$event.stopPropagation()">
     <div class="modal-header">
       <h2 class="modal-title">Signaler un incident</h2>
-      <button class="btn-close" (click)="closeAddModal()">✕</button>
+      <button class="btn-close" (click)="closeAddModal()"><i class="fas fa-xmark"></i></button>
     </div>
 
     <div class="modal-body">
       <div class="form-group">
         <label for="incident-type">Type d'incident *</label>
         <select id="incident-type" [(ngModel)]="newIncident.type" class="form-select">
-          <option value="equipment">🔧 Équipement</option>
-          <option value="customer">👤 Client</option>
-          <option value="stock">📦 Stock</option>
-          <option value="security">🔒 Sécurité</option>
-          <option value="other">📝 Autre</option>
+          <option value="equipment"><i class="fas fa-wrench"></i> Équipement</option>
+          <option value="customer"><i class="fas fa-user"></i> Client</option>
+          <option value="stock"><i class="fas fa-box"></i> Stock</option>
+          <option value="security"><i class="fas fa-lock"></i> Sécurité</option>
+          <option value="other"><i class="fas fa-file-lines"></i> Autre</option>
         </select>
       </div>
 
       <div class="form-group">
         <label for="incident-severity">Gravité</label>
         <select id="incident-severity" [(ngModel)]="newIncident.severity" class="form-select">
-          <option value="low">🟢 Faible</option>
-          <option value="medium">🟡 Moyen</option>
-          <option value="high">🔴 Élevé</option>
+          <option value="low"><i class="fas fa-circle"></i> Faible</option>
+          <option value="medium"><i class="fas fa-circle"></i> Moyen</option>
+          <option value="high"><i class="fas fa-circle"></i> Élevé</option>
         </select>
       </div>
 
@@ -157,7 +157,7 @@
 
     <div class="modal-footer">
       <button class="btn-secondary" (click)="closeAddModal()">Annuler</button>
-      <button class="btn-danger" (click)="reportIncident()">⚠️ Signaler</button>
+      <button class="btn-danger" (click)="reportIncident()"><i class="fas fa-triangle-exclamation"></i> Signaler</button>
     </div>
   </div>
 </div>

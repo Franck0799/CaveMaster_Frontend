@@ -6,13 +6,13 @@
       <p class="page-subtitle">{{ currentDate | date:'EEEE d MMMM y':'':'fr' }}</p>
     </div>
     <button class="btn-primary" (click)="closeCashRegister()" [disabled]="!isOpen">
-      💾 Clôturer la caisse
+      <i class="fas fa-floppy-disk"></i> Clôturer la caisse
     </button>
   </div>
 
   <!-- Statut caisse -->
   <div class="cash-status" [class.open]="isOpen" [class.closed]="!isOpen">
-    <div class="status-icon">{{ isOpen ? '🟢' : '🔴' }}</div>
+    <div class="status-icon">{{ isOpen ? '' : '' }}</div>
     <div class="status-info">
       <div class="status-label">{{ isOpen ? 'Caisse ouverte' : 'Caisse fermée' }}</div>
       <div class="status-time">{{ isOpen ? 'Depuis ' + openTime : 'Fermée à ' + closeTime }}</div>
@@ -51,15 +51,15 @@
   <!-- Actions rapides -->
   <div class="quick-actions" *ngIf="isOpen">
     <button class="action-card" (click)="addExpense()">
-      <span class="action-icon">💳</span>
+      <span class="action-icon"><i class="fas fa-credit-card"></i></span>
       <span class="action-label">Ajouter une dépense</span>
     </button>
     <button class="action-card" (click)="cashCount()">
-      <span class="action-icon">💵</span>
+      <span class="action-icon"><i class="fas fa-money-bill-wave"></i></span>
       <span class="action-label">Comptage espèces</span>
     </button>
     <button class="action-card" (click)="viewReport()">
-      <span class="action-icon">📊</span>
+      <span class="action-icon"><i class="fas fa-chart-line"></i></span>
       <span class="action-label">Rapport détaillé</span>
     </button>
   </div>

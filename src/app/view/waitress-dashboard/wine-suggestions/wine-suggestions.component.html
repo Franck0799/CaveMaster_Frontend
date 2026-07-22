@@ -8,12 +8,12 @@ DESCRIPTION: Aide aux suggestions de vins et accords mets-vins
   <!-- Header -->
   <div class="page-header">
     <div class="header-left">
-      <h1 class="page-title">🍷 Suggestions de Vins</h1>
+      <h1 class="page-title"><i class="fas fa-wine-glass"></i> Suggestions de Vins</h1>
       <p class="page-subtitle">Trouvez l'accord parfait pour vos clients</p>
     </div>
     <div class="header-right" *ngIf="selectedDish">
       <div class="selected-dish-info">
-        <i class="icon utensils-icon"></i>
+        <i class="icon fas fa-utensils"></i>
         <span>Plat sélectionné: {{ selectedDish }}</span>
       </div>
     </div>
@@ -22,7 +22,7 @@ DESCRIPTION: Aide aux suggestions de vins et accords mets-vins
   <!-- Dish Categories -->
   <div class="dish-categories-section">
     <h3 class="section-title">
-      <i class="icon chef-hat-icon"></i>
+      <i class="icon fas fa-kitchen-set"></i>
       Accords par type de plat
     </h3>
     <div class="categories-grid">
@@ -30,7 +30,7 @@ DESCRIPTION: Aide aux suggestions de vins et accords mets-vins
         *ngFor="let category of dishCategories"
         class="category-card"
         (click)="selectDishCategory(category)">
-        <div class="category-icon">{{ category.icon }}</div>
+        <div class="category-icon"><i class="fas" [ngClass]="'fa-' + category.icon"></i></div>
         <span class="category-name">{{ category.name }}</span>
         <div class="suggested-types">
           <span
@@ -52,7 +52,7 @@ DESCRIPTION: Aide aux suggestions de vins et accords mets-vins
       <!-- Search & Filters -->
       <div class="filters-panel">
         <div class="search-bar">
-          <i class="icon search-icon"></i>
+          <i class="icon fas fa-magnifying-glass"></i>
           <input
             type="text"
             placeholder="Rechercher un vin, région, cépage..."
@@ -83,7 +83,7 @@ DESCRIPTION: Aide aux suggestions de vins et accords mets-vins
           </div>
 
           <button class="btn-reset-filters" (click)="resetFilters()">
-            <i class="icon x-icon"></i>
+            <i class="icon fas fa-xmark"></i>
             Réinitialiser
           </button>
         </div>
@@ -100,10 +100,10 @@ DESCRIPTION: Aide aux suggestions de vins et accords mets-vins
 
           <div class="wine-header">
             <div class="wine-type-badge" [class]="'type-' + wine.type">
-              {{ getWineTypeIcon(wine.type) }}
+              <i class="fas" [ngClass]="'fa-' + getWineTypeIcon(wine.type)"></i>
             </div>
             <div class="wine-rating">
-              <i class="icon star-icon"></i>
+              <i class="icon fas fa-star"></i>
               <span>{{ wine.rating }}</span>
             </div>
           </div>
@@ -111,15 +111,15 @@ DESCRIPTION: Aide aux suggestions de vins et accords mets-vins
           <div class="wine-content">
             <h3 class="wine-name">{{ wine.name }}</h3>
             <p class="wine-region">
-              <i class="icon map-pin-icon"></i>
+              <i class="icon fas fa-location-dot"></i>
               {{ wine.region }}
             </p>
             <p class="wine-grape" *ngIf="wine.year">
-              <i class="icon calendar-icon"></i>
+              <i class="icon fas fa-calendar-days"></i>
               {{ wine.year }} • {{ wine.grapeVariety }}
             </p>
             <p class="wine-grape" *ngIf="!wine.year">
-              <i class="icon grape-icon"></i>
+              <i class="icon fas fa-wine-bottle"></i>
               {{ wine.grapeVariety }}
             </p>
           </div>
@@ -130,7 +130,7 @@ DESCRIPTION: Aide aux suggestions de vins et accords mets-vins
               <span class="price-label">la bouteille</span>
             </div>
             <div class="wine-stock" [class]="getStockColor(wine.stock)">
-              <i class="icon package-icon"></i>
+              <i class="icon fas fa-box"></i>
               <span>{{ getStockStatus(wine.stock) }}</span>
             </div>
           </div>
@@ -139,14 +139,14 @@ DESCRIPTION: Aide aux suggestions de vins et accords mets-vins
             class="btn-add-wine"
             (click)="addToOrder(wine); $event.stopPropagation()"
             *ngIf="wine.stock > 0">
-            <i class="icon plus-icon"></i>
+            <i class="icon fas fa-plus"></i>
             Ajouter
           </button>
         </div>
 
         <!-- Empty State -->
         <div class="empty-state" *ngIf="filteredWines.length === 0">
-          <i class="icon wine-off-icon"></i>
+          <i class="icon fas fa-wine-glass-empty"></i>
           <h3>Aucun vin trouvé</h3>
           <p>Essayez de modifier vos filtres</p>
         </div>
@@ -159,10 +159,10 @@ DESCRIPTION: Aide aux suggestions de vins et accords mets-vins
 
         <div class="details-header">
           <div class="wine-type-badge-lg" [class]="'type-' + selectedWine.type">
-            {{ getWineTypeIcon(selectedWine.type) }}
+            <i class="fas" [ngClass]="'fa-' + getWineTypeIcon(selectedWine.type)"></i>
           </div>
           <button class="btn-close-details" (click)="selectedWine = undefined">
-            <i class="icon x-icon"></i>
+            <i class="icon fas fa-xmark"></i>
           </button>
         </div>
 
@@ -171,15 +171,15 @@ DESCRIPTION: Aide aux suggestions de vins et accords mets-vins
 
           <div class="wine-meta">
             <div class="meta-item">
-              <i class="icon map-pin-icon"></i>
+              <i class="icon fas fa-location-dot"></i>
               <span>{{ selectedWine.region }}</span>
             </div>
             <div class="meta-item" *ngIf="selectedWine.year">
-              <i class="icon calendar-icon"></i>
+              <i class="icon fas fa-calendar-days"></i>
               <span>{{ selectedWine.year }}</span>
             </div>
             <div class="meta-item">
-              <i class="icon star-icon"></i>
+              <i class="icon fas fa-star"></i>
               <span>{{ selectedWine.rating }}/5</span>
             </div>
           </div>
@@ -208,7 +208,7 @@ DESCRIPTION: Aide aux suggestions de vins et accords mets-vins
 
           <div class="wine-pairings">
             <h4>
-              <i class="icon utensils-icon"></i>
+              <i class="icon fas fa-utensils"></i>
               Accords mets-vins
             </h4>
             <div class="pairings-list">
@@ -225,10 +225,9 @@ DESCRIPTION: Aide aux suggestions de vins et accords mets-vins
             <div class="stars">
               <i
                 *ngFor="let star of getRatingStars(selectedWine.rating)"
-                class="icon"
-                [class.star-icon]="star === 'full'"
-                [class.star-half-icon]="star === 'half'"
-                [class.star-empty-icon]="star === 'empty'">
+                class="icon fas"
+                [ngClass]="star === 'full' ? 'fa-star' : star === 'half' ? 'fa-star-half-stroke' : 'fa-star'"
+                [class.star-empty]="star === 'empty'">
               </i>
             </div>
           </div>
@@ -245,7 +244,7 @@ DESCRIPTION: Aide aux suggestions de vins et accords mets-vins
               class="btn-add-to-order"
               (click)="addToOrder(selectedWine)"
               [disabled]="selectedWine.stock === 0">
-              <i class="icon shopping-cart-icon"></i>
+              <i class="icon fas fa-cart-shopping"></i>
               {{ selectedWine.stock === 0 ? 'Rupture de stock' : 'Ajouter à la commande' }}
             </button>
           </div>
@@ -256,7 +255,7 @@ DESCRIPTION: Aide aux suggestions de vins et accords mets-vins
     <!-- Empty Details Panel -->
     <div class="wine-details-panel empty" *ngIf="!selectedWine">
       <div class="empty-details">
-        <i class="icon wine-icon"></i>
+        <i class="icon fas fa-wine-glass"></i>
         <h3>Sélectionnez un vin</h3>
         <p>Cliquez sur un vin pour voir tous les détails et les accords mets-vins</p>
       </div>

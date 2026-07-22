@@ -6,7 +6,7 @@
           class="btn-favorite"
           (click)="onToggleFavorite($event)"
           [class.active]="isFavorite">
-          <span class="heart-icon">{{ isFavorite ? '❤️' : '🤍' }}</span>
+          <span class="heart-icon">{{ isFavorite ? '' : '' }}</span>
         </button>
       </div>
 
@@ -15,7 +15,7 @@
         <p class="wine-details">{{ wine.region }} • {{ wine.year }}</p>
 
         <div class="wine-rating">
-          <span class="star">⭐</span>
+          <span class="star"><i class="fas fa-star"></i></span>
           <span class="rating-value">{{ wine.rating }}</span>
         </div>
 
@@ -24,7 +24,7 @@
         <div class="wine-footer">
           <span class="wine-price">{{ wine.price }}€</span>
           <button class="btn-add" (click)="onAddToCart($event)">
-            <span class="cart-icon">🛒</span>
+            <span class="cart-icon"><i class="fas fa-cart-shopping"></i></span>
             Ajouter
           </button>
         </div>

@@ -6,7 +6,7 @@
       <p class="page-subtitle">Gérez vos réapprovisionnements</p>
     </div>
     <button class="btn-primary" (click)="createRequest()">
-      ➕ Nouvelle demande
+      <i class="fas fa-plus"></i> Nouvelle demande
     </button>
   </div>
 
@@ -68,20 +68,20 @@
         </div>
 
         <div class="notes" *ngIf="request.notes">
-          <span class="notes-icon">💬</span>
+          <span class="notes-icon"><i class="fas fa-comment"></i></span>
           <span class="notes-text">{{ request.notes }}</span>
         </div>
       </div>
 
       <div class="request-actions">
         <button class="action-btn" (click)="viewRequest(request)">
-          👁️ Détails
+          <i class="fas fa-eye"></i> Détails
         </button>
         <button class="action-btn" *ngIf="request.status === 'pending'" (click)="editRequest(request)">
-          ✏️ Modifier
+          <i class="fas fa-pen"></i> Modifier
         </button>
         <button class="action-btn danger" *ngIf="request.status === 'pending'" (click)="cancelRequest(request)">
-          ❌ Annuler
+          <i class="fas fa-xmark"></i> Annuler
         </button>
       </div>
     </div>
@@ -92,7 +92,7 @@
   <div class="modal-content" (click)="$event.stopPropagation()">
     <div class="modal-header">
       <h2 class="modal-title">Nouvelle demande de stock</h2>
-      <button class="btn-close" (click)="closeCreateModal()">✕</button>
+      <button class="btn-close" (click)="closeCreateModal()"><i class="fas fa-xmark"></i></button>
     </div>
 
     <div class="modal-body">
@@ -137,7 +137,7 @@
 
     <div class="modal-footer">
       <button class="btn-secondary" (click)="closeCreateModal()">Annuler</button>
-      <button class="btn-primary" (click)="performCreateRequest()">➕ Créer la demande</button>
+      <button class="btn-primary" (click)="performCreateRequest()"><i class="fas fa-plus"></i> Créer la demande</button>
     </div>
   </div>
 </div>

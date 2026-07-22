@@ -72,8 +72,8 @@ export class BillingComponent implements OnInit {
   paymentMethods: PaymentMethod[] = [
     { id: 'cash', name: 'Espèces', icon: 'dollar-sign' },
     { id: 'card', name: 'Carte Bancaire', icon: 'credit-card' },
-    { id: 'mobile', name: 'Paiement Mobile', icon: 'smartphone' },
-    { id: 'check', name: 'Chèque', icon: 'file-text' },
+    { id: 'mobile', name: 'Paiement Mobile', icon: 'mobile-screen' },
+    { id: 'check', name: 'Chèque', icon: 'file-lines' },
     { id: 'voucher', name: 'Chèque Restaurant', icon: 'gift' }
   ];
 

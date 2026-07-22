@@ -12,7 +12,7 @@
     <!-- Logo et statut de présence -->
     <div class="sidebar-header">
       <div class="logo">
-        <span class="logo-icon">🍾</span>
+        <span class="logo-icon"><i class="fas fa-champagne-glasses"></i></span>
         <span class="logo-text">Manager Pro</span>
       </div>
     </div>
@@ -22,7 +22,7 @@
       <button class="presence-btn"
               [class.active]="userProfile.isPresent"
               (click)="togglePresence()">
-        <span class="presence-icon">{{ userProfile.isPresent ? '✅' : '⭕' }}</span>
+        <span class="presence-icon"><i class="fas" [ngClass]="userProfile.isPresent ? 'fa-circle-check' : 'fa-circle'"></i></span>
         <div class="presence-info">
           <span class="presence-label">{{ userProfile.isPresent ? 'Je suis présent' : 'Je suis absent' }}</span>
           <span class="presence-cave">{{ userProfile.caveAssigned }}</span>
@@ -32,15 +32,15 @@
       <!-- Mini stats équipe -->
       <div class="team-quick-stats">
         <div class="stat-item present">
-          <span class="stat-icon">✅</span>
+          <span class="stat-icon"><i class="fas fa-circle-check"></i></span>
           <span class="stat-count">{{ getPresenceCount('present') }}</span>
         </div>
         <div class="stat-item absent">
-          <span class="stat-icon">⭕</span>
+          <span class="stat-icon"><i class="fas fa-circle-xmark"></i></span>
           <span class="stat-count">{{ getPresenceCount('absent') }}</span>
         </div>
         <div class="stat-item leave">
-          <span class="stat-icon">🏖️</span>
+          <span class="stat-icon"><i class="fas fa-umbrella-beach"></i></span>
           <span class="stat-count">{{ getPresenceCount('leave') }}</span>
         </div>
       </div>
@@ -54,7 +54,7 @@
            [routerLink]="['/manager', 'home']"
            routerLinkActive="active"
            (click)="closeMobileSidebar()">
-        <span class="nav-icon">🏠</span>
+        <span class="nav-icon"><i class="fas fa-gauge-high"></i></span>
         <span class="nav-text">Tableau de bord</span>
       </div>
 
@@ -62,7 +62,7 @@
            [routerLink]="['/manager', 'mycave']"
            routerLinkActive="active"
            (click)="closeMobileSidebar()">
-        <span class="nav-icon">🍷</span>
+        <span class="nav-icon"><i class="fas fa-wine-glass"></i></span>
         <span class="nav-text">Ma cave</span>
       </div>
     </nav>
@@ -86,7 +86,7 @@
              [routerLink]="['/manager', 'team']"
              routerLinkActive="active"
              (click)="closeMobileSidebar()">
-          <span class="nav-icon">👥</span>
+          <span class="nav-icon"><i class="fas fa-users"></i></span>
           <span class="nav-text">Vue d'ensemble</span>
         </div>
 
@@ -94,7 +94,7 @@
              [routerLink]="['/manager', 'presence']"
              routerLinkActive="active"
              (click)="closeMobileSidebar()">
-          <span class="nav-icon">📋</span>
+          <span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>
           <span class="nav-text">Présences</span>
         </div>
 
@@ -102,7 +102,7 @@
              [routerLink]="['/manager', 'schedule']"
              routerLinkActive="active"
              (click)="closeMobileSidebar()">
-          <span class="nav-icon">📅</span>
+          <span class="nav-icon"><i class="fas fa-calendar-days"></i></span>
           <span class="nav-text">Planning</span>
         </div>
 
@@ -110,7 +110,7 @@
              [routerLink]="['/manager', 'performance']"
              routerLinkActive="active"
              (click)="closeMobileSidebar()">
-          <span class="nav-icon">📊</span>
+          <span class="nav-icon"><i class="fas fa-chart-line"></i></span>
           <span class="nav-text">Performance</span>
         </div>
       </div>
@@ -135,7 +135,7 @@
              [routerLink]="['/manager', 'orders']"
              routerLinkActive="active"
              (click)="closeMobileSidebar()">
-          <span class="nav-icon">🛒</span>
+          <span class="nav-icon"><i class="fas fa-cart-shopping"></i></span>
           <span class="nav-text">Commandes</span>
         </div>
 
@@ -143,7 +143,7 @@
              [routerLink]="['/manager', 'sales']"
              routerLinkActive="active"
              (click)="closeMobileSidebar()">
-          <span class="nav-icon">💰</span>
+          <span class="nav-icon"><i class="fas fa-sack-dollar"></i></span>
           <span class="nav-text">Ventes</span>
         </div>
 
@@ -151,7 +151,7 @@
              [routerLink]="['/manager', 'stockrequest']"
              routerLinkActive="active"
              (click)="closeMobileSidebar()">
-          <span class="nav-icon">📦</span>
+          <span class="nav-icon"><i class="fas fa-box"></i></span>
           <span class="nav-text">Demandes de stock</span>
         </div>
 
@@ -159,7 +159,7 @@
              [routerLink]="['/manager', 'inventory']"
              routerLinkActive="active"
              (click)="closeMobileSidebar()">
-          <span class="nav-icon">📋</span>
+          <span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>
           <span class="nav-text">Inventaire</span>
         </div>
       </div>
@@ -184,7 +184,7 @@
              [routerLink]="['/manager', 'dailyreport']"
              routerLinkActive="active"
              (click)="closeMobileSidebar()">
-          <span class="nav-icon">📝</span>
+          <span class="nav-icon"><i class="fas fa-file-lines"></i></span>
           <span class="nav-text">Rapport journalier</span>
         </div>
 
@@ -192,7 +192,7 @@
              [routerLink]="['/manager', 'cashregister']"
              routerLinkActive="active"
              (click)="closeMobileSidebar()">
-          <span class="nav-icon">💵</span>
+          <span class="nav-icon"><i class="fas fa-money-bill-wave"></i></span>
           <span class="nav-text">Caisse</span>
         </div>
 
@@ -200,7 +200,7 @@
              [routerLink]="['/manager', 'incidents']"
              routerLinkActive="active"
              (click)="closeMobileSidebar()">
-          <span class="nav-icon">⚠️</span>
+          <span class="nav-icon"><i class="fas fa-triangle-exclamation"></i></span>
           <span class="nav-text">Incidents</span>
         </div>
       </div>
@@ -214,7 +214,7 @@
            [routerLink]="['/manager', 'customers']"
            routerLinkActive="active"
            (click)="closeMobileSidebar()">
-        <span class="nav-icon">🧑‍💼</span>
+        <span class="nav-icon"><i class="fas fa-user-tie"></i></span>
         <span class="nav-text">Clients</span>
       </div>
     </nav>
@@ -238,7 +238,7 @@
              [routerLink]="['/manager', 'faq']"
              routerLinkActive="active"
              (click)="closeMobileSidebar()">
-          <span class="nav-icon">❓</span>
+          <span class="nav-icon"><i class="fas fa-circle-question"></i></span>
           <span class="nav-text">FAQ</span>
         </div>
 
@@ -246,7 +246,7 @@
              [routerLink]="['/manager', 'contact']"
              routerLinkActive="active"
              (click)="closeMobileSidebar()">
-          <span class="nav-icon">📧</span>
+          <span class="nav-icon"><i class="fas fa-envelope"></i></span>
           <span class="nav-text">Support</span>
         </div>
       </div>
@@ -260,7 +260,7 @@
            [routerLink]="['/manager', 'profile']"
            routerLinkActive="active"
            (click)="closeMobileSidebar()">
-        <span class="nav-icon">👤</span>
+        <span class="nav-icon"><i class="fas fa-user"></i></span>
         <span class="nav-text">Mon compte</span>
       </div>
     </nav>
@@ -279,7 +279,7 @@
     <header class="top-header">
       <!-- Bouton menu mobile -->
       <!--button class="mobile-menu-btn" (click)="toggleMobileSidebar()" aria-label="Menu">
-        ☰
+        <i class="fas fa-bars"></i>
       </button -->
 
       <!-- Barre de recherche -->
@@ -292,7 +292,7 @@
             (keyup.enter)="onSearch()"
             aria-label="Recherche">
           <button class="search-btn" (click)="onSearch()" aria-label="Rechercher">
-            🔍
+            <i class="fas fa-magnifying-glass"></i>
           </button>
         </div>
       </div>
@@ -308,7 +308,7 @@
              role="button"
              tabindex="0"
              aria-label="Messages">
-          <span class="icon">💬</span>
+          <span class="icon"><i class="fas fa-comment"></i></span>
           <span class="badge" *ngIf="getUnreadMessagesCount() > 0">
             {{ getUnreadMessagesCount() }}
           </span>
@@ -320,7 +320,7 @@
              role="button"
              tabindex="0"
              aria-label="Notifications">
-          <span class="icon">🔔</span>
+          <span class="icon"><i class="fas fa-bell"></i></span>
           <span class="badge" *ngIf="getUnreadNotificationsCount() > 0">
             {{ getUnreadNotificationsCount() }}
           </span>
@@ -337,7 +337,7 @@
             <div class="user-name">{{ userProfile.firstName }} {{ userProfile.lastName }}</div>
             <div class="user-role">{{ userProfile.role }} - {{ userProfile.caveAssigned }}</div>
           </div>
-          <span class="dropdown-arrow" [class.rotated]="isUserDropdownOpen">▼</span>
+          <span class="dropdown-arrow" [class.rotated]="isUserDropdownOpen"><i class="fas fa-chevron-down"></i></span>
 
           <!-- Menu dropdown -->
           <div class="user-dropdown"
@@ -346,18 +346,18 @@
             <div class="dropdown-item"
                  [routerLink]="['/manager', 'profile']"
                  (click)="isUserDropdownOpen = false">
-              <span class="dropdown-icon">👤</span>
+              <span class="dropdown-icon"><i class="fas fa-user"></i></span>
               <span>Mon profil</span>
             </div>
             <div class="dropdown-item"
                  [routerLink]="['/manager', 'settings']"
                  (click)="isUserDropdownOpen = false">
-              <span class="dropdown-icon">⚙️</span>
+              <span class="dropdown-icon"><i class="fas fa-gear"></i></span>
               <span>Paramètres</span>
             </div>
             <div class="dropdown-divider"></div>
             <div class="dropdown-item logout-item" (click)="logout($event)">
-              <span class="dropdown-icon">🚪</span>
+              <span class="dropdown-icon"><i class="fas fa-right-from-bracket"></i></span>
               <span>Déconnexion</span>
             </div>
           </div>

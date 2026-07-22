@@ -12,7 +12,7 @@
         <option value="month">Ce mois</option>
       </select>
       <button class="btn-export" (click)="exportSales()">
-        📥 Exporter
+        <i class="fas fa-download"></i> Exporter
       </button>
     </div>
   </div>
@@ -20,7 +20,7 @@
   <!-- Statistiques principales -->
   <div class="stats-grid">
     <div class="stat-card primary">
-      <div class="stat-icon">💰</div>
+      <div class="stat-icon"><i class="fas fa-sack-dollar"></i></div>
       <div class="stat-content">
         <div class="stat-label">Ventes totales</div>
         <div class="stat-value">{{ stats.totalSales | number:'1.2-2' }} €</div>
@@ -29,7 +29,7 @@
     </div>
 
     <div class="stat-card success">
-      <div class="stat-icon">🧾</div>
+      <div class="stat-icon"><i class="fas fa-receipt"></i></div>
       <div class="stat-content">
         <div class="stat-label">Ticket moyen</div>
         <div class="stat-value">{{ stats.averageTicket | number:'1.2-2' }} €</div>
@@ -38,7 +38,7 @@
     </div>
 
     <div class="stat-card info">
-      <div class="stat-icon">💵</div>
+      <div class="stat-icon"><i class="fas fa-money-bill-wave"></i></div>
       <div class="stat-content">
         <div class="stat-label">Espèces</div>
         <div class="stat-value">{{ stats.cashSales | number:'1.2-2' }} €</div>
@@ -47,7 +47,7 @@
     </div>
 
     <div class="stat-card accent">
-      <div class="stat-icon">💳</div>
+      <div class="stat-icon"><i class="fas fa-credit-card"></i></div>
       <div class="stat-content">
         <div class="stat-label">Carte bancaire</div>
         <div class="stat-value">{{ stats.cardSales | number:'1.2-2' }} €</div>
@@ -104,7 +104,7 @@
       </div>
       <div class="col-amount">
         <span class="amount-value">{{ sale.amount | number:'1.2-2' }} €</span>
-        <span class="tip-value" *ngIf="sale.tip">+{{ sale.tip }}€ 💰</span>
+        <span class="tip-value" *ngIf="sale.tip">+{{ sale.tip }}€ <i class="fas fa-sack-dollar"></i></span>
       </div>
       <div class="col-payment">
         <span class="payment-badge" [class]="'payment-' + sale.paymentMethod">
@@ -112,8 +112,8 @@
         </span>
       </div>
       <div class="col-actions">
-        <button class="icon-btn" (click)="viewSale(sale)" title="Détails">👁️</button>
-        <button class="icon-btn" (click)="printReceipt(sale)" title="Imprimer">🖨️</button>
+        <button class="icon-btn" (click)="viewSale(sale)" title="Détails"><i class="fas fa-eye"></i></button>
+        <button class="icon-btn" (click)="printReceipt(sale)" title="Imprimer"><i class="fas fa-print"></i></button>
       </div>
     </div>
   </div>

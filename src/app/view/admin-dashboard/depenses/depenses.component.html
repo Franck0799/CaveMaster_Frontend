@@ -18,22 +18,22 @@
             type="button"
             (click)="toggleExportMenu()"
             class="btn btn-secondary">
-            <span class="icon">📥</span>
+            <span class="icon"><i class="fas fa-download"></i></span>
             <span class="btn-text">Exporter</span>
             <span class="arrow">▼</span>
           </button>
 
           <div *ngIf="showExportMenu" class="export-menu">
             <button type="button" (click)="exportToCSV()" class="menu-item">
-              <span>📄</span>
+              <span><i class="fas fa-file-lines"></i></span>
               <span>Exporter en CSV</span>
             </button>
             <button type="button" (click)="exportToExcel()" class="menu-item">
-              <span>📊</span>
+              <span><i class="fas fa-chart-line"></i></span>
               <span>Exporter en Excel</span>
             </button>
             <button type="button" (click)="exportToPDF()" class="menu-item">
-              <span>📑</span>
+              <span></span>
               <span>Exporter en PDF</span>
             </button>
           </div>
@@ -43,7 +43,7 @@
           type="button"
           (click)="openAddModal()"
           class="btn btn-primary">
-          <span class="icon">➕</span>
+          <span class="icon"><i class="fas fa-plus"></i></span>
           <span class="btn-text">Nouvelle Dépense</span>
         </button>
       </div>
@@ -75,7 +75,7 @@
       <div class="stat-card stat-card-total">
         <div class="stat-content">
           <div class="stat-icon bg-blue-gradient">
-            💎
+            <i class="fas fa-gem"></i>
           </div>
           <div class="stat-info">
             <p class="stat-label">Total Général</p>
@@ -91,7 +91,7 @@
   <!-- Filters -->
   <div class="filters-container">
     <div class="search-box">
-      <span class="icon">🔍</span>
+      <span class="icon"><i class="fas fa-magnifying-glass"></i></span>
       <input
         type="text"
         [(ngModel)]="searchTerm"
@@ -100,7 +100,7 @@
     </div>
 
     <div class="filter-box">
-      <span class="icon">🔽</span>
+      <span class="icon"></span>
       <select
         [(ngModel)]="filterCategory"
         (ngModelChange)="onCategoryChange()">
@@ -132,7 +132,7 @@
           <tr *ngIf="filteredExpenses.length === 0" class="empty-state">
             <td colspan="6">
               <div class="empty-content">
-                <span class="empty-icon">📭</span>
+                <span class="empty-icon"><i class="fas fa-envelope-open"></i></span>
                 <p class="empty-text">Aucune dépense trouvée</p>
               </div>
             </td>
@@ -164,14 +164,14 @@
                   (click)="handleEdit(expense)"
                   class="btn-edit"
                   title="Modifier">
-                  ✏️
+                  <i class="fas fa-pen"></i>
                 </button>
                 <button
                   type="button"
                   (click)="handleDelete(expense.id)"
                   class="btn-delete"
                   title="Supprimer">
-                  🗑️
+                  <i class="fas fa-trash"></i>
                 </button>
               </div>
             </td>
@@ -198,7 +198,7 @@
           type="button"
           (click)="closeModal()"
           class="close-btn">
-          ✖️
+          
         </button>
       </div>
 

@@ -8,7 +8,7 @@ DESCRIPTION: Profil personnel du serveur
   <!-- Header -->
   <div class="page-header">
     <div class="header-left">
-      <h1 class="page-title">👤 Mon Profil</h1>
+      <h1 class="page-title"><i class="fas fa-user"></i> Mon Profil</h1>
       <p class="page-subtitle">Informations personnelles et statistiques</p>
     </div>
     <div class="header-right">
@@ -16,21 +16,21 @@ DESCRIPTION: Profil personnel du serveur
         class="btn-edit"
         *ngIf="!editMode"
         (click)="toggleEditMode()">
-        <i class="icon edit-icon"></i>
+        <i class="icon fas fa-pen"></i>
         Modifier
       </button>
       <button
         class="btn-cancel"
         *ngIf="editMode"
         (click)="toggleEditMode()">
-        <i class="icon x-icon"></i>
+        <i class="icon fas fa-xmark"></i>
         Annuler
       </button>
       <button
         class="btn-save"
         *ngIf="editMode"
         (click)="saveProfile()">
-        <i class="icon save-icon"></i>
+        <i class="icon fas fa-floppy-disk"></i>
         Enregistrer
       </button>
     </div>
@@ -50,7 +50,7 @@ DESCRIPTION: Profil personnel du serveur
             </div>
             <img *ngIf="editedUser.avatar" [src]="editedUser.avatar" alt="Avatar" class="avatar-image">
             <button class="btn-change-avatar" *ngIf="editMode" (click)="uploadAvatar()">
-              <i class="icon camera-icon"></i>
+              <i class="icon fas fa-camera"></i>
             </button>
           </div>
           <div class="profile-name">
@@ -61,21 +61,21 @@ DESCRIPTION: Profil personnel du serveur
 
         <div class="profile-meta">
           <div class="meta-item">
-            <i class="icon briefcase-icon"></i>
+            <i class="icon fas fa-briefcase"></i>
             <div class="meta-content">
               <span class="meta-label">Ancienneté</span>
               <span class="meta-value">{{ getExperienceDuration() }}</span>
             </div>
           </div>
           <div class="meta-item">
-            <i class="icon calendar-icon"></i>
+            <i class="icon fas fa-calendar-days"></i>
             <div class="meta-content">
               <span class="meta-label">Date d'embauche</span>
               <span class="meta-value">{{ user.hireDate | date:'dd/MM/yyyy' }}</span>
             </div>
           </div>
           <div class="meta-item" *ngIf="user.birthDate">
-            <i class="icon cake-icon"></i>
+            <i class="icon fas fa-cake-candles"></i>
             <div class="meta-content">
               <span class="meta-label">Âge</span>
               <span class="meta-value">{{ getAge() }} ans</span>
@@ -88,7 +88,7 @@ DESCRIPTION: Profil personnel du serveur
       <div class="info-card">
         <div class="card-header">
           <h3 class="card-title">
-            <i class="icon user-icon"></i>
+            <i class="icon fas fa-user"></i>
             Informations personnelles
           </h3>
         </div>
@@ -159,7 +159,7 @@ DESCRIPTION: Profil personnel du serveur
       <div class="info-card">
         <div class="card-header">
           <h3 class="card-title">
-            <i class="icon phone-icon"></i>
+            <i class="icon fas fa-phone"></i>
             Contact d'urgence
           </h3>
         </div>
@@ -201,19 +201,19 @@ DESCRIPTION: Profil personnel du serveur
       <div class="info-card">
         <div class="card-header">
           <h3 class="card-title">
-            <i class="icon lock-icon"></i>
+            <i class="icon fas fa-lock"></i>
             Sécurité
           </h3>
         </div>
 
         <div class="security-content">
           <button class="btn-change-password" (click)="openPasswordModal()">
-            <i class="icon key-icon"></i>
+            <i class="icon fas fa-key"></i>
             <div>
               <span class="btn-title">Changer le mot de passe</span>
               <span class="btn-description">Modifiez votre mot de passe de connexion</span>
             </div>
-            <i class="icon chevron-right-icon"></i>
+            <i class="icon fas fa-chevron-right"></i>
           </button>
         </div>
       </div>
@@ -227,7 +227,7 @@ DESCRIPTION: Profil personnel du serveur
       <div class="stats-card">
         <div class="card-header">
           <h3 class="card-title">
-            <i class="icon bar-chart-icon"></i>
+            <i class="icon fas fa-chart-bar"></i>
             Mes statistiques
           </h3>
         </div>
@@ -238,7 +238,7 @@ DESCRIPTION: Profil personnel du serveur
             class="stat-item"
             [class]="'stat-' + stat.color">
             <div class="stat-icon">
-              <i class="icon" [class]="'icon-' + stat.icon"></i>
+              <i class="icon fas" [ngClass]="'fa-' + (stat.icon)"></i>
             </div>
             <div class="stat-content">
               <span class="stat-value">{{ stat.value }}</span>
@@ -252,7 +252,7 @@ DESCRIPTION: Profil personnel du serveur
       <div class="achievements-card">
         <div class="card-header">
           <h3 class="card-title">
-            <i class="icon trophy-icon"></i>
+            <i class="icon fas fa-trophy"></i>
             Mes achievements
           </h3>
           <span class="achievement-count">{{ achievements.length }}</span>
@@ -265,7 +265,7 @@ DESCRIPTION: Profil personnel du serveur
             [class]="'rarity-' + achievement.rarity">
 
             <div class="achievement-icon" [style.color]="getRarityColor(achievement.rarity)">
-              <i class="icon" [class]="'icon-' + achievement.icon"></i>
+              <i class="icon fas" [ngClass]="'fa-' + (achievement.icon)"></i>
             </div>
 
             <div class="achievement-content">
@@ -279,7 +279,7 @@ DESCRIPTION: Profil personnel du serveur
               </div>
               <p class="achievement-description">{{ achievement.description }}</p>
               <span class="achievement-date">
-                <i class="icon calendar-icon"></i>
+                <i class="icon fas fa-calendar-days"></i>
                 Obtenu le {{ formatDate(achievement.earnedDate) }}
               </span>
             </div>
@@ -299,7 +299,7 @@ DESCRIPTION: Profil personnel du serveur
     <div class="modal-header">
       <h2 class="modal-title">Changer le mot de passe</h2>
       <button class="btn-close-modal" (click)="closePasswordModal()">
-        <i class="icon x-icon"></i>
+        <i class="icon fas fa-xmark"></i>
       </button>
     </div>
 
@@ -343,7 +343,7 @@ DESCRIPTION: Profil personnel du serveur
         Annuler
       </button>
       <button class="btn-modal-confirm" (click)="changePassword()">
-        <i class="icon check-icon"></i>
+        <i class="icon fas fa-check"></i>
         Changer le mot de passe
       </button>
     </div>

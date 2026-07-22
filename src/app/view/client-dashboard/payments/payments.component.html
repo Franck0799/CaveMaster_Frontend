@@ -9,7 +9,7 @@
   <div class="page-header">
     <div class="header-content">
       <h1 class="page-title">
-        <span class="icon">💳</span>
+        <span class="icon"><i class="fas fa-credit-card"></i></span>
         Mes Paiements
       </h1>
       <p class="page-subtitle">Gérez vos moyens de paiement et consultez l'historique</p>
@@ -23,7 +23,7 @@
   <!-- Méthodes de paiement -->
   <section class="section">
     <h2 class="section-title">
-      <span class="section-icon">💳</span>
+      <span class="section-icon"><i class="fas fa-credit-card"></i></span>
       Moyens de paiement
     </h2>
 
@@ -52,10 +52,10 @@
         <!-- Actions -->
         <div class="method-actions">
           <button class="btn-edit" (click)="editMethod(method, $event)">
-            <span class="action-icon">✏️</span>
+            <span class="action-icon"><i class="fas fa-pen"></i></span>
           </button>
           <button class="btn-delete" (click)="deleteMethod(method, $event)">
-            <span class="action-icon">🗑️</span>
+            <span class="action-icon"><i class="fas fa-trash"></i></span>
           </button>
         </div>
       </div>
@@ -65,7 +65,7 @@
   <!-- Historique des transactions -->
   <section class="section">
     <h2 class="section-title">
-      <span class="section-icon">📊</span>
+      <span class="section-icon"><i class="fas fa-chart-line"></i></span>
       Historique des Transactions
     </h2>
 
@@ -106,7 +106,7 @@
             class="btn-receipt"
             *ngIf="transaction.status === 'success'"
             (click)="downloadReceipt(transaction, $event)">
-            <span class="receipt-icon">📄</span>
+            <span class="receipt-icon"><i class="fas fa-file-lines"></i></span>
             Reçu
           </button>
         </div>
@@ -122,7 +122,7 @@
     <div class="modal-header">
       <h2 class="modal-title">Ajouter un moyen de paiement</h2>
       <button class="btn-close" (click)="closeAddModal()">
-        <span class="close-icon">✕</span>
+        <span class="close-icon"><i class="fas fa-xmark"></i></span>
       </button>
     </div>
     <div class="modal-body">

@@ -3,12 +3,12 @@
   <header class="page-header">
     <div class="header-content">
       <div class="header-left">
-        <h1 class="page-title">💰 Gestion des Caisses</h1>
+        <h1 class="page-title"><i class="fas fa-sack-dollar"></i> Gestion des Caisses</h1>
         <p class="page-subtitle">Supervision en temps réel de toutes les caisses</p>
       </div>
       <div class="header-actions">
         <button class="action-btn action-btn-primary" (click)="exporterRapport()">
-          <span class="btn-icon">📊</span>
+          <span class="btn-icon"><i class="fas fa-chart-line"></i></span>
           <span class="btn-text">Exporter Rapport</span>
         </button>
       </div>
@@ -19,7 +19,7 @@
   <section class="date-section">
     <div class="date-selector-card">
       <label for="dateSelect" class="date-label">
-        <span class="date-icon">📅</span>
+        <span class="date-icon"><i class="fas fa-calendar-days"></i></span>
         <span>Date de consultation:</span>
       </label>
       <input
@@ -41,14 +41,14 @@
         class="toggle-btn"
         [class.active]="currentView === 'resume'"
         (click)="switchView('resume')">
-        <span class="toggle-icon">📊</span>
+        <span class="toggle-icon"><i class="fas fa-chart-line"></i></span>
         <span>Vue Résumé</span>
       </button>
       <button
         class="toggle-btn"
         [class.active]="currentView === 'details'"
         (click)="switchView('details')">
-        <span class="toggle-icon">🔍</span>
+        <span class="toggle-icon"><i class="fas fa-magnifying-glass"></i></span>
         <span>Vue Détaillée</span>
       </button>
     </div>
@@ -59,14 +59,14 @@
     <!-- Statistiques Globales -->
     <section class="global-stats-section">
       <h2 class="section-title">
-        <span class="title-icon">🌍</span>
+        <span class="title-icon"><i class="fas fa-earth-europe"></i></span>
         Statistiques Globales
       </h2>
 
       <div class="global-stats-grid">
         <div class="global-stat-card global-stat-total">
           <div class="stat-icon-wrapper">
-            <span class="stat-icon">💰</span>
+            <span class="stat-icon"><i class="fas fa-sack-dollar"></i></span>
           </div>
           <div class="stat-content">
             <div class="stat-label">Total Toutes Caisses</div>
@@ -77,7 +77,7 @@
 
         <div class="global-stat-card global-stat-especes">
           <div class="stat-icon-wrapper">
-            <span class="stat-icon">💵</span>
+            <span class="stat-icon"><i class="fas fa-money-bill-wave"></i></span>
           </div>
           <div class="stat-content">
             <div class="stat-label">Total Espèces</div>
@@ -88,7 +88,7 @@
 
         <div class="global-stat-card global-stat-carte">
           <div class="stat-icon-wrapper">
-            <span class="stat-icon">💳</span>
+            <span class="stat-icon"><i class="fas fa-credit-card"></i></span>
           </div>
           <div class="stat-content">
             <div class="stat-label">Total Wave</div>
@@ -99,7 +99,7 @@
 
         <div class="global-stat-card global-stat-mobile">
           <div class="stat-icon-wrapper">
-            <span class="stat-icon">📱</span>
+            <span class="stat-icon"><i class="fas fa-mobile-screen"></i></span>
           </div>
           <div class="stat-content">
             <div class="stat-label">Total Mobile</div>
@@ -113,7 +113,7 @@
     <!-- Résumé par Manager -->
     <section class="managers-summary-section">
       <h2 class="section-title">
-        <span class="title-icon">👥</span>
+        <span class="title-icon"><i class="fas fa-users"></i></span>
         Résumé par Manager
       </h2>
 
@@ -143,7 +143,7 @@
 
             <div class="summary-stats-grid">
               <div class="mini-stat">
-                <span class="mini-icon">💵</span>
+                <span class="mini-icon"><i class="fas fa-money-bill-wave"></i></span>
                 <div class="mini-content">
                   <span class="mini-label">Espèces</span>
                   <span class="mini-value">{{formatMontant(stat.especes)}}</span>
@@ -151,7 +151,7 @@
               </div>
 
               <div class="mini-stat">
-                <span class="mini-icon">💳</span>
+                <span class="mini-icon"><i class="fas fa-credit-card"></i></span>
                 <div class="mini-content">
                   <span class="mini-label">Wave</span>
                   <span class="mini-value">{{formatMontant(stat.Wave)}}</span>
@@ -159,7 +159,7 @@
               </div>
 
               <div class="mini-stat">
-                <span class="mini-icon">📱</span>
+                <span class="mini-icon"><i class="fas fa-mobile-screen"></i></span>
                 <div class="mini-content">
                   <span class="mini-label">Mobile</span>
                   <span class="mini-value">{{formatMontant(stat.mobile)}}</span>
@@ -167,7 +167,7 @@
               </div>
 
               <div class="mini-stat">
-                <span class="mini-icon">🧾</span>
+                <span class="mini-icon"><i class="fas fa-receipt"></i></span>
                 <div class="mini-content">
                   <span class="mini-label">Transactions</span>
                   <span class="mini-value">{{stat.nombreTransactions}}</span>
@@ -192,7 +192,7 @@
     <!-- Sélection du Manager -->
     <section class="manager-selection-section">
       <h2 class="section-title">
-        <span class="title-icon">👤</span>
+        <span class="title-icon"><i class="fas fa-user"></i></span>
         Sélectionner un Manager
       </h2>
 
@@ -223,16 +223,16 @@
           </div>
           <div class="info-details">
             <h3 class="info-name">{{selectedManager.nom}}</h3>
-            <p class="info-cave">🏢 {{selectedManager.cave}}</p>
-            <p class="info-adresse">📍 {{selectedManager.caveAdresse}}</p>
+            <p class="info-cave"><i class="fas fa-building"></i> {{selectedManager.cave}}</p>
+            <p class="info-adresse"><i class="fas fa-location-dot"></i> {{selectedManager.caveAdresse}}</p>
           </div>
           <div class="info-actions">
             <button class="info-action-btn" (click)="envoyerNotification(selectedManager.id)">
-              <span>📧</span>
+              <span><i class="fas fa-envelope"></i></span>
               <span>Notifier</span>
             </button>
             <button class="info-action-btn btn-danger" (click)="fermerCaisse(selectedManager.id)">
-              <span>🔒</span>
+              <span><i class="fas fa-lock"></i></span>
               <span>Fermer caisse</span>
             </button>
           </div>
@@ -243,13 +243,13 @@
     <!-- Statistiques du Manager -->
     <section class="manager-stats-section">
       <h2 class="section-title">
-        <span class="title-icon">📊</span>
+        <span class="title-icon"><i class="fas fa-chart-line"></i></span>
         Statistiques de Caisse
       </h2>
 
       <div class="stats-grid">
         <div class="stat-card stat-card-total">
-          <div class="stat-icon">💰</div>
+          <div class="stat-icon"><i class="fas fa-sack-dollar"></i></div>
           <div class="stat-content">
             <div class="stat-label">Total du Jour</div>
             <div class="stat-value">{{formatMontant(statistiquesManager.totalJour)}}</div>
@@ -258,7 +258,7 @@
         </div>
 
         <div class="stat-card stat-card-especes">
-          <div class="stat-icon">💵</div>
+          <div class="stat-icon"><i class="fas fa-money-bill-wave"></i></div>
           <div class="stat-content">
             <div class="stat-label">Espèces</div>
             <div class="stat-value">{{formatMontant(statistiquesManager.especes)}}</div>
@@ -266,7 +266,7 @@
         </div>
 
         <div class="stat-card stat-card-carte">
-          <div class="stat-icon">💳</div>
+          <div class="stat-icon"><i class="fas fa-credit-card"></i></div>
           <div class="stat-content">
             <div class="stat-label">Wave</div>
             <div class="stat-value">{{formatMontant(statistiquesManager.wave)}}</div>
@@ -274,7 +274,7 @@
         </div>
 
         <div class="stat-card stat-card-mobile">
-          <div class="stat-icon">📱</div>
+          <div class="stat-icon"><i class="fas fa-mobile-screen"></i></div>
           <div class="stat-content">
             <div class="stat-label">Paiement Mobile</div>
             <div class="stat-value">{{formatMontant(statistiquesManager.mobile)}}</div>
@@ -317,23 +317,23 @@
     <!-- Liste des Transactions -->
     <section class="transactions-list-section">
       <h2 class="section-title">
-        <span class="title-icon">📝</span>
+        <span class="title-icon"><i class="fas fa-file-lines"></i></span>
         Transactions de la Journée
       </h2>
 
       <div class="transactions-container">
         <div *ngIf="filteredTransactions.length === 0" class="empty-state">
-          <div class="empty-icon">💰</div>
+          <div class="empty-icon"><i class="fas fa-sack-dollar"></i></div>
           <p class="empty-text">Aucune transaction pour cette période</p>
         </div>
 
         <div class="transaction-item" *ngFor="let transaction of filteredTransactions">
           <div class="transaction-header">
             <div class="transaction-icon" [class]="'transaction-' + transaction.type">
-              <span *ngIf="transaction.type === 'vente'">🛒</span>
+              <span *ngIf="transaction.type === 'vente'"><i class="fas fa-cart-shopping"></i></span>
               <span *ngIf="transaction.type === 'remboursement'">↩️</span>
-              <span *ngIf="transaction.type === 'ouverture'">🔓</span>
-              <span *ngIf="transaction.type === 'fermeture'">🔒</span>
+              <span *ngIf="transaction.type === 'ouverture'"><i class="fas fa-lock-open"></i></span>
+              <span *ngIf="transaction.type === 'fermeture'"><i class="fas fa-lock"></i></span>
             </div>
 
             <div class="transaction-info">
@@ -355,19 +355,19 @@
 
           <div class="transaction-body">
             <div class="transaction-detail-row" *ngIf="transaction.client">
-              <span class="detail-icon">👤</span>
+              <span class="detail-icon"><i class="fas fa-user"></i></span>
               <span class="detail-text">Client: {{transaction.client}}</span>
             </div>
             <div class="transaction-detail-row">
-              <span class="detail-icon">💳</span>
+              <span class="detail-icon"><i class="fas fa-credit-card"></i></span>
               <span class="detail-text">{{transaction.moyenPaiementText}}</span>
             </div>
             <div class="transaction-detail-row" *ngIf="transaction.reference">
-              <span class="detail-icon">📝</span>
+              <span class="detail-icon"><i class="fas fa-file-lines"></i></span>
               <span class="detail-text">Réf: {{transaction.reference}}</span>
             </div>
             <div class="transaction-detail-row">
-              <span class="detail-icon">👨‍💼</span>
+              <span class="detail-icon"><i class="fas fa-user"></i>‍<i class="fas fa-briefcase"></i></span>
               <span class="detail-text">Caissier: {{transaction.caissier}}</span>
             </div>
             <div class="transaction-details-text">

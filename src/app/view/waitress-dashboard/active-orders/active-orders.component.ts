@@ -9,9 +9,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { NotificationService } from '../../../core/services/notification.service';
+import { OrdersService } from '../../../core/services/sales/orders.service';
+import { AuthService } from '../../../core/services/auth/auth.service';
+import { ApiOrder } from '../../../core/models/Sales/Order';
 
 interface OrderItem {
-  id: number;
+  id: string;
   name: string;
   quantity: number;
   notes?: string;
@@ -19,15 +22,15 @@ interface OrderItem {
 }
 
 interface Order {
-  id: number;
+  id: string;
   tableNumber: string;
   orderTime: Date;
   status: 'pending' | 'preparing' | 'ready' | 'served';
   items: OrderItem[];
   totalAmount: number;
   priority: 'normal' | 'urgent';
-  serverId: number;
-  serverName: string;
+  serverId?: string;
+  serverName?: string;
 }
 
 @Component({
@@ -39,76 +42,26 @@ interface Order {
   styleUrls: ['./active-orders.component.scss']
 })
 export class ActiveOrdersComponent implements OnInit, OnDestroy {
-  orders: Order[] = [
-    {
-      id: 1,
-      tableNumber: 'T05',
-      orderTime: new Date(Date.now() - 25 * 60000),
-      status: 'ready',
-      priority: 'urgent',
-      serverId: 1,
-      serverName: 'Marie',
-      totalAmount: 78.50,
-      items: [
-        { id: 1, name: 'Magret de Canard', quantity: 1, status: 'ready' },
-        { id: 2, name: 'Pavé de Saumon', quantity: 1, status: 'ready' },
-        { id: 3, name: 'Château Margaux 2015', quantity: 1, status: 'served' }
-      ]
-    },
-    {
-      id: 2,
-      tableNumber: 'T12',
-      orderTime: new Date(Date.now() - 15 * 60000),
-      status: 'preparing',
-      priority: 'normal',
-      serverId: 1,
-      serverName: 'Marie',
-      totalAmount: 95.00,
-      items: [
-        { id: 4, name: 'Foie Gras Poêlé', quantity: 2, status: 'preparing' },
-        { id: 5, name: 'Entrecôte Grillée', quantity: 2, status: 'preparing' },
-        { id: 6, name: 'Chablis Grand Cru', quantity: 1, status: 'served' }
-      ]
-    },
-    {
-      id: 3,
-      tableNumber: 'T18',
-      orderTime: new Date(Date.now() - 10 * 60000),
-      status: 'pending',
-      priority: 'normal',
-      serverId: 1,
-      serverName: 'Marie',
-      totalAmount: 48.00,
-      items: [
-        { id: 7, name: 'Salade César', quantity: 2, status: 'pending' },
-        { id: 8, name: 'Risotto aux Champignons', quantity: 2, status: 'pending' }
-      ]
-    },
-    {
-      id: 4,
-      tableNumber: 'T10',
-      orderTime: new Date(Date.now() - 5 * 60000),
-      status: 'ready',
-      priority: 'urgent',
-      serverId: 1,
-      serverName: 'Marie',
-      totalAmount: 34.50,
-      items: [
-        { id: 9, name: 'Tiramisu', quantity: 2, status: 'ready' },
-        { id: 10, name: 'Moelleux au Chocolat', quantity: 2, status: 'ready' }
-      ]
-    }
-  ];
+  orders: Order[] = [];
 
   filteredOrders: Order[] = [];
   selectedFilter: 'all' | 'pending' | 'preparing' | 'ready' | 'served' = 'all';
   refreshInterval: any;
   autoRefresh = true;
+  currentUserId: string | null = null;
 
-  constructor(private router: Router, private notificationService: NotificationService) {}
+  constructor(
+    private router: Router,
+    private notificationService: NotificationService,
+    private ordersService: OrdersService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    this.filterOrders();
+    this.authService.currentUser$.subscribe(user => {
+      this.currentUserId = user?.id ?? null;
+    });
+    this.loadOrders();
     this.startAutoRefresh();
   }
 
@@ -140,8 +93,39 @@ export class ActiveOrdersComponent implements OnInit, OnDestroy {
   }
 
   loadOrders(): void {
-    // TODO: Charger les commandes depuis le backend
-    console.log('Refresh orders...');
+    this.ordersService.getAll({ orderType: 'dine_in' }).subscribe({
+      next: (apiOrders) => {
+        const activeStatuses = ['pending', 'preparing', 'ready', 'served'];
+        this.orders = apiOrders
+          .filter(o => activeStatuses.includes(o.status))
+          .map(o => this.mapApiOrderToLocal(o));
+        this.filterOrders();
+      },
+      error: (error) => {
+        console.error('Erreur lors du chargement des commandes depuis le backend :', error);
+      }
+    });
+  }
+
+  /** Convertit une commande reçue de l'API vers le modèle local utilisé par cet écran. */
+  private mapApiOrderToLocal(o: ApiOrder): Order {
+    return {
+      id: o.id,
+      tableNumber: o.tableNumber || '-',
+      orderTime: o.createdAt ? new Date(o.createdAt) : new Date(),
+      status: (o.status as Order['status']) || 'pending',
+      priority: o.priority || 'normal',
+      serverId: o.serverId,
+      serverName: o.serverId === this.currentUserId ? 'Moi' : (o.serverName || 'Serveur'),
+      totalAmount: o.totalAmount,
+      items: o.items.map(i => ({
+        id: i.id,
+        name: i.productName,
+        quantity: i.quantity,
+        notes: i.notes,
+        status: (i.status as OrderItem['status']) || 'pending'
+      }))
+    };
   }
 
   filterOrders(): void {
@@ -194,8 +178,8 @@ export class ActiveOrdersComponent implements OnInit, OnDestroy {
   getItemStatusIcon(status: string): string {
     const icons: any = {
       'pending': 'clock',
-      'preparing': 'loader',
-      'ready': 'check-circle',
+      'preparing': 'spinner',
+      'ready': 'circle-check',
       'served': 'check'
     };
     return icons[status] || 'circle';

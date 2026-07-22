@@ -5,9 +5,9 @@
 
     <!-- ===== En-tête de page ===== -->
     <div class="section-header">
-      <h2 class="section-title-main">👨‍💼 Mes Employés</h2>
+      <h2 class="section-title-main"><i class="fas fa-user"></i>‍<i class="fas fa-briefcase"></i> Mes Employés</h2>
       <button class="btn btn-primary" (click)="openAddEmployeeModal()">
-        ➕ Ajouter un employé
+        <i class="fas fa-plus"></i> Ajouter un employé
       </button>
     </div>
 
@@ -16,7 +16,7 @@
 
       <!-- Total Employés -->
       <div class="stat-card stat-card-blue">
-        <div class="stat-icon">👥</div>
+        <div class="stat-icon"><i class="fas fa-users"></i></div>
         <div class="stat-content">
           <div class="stat-label">Total Employés</div>
           <div class="stat-value">{{ getTotalEmployeesCount() }}</div>
@@ -26,7 +26,7 @@
 
       <!-- Employés Présents -->
       <div class="stat-card stat-card-green">
-        <div class="stat-icon">✅</div>
+        <div class="stat-icon"><i class="fas fa-circle-check"></i></div>
         <div class="stat-content">
           <div class="stat-label">Présents Aujourd'hui</div>
           <div class="stat-value">{{ getPresentEmployeesCount() }}</div>
@@ -36,7 +36,7 @@
 
       <!-- Employés Absents -->
       <div class="stat-card stat-card-red">
-        <div class="stat-icon">❌</div>
+        <div class="stat-icon"><i class="fas fa-xmark"></i></div>
         <div class="stat-content">
           <div class="stat-label">Absents</div>
           <div class="stat-value">{{ getAbsentEmployeesCount() }}</div>
@@ -46,7 +46,7 @@
 
       <!-- En Congé -->
       <div class="stat-card stat-card-orange">
-        <div class="stat-icon">🏖️</div>
+        <div class="stat-icon"><i class="fas fa-umbrella-beach"></i></div>
         <div class="stat-content">
           <div class="stat-label">En Congé</div>
           <div class="stat-value">{{ getOnLeaveEmployeesCount() }}</div>
@@ -107,7 +107,7 @@
                 <!-- Colonne 3: Arrivée -->
       <div class="info-badge-cell">
             <span class="info-badge" *ngIf="employee.availability.status === 'présent'; else dashArrivee">
-              🕐 {{ employee.availability.heureArrivee }}
+              <i class="fas fa-clock"></i> {{ employee.availability.heureArrivee }}
             </span>
             <ng-template #dashArrivee>
               <span class="info-badge">-</span>
@@ -117,7 +117,7 @@
           <!-- Colonne 4: Départ -->
       <div class="info-badge-cell">
             <span class="info-badge" *ngIf="employee.availability.status === 'présent' && employee.availability.heureDepart; else dashDepart">
-              🕐 {{ employee.availability.heureDepart }}
+              <i class="fas fa-clock"></i> {{ employee.availability.heureDepart }}
             </span>
             <ng-template #dashDepart>
               <span class="info-badge">-</span>
@@ -127,7 +127,7 @@
       <!-- Colonne 5: Rev. total -->
       <div class="info-badge-cell">
         <span class="info-badge">
-          💰 {{ employee.ventes }}
+          <i class="fas fa-sack-dollar"></i> {{ employee.ventes }}
         </span>
       </div>
 
@@ -144,25 +144,25 @@
           <button class="btn-icon btn-view"
                   title="Voir le profil"
                   (click)="viewEmployeeDetails(employee)">
-            👁️
+            <i class="fas fa-eye"></i>
           </button>
 
           <button class="btn-icon btn-history"
                   title="Voir l'historique"
                   (click)="viewAvailabilityHistory(employee)">
-            📊
+            <i class="fas fa-chart-line"></i>
           </button>
 
           <button class="btn-icon btn-edit"
                   title="Modifier"
                   (click)="editEmployee(employee)">
-            ✏️
+            <i class="fas fa-pen"></i>
           </button>
 
           <button class="btn-icon btn-danger"
                   title="Supprimer"
                   (click)="deleteEmployee(employee)">
-            🗑️
+            <i class="fas fa-trash"></i>
           </button>
         </div>
 
@@ -170,7 +170,7 @@
 
         <!-- Message si aucun employé -->
         <div *ngIf="getAllEmployees().length === 0" class="empty-state">
-          <div class="empty-icon">📭</div>
+          <div class="empty-icon"><i class="fas fa-envelope-open"></i></div>
           <p>Aucun employé pour le moment</p>
           <button class="btn btn-primary" (click)="openAddEmployeeModal()">
             Ajouter le premier employé
@@ -185,7 +185,7 @@
 <div *ngIf="isAddEmployeeModalOpen" class="modal" (click)="closeAddEmployeeModal()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <div class="modal-header">
-      <h2 class="modal-title">➕ Ajouter un nouvel employé</h2>
+      <h2 class="modal-title"><i class="fas fa-plus"></i> Ajouter un nouvel employé</h2>
       <button class="close-btn" (click)="closeAddEmployeeModal()">×</button>
     </div>
 
@@ -261,7 +261,7 @@
 <div *ngIf="isViewDetailsModalOpen && selectedEmployee" class="modal" (click)="closeDetailsModal()">
   <div class="modal-content modal-content-large" (click)="$event.stopPropagation()">
     <div class="modal-header">
-      <h2 class="modal-title">👤 Profil de {{ selectedEmployee.name }}</h2>
+      <h2 class="modal-title"><i class="fas fa-user"></i> Profil de {{ selectedEmployee.name }}</h2>
       <button class="close-btn" (click)="closeDetailsModal()">×</button>
     </div>
 
@@ -281,7 +281,7 @@
 
       <!-- Informations personnelles -->
       <div class="info-section">
-        <h4 class="section-subtitle">📋 Informations Personnelles</h4>
+        <h4 class="section-subtitle"><i class="fas fa-clipboard-list"></i> Informations Personnelles</h4>
         <div class="info-grid">
           <div class="info-item">
             <span class="info-label">Email:</span>
@@ -329,7 +329,7 @@
 
       <!-- Performance -->
       <div class="info-section">
-        <h4 class="section-subtitle">📊 Performance</h4>
+        <h4 class="section-subtitle"><i class="fas fa-chart-line"></i> Performance</h4>
         <div class="info-grid">
           <div class="info-item">
             <span class="info-label">Ventes totales:</span>
@@ -345,10 +345,10 @@
 
     <div class="modal-footer">
       <button class="btn btn-secondary" (click)="viewAvailabilityHistory(selectedEmployee)">
-        📊 Voir l'historique
+        <i class="fas fa-chart-line"></i> Voir l'historique
       </button>
       <button class="btn btn-primary" (click)="editEmployee(selectedEmployee); closeDetailsModal()">
-        ✏️ Modifier le profil
+        <i class="fas fa-pen"></i> Modifier le profil
       </button>
     </div>
   </div>
@@ -357,7 +357,7 @@
 <div *ngIf="isViewHistoryModalOpen && selectedEmployee" class="modal" (click)="closeHistoryModal()">
   <div class="modal-content modal-content-large" (click)="$event.stopPropagation()">
     <div class="modal-header">
-      <h2 class="modal-title">📊 Historique de {{ selectedEmployee.name }}</h2>
+      <h2 class="modal-title"><i class="fas fa-chart-line"></i> Historique de {{ selectedEmployee.name }}</h2>
       <button class="close-btn" (click)="closeHistoryModal()">×</button>
     </div>
 
@@ -365,7 +365,7 @@
       <!-- Statistiques résumées -->
       <div class="history-stats">
         <div class="history-stat-card">
-          <div class="stat-icon-small">✅</div>
+          <div class="stat-icon-small"><i class="fas fa-circle-check"></i></div>
           <div class="stat-content-small">
             <div class="stat-value-small">
               {{ getHistoryPresentDays(selectedEmployee) }}
@@ -375,7 +375,7 @@
         </div>
 
         <div class="history-stat-card">
-          <div class="stat-icon-small">❌</div>
+          <div class="stat-icon-small"><i class="fas fa-xmark"></i></div>
           <div class="stat-content-small">
             <div class="stat-value-small">
               {{ getHistoryAbsentDays(selectedEmployee) }}
@@ -385,7 +385,7 @@
         </div>
 
         <div class="history-stat-card">
-          <div class="stat-icon-small">🏖️</div>
+          <div class="stat-icon-small"><i class="fas fa-umbrella-beach"></i></div>
           <div class="stat-content-small">
             <div class="stat-value-small">
              {{ getHistoryLeaveDays(selectedEmployee) }}
@@ -439,7 +439,7 @@
     <div class="modal-footer">
       <button class="btn btn-secondary" (click)="closeHistoryModal()">Fermer</button>
       <button class="btn btn-primary" (click)="closeHistoryModal(); editEmployee(selectedEmployee)">
-        ✏️ Modifier le profil
+        <i class="fas fa-pen"></i> Modifier le profil
       </button>
     </div>
   </div>
@@ -449,7 +449,7 @@
 <div *ngIf="isEditEmployeeModalOpen && editEmployeeForm" class="modal" (click)="closeEditEmployeeModal()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <div class="modal-header">
-      <h2 class="modal-title">✏️ Modifier l'employé</h2>
+      <h2 class="modal-title"><i class="fas fa-pen"></i> Modifier l'employé</h2>
       <button class="close-btn" (click)="closeEditEmployeeModal()">×</button>
     </div>
 
@@ -514,9 +514,9 @@
         <div class="form-group">
           <label class="form-label">Statut de disponibilité</label>
           <select class="form-input" [(ngModel)]="editEmployeeForm.availability.status" name="status">
-            <option value="présent">✅ Présent</option>
-            <option value="absent">❌ Absent</option>
-            <option value="congé">🏖️ En Congé</option>
+            <option value="présent"><i class="fas fa-circle-check"></i> Présent</option>
+            <option value="absent"><i class="fas fa-xmark"></i> Absent</option>
+            <option value="congé"><i class="fas fa-umbrella-beach"></i> En Congé</option>
           </select>
         </div>
 
@@ -537,7 +537,7 @@
     <div class="modal-footer">
       <button class="btn btn-cancel" (click)="closeEditEmployeeModal()">Annuler</button>
       <button class="btn btn-primary" (click)="saveEmployeeChanges()">
-        💾 Enregistrer les modifications
+        <i class="fas fa-floppy-disk"></i> Enregistrer les modifications
       </button>
     </div>
   </div>

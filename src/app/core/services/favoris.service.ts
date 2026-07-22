@@ -1,13 +1,20 @@
 // ==========================================
 // FICHIER: src/app/services/favorites.service.ts
-// VERSION COMPLÈTE ET AMÉLIORÉE
+// Favoris "vin" synchronisés avec le backend (/api/Favorites). Le backend ne
+// modélise pas de favoris "cave" (voir CaveMaster1_Backend.Domain.Entities.
+// Clients.Favorite : uniquement un drinkId) : ce type reste donc local pour
+// le moment.
 // ==========================================
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
+import { ApiResponseData } from '../models/ApiResponseData';
+import { DrinksService } from './catalogue/drinks.service';
 
 export interface FavoriteItem {
-  id: number;
+  id: string; // Correspond au drinkId réel côté backend pour type === 'wine'.
   type: 'wine' | 'cave';
   name: string;
   image: string;
@@ -22,11 +29,18 @@ export interface FavoriteItem {
   [key: string]: any;
 }
 
+interface ApiFavorite {
+  id: string;
+  userId: string;
+  drinkId: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class FavorisService {
   private readonly STORAGE_KEY = 'vinotheque_favorites';
+  private readonly baseUrl = `${environment.apiUrl}/api/Favorites`;
   private favorites = new BehaviorSubject<FavoriteItem[]>([]);
 
   // Observables publics
@@ -41,8 +55,49 @@ export class FavorisService {
     map(items => items.filter(item => item.type === 'cave'))
   );
 
-  constructor() {
+  constructor(private http: HttpClient, private drinksService: DrinksService) {
     this.loadFavorites();
+    this.refreshWineFavoritesFromServer();
+  }
+
+  /** Recharge les favoris "vin" depuis le backend et conserve les favoris "cave" locaux tels quels. */
+  refreshWineFavoritesFromServer(): void {
+    this.http.get<ApiResponseData<ApiFavorite[]>>(this.baseUrl).subscribe({
+      next: (res) => {
+        const apiFavorites = res.data ?? [];
+        const caveFavorites = this.favorites.value.filter(f => f.type === 'cave');
+
+        if (apiFavorites.length === 0) {
+          this.favorites.next(caveFavorites);
+          this.saveFavorites();
+          return;
+        }
+
+        this.drinksService.getAll().subscribe(drinks => {
+          const drinkById = new Map(drinks.map(d => [d.id, d]));
+          const wineFavorites: FavoriteItem[] = apiFavorites
+            .filter(f => drinkById.has(f.drinkId))
+            .map(f => {
+              const d = drinkById.get(f.drinkId)!;
+              return {
+                id: f.drinkId,
+                type: 'wine' as const,
+                name: d.name,
+                image: d.image || d.icon || '🍷',
+                price: d.sellingPrice,
+                region: d.region,
+                rating: d.rating,
+                addedAt: new Date()
+              };
+            });
+          this.favorites.next([...wineFavorites, ...caveFavorites]);
+          this.saveFavorites();
+        });
+      },
+      error: (error) => {
+        console.error('Erreur lors du chargement des favoris depuis le backend :', error);
+      }
+    });
   }
 
   private loadFavorites(): void {
@@ -84,18 +139,32 @@ export class FavorisService {
       });
       this.favorites.next(items);
       this.saveFavorites();
+
+      if (item.type === 'wine') {
+        this.http.post<ApiResponseData<unknown>>(`${this.baseUrl}/${item.id}`, {}).subscribe({
+          error: (error) => console.error('Erreur lors de l\'ajout aux favoris (backend) :', error)
+        });
+      }
+
       return true;
     }
 
     return false;
   }
 
-  removeFromFavorites(id: number, type: 'wine' | 'cave'): boolean {
+  removeFromFavorites(id: string, type: 'wine' | 'cave'): boolean {
     const items = this.favorites.value.filter(item => !(item.id === id && item.type === type));
 
     if (items.length !== this.favorites.value.length) {
       this.favorites.next(items);
       this.saveFavorites();
+
+      if (type === 'wine') {
+        this.http.delete<ApiResponseData<unknown>>(`${this.baseUrl}/${id}`).subscribe({
+          error: (error) => console.error('Erreur lors de la suppression des favoris (backend) :', error)
+        });
+      }
+
       return true;
     }
 
@@ -114,7 +183,7 @@ export class FavorisService {
     }
   }
 
-  isFavorite(id: number, type: 'wine' | 'cave'): boolean {
+  isFavorite(id: string, type: 'wine' | 'cave'): boolean {
     return this.favorites.value.some(item => item.id === id && item.type === type);
   }
 
@@ -122,7 +191,7 @@ export class FavorisService {
     return this.favorites.value.filter(item => item.type === type);
   }
 
-  getFavoriteById(id: number, type: 'wine' | 'cave'): FavoriteItem | undefined {
+  getFavoriteById(id: string, type: 'wine' | 'cave'): FavoriteItem | undefined {
     return this.favorites.value.find(item => item.id === id && item.type === type);
   }
 

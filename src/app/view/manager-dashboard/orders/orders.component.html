@@ -6,7 +6,7 @@
       <p class="page-subtitle">{{ getActiveOrdersCount() }} commandes actives</p>
     </div>
     <button class="btn-refresh" (click)="refreshOrders()">
-      🔄 Actualiser
+      <i class="fas fa-arrow-rotate-right"></i> Actualiser
     </button>
   </div>
 
@@ -65,7 +65,7 @@
 
       <div class="order-body">
         <div class="server-info">
-          <span class="server-icon">👨‍🍳</span>
+          <span class="server-icon"><i class="fas fa-user"></i>‍</span>
           <span class="server-name">{{ order.server }}</span>
         </div>
 
@@ -77,7 +77,7 @@
         </div>
 
         <div class="order-notes" *ngIf="order.notes">
-          <span class="notes-icon">💬</span>
+          <span class="notes-icon"><i class="fas fa-comment"></i></span>
           <span class="notes-text">{{ order.notes }}</span>
         </div>
 
@@ -102,15 +102,15 @@
         <button class="action-btn success"
                 *ngIf="order.status === 'in-progress'"
                 (click)="markReady(order)">
-          ✅ Prête
+          <i class="fas fa-circle-check"></i> Prête
         </button>
         <button class="action-btn info"
                 *ngIf="order.status === 'ready'"
                 (click)="markServed(order)">
-          🍽️ Servie
+          <i class="fas fa-utensils"></i> Servie
         </button>
         <button class="action-btn" (click)="viewOrder(order)">
-          👁️ Détails
+          <i class="fas fa-eye"></i> Détails
         </button>
       </div>
     </div>

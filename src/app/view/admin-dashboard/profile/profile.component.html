@@ -5,20 +5,20 @@
 
     <!-- En-tête de la page -->
     <div class="section-header">
-      <h2 class="section-title-main">👤 Mon Profil</h2>
+      <h2 class="section-title-main"><i class="fas fa-user"></i> Mon Profil</h2>
 
       <!-- Bouton mode édition -->
       <div class="header-actions">
         <button class="btn btn-secondary"
                 *ngIf="!isEditMode"
                 (click)="enableEditMode()">
-          ✏️ Modifier le profil
+          <i class="fas fa-pen"></i> Modifier le profil
         </button>
 
         <button class="btn btn-cancel"
                 *ngIf="isEditMode"
                 (click)="cancelEdit()">
-          ❌ Annuler
+          <i class="fas fa-xmark"></i> Annuler
         </button>
       </div>
     </div>
@@ -37,7 +37,7 @@
           <button class="change-avatar-btn"
                   *ngIf="isEditMode"
                   (click)="changeAvatar()">
-            📷 Changer
+            <i class="fas fa-camera"></i> Changer
           </button>
         </div>
 
@@ -46,7 +46,7 @@
           <h3>{{ userProfile.firstName }} {{ userProfile.lastName }}</h3>
           <p class="profile-role-badge">{{ userProfile.role }}</p>
           <p class="profile-join-date">
-            👋 Membre depuis le {{ userProfile.joinDate }}
+            <i class="fas fa-hand"></i> Membre depuis le {{ userProfile.joinDate }}
             <span class="days-badge">({{ getDaysSinceJoin() }} jours)</span>
           </p>
         </div>
@@ -54,7 +54,7 @@
 
       <!-- ===== Formulaire d'édition du profil ===== -->
       <div class="profile-form-section">
-        <h4 class="section-subtitle">📋 Informations personnelles</h4>
+        <h4 class="section-subtitle"><i class="fas fa-clipboard-list"></i> Informations personnelles</h4>
 
         <form class="profile-form">
 
@@ -113,7 +113,7 @@
                    class="form-input disabled"
                    [value]="userProfile.role"
                    disabled>
-            <small class="form-hint">⚠️ Le rôle ne peut pas être modifié</small>
+            <small class="form-hint"><i class="fas fa-triangle-exclamation"></i> Le rôle ne peut pas être modifié</small>
           </div>
         </form>
       </div>
@@ -123,7 +123,7 @@
 
         <!-- En-tête avec bouton toggle -->
         <div class="password-header" (click)="togglePasswordSection()">
-          <h4 class="section-subtitle">🔒 Changer le mot de passe</h4>
+          <h4 class="section-subtitle"><i class="fas fa-lock"></i> Changer le mot de passe</h4>
           <span class="toggle-icon">{{ isPasswordSectionOpen ? '▲' : '▼' }}</span>
         </div>
 
@@ -169,7 +169,7 @@
             <button type="button"
                     class="btn btn-primary btn-block"
                     (click)="changePassword()">
-              🔑 Changer le mot de passe
+              <i class="fas fa-key"></i> Changer le mot de passe
             </button>
           </form>
         </div>
@@ -177,34 +177,34 @@
 
       <!-- ===== Statistiques du profil ===== -->
       <div class="profile-stats-section">
-        <h4 class="section-subtitle">📊 Mes Statistiques</h4>
+        <h4 class="section-subtitle"><i class="fas fa-chart-line"></i> Mes Statistiques</h4>
 
         <div class="profile-stats-grid">
 
           <!-- Stat: Caves gérées -->
           <div class="profile-stat-item">
-            <div class="profile-stat-icon">🍷</div>
+            <div class="profile-stat-icon"><i class="fas fa-wine-glass"></i></div>
             <div class="profile-stat-value">{{ userProfile.stats.caves }}</div>
             <div class="profile-stat-label">Caves gérées</div>
           </div>
 
           <!-- Stat: Managers -->
           <div class="profile-stat-item">
-            <div class="profile-stat-icon">👥</div>
+            <div class="profile-stat-icon"><i class="fas fa-users"></i></div>
             <div class="profile-stat-value">{{ userProfile.stats.managers }}</div>
             <div class="profile-stat-label">Managers</div>
           </div>
 
           <!-- Stat: Employés -->
           <div class="profile-stat-item">
-            <div class="profile-stat-icon">👨‍💼</div>
+            <div class="profile-stat-icon"><i class="fas fa-user"></i>‍<i class="fas fa-briefcase"></i></div>
             <div class="profile-stat-value">{{ userProfile.stats.employees }}</div>
             <div class="profile-stat-label">Employés</div>
           </div>
 
           <!-- Stat: Ventes totales -->
           <div class="profile-stat-item">
-            <div class="profile-stat-icon">💰</div>
+            <div class="profile-stat-icon"><i class="fas fa-sack-dollar"></i></div>
             <div class="profile-stat-value">{{ userProfile.stats.totalSales }}</div>
             <div class="profile-stat-label">Ventes totales</div>
           </div>
@@ -213,13 +213,13 @@
 
       <!-- ===== Actions du compte ===== -->
       <div class="account-actions-section">
-        <h4 class="section-subtitle">⚙️ Actions du compte</h4>
+        <h4 class="section-subtitle"><i class="fas fa-gear"></i> Actions du compte</h4>
 
         <div class="account-actions-grid">
 
           <!-- Bouton: Exporter les données -->
           <button class="action-btn action-btn-info" (click)="exportAccountData()">
-            <div class="action-icon">📥</div>
+            <div class="action-icon"><i class="fas fa-download"></i></div>
             <div class="action-content">
               <div class="action-title">Exporter mes données</div>
               <div class="action-description">Télécharger toutes vos informations</div>
@@ -228,7 +228,7 @@
 
           <!-- Bouton: Supprimer le compte -->
           <button class="action-btn action-btn-danger" (click)="deleteAccount()">
-            <div class="action-icon">🗑️</div>
+            <div class="action-icon"><i class="fas fa-trash"></i></div>
             <div class="action-content">
               <div class="action-title">Supprimer mon compte</div>
               <div class="action-description">Action irréversible</div>
@@ -240,7 +240,7 @@
       <!-- ===== Bouton de sauvegarde (visible en mode édition) ===== -->
       <div class="profile-footer" *ngIf="isEditMode">
         <button class="btn btn-primary btn-large" (click)="saveProfile()">
-          💾 Enregistrer les modifications
+          <i class="fas fa-floppy-disk"></i> Enregistrer les modifications
         </button>
       </div>
     </div>

@@ -44,8 +44,7 @@ export class LoginComponent implements OnInit {
    * Vérifie si une session existe déjà
    */
   private checkExistingSession(): void {
-    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-    if (token && this.authService.isAuthenticated()) {
+    if (this.authService.isAuthenticated()) {
       const role = this.authService.getUserRole();
       this.redirectBasedOnRole(role);
     }
@@ -96,14 +95,8 @@ export class LoginComponent implements OnInit {
       next: (response) => {
         this.isLoading = false;
 
-        if (response && response.token) {
-          // Stocker le token selon la préférence rememberMe
-          this.storeAuthToken(response.token, rememberMe);
-
-          // Stocker les informations utilisateur
-          if (response.user) {
-            localStorage.setItem('currentUser', JSON.stringify(response.user));
-          }
+        if (response && response.success && response.data && response.data.token) {
+          // Le token et le profil utilisateur sont déjà pris en charge par AuthService.login()
 
           // Afficher un message de succès
           this.showSuccessMessage('Connexion réussie!');
@@ -114,7 +107,7 @@ export class LoginComponent implements OnInit {
             this.redirectBasedOnRole(userRole);
           }, 500);
         } else {
-          this.displayError('Réponse du serveur invalide');
+          this.displayError(response?.message || 'Email ou mot de passe incorrect');
         }
       },
       error: (error) => {
@@ -122,19 +115,6 @@ export class LoginComponent implements OnInit {
         this.handleLoginError(error);
       }
     });
-  }
-
-  /**
-   * Stocke le token d'authentification
-   */
-  private storeAuthToken(token: string, rememberMe: boolean): void {
-    if (rememberMe) {
-      localStorage.setItem('token', token);
-      localStorage.setItem('rememberMe', 'true');
-    } else {
-      sessionStorage.setItem('token', token);
-      localStorage.removeItem('rememberMe');
-    }
   }
 
   /**

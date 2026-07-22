@@ -697,12 +697,12 @@
         <div class="preferences-section" *ngIf="clientSelectionne.preferences">
           <label class="preferences-label"><i class="fas fa-thumbs-up"></i> Préférences</label>
           <div class="preferences-tags">
-            <span class="pref-tag" *ngIf="clientSelectionne.preferences.vinsRouges">🍷 Vins Rouges</span>
-            <span class="pref-tag" *ngIf="clientSelectionne.preferences.vinsBlancs">🥂 Vins Blancs</span>
-            <span class="pref-tag" *ngIf="clientSelectionne.preferences.vinsRoses">🌸 Vins Rosés</span>
-            <span class="pref-tag" *ngIf="clientSelectionne.preferences.champagnes">🍾 Champagnes</span>
-            <span class="pref-tag" *ngIf="clientSelectionne.preferences.spiritueux">🥃 Spiritueux</span>
-            <span class="pref-tag" *ngIf="clientSelectionne.preferences.bieres">🍺 Bières</span>
+            <span class="pref-tag" *ngIf="clientSelectionne.preferences.vinsRouges"><i class="fas fa-wine-glass"></i> Vins Rouges</span>
+            <span class="pref-tag" *ngIf="clientSelectionne.preferences.vinsBlancs"><i class="fas fa-wine-glass"></i> Vins Blancs</span>
+            <span class="pref-tag" *ngIf="clientSelectionne.preferences.vinsRoses"><i class="fas fa-wine-glass"></i> Vins Rosés</span>
+            <span class="pref-tag" *ngIf="clientSelectionne.preferences.champagnes"><i class="fas fa-champagne-glasses"></i> Champagnes</span>
+            <span class="pref-tag" *ngIf="clientSelectionne.preferences.spiritueux"><i class="fas fa-whiskey-glass"></i> Spiritueux</span>
+            <span class="pref-tag" *ngIf="clientSelectionne.preferences.bieres"><i class="fas fa-beer-mug-empty"></i> Bières</span>
           </div>
         </div>
 
@@ -721,7 +721,7 @@
           <label class="accords-label"><i class="fas fa-utensils"></i> Accords Mets & Vins Préférés</label>
           <div class="accords-tags">
             <span class="accord-tag" *ngFor="let accord of clientSelectionne.accordsPreferees">
-              🍽️ {{ accord }}
+              <i class="fas fa-utensils"></i> {{ accord }}
             </span>
           </div>
         </div>

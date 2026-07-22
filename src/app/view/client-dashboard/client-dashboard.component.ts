@@ -59,32 +59,32 @@ export class ClientDashboardComponent implements OnInit {
       {
         title: '',
         items: [
-          { label: 'Tableau de bord', icon: '📊', route: '/client/home' }
+          { label: 'Tableau de bord', icon: 'fa-gauge-high', route: '/client/home' }
         ]
       },
       {
         title: '',
         items: [
-          { label: 'Mes commandes', icon: '🛒', route: '/client/orders' },
+          { label: 'Mes commandes', icon: 'fa-cart-shopping', route: '/client/orders' },
           {
             label: 'Mon Panier',
-            icon: '🛒',
+            icon: 'fa-cart-shopping',
             route: '/client/cart',
             badge: this.cartCount$ // ✅ Badge dynamique
           },
-          { label: 'Catalogue', icon: '🍷', route: '/client/catalogue' },
-          { label: 'Favoris', icon: '❤️', route: '/client/favoris' }
+          { label: 'Catalogue', icon: 'fa-wine-glass', route: '/client/catalogue' },
+          { label: 'Favoris', icon: 'fa-heart', route: '/client/favoris' }
         ]
       },
       {
         title: 'MON COMPTE',
         items: [
-          { label: 'Fidélité', icon: '🎁', route: '/client/loyalty' },
-          { label: 'Paiements', icon: '💳', route: '/client/payments' },
-          { label: 'Adresses', icon: '📍', route: '/client/addresses' },
+          { label: 'Fidélité', icon: 'fa-gift', route: '/client/loyalty' },
+          { label: 'Paiements', icon: 'fa-credit-card', route: '/client/payments' },
+          { label: 'Adresses', icon: 'fa-location-dot', route: '/client/addresses' },
           {
             label: 'Notifications',
-            icon: '🔔',
+            icon: 'fa-bell',
             route: '/client/notifications',
             badge: this.notificationCount as any
           }
@@ -93,10 +93,10 @@ export class ClientDashboardComponent implements OnInit {
       {
         title: 'SUPPORT',
         items: [
-          { label: 'Chat Support', icon: '💬', route: '/client/support' },
-          { label: 'FAQ', icon: '❓', route: '/client/faq' },
-          { label: 'Paramètres', icon: '⚙️', route: '/client/settings' },
-          { label: 'Déconnexion', icon: '🚪', route: '/logout' }
+          { label: 'Chat Support', icon: 'fa-comment', route: '/client/support' },
+          { label: 'FAQ', icon: 'fa-circle-question', route: '/client/faq' },
+          { label: 'Paramètres', icon: 'fa-gear', route: '/client/settings' },
+          { label: 'Déconnexion', icon: 'fa-right-from-bracket', route: '/logout' }
         ]
       }
     ];

@@ -15,7 +15,7 @@
 
   <!-- En-tête avec titre et bouton d'annulation -->
   <div class="section-header">
-    <h2>🍷 Gestion des Caves</h2>
+    <h2><i class="fas fa-wine-glass"></i> Gestion des Caves</h2>
     <!-- Bouton d'annulation visible en mode édition -->
     <button *ngIf="isEditing"
             (click)="resetForm()"
@@ -40,7 +40,7 @@
           [class.input-error]="isFieldInvalid('name')">
         <!-- Message d'erreur de validation -->
         <small *ngIf="isFieldInvalid('name')" class="error-text">
-          ⚠️ Minimum 3 caractères requis
+          <i class="fas fa-triangle-exclamation"></i> Minimum 3 caractères requis
         </small>
       </div>
 
@@ -55,7 +55,7 @@
           <option value="">Sélectionner une région...</option>
           <!-- Boucle sur les régions disponibles -->
           <option *ngFor="let region of regions" [value]="region">
-            📍 {{ region }}
+            <i class="fas fa-location-dot"></i> {{ region }}
           </option>
         </select>
       </div>
@@ -94,7 +94,7 @@
         <button type="submit"
                 class="btn btn-primary"
                 [disabled]="caveForm.invalid">
-          {{ isEditing ? '💾 Mettre à jour' : '➕ Créer cave' }}
+          {{ isEditing ? 'Mettre à jour' : 'Créer cave' }}
         </button>
       </div>
     </form>
@@ -102,7 +102,7 @@
 
   <!-- Conteneur de la liste des caves -->
   <div class="caves-list-container">
-    <h3>📋 Caves existantes ({{ caves.length }})</h3>
+    <h3><i class="fas fa-clipboard-list"></i> Caves existantes ({{ caves.length }})</h3>
 
     <!-- Grille de cartes des caves -->
     <div class="caves-grid">
@@ -113,7 +113,7 @@
         <div class="cave-item-header">
           <div>
             <h4>{{ cave.name }}</h4>
-            <p class="cave-location">📍 {{ cave.location }}</p>
+            <p class="cave-location"><i class="fas fa-location-dot"></i> {{ cave.location }}</p>
           </div>
           <!-- Badge montrant le taux d'occupation -->
           <div class="occupancy-badge">
@@ -125,17 +125,17 @@
         <div class="cave-stats">
           <!-- Capacité -->
           <div class="stat">
-            <span class="label">🍾 Capacité:</span>
+            <span class="label"><i class="fas fa-champagne-glasses"></i> Capacité:</span>
             <span class="value">{{ cave.capacity }}</span>
           </div>
           <!-- Nombre de managers -->
           <div class="stat">
-            <span class="label">👥 Managers:</span>
+            <span class="label"><i class="fas fa-users"></i> Managers:</span>
             <span class="value">{{ cave.managersCount }}</span>
           </div>
           <!-- Nombre d'employés -->
           <div class="stat">
-            <span class="label">👨‍💼 Employés:</span>
+            <span class="label"><i class="fas fa-user"></i>‍<i class="fas fa-briefcase"></i> Employés:</span>
             <span class="value">{{ cave.employeesCount }}</span>
           </div>
         </div>
@@ -147,18 +147,18 @@
         <div class="cave-item-actions">
           <!-- Bouton éditer -->
           <button (click)="editCave(cave)" class="btn btn-secondary btn-sm">
-            ✏️ Éditer
+            <i class="fas fa-pen"></i> Éditer
           </button>
           <!-- Bouton supprimer avec confirmation -->
           <button (click)="deleteCave(cave.id)" class="btn btn-danger btn-sm">
-            🗑️ Supprimer
+            <i class="fas fa-trash"></i> Supprimer
           </button>
         </div>
       </div>
 
       <!-- Message affiché si aucune cave n'existe -->
       <div *ngIf="caves.length === 0" class="empty-state">
-        <p>📭 Aucune cave créée. Commencez par en créer une!</p>
+        <p><i class="fas fa-envelope-open"></i> Aucune cave créée. Commencez par en créer une!</p>
       </div>
     </div>
   </div>

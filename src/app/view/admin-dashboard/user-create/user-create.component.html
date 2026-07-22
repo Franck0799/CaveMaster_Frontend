@@ -12,7 +12,7 @@
 
   <!-- En-tête du formulaire -->
   <div class="section-header">
-    <h2>{{ isEditing ? '✏️ Modifier un utilisateur' : '➕ Ajouter un nouvel utilisateur' }}</h2>
+    <h2>{{ isEditing ? 'Modifier un utilisateur' : 'Ajouter un nouvel utilisateur' }}</h2>
     <!-- Bouton annuler en mode édition -->
     <button *ngIf="isEditing" (click)="resetForm()" class="btn btn-secondary">
       ↻ Annuler
@@ -52,7 +52,7 @@
             placeholder="Ex: Jean"
             [class.input-error]="isFieldInvalid('firstName')">
           <small *ngIf="isFieldInvalid('firstName')" class="error-text">
-            ⚠️ Minimum 2 caractères
+            <i class="fas fa-triangle-exclamation"></i> Minimum 2 caractères
           </small>
         </div>
 
@@ -66,7 +66,7 @@
             placeholder="Ex: Kouassi"
             [class.input-error]="isFieldInvalid('lastName')">
           <small *ngIf="isFieldInvalid('lastName')" class="error-text">
-            ⚠️ Minimum 2 caractères
+            <i class="fas fa-triangle-exclamation"></i> Minimum 2 caractères
           </small>
         </div>
       </div>
@@ -81,7 +81,7 @@
           placeholder="Ex: jean.kouassi@caveviking.com"
           [class.input-error]="isFieldInvalid('email')">
         <small *ngIf="isFieldInvalid('email')" class="error-text">
-          ⚠️ Email invalide
+          <i class="fas fa-triangle-exclamation"></i> Email invalide
         </small>
       </div>
 
@@ -123,7 +123,7 @@
             <option value="">Sélectionner une cave...</option>
             <!-- Boucle sur les caves disponibles -->
             <option *ngFor="let cave of caves" [value]="cave">
-              🏢 {{ cave }}
+              <i class="fas fa-building"></i> {{ cave }}
             </option>
           </select>
         </div>
@@ -149,9 +149,9 @@
       <div class="form-group">
         <label class="form-label">Statut</label>
         <select class="form-input" formControlName="status">
-          <option value="active">🟢 Actif</option>
-          <option value="inactive">🔴 Inactif</option>
-          <option value="on-leave">🟡 En congé</option>
+          <option value="active"><i class="fas fa-circle"></i> Actif</option>
+          <option value="inactive"><i class="fas fa-circle"></i> Inactif</option>
+          <option value="on-leave"><i class="fas fa-circle"></i> En congé</option>
         </select>
       </div>
 
@@ -173,7 +173,7 @@
         </button>
         <!-- Bouton soumettre -->
         <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">
-          {{ isEditing ? '💾 Mettre à jour' : '➕ Créer utilisateur' }}
+          {{ isEditing ? 'Mettre à jour' : 'Créer utilisateur' }}
         </button>
       </div>
 
@@ -182,7 +182,7 @@
 
   <!-- Conteneur de la liste des utilisateurs -->
   <div class="users-list-container">
-    <h3>📋 Utilisateurs existants ({{ users.length }})</h3>
+    <h3><i class="fas fa-clipboard-list"></i> Utilisateurs existants ({{ users.length }})</h3>
 
     <!-- Grille de cartes d'utilisateurs -->
     <div class="users-cards">
@@ -203,9 +203,9 @@
           </div>
           <!-- Badge de statut -->
           <span class="status-badge" [ngClass]="'status-' + user.status">
-            {{ user.status === 'active' ? '🟢 Actif' :
-               user.status === 'inactive' ? '🔴 Inactif' :
-               '🟡 En congé' }}
+            {{ user.status === 'active' ? 'Actif' :
+               user.status === 'inactive' ? 'Inactif' :
+               'En congé' }}
           </span>
         </div>
 
@@ -213,22 +213,22 @@
         <div class="user-card-details">
           <!-- Email -->
           <div class="detail">
-            <span class="label">📧 Email:</span>
+            <span class="label"><i class="fas fa-envelope"></i> Email:</span>
             <span>{{ user.email }}</span>
           </div>
           <!-- Téléphone -->
           <div class="detail">
-            <span class="label">📱 Téléphone:</span>
+            <span class="label"><i class="fas fa-mobile-screen"></i> Téléphone:</span>
             <span>{{ user.phone }}</span>
           </div>
           <!-- Cave -->
           <div class="detail">
-            <span class="label">🏢 Cave:</span>
+            <span class="label"><i class="fas fa-building"></i> Cave:</span>
             <span>{{ user.cave }}</span>
           </div>
           <!-- Manager (si assigné) -->
           <div class="detail" *ngIf="user.manager">
-            <span class="label">👥 Manager:</span>
+            <span class="label"><i class="fas fa-users"></i> Manager:</span>
             <span>{{ user.manager }}</span>
           </div>
         </div>
@@ -237,18 +237,18 @@
         <div class="user-card-actions">
           <!-- Bouton éditer -->
           <button (click)="editUser(user)" class="btn btn-secondary btn-sm">
-            ✏️ Éditer
+            <i class="fas fa-pen"></i> Éditer
           </button>
           <!-- Bouton supprimer -->
           <button (click)="deleteUser(user.id)" class="btn btn-danger btn-sm">
-            🗑️ Supprimer
+            <i class="fas fa-trash"></i> Supprimer
           </button>
         </div>
       </div>
 
       <!-- Message si aucun utilisateur -->
       <div *ngIf="users.length === 0" class="empty-state">
-        <p>📭 Aucun utilisateur créé. Commencez par en ajouter un!</p>
+        <p><i class="fas fa-envelope-open"></i> Aucun utilisateur créé. Commencez par en ajouter un!</p>
       </div>
     </div>
   </div>

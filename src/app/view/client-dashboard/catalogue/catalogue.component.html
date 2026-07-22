@@ -9,18 +9,18 @@
   <div class="page-header">
     <div class="header-content">
       <h1 class="page-title">
-        <span class="icon">🍷</span>
+        <span class="icon"><i class="fas fa-wine-glass"></i></span>
         Catalogue des Vins
       </h1>
       <p class="page-subtitle">{{ filteredWines.length }} vins disponibles</p>
     </div>
     <div class="header-actions">
       <button class="btn-toggle-filters" (click)="toggleFilters()">
-        <span class="btn-icon">🔍</span>
+        <span class="btn-icon"><i class="fas fa-magnifying-glass"></i></span>
         {{ showFilters ? 'Masquer' : 'Afficher' }} filtres
       </button>
       <button class="btn-view-mode" (click)="toggleViewMode()">
-        <span class="btn-icon">{{ viewMode === 'grid' ? '☰' : '⊞' }}</span>
+        <span class="btn-icon">{{ viewMode === 'grid' ? '' : '⊞' }}</span>
       </button>
     </div>
   </div>
@@ -28,7 +28,7 @@
   <!-- Barre de recherche et filtres -->
   <div class="filters-section" *ngIf="showFilters">
     <div class="search-bar">
-      <span class="search-icon">🔍</span>
+      <span class="search-icon"><i class="fas fa-magnifying-glass"></i></span>
       <input
         type="text"
         placeholder="Rechercher un vin, région, cépage..."
@@ -109,7 +109,7 @@
       <div class="wine-image">
         <span class="wine-emoji">{{ wine.image }}</span>
         <button class="btn-favorite" (click)="toggleFavorite(wine, $event)">
-          <span class="favorite-icon">❤️</span>
+          <span class="favorite-icon"><i class="fas fa-heart"></i></span>
         </button>
         <span class="stock-badge" [class.low-stock]="wine.stock < 10">
           {{ wine.stock }} en stock
@@ -122,7 +122,7 @@
         <p class="wine-details">{{ wine.region }} • {{ wine.grape }} • {{ wine.year }}</p>
 
         <div class="wine-rating">
-          <span class="star">⭐</span>
+          <span class="star"><i class="fas fa-star"></i></span>
           <span class="rating-value">{{ wine.rating }}</span>
         </div>
 
@@ -131,7 +131,7 @@
         <div class="wine-footer">
           <span class="wine-price">{{ wine.price }}€</span>
           <button class="btn-add-cart" (click)="addToCart(wine, $event)">
-            <span class="cart-icon">🛒</span>
+            <span class="cart-icon"><i class="fas fa-cart-shopping"></i></span>
             Ajouter
           </button>
         </div>
@@ -157,7 +157,7 @@
       </div>
 
       <div class="item-rating">
-        <span class="star">⭐</span>
+        <span class="star"><i class="fas fa-star"></i></span>
         <span class="rating-value">{{ wine.rating }}</span>
       </div>
 
@@ -172,7 +172,7 @@
 
       <div class="item-actions">
         <button class="btn-favorite-small" (click)="toggleFavorite(wine, $event)">
-          ❤️
+          <i class="fas fa-heart"></i>
         </button>
         <button class="btn-add-small" (click)="addToCart(wine, $event)">
           Ajouter
@@ -183,7 +183,7 @@
 
   <!-- Message si aucun résultat -->
   <div class="empty-state" *ngIf="filteredWines.length === 0">
-    <div class="empty-icon">🔍</div>
+    <div class="empty-icon"><i class="fas fa-magnifying-glass"></i></div>
     <h3 class="empty-title">Aucun vin trouvé</h3>
     <p class="empty-text">Essayez de modifier vos critères de recherche</p>
     <button class="btn-primary" (click)="resetFilters()">

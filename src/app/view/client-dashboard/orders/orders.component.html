@@ -8,7 +8,7 @@
   <!-- Header -->
   <div class="page-header">
     <h1 class="page-title">
-      <span class="icon">🛒</span>
+      <span class="icon"><i class="fas fa-cart-shopping"></i></span>
       Mes Commandes
     </h1>
     <p class="page-subtitle">Suivez l'état de vos commandes en temps réel</p>
@@ -32,7 +32,7 @@
         <p class="order-details">Commande #{{ order.id }} • {{ order.bottles }} bouteille{{ order.bottles > 1 ? 's' : '' }}</p>
         <div class="order-meta">
           <span class="order-date">
-            <span class="meta-icon">📅</span>
+            <span class="meta-icon"><i class="fas fa-calendar-days"></i></span>
             {{ order.date }}
           </span>
           <span class="order-status" [ngClass]="getStatusClass(order.status)">
@@ -64,7 +64,7 @@
 
   <!-- Message si aucune commande -->
   <div class="empty-state" *ngIf="orders.length === 0">
-    <div class="empty-icon">🛍️</div>
+    <div class="empty-icon"></div>
     <h3 class="empty-title">Aucune commande</h3>
     <p class="empty-text">Vous n'avez pas encore passé de commande</p>
     <button class="btn-primary" routerLink="/client/catalogue">

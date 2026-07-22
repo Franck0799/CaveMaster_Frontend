@@ -1,19 +1,21 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Observable, tap, catchError, of, BehaviorSubject } from 'rxjs';
+import { Observable, tap, catchError, of, BehaviorSubject, map } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 import { Users } from '../../models/Users/Users';
 import { ChangePasswordRequest } from '../../models/Password/ChangePasswordRequest';
 import { ForgotPasswordRequest } from '../../models/Password/ForgotPasswordRequest';
 import { ResetPasswordRequest } from '../../models/Password/ResetPasswordRequest';
+import { ApiResponseData } from '../../models/ApiResponseData';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private apiUrl = 'https://localhost:7118/api/Auth';
+  private apiUrl = `${environment.apiUrl}/api/Auth`;
   private loginApiUrl = `${this.apiUrl}/login`;
 
   // Clé utilisée pour stocker le token dans le localStorage
@@ -76,16 +78,17 @@ export class AuthService {
    */
   login(email: string, password: string): Observable<any> {
     // Utilisation du bon endpoint pour le login
-    return this.http.post<any>(this.loginApiUrl, { email, password }).pipe(
+    return this.http.post<ApiResponseData<{ token: string; expiresAt: string }>>(this.loginApiUrl, { email, password }).pipe(
       tap(response => {
-        if (response && response.token) {
+        if (response && response.success && response.data && response.data.token) {
           // Stocker le token JWT dans le localStorage
-          this.setInStorage(this.tokenKey, response.token);
+          this.setInStorage(this.tokenKey, response.data.token);
 
           // Décoder le token pour récupérer le rôle utilisateur
-          const decodedToken = this.decodeToken(response.token);
-          if (decodedToken && decodedToken.role) {
-            this.setInStorage('userRole', decodedToken.role);
+          const decodedToken = this.decodeToken(response.data.token);
+          const roleKey = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role';
+          if (decodedToken && decodedToken[roleKey]) {
+            this.setInStorage('userRole', decodedToken[roleKey]);
           }
 
           // Charger le profil utilisateur après connexion réussie
@@ -94,7 +97,7 @@ export class AuthService {
       }),
       catchError((error) => {
         console.error('Erreur lors de la connexion:', error);
-        return of(null); // Retourne une Observable nulle en cas d'erreur
+        return of(error?.error ?? { success: false, message: 'Erreur lors de la connexion' });
       })
     );
   }
@@ -158,12 +161,8 @@ export class AuthService {
       return of(null);
     }
 
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    });
-
-    return this.http.get<Users>(`${this.apiUrl}/me`, { headers }).pipe(
+    return this.http.get<ApiResponseData<Users>>(`${this.apiUrl}/me`).pipe(
+      map(response => response?.data ?? null),
       tap(user => {
         if (user) {
           // Mise à jour du cache et du BehaviorSubject

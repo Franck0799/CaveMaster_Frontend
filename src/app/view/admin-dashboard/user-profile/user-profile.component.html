@@ -21,21 +21,21 @@
       <div class="avatar-large-container">
         <span class="avatar-xxl">{{ userProfile.avatar }}</span>
         <button (click)="startEditingProfile()" class="btn-edit-avatar" title="Changer avatar">
-          ✏️
+          <i class="fas fa-pen"></i>
         </button>
       </div>
 
       <!-- Infos basiques -->
       <div class="profile-basic">
         <h1>{{ userProfile.firstName }} {{ userProfile.lastName }}</h1>
-        <p class="role">👔 {{ userProfile.role }}</p>
-        <p class="cave">🏢 {{ userProfile.cave }}</p>
+        <p class="role"><i class="fas fa-user-tie"></i> {{ userProfile.role }}</p>
+        <p class="cave"><i class="fas fa-building"></i> {{ userProfile.cave }}</p>
 
         <!-- Badge statut -->
         <span class="status-badge" [ngClass]="'status-' + userProfile.status">
-          {{ userProfile.status === 'active' ? '🟢 Actif' :
-             userProfile.status === 'inactive' ? '🔴 Inactif' :
-             '🟡 En congé' }}
+          {{ userProfile.status === 'active' ? 'Actif' :
+             userProfile.status === 'inactive' ? 'Inactif' :
+             'En congé' }}
         </span>
       </div>
 
@@ -54,16 +54,16 @@
     <!-- Boutons d'action -->
     <div class="profile-actions">
       <button (click)="startEditingProfile()" class="btn btn-primary" *ngIf="!isEditingProfile">
-        ✏️ Éditer le profil
+        <i class="fas fa-pen"></i> Éditer le profil
       </button>
       <button (click)="downloadReport()" class="btn btn-secondary">
-        📥 Télécharger rapport
+        <i class="fas fa-download"></i> Télécharger rapport
       </button>
       <button (click)="exportProfileData()" class="btn btn-secondary">
-        💾 Exporter données
+        <i class="fas fa-floppy-disk"></i> Exporter données
       </button>
       <button (click)="logout()" class="btn btn-danger">
-        🚪 Déconnexion
+        <i class="fas fa-right-from-bracket"></i> Déconnexion
       </button>
     </div>
   </div>
@@ -73,22 +73,22 @@
     <button class="tab-btn"
             [class.active]="activeTab === 'info'"
             (click)="switchTab('info')">
-      👤 Infos personnelles
+      <i class="fas fa-user"></i> Infos personnelles
     </button>
     <button class="tab-btn"
             [class.active]="activeTab === 'stats'"
             (click)="switchTab('stats')">
-      📊 Statistiques
+      <i class="fas fa-chart-line"></i> Statistiques
     </button>
     <button class="tab-btn"
             [class.active]="activeTab === 'activities'"
             (click)="switchTab('activities')">
-      📋 Activités
+      <i class="fas fa-clipboard-list"></i> Activités
     </button>
     <button class="tab-btn"
             [class.active]="activeTab === 'security'"
             (click)="switchTab('security')">
-      🔒 Sécurité
+      <i class="fas fa-lock"></i> Sécurité
     </button>
   </div>
 
@@ -103,41 +103,41 @@
         <div class="info-grid">
           <!-- Ligne 1 -->
           <div class="info-item">
-            <span class="label">📧 Email</span>
+            <span class="label"><i class="fas fa-envelope"></i> Email</span>
             <span class="value">{{ userProfile.email }}</span>
           </div>
           <div class="info-item">
-            <span class="label">📱 Téléphone</span>
+            <span class="label"><i class="fas fa-mobile-screen"></i> Téléphone</span>
             <span class="value">{{ userProfile.phone }}</span>
           </div>
 
           <!-- Ligne 2 -->
           <div class="info-item">
-            <span class="label">📅 Date de naissance</span>
+            <span class="label"><i class="fas fa-calendar-days"></i> Date de naissance</span>
             <span class="value">{{ formatDate(userProfile.birthDate) }}</span>
           </div>
           <div class="info-item">
-            <span class="label">📍 Adresse</span>
+            <span class="label"><i class="fas fa-location-dot"></i> Adresse</span>
             <span class="value">{{ userProfile.address }}</span>
           </div>
 
           <!-- Ligne 3 -->
           <div class="info-item">
-            <span class="label">👥 Contact d'urgence</span>
+            <span class="label"><i class="fas fa-users"></i> Contact d'urgence</span>
             <span class="value">{{ userProfile.emergencyContact }}</span>
           </div>
           <div class="info-item">
-            <span class="label">📞 Téléphone urgence</span>
+            <span class="label"><i class="fas fa-phone"></i> Téléphone urgence</span>
             <span class="value">{{ userProfile.emergencyPhone }}</span>
           </div>
 
           <!-- Ligne 4 -->
           <div class="info-item">
-            <span class="label">🏦 Compte bancaire</span>
+            <span class="label"><i class="fas fa-building-columns"></i> Compte bancaire</span>
             <span class="value">{{ userProfile.bankAccount }}</span>
           </div>
           <div class="info-item">
-            <span class="label">🏪 Banque</span>
+            <span class="label"><i class="fas fa-store"></i> Banque</span>
             <span class="value">{{ userProfile.bankName }}</span>
           </div>
         </div>
@@ -208,12 +208,12 @@
         <!-- Boutons -->
         <div class="form-actions">
           <button type="button" (click)="cancelEditingProfile()" class="btn btn-secondary">
-            ✕ Annuler
+            <i class="fas fa-xmark"></i> Annuler
           </button>
           <button type="button" (click)="saveProfile()"
                   [disabled]="profileForm.invalid"
                   class="btn btn-primary">
-            💾 Enregistrer
+            <i class="fas fa-floppy-disk"></i> Enregistrer
           </button>
         </div>
       </form>
@@ -225,7 +225,7 @@
       <div class="stats-grid">
         <!-- Ventes totales -->
         <div class="stat-card">
-          <div class="stat-icon">💰</div>
+          <div class="stat-icon"><i class="fas fa-sack-dollar"></i></div>
           <div class="stat-content">
             <span class="label">Ventes totales</span>
             <span class="value">{{ formatCurrency(userProfile.statistics.totalSales) }}</span>
@@ -243,7 +243,7 @@
 
         <!-- Moyenne par jour -->
         <div class="stat-card">
-          <div class="stat-icon">📈</div>
+          <div class="stat-icon"><i class="fas fa-arrow-trend-up"></i></div>
           <div class="stat-content">
             <span class="label">Moyenne/jour</span>
             <span class="value">{{ formatCurrency(userProfile.statistics.averageSalesPerDay) }}</span>
@@ -252,7 +252,7 @@
 
         <!-- Bonus mensuel -->
         <div class="stat-card">
-          <div class="stat-icon">🎁</div>
+          <div class="stat-icon"><i class="fas fa-gift"></i></div>
           <div class="stat-content">
             <span class="label">Bonus mensuel</span>
             <span class="value">{{ formatCurrency(userProfile.statistics.monthlyBonus) }}</span>
@@ -261,7 +261,7 @@
 
         <!-- Performance -->
         <div class="stat-card">
-          <div class="stat-icon">⭐</div>
+          <div class="stat-icon"><i class="fas fa-star"></i></div>
           <div class="stat-content">
             <span class="label">Note performance</span>
             <span class="value">{{ userProfile.statistics.performanceRating }}/100</span>
@@ -270,7 +270,7 @@
 
         <!-- Présence -->
         <div class="stat-card">
-          <div class="stat-icon">✅</div>
+          <div class="stat-icon"><i class="fas fa-circle-check"></i></div>
           <div class="stat-content">
             <span class="label">Taux présence</span>
             <span class="value">{{ userProfile.statistics.attendanceRate }}%</span>
@@ -305,7 +305,7 @@
         <button *ngIf="activitiesDisplayCount < allActivities.length"
                 (click)="loadMoreActivities()"
                 class="btn btn-secondary btn-block">
-          ⬇️ Charger plus d'activités
+          <i class="fas fa-arrow-down"></i> Charger plus d'activités
         </button>
       </div>
     </div>
@@ -313,13 +313,13 @@
     <!-- ONGLET 4: SÉCURITÉ -->
     <div *ngIf="activeTab === 'security'" class="tab-pane">
       <div class="security-section">
-        <h3>🔒 Changer le mot de passe</h3>
+        <h3><i class="fas fa-lock"></i> Changer le mot de passe</h3>
 
         <!--  affichage -->
         <div *ngIf="!isChangingPassword" class="security-display">
           <p>Votre mot de passe a été mis à jour le <strong>{{ userProfile?.lastUpdateDate }}</strong></p>
           <button (click)="isChangingPassword = true" class="btn btn-primary">
-            🔑 Changer le mot de passe
+            <i class="fas fa-key"></i> Changer le mot de passe
           </button>
         </div>
 
@@ -336,7 +336,7 @@
               <button type="button"
                       (click)="togglePasswordVisibility()"
                       class="btn-toggle-password">
-                {{ showPasswords ? '🙈' : '👁️' }}
+                {{ showPasswords ? '' : '' }}
               </button>
             </div>
           </div>
@@ -353,7 +353,7 @@
               <button type="button"
                       (click)="togglePasswordVisibility()"
                       class="btn-toggle-password">
-                {{ showPasswords ? '🙈' : '👁️' }}
+                {{ showPasswords ? '' : '' }}
               </button>
             </div>
 
@@ -379,13 +379,13 @@
             <button type="button"
                     (click)="isChangingPassword = false; passwordForm.reset()"
                     class="btn btn-secondary">
-              ✕ Annuler
+              <i class="fas fa-xmark"></i> Annuler
             </button>
             <button type="button"
                     (click)="changePassword()"
                     [disabled]="passwordForm.invalid"
                     class="btn btn-primary">
-              🔐 Changer le mot de passe
+              <i class="fas fa-lock"></i> Changer le mot de passe
             </button>
           </div>
         </form>
